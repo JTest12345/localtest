@@ -21,7 +21,7 @@ namespace Oskas
         
         
         //Message Max ROW
-        public const int mesMaxLen = 100;
+        public const int mesMaxLen = 1000;
         public int mesLen { get; set; }
     }
 }

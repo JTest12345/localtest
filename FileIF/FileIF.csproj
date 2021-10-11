@@ -145,6 +145,10 @@
       <Project>{a47c8eae-cf1f-4cd0-8a5d-a193d974354b}</Project>
       <Name>ArmsApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ArmsWeb\ArmsWeb.csproj">
+      <Project>{b06d2579-7c38-4ce4-a612-62c98fd59bb3}</Project>
+      <Name>ArmsWeb</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Oskas\Oskas.csproj">
       <Project>{2f680f5e-efea-406b-a250-a52279b26263}</Project>
       <Name>Oskas</Name>

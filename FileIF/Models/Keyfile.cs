@@ -87,12 +87,12 @@ namespace FileIf
 
     class Contents_mio : Contents_mot //mio ファイル
     {
-
+        public override string fileId { get; set; } = "_mio.csv";
     }
 
     class Contents_mot // motファイル
     {
-        public string fileId { get; set; } = "_mot.csv";
+        public virtual string fileId { get; set; } = "_mot.csv";
 
         public string product_out { get; set; }
         public string lotno_out { get; set; }
