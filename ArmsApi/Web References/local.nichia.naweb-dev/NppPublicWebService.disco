@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://naweb-dev64/NPPPublic/NppPublicWebService.asmx?wsdl" docRef="http://naweb-dev64/NPPPublic/NppPublicWebService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://naweb-dev64/NPPPublic/NppPublicWebService.asmx" xmlns:q1="JP.CO.Nichia.Nasca.PublicProduction/" binding="q1:NppPublicWebServiceSoapSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://naweb-dev64/NPPPublic/NppPublicWebService.asmx" xmlns:q2="JP.CO.Nichia.Nasca.PublicProduction/" binding="q2:NppPublicWebServiceSoapSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

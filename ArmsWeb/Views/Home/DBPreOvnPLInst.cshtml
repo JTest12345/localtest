@@ -1,0 +1,28 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.DBPreOvnPLInstModel
+@{
+    Layout = null;
+    ViewBag.Title = "DBPreOvnPLInst";
+}
+
+@if (Model.Insts != null)
+{
+    <root>
+    @foreach (ArmsWeb.Models.DBPreOvnPLInst m in Model.Insts)
+    {
+        
+        <lot>
+            <proc>@m.ProcNo</proc>
+            <lotno>@m.MagNo</lotno>
+            <macname></macname>
+            <macno></macno>
+            <typecd>@m.Lot.TypeCd</typecd>
+            <resin>@string.Join(",", m.Lot.ResinGpCd)</resin>
+        </lot>
+    }
+    </root>        
+}
+else
+{
+    @Model.ErrMsg
+}

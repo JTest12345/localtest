@@ -1,0 +1,38 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.FrameEditModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h3>フレーム情報</h3>
+<h3>装置：@Model.Mac.LongName</h3>
+
+@using (Html.BeginForm())
+{
+    
+    if (Model.FrameList.Count() >= 1)
+    {
+        <ul>
+            @foreach (ArmsApi.Model.Material m in Model.FrameList)
+            {
+                <li>@m.LongName</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <h5>現在投入中のフレームはありません</h5>
+    }
+  
+    
+    <p>
+    ストッカー:
+    <input type="text" name="stocker" />
+    </p>
+
+         
+    <p>
+        <button type="submit" name="button">取付/取り外し</button></p>
+   
+}

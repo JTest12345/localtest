@@ -1,0 +1,25 @@
+﻿@model ArmsWeb.Models.WaferEditModel
+@{
+    ViewBag.Title = "InsertConfirm";
+}
+
+@using (Html.BeginForm("InsertConfirmed", "Wafer"))
+{
+    <h3>カセット登録確認</h3>
+    <h3>装置：@Model.Mac.LongName</h3>
+    
+    
+    <ul>
+        @foreach (ArmsApi.Model.Material m in Model.EditTarget)
+        {
+            <li>@m.LongName</li>
+        }
+    </ul>
+
+
+    <p>割り付けます</p>
+    <div>
+        <input type="submit" value="OK" />
+        <button onclick="location.href='@Url.Action("Index")';return false;">キャンセル</button>
+    </div>
+}

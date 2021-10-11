@@ -1,0 +1,33 @@
+﻿@model ArmsWeb.Models.WorkStartEndAltModel
+
+@{
+    ViewBag.Title = "FindOther";
+}
+
+<h3>このマガジンは分割されています<br />
+    もうひとつのマガジンを読込んでください</h3>
+
+<h3>ロット番号：@Model.LastReadMag.NascaLotNO</h3>
+
+@{
+    ArmsApi.Model.Magazine otherMag = Model.FindOtherMag(Model.LastReadMag);
+    if (otherMag != null)
+    {
+        <h3>分割対応マガジン：@otherMag.MagazineNo</h3>
+    }
+}
+
+@using (Html.BeginForm())
+{
+    <h3>投入マガジン読み込み</h3>
+    <input type="text" id="txtMagNo" name="txtMagNo" />
+    <input type="submit" value="Go" />
+        
+    <br />
+
+    <div>
+        @Html.ActionLink("作業開始", "Confirm")
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+    </div>
+}

@@ -1,0 +1,21 @@
+﻿@model ArmsWeb.Models.FrameEditModel
+@{
+    ViewBag.Title = "Remove";
+}
+
+
+<h3>フレーム取り外し確認</h3>
+<h3>装置：@Model.Mac.LongName</h3>
+<h3>ストッカー:@Model.StockerNo.ToString()</h3>
+
+<p>以下の原材料を取り外します</p>
+
+<p>
+    @Model.EditTarget.LongName
+</p>
+
+<div>
+@Html.ActionLink("OK", "RemoveConfirmed")
+&nbsp
+@Html.ActionLink("キャンセル", "Index")
+    </div>

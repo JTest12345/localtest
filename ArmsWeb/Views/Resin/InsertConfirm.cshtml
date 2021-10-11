@@ -1,0 +1,17 @@
+﻿@model ArmsWeb.Models.ResinEditModel
+@{
+    ViewBag.Title = "InsertConfirm";
+}
+
+
+@using (Html.BeginForm("InsertConfirmed", "Resin"))
+{
+    <h3>樹脂割り付け確認</h3>
+    <h5>装置：@Model.PlantCd</h5>
+    <h5>樹脂:@Model.EditTarget.MixResultId</h5>
+
+    <br />
+    <div>割り付けます</div>
+    <input type="submit" value="OK" />
+    <button onclick="location.href='@Url.Action("Index")';return false;">キャンセル</button>    
+}

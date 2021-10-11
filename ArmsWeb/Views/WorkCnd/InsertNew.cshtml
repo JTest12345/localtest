@@ -1,0 +1,25 @@
+﻿@model ArmsWeb.Models.WorkCndEditModel
+@{
+    ViewBag.Title = "InsertNew";
+}
+
+
+@using(Html.BeginForm("InsertConfirm", "WorkCnd"))
+{
+    <h3>製造条件コード読み込み</h3>
+    
+    <h5>装置：@Model.PlantCd</h5>
+      
+    <select size="5" name="condindex">
+        @foreach (KeyValuePair<int, ArmsApi.Model.WorkCondition> cond in Model.WorkCondList)
+        {
+            <option value="@cond.Key" >@cond.Value.CondName</option>
+        }
+    </select>   
+
+    <br />
+    <br />
+
+    <input type="text" id="barcode" name="barcode"/>
+    <input type="submit" value="Go" />
+}

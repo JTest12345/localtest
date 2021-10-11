@@ -1,0 +1,36 @@
+﻿@model ArmsWeb.Models.WorkEndAltModel
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm())
+{
+    <h3>ローダー側 完成マガジン読み込み</h3>
+    <input type="text" id="txtMagNo" name="txtMagNo" />
+    <input type="submit" value="Go" />
+        
+    <br />
+
+    if (Model.MagList.Count() >= 1)
+    {
+
+    <h5>読み込み済みロット</h5>
+    
+    foreach (ArmsApi.Model.Magazine mag in Model.MagList)
+    {
+    <p>
+        移載元：@mag.MagazineNo<br />
+        NASCAロット：@mag.NascaLotNO
+    </p>
+    }
+
+    <br />
+    
+    <div>
+        @Html.ActionLink("作業完了", "InputUnloaderMag")
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+    </div>
+
+    }
+}

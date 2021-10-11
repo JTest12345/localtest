@@ -1,0 +1,39 @@
+﻿@model ArmsWeb.Models.ResinMixOrderModel
+@{
+    ViewBag.Title = "Confirm";
+}
+
+
+<p>下記の内容で調合依頼をします</p>
+@if (Model.MixReqInfo.PriorityFg == true)
+{
+    <h3>優先依頼：ON</h3>
+}
+else
+{
+    <h3>優先依頼：-</h3>
+}
+@if (Model.MixReqInfo.PreFg == true)
+{
+    <h3>先行色調：ON</h3>
+}
+else
+{
+    <h3>先行色調：-</h3>
+}
+<h3>調合タイプ：@string.Join(",", Model.MixReqInfo.MixTypeNm)</h3>
+<h3>樹脂グループ：@Model.MixReqInfo.ResinGroupCd</h3>
+<h3>投入ロット数：@Model.MixReqInfo.LotCt</h3>
+<h3>使用装置台数：@Model.MixReqInfo.MachineCt</h3>
+<h3>作業者：@Model.MixReqInfo.UpdUserCd</h3>
+<h3>使用ライン：@Model.MixReqInfo.LineCd</h3>
+<h3>希望完成時間：@Model.MixReqInfo.ExpectCompDt</h3>
+<h3>調合場所：@Model.MixReqInfo.ExpectPlaceCd</h3>
+
+
+<br />
+<div>
+    @Html.ActionLink("登録", "Submit");
+    &nbsp
+    @Html.ActionLink("キャンセル", "CancelEdit")
+</div>

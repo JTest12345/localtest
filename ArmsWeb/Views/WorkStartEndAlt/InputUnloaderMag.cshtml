@@ -1,0 +1,35 @@
+﻿@using ArmsApi.Model;
+@model ArmsWeb.Models.WorkStartEndAltModel
+@{
+    ViewBag.Title = "InputUnloaderMag";
+}
+
+@using (Html.BeginForm())
+{
+    <h3>アンローダー側 マガジン読み込み</h3>
+    <input type="text" id="txtMagNo" name="txtMagNo" />
+    <input type="submit" value="Go" />
+
+        <br />
+        <h5>移載元：</h5>
+        <ul>
+            @foreach(Magazine mg in Model.MagList)
+            {
+                <li>@mg.MagazineNo</li>
+            }
+        </ul>
+    <p>
+        NASCAロット：@Model.MagList[0].NascaLotNO<br />
+        移載先：@Model.UnloaderMagNo
+    </p>
+    <br />
+    
+    if (!string.IsNullOrEmpty(Model.UnloaderMagNo))
+    {
+    <div>
+        @Html.ActionLink("作業完了", "Confirm")
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+    </div>
+    }   
+}

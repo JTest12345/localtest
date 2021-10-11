@@ -1,0 +1,33 @@
+﻿@model ArmsWeb.Models.WorkEndModel
+@{
+    ViewBag.Title = "InputUnloaderMag";
+}
+
+@using (Html.BeginForm())
+{
+    <h3>アンローダー側 マガジン読み込み</h3>
+    <input type="text" id="txtMagNo" name="txtMagNo" />
+    <input type="submit" value="Go" />
+
+        <br />
+
+    <h5>読み込み済みロット</h5>
+    <p>
+        @if (Model.VirtualMags.Count() == 1)
+        {
+            <span>移載元：@Model.VirtualMags.ElementAt(0).Value.LastMagazineNo<br /></span>
+        }
+        移載先：@Model.UnloaderMagNo<br />
+        NASCAロット：@Model.MagList[0].NascaLotNO
+    </p>
+    <br />
+    
+    if (!string.IsNullOrEmpty(Model.UnloaderMagNo))
+    {
+    <div>
+        @Html.ActionLink("作業完了", "Confirm")
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+    </div>
+    }   
+}

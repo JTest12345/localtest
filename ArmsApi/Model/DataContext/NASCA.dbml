@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NADB01" Class="NASCADataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=HQDB1\INST1;Initial Catalog=NADB01;Integrated Security=True" SettingsObjectName="ArmsApi.Properties.Settings" SettingsPropertyName="NADB01ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.NttDITK" Member="NttDITK">
+    <Type Name="NttDITK">
+      <Column Name="DiceLot_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RootsLot_NO" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="UserLot_NO" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Material_CD" Type="System.String" DbType="Char(24) NOT NULL" CanBeNull="false" />
+      <Column Name="DiceSelection_NM" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="DiceRank_NM" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Inka_NM" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Wd_MIN" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Wd_MAX" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Wd_AVE" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Wd_STD" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Wp_MIN" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Wp_MAX" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Wp_AVE" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Wp_STD" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Po_MIN" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Po_MAX" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Po_AVE" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Po_STD" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Vf_MIN" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Vf_MAX" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Vf_AVE" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Vf_STD" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Iv_MIN" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Iv_MAX" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Iv_AVE" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Iv_STD" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Vl3_MIN" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Vl3_MAX" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Vl3_AVE" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Vl3_STD" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Del_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UpdUser_CD" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Thickness_AVE" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Supply_ID" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="ChipQty_CT" Type="System.Decimal" DbType="Decimal(15,3) NOT NULL" CanBeNull="false" />
+      <Column Name="WaveAve_VAL" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="WaveStd_VAL" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="WaveCpt_NM" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NttRING" Member="NttRING">
+    <Type Name="NttRING">
+      <Column Name="Ring_Num" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Ring_ID" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="Material_CD" Type="System.String" DbType="Char(24) NOT NULL" CanBeNull="false" />
+      <Column Name="RootsLot_NO" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Assign_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Assign_Usr_CD" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="Del_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UpdUser_CD" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,25 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.CutBlendModel
+@{
+    ViewBag.Title = "Finish";
+}
+
+<h3>カットブレンド完了</h3>
+<h3>設備：@Model.PlantCd</h3>
+<h3>作業者：@Model.EmpCd</h3>
+<h3>ロット：@Model.BlendLotNo</h3>
+<h3>完成数：@Model.TotalQty</h3>
+<h3>不良数：@Model.DefQty</h3>
+<h3>抜き取り数：@Model.TestQty</h3>
+
+<p>
+    <button onclick="location.href='@Url.Action("InputDefect")';return false;">検査入力画面へ</button>
+</p>
+    
+<p>
+    <button onclick="location.href='@Url.Action("PrintLabel")';return false;">ラベル印字</button>
+</p>
+
+
+
+

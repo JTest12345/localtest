@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.125, 15.5" name="ARMS">
+  <DataContextMoniker Name="/ARMSDataContext" />
+  <nestedChildShapes>
+    <classShape Id="2c7b3a2d-3f45-4d41-9c9a-f176c9508744" absoluteBounds="1.375, 0.875, 2, 1.34125">
+      <DataClassMoniker Name="/ARMSDataContext/TnResinMixMat" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8cc75ef6-b6a2-407e-b74a-c0fbc6e9504c" absoluteBounds="1.3900000000000001, 1.335, 1.9700000000000002, 0.78125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="35ae7600-3b3d-4cdf-a518-97a61b86a889" absoluteBounds="4.125, 0.75, 2, 4.9870833333333326">
+      <DataClassMoniker Name="/ARMSDataContext/TnMaterials" />
+      <nestedChildShapes>
+        <elementListCompartment Id="26d82cd5-9eeb-4c0b-940e-851a20f724de" absoluteBounds="4.14, 1.21, 1.9700000000000002, 4.427083333333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="dfea7f58-327d-4fdf-a279-9f3f5f43c9a9" absoluteBounds="6.625, 0.75, 2, 1.7058333333333331">
+      <DataClassMoniker Name="/ARMSDataContext/TmDieShearSampling" />
+      <nestedChildShapes>
+        <elementListCompartment Id="39cb3d9e-4a53-4c6c-870d-9612bd9c528c" absoluteBounds="6.64, 1.21, 1.9700000000000002, 1.1458333333333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a45379b3-a8d5-4778-8661-5ff9261818c0" absoluteBounds="1.375, 2.5, 2, 1.34125">
+      <DataClassMoniker Name="/ARMSDataContext/TmEmployee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7cbad9f1-6bb2-46d4-8d4b-eb431bb97bee" absoluteBounds="1.3900000000000001, 2.96, 1.9700000000000002, 0.78125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a9222df6-abc1-4fa2-ab4c-e255f2d8d2dd" absoluteBounds="1, 7.375, 2, 2.0704166666666666">
+      <DataClassMoniker Name="/ARMSDataContext/TnCarrierWorkData" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ff6ca946-770b-41e5-8d17-5eb70ba6d555" absoluteBounds="1.0150000000000001, 7.835, 1.9700000000000002, 1.5104166666666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b89d2101-62aa-4394-a916-c9ec07d35e9c" absoluteBounds="6.625, 3, 2, 2.0704166666666666">
+      <DataClassMoniker Name="/ARMSDataContext/TmGeneral" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ae4298d3-c122-45b5-b287-a8fb929c9190" absoluteBounds="6.6400000000000006, 3.46, 1.9700000000000002, 1.5104166666666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f5219db6-cc31-46c9-b655-bd0cab6e01e7" absoluteBounds="1.125, 4.75, 2, 1.8881249999999996">
+      <DataClassMoniker Name="/ARMSDataContext/TnSubstrateInfo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="982a4b61-d510-4697-8c1c-6b911e8975b9" absoluteBounds="1.1400000000000001, 5.21, 1.9700000000000002, 1.328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ea72ec16-24a9-49f3-bc98-a4c65da5cc7b" absoluteBounds="6.75, 5.5, 2, 1.5235416666666666">
+      <DataClassMoniker Name="/ARMSDataContext/TmDenyCutBlendType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="af7c0ec5-d4f2-4a30-8d9d-1e2ca5c9e560" absoluteBounds="6.765, 5.96, 1.9700000000000002, 0.96354166666666663" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="29679852-92fc-4ffd-be2f-269443320125" absoluteBounds="4.125, 8, 2, 1.5235416666666666">
+      <DataClassMoniker Name="/ARMSDataContext/TmPSTeser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5b94e73b-6cc3-4c4c-a413-c8a46100f44e" absoluteBounds="4.14, 8.46, 1.9700000000000002, 0.96354166666666663" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="71320c99-42c3-4806-b9d7-8f0b3e6a53bf" absoluteBounds="4.375, 10, 2, 1.7058333333333344">
+      <DataClassMoniker Name="/ARMSDataContext/TnAGVPSTester" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0319db81-2295-41a4-bec3-18850c47434e" absoluteBounds="4.39, 10.46, 1.9700000000000002, 1.1458333333333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7823bd56-908a-4b68-afac-bc91e0892a74" absoluteBounds="8.875, 0.75, 2, 2.981875">
+      <DataClassMoniker Name="/ARMSDataContext/TmLineconfigSignalDisplay" />
+      <nestedChildShapes>
+        <elementListCompartment Id="68e6ade4-5175-4d06-8cb2-deffee1e875e" absoluteBounds="8.89, 1.21, 1.9700000000000002, 2.421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8221cc9b-f761-408b-a250-4b5619fc178c" absoluteBounds="0.75, 10.5, 2, 4.8047916666666657">
+      <DataClassMoniker Name="/ARMSDataContext/TnMoldDischargePressure" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4cd3309d-e588-4bc0-950f-f73779f7fd3f" absoluteBounds="0.76500000000000012, 10.96, 1.9700000000000002, 4.2447916666666661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

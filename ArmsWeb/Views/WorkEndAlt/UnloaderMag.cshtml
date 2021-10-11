@@ -1,0 +1,34 @@
+﻿@model ArmsWeb.Models.WorkEndAltModel
+@{
+    ViewBag.Title = "UnloaderMag";
+}
+
+@using (Html.BeginForm())
+{
+    <h5>アンローダー側　ロット一覧</h5>
+    
+    <br />
+    
+    <ul>
+        @foreach (ArmsApi.Model.Magazine mag in Model.MagList)
+        {
+            <li>
+                <input type="checkbox" name="ulmagazine" value="@mag.MagazineNo" checked="checked" />@mag.MagazineNo : @mag.NascaLotNO
+            </li>
+        }
+    </ul>
+    
+    <br />
+    
+    if (Model.MagList.Count != 0)
+    {
+        <div>
+            <input type="submit" value="決定" />
+        </div>
+    }
+    else
+    {
+        <p>アンローダーに仮想マガジンが存在しません。</p>
+    }
+    
+}

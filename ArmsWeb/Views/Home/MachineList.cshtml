@@ -1,0 +1,23 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.MachineListModel
+@{
+    Layout = null;
+}
+
+@if (Model.mList != null)
+{
+    <root>
+    @foreach (ArmsApi.Model.MachineInfo m in Model.mList)
+    {
+        <machine>
+            <macno>@m.MacNo</macno>
+            <classname>@m.ClassName</classname>
+            <macname>@m.MachineName</macname>
+        </machine>
+    }
+    </root>        
+}
+else
+{
+    @Model.ErrMsg
+}

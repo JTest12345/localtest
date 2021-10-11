@@ -1,0 +1,18 @@
+﻿@model ArmsWeb.Models.WorkStartEndAltModel
+
+@{
+    ViewBag.Title = "FormInfo";
+    var url = "http://ce05402/kodain/lotinfo/" + Model.TypeCd + "::" + Model.MagList[0].NascaLotNO + "::" + Model.CurrentProcess.ProcNo + "::" + Model.PlantCd;
+ }
+
+<p>作業完了しました。</p>
+<p>帳票は下記のリンクから入力開始してください</p>
+
+@using (Html.BeginForm())
+{     
+    <div>
+        <a href=@url target="_blank" rel="noopener noreferrer">
+            帳票へのリンク
+        </a>
+    </div>
+}

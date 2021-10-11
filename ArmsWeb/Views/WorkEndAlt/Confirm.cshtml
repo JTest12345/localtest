@@ -1,0 +1,37 @@
+﻿@model ArmsWeb.Models.WorkEndAltModel
+@{
+    ViewBag.Title = "Confirm";
+}
+
+
+<p>下記の内容で完了します</p>
+<h3>設備：@Model.PlantCd</h3>
+<h3>作業者：@Model.EmpCd</h3>
+
+<p>読み込み済みロット</p>
+
+@if (Model.VirtualMags.Count() == 1)
+{
+<p>
+    移載元：@Model.VirtualMags.ElementAt(0).Value.LastMagazineNo<br />
+    移載先：@Model.UnloaderMagNo<br />
+    NASCAロット：@Model.MagList[0].NascaLotNO<br />
+    基板不良枚数：@Model.FailureBdQty [枚]
+</p>
+}
+else
+{
+    <ul>
+    @foreach (ArmsApi.Model.Magazine mag in Model.MagList)
+    {
+        <li>@mag.MagazineNo : @mag.NascaLotNO</li>
+    }
+    </ul>
+}
+
+<br />
+<div>
+    @Html.ActionLink("登録", "FormInfo");
+                &nbsp
+    @Html.ActionLink("キャンセル", "CancelEdit")
+</div>

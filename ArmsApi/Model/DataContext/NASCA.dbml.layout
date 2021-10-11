@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.25" name="NASCA">
+  <DataContextMoniker Name="/NASCADataContext" />
+  <nestedChildShapes>
+    <classShape Id="bfe9fd11-9bfb-4d33-8b75-1d1ee49a34c9" absoluteBounds="0.625, 0.875, 2, 8.0860416666666648">
+      <DataClassMoniker Name="/NASCADataContext/NttDITK" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3e73fe2f-78e0-45ae-8ad7-3c8334545cc4" absoluteBounds="0.64000000000000012, 1.335, 1.9700000000000002, 7.5260416666666661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9f35313c-afc5-4eb0-9c5e-4380161a405a" absoluteBounds="3.125, 0.875, 2, 2.435">
+      <DataClassMoniker Name="/NASCADataContext/NttRING" />
+      <nestedChildShapes>
+        <elementListCompartment Id="90c1d0dc-4997-47c7-b97f-2396160d5098" absoluteBounds="3.1399999999999997, 1.335, 1.9700000000000002, 1.875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

@@ -1,0 +1,24 @@
+﻿@model ArmsWeb.Models.WaferEachSheetEditModel
+
+@{
+    ViewBag.Title = "Remove";
+}
+
+<h3>チップ取り外し確認</h3>
+<h3>装置：@Model.Mac.LongName</h3>
+<p>以下のチップを取り外します</p>
+
+
+    <ul>
+        @foreach (ArmsApi.Model.Material m in Model.EditTarget)
+        {
+            <li>@m.LongName</li>
+        }
+    </ul> 
+<br />
+
+<div>
+@Html.ActionLink("OK", "RemoveConfirmed")
+&nbsp
+@Html.ActionLink("キャンセル", "Index")
+    </div>

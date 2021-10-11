@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "InputNewCarrierNo";
+}
+
+@using (Html.BeginForm()){
+    <h3>移載先キャリアQR読み込み</h3>
+    @Html.TextBox("newcarrierno");
+    <input type="submit" name="GO" value="GO"/>
+}

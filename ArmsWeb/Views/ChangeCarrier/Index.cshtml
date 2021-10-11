@@ -1,0 +1,26 @@
+﻿@model ArmsWeb.Models.ChangeCarrierModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>キャリア関連付け変更登録</h3>
+
+<h3>作業者：@Model.EmpCd</h3>
+<h3>ロット番号：@Model.LotNo</h3>
+<h3>元キャリア番号：@Model.OrgCarrierNo</h3>
+<h3>先キャリア番号：@Model.NewCarrierNo</h3>
+<br />
+
+@using (Html.BeginForm())
+{
+
+    <div>
+        @Html.ActionLink("登録", "Submit")
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+    </div>
+    
+    <br />
+}
+
