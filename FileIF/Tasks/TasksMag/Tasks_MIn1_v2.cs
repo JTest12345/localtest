@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Oskas;
-using ArmsApi;
-using ArmsApi.Model;
-using ArmsApi.Model.NASCA;
-using ArmsWeb.Models;
+//using ArmsApi;
+//using ArmsApi.Model;
+//using ArmsApi.Model.NASCA;
+//using ArmsWeb.Models;
 
 
 namespace FileIf
@@ -27,8 +27,11 @@ namespace FileIf
         //Process_results npv; //現作業工程のProcess_results参照
 
         // ArmsAPI
-        Magazine jcm; //TnMag
-        AsmLot lot; //TnLot
+        //Magazine jcm; //TnMag
+        //AsmLot lot; //TnLot
+
+        // ArmsWebApi
+        ArmsWebApi.WorkStart ws;
 
         static string crlf = "\r\n"; // 改行コード
         //string[] endfcontents; // endファイル内容格納配列
@@ -100,22 +103,25 @@ namespace FileIf
             {
                 taskid += 1;
 
-                var wsm = new WorkStartAltModel(fs.Macno);
+                //var wsm = new WorkStartAltModel(fs.Macno);
 
-                //Console.WriteLine(wsm.Mac);
+                ////Console.WriteLine(wsm.Mac);
 
-                jcm = Magazine.GetCurrent(fs.MagCupNo);
-                lot = AsmLot.GetAsmLot(jcm.NascaLotNO);
+                //jcm = Magazine.GetCurrent(fs.MagCupNo);
+                //lot = AsmLot.GetAsmLot(jcm.NascaLotNO);
 
-                bool isOk = wsm.CheckBeforeStart(jcm, out msg);
-                if (!isOk)
+                //bool isOk = wsm.CheckBeforeStart(jcm, out msg);
+
+                ws = new ArmsWebApi.WorkStart(fs.Macno, fs.MagCupNo);
+                
+                if (!ws.CheckBeforeStart(out msg))
                 {
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
 
-                Dict.Add("product", lot.TypeCd.PadRight(25, ' '));
-                Dict.Add("lotno", lot.NascaLotNo);
-                Dict.Add("valout", jcm.FrameQty.ToString()); //ARMS要改修
+                Dict.Add("product", ws.lot.TypeCd.PadRight(25, ' '));
+                Dict.Add("lotno", ws.lot.NascaLotNo);
+                Dict.Add("valout", ws.jcm.FrameQty.ToString()); //ARMS要改修
 
                 //for Debug
                 Dbgmsg += "マガジンNo.：" + Dict["magno"] + crlf;
@@ -148,7 +154,7 @@ namespace FileIf
 
                 Dbgmsg = "" + crlf;
 
-                string WipFilePath = fs.fpath + @"\wip\" + fs.MagCupNo + "_" + jcm.NowCompProcess + "_wipin1.dat";
+                string WipFilePath = fs.fpath + @"\wip\" + fs.MagCupNo + "_" + ws.jcm.NowCompProcess + "_wipin1.dat";
                 string contents = "";
 
                 if (wip.MakeWipFile("dat", fs.lbl[1], wiplist, WipFilePath, ref contents, ref Dbgmsg))

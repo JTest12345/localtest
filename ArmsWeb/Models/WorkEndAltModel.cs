@@ -11,9 +11,11 @@ namespace ArmsWeb.Models
     public class WorkEndAltModel
     {
         /// <summary>
+        /// 投入マガジン基板数量
         /// 移載先マガジン基板数量
-        /// 2021.09.06 JunichiWatanabe 追加
+        /// 2021.10.12 JunichiWatanabe 追加
         /// </summary>
+        public int MagFrameQty { get; set; }
         public int NewMagFrameQty { get; set; }
 
         public WorkEndAltModel(string plantcd)
@@ -23,7 +25,7 @@ namespace ArmsWeb.Models
             this.MagList = new List<Magazine>();
             this.BlendLotList = new Dictionary<string, AsmLot>();
             this.VirtualMags = new Dictionary<string, VirtualMag>();
-			this.NeedInspectionWhenCompleteLotList = new List<string>();
+            this.NeedInspectionWhenCompleteLotList = new List<string>();
             // 2021.09.06 JunichiWatanabe 追加
             this.NewMagFrameQty = 0;
         }
@@ -47,10 +49,9 @@ namespace ArmsWeb.Models
                 }
             }
 
-
             this.MagList.Add(mag);
 
-            
+
             //仮想マガジン記憶
             this.VirtualMags.Add(mag.NascaLotNO, vmag);
         }
@@ -102,7 +103,7 @@ namespace ArmsWeb.Models
 
         public bool IsNeedMagazineChange { get; set; }
 
-		public List<string> NeedInspectionWhenCompleteLotList { get; set; }
+        public List<string> NeedInspectionWhenCompleteLotList { get; set; }
 
         public bool NeedAutoInspectionNextProc { get; set; }
 
@@ -178,19 +179,23 @@ namespace ArmsWeb.Models
                     mag3.MagazineNo = mag.MagazineNo;
                     mag3.NowCompProcess = Order.GetLastProcNoFromLotNo(mag3.NascaLotNO);
                     typeCd = AsmLot.GetAsmLot(Order.MagLotToNascaLot(mag.MagazineNo)).TypeCd;
-                    // add juniwatanabe
-                    mag3.FrameQty = this.NewMagFrameQty;
                 }
                 else
                 {
                     lotno = mag3.NascaLotNO;
                     typeCd = AsmLot.GetAsmLot(Order.MagLotToNascaLot(mag3.NascaLotNO)).TypeCd;
 
-                    //added juniwatanabe 2021.09.10
-                    mag3.FrameQty = mag2.FrameQty - this.FailureBdQty;
-                    mag3.Update();
-                    //
-
+                    //added juniwatanabe 2021.10.12
+                    if (this.NewMagFrameQty != 0)
+                    {
+                        mag3.FrameQty = this.NewMagFrameQty;
+                        mag3.Update();
+                    }
+                    else
+                    {
+                        mag3.FrameQty = mag2.FrameQty - this.FailureBdQty;
+                        mag3.Update();
+                    }
                 }
                 Comment += $"マガジン：{mag3.MagazineNo}\r\n";
                 Comment += $"ロット番号：{lotno}\r\n";
@@ -209,16 +214,16 @@ namespace ArmsWeb.Models
                 /// 
                 MachineInfo mc = MachineInfo.GetMachine(this.PlantCd);
                 List<VirtualMag> vmags = VirtualMag.GetVirtualMag(mc.MacNo, ((int)Station.EmptyMagazineLoader)).ToList();
-                if (vmags.Count>0) vmags[0].Delete();
+                if (vmags.Count > 0) vmags[0].Delete();
                 // ここまで
                 //////////////////////////////////////////////
-                
+
             }
 
             return isSuccess;
         }
 
-        public List<Magazine> getUnloaderMag(string plantcd) 
+        public List<Magazine> getUnloaderMag(string plantcd)
         {
             List<Magazine> retv = new List<Magazine>();
 
@@ -244,7 +249,7 @@ namespace ArmsWeb.Models
             foreach (VirtualMag vmag in vmags)
             {
                 Magazine svrmag = Magazine.GetCurrent(vmag.MagazineNo);
-                
+
                 //ブレンドされているロット、かつ最終工程以降の工程の完了の場合
                 CutBlend[] cbs = CutBlend.GetData(vmag.MagazineNo);
                 if (cbs.Length > 0)
@@ -327,7 +332,7 @@ namespace ArmsWeb.Models
                 {
                     order = Order.GetMagazineOrder(this.BlendLotList[mag.MagazineNo].NascaLotNo, p.ProcNo);
                 }
-                if (order == null) 
+                if (order == null)
                 {
                     msg = "作業開始データが存在しません";
                     return false;
@@ -353,7 +358,7 @@ namespace ArmsWeb.Models
                     {
                         order.StockerChangeCt = vmag.WaferChangerChangeCount.Value;
                     }
-                    if (order.WorkEndDt.HasValue == false) 
+                    if (order.WorkEndDt.HasValue == false)
                     {
                         order.WorkEndDt = System.DateTime.Now;
                     }
@@ -422,8 +427,8 @@ namespace ArmsWeb.Models
 
                     //状態検査必要フラグ
                     Inspection isp = Inspection.GetInspection(order.NascaLotNo, order.ProcNo);
-					if (isp != null && isp.IsInspected == false) NeedInspectionWhenCompleteLotList.Add(order.NascaLotNo);
-                    
+                    if (isp != null && isp.IsInspected == false) NeedInspectionWhenCompleteLotList.Add(order.NascaLotNo);
+
                     Process nextproc = Process.GetNextProcess(mag.NowCompProcess, lot);
                     if (nextproc != null && nextproc.IsSamplingInspection)
                     {
@@ -502,7 +507,7 @@ namespace ArmsWeb.Models
                     // 本工程が分割工程、MAP高生産性ライン、作業順に遠心沈降作業が無い場合、#2のレコードをダミー登録
                     Process.MagazineDevideStatus dst = Process.GetMagazineDevideStatus(lot, order.ProcNo);
                     //if (nextproc != null && dst == Process.MagazineDevideStatus.SingleToDouble && Config.GetLineType == Config.LineTypes.MEL_MAP)
-                    if (nextproc != null && dst == Process.MagazineDevideStatus.SingleToDouble 
+                    if (nextproc != null && dst == Process.MagazineDevideStatus.SingleToDouble
                         && (Config.GetLineType == Config.LineTypes.MEL_MAP || (Config.GetLineType == Config.LineTypes.NEL_MAP && macInfo.IsHighLine == true)))
                     {
                         // 遠心沈降作業が無い品種のみ対応
@@ -543,7 +548,7 @@ namespace ArmsWeb.Models
                                 doubleMag.Update();
 
                                 // 次工程がマガジン交換前待機作業の場合、ダミー登録 (#1, #2両方とも)
-                                if(nextproc != null && Process.HasMagazineChangeBufferWork(nextproc.WorkCd))
+                                if (nextproc != null && Process.HasMagazineChangeBufferWork(nextproc.WorkCd))
                                 {
                                     Order.RecordDummyWork(lot, nextproc.ProcNo, nextproc.AutoUpdMachineNo.Value, mag);
                                     Order.RecordDummyWork(lot, nextproc.ProcNo, nextproc.AutoUpdMachineNo.Value, doubleMag);
@@ -562,16 +567,16 @@ namespace ArmsWeb.Models
 
                     // 次工程が移載前待機、MAP高生産性ラインの場合、ダミー登録
                     //if (nextproc != null && Process.HasMagazineChangeBufferWork(nextproc.WorkCd) && Config.GetLineType == Config.LineTypes.MEL_MAP)
-                    if (nextproc != null && Process.HasMagazineChangeBufferWork(nextproc.WorkCd) 
+                    if (nextproc != null && Process.HasMagazineChangeBufferWork(nextproc.WorkCd)
                         && (Config.GetLineType == Config.LineTypes.MEL_MAP || (Config.GetLineType == Config.LineTypes.NEL_MAP && macInfo.IsHighLine == true)))
                     {
-                            Order.RecordDummyWork(lot, nextproc.ProcNo, nextproc.AutoUpdMachineNo.Value, mag);
+                        Order.RecordDummyWork(lot, nextproc.ProcNo, nextproc.AutoUpdMachineNo.Value, mag);
                         nextproc = Process.GetNextProcess(nextproc.ProcNo, lot);
                     }
 
                     // 次工程がマガジン交換作業、MAP高生産性ライン、作業順に遠心沈降作業が無い場合、ダミー登録
                     //if (nextproc != null && Process.HasMagazineChangeWork(nextproc.WorkCd) && Config.GetLineType == Config.LineTypes.MEL_MAP)
-                    if (nextproc != null && Process.HasMagazineChangeWork(nextproc.WorkCd) 
+                    if (nextproc != null && Process.HasMagazineChangeWork(nextproc.WorkCd)
                         && (Config.GetLineType == Config.LineTypes.MEL_MAP || (Config.GetLineType == Config.LineTypes.NEL_MAP && macInfo.IsHighLine == true)))
                     {
                         List<Process> workflow = Process.GetWorkFlow(lot.TypeCd).ToList();
@@ -613,10 +618,10 @@ namespace ArmsWeb.Models
                     }
                     //状態検査必要フラグ
                     Inspection isp2 = Inspection.GetInspection(order.NascaLotNo, order.ProcNo);
-					if (isp2 != null && isp2.IsInspected == false) this.NeedInspectionWhenCompleteLotList.Add(order.NascaLotNo);
+                    if (isp2 != null && isp2.IsInspected == false) this.NeedInspectionWhenCompleteLotList.Add(order.NascaLotNo);
 
                     //SLS1の圧縮成型機(セミオート)を想定 仮想マガジンを作成して、本体の完了処理のトリガとする
-                    if (this.Mac.RequestStartEndFg) 
+                    if (this.Mac.RequestStartEndFg)
                     {
                         VirtualMag eulmag = new VirtualMag();
                         eulmag.MagazineNo = order.OutMagazineNo;
