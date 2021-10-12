@@ -8,21 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ArmsApi;
-using ARMS3.Model;
-using ARMS3.Model.PLC;
-using System.Data.SqlClient;
-using System.Threading;
+using ArmsCejApi.Model;
 
 
-namespace ARMS3.FakeVIPline
+namespace AoiBuilder
 {
     public partial class FrmAoiMag : Form
     {
 
         // Keywords Dict
         Dictionary<string, string> Keys = new Dictionary<string, string>() {
-            { "magno", "" } ,
+            { "magno", "C30 " } ,
             { "fcode", "" } ,
             { "lotno", "" } ,
         };
@@ -49,8 +45,43 @@ namespace ARMS3.FakeVIPline
                     MessageBox.Show(msg);
                     return;
                 }
-                
-                MessageBox.Show("完了しました");
+
+                //基板枚数
+                var pcbnum = int.Parse(txt_bdvol.Text);
+
+                List<PcbMark.PcbMarkF> pmds = new List<PcbMark.PcbMarkF>();
+                for (int i=0; i<pcbnum; i++)
+                {
+                    PcbMark.PcbMarkF pmd = new PcbMark.PcbMarkF
+                    {
+                        PcbNo = i + 1,
+                        PcbLotNo = txt_matlot.Text,
+                        Markstr = ""
+                    };
+                    pmds.Add(pmd);
+                }
+
+                PcbMark.PcbMarkM pmm = new PcbMark.PcbMarkM
+                {
+                    MagNo = txt_magno.Text.Replace("C30 ", ""),
+                    TypeCd = "",
+                    MaterialCd = txt_matcode.Text,
+                    WorkStDt = DateTime.Now,
+                    WorkEndDt = DateTime.Now,
+                    PcbMarks = pmds
+                };
+
+                string errmsg = PcbMark.InsertPcbMark(pmm);
+                if (errmsg != "")
+                {
+                    MessageBox.Show(errmsg);
+                }
+                else
+                {
+                    MessageBox.Show("登録完了しました");
+                }
+
+                // MessageBox.Show("登録完了しました");
             }
             catch (Exception ex)
             {
@@ -75,29 +106,53 @@ namespace ARMS3.FakeVIPline
         {
             foreach (var item in Keys)
             {
-                if (string.IsNullOrEmpty(item.Value))
+                if (item.Key == "magno")
                 {
-                    if (item.Key == "mag")
+                    if (string.IsNullOrEmpty(txt_magno.Text))
                     {
-                        if (!txt_magno.Text.Contains(item.Value))
+                        msg = "マガジンNOの入力が不正です";
+                        txt_magno.Focus();
+                        return false;
+                    }
+                    else if (string.IsNullOrEmpty(item.Value) == false)
+                    {
+                        if (txt_magno.Text.Contains(item.Value) == false)
                         {
                             msg = "マガジンNOの入力が不正です";
                             txt_magno.Focus();
                             return false;
                         }
                     }
-                    else if (item.Key == "fcode")
+                }
+                else if (item.Key == "fcode")
+                {
+                    if (string.IsNullOrEmpty(txt_matcode.Text))
                     {
-                        if (!txt_matcode.Text.Contains(item.Value))
+                        msg = "基板部材コードの入力が不正です";
+                        txt_matcode.Focus();
+                        return false;
+                    }
+                    else if (string.IsNullOrEmpty(item.Value) == false)
+                    {
+                        if (txt_matcode.Text.Contains(item.Value) == false)
                         {
                             msg = "基板部材コードの入力が不正です";
                             txt_matcode.Focus();
                             return false;
                         }
                     }
-                    else if (item.Key == "lotno")
+                }
+                else if (item.Key == "lotno")
+                {
+                    if (string.IsNullOrEmpty(txt_matlot.Text))
                     {
-                        if (!txt_matlot.Text.Contains(item.Value))
+                        msg = "基板ロットの入力が不正です";
+                        txt_matlot.Focus();
+                        return false;
+                    }
+                    else if (string.IsNullOrEmpty(item.Value) == false)
+                    {
+                        if (txt_matlot.Text.Contains(item.Value) == false)
                         {
                             msg = "基板ロットの入力が不正です";
                             txt_matlot.Focus();

@@ -1,4 +1,4 @@
-﻿namespace ARMS3.FakeVIPline
+﻿namespace AoiBuilder
 {
     partial class FrmAoiMag
     {
