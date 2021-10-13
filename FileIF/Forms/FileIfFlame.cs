@@ -123,17 +123,17 @@ namespace FileIf
             // Mn_Files_OpenFif
             // 
             this.Mn_Files_OpenFif.Name = "Mn_Files_OpenFif";
-            this.Mn_Files_OpenFif.Size = new System.Drawing.Size(180, 22);
+            this.Mn_Files_OpenFif.Size = new System.Drawing.Size(152, 22);
             this.Mn_Files_OpenFif.Text = "FIFフォルダを開く";
             // 
-            // MagCupFlame
+            // FileIfFlame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
-            this.Name = "MagCupFlame";
-            this.Text = "Plus // File InterFace";
+            this.Name = "FileIfFlame";
+            this.Text = "VSP://FileInterFace";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MagCupFlame_FormClosing);
             this.Controls.SetChildIndex(this.consoleBox, 0);
             this.Controls.SetChildIndex(this.btServerStart, 0);

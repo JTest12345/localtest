@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "Samples\Samples.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArmsWebApi", "ArmsWebApi\ArmsWebApi.csproj", "{9BF4ED69-2609-45A4-AF4D-6C55802F0AC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AoiBuildercsproj", "AoiMagRegister\AoiBuildercsproj.csproj", "{7542094B-F3F3-4A62-B85C-052B90A87FBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AoiBuilder", "AoiMagRegister\AoiBuilder.csproj", "{7542094B-F3F3-4A62-B85C-052B90A87FBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -16,25 +16,36 @@ namespace ArmsWebApi
 
         public string lotno;
 
-        public Magazine jcm;
+        public Magazine mag;
+
+        public List<ArmsApi.Model.Magazine> MagList { get; set; }
 
         public AsmLot lot;
+
+        public WorkStartAltModel wsm;
 
         public WorkStart(string plantcd, string magno)
         {
             this.plantcd = plantcd;
             this.magno = magno;
-            this.jcm = Magazine.GetCurrent(magno);
-            this.lotno = jcm.NascaLotNO;
+            this.mag = Magazine.GetCurrent(magno);
+            this.lotno = mag.NascaLotNO;
             this.lot = AsmLot.GetAsmLot(lotno);
+            this.wsm = new WorkStartAltModel(plantcd);
+            this.MagList = new List<Magazine>();
+            MagList.Add(mag);
         }
 
         public bool CheckBeforeStart(out string msg)
         {
-            var wsm = new WorkStartAltModel(plantcd);
             var jcm = Magazine.GetCurrent(magno);
             
             return wsm.CheckBeforeStart(jcm, out msg);
+        }
+
+        public bool Start(out string msg)
+        {
+            return wsm.WorkStart(out msg);
         }
     }
 }

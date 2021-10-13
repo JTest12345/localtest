@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using Oskas;
 using ArmsApi;
 using ArmsApi.Model;
-using ArmsApi.Model.NASCA;
-using ArmsWeb.Models;
 
 
 namespace FileIf
@@ -31,6 +29,9 @@ namespace FileIf
         // ArmsAPI
         Magazine jcm; //TnMag
         AsmLot lot; //TnLot
+
+        // ArmsWebApi
+        ArmsWebApi.WorkStart ws;
 
         Dictionary<string, string> Dict; //Endファイル用変数格納用辞書
 
@@ -255,18 +256,30 @@ namespace FileIf
             {
                 taskid += 1;
 
-                var wsm = new WorkStartAltModel(fs.Macno);
+                //var wsm = new WorkStartAltModel(fs.Macno);
 
-                bool isOk = wsm.CheckBeforeStart(jcm, out msg);
-                if (!isOk)
+                //bool isOk = wsm.CheckBeforeStart(jcm, out msg);
+                //if (!isOk)
+                //{
+                //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //}
+
+                //wsm.MagList.Add(jcm);
+
+
+                //if (!wsm.WorkStart(out msg))
+                //{
+                //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //}
+
+                ws = new ArmsWebApi.WorkStart(fs.Macno, fs.MagCupNo);
+
+                if (!ws.CheckBeforeStart(out msg))
                 {
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
 
-                wsm.MagList.Add(jcm);
-
-
-                if (!wsm.WorkStart(out msg))
+                if (!ws.Start(out msg))
                 {
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }

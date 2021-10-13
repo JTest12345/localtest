@@ -31,6 +31,9 @@ namespace FileIf
         Magazine jcm; //TnMag
         AsmLot lot; //TnLot
 
+        // ArmsWebApi
+        ArmsWebApi.WorkEnd we;
+
         Dictionary<string, string> Dict; //全リターン格納用辞書（Endファイルにデータが必要な場合に使用する）
 
         static string crlf = "\r\n"; // 改行コード
@@ -323,57 +326,58 @@ namespace FileIf
             {
                 taskid += 1;
 
-                WorkEndAltModel wem = new WorkEndAltModel(fs.Macno);
+                //WorkEndAltModel wem = new WorkEndAltModel(fs.Macno);
 
-                wem.MagList = wem.getUnloaderMag(wem.PlantCd);
+                //wem.MagList = wem.getUnloaderMag(wem.PlantCd);
 
-                ArmsApi.Model.VirtualMag[] vmgzs =
-                    ArmsApi.Model.VirtualMag.GetVirtualMag(wem.Mac.MacNo.ToString(), ((int)ArmsApi.Model.Station.Unloader).ToString(), string.Empty);
+                //ArmsApi.Model.VirtualMag[] vmgzs =
+                //    ArmsApi.Model.VirtualMag.GetVirtualMag(wem.Mac.MacNo.ToString(), ((int)ArmsApi.Model.Station.Unloader).ToString(), string.Empty);
 
-                var ulmagazine = new List<string> { jcm.MagazineNo };
-                List<ArmsApi.Model.Magazine> svrmags = new List<ArmsApi.Model.Magazine>();
-                foreach (string mgz in ulmagazine)
+                //var ulmagazine = new List<string> { jcm.MagazineNo };
+                //List<ArmsApi.Model.Magazine> svrmags = new List<ArmsApi.Model.Magazine>();
+                //foreach (string mgz in ulmagazine)
+                //{
+                //    ArmsApi.Model.Magazine svrmag = ArmsApi.Model.Magazine.GetCurrent(mgz);
+
+                //    //ブレンドされているロット、かつ最終工程以降の工程の開始の場合
+                //    CutBlend[] cbs = CutBlend.GetData(mgz);
+                //    if (cbs.Length > 0)
+                //    {
+                //        AsmLot lot = AsmLot.GetAsmLot(mgz);
+                //        int lastprocno = Order.GetLastProcNoFromLotNo(cbs.First().BlendLotNo);
+                //        Process prevproc = Process.GetPrevProcess(lastprocno, lot.TypeCd);
+                //        Process nextprocess = Process.GetNextProcess(prevproc.ProcNo, lot);
+
+                //        if (Process.IsFinalStAfterProcess(nextprocess, lot.TypeCd) == true)
+                //        {
+                //            svrmag = new Magazine();
+                //            svrmag.MagazineNo = mgz;
+                //            svrmag.NascaLotNO = mgz;
+                //            svrmag.NowCompProcess = prevproc.ProcNo;
+
+                //            ArmsApi.Model.AsmLot blendlot = lot;
+                //            blendlot.NascaLotNo = cbs.First().BlendLotNo;
+                //            wem.BlendLotList.Add(mgz, blendlot);
+                //        }
+                //    }
+
+                //    ArmsApi.Model.VirtualMag vmag = vmgzs.Where(vm => vm.LastMagazineNo == mgz).FirstOrDefault();
+                //    if (vmag == null)
+                //    {
+                //        msg = "Unloader位置に一致する仮想マガジンが見つかりません lastMag:" + vmag.MagazineNo;
+                //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //    }
+                //    wem.AddMagazine(svrmag, vmag);
+                //}
+
+                //wem.NewMagFrameQty = int.Parse(mot.val_out);
+                //wem.UnloaderMagNo = mot.magno_out;
+
+                we = new ArmsWebApi.WorkEnd(fs.Macno, mot.magno_in, mot.magno_out, int.Parse(mot.val_out));
+
+                if (!we.End(out msg))
                 {
-                    ArmsApi.Model.Magazine svrmag = ArmsApi.Model.Magazine.GetCurrent(mgz);
-
-                    //ブレンドされているロット、かつ最終工程以降の工程の開始の場合
-                    CutBlend[] cbs = CutBlend.GetData(mgz);
-                    if (cbs.Length > 0)
-                    {
-                        AsmLot lot = AsmLot.GetAsmLot(mgz);
-                        int lastprocno = Order.GetLastProcNoFromLotNo(cbs.First().BlendLotNo);
-                        Process prevproc = Process.GetPrevProcess(lastprocno, lot.TypeCd);
-                        Process nextprocess = Process.GetNextProcess(prevproc.ProcNo, lot);
-
-                        if (Process.IsFinalStAfterProcess(nextprocess, lot.TypeCd) == true)
-                        {
-                            svrmag = new Magazine();
-                            svrmag.MagazineNo = mgz;
-                            svrmag.NascaLotNO = mgz;
-                            svrmag.NowCompProcess = prevproc.ProcNo;
-
-                            ArmsApi.Model.AsmLot blendlot = lot;
-                            blendlot.NascaLotNo = cbs.First().BlendLotNo;
-                            wem.BlendLotList.Add(mgz, blendlot);
-                        }
-                    }
-
-                    ArmsApi.Model.VirtualMag vmag = vmgzs.Where(vm => vm.LastMagazineNo == mgz).FirstOrDefault();
-                    if (vmag == null)
-                    {
-                        msg = "Unloader位置に一致する仮想マガジンが見つかりません lastMag:" + vmag.MagazineNo;
-                        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                    }
-                    wem.AddMagazine(svrmag, vmag);
-                }
-
-                wem.NewMagFrameQty = int.Parse(mot.val_out);
-                wem.UnloaderMagNo = mot.magno_out;
-
-                var msgs = new List<string>();
-                if (!wem.WorkEnd(out msgs))
-                {
-                    return new string[] { "NG", msgs[0], Dbgmsg, taskid.ToString() };
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
 
             }

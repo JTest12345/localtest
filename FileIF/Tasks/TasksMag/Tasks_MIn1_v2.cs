@@ -121,7 +121,7 @@ namespace FileIf
 
                 Dict.Add("product", ws.lot.TypeCd.PadRight(25, ' '));
                 Dict.Add("lotno", ws.lot.NascaLotNo);
-                Dict.Add("valout", ws.jcm.FrameQty.ToString()); //ARMS要改修
+                Dict.Add("valout", ws.mag.FrameQty.ToString()); //ARMS要改修
 
                 //for Debug
                 Dbgmsg += "マガジンNo.：" + Dict["magno"] + crlf;
@@ -154,7 +154,7 @@ namespace FileIf
 
                 Dbgmsg = "" + crlf;
 
-                string WipFilePath = fs.fpath + @"\wip\" + fs.MagCupNo + "_" + ws.jcm.NowCompProcess + "_wipin1.dat";
+                string WipFilePath = fs.fpath + @"\wip\" + fs.MagCupNo + "_" + ws.mag.NowCompProcess + "_wipin1.dat";
                 string contents = "";
 
                 if (wip.MakeWipFile("dat", fs.lbl[1], wiplist, WipFilePath, ref contents, ref Dbgmsg))

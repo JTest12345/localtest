@@ -169,7 +169,7 @@ namespace AoiBuilder
                 return false;
             }
 
-            if (int.Parse(txt_bdvol.Text) < 1)
+            if (int.Parse(txt_bdvol.Text) < 1 && int.Parse(txt_bdvol.Text) >33)
             {
                 msg = "基板数量が不正です";
                 txt_bdvol.Focus();
