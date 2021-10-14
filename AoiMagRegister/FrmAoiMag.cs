@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using ArmsCejApi.Model;
 
 
-namespace AoiBuilder
+namespace AoiMagBuilder
 {
     public partial class FrmAoiMag : Form
     {
@@ -26,12 +26,36 @@ namespace AoiBuilder
         // Clear CheckBox Setting
         string[] conf;
 
+        // 4MCode読取フォーム
+        private string[] ary4Mcd;
+        fm4MCode fm4mcd;
 
         public FrmAoiMag()
         {
             InitializeComponent();
+            fm4mcd = new fm4MCode();
+            fm4mcd.fmm = this;
             ReadIniFile();
             InitCheckBoxes();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            fm4mcd.Show();
+        }
+
+        public string[] ReceiveData
+        {
+            set
+            {
+                ary4Mcd = value;
+                txt_matcode.Text = ary4Mcd[0];
+                txt_matlot.Text = ary4Mcd[1];
+            }
+            get
+            {
+                return ary4Mcd;
+            }
         }
 
 

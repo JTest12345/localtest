@@ -1,4 +1,4 @@
-﻿namespace AoiBuilder
+﻿namespace AoiMagBuilder
 {
     partial class FrmAoiMag
     {
@@ -46,6 +46,7 @@
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txt_magno
@@ -147,10 +148,10 @@
             // 
             // btn_clearTxtBox
             // 
-            this.btn_clearTxtBox.Location = new System.Drawing.Point(22, 64);
+            this.btn_clearTxtBox.Location = new System.Drawing.Point(24, 128);
             this.btn_clearTxtBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_clearTxtBox.Name = "btn_clearTxtBox";
-            this.btn_clearTxtBox.Size = new System.Drawing.Size(138, 79);
+            this.btn_clearTxtBox.Size = new System.Drawing.Size(138, 47);
             this.btn_clearTxtBox.TabIndex = 0;
             this.btn_clearTxtBox.Text = "クリア";
             this.btn_clearTxtBox.UseVisualStyleBackColor = true;
@@ -211,11 +212,22 @@
             this.label5.TabIndex = 1;
             this.label5.Text = "クリア";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(24, 22);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(138, 70);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "基板4Mコード読込";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FrmAoiMag
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(774, 203);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.checkBox3);
@@ -266,5 +278,6 @@
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button1;
     }
 }

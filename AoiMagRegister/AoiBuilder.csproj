@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7542094B-F3F3-4A62-B85C-052B90A87FBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>AoiMagRegister</RootNamespace>
-    <AssemblyName>AoiMagRegister</AssemblyName>
+    <RootNamespace>AoiMagBuilder</RootNamespace>
+    <AssemblyName>AoiMagBuilder</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,7 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ArmsCejApi">
+    <Reference Include="ArmsCejApi, Version=1.159.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libcej\ArmsCejApi.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -53,6 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="fm4MCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fm4MCode.Designer.cs">
+      <DependentUpon>fm4MCode.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmAoiMag.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +68,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="fm4MCode.resx">
+      <DependentUpon>fm4MCode.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmAoiMag.resx">
       <DependentUpon>FrmAoiMag.cs</DependentUpon>
     </EmbeddedResource>
@@ -72,6 +82,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

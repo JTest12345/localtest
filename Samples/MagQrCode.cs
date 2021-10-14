@@ -7,9 +7,9 @@ using ArmsApi.Model;
 
 namespace Samples
 {
-    class Program
+    class MagQrCode
     {
-        static void Main(string[] args)
+        static void _Main(string[] args)
         {
             /////////////////////
             // ArmsApiサンプル //

@@ -32,10 +32,13 @@ namespace ArmsWebApi
             this.magno = magno;
             this.UnloaderMagNo = ulmagno;
             this.NewMagFrameQty = NewMagFrameQty;
-            this.lotno = mag.NascaLotNO;
             this.mag = Magazine.GetCurrent(magno);
             this.lot = AsmLot.GetAsmLot(lotno);
             this.wem = new WorkEndAltModel(plantcd);
+            if (mag != null)
+            {
+                this.lotno = mag.NascaLotNO;
+            }
         }
 
         public bool End(out string msg)

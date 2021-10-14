@@ -18,8 +18,6 @@ namespace ArmsWebApi
 
         public Magazine mag;
 
-        public List<ArmsApi.Model.Magazine> MagList { get; set; }
-
         public AsmLot lot;
 
         public WorkStartAltModel wsm;
@@ -32,8 +30,6 @@ namespace ArmsWebApi
             this.lotno = mag.NascaLotNO;
             this.lot = AsmLot.GetAsmLot(lotno);
             this.wsm = new WorkStartAltModel(plantcd);
-            this.MagList = new List<Magazine>();
-            MagList.Add(mag);
         }
 
         public bool CheckBeforeStart(out string msg)
@@ -45,6 +41,7 @@ namespace ArmsWebApi
 
         public bool Start(out string msg)
         {
+            wsm.MagList.Add(mag);
             return wsm.WorkStart(out msg);
         }
     }
