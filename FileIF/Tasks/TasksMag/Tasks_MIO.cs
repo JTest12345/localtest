@@ -23,6 +23,9 @@ namespace FileIf
         Magazine jcm; //TnMag
         AsmLot lot; //TnLot
 
+        // ArmsWebApi
+        ArmsWebApi.WorkStartEnd wse;
+
         Dictionary<string, string> Dict; //全リターン格納用辞書（Endファイルにデータが必要な場合に使用する）
 
         static string crlf = "\r\n"; // 改行コード
@@ -168,75 +171,75 @@ namespace FileIf
             {
                 taskid += 1;
 
-                WorkStartEndAltModel wsem = new WorkStartEndAltModel(fs.Macno);
+                //WorkStartEndAltModel wsem = new WorkStartEndAltModel(fs.Macno);
 
-                string magnoIn = mio.magno_in;
-                string magnoOut = mio.magno_out;
+                //string magnoIn = mio.magno_in;
+                //string magnoOut = mio.magno_out;
 
-                //開始完了の場合、マガジン入れ替えに伴う1マガジン毎の読み込み判定はスキップする
-                if (!string.IsNullOrEmpty(magnoIn))
-                {
-                    ArmsApi.Model.Magazine mag = ArmsApi.Model.Magazine.GetCurrent(magnoIn);
+                ////開始完了の場合、マガジン入れ替えに伴う1マガジン毎の読み込み判定はスキップする
+                //if (!string.IsNullOrEmpty(magnoIn))
+                //{
+                //    ArmsApi.Model.Magazine mag = ArmsApi.Model.Magazine.GetCurrent(magnoIn);
 
-                    if (mag == null)
-                    {
-                        string mes = "ロット情報が存在しません(Inマガジン)";
-                        msg = tcommons.ErrorMessage(taskid, fs, mes);
-                        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                    }
+                //    if (mag == null)
+                //    {
+                //        string mes = "ロット情報が存在しません(Inマガジン)";
+                //        msg = tcommons.ErrorMessage(taskid, fs, mes);
+                //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //    }
 
-                    bool isOk = wsem.CheckBeforeStart(mag, out msg);
+                //    bool isOk = wsem.CheckBeforeStart(mag, out msg);
 
-                    if (!isOk)
-                    {
-                        msg = tcommons.ErrorMessage(taskid, fs, msg);
-                        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                    }
+                //    if (!isOk)
+                //    {
+                //        msg = tcommons.ErrorMessage(taskid, fs, msg);
+                //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //    }
 
-                    ///////////////////////////////////
-                    // 2021.10.12 Junichi Watanabe
-                    // 開始完了一括の基板数はアウト分の基板数が操作しにくいので見合わせ
-                    //
-                    //wsem.LastReadMag = mag;
-                    //if (string.IsNullOrEmpty(mio.val_in))
-                    //{
-                    //    mag.FrameQty = int.Parse(mio.val_in);
-                    //}
-                    ///////////////////////////////////
+                //    ///////////////////////////////////
+                //    // 2021.10.12 Junichi Watanabe
+                //    // 開始完了一括の基板数はアウト分の基板数が操作しにくいので見合わせ
+                //    //
+                //    //wsem.LastReadMag = mag;
+                //    //if (string.IsNullOrEmpty(mio.val_in))
+                //    //{
+                //    //    mag.FrameQty = int.Parse(mio.val_in);
+                //    //}
+                //    ///////////////////////////////////
 
-                    //開始完了の場合は仮想マガジンも処理しない
-                    wsem.AddMagazine(mag);
+                //    //開始完了の場合は仮想マガジンも処理しない
+                //    wsem.AddMagazine(mag);
 
-                }
-                else
-                {
-                    string mes = "IOファイルのINマガジンNoが不正です";
-                    msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                }
+                //}
+                //else
+                //{
+                //    string mes = "IOファイルのINマガジンNoが不正です";
+                //    msg = tcommons.ErrorMessage(taskid, fs, mes);
+                //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //}
 
-                // In/Outのマガジンが違う場合
-                if (magnoIn != magnoOut)
-                {
+                //// In/Outのマガジンが違う場合
+                //if (magnoIn != magnoOut)
+                //{
 
-                    if (string.IsNullOrEmpty(magnoOut))
-                    {
-                        string mes = "IOファイルのOUTマガジンNoが不正です";
-                        msg = tcommons.ErrorMessage(taskid, fs, mes);
-                        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                    }
+                //    if (string.IsNullOrEmpty(magnoOut))
+                //    {
+                //        string mes = "IOファイルのOUTマガジンNoが不正です";
+                //        msg = tcommons.ErrorMessage(taskid, fs, mes);
+                //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //    }
 
-                    wsem.UnloaderMagNo = magnoOut;
+                //    wsem.UnloaderMagNo = magnoOut;
 
-                }
+                //}
 
-                List<string> msgs;
-                bool success = wsem.WorkEnd(out msgs);
+                wse = new ArmsWebApi.WorkStartEnd(fs.Macno, mio.magno_in, mio.magno_out);
+
+                bool success = wse.StartEnd(out msg);
 
                 if (!success)
                 {
-                    string rawmsg = string.Join(" ", msgs.ToArray());
-                    msg = tcommons.ErrorMessage(taskid, fs, rawmsg);
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
 

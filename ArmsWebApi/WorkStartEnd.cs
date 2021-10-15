@@ -8,7 +8,7 @@ using ArmsWeb.Models;
 
 namespace ArmsWebApi
 {
-    class WorkStartEnd
+    public class WorkStartEnd
     {
         public string plantcd;
 

@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArmsWebApi.cs" />
     <Compile Include="Json2Cs.cs" />
     <Compile Include="MagQrCode.cs" />
     <Compile Include="Mailkit.cs" />

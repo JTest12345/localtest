@@ -62,3 +62,11 @@ C:\juni_ws\GitRepo\VSP\Oskas\obj\Debug\Oskas.csproj.CoreCompileInputs.cache
 C:\juni_ws\GitRepo\VSP\Oskas\obj\Debug\Oskas.csproj.CopyComplete
 C:\juni_ws\GitRepo\VSP\Oskas\obj\Debug\Oskas.exe
 C:\juni_ws\GitRepo\VSP\Oskas\obj\Debug\Oskas.pdb
+C:\juni_ws\GitRepo\VSP\Oskas\bin\Debug\MailKit.dll
+C:\juni_ws\GitRepo\VSP\Oskas\bin\Debug\MimeKit.dll
+C:\juni_ws\GitRepo\VSP\Oskas\bin\Debug\BouncyCastle.Crypto.xml
+C:\juni_ws\GitRepo\VSP\Oskas\bin\Debug\MailKit.pdb
+C:\juni_ws\GitRepo\VSP\Oskas\bin\Debug\MailKit.xml
+C:\juni_ws\GitRepo\VSP\Oskas\bin\Debug\MimeKit.pdb
+C:\juni_ws\GitRepo\VSP\Oskas\bin\Debug\MimeKit.xml
+C:\juni_ws\GitRepo\VSP\Oskas\bin\Debug\System.Buffers.xml

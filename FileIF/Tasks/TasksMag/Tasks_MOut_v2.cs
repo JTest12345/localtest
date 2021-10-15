@@ -377,6 +377,7 @@ namespace FileIf
 
                 if (!we.End(out msg))
                 {
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
 
