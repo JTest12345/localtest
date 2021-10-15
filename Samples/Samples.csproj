@@ -75,6 +75,10 @@
       <Project>{a47c8eae-cf1f-4cd0-8a5d-a193d974354b}</Project>
       <Name>ArmsApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ArmsWebApi\ArmsWebApi.csproj">
+      <Project>{9bf4ed69-2609-45a4-af4d-6c55802f0ac3}</Project>
+      <Name>ArmsWebApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

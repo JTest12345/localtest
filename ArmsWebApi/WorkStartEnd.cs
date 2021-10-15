@@ -20,21 +20,24 @@ namespace ArmsWebApi
 
         public string UnloaderMagNo;
 
+        public string empcd;
+
         public Magazine jcm;
 
         public AsmLot lot;
 
         public WorkStartEndAltModel wsem;
 
-        public WorkStartEnd(string plantcd, string magno, string UnloaderMagNo, int NewMagFrameQty=0)
+        public WorkStartEnd(string plantcd, string empcd, string magno, string UnloaderMagNo, int NewMagFrameQty=0)
         {
             this.plantcd = plantcd;
             this.magno = magno;
             this.UnloaderMagNo = UnloaderMagNo;
+            this.empcd = empcd;
             this.NewMagFrameQty = NewMagFrameQty;
-            this.lotno = jcm.NascaLotNO;
             this.jcm = Magazine.GetCurrent(magno);
             this.lot = AsmLot.GetAsmLot(lotno);
+            this.lotno = jcm.NascaLotNO;
             this.wsem = new WorkStartEndAltModel(plantcd);
         }
 
@@ -95,6 +98,8 @@ namespace ArmsWebApi
                 wsem.UnloaderMagNo = UnloaderMagNo;
 
             }
+
+            wsem.EmpCd = empcd;
 
             List<string> msgs;
             bool success = wsem.WorkEnd(out msgs);

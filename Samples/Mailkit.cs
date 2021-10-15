@@ -8,7 +8,7 @@ namespace Samples
 {
     class Mailkit
     {
-        static void Main(string[] args)
+        static void _Main(string[] args)
         {
             SendMail("watanabejunic@citizen.co.jp", "TEST", "Regards");
         }

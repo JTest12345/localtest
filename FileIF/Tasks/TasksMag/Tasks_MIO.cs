@@ -233,7 +233,7 @@ namespace FileIf
 
                 //}
 
-                wse = new ArmsWebApi.WorkStartEnd(fs.Macno, mio.magno_in, mio.magno_out);
+                wse = new ArmsWebApi.WorkStartEnd(fs.Macno, "FILEIF", mio.magno_in, mio.magno_out);
 
                 bool success = wse.StartEnd(out msg);
 
