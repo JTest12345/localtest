@@ -22,7 +22,7 @@ namespace ArmsWebApi
 
         public string empcd;
 
-        public Magazine jcm;
+        public Magazine mag;
 
         public AsmLot lot;
 
@@ -34,15 +34,36 @@ namespace ArmsWebApi
             this.magno = magno;
             this.UnloaderMagNo = UnloaderMagNo;
             this.empcd = empcd;
-            this.NewMagFrameQty = NewMagFrameQty;
-            this.jcm = Magazine.GetCurrent(magno);
-            this.lot = AsmLot.GetAsmLot(lotno);
-            this.lotno = jcm.NascaLotNO;
-            this.wsem = new WorkStartEndAltModel(plantcd);
+            this.NewMagFrameQty = NewMagFrameQty; 
         }
 
         public bool StartEnd(out string msg)
         {
+            this.mag = Magazine.GetCurrent(magno);
+
+            if (mag == null)
+            {
+                msg = "対象の実マガジンは存在しません";
+                return false;
+            }
+
+            this.lotno = mag.NascaLotNO;
+            this.lot = AsmLot.GetAsmLot(lotno);
+
+            if (lot == null)
+            {
+                msg = "対象のロットは存在しません";
+                return false;
+            }
+
+            if (plantcd == "")
+            {
+                msg = "設備コード(plantcd)が必要です";
+                return false;
+            }
+
+            this.lotno = mag.NascaLotNO;
+
             WorkStartEndAltModel wsem = new WorkStartEndAltModel(plantcd);
 
 

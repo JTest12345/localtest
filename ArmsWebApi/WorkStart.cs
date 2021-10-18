@@ -26,23 +26,50 @@ namespace ArmsWebApi
         {
             this.plantcd = plantcd;
             this.magno = magno;
-            this.mag = Magazine.GetCurrent(magno);
-            this.lotno = mag.NascaLotNO;
-            this.lot = AsmLot.GetAsmLot(lotno);
-            this.wsm = new WorkStartAltModel(plantcd);
         }
 
         public bool CheckBeforeStart(out string msg)
         {
-            var jcm = Magazine.GetCurrent(magno);
+            this.mag = Magazine.GetCurrent(magno);
             
-            return wsm.CheckBeforeStart(jcm, out msg);
+            if (mag == null)
+            {
+                msg = "対象の実マガジンは存在しません";
+                return false;
+            }
+
+            this.lotno = mag.NascaLotNO;
+            this.lot = AsmLot.GetAsmLot(lotno);
+
+            if (lot == null)
+            {
+                msg = "対象のロットは存在しません";
+                return false;
+            }
+
+            if (plantcd == "")
+            {
+                msg = "設備コード(plantcd)が必要です";
+                return false;
+            }
+
+            wsm = new WorkStartAltModel(plantcd);
+
+            return wsm.CheckBeforeStart(mag, out msg);
         }
 
         public bool Start(out string msg)
         {
-            wsm.MagList.Add(mag);
-            return wsm.WorkStart(out msg);
+            try
+            {
+                wsm.MagList.Add(mag);
+                return wsm.WorkStart(out msg);
+            }
+            catch (Exception e)
+            {
+                msg = e.ToString();
+                return false;
+            }
         }
     }
 }
