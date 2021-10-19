@@ -16,13 +16,15 @@ namespace ArmsWebApi
 
         public string lotno;
 
+        public string empcd;
+
         public Magazine mag;
 
         public AsmLot lot;
 
         public WorkStartAltModel wsm;
 
-        public WorkStart(string plantcd, string magno)
+        public WorkStart(string plantcd, string empcd, string magno)
         {
             this.plantcd = plantcd;
             this.magno = magno;
@@ -60,6 +62,12 @@ namespace ArmsWebApi
 
         public bool Start(out string msg)
         {
+            if (wsm == null)
+            {
+                msg = "CheckBeforeStartを実行・完了してください";
+                return false;
+            }
+
             try
             {
                 wsm.MagList.Add(mag);

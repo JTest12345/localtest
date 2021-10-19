@@ -20,13 +20,15 @@ namespace ArmsWebApi
 
         public string UnloaderMagNo;
 
+        public string empcd;
+
         public Magazine mag;
 
         public AsmLot lot;
 
         public WorkEndAltModel wem;
 
-        public WorkEnd(string plantcd, string magno, string ulmagno, int NewMagFrameQty)
+        public WorkEnd(string plantcd, string empcd, string magno, string ulmagno, int NewMagFrameQty=0)
         {
             this.plantcd = plantcd;
             this.magno = magno;
@@ -70,6 +72,7 @@ namespace ArmsWebApi
 
                 var ulmagazine = new List<string> { mag.MagazineNo };
                 List<ArmsApi.Model.Magazine> svrmags = new List<ArmsApi.Model.Magazine>();
+
                 foreach (string mgz in ulmagazine)
                 {
                     ArmsApi.Model.Magazine svrmag = ArmsApi.Model.Magazine.GetCurrent(mgz);
@@ -106,7 +109,15 @@ namespace ArmsWebApi
                 }
 
                 wem.UnloaderMagNo = UnloaderMagNo;
-                wem.NewMagFrameQty = NewMagFrameQty;
+
+                if (NewMagFrameQty != 0)
+                {
+                    wem.NewMagFrameQty = NewMagFrameQty;
+                }
+                else
+                {
+                    wem.NewMagFrameQty = wem.MagList[0].FrameQty;
+                }
 
                 var msgs = new List<string>();
                 if (!wem.WorkEnd(out msgs))

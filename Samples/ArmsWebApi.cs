@@ -14,7 +14,7 @@ namespace Samples
             ////////////////////////
             // ArmsWebApiサンプル //
             ////////////////////////
-            //◇開始完了サンプル
+            //◇開始・完了API
             //  動作前提
             //  DB: Vautom4
             //  lotno: TESTLOT00000010000
@@ -28,27 +28,96 @@ namespace Samples
             //  登録者: APP
             //
 
+            string msg;
+
+            string plantcd = "TCDBC01";
+            string empcd = "APP";
             string magqr = "A 10000";
             var magcode = magqr.Split(' ');
 
-            string plantcd = "TCDBC01";
 
-            string empcd = "APP";
+            //////////////////////////
+            ////①開始完了一括
+            //////////////////////////
 
-            ArmsWebApi.WorkStartEnd wse;
-            wse = new ArmsWebApi.WorkStartEnd(plantcd, empcd, magcode[1], magcode[1]);
+            //ArmsWebApi.WorkStartEnd wse;
+            //wse = new ArmsWebApi.WorkStartEnd(plantcd, empcd, magcode[1], magcode[1]);
 
-            string msg;
+            //string msg;
 
-            bool success = wse.StartEnd(out msg);
+            //bool success = wse.StartEnd(out msg);
 
-            if (success)
+            //if (success)
+            //{
+            //    Console.WriteLine("登録処理完了。\r\n");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("登録処理できませんでした。\r\n");
+            //    Console.WriteLine(msg);
+            //}
+
+
+            ////////////////////////
+            //②開始
+            ////////////////////////
+
+            ArmsWebApi.WorkStart ws;
+            ws = new ArmsWebApi.WorkStart(plantcd, empcd, magcode[1]);
+
+            bool success_cbs = ws.CheckBeforeStart(out msg);
+
+            if (success_cbs)
             {
-                Console.WriteLine("登録処理完了。\r\n");
+                Console.WriteLine("登録前確認完了。\r\n");
             }
             else
             {
-                Console.WriteLine("登録処理できませんでした。\r\n");
+                Console.WriteLine("登録前確認で不正がありました。\r\n");
+                Console.WriteLine(msg);
+
+                Console.ReadKey();
+                return;
+            }
+
+            bool success_in = ws.Start(out msg);
+
+            if (success_in)
+            {
+                Console.WriteLine("開始登録処理完了。\r\n");
+            }
+            else
+            {
+                Console.WriteLine("開始登録処理できませんでした。\r\n");
+                Console.WriteLine(msg);
+
+                Console.ReadKey();
+                return;
+            }
+
+
+            ////////////////////////
+            //③完了
+            ////////////////////////
+            string outmagqr = "A 10001";
+            var outmagcode = outmagqr.Split(' ');
+            int newMagFrameQty = 25;
+
+            ArmsWebApi.WorkEnd we;
+            //基板数を更新する場合は引数にnewMagFrameQtyを含める
+            //we = new ArmsWebApi.WorkEnd(plantcd, empcd, magcode[1], outmagcode[1], newMagFrameQty);
+            //基板数を引き継ぐ場合は省略
+            we = new ArmsWebApi.WorkEnd(plantcd, empcd, magcode[1], outmagcode[1]);
+
+            bool success_out = we.End(out msg);
+
+            if (success_out)
+            {
+                Console.WriteLine("完了登録処理完了。\r\n");
+            }
+            else
+            {
+                Console.WriteLine("完了登録処理できませんでした。\r\n");
                 Console.WriteLine(msg);
             }
 
