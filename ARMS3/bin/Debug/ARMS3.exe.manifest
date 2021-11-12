@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ARMS3.exe" size="1725952">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ARMS3.exe" size="1719808">
       <assemblyIdentity name="ARMS3" version="1.159.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>02vi524pP77v5f3o/RbGy4G1diyk07GdHyVdO85ftCA=</dsig:DigestValue>
+        <dsig:DigestValue>5Z3/Jz7t1l+1rEbfdWss9Vk5lpEM18p1N+ic9zoWqfI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -62,7 +62,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Lep37b15TbXMtDcOt/4509QZcezX4S2WEOsjVzklhHg=</dsig:DigestValue>
+        <dsig:DigestValue>xFGlDi6ToxBeAtIB2GRI5EnRy10puNlquLFmmAT2Mv8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

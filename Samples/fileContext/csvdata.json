@@ -1,0 +1,28 @@
+{
+  "formData": [
+    {
+      "name": "全光束",
+      "colno": 1,
+      "unit": "lm",
+      "type": "float"
+    },
+    {
+      "name": "VF",
+      "colno": 2,
+      "unit": "V",
+      "type": "float"
+    },
+    {
+      "name": "色度x",
+      "colno": 3,
+      "unit": "-",
+      "type": "float"
+    },
+    {
+      "name": "色度y",
+      "colno": 4,
+      "unit": "-",
+      "type": "float"
+    }
+  ]
+}

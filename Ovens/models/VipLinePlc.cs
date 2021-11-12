@@ -292,7 +292,7 @@ namespace Ovens.models
                 {
                     var dt = DateTime.Now;
                     int iSecond = dt.Second;
-                    System.Threading.Thread.Sleep((61-iSecond) * 1000);
+                    System.Threading.Thread.Sleep((61 - iSecond) * 1000);
                     this.RoutineDbTask();
                 }
                 DbTimer.Enabled = true;
@@ -493,7 +493,6 @@ namespace Ovens.models
                     //
                     PreDateTime = PlcDateTime;
 
-
                     ovnPlcDatLock = false;
                 }
             });
@@ -518,7 +517,7 @@ namespace Ovens.models
                         ovnPlcDat.Status = 1;
                     }
 
-                    var OPD = new OvenPlcData() ;
+                    var OPD = new OvenPlcData();
                     //OPD.Status = ovnPlcDat.Status;
                     //OPD.LastDtHub = ovnPlcDat.LastDtHub;
                     //OPD.PlcDateTimes = ovnPlcDat.PlcDateTimes;
@@ -530,6 +529,19 @@ namespace Ovens.models
                     //    i++;
                     //}
                     OPD = ovnPlcDat.DeepClone();
+
+                    //
+                    //初期化処理
+                    //
+                    int elapsed = 0;
+                    while ((ovnPlcDatLock) && (elapsed < TimeSpan.FromSeconds(10).TotalMilliseconds))
+                    {
+                        System.Threading.Thread.Sleep(1000);
+                        elapsed += 1000;
+                        //Console.WriteLine($"+1000");
+                    }
+                    InitOvenDat();  //初期化
+
 
                     //var spanDtWithNoError = dt - lastInsertWithNoError;
                     //var spanDtWithError = dt - lastInsertWithError;
@@ -620,7 +632,11 @@ namespace Ovens.models
                         msg = "DB登録が失敗しました";
                         consoleAction(msg + "\r\n", Cnslcnf.msg_error);
                     }
-
+                    else
+                    {
+                        var cnt = OPD.PlcDateTimes.Count();
+                        consoleAction(Macno + "から" + cnt + "件のデータをDB登録しました\r\n", Cnslcnf.msg_info);
+                    }
                 });
             }
             catch (Exception ex)
@@ -629,13 +645,14 @@ namespace Ovens.models
             }
             finally
             {
-                int elapsed = 0;
-                while ((ovnPlcDatLock) && (elapsed < TimeSpan.FromSeconds(10).TotalMilliseconds))
-                {
-                    System.Threading.Thread.Sleep(1000);
-                    elapsed += 1000;
-                    Console.WriteLine($"+1000");
-                }
+                //int elapsed = 0;
+                //while ((ovnPlcDatLock) && (elapsed < TimeSpan.FromSeconds(10).TotalMilliseconds))
+                //{
+                //    System.Threading.Thread.Sleep(1000);
+                //    elapsed += 1000;
+                //    //Console.WriteLine($"+1000");
+                //}
+                //InitOvenDat();  //初期化
             }
 
         }
@@ -682,7 +699,6 @@ namespace Ovens.models
 
         private bool GetAllOvenDatas(ref string dbgmsg)
         {
-
             try
             {
                 foreach (var oven in NOvens)
@@ -740,6 +756,7 @@ namespace Ovens.models
                 return false;
             }
         }
+
     }
 
     //
@@ -747,7 +764,7 @@ namespace Ovens.models
     //
     public class NOven
     {
-        public int INDEX { get; set; }                  //インデックス
+        public int INDEX { get; set; }                //インデックス
         public string OVEN_NAME { get; set; }           //オーブン名称
         public string SP_ADDRESS { get; set; }          //オーブン温度目標値
         public string PV_ADDRESS { get; set; }          //オーブン温度現在値
