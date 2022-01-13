@@ -50,7 +50,7 @@ namespace AoiMagBuilder
             {
                 ary4Mcd = value;
                 txt_matcode.Text = ary4Mcd[0];
-                txt_matlot.Text = ary4Mcd[1];
+                txt_matlot.Text = ary4Mcd[3];
             }
             get
             {

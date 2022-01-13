@@ -10,14 +10,10 @@ using ArmsWeb.Models;
 
 namespace FileIf
 {
-    class Tasks_MIO
+    class Tasks_mio : Tasks_base
     {
-        //CommonFuncs commons;
-        Tasks_Common tcommons;
-
         //ファイルクラス
-        Contents_mio mio;
-        Macconinfo minfo;
+        TaskFile_mio mio;
 
         // ArmsAPI
         Magazine jcm; //TnMag
@@ -26,24 +22,17 @@ namespace FileIf
         // ArmsWebApi
         ArmsWebApi.WorkStartEnd wse;
 
-        Dictionary<string, string> Dict; //全リターン格納用辞書（Endファイルにデータが必要な場合に使用する）
-
-        static string crlf = "\r\n"; // 改行コード
-        int taskid = 0; //タスクID
+        //全リターン格納用辞書（Endファイルにデータが必要な場合に使用する）
+        Dictionary<string, string> Dict; 
 
         // 初期化
-        public Tasks_MIO()
+        public Tasks_mio()
         {
-            //commons = new CommonFuncs();
             tcommons = new Tasks_Common();
 
-            mio = new Contents_mio();
+            mio = new TaskFile_mio();
 
             minfo = new Macconinfo();
-            //kcm = new Current_mag(); 
-            //jcm = new Current_mag(); 
-            //cpm = new Process_master(); 
-            //cpv = new Process_results(); 
 
             Dict = new Dictionary<string, string>();
             Dict.Add("ok", "OK");
@@ -51,15 +40,17 @@ namespace FileIf
         }
 
         // outのデータベース操作タスク関数
-        public string[] DBTasks(Mcfilesys fs) // string pcat, string macno, string magno, string fs.fpath, string[] fs.lbl)
+        public string[] InFileTasks(Mcfilesys fs) // string pcat, string macno, string magno, string fs.fpath, string[] fs.lbl)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
+            fs.mclbl = "MagNo";
+            fs.lbl = new string[] { fs.mclbl, fs.keylbl };
             fs.ConnectionString = fs.mci.ConnectionStrings[0]; // iniファイルのDatabase1を選択
 
             Dict.Add("magno", fs.MagCupNo);
 
 
-            //<taskid=mot101>【FileSys】設備情報取得
+            //<taskid=mio101>【FileSys】設備情報取得
             taskid = 101;
             string[] gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
             if (gmic[0] == "NG")
@@ -68,7 +59,7 @@ namespace FileIf
             }
 
 
-            //<taskid=mot102>【FileSys】PLCの接続条件取得(Table: Macconinfo)
+            //<taskid=mio102>【FileSys】PLCの接続条件取得(Table: Macconinfo)
             taskid += 1;
             string[] gpcc = tcommons.GetPlcConnectConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
             if (gpcc[0] == "NG")
@@ -80,7 +71,7 @@ namespace FileIf
             //fs.plcdvno = minfo.Devno3;
 
             
-            //<taskid=mot103>【PLC】設備のPLCにアクセス可能か確認
+            //<taskid=mio103>【PLC】設備のPLCにアクセス可能か確認
             taskid += 1;
             if (fs.mci.UsePlcTrig)
             {
@@ -92,7 +83,7 @@ namespace FileIf
             }
 
 
-            //<taskid=mot104> マガジン・ロット情報取得
+            //<taskid=mio104> マガジン・ロット情報取得
             try
             {
                 taskid += 1;
@@ -118,7 +109,7 @@ namespace FileIf
             }
 
 
-            //<taskid=mot105>【検査】outファイルの読み込み～処理の開始またはキャンセル～内容検査
+            //<taskid=mio105>【検査】outファイルの読み込み～処理の開始またはキャンセル～内容検査
             try
             {
                 taskid += 1;
@@ -166,7 +157,7 @@ namespace FileIf
             }
 
 
-            //<taskid=min110X> ARMS開始完了一括処理
+            //<taskid=mio106> ARMS開始完了一括処理
             try
             {
                 taskid += 1;
@@ -252,7 +243,7 @@ namespace FileIf
 
 
 
-            //<taskid=mot109> inフォルダからtempフォルダにINファイルを移動
+            //<taskid=mio107> inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
             string[] mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref msg, ref Dbgmsg);
             if (mitf[0] == "NG")
@@ -262,17 +253,17 @@ namespace FileIf
 
 
             Dbgmsg += "Queryの実行は全て終了しました" + crlf;
-            msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} DBタスク終了";
+            msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} タスク終了";
             return new string[] { "OK", msg, Dbgmsg, "0" };
         }
 
 
         // outのEND出力タスク関数
-        public string[] FOutTasks(Mcfilesys fs, int errorcode)
+        public string[] OutFileTasks(Mcfilesys fs, int errorcode)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
 
-            //<taskid=mot901>【ファイル生成】ENDファイルの発行
+            //<taskid=mio901>【ファイル生成】ENDファイルの発行
             taskid = 901;
             string[] oef = tcommons.OutputEndFile(taskid, fs, errorcode, Dict, "end", ref msg, ref Dbgmsg);
             if (oef[0] == "NG")
@@ -281,7 +272,7 @@ namespace FileIf
             }
 
             
-            //<taskid=in902>【PLC】設備にOUTファイル取得要求（PLCの内部リレー操作）
+            //<taskid=mio902>【PLC】設備にOUTファイル取得要求（PLCの内部リレー操作）
             taskid += 1;
             if (fs.mci.UsePlcTrig)
             {

@@ -230,19 +230,33 @@ namespace ArmsWeb.Models
             MachineInfo m = MachineInfo.GetMachine(plantcd);
             List<VirtualMag> vmags = VirtualMag.GetVirtualMag(m.MacNo, ((int)Station.Loader)).ToList();
 
-            /////////////////////////////////////////////////
-            // 2021.07.28 Junichi Watanabe 追加コード
-            if (vmags.Count == 1)
+            ///////////////////////////////////////////////////
+            //// 2021.07.28 Junichi Watanabe 追加コード
+            //if (vmags.Count == 1)
+            //{
+            //    var vm = vmags[0];
+            //    vm.CurrentLocation = new Location(m.MacNo, Station.Loader);
+            //    vm.Dequeue(vm.CurrentLocation);
+            //    vm.CurrentLocation.Station = Station.Unloader;
+            //    vm.LastMagazineNo = vm.MagazineNo;
+            //    vm.Enqueue(vm, vm.CurrentLocation);
+            //}
+            //// 追加コードここまで
+            //////////////////////////////////////////////////
+            ///
+            ///////////////////////////////////////////////////
+            //// 2021.11.16 Junichi Watanabe 追加コード
+            //// 上記コードでは1設備複数ロット投入が動作確認できなかった為変更
+            foreach (var mag in vmags)
             {
-                var vm = vmags[0];
-                vm.CurrentLocation = new Location(m.MacNo, Station.Loader);
-                vm.Dequeue(vm.CurrentLocation);
-                vm.CurrentLocation.Station = Station.Unloader;
-                vm.LastMagazineNo = vm.MagazineNo;
-                vm.Enqueue(vm, vm.CurrentLocation);
+                mag.CurrentLocation = new Location(m.MacNo, Station.Loader);
+                mag.Dequeue(mag.CurrentLocation);
+                mag.CurrentLocation.Station = Station.Unloader;
+                mag.LastMagazineNo = mag.MagazineNo;
+                mag.Enqueue(mag, mag.CurrentLocation);
             }
-            // 追加コードここまで
-            ////////////////////////////////////////////////
+            //// 追加コードここまで
+            //////////////////////////////////////////////////
 
             vmags = VirtualMag.GetVirtualMag(m.MacNo, ((int)Station.Unloader)).ToList();
 

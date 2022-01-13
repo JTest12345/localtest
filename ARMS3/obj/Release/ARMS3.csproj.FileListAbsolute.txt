@@ -46,7 +46,6 @@ C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\ARMS3.application
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\ARMS3.exe
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\ARMS3.pdb
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\ArmsApi.dll
-C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\ArmsCejApi.dll
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\log4net.dll
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\Newtonsoft.Json.dll
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\ArmsApi.pdb
@@ -56,7 +55,6 @@ C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\Newtonsoft.Json.pdb
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\Newtonsoft.Json.xml
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\ArmsApi.XmlSerializers.dll
 C:\juni_ws\GitRepo\VSP\ARMS3\obj\Release\ARMS3.csprojAssemblyReference.cache
-C:\juni_ws\GitRepo\VSP\ARMS3\obj\Release\ARMS3.FakeVIPline.FrmAoiMag.resources
 C:\juni_ws\GitRepo\VSP\ARMS3\obj\Release\ARMS3.FakeVIPline.TestForm.resources
 C:\juni_ws\GitRepo\VSP\ARMS3\obj\Release\ARMS3.FakeVIPline.FrmLmSim.resources
 C:\juni_ws\GitRepo\VSP\ARMS3\obj\Release\ARMS3.FakeVIPline.FrmFakeNline.resources
@@ -74,3 +72,5 @@ C:\juni_ws\GitRepo\VSP\ARMS3\obj\Release\ARMS3.application
 C:\juni_ws\GitRepo\VSP\ARMS3\obj\Release\ARMS3.csproj.CopyComplete
 C:\juni_ws\GitRepo\VSP\ARMS3\obj\Release\ARMS3.exe
 C:\juni_ws\GitRepo\VSP\ARMS3\obj\Release\ARMS3.pdb
+C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\ArmsCejApi.dll
+C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\ArmsCejApi.pdb

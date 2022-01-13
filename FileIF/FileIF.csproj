@@ -52,8 +52,11 @@
     <Reference Include="M2Mqtt.Net, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\M2Mqtt.4.3.0.0\lib\net45\M2Mqtt.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ResinPrg">
+      <HintPath>..\libcej\ResinPrg.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -72,20 +75,28 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Models\Dbclass.cs" />
-    <Compile Include="Models\Keyfile.cs" />
+    <Compile Include="Models\FmCoj\FmCojTasks.cs" />
+    <Compile Include="Models\MagCup\MagCupTasks.cs" />
     <Compile Include="Models\Systemfile.cs" />
     <Compile Include="Functions\Tasks_Common.cs" />
     <Compile Include="Models\Arms\WorkEndModel.cs" />
     <Compile Include="Models\Arms\WorkStartModel.cs" />
+    <Compile Include="Models\taskInterface.cs" />
     <Compile Include="Tasks\TaskHandler.cs" />
-    <Compile Include="Tasks\TasksCup\Tasks_Cot1_v1_1.cs" />
-    <Compile Include="Tasks\TasksCup\Tasks_Cot2_v1_1.cs" />
-    <Compile Include="Tasks\TasksCup\Tasks_Crcp_v1_1.cs" />
-    <Compile Include="Tasks\TasksCup\Tasks_Csta_v1_1.cs" />
-    <Compile Include="Tasks\TasksMag\Tasks_MIn1_v2.cs" />
-    <Compile Include="Tasks\TasksMag\Tasks_MIn2_v2.cs" />
-    <Compile Include="Tasks\TasksMag\Tasks_MIO.cs" />
-    <Compile Include="Tasks\TasksMag\Tasks_MOut_v2.cs" />
+    <Compile Include="Tasks\TaskInterface.cs" />
+    <Compile Include="Tasks\Tasks4mJ\Tasks_avi01.cs" />
+    <Compile Include="Tasks\TasksCsv\Tasks_csvtest.cs" />
+    <Compile Include="Tasks\TasksCup\Tasks_cot1.cs" />
+    <Compile Include="Tasks\TasksCup\Tasks_cot2.cs" />
+    <Compile Include="Tasks\TasksCup\Tasks_rcp.cs" />
+    <Compile Include="Tasks\TasksCup\Tasks_sta.cs" />
+    <Compile Include="Tasks\TasksMag\Tasks_bto.cs" />
+    <Compile Include="Tasks\TasksMag\Tasks_vlin2 .cs" />
+    <Compile Include="Tasks\TasksMag\Tasks_vlin1.cs" />
+    <Compile Include="Tasks\TasksMag\Tasks_min1.cs" />
+    <Compile Include="Tasks\TasksMag\Tasks_min2.cs" />
+    <Compile Include="Tasks\TasksMag\Tasks_mio.cs" />
+    <Compile Include="Tasks\TasksMag\Tasks_mot.cs" />
     <Compile Include="Functions\WipFuncs.cs" />
     <Compile Include="Forms\PlcTestForm.cs">
       <SubType>Form</SubType>
@@ -153,10 +164,15 @@
       <Project>{b06d2579-7c38-4ce4-a612-62c98fd59bb3}</Project>
       <Name>ArmsWeb</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CojIF\CojIF.csproj">
+      <Project>{e39f3e7a-ef97-44d3-8bbc-fa3085efc4a1}</Project>
+      <Name>CojIF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Oskas\Oskas.csproj">
       <Project>{2f680f5e-efea-406b-a250-a52279b26263}</Project>
       <Name>Oskas</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

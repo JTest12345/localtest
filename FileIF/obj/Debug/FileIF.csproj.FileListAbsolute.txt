@@ -124,3 +124,6 @@ C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\MimeKit.pdb
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\MimeKit.xml
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\BouncyCastle.Crypto.xml
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\System.Buffers.xml
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\ResinPrg.dll
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\CojIF.dll
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\CojIF.pdb

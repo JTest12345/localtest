@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LdcBlend.cs" />
     <Compile Include="WorkEnd.cs" />
     <Compile Include="WorkStart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

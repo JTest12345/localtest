@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,7 +66,8 @@ namespace FileIf
                         fs.Pcat = fs.ff[indexofmagcup + 1]; //設備カテゴリ
                         fs.Macno = fs.ff[indexofmagcup + 2]; //設備No
                         fs.FindFold = fs.ff[indexofmagcup + 3]; //ファイルが検出されたワークフォルダ
-                        fs.MagCupNo = Path.GetFileName(fs.Upperfilepath).Replace(fs.key.ToUpper(), ""); //ファイル名（拡張子なし）
+                        fs.MagCupNo = Path.GetFileName(fs.Upperfilepath).Replace(fs.key.ToUpper(), ""); //ファイル名（拡張子なし:MagCup)
+                        fs.FileNameKey = Path.GetFileName(fs.Upperfilepath).Replace(fs.key.ToUpper(), ""); //ファイル名（拡張子なし:FileIF)
                         fs.RecipeFile = Path.GetFileName(fs.Upperfilepath).Replace(fs.key.ToUpper(), "");  //レシピ名（拡張子なし）
                         fs.fpath = $"{mci.MCDir}\\{fs.Pcat}\\{fs.Macno}"; //設備フォルダパス（ルート）
                         fs.keylbl = Tasks_Common.FindKeyAlt(mci, fs.lowerfilepath); // タスクキーラベル(min1など)
@@ -90,7 +92,8 @@ namespace FileIf
                                 */////////////////////////////////////////////////////
 
                                 //ConfigJson読込関数
-                                string MacConfPath = mci.MCDir + @"\\" + fs.Pcat + @"\\" + fs.Macno + @"\\" + @"conf\macconf.json";
+                                string MacFld = mci.MCDir + "\\" + fs.Pcat + "\\" + fs.Macno;
+                                string MacConfPath = MacFld + "\\conf\\macconf.json";
                                 if (!Macconfjson2fs(fs, MacConfPath))
                                 {
                                     OskNLog.Log("設備設定ファイル(macconf.json)の条件またはkeyに異常があります", Cnslcnf.msg_error);
@@ -99,6 +102,8 @@ namespace FileIf
                                     if (mef[0] != "NA") OskNLog.Log(mef[0], int.Parse(mef[1]));
                                     break; //foreachを抜ける
                                 }
+                                fs.MacFld = MacFld;
+                                fs.MacConfPath = MacConfPath;
 
                                 Task<bool> task2 = Task.Run(() =>
                                 {
@@ -196,7 +201,7 @@ namespace FileIf
         //
         private bool Task2(Mcfilesys fs)
         {
-            string[] FOTaskRslt = new string[3];
+            string[] OutFileTask = new string[3];
 
             ////////////////////////////////
             // 設備のインターロック処理  //
@@ -248,44 +253,84 @@ namespace FileIf
         {
             try
             {
-                string[] DBTaskRslt = new string[4];
-                string[] FOTaskRslt = new string[4];
+                string[] InFileTaskRslt = new string[4];
+                string[] OutFileTask = new string[4];
 
-                Tasks_MagCup Tsk = new Tasks_MagCup();
+                //Tasks_MagCup Tsk = new Tasks_MagCup();
 
                 if (fs.FindFold == "in") //【ファイル検出場所】がINフォルダの場合（正常）
                 {
-                    ///////////////////////////////////////////////
-                    // タスク処理ラウター
-                    ///////////////////////////////////////////////
-                    if (!DBTaskRsltRouter(fs, Tsk, ref DBTaskRslt))
-                    {
-                        return false;
-                    }
+                    /////////////////////////////////////////////////
+                    //// タスク処理(Router)
+                    ///  旧処理：下記のDBタスク処理に移行
+                    /////////////////////////////////////////////////
+                    //if (!InFileTaskRsltRouter(fs, TaskClass, InFileTasks, ref InFileTaskRslt))
+                    //{
+                    //    return false;
+                    //}
+
+                    /////////////////////////////////////////////////
+                    //// タスク処理
+                    /////////////////////////////////////////////////
+                    // ◆keyfile対象Classのコンストラクターを取得
+                    Type iTaskType = Type.GetType("FileIf.Tasks_" + fs.keylbl);
+                    //Type[] types = new Type[1];
+                    //types[0] = typeof(string);
+                    Type[] types = new Type[0];
+                    ConstructorInfo magicConstructor = iTaskType.GetConstructor(types);
+
+                    // ◆keyfile対象クラスを実体化
+                    object TaskClass = magicConstructor.Invoke(new object[] { });
+
+                    // ◆keyfile対象クラスのメソッドを抽出
+                    MethodInfo InFileTasks = iTaskType.GetMethod("InFileTasks");
+                    MethodInfo OutFileTasks = iTaskType.GetMethod("OutFileTasks");
+
+                    // ◆InFileTask実行
+                    object InFileTaskRsltArr = InFileTasks.Invoke(TaskClass, new object[] { fs });
+                    InFileTaskRslt = (string[])InFileTaskRsltArr;
+                    
+
 
                     ///////////////////////////////////////////////
                     // タスク結果処理
                     ///////////////////////////////////////////////
-                    if (DBTaskRslt[0] == "OK") //【DBタスク】が正常完了の場合
+                    if (InFileTaskRslt[0] == "OK") //【DBタスク】が正常完了の場合
                     {
-                        if (!DBTaskRsltIsOK(fs, Tsk, DBTaskRslt, ref FOTaskRslt))
+                        // ◆FOutTask実行
+                        object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, 0 });
+                        OutFileTask = (string[])FOutTaskRsltArr;
+
+                        //if (!InFileTaskRsltIsOK(fs, Tsk, InFileTaskRslt, ref OutFileTask))
+                        if (!InFileTaskRsltIsOK(fs, InFileTaskRslt, ref OutFileTask))
                         {
                             return false;
                         }
                     }
-                    else if (DBTaskRslt[0] == "NG") //【DBタスク】が正常でない場合
+                    else if (InFileTaskRslt[0] == "NG") //【DBタスク】が正常でない場合
                     {
-                        if (!DBTaskRsltIsNG(fs, Tsk, DBTaskRslt, ref FOTaskRslt))
+                        // ◆FOutTask実行(エラーコード有)
+                        object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, int.Parse(InFileTaskRslt[3]) });
+                        OutFileTask = (string[])FOutTaskRsltArr;
+
+                        //if (!InFileTaskRsltIsNG(fs, Tsk, InFileTaskRslt, ref OutFileTask))
+                        if (!InFileTaskRsltIsNG(fs, InFileTaskRslt, ref OutFileTask))
                         {
                             return false;
                         }
                     }
-                    else if (DBTaskRslt[0] == "Cancel") //【DBタスク】中止する場合
+                    else if (InFileTaskRslt[0] == "Cancel") //【DBタスク】中止する場合
                     {
-                        if (!DBTaskRsltIsCancel(fs, Tsk, DBTaskRslt, ref FOTaskRslt))
+                        // ◆FOutTask実行(エラーコード999)
+                        object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, 999 });
+                        OutFileTask = (string[])FOutTaskRsltArr;
+
+                        //if (!InFileTaskRsltIsCancel(fs, Tsk, InFileTaskRslt, ref OutFileTask))
+                        if (!InFileTaskRsltIsCancel(fs, InFileTaskRslt, ref OutFileTask))
                         {
                             return false;
                         }
+
                     }
 
                     ///////////////////////////////////////////////
@@ -293,11 +338,11 @@ namespace FileIf
                     // return falseなし（でよいの？）
                     ///////////////////////////////////////////////
                     // 【OUTフォルダタスク】が異常終了の場合
-                    if (FOTaskRslt[0] == "NG")
+                    if (OutFileTask[0] == "NG")
                     {
-                        OskNLog.Log(DBTaskRslt[2], Cnslcnf.msg_debug);
-                        OskNLog.Log(FOTaskRslt[1], Cnslcnf.msg_error);
-                        OskNLog.Log("サーバー動作異常：エラーが発生しています、管理者に報告してください", Cnslcnf.msg_error);
+                        OskNLog.Log(InFileTaskRslt[2], Cnslcnf.msg_debug);
+                        OskNLog.Log(OutFileTask[1], Cnslcnf.msg_error);
+                        OskNLog.Log("FILEIF動作異常：エラーが発生しています、管理者に報告してください", Cnslcnf.msg_error);
                         string ErrorPath = $"{fs.fpath}\\error\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.err";
                         //
                         //inファイルをエラーフォルダに移動
@@ -326,103 +371,128 @@ namespace FileIf
         }
 
 
-        private bool DBTaskRsltRouter(Mcfilesys fs, Tasks_MagCup Tsk, ref string[] DBTaskRslt)
+        //private bool InFileTaskRsltRouter(Mcfilesys fs, Tasks_MagCup Tsk, ref string[] InFileTaskRslt)
+        //{
+        //    try
+        //    {
+        //        OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスク({fs.keylbl})処理開始", Cnslcnf.msg_info);
+
+        //        switch (fs.key)
+        //        {
+        //            case "_min1.csv":
+        //                fs.mclbl = "MagNo";
+        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
+        //                InFileTaskRslt = Tsk.Min1.InFileTasks(fs);
+        //                break;
+        //            case "_min2.csv":
+        //                fs.mclbl = "MagNo";
+        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
+        //                InFileTaskRslt = Tsk.Min2.InFileTasks(fs);
+        //                break;
+        //            case "_mot.csv":
+        //                fs.mclbl = "MagNo";
+        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
+        //                InFileTaskRslt = Tsk.Mout.InFileTasks(fs);
+        //                break;
+        //            case "_mio.csv":
+        //                fs.mclbl = "MagNo";
+        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
+        //                InFileTaskRslt = Tsk.Mio.InFileTasks(fs);
+        //                break;
+        //            case "_vlin1.csv":
+        //                fs.mclbl = "VlotNo";
+        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
+        //                InFileTaskRslt = Tsk.Vlin1.InFileTasks(fs);
+        //                break;
+        //            case "_vlin2.csv":
+        //                fs.mclbl = "VlotNo";
+        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
+        //                InFileTaskRslt = Tsk.Vlin2.InFileTasks(fs);
+        //                break;
+        //            case "_bto.csv":
+        //                fs.mclbl = "MagNo[1]";
+        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
+        //                InFileTaskRslt = Tsk.Bto.InFileTasks(fs);
+        //                break;
+        //            case "_rcp.txt":
+        //                fs.mclbl = "Recipe";
+        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
+        //                InFileTaskRslt = Tsk.Crcp.InFileTasks(fs);
+        //                break;
+        //            case "_sta.csv":
+        //                fs.mclbl = "Recipe";
+        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
+        //                InFileTaskRslt = Tsk.Csta.InFileTasks(fs);
+        //                break;
+        //            case "_cot1.csv":
+        //                fs.mclbl = "Cup";
+        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
+        //                InFileTaskRslt = Tsk.Cot1.InFileTasks(fs);
+        //                break;
+        //            case "_cot2.csv":
+        //                fs.mclbl = "Cup";
+        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
+        //                InFileTaskRslt = Tsk.Cot2.InFileTasks(fs);
+        //                break;
+        //        }
+
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        OskNLog.Log("【InFileTaskRsltRouter】実行中にExceptionが発生しました", Cnslcnf.msg_error);
+        //        OskNLog.Log(ex.Message, Cnslcnf.msg_error);
+        //        return false;
+        //    }
+        //}
+
+
+        //private bool InFileTaskRsltIsOK(Mcfilesys fs, Tasks_MagCup Tsk, string[] InFileTaskRslt, ref string[] OutFileTask)
+        private bool InFileTaskRsltIsOK(Mcfilesys fs, string[] InFileTaskRslt, ref string[] OutFileTask)
         {
             try
             {
-                OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスク({fs.keylbl})処理開始", Cnslcnf.msg_info);
+                //switch (fs.key)
+                //{
+                //    case "_min1.csv":
+                //        OutFileTask = Tsk.Min1.OutFileTasks(fs, 0);
+                //        break;
+                //    case "_min2.csv":
+                //        OutFileTask = Tsk.Min2.OutFileTasks(fs, 0);
+                //        break;
+                //    case "_mot.csv":
+                //        OutFileTask = Tsk.Mout.OutFileTasks(fs, 0);
+                //        break;
+                //    case "_mio.csv":
+                //        OutFileTask = Tsk.Mio.OutFileTasks(fs, 0);
+                //        break;
+                //    case "_vlin1.csv":
+                //        OutFileTask = Tsk.Vlin1.OutFileTasks(fs, 0);
+                //        break;
+                //    case "_vlin2.csv":
+                //        OutFileTask = Tsk.Vlin2.OutFileTasks(fs, 0);
+                //        break;
+                //    case "_bto.csv":
+                //        OutFileTask = Tsk.Bto.OutFileTasks(fs, 0);
+                //        break;
+                //    case "_rcp.txt":
+                //        OutFileTask = Tsk.Crcp.OutFileTasks(fs, 0);
+                //        break;
+                //    case "_sta.csv":
+                //        OutFileTask = Tsk.Csta.OutFileTasks(fs, 0);
+                //        break;
+                //    case "_cot1.csv":
+                //        OutFileTask = Tsk.Cot1.OutFileTasks(fs, 0);
+                //        break;
+                //    case "_cot2.csv":
+                //        OutFileTask = Tsk.Cot2.OutFileTasks(fs, 0);
+                //        break;
+                //}
 
-                switch (fs.key)
+                if (OutFileTask[0] == "OK") //【OUTフォルダタスク】が正常終了の場合
                 {
-                    case "_min1.csv":
-                        fs.mclbl = "MagNo";
-                        fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-                        DBTaskRslt = Tsk.Min1.DBTasks(fs);
-                        break;
-                    case "_min2.csv":
-                        fs.mclbl = "MagNo";
-                        fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-                        DBTaskRslt = Tsk.Min2.DBTasks(fs);
-                        break;
-                    case "_mot.csv":
-                        fs.mclbl = "MagNo";
-                        fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-                        DBTaskRslt = Tsk.Mout.DBTasks(fs);
-                        break;
-                    case "_mio.csv":
-                        fs.mclbl = "MagNo";
-                        fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-                        DBTaskRslt = Tsk.Mio.DBTasks(fs);
-                        break;
-                    case "_rcp.txt":
-                        fs.mclbl = "Recipe";
-                        fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-                        DBTaskRslt = Tsk.Crcp.DBTasks(fs);
-                        break;
-                    case "_sta.csv":
-                        fs.mclbl = "Recipe";
-                        fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-                        DBTaskRslt = Tsk.Csta.DBTasks(fs);
-                        break;
-                    case "_cot1.csv":
-                        fs.mclbl = "Cup";
-                        fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-                        DBTaskRslt = Tsk.Cot1.DBTasks(fs);
-                        break;
-                    case "_cot2.csv":
-                        fs.mclbl = "Cup";
-                        fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-                        DBTaskRslt = Tsk.Cot2.DBTasks(fs);
-                        break;
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                OskNLog.Log("【DBTaskRsltRouter】実行中にExceptionが発生しました", Cnslcnf.msg_error);
-                OskNLog.Log(ex.Message, Cnslcnf.msg_error);
-                return false;
-            }
-        }
-
-
-        private bool DBTaskRsltIsOK(Mcfilesys fs, Tasks_MagCup Tsk, string[] DBTaskRslt, ref string[] FOTaskRslt)
-        {
-            try
-            {
-                switch (fs.key)
-                {
-                    case "_min1.csv":
-                        FOTaskRslt = Tsk.Min1.FOutTasks(fs, 0);
-                        break;
-                    case "_min2.csv":
-                        FOTaskRslt = Tsk.Min2.FOutTasks(fs, 0);
-                        break;
-                    case "_mot.csv":
-                        FOTaskRslt = Tsk.Mout.FOutTasks(fs, 0);
-                        break;
-                    case "_mio.csv":
-                        FOTaskRslt = Tsk.Mio.FOutTasks(fs, 0);
-                        break;
-                    case "_rcp.txt":
-                        FOTaskRslt = Tsk.Crcp.FOutTasks(fs, 0);
-                        break;
-                    case "_sta.csv":
-                        FOTaskRslt = Tsk.Csta.FOutTasks(fs, 0);
-                        break;
-                    case "_cot1.csv":
-                        FOTaskRslt = Tsk.Cot1.FOutTasks(fs, 0);
-                        break;
-                    case "_cot2.csv":
-                        FOTaskRslt = Tsk.Cot2.FOutTasks(fs, 0);
-                        break;
-                }
-
-                if (FOTaskRslt[0] == "OK") //【OUTフォルダタスク】が正常終了の場合
-                {
-                    OskNLog.Log(DBTaskRslt[2], Cnslcnf.msg_debug);
-                    if (DBTaskRslt[1] != "") OskNLog.Log(DBTaskRslt[1], Cnslcnf.msg_info);
+                    OskNLog.Log(InFileTaskRslt[2], Cnslcnf.msg_debug);
+                    if (InFileTaskRslt[1] != "") OskNLog.Log(InFileTaskRslt[1], Cnslcnf.msg_info);
                     //
                     //inファイルの消去
                     //
@@ -437,50 +507,71 @@ namespace FileIf
             }
             catch (Exception ex)
             {
-                OskNLog.Log("【DBTaskRsltIsOK】実行中にExceptionが発生しました", Cnslcnf.msg_error);
+                OskNLog.Log("【InFileTaskRsltIsOK】実行中にExceptionが発生しました", Cnslcnf.msg_error);
                 OskNLog.Log(ex.Message, Cnslcnf.msg_error);
                 return false;
             }
         }
 
 
-        private bool DBTaskRsltIsNG(Mcfilesys fs, Tasks_MagCup Tsk, string[] DBTaskRslt, ref string[] FOTaskRslt)
+        //private bool InFileTaskRsltIsNG(Mcfilesys fs, Tasks_MagCup Tsk, string[] InFileTaskRslt, ref string[] OutFileTask)
+        private bool InFileTaskRsltIsNG(Mcfilesys fs, string[] InFileTaskRslt, ref string[] OutFileTask)
         {
             try
             {
-                //【OUTフォルダタスク】マガジン情報出力
-                switch (fs.key)
-                {
-                    case "_min1.csv":
-                        FOTaskRslt = Tsk.Min1.FOutTasks(fs, int.Parse(DBTaskRslt[3]));
-                        break;
-                    case "_min2.csv":
-                        FOTaskRslt = Tsk.Min2.FOutTasks(fs, int.Parse(DBTaskRslt[3]));
-                        break;
-                    case "_mot.csv":
-                        FOTaskRslt = Tsk.Mout.FOutTasks(fs, int.Parse(DBTaskRslt[3]));
-                        break;
-                    case "_mio.csv":
-                        FOTaskRslt = Tsk.Mio.FOutTasks(fs, int.Parse(DBTaskRslt[3]));
-                        break;
-                    case "_rcp.txt":
-                        FOTaskRslt = Tsk.Crcp.FOutTasks(fs, int.Parse(DBTaskRslt[3]));
-                        break;
-                    case "_sta.csv":
-                        FOTaskRslt = Tsk.Csta.FOutTasks(fs, int.Parse(DBTaskRslt[3]));
-                        break;
-                    case "_cot1.csv":
-                        FOTaskRslt = Tsk.Cot1.FOutTasks(fs, int.Parse(DBTaskRslt[3]));
-                        break;
-                    case "_cot2.csv":
-                        FOTaskRslt = Tsk.Cot2.FOutTasks(fs, int.Parse(DBTaskRslt[3]));
-                        break;
-                }
+                ////【OUTフォルダタスク】マガジン情報出力
+                //switch (fs.key)
+                //{
+                //    // MAGファイル：通常工程開始①
+                //    case "_min1.csv":
+                //        OutFileTask = Tsk.Min1.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
+                //        break;
+                //    // MAGファイル：通常工程開始②
+                //    case "_min2.csv":
+                //        OutFileTask = Tsk.Min2.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
+                //        break;
+                //    // MAGファイル：通常工程完了
+                //    case "_mot.csv":
+                //        OutFileTask = Tsk.Mout.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
+                //        break;
+                //    // MAGファイル：通常工程開始完了一括
+                //    case "_mio.csv":
+                //        OutFileTask = Tsk.Mio.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
+                //        break;
+                //    // MAGファイル：V溝バリ取り工程開始①
+                //    case "_vlin1.csv":
+                //        OutFileTask = Tsk.Vlin1.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
+                //        break;
+                //    // MAGファイル：V溝バリ取り工程開始②
+                //    case "_vlin2.csv":
+                //        OutFileTask = Tsk.Vlin2.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
+                //        break;
+                //    // MAGファイル：レーザーダイサーのブレンド完了処理
+                //    case "_bto.csv":
+                //        OutFileTask = Tsk.Bto.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
+                //        break;
+                //    // CUPファイル：樹脂配合レシピ受付
+                //    case "_rcp.txt":
+                //        OutFileTask = Tsk.Crcp.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
+                //        break;
+                //    // CUPファイル：樹脂配合レシピ開始
+                //    case "_sta.csv":
+                //        OutFileTask = Tsk.Csta.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
+                //        break;
+                //    // CUPファイル：樹脂配合材料配合完了
+                //    case "_cot1.csv":
+                //        OutFileTask = Tsk.Cot1.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
+                //        break;
+                //    // CUPファイル：樹脂配合撹拌完了
+                //    case "_cot2.csv":
+                //        OutFileTask = Tsk.Cot2.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
+                //        break;
+                //}
 
-                if (FOTaskRslt[0] == "OK") //【OUTフォルダタスク】が正常終了の場合
+                if (OutFileTask[0] == "OK") //【OUTフォルダタスク】が正常終了の場合
                 {
-                    OskNLog.Log(DBTaskRslt[2], Cnslcnf.msg_debug);
-                    OskNLog.Log(DBTaskRslt[1], Cnslcnf.msg_error);
+                    OskNLog.Log(InFileTaskRslt[2], Cnslcnf.msg_debug);
+                    OskNLog.Log(InFileTaskRslt[1], Cnslcnf.msg_error);
                     string ErrorPath = $"{fs.fpath}\\error\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.err";
                     //
                     //inファイルをエラーフォルダに移動
@@ -498,14 +589,15 @@ namespace FileIf
             }
             catch (Exception ex)
             {
-                OskNLog.Log("【DBTaskRsltIsNG】実行中にExceptionが発生しました", Cnslcnf.msg_error);
+                OskNLog.Log("【InFileTaskRsltIsNG】実行中にExceptionが発生しました", Cnslcnf.msg_error);
                 OskNLog.Log(ex.Message, Cnslcnf.msg_error);
                 return false;
             }
         }
 
 
-        private bool DBTaskRsltIsCancel(Mcfilesys fs, Tasks_MagCup Tsk, string[] DBTaskRslt, ref string[] FOTaskRslt)
+        //private bool InFileTaskRsltIsCancel(Mcfilesys fs, Tasks_MagCup Tsk, string[] InFileTaskRslt, ref string[] OutFileTask)
+        private bool InFileTaskRsltIsCancel(Mcfilesys fs, string[] InFileTaskRslt, ref string[] OutFileTask)
         {
             try
             {
@@ -520,25 +612,19 @@ namespace FileIf
                 //////////////////////////////////////////////////////////////////////////////////////
                 //【OUTフォルダタスク】マガジン情報出力
 
-                switch (fs.key)
-                {
-                    case "_sta.csv":
-                        FOTaskRslt = Tsk.Csta.FOutTasks(fs, 999);
-                        break;
-                }
                 var fldn = new List<string> { "wip", "temp", "in", "out" };
                 cleanfiles(fs, fldn);
-                OskNLog.Log(DBTaskRslt[2], Cnslcnf.msg_debug);
-                if (DBTaskRslt[1] != "") OskNLog.Log(DBTaskRslt[1], Cnslcnf.msg_info);
+                OskNLog.Log(InFileTaskRslt[2], Cnslcnf.msg_debug);
+                if (InFileTaskRslt[1] != "") OskNLog.Log(InFileTaskRslt[1], Cnslcnf.msg_info);
 
-                if (FOTaskRslt[0] == "OK") FOTaskRslt[0] = "Cancel";
+                if (OutFileTask[0] == "OK") OutFileTask[0] = "Cancel";
                 // OUTファイルNGの場合の処理は「【OUTフォルダタスク】が異常終了の場合」で共通処理
 
                 return true;
             }
             catch (Exception ex)
             {
-                OskNLog.Log("【DBTaskRsltIsCancel】実行中にExceptionが発生しました", Cnslcnf.msg_error);
+                OskNLog.Log("【InFileTaskRsltIsCancel】実行中にExceptionが発生しました", Cnslcnf.msg_error);
                 OskNLog.Log(ex.Message, Cnslcnf.msg_error);
                 return false;
             }
@@ -549,8 +635,8 @@ namespace FileIf
         {
             try
             {
-                string[] DBTaskRslt = new string[4];
-                string[] FOTaskRslt = new string[4];
+                string[] InFileTaskRslt = new string[4];
+                string[] OutFileTask = new string[4];
 
                 TimeSpan timeout = new TimeSpan(0, 0, mci.outfiletimeout);
                 DateTime ts = System.IO.File.GetLastWriteTime(filepath); //削除後すぐに同名ファイルが書き込まれると上書きになる場合があるみたい

@@ -68,8 +68,9 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ArmsCejApi">
-      <HintPath>\\vautom2\ARMS\Config\ArmsCejApi.dll</HintPath>
+    <Reference Include="ArmsCejApi, Version=1.159.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libcej\ArmsCejApi.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\ArmsApi\log4net\log4net.dll</HintPath>

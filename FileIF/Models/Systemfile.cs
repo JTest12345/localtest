@@ -9,32 +9,39 @@ namespace FileIf
     ////////////////////////////////////
     ///
     /// MagCupタスククラス
+    /// 20211209廃止
     ///
     ////////////////////////////////////
 
-    class Tasks_MagCup
-    {
-        public Tasks_MIn1_v2 Min1;
-        public Tasks_MIn2_v2 Min2;
-        public Tasks_MOut_v2 Mout;
-        public Tasks_MIO Mio;
-        public Tasks_Crcp_v1_1 Crcp;
-        public Tasks_Csta_v1_1 Csta;
-        public Tasks_Cot1_v1_1 Cot1;
-        public Tasks_Cot2_v1_1 Cot2;
+    //class Tasks_MagCup
+    //{
+    //    public Tasks_min1 Min1;
+    //    public Tasks_min2 Min2;
+    //    public Tasks_mot Mout;
+    //    public Tasks_mio Mio;
+    //    public Tasks_vlin1 Vlin1;
+    //    public Tasks_vlin2 Vlin2;
+    //    public Tasks_bto Bto;
+    //    public Tasks_rcp Crcp;
+    //    public Tasks_sta Csta;
+    //    public Tasks_cot1 Cot1;
+    //    public Tasks_cot2 Cot2;
 
-        public Tasks_MagCup()
-        {
-            Min1 = new Tasks_MIn1_v2();
-            Min2 = new Tasks_MIn2_v2();
-            Mout = new Tasks_MOut_v2();
-            Mio = new Tasks_MIO();
-            Crcp = new Tasks_Crcp_v1_1();
-            Csta = new Tasks_Csta_v1_1();
-            Cot1 = new Tasks_Cot1_v1_1();
-            Cot2 = new Tasks_Cot2_v1_1();
-        }
-    }
+    //    public Tasks_MagCup()
+    //    {
+    //        Min1 = new Tasks_min1();
+    //        Min2 = new Tasks_min2();
+    //        Mout = new Tasks_mot();
+    //        Mio = new Tasks_mio();
+    //        Vlin1 = new Tasks_vlin1();
+    //        Vlin2 = new Tasks_vlin2();
+    //        Bto = new Tasks_bto();
+    //        Crcp = new Tasks_rcp();
+    //        Csta = new Tasks_sta();
+    //        Cot1 = new Tasks_cot1();
+    //        Cot2 = new Tasks_cot2();
+    //    }
+    //}
 
 
     ////////////////////////////////////
@@ -55,8 +62,11 @@ namespace FileIf
         public string Macno { get; set; }
         public string FindFold { get; set; }
         public string MagCupNo { get; set; }
+        public string FileNameKey { get; set; }
         public string RecipeFile { get; set; }
         public string fpath { get; set; }
+        public string MacFld { get; set; }
+        public string MacConfPath { get; set; }
         public string keylbl { get; set; }
         public string mclbl { get; set; }
         public string[] lbl { get; set; }
@@ -116,7 +126,7 @@ namespace FileIf
         public string ConnectionString1 { get; set; }
         public string ConnectionString2 { get; set; }
         public string[] ConnectionStrings { get; set; }
-        // サーバー開始時刻
+        // FILEIF開始時刻
         public DateTime SrvStatDT { get; set; }
         // ログのパス
         public string MsglogPath { get; set; }

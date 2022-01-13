@@ -1,0 +1,280 @@
+{
+  "cojHeader": {
+    "objectId": "COJ_CSV001_01",
+    "objectType": "QualityDivCsv",
+    "docNo": "",
+    "createdBy": "",
+    "createdAt": "",
+    "updatedBy": "",
+    "updatedAt": "",
+    "revision": 1,
+    "isRelesed": true,
+    "isDeleted": false,
+    "division": "OPT",
+    "site": "CET_Sakaigawa",
+    "procno": "",
+    "plantcd": "",
+    "macno": "",
+    "typecd": "",
+    "lotno": "",
+    "magno": "",
+    "description": "オプトVIP外観検査"
+  },
+  "cejObject": {
+    "formHeader": {
+      "hasValues": false,
+      "isClosed": false
+    },
+    "objList": [
+      {
+        "mmStatus": {
+          "inpStatus": "complete",
+          "hasValues": false,
+          "isClosed": false
+        },
+        "inStatus": {
+          "inpStatus": "incomplete",
+          "hasValues": false,
+          "isClosed": false
+        },
+        "schema": {
+          "title": "基本情報",
+          "description": "",
+          "type": "object",
+          "required": [
+
+          ],
+          "properties": {
+            "kishulot": {
+              "type": "string",
+              "title": "機種・LOT"
+            },
+            "tanto": {
+              "type": "string",
+              "title": "担当",
+              "description": ""
+            },
+            "jyoukenmei": {
+              "type": "string",
+              "title": "条件名",
+              "description": ""
+            },
+            "gouki": {
+              "type": "number",
+              "title": "号機",
+              "description": ""
+            }
+          }
+        },
+        "uiSchema": {
+
+        },
+        "formData": {
+
+        },
+        "dataNames": {
+          "test": "テスト"
+        }
+      },
+      {
+        "mmStatus": {
+          "inpStatus": "complete",
+          "hasValues": false,
+          "isClosed": false,
+          "useDefaultFmData": false
+        },
+        "inStatus": {
+          "inpStatus": "incomplete",
+          "hasValues": false,
+          "isClosed": false
+        },
+        "schema": {
+          "title": "実績情報",
+          "description": "",
+          "type": "object",
+          "required": [
+
+          ],
+          "properties": {
+            "kaishijikan": {
+              "type": "string",
+              "title": "検査時間"
+            },
+            "shuryojikan": {
+              "type": "string",
+              "title": "検査時間"
+            },
+            "kensajikan": {
+              "type": "string",
+              "title": "検査時間"
+            },
+            "hpk": {
+              "type": "string",
+              "title": "h/K",
+              "description": ""
+            },
+            "budomari": {
+              "type": "number",
+              "title": "歩留",
+              "description": ""
+            },
+            "tounyusu": {
+              "type": "number",
+              "title": "投入数",
+              "description": ""
+            },
+            "ryouhinkei": {
+              "type": "number",
+              "title": "良品計",
+              "description": ""
+            },
+            "furyoukei": {
+              "type": "number",
+              "title": "不良計",
+              "description": ""
+            }
+          }
+        },
+        "uiSchema": {
+
+        },
+        "formData": {
+
+        },
+        "dataNames": {
+
+        }
+      },
+      {
+        "mmStatus": {
+          "inpStatus": "complete",
+          "hasValues": false,
+          "isClosed": false,
+          "useDefaultFmData": false
+        },
+        "inStatus": {
+          "inpStatus": "incomplete",
+          "hasValues": false,
+          "isClosed": false
+        },
+        "schema": {
+          "title": "不良項目情報",
+          "description": "",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "furyocode": {
+                "title": "不良コード",
+                "type": "string"
+              },
+              "furyomei": {
+                "title": "不良項目名",
+                "type": "string"
+              },
+              "haishutusu": {
+                "title": "排出数",
+                "type": "integer"
+              },
+              "kenshutusu": {
+                "title": "検出数",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "uiSchema": {
+
+        },
+        "dataNames": {
+          "test": "テスト"
+        },
+        "formData": {
+
+        }
+      },
+      {
+        "mmStatus": {
+          "inpStatus": "complete",
+          "hasValues": false,
+          "isClosed": false,
+          "useDefaultFmData": false
+        },
+        "inStatus": {
+          "inpStatus": "incomplete",
+          "hasValues": false,
+          "isClosed": false
+        },
+        "schema": {
+          "title": "投入明細",
+          "description": "",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "kaisijikan": {
+                "title": "開始時間",
+                "type": "string"
+              },
+              "shuryoujikan": {
+                "title": "終了時間",
+                "type": "string"
+              },
+              "jikan": {
+                "title": "時間",
+                "type": "string"
+              },
+              "kaisu": {
+                "title": "回数",
+                "type": "integer"
+              },
+              "budomari": {
+                "title": "歩留",
+                "type": "number"
+              },
+              "tounyusu": {
+                "title": "投入数",
+                "type": "integer"
+              },
+              "ryouhinsu": {
+                "title": "良品数",
+                "type": "integer"
+              },
+              "furyo1": {
+                "title": "不良1",
+                "type": "integer"
+              },
+              "furyo2": {
+                "title": "不良2",
+                "type": "integer"
+              },
+              "mikensa": {
+                "title": "未検査",
+                "type": "integer"
+              },
+              "hpk": {
+                "title": "H/K",
+                "type": "number"
+              },
+              "costpp": {
+                "title": "￥/個",
+                "type": "number"
+              }
+            }
+          }
+        },
+        "uiSchema": {
+
+        },
+        "formData": {
+
+        },
+        "dataNames": {
+
+        }
+      }
+    ]
+  }
+}

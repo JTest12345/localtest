@@ -148,3 +148,16 @@ C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\FILEIF.pdb
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Release\FILEIF.exe.config
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Release\FILEIF.exe
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Release\FILEIF.pdb
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\ArmsWebApi.dll
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\MailKit.dll
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\MimeKit.dll
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\ArmsWebApi.pdb
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\MailKit.pdb
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\MailKit.xml
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\MimeKit.pdb
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\MimeKit.xml
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\BouncyCastle.Crypto.xml
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\System.Buffers.xml
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\ResinPrg.dll
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\CojIF.dll
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\CojIF.pdb

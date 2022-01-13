@@ -48,30 +48,35 @@
             // consoleBox
             // 
             this.consoleBox.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.consoleBox.Size = new System.Drawing.Size(760, 358);
+            this.consoleBox.Size = new System.Drawing.Size(760, 349);
             // 
             // btServerStart
             // 
-            this.btServerStart.Location = new System.Drawing.Point(681, 504);
+            this.btServerStart.Location = new System.Drawing.Point(681, 534);
             this.btServerStart.Size = new System.Drawing.Size(91, 31);
             this.btServerStart.Text = "Start Hub";
             this.btServerStart.Click += new System.EventHandler(this.btServerStart_Click);
             // 
             // txt_dev
             // 
-            this.txt_dev.Location = new System.Drawing.Point(207, 509);
+            this.txt_dev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txt_dev.Location = new System.Drawing.Point(207, 538);
             this.txt_dev.Name = "txt_dev";
             this.txt_dev.Size = new System.Drawing.Size(81, 25);
             this.txt_dev.TabIndex = 5;
+            this.txt_dev.Visible = false;
+            this.txt_dev.WordWrap = false;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(294, 505);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Location = new System.Drawing.Point(294, 535);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(99, 31);
             this.button1.TabIndex = 6;
             this.button1.Text = "TestGetData";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // menuStrip1
@@ -96,8 +101,9 @@
             // MnSettei_OpenFile
             // 
             this.MnSettei_OpenFile.Name = "MnSettei_OpenFile";
-            this.MnSettei_OpenFile.Size = new System.Drawing.Size(132, 22);
+            this.MnSettei_OpenFile.Size = new System.Drawing.Size(180, 22);
             this.MnSettei_OpenFile.Text = "設定ファイル";
+            this.MnSettei_OpenFile.Click += new System.EventHandler(this.MnSettei_OpenFile_Click);
             // 
             // MnHyouji
             // 
@@ -116,7 +122,8 @@
             // 
             // bt_StopHub
             // 
-            this.bt_StopHub.Location = new System.Drawing.Point(585, 505);
+            this.bt_StopHub.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bt_StopHub.Location = new System.Drawing.Point(585, 534);
             this.bt_StopHub.Name = "bt_StopHub";
             this.bt_StopHub.Size = new System.Drawing.Size(90, 31);
             this.bt_StopHub.TabIndex = 9;
@@ -126,19 +133,21 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(399, 505);
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button2.Location = new System.Drawing.Point(399, 534);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(85, 31);
             this.button2.TabIndex = 10;
             this.button2.Text = "NlogTest";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // FmOvens
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(784, 591);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.bt_StopHub);
             this.Controls.Add(this.button1);
@@ -146,10 +155,10 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.MinimumSize = new System.Drawing.Size(500, 600);
             this.Name = "FmOvens";
             this.Text = "Oven Data Hub";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FmOvens_FormClosing);
+            this.Controls.SetChildIndex(this.ErrorLogComsole, 0);
             this.Controls.SetChildIndex(this.menuStrip1, 0);
             this.Controls.SetChildIndex(this.consoleBox, 0);
             this.Controls.SetChildIndex(this.btServerStart, 0);

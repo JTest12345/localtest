@@ -364,7 +364,7 @@ namespace Ovens.models
                         {
                             FetchStatus = 2;
                             if (plcDateFailCount < plcDateFailLimit) plcDateFailCount++;
-                            msg += "PLCの日時が前回と同じです。" + "\r\n";
+                            msg += Macno + ": PLCの日時が前回と同じです。" + "\r\n";
                             consoleAction(msg, Cnslcnf.msg_warn);
                             return;
                         }
@@ -380,7 +380,7 @@ namespace Ovens.models
                     {
                         FetchStatus = 3;
                         msg += dt + "\r\n";
-                        msg += "PLCの日時データ取得時に問題が発生しました。" + "\r\n";
+                        msg += Macno + ": PLCの日時データ取得時に問題が発生しました。" + "\r\n";
                         consoleAction(msg, Cnslcnf.msg_error);
                         return;
                     }
@@ -627,9 +627,9 @@ namespace Ovens.models
 
                     var msg = string.Empty;
                     //if (!db.InsertTnOvenData(ref msg))
-                    if (!db.InsertTnOvenData())
+                    if (!db.InsertTnOvenData(ref msg))
                     {
-                        msg = "DB登録が失敗しました";
+                        msg = Macno + "の" + "DB登録が失敗しました\r\n" + msg;
                         consoleAction(msg + "\r\n", Cnslcnf.msg_error);
                     }
                     else
@@ -744,7 +744,7 @@ namespace Ovens.models
                     else
                     {
                         //
-                        dbgmsg = "データ取得失敗" + "\r\n";
+                        dbgmsg = oven.OVEN_NAME + "データ取得失敗" + "\r\n";
                         return false;
                     }
                 }

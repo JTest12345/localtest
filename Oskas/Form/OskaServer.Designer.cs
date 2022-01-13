@@ -44,21 +44,25 @@
             // 
             // consoleBox
             // 
+            this.consoleBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.consoleBox.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.consoleBox.Location = new System.Drawing.Point(12, 28);
             this.consoleBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.consoleBox.MaxLength = 0;
             this.consoleBox.Multiline = true;
             this.consoleBox.Name = "consoleBox";
             this.consoleBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.consoleBox.Size = new System.Drawing.Size(760, 360);
+            this.consoleBox.Size = new System.Drawing.Size(760, 351);
             this.consoleBox.TabIndex = 0;
             this.consoleBox.WordWrap = false;
             // 
             // btServerStart
             // 
-            this.btServerStart.Location = new System.Drawing.Point(645, 505);
+            this.btServerStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btServerStart.Location = new System.Drawing.Point(645, 536);
             this.btServerStart.Name = "btServerStart";
-            this.btServerStart.Size = new System.Drawing.Size(127, 31);
+            this.btServerStart.Size = new System.Drawing.Size(127, 30);
             this.btServerStart.TabIndex = 3;
             this.btServerStart.Text = "Start Server";
             this.btServerStart.UseVisualStyleBackColor = true;
@@ -72,7 +76,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 539);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 569);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(784, 22);
             this.statusStrip1.SizingGrip = false;
@@ -97,8 +101,9 @@
             // 
             // bt_ClearErrLogs
             // 
+            this.bt_ClearErrLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bt_ClearErrLogs.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.bt_ClearErrLogs.Location = new System.Drawing.Point(13, 505);
+            this.bt_ClearErrLogs.Location = new System.Drawing.Point(13, 536);
             this.bt_ClearErrLogs.Name = "bt_ClearErrLogs";
             this.bt_ClearErrLogs.Size = new System.Drawing.Size(166, 30);
             this.bt_ClearErrLogs.TabIndex = 10;
@@ -110,7 +115,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(14, 388);
+            this.label1.Location = new System.Drawing.Point(14, 383);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(129, 17);
             this.label1.TabIndex = 9;
@@ -118,19 +123,23 @@
             // 
             // ErrorLogComsole
             // 
+            this.ErrorLogComsole.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ErrorLogComsole.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.ErrorLogComsole.ForeColor = System.Drawing.Color.Red;
-            this.ErrorLogComsole.Location = new System.Drawing.Point(13, 407);
+            this.ErrorLogComsole.Location = new System.Drawing.Point(13, 402);
             this.ErrorLogComsole.Multiline = true;
             this.ErrorLogComsole.Name = "ErrorLogComsole";
             this.ErrorLogComsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.ErrorLogComsole.Size = new System.Drawing.Size(759, 92);
+            this.ErrorLogComsole.Size = new System.Drawing.Size(759, 128);
             this.ErrorLogComsole.TabIndex = 8;
             // 
             // fmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(784, 591);
             this.Controls.Add(this.bt_ClearErrLogs);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ErrorLogComsole);
@@ -139,8 +148,8 @@
             this.Controls.Add(this.consoleBox);
             this.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MaximumSize = new System.Drawing.Size(800, 600);
-            this.MinimumSize = new System.Drawing.Size(800, 600);
+            this.MaximumSize = new System.Drawing.Size(1920, 1200);
+            this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "fmMain";
             this.Text = "Oskas Server Flame";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.fmMain_FormClosing);
@@ -161,7 +170,7 @@
         protected System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.Button bt_ClearErrLogs;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox ErrorLogComsole;
+        protected System.Windows.Forms.TextBox ErrorLogComsole;
     }
 }
 

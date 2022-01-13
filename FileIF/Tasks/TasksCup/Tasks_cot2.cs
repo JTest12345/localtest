@@ -6,47 +6,37 @@ using Oskas;
 
 namespace FileIf
 {
-    class Tasks_Cot2_v1_1
+    class Tasks_cot2: Tasks_base
     {
-        //CommonFuncs commons;
-        Tasks_Common tcommons;
-        PlcCom plc;
-        MySQL sql;
-
         //ファイルクラス
-        Contents_cot2 cot2;
-        Macconinfo minfo;
+        TaskFile_cot2 cot2;
 
-        //本タスクにて使用するDBテーブル
+        //本タスクにて使用するDBモデル
         resincup_info rcinfo;
 
-        Dictionary<string, string> Dict; //Endファイル用変数格納用辞書
-
-        static string crlf = "\r\n"; // 改行コード
-        int taskid = 0; //タスクID
+        //Endファイル用変数格納用辞書
+        Dictionary<string, string> Dict; 
 
         // 初期化
-        public Tasks_Cot2_v1_1()
+        public Tasks_cot2()
         {
             //commons = new CommonFuncs();
             tcommons = new Tasks_Common();
-            plc = new PlcCom();
-            sql = new MySQL();
 
             minfo = new Macconinfo();
-            cot2 = new Contents_cot2();
-
-            rcinfo = new resincup_info();
+            cot2 = new TaskFile_cot2();
 
             Dict = new Dictionary<string, string>();
             Dict.Add("ok", "OK");
             Dict.Add("0", "0");
         }
 
-        // rcpのデータベース操作タスク関数
-        public string[] DBTasks(Mcfilesys fs) //(string pcat, string macno, string cupno, string fpath, string[] lbl)
+        // データベース操作タスク関数
+        public string[] InFileTasks(Mcfilesys fs) //(string pcat, string macno, string cupno, string fpath, string[] lbl)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
+            fs.mclbl = "Cup";
+            fs.lbl = new string[] { fs.mclbl, fs.keylbl };
             fs.ConnectionString = fs.mci.ConnectionStrings[1]; // iniファイルのDatabase2を選択
 
 
@@ -109,36 +99,49 @@ namespace FileIf
                 taskid += 1;
                 List<string> QueryScr = new List<string>();
 
-                //resincup_infoテーブルUPDATE
+                //CUP情報登録
                 DateTime dt = DateTime.Now;
                 string datetime = dt.ToString("yyyy-MM-dd HH:mm:ss");
-                rcinfo.Dt_kakuhan = datetime;
-                rcinfo.Macno_kakuhan = minfo.Macno;
-                rcinfo.Cupno = fs.MagCupNo;
-                rcinfo.Cstmproduct = cot2.product_out;
+                rcinfo = new resincup_info()
+                {
+                    Dt_kakuhan = datetime,
+                    Macno_kakuhan = minfo.Macno,
+                    Cupno = fs.MagCupNo,
+                    Cstmproduct = cot2.product_out
+                };
+
+                rcinfo.updateResinCCupInfo();
 
                 if (rcinfo.Dt_kakuhan == "" || rcinfo.Macno_kakuhan == "" || rcinfo.Cupno == "" || rcinfo.Cstmproduct == "")
                 {
-                    string mes = "resincup_infoテーブルのUPDATEに必要なデータに空があります";
+                    string mes = "CupデータのDB登録に必要なデータに空があります";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
 
-                QueryScr.Add($"UPDATE resincup_info SET datetime_kakuhan='{rcinfo.Dt_kakuhan}', macno_kakuhan='{rcinfo.Macno_kakuhan}' WHERE cupno='{rcinfo.Cupno}'");
-                Dbgmsg += "Query1: " + QueryScr[0] + crlf;
+                //QueryScr.Add($"UPDATE resincup_info SET datetime_kakuhan='{rcinfo.Dt_kakuhan}', macno_kakuhan='{rcinfo.Macno_kakuhan}' WHERE cupno='{rcinfo.Cupno}'");
+                //Dbgmsg += "Query1: " + QueryScr[0] + crlf;
 
-                // QueryScrリストからSQL文を実行
-                foreach (string quer in QueryScr)
+                //// QueryScrリストからSQL文を実行
+                //foreach (string quer in QueryScr)
+                //{
+                //    if (!sql.SqlTask_Write(fs.lbl[1] + taskid.ToString(), fs.ConnectionString, quer, ref Dbgmsg))
+                //    {
+                //        Dbgmsg = msg;
+                //        string mes = "Queryの実行が失敗しました";
+                //        msg = tcommons.ErrorMessage(taskid, fs, mes);
+                //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //    }
+                //}
+
+                // JunkiSys.Dll
+                if (!ResinPrg.WorkResin.CupMatCompleted(rcinfo.resincupInfo, rcinfo.Macno_kakuhan, dt, ref msg))
                 {
-                    if (!sql.SqlTask_Write(fs.lbl[1] + taskid.ToString(), fs.ConnectionString, quer, ref Dbgmsg))
-                    {
-                        Dbgmsg = msg;
-                        string mes = "Queryの実行が失敗しました";
-                        msg = tcommons.ErrorMessage(taskid, fs, mes);
-                        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                    }
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
-                Dbgmsg += "Queryの実行は全て終了しました" + crlf;
+
+                Dbgmsg += "DB登録が完了しました" + crlf;
             }
             catch (Exception ex)
             {
@@ -156,14 +159,14 @@ namespace FileIf
             }
 
 
-            msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} DBタスク終了";
+            msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} タスク終了";
             return new string[] { "OK", msg, Dbgmsg, "0" };
         }
 
 
 
         // outのEND出力タスク関数
-        public string[] FOutTasks(Mcfilesys fs, int errorcode) //(string pcat, string macno, string magno, string fpath, int errorcode, string[] lbl)
+        public string[] OutFileTasks(Mcfilesys fs, int errorcode) //(string pcat, string macno, string magno, string fpath, int errorcode, string[] lbl)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
 

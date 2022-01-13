@@ -19,6 +19,7 @@ namespace Ovens
         public string division { get; set; }
         public string site { get; set; }
         public string discription { get; set; }
+        public string path { get; set; }
         public string macno { get; set; }
     }
 
@@ -68,11 +69,24 @@ namespace Ovens
         public HeaderOvn header_ovn { get; set; }
         public Plc plc { get; set; }
         public List<Oven> oven { get; set; }
+        public string mail_title { get; set; }
+        public string mail_contents { get; set; }
+    }
+
+    public class MailConf
+    {
+        public int ovenAlarmTime_Min { get; set; }
+        public int pubMailTimes{ get; set; }
+        public int pubMailTerm_Min { get; set; }
+        public List<string> mailto { get; set; }
+        public string mail_title { get; set; }
+        public string mail_contents { get; set; }
     }
 
     public class CeObject
     {
         public Header header { get; set; }
+        public MailConf mailConf { get; set; }
         public List<OvenClient> oven_client { get; set; }
     }
 

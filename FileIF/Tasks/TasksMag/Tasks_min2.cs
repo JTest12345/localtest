@@ -8,45 +8,27 @@ using ArmsApi.Model;
 
 namespace FileIf
 {
-    class Tasks_MIn2_v2
+    class Tasks_min2 : Tasks_base
     {
-        //CommonFuncs commons;
-        Tasks_Common tcommons;
-        //PlcCom plc;
-        //MySQL sql;
-
         //ファイルクラス
-        Contents_min2 min2;
-        Macconinfo minfo;
-
-        //本タスクにて使用するDBテーブル
-        //Current_mag jcm; //実マガジン情報実
-        //Process_master ppm; //前作業工程のProcess_master参照
-        //Process_master npm; //現作業工程のProcess_master参照
-        //Mac_prams mpp; //マシンパラメータmacprocparam参照
-        //mactaskconf mtc; //マシン毎タスク設定macconfini参照
+        TaskFile_min2 min2;
 
         // ArmsAPI
         Magazine jcm; //TnMag
         AsmLot lot; //TnLot
 
-        // ArmsWebApi
-        ArmsWebApi.WorkStart ws;
-
-        Dictionary<string, string> Dict; //Endファイル用変数格納用辞書
-
-        static string crlf = "\r\n"; // 改行コード
-        int taskid = 0; //タスクID
+        //Endファイル用変数格納用辞書
+        Dictionary<string, string> Dict; 
 
         // 初期化
-        public Tasks_MIn2_v2()
+        public Tasks_min2()
         {
             //commons = new CommonFuncs();
             tcommons = new Tasks_Common();
             //plc = new PlcCom();
             //sql = new MySQL();
 
-            min2 = new Contents_min2();
+            min2 = new TaskFile_min2();
 
             minfo = new Macconinfo();
             //jcm = new Current_mag(); 
@@ -62,9 +44,11 @@ namespace FileIf
 
 
         // in2のデータベース操作タスク関数
-        public string[] DBTasks(Mcfilesys fs) // string pcat, string macno, string magno, string fs.fpath, string[] fs.lbl)
+        public string[] InFileTasks(Mcfilesys fs) // string pcat, string macno, string magno, string fs.fpath, string[] fs.lbl)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
+            fs.mclbl = "MagNo";
+            fs.lbl = new string[] { fs.mclbl, fs.keylbl };
             fs.ConnectionString = fs.mci.ConnectionStrings[0]; // iniファイルのDatabase1を選択
 
             MySQL sql = new MySQL();
@@ -114,7 +98,7 @@ namespace FileIf
             }
             
 
-            //<taskid=min1104> マガジン・ロット情報取得
+            //<taskid=min2104> マガジン・ロット情報取得
             try
             {
                 taskid += 1;
@@ -251,7 +235,7 @@ namespace FileIf
             }
 
 
-            //<taskid=min110X> ARMS開始処理
+            //<taskid=min2108> ARMS開始処理
             try
             {
                 taskid += 1;
@@ -272,7 +256,7 @@ namespace FileIf
                 //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 //}
 
-                ws = new ArmsWebApi.WorkStart(fs.Macno, fs.MagCupNo);
+                ws = new ArmsWebApi.WorkStart(fs.Macno, "FileIF", fs.MagCupNo);
 
                 if (!ws.CheckBeforeStart(out msg))
                 {
@@ -292,7 +276,7 @@ namespace FileIf
             }
 
 
-            //<taskid=min2108> inフォルダからtempフォルダにINファイルを移動
+            //<taskid=min2109> inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
             string[] mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref msg, ref Dbgmsg);
             if (mitf[0] == "NG")
@@ -301,7 +285,7 @@ namespace FileIf
             }
 
 
-            msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} WIP内SQLの実行は成功しました";
+            msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} 対象ロットは開始処理が成功しました";
             return new string[] { "OK", msg, Dbgmsg, "0" };
 
         }
@@ -309,7 +293,7 @@ namespace FileIf
 
 
         // in2のEND出力タスク関数
-        public string[] FOutTasks(Mcfilesys fs, int errorcode)
+        public string[] OutFileTasks(Mcfilesys fs, int errorcode)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
 

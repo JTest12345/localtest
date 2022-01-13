@@ -10,22 +10,10 @@ using ArmsWeb.Models;
 
 namespace FileIf
 {
-    class Tasks_MOut_v2
+    class Tasks_mot : Tasks_base
     {
-        //CommonFuncs commons;
-        Tasks_Common tcommons;
-        //PlcCom plc;
-        MySQL sql;
-
         //ファイルクラス
-        Contents_mot mot;
-        Macconinfo minfo;
-
-        //本タスクにて使用するDBテーブル
-        //Current_mag kcm; //空マガジン情報実体
-        //Current_mag jcm;//実マガジン情報実体
-        //Process_master cpm;//現在登録のProcess_master参照
-        //Process_results cpv; //現在登録のProcess_results参照
+        TaskFile_mot mot;
 
         // ArmsAPI
         Magazine jcm; //TnMag
@@ -34,26 +22,18 @@ namespace FileIf
         // ArmsWebApi
         ArmsWebApi.WorkEnd we;
 
-        Dictionary<string, string> Dict; //全リターン格納用辞書（Endファイルにデータが必要な場合に使用する）
+        //全リターン格納用辞書（Endファイルにデータが必要な場合に使用する）
+        Dictionary<string, string> Dict; 
 
-        static string crlf = "\r\n"; // 改行コード
-        int taskid = 0; //タスクID
 
         // 初期化
-        public Tasks_MOut_v2()
+        public Tasks_mot()
         {
-            //commons = new CommonFuncs();
             tcommons = new Tasks_Common();
-            //plc = new PlcCom();
-            sql = new MySQL();
 
-            mot = new Contents_mot();
+            mot = new TaskFile_mot();
 
             minfo = new Macconinfo();
-            //kcm = new Current_mag(); 
-            //jcm = new Current_mag(); 
-            //cpm = new Process_master(); 
-            //cpv = new Process_results(); 
 
             Dict = new Dictionary<string, string>();
             Dict.Add("ok", "OK");
@@ -61,9 +41,11 @@ namespace FileIf
         }
 
         // outのデータベース操作タスク関数
-        public string[] DBTasks(Mcfilesys fs) // string pcat, string macno, string magno, string fs.fpath, string[] fs.lbl)
+        public string[] InFileTasks(Mcfilesys fs) // string pcat, string macno, string magno, string fs.fpath, string[] fs.lbl)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
+            fs.mclbl = "MagNo";
+            fs.lbl = new string[] { fs.mclbl, fs.keylbl };
             fs.ConnectionString = fs.mci.ConnectionStrings[0]; // iniファイルのDatabase1を選択
 
             Dict.Add("magno", fs.MagCupNo);
@@ -153,7 +135,7 @@ namespace FileIf
             //}
 
 
-            //<taskid=mot106>【検査】outファイルの読み込み～処理の開始またはキャンセル～内容検査
+            //<taskid=mot105>【検査】outファイルの読み込み～処理の開始またはキャンセル～内容検査
             try
             {
                 taskid += 1;
@@ -321,7 +303,7 @@ namespace FileIf
             //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
             //}
 
-            //<taskid=min110X> ARMS完了処理
+            //<taskid=mot106> ARMS完了処理
             try
             {
                 taskid += 1;
@@ -373,7 +355,7 @@ namespace FileIf
                 //wem.NewMagFrameQty = int.Parse(mot.val_out);
                 //wem.UnloaderMagNo = mot.magno_out;
 
-                we = new ArmsWebApi.WorkEnd(fs.Macno, mot.magno_in, mot.magno_out, int.Parse(mot.val_out));
+                we = new ArmsWebApi.WorkEnd(fs.Macno, "FileIF", mot.magno_in, mot.magno_out, int.Parse(mot.val_out));
 
                 if (!we.End(out msg))
                 {
@@ -398,13 +380,13 @@ namespace FileIf
 
 
             Dbgmsg += "Queryの実行は全て終了しました" + crlf;
-            msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} DBタスク終了";
+            msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} タスク終了";
             return new string[] { "OK", msg, Dbgmsg, "0" };
         }
 
 
         // outのEND出力タスク関数
-        public string[] FOutTasks(Mcfilesys fs, int errorcode)
+        public string[] OutFileTasks(Mcfilesys fs, int errorcode)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
 
@@ -417,7 +399,7 @@ namespace FileIf
             }
 
             
-            //<taskid=in902>【PLC】設備にOUTファイル取得要求（PLCの内部リレー操作）
+            //<taskid=mot902>【PLC】設備にOUTファイル取得要求（PLCの内部リレー操作）
             taskid += 1;
             if (fs.mci.UsePlcTrig)
             {

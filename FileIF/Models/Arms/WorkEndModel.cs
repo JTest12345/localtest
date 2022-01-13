@@ -468,7 +468,7 @@ namespace FileIf
                         }
                     }
 
-                    // サーバー統合対応 MEL_MAP ⇒ NEL_MAP対応  装置のhighlineフラグも参照する
+                    // FILEIF統合対応 MEL_MAP ⇒ NEL_MAP対応  装置のhighlineフラグも参照する
                     MachineInfo macInfo = MachineInfo.GetMachine(this.Mac.MacNo);
 
                     // 本工程が分割工程、MAP高生産性ライン、作業順に遠心沈降作業が無い場合、#2のレコードをダミー登録

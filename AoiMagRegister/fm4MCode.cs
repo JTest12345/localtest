@@ -17,7 +17,6 @@ namespace AoiMagBuilder
         public fm4MCode()
         {
             InitializeComponent();
-
         }
 
         private void bt_clear4mcd_Click(object sender, EventArgs e)
@@ -29,7 +28,18 @@ namespace AoiMagBuilder
         {
             if (string.IsNullOrEmpty(txt_4Mcode.Text) != true)
             {
-                fmm.ReceiveData = txt_4Mcode.Text.Split(',');
+                var receiveData = txt_4Mcode.Text.Split(',');
+
+                if (receiveData.Length < 10)
+                {
+                    MessageBox.Show("入力された4Mの部材コード体系に問題があります");
+                    return;
+                }
+                else
+                {
+                    fmm.ReceiveData = receiveData;
+                }
+
                 this.Hide();
             }
         }
@@ -37,6 +47,12 @@ namespace AoiMagBuilder
         private void bt_Cancel4mcd_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void fm4MCode_VisibleChanged(object sender, EventArgs e)
+        {
+            txt_4Mcode.Text = "";
+            txt_4Mcode.Focus();
         }
     }
 }

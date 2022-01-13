@@ -8,14 +8,14 @@ namespace Oskas
 {
     public class Mailkit
     {
-        static void testmail()
+        static public void testmail()
         {
             SendMail("watanabejunic@citizen.co.jp", "TEST", "Regards");
         }
 
 
         // メール送信関数 ：引数(宛先アドレス, 件名, 本文)
-        static private void SendMail(string strToAddr, string strSubject, string strMessage)
+        static public void SendMail(string strToAddr, string strSubject, string strMessage)
         {
             using (var smtp = new MailKit.Net.Smtp.SmtpClient())
             {

@@ -1,0 +1,179 @@
+{
+  "cojHeader": {
+    "objectId": "COJ_CSV002_01",
+    "objectType": "QualityDivCsv",
+    "docNo": "",
+    "createdBy": "",
+    "createdAt": "",
+    "updatedBy": "",
+    "updatedAt": "",
+    "revision": 1,
+    "isRelesed": true,
+    "isDeleted": false,
+    "division": "QualityDiv",
+    "site": "CET",
+    "procno": "",
+    "plantcd": "",
+    "macno": "",
+    "typecd": "",
+    "lotno": "",
+    "magno": "",
+    "description": "LS165C4G_CSVサンプル"
+  },
+  "cejObject": {
+    "objHeader": {
+      "hasValues": true,
+      "isClosed": true
+    },
+    "objList": [
+      {
+        "status": {
+          "mmStatus": {
+            "inpStatus": "complete",
+            "hasValues": false,
+            "isClosed": false
+          },
+          "inStatus": {
+            "inpStatus": "complete",
+            "hasValues": false,
+            "isClosed": false
+          }
+        },
+        "schemaId": "csv002_01_01",
+        "schema": {
+          "title": "CSV基本情報",
+          "description": "",
+          "type": "object",
+          "required": [
+
+          ],
+          "properties": {
+            "filepath": {
+              "type": "string",
+              "title": "ファイルパス"
+            },
+            "header": {
+              "type": "integer",
+              "title": "ヘッダー行",
+              "description": ""
+            },
+            "encoding": {
+              "type": "string",
+              "title": "文字コード",
+              "description": ""
+            }
+          }
+        },
+        "uiSchema": {
+
+        },
+        "formData": {
+          "filepath": "\\\\svfile2\\fileserver\\003temp\\cojtest\\LS165C4G_2165X01-10_20210616103217_Result",
+          "header": 0,
+          "encoding": "UTF-8"
+        }
+      },
+      {
+        "status": {
+          "mmStatus": {
+            "inpStatus": "complete",
+            "hasValues": false,
+            "isClosed": false
+          },
+          "inStatus": {
+            "inpStatus": "complete",
+            "hasValues": false,
+            "isClosed": false
+          }
+        },
+        "schemaId": "csv002_01_02",
+        "schema": {
+          "title": "CSV項目プロパティ",
+          "description": "",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "title": "項目名",
+                "type": "string"
+              },
+              "colno": {
+                "title": "列番号",
+                "type": "integer"
+              },
+              "unit": {
+                "title": "単位",
+                "type": "string"
+              },
+              "type": {
+                "title": "データ型",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "uiSchema": {
+
+        },
+        "formData": [
+          {
+            "name": "シュートボックス",
+            "colno": 1,
+            "unit": "-",
+            "type": "int"
+          },
+          {
+            "name": "加重",
+            "colno": 2,
+            "unit": "g",
+            "type": "float"
+          },
+          {
+            "name": "クリック率",
+            "colno": 3,
+            "unit": "-",
+            "type": "float"
+          },
+          {
+            "name": "ON位置",
+            "colno": 4,
+            "unit": "mm",
+            "type": "float"
+          },
+          {
+            "name": "ON抵抗",
+            "colno": 5,
+            "unit": "Ω",
+            "type": "float"
+          },
+          {
+            "name": "OFF抵抗",
+            "colno": 6,
+            "unit": "Ω",
+            "type": "float"
+          },
+          {
+            "name": "ストローク",
+            "colno": 7,
+            "unit": "mm",
+            "type": "float"
+          },
+          {
+            "name": "良否判定",
+            "colno": 8,
+            "unit": "-",
+            "type": "int"
+          },
+          {
+            "name": "ボトム加重",
+            "colno": 9,
+            "unit": "g",
+            "type": "float"
+          }
+        ]
+      }
+    ]
+  }
+}

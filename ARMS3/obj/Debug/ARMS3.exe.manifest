@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5Z3/Jz7t1l+1rEbfdWss9Vk5lpEM18p1N+ic9zoWqfI=</dsig:DigestValue>
+        <dsig:DigestValue>53BTI33WflLIOmKCoy4+9L46xVkVqUxbSCZUOkgts3Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -62,19 +62,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>xFGlDi6ToxBeAtIB2GRI5EnRy10puNlquLFmmAT2Mv8=</dsig:DigestValue>
+        <dsig:DigestValue>gpuJdy1T6kn4fhTDleHpf84sVwKCjTZDzgDiwsjAVYo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArmsCejApi.dll" size="60416">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArmsCejApi.dll" size="61952">
       <assemblyIdentity name="ArmsCejApi" version="1.159.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>0vRrDa1YY0mQhaU2eifpoVqGr5qAeIBpAG8DXIZJjBY=</dsig:DigestValue>
+        <dsig:DigestValue>tWvjmm7uyyW06n3G6ozOdeyWWufRv6gIR/rdcRrjC4g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

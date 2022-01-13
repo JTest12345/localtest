@@ -117,7 +117,7 @@ namespace Samples
     /// 
     public class COJClassTest
     {
-        static void Main(string[] args)
+        static void _Main(string[] args)
         {
             // コンテキストからCOJを取得する
             var assm = Assembly.GetExecutingAssembly();

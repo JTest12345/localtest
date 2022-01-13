@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 
 namespace Oskas
@@ -167,28 +168,26 @@ namespace Oskas
         }
 
 
+
         /////////////////////////////
         // json file 書き込み用
         /////////////////////////////
-        public static void JsonFileWriter(string FilePath, string json, string mes = "")
+        public static bool JsonFileWriter(string FilePath, string jsonstr, ref string msg)
         {
-            DialogResult result = MessageBox.Show(mes + "設定ファイルを保存します", "確認",
-                                                    MessageBoxButtons.YesNo,
-                                                    MessageBoxIcon.Exclamation,
-                                                    MessageBoxDefaultButton.Button1
-                                                 );
-
-            if (result == DialogResult.Yes)
+            try
             {
+                string json = JsonConvert.SerializeObject(jsonstr, Formatting.Indented);
                 Encoding enc = Encoding.GetEncoding("utf-8");
                 StreamWriter writer = new StreamWriter(FilePath, false, enc);
                 writer.WriteLine(json);
                 writer.Close();
-                MessageBox.Show("設定を保存しました");
+
+                return true;
             }
-            else if (result == DialogResult.No)
+            catch (Exception ex)
             {
-                MessageBox.Show("保存はキャンセルされました");
+                msg = ex.Message;
+                return false;
             }
         }
 
@@ -203,10 +202,32 @@ namespace Oskas
             return str;
         }
 
+        /////////////////////////////
+        // json file 読み込み用
+        /////////////////////////////
+        public static bool JsonFileReader(string FilePath, ref string json, ref string msg)
+        {
+            try
+            {
+                StreamReader sr = new StreamReader(FilePath, Encoding.GetEncoding("utf-8"));
+                string str = sr.ReadToEnd();
+                sr.Close();
+                json = str;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                msg = ex.Message;
+                return false;
+            }
+        }
+
+
         ///////////////////////////////////
         // 汎用ファイル作成保存用
         ///////////////////////////////////
-        public static bool CreateSimFile(string FilePath, string Contents, ref string msg)
+        public static bool CreateFile(string FilePath, string Contents, ref string msg)
         {
             try
             {

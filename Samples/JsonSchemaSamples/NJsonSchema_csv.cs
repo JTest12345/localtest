@@ -17,28 +17,6 @@ namespace Samples
 
         static void _Main(string[] args)
         {
-            ///////////////////////////////////////////////////////////////////
-            //// Json SchemaからC#クラスを生成するサンプル
-            ////
-            //// コンテキストからJson Schemaを取得する
-            //var assm = Assembly.GetExecutingAssembly();
-            //string schemaStr;
-            //// "csvschema.json"のStreamを取得する
-            //using (var stream = assm.GetManifestResourceStream("Samples.fileContext.csvschema.json"))
-            //{
-            //    var schemaContext = new StreamReader(stream);
-            //    schemaStr = schemaContext.ReadToEnd();
-            //}
-
-            //// Console.WriteLine(schemaStr);
-
-            //// NJsonSchema(NuGet)を使ってC#クラス生成
-            //var schema = JsonSchema.FromJsonAsync(schemaStr).GetAwaiter().GetResult();
-            //var generator = new CSharpGenerator(schema);
-            //var file = generator.GenerateFile();
-            //Console.WriteLine(file);
-
-
             /////////////////////////////////////////////////////////////////
             // NJsonSchemaで生成されたクラスを使ってデータを読取るサンプル
             //
@@ -62,8 +40,6 @@ namespace Samples
                 Console.WriteLine("unit: " + data.Unit);
                 Console.WriteLine("type: " + data.Type);
             }
-
-
 
             Console.ReadKey();
         }

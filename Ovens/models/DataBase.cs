@@ -41,7 +41,7 @@ namespace Ovens
             }
         }
 
-        public bool InsertTnOvenData(ref string msg)
+        public bool InsertTnOvenData_old(ref string msg)
         {
             var SqlStrings = "INSERT INTO[dbo].[TnOvenData] " +
                     "([macno]" +
@@ -60,7 +60,7 @@ namespace Ovens
             return DbControls.execSqlCommand(SqlStrings, ref msg);
         }
 
-        public bool InsertTnOvenData()
+        public bool InsertTnOvenData(ref string msg)
         {
             OvenP OP = new OvenP
             {
@@ -71,7 +71,17 @@ namespace Ovens
                 Error_Flg = this.error_flg
             };
 
-            return OP.CreateOvenData();
+            try
+            {
+                msg = "";
+                return OP.CreateOvenData();
+            }
+            catch (Exception ex)
+            {
+                msg = ex.ToString();
+                return false;
+            }
+            
         }
     }
 

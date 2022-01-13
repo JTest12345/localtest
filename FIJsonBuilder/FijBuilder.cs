@@ -74,6 +74,7 @@ namespace FIJsonBuilder
             // ① //
             ////////
             // 個別のスロット②は当然書いてね。
+            //****************************************************************************************
             //タブコントロール変更用シグナル・スロット
             tb_main.SelectedIndexChanged += new EventHandler(tabindexChangedRouter);
 
@@ -84,21 +85,27 @@ namespace FIJsonBuilder
             //PLC
             lb_plc.SelectedIndexChanged += new EventHandler(lb_plc_SelectedIndexChanged);
             lb_plc_dev.SelectedIndexChanged += new EventHandler(lb_plc_dev_SelectedIndexChanged);
+            lb_plc_sharefd.SelectedIndexChanged += new EventHandler(lb_plc_sharefolder_SelectedIndexChanged);
+
             //設備PC
             lb_pc.SelectedIndexChanged += new EventHandler(lb_pc_SelectedIndexChanged);
-            lb_pc_sharefd.SelectedIndexChanged += new EventHandler(lb_pc_dev_SelectedIndexChanged);
+            lb_pc_sharefd.SelectedIndexChanged += new EventHandler(lb_pc_sharefolder_SelectedIndexChanged);
+
             //IOファイル
             lb_mcfilekey.SelectedIndexChanged += new EventHandler(lb_mcf_SelectedIndexChanged);
+
             //設備情報
             lb_mstsfkey.SelectedIndexChanged += new EventHandler(lb_mstsf_SelectedIndexChanged);
 
-            // 共通スロット②savedata2mcconfniを追記！
+            //****************************************************************************************
+            // 共通スロットsavedata2mcconfniを追記！
             //テキストボックス・コンボボックス変更用シグナル・スロット
             //共通
             cb_mcat.TextChanged += new EventHandler(savedata2mcconf);
             cb_macno.TextChanged += new EventHandler(readconffile);
             //chk_useplc.CheckedChanged += new EventHandler(savedata2mcconf);
             //chk_usepc.CheckedChanged += new EventHandler(savedata2mcconf);
+
             //PLC
             tb_plc_name.TextChanged += new EventHandler(savedata2mcconf);
             tb_plc_ipa.TextChanged += new EventHandler(savedata2mcconf);
@@ -109,9 +116,13 @@ namespace FIJsonBuilder
             tb_plc_ftpport.TextChanged += new EventHandler(savedata2mcconf);
             tb_plc_ftpid.TextChanged += new EventHandler(savedata2mcconf);
             tb_plc_ftppass.TextChanged += new EventHandler(savedata2mcconf);
+            tb_plc_ftphomedir.TextChanged += new EventHandler(savedata2mcconf);
             tb_plc_devid.TextChanged += new EventHandler(savedata2mcconf);
             cb_plc_devtype.TextChanged += new EventHandler(savedata2mcconf);
             tb_plc_devno.TextChanged += new EventHandler(savedata2mcconf);
+            tb_plc_sharefdname.TextChanged += new EventHandler(savedata2mcconf);
+            tb_plc_sharefdpath.TextChanged += new EventHandler(savedata2mcconf);
+
             //設備PC
             tb_pc_name.TextChanged += new EventHandler(savedata2mcconf);
             tb_pc_ipa.TextChanged += new EventHandler(savedata2mcconf);
@@ -121,12 +132,15 @@ namespace FIJsonBuilder
             tb_pc_ftpport.TextChanged += new EventHandler(savedata2mcconf);
             tb_pc_ftpid.TextChanged += new EventHandler(savedata2mcconf);
             tb_pc_ftppass.TextChanged += new EventHandler(savedata2mcconf);
+            tb_pc_ftphomedir.TextChanged += new EventHandler(savedata2mcconf);
             tb_pc_sharefdname.TextChanged += new EventHandler(savedata2mcconf);
             tb_pc_sharefdpath.TextChanged += new EventHandler(savedata2mcconf);
+
             //IOファイル
             tb_mcfilekey.TextChanged += new EventHandler(savedata2mcconf);
             cb_mcfile_enc.TextChanged += new EventHandler(savedata2mcconf);
             tb_mcfile_return.TextChanged += new EventHandler(savedata2mcconf);
+            chk_mcfile_disableEndfile.CheckedChanged += new EventHandler(savedata2mcconf);
             chk_mcfile_verifiparam.CheckedChanged += new EventHandler(savedata2mcconf);
             chk_mcfile_sp1.CheckedChanged += new EventHandler(savedata2mcconf);
             chk_mcfile_useplcdev.CheckedChanged += new EventHandler(mcfedited);
@@ -136,6 +150,8 @@ namespace FIJsonBuilder
             cb_mcf_cntid.TextChanged += new EventHandler(mcfedited);
             cb_mcf_pulltype.TextChanged += new EventHandler(mcfedited);
             cb_mcf_shfld.TextChanged += new EventHandler(mcfedited);
+            tb_mcf_path.TextChanged += new EventHandler(mcfedited);
+
             //設備情報ファイル
             tb_mstsfkey.TextChanged += new EventHandler(savedata2mcconf);
             cb_mstsfid.TextChanged += new EventHandler(savedata2mcconf);
@@ -204,7 +220,7 @@ namespace FIJsonBuilder
                     plcconfnull();
                     devconfnull();
                     pcconfnull();
-                    shfdconfnull();
+                    pcshfdconfnull();
                     Mcfconfnull();
                     Mstsfconfnull();
                     mcconf = JsonConvert.DeserializeObject<macconfjson>(JsonFileReader(FilePath));
@@ -231,12 +247,16 @@ namespace FIJsonBuilder
         }
 
 
-          ////////
-         // ⑤ //
+        ////////
+        // ⑤ //
         ////////
 
         /////////////////////////////////////////////////////////////////////////////////////
         /// インプットフォームとのクリップボード関数
+        /// 
+        ///  ◆◆◆◆◆◆このコードは本当に必要？？？？？◆◆◆◆◆◆
+        /// 
+        /// 
         /////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// 入力補助用フォームのデータ格納用
@@ -277,6 +297,16 @@ namespace FIJsonBuilder
                         });
                         lb_plc_dev.Items.Add(words[1]);
                         lb_plc_dev.SelectedIndex = lb_plc_dev.Items.Count - 1;
+                    }
+                    else if (words[0] == "plcshfd")
+                    {
+                        mcconf.Plcs[lb_plc.SelectedIndex].shfld.sfconf.Add(new shfldconf
+                        {
+                            name = words[1],
+                            path = ""
+                        });
+                        lb_plc_sharefd.Items.Add(words[1]);
+                        lb_plc_sharefd.SelectedIndex = lb_plc_sharefd.Items.Count - 1;
                     }
                     else if (words[0] == "pc")
                     {
@@ -505,6 +535,7 @@ namespace FIJsonBuilder
             tb_plc_ftpid.Text = plcconf.ftps[0].id;
             tb_plc_ftppass.Text = plcconf.ftps[0].password;
             tb_plc_ftpport.Text = plcconf.ftps[0].port;
+            tb_plc_ftphomedir.Text = plcconf.ftps[0].homedir;
             for (int i = 0; i < plcconf.devs.devconfs.Count; i++)
             {
                 lb_plc_dev.Items.Add(plcconf.devs.devconfs[i].devid);
@@ -516,6 +547,18 @@ namespace FIJsonBuilder
             else
             {
                 devconfnull();
+            }
+            for (int i = 0; i < plcconf.shfld.sfconf.Count; i++)
+            {
+                lb_plc_sharefd.Items.Add(plcconf.shfld.sfconf[i].name);
+            }
+            if (lb_plc_sharefd.Items.Count > 0)
+            {
+                lb_plc_sharefd.SelectedIndex = 0;
+            }
+            else
+            {
+                plcshfdconfnull();
             }
         }
 
@@ -533,6 +576,7 @@ namespace FIJsonBuilder
             tb_plc_ftpid.Text = "";
             tb_plc_ftppass.Text = "";
             tb_plc_ftpport.Text = "";
+            tb_plc_ftphomedir.Text = "";
             lb_plc_dev.Items.Clear();
             devconfnull();
         }
@@ -556,6 +600,25 @@ namespace FIJsonBuilder
             tb_plc_devid.Text = "";
             tb_plc_devno.Text = "";
             cb_plc_devtype.Text = "";
+        }
+
+        /// <summary>
+        /// PCのシェアフォルダのアイテムが変更になったときにデバイス内容を変更します
+        /// </summary>
+        /// <param name="sfconf"></param>
+        private void plcshfdconf(shfldconf sfconf)
+        {
+            tb_plc_sharefdname.Text = sfconf.name;
+            tb_plc_sharefdpath.Text = sfconf.path;
+        }
+
+        /// <summary>
+        /// PCのシェアフォルダのアイテムがない場合の空表示
+        /// </summary>
+        private void plcshfdconfnull()
+        {
+            tb_plc_sharefdname.Text = "";
+            tb_plc_sharefdpath.Text = "";
         }
 
         /// <summary>
@@ -623,6 +686,29 @@ namespace FIJsonBuilder
         }
 
         /// <summary>
+        /// PLC共有フォルダ追加時[+]の入力補助フォーム表示
+        /// </summary>
+        private void bt_add_plcsharefd_Click(object sender, EventArgs e)
+        {
+            sharestring = "plcshfd";
+            fmin.Show();
+            fmin.Text = "設備PLCの共有フォルダ名称(ID)を入力してください";
+        }
+
+        /// <summary>
+        /// PLC共有フォルダ削除[-]
+        /// </summary>
+        private void bt_rm_plcsharefd_Click(object sender, EventArgs e)
+        {
+            if (lb_plc_sharefd.SelectedIndex > -1)
+            {
+                mcconf.Plcs[lb_plc.SelectedIndex].shfld.sfconf.RemoveAt(lb_plc_sharefd.SelectedIndex);
+                lb_plc_sharefd.Items.Remove(lb_plc_sharefd.SelectedItem);
+                plcshfdconfnull();
+            }
+        }
+
+        /// <summary>
         /// PLCデバイスリスト変更スロット
         /// </summary>
         private void lb_plc_dev_SelectedIndexChanged(object sender, EventArgs e)
@@ -631,6 +717,19 @@ namespace FIJsonBuilder
             if (lb_plc_dev.SelectedIndex > -1)
             {
                 devconf(mcconf.Plcs.plcconfs[lb_plc.SelectedIndex].devs.devconfs[lb_plc_dev.SelectedIndex]);
+            }
+            TceLock = false;
+        }
+
+        /// <summary>
+        /// PLC共有フォルダリスト変更スロット
+        /// </summary>
+        private void lb_plc_sharefolder_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TceLock = true;
+            if (lb_plc_sharefd.SelectedIndex > -1)
+            {
+                plcshfdconf(mcconf.Plcs.plcconfs[lb_plc.SelectedIndex].shfld.sfconf[lb_plc_sharefd.SelectedIndex]);
             }
             TceLock = false;
         }
@@ -653,6 +752,7 @@ namespace FIJsonBuilder
             tb_pc_ftpid.Text = pcconf.ftps[0].id;
             tb_pc_ftppass.Text = pcconf.ftps[0].password;
             tb_pc_ftpport.Text = pcconf.ftps[0].port;
+            tb_pc_ftphomedir.Text = pcconf.ftps[0].homedir;
             for (int i = 0; i < pcconf.shfld.sfconf.Count; i++)
             {
                 lb_pc_sharefd.Items.Add(pcconf.shfld.sfconf[i].name);
@@ -663,7 +763,7 @@ namespace FIJsonBuilder
             }
             else
             {
-                shfdconfnull();
+                pcshfdconfnull();
             }
         }
 
@@ -680,24 +780,25 @@ namespace FIJsonBuilder
             tb_pc_ftpid.Text = "";
             tb_pc_ftppass.Text = "";
             tb_pc_ftpport.Text = "";
+            tb_pc_ftphomedir.Text = "";
             lb_pc_sharefd.Items.Clear();
-            shfdconfnull();
+            pcshfdconfnull();
         }
 
         /// <summary>
-        /// PCのデバイスリストのアイテムが変更になったときにデバイス内容を変更します
+        /// PCのシェアフォルダのアイテムが変更になったときにデバイス内容を変更します
         /// </summary>
         /// <param name="sfconf"></param>
-        private void shfdconf(shfldconf sfconf)
+        private void pcshfdconf(shfldconf sfconf)
         {
             tb_pc_sharefdname.Text = sfconf.name;
             tb_pc_sharefdpath.Text = sfconf.path;
         }
 
         /// <summary>
-        /// PCのデバイスリストのアイテムがない場合の空表示
+        /// PCのシェアフォルダのアイテムがない場合の空表示
         /// </summary>
-        private void shfdconfnull()
+        private void pcshfdconfnull()
         {
             tb_pc_sharefdname.Text = "";
             tb_pc_sharefdpath.Text = "";
@@ -745,7 +846,7 @@ namespace FIJsonBuilder
             {
                 mcconf.Pcs[lb_pc.SelectedIndex].shfld.sfconf.RemoveAt(lb_pc_sharefd.SelectedIndex);
                 lb_pc_sharefd.Items.Remove(lb_pc_sharefd.SelectedItem);
-                shfdconfnull();
+                pcshfdconfnull();
             }
         }
         
@@ -768,14 +869,14 @@ namespace FIJsonBuilder
         }
         
         /// <summary>
-        /// PCデバイスリスト変更スロット
+        /// PC共有フォルダリスト変更スロット
         /// </summary>
-        private void lb_pc_dev_SelectedIndexChanged(object sender, EventArgs e)
+        private void lb_pc_sharefolder_SelectedIndexChanged(object sender, EventArgs e)
         {
             TceLock = true;
             if (lb_pc_sharefd.SelectedIndex > -1)
             {
-                shfdconf(mcconf.Pcs.pcconfs[lb_pc.SelectedIndex].shfld.sfconf[lb_pc_sharefd.SelectedIndex]);
+                pcshfdconf(mcconf.Pcs.pcconfs[lb_pc.SelectedIndex].shfld.sfconf[lb_pc_sharefd.SelectedIndex]);
             }
             TceLock = false;
         }
@@ -796,15 +897,17 @@ namespace FIJsonBuilder
             chk_mcfile_useplcdev.Checked = mcfconf.foi.useplcdev;
             cb_mcf_plcdev.Text = mcfconf.foi.devid;
             chk_mcfile_sp1.Checked = mcfconf.spfnc1;
+            chk_mcfile_disableEndfile.Checked = mcfconf.disableEndfile;
             chk_mcfile_verifiparam.Checked = mcfconf.verifiparam;
             cb_mcf_inttimfetch.Text = mcfconf.foi.inttimefetch;
             cb_mcf_cnttype.Text = mcfconf.foi.cnttype;
             update_mcf_cbcntid();
             cb_mcf_cntid.Text = mcfconf.foi.cntid;
             update_mcf_cbpulltype();
-            cb_mcf_pulltype.Text = mcfconf.foi.pulltype;
+            cb_mcf_pulltype.Text = mcfconf.foi.pulltype; 
             update_mcf_cbshfld();
             cb_mcf_shfld.Text = mcfconf.foi.shfld;
+            tb_mcf_path.Text = mcfconf.foi.path;
             chk_mcf_serverpull.Checked = mcfconf.foi.serverpull;
         }
 
@@ -885,6 +988,19 @@ namespace FIJsonBuilder
             var type = sender.GetType();
             if (type.Name == "CheckBox")
             {
+                //chk_mcfile_disableEndfile
+                if (!chk_mcfile_disableEndfile.Checked)
+                {
+                    tb_mcfile_return.Enabled = true;
+                    chk_mcfile_verifiparam.Enabled = true;
+                    chk_mcfile_sp1.Enabled = true;
+                }
+                else
+                {
+                    tb_mcfile_return.Enabled = false;
+                    chk_mcfile_verifiparam.Enabled = false;
+                    chk_mcfile_sp1.Enabled = false;
+                }
                 //chk_mcfile_useplcdev
                 if (chk_mcfile_useplcdev.Checked)
                 {
@@ -900,12 +1016,14 @@ namespace FIJsonBuilder
                     cb_mcf_inttimfetch.Enabled = true;
                     cb_mcf_pulltype.Enabled = true;
                     cb_mcf_shfld.Enabled = false;
+                    tb_mcf_path.Enabled = true;
                 }
                 else
                 {
                     cb_mcf_inttimfetch.Enabled = false;
                     cb_mcf_pulltype.Enabled = false;
                     cb_mcf_shfld.Enabled = false;
+                    tb_mcf_path.Enabled = false;
                 }
             }
             else if (type.Name == "ComboBox")
@@ -925,7 +1043,6 @@ namespace FIJsonBuilder
                 //cb_mstsf_shfld
                 if (((ComboBox)sender).Name == "cb_mcf_pulltype")
                 {
-
                     update_mcf_cbshfld();
                 }
             }
@@ -957,6 +1074,7 @@ namespace FIJsonBuilder
         private void update_mcf_cbpulltype()
         {
             cb_mcf_pulltype.Items.Clear();
+            //tb_mcf_path.Text = "";
             if (cb_mcf_cntid.SelectedIndex > -1)
             {
                 if (cb_mcf_cnttype.Text == "PLC")
@@ -964,9 +1082,10 @@ namespace FIJsonBuilder
                     //if (mcconf.Plcs[cb_mcf_cntid.SelectedIndex].usemm)
                     if (mcconf.Plcs[cb_mcf_cntid.SelectedIndex].ftps[0].useftpsv)
                     {
-                        cb_mstsf_pulltype.Items.Add("FTP");
+                        cb_mcf_pulltype.Items.Add("FTP");
+                        cb_mcf_pulltype.SelectedIndex = 0;
                     }
-                    cb_mcf_shfld.Enabled = false;
+                    //cb_mcf_shfld.Enabled = false;
                 }
                 else
                 {
@@ -975,6 +1094,7 @@ namespace FIJsonBuilder
                         cb_mcf_pulltype.Items.Add("FTP");
                     }
                     cb_mcf_pulltype.Items.Add("ShareFolder");
+                    cb_mcf_pulltype.SelectedIndex = 0;
                 }
             }
         }
@@ -986,9 +1106,9 @@ namespace FIJsonBuilder
             {
                 if (cb_mcf_pulltype.Text == "ShareFolder")
                 {
-                    for (int i = 0; i < mcconf.Pcs[cb_mstsf_cntid.SelectedIndex].shfld.sfconf.Count; i++)
+                    for (int i = 0; i < mcconf.Pcs[cb_mcf_cntid.SelectedIndex].shfld.sfconf.Count; i++)
                     {
-                        cb_mstsf_shfld.Items.Add(mcconf.Pcs[cb_mstsf_cntid.SelectedIndex].shfld[i].name);
+                        cb_mcf_shfld.Items.Add(mcconf.Pcs[cb_mcf_cntid.SelectedIndex].shfld[i].name);
                     }
                     cb_mcf_shfld.Enabled = true;
                 }
@@ -1239,11 +1359,17 @@ namespace FIJsonBuilder
                     mcconf.Plcs[lb_plc.SelectedIndex].ftps[0].id = tb_plc_ftpid.Text;
                     mcconf.Plcs[lb_plc.SelectedIndex].ftps[0].password = tb_plc_ftppass.Text;
                     mcconf.Plcs[lb_plc.SelectedIndex].ftps[0].port = tb_plc_ftpport.Text;
+                    mcconf.Plcs[lb_plc.SelectedIndex].ftps[0].homedir = tb_plc_ftphomedir.Text;
                     if (lb_plc_dev.SelectedIndex > -1)
                     {
                         mcconf.Plcs[lb_plc.SelectedIndex].devs[lb_plc_dev.SelectedIndex].devid = tb_plc_devid.Text;
                         mcconf.Plcs[lb_plc.SelectedIndex].devs[lb_plc_dev.SelectedIndex].devtype = cb_plc_devtype.Text;
                         mcconf.Plcs[lb_plc.SelectedIndex].devs[lb_plc_dev.SelectedIndex].devno = tb_plc_devno.Text;
+                    }
+                    if (lb_plc_sharefd.SelectedIndex > -1)
+                    {
+                        mcconf.Plcs[lb_plc.SelectedIndex].shfld[lb_plc_sharefd.SelectedIndex].name = tb_plc_sharefdname.Text;
+                        mcconf.Plcs[lb_plc.SelectedIndex].shfld[lb_plc_sharefd.SelectedIndex].path = tb_plc_sharefdpath.Text;
                     }
                 }
                 // 設備PC
@@ -1257,6 +1383,7 @@ namespace FIJsonBuilder
                     mcconf.Pcs[lb_pc.SelectedIndex].ftps[0].id = tb_pc_ftpid.Text;
                     mcconf.Pcs[lb_pc.SelectedIndex].ftps[0].password = tb_pc_ftppass.Text;
                     mcconf.Pcs[lb_pc.SelectedIndex].ftps[0].port = tb_pc_ftpport.Text;
+                    mcconf.Pcs[lb_pc.SelectedIndex].ftps[0].homedir = tb_pc_ftphomedir.Text;
                     if (lb_pc_sharefd.SelectedIndex > -1)
                     {
                         mcconf.Pcs[lb_pc.SelectedIndex].shfld[lb_pc_sharefd.SelectedIndex].name = tb_pc_sharefdname.Text;
@@ -1269,6 +1396,19 @@ namespace FIJsonBuilder
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].mcfilekey = tb_mcfilekey.Text;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].returns = tb_mcfile_return.Text;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].encoding = cb_mcfile_enc.Text;
+                    mcconf.Mcfs[lb_mcfilekey.SelectedIndex].disableEndfile = chk_mcfile_disableEndfile.Checked;
+                    if (!chk_mcfile_disableEndfile.Checked)
+                    {
+                        tb_mcfile_return.Enabled = true;
+                        chk_mcfile_verifiparam.Enabled = true;
+                        chk_mcfile_sp1.Enabled = true;
+                    }
+                    else
+                    {
+                        tb_mcfile_return.Enabled = false;
+                        chk_mcfile_verifiparam.Enabled = false;
+                        chk_mcfile_sp1.Enabled = false;
+                    }
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].verifiparam = chk_mcfile_verifiparam.Checked;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].spfnc1 = chk_mcfile_sp1.Checked;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.useplcdev = chk_mcfile_useplcdev.Checked;
@@ -1286,6 +1426,7 @@ namespace FIJsonBuilder
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.cnttype = cb_mcf_cnttype.Text;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.pulltype = cb_mcf_pulltype.Text;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.shfld = cb_mcf_shfld.Text;
+                    mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.path = tb_mcf_path.Text;
                 }
                 // 設備情報ファイル設定
                 if (lb_mstsfkey.SelectedIndex > -1)
@@ -1320,6 +1461,7 @@ namespace FIJsonBuilder
             }
             return true;
         }
+
 
         /////////////////////////////
         /// 空入力チェック

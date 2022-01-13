@@ -1,0 +1,23 @@
+{
+    "strat_datetime": {
+        "alt-datetime": "2021-10-25T02:41:35.000Z"
+    },
+    "first_gaikan": [
+        "不良無し"
+    ],
+    "end_datetime": {
+        "alt-datetime": "2021-10-25T02:41:40.000Z"
+    },
+    "last_gaikan": [
+        "不良無し"
+    ],
+    "vacuum_switch": false,
+    "check2": "交換",
+    "check1": "OK",
+    "check3": true,
+    "check4": true,
+    "macno": 1,
+    "nano_prgno": 2,
+    "ml": 3,
+    "shot_prgno": 4
+}

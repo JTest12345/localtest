@@ -60,8 +60,6 @@ namespace Samples
 
     public class ObjList
     {
-        public Status status { get; set; }
-        public string schemaId { get; set; }
         public object Schema { get; set; }
         public object UiSchema { get; set; }
         public object formData { get; set; }

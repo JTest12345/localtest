@@ -6,29 +6,25 @@ using Oskas;
 
 namespace FileIf
 {
-    ////////////////////////////////////
-    ///
-    /// KeyFile interface
-    ///
-    ////////////////////////////////////
-    
-    public interface IFile
-    {
-        string fileId { get; set; }
-    }
 
     ////////////////////////////////////
     ///
-    /// KeyFiles クラス
+    /// MagCupTaskFile クラス
     ///
     ////////////////////////////////////
 
-    class Contents_min1: IFile // in1ファイル
+    //
+    // MAGファイル：通常工程開始①
+    //
+    class TaskFile_min1 : IFile // in1ファイル
     {
         public string fileId { get; set; } = "_min1.csv";
     }
 
-    class Contents_min2: IFile // in2ファイル
+    //
+    // MAGファイル：通常工程開始②
+    //
+    class TaskFile_min2 : IFile // in2ファイル
     {
         public string fileId { get; set; } = "_min2.csv";
 
@@ -85,12 +81,18 @@ namespace FileIf
         }
     }
 
-    class Contents_mio : Contents_mot //mio ファイル
+    //
+    // MAGファイル：通常工程開始完了一括
+    //
+    class TaskFile_mio : TaskFile_mot //mio ファイル
     {
         public override string fileId { get; set; } = "_mio.csv";
     }
 
-    class Contents_mot // motファイル
+    //
+    // MAGファイル：通常工程完了
+    //
+    class TaskFile_mot // motファイル
     {
         public virtual string fileId { get; set; } = "_mot.csv";
 
@@ -147,7 +149,213 @@ namespace FileIf
         }
     }
 
-    class Contents_recipe // recipeファイル
+    //
+    // MAGファイル：V溝バリ取り工程開始①
+    //
+    class TaskFile_vlin1 : IFile // vlin1ファイル
+    {
+        public string fileId { get; set; } = "_vlin1.csv";
+
+        //4Mロットコードリスト
+        public List<string> fmCodeList { get; set; }
+        public string ErrorCode { get; set; }
+
+        public string[] Readvlin1FileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        {
+            string msg = "";
+            Tasks_Common tcommons = new Tasks_Common();
+
+            try
+            {
+                string[] contents;
+                string content = "";
+
+                if (!CommonFuncs.ReadTextFile(fs.filepath, ref content))
+                {
+                    string mes = content;
+                    msg = tcommons.ErrorMessage(taskid, fs, mes);
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                }
+                string results = new string(content.Where(c => !char.IsControl(c)).ToArray());
+                results = results.Replace("\"", "");
+                contents = results.Split(',');
+
+                fmCodeList = new List<string>();
+
+                foreach (var fmlot in contents)
+                {
+                    fmCodeList.Add(fmlot);
+
+                    //for Debug
+                    Dbgmsg += "設備:パラメータ：" + fmlot + "\r\n";
+                }
+
+                return new string[] { "OK" };
+            }
+            catch (Exception ex)
+            {
+                msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
+                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+            }
+
+        }
+    }
+
+    //
+    // MAGファイル：V溝バリ取り工程開始②
+    //
+    class TaskFile_vlin2 : IFile // vlin2ファイル
+    {
+        public string fileId { get; set; } = "_vlin2.csv";
+
+        //4Mロットコードリスト
+        public List<string> fmCodeList { get; set; }
+        public string ErrorCode { get; set; }
+
+        public string[] Readvlin2FileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        {
+            string msg = "";
+            Tasks_Common tcommons = new Tasks_Common();
+
+            try
+            {
+                string[] contents;
+                string content = "";
+
+                if (!CommonFuncs.ReadTextFile(fs.filepath, ref content))
+                {
+                    string mes = content;
+                    msg = tcommons.ErrorMessage(taskid, fs, mes);
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                }
+                string results = new string(content.Where(c => !char.IsControl(c)).ToArray());
+                results = results.Replace("\"", "");
+                contents = results.Split(',');
+
+
+                if (contents[0] == "ERROR")
+                {
+                    ErrorCode = contents[1];
+                    string mes = $"エラー通知(No.{ErrorCode}受信、全タスクを中止します";
+                    msg = tcommons.ErrorMessage(taskid, fs, mes);
+                    Dbgmsg += "Vlin2処理で設備側からタスクのキャンセル要求がありました";
+                    return new string[] { "Cancel", msg, Dbgmsg, taskid.ToString() };
+                }
+                else
+                {
+                    fmCodeList = new List<string>();
+
+                    foreach (var fmlot in contents)
+                    {
+                        fmCodeList.Add(fmlot);
+
+                        //for Debug
+                        Dbgmsg += "設備:パラメータ：" + fmlot + "\r\n";
+                    }
+                }
+
+                return new string[] { "OK" };
+            }
+            catch (Exception ex)
+            {
+                msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
+                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+            }
+
+        }
+    }
+
+    //
+    // MAGファイル：ブレンドロットトレイ(LD工程)完了
+    //
+    class TaskFile_bto // btoファイル
+    {
+        public virtual string fileId { get; set; } = "_bto.csv";
+
+        public List<LDMagInfo> LdMagInfo { get; set; }
+
+        public List<string> magnoList { get; set; }
+
+        public class LDMagInfo
+        {
+            public string magNo { get; set; }
+            public string bdInQty { get; set; }
+            public string bdFailQty { get; set; }
+            public string chipPassQty { get; set; }
+            public string chipFailQty { get; set; }
+        }
+
+        public TaskFile_bto()
+        {
+            LdMagInfo = new List<LDMagInfo>();
+            magnoList = new List<string>();
+        }
+
+        public string[] ReadBtoFileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        {
+            string msg = "";
+            Tasks_Common tcommons = new Tasks_Common();
+
+            try
+            {
+                // Btoファイル読込
+                var contents = new List<string>();
+                if (!CommonFuncs.ReadTextFileLine(fs.filepath, ref contents))
+                {
+                    string mes = "btoファイルが読み込めません";
+                    msg = tcommons.ErrorMessage(taskid, fs, mes);
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                }
+
+                // 空
+                if (contents[0] == "")
+                {
+                    string mes = "btoファイルの内容が空です";
+                    msg = tcommons.ErrorMessage(taskid, fs, mes);
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                }
+
+                //Errorメッセージか確認
+                var err = contents[0].Split(',');
+
+                if (err[0] == "ERROR")
+                {
+                    string errcode = err[1];
+                    string mes = $"エラー通知(No.{err[1]}受信、全タスクを中止します";
+                    msg = tcommons.ErrorMessage(taskid, fs, mes);
+                    Dbgmsg += "BTO処理で設備側からタスクのキャンセル要求がありました";
+                    return new string[] { "Cancel", msg, Dbgmsg, taskid.ToString() };
+                }
+
+                // LdMagInfoにデータ格納
+                foreach (var maginfo in contents)
+                {
+                    var arrminfo = maginfo.Split(',');
+                    var ldm = new LDMagInfo {
+                        magNo = arrminfo[0],
+                        bdInQty = arrminfo[1],
+                        bdFailQty = arrminfo[2],
+                        chipPassQty = arrminfo[3],
+                        chipFailQty = arrminfo[4]
+                    };
+                    LdMagInfo.Add(ldm);
+                    magnoList.Add(arrminfo[0]);
+                }
+
+                return new string[] { "OK" };
+            }
+            catch (Exception ex)
+            {
+                msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
+                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+            }
+        }
+    }
+
+    //
+    // CUPファイル：樹脂配合レシピ受付
+    //
+    class TaskFile_recipe // recipeファイル
     {
         public string fileId { get; set; } = "_rcp.txt";
 
@@ -183,7 +391,10 @@ namespace FileIf
         }
     }
 
-    class Contents_csta // staファイル
+    //
+    // CUPファイル：樹脂配合レシピ開始
+    //
+    class TaskFile_sta // staファイル
     {
         public string fileId { get; set; } = "_sta.csv";
 
@@ -230,7 +441,10 @@ namespace FileIf
         }
     }
 
-    class Contents_cot1 // cot1ファイル
+    //
+    // CUPファイル：樹脂配合材料配合完了
+    //
+    class TaskFile_cot1 // cot1ファイル
     {
         public string fileId { get; set; } = "_cot1.csv";
 
@@ -287,7 +501,10 @@ namespace FileIf
         }
     }
 
-    class Contents_cot2 // cot2ファイル
+    //
+    // CUPファイル：樹脂配合撹拌完了
+    //
+    class TaskFile_cot2 // cot2ファイル
     {
         public string fileId { get; set; } = "_cot2.csv";
 

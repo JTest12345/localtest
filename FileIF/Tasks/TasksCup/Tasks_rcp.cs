@@ -5,33 +5,24 @@ using Oskas;
 
 namespace FileIf
 {
-    class Tasks_Crcp_v1_1
+    class Tasks_rcp : Tasks_base
     {
-        //CommonFuncs commons;
-        Tasks_Common tcommons;
-        MySQL sql;
-
         //ファイルクラス
-        Contents_recipe rcp;
-        Macconinfo minfo;
+        TaskFile_recipe rcp;
 
-        //本タスクにて使用するDBテーブル
+        //本タスクにて使用するDBモデル
         recipe_info rrinfo;
 
-        Dictionary<string, string> Dict; //Endファイル用変数格納用辞書
-
-        int taskid = 0; //タスクID
-        static string crlf = "\r\n"; // 改行コード
+        //Endファイル用変数格納用辞書
+        Dictionary<string, string> Dict; 
 
         // 初期化
-        public Tasks_Crcp_v1_1()
+        public Tasks_rcp()
         {
-            //commons = new CommonFuncs();
             tcommons = new Tasks_Common();
-            sql = new MySQL();
 
             minfo = new Macconinfo();
-            rcp = new Contents_recipe();
+            rcp = new TaskFile_recipe();
             
             rrinfo = new recipe_info();
 
@@ -40,10 +31,12 @@ namespace FileIf
             Dict.Add("0", "0");
         }
 
-        // rcpのデータベース操作タスク関数
-        public string[] DBTasks(Mcfilesys fs) //(string pcat, string macno, string rcpname, string fpath, string[] fs.lbl)
+        // データベース操作タスク関数
+        public string[] InFileTasks(Mcfilesys fs) //(string pcat, string macno, string rcpname, string fpath, string[] fs.lbl)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
+            fs.mclbl = "Recipe";
+            fs.lbl = new string[] { fs.mclbl, fs.keylbl };
             fs.ConnectionString = fs.mci.ConnectionStrings[1]; // iniファイルのDatabase2を選択
 
 
@@ -79,12 +72,12 @@ namespace FileIf
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
-                // サーバーアップロード先にレシピ転送
-                //サーバーアップロード失敗ではタスク停止しない！
+                // アップロード先にレシピ転送
+                // アップロード失敗ではタスク停止しない！
                 string rulfilepath = fs.mci.RecipUpLoadDir + "\\" + fs.RecipeFile + ".txt";
                 if (!CommonFuncs.CopyFile(fs.filepath, rulfilepath))
                 {
-                    Dbgmsg += "サーバーへのレシピ転送に失敗しました（このエラーでタスク停止はしません）";
+                    Dbgmsg += "設備へのレシピ転送が失敗しました（このエラーでタスク停止はしません）";
                 }
             }
             catch (Exception ex)
@@ -109,25 +102,34 @@ namespace FileIf
 
                 if (rrinfo.Recipe == "" || rrinfo.Mname == "" || rrinfo.Dtin == "")
                 {
-                    string mes = "recipe_infoテーブルのINSERTに必要なデータに空があります";
+                    string mes = "レシピのDB登録に必要なデータに空があります";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
 
-                QueryScr.Add($"INSERT INTO recipe_info (recipefile_name, mac_name, datetime_in, create_at, create_by) VALUE ('{rrinfo.Recipe}', '{rrinfo.Mname}', '{rrinfo.Dtin}', '{datetime}', 'magcupsv')");
-                Dbgmsg += "Query1: " + QueryScr[0] + crlf;
+                //QueryScr.Add($"INSERT INTO recipe_info (recipefile_name, mac_name, datetime_in, create_at, create_by) VALUE ('{rrinfo.Recipe}', '{rrinfo.Mname}', '{rrinfo.Dtin}', '{datetime}', 'magcupsv')");
+                //Dbgmsg += "Query1: " + QueryScr[0] + crlf;
 
-                // QueryScrリストからSQL文を実行
-                foreach (string quer in QueryScr)
+                //// QueryScrリストからSQL文を実行
+                //foreach (string quer in QueryScr)
+                //{
+                //    if (!sql.SqlTask_Write(fs.lbl[1] + taskid.ToString(), fs.ConnectionString, quer, ref Dbgmsg))
+                //    {
+                //        string mes = "Queryの実行が失敗しました";
+                //        msg = tcommons.ErrorMessage(taskid, fs, mes);
+                //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //    }
+                //}
+
+                // JunkiSys.Dll
+                if (!ResinPrg.WorkResin.RecipeRecieved(rrinfo.Recipe, rrinfo.Mname, dt, ref msg))
                 {
-                    if (!sql.SqlTask_Write(fs.lbl[1] + taskid.ToString(), fs.ConnectionString, quer, ref Dbgmsg))
-                    {
-                        string mes = "Queryの実行が失敗しました";
-                        msg = tcommons.ErrorMessage(taskid, fs, mes);
-                        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                    }
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
-                Dbgmsg += "Queryの実行は全て終了しました" + crlf;
+
+
+                Dbgmsg += "DB登録が完了しました" + crlf;
             }
             catch (Exception ex)
             {
@@ -144,17 +146,17 @@ namespace FileIf
                 return mitf;
             }
 
-            msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.RecipeFile} DBタスク終了";
+            msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.RecipeFile} タスク終了";
             return new string[] { "OK", msg, Dbgmsg, "0" };
         }
 
 
         // outのEND出力タスク関数
-        public string[] FOutTasks(Mcfilesys fs, int errorcode)
+        public string[] OutFileTasks(Mcfilesys fs, int errorcode)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
 
-            //<taskid=out901>【ファイル生成】ENDファイルの発行
+            //<taskid=rcp901>【ファイル生成】ENDファイルの発行
             taskid = 901;
             string[] oef = tcommons.OutputEndFile(taskid, fs, errorcode, Dict, "end", ref msg, ref Dbgmsg);
             if (oef[0] == "NG")

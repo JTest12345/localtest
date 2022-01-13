@@ -254,6 +254,26 @@ namespace FileIf
         public string Henkaten { get { return henkaten; } set { if (value != "") henkaten = value; } }  //dbname: henkaten
         private string recipe = "NA";
         public string Recipe { get { return recipe; } set { if (value != "") recipe = value; } }  //dbname: recipefile_name
+
+        public Dictionary<string, string> resincupInfo { get; set; }
+
+        public void updateResinCCupInfo()
+        {
+            this.resincupInfo = new Dictionary<string, string>()
+            {
+                {"cupno", Cupno},
+                {"productnm", Cstmproduct},
+                {"ledrank", Dierank},
+                {"mixtypecd", "10"},
+                {"result", Result.ToString()},
+                {"kubun", Kubun},
+                {"seikeiki", Seikeiki},
+                {"henkaten", Henkaten},
+                {"recipefilenm", Recipe},
+                {"bdqty", Bdvol}
+            };
+        }
+
     }
 
     class recipe_info

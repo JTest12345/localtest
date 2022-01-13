@@ -237,22 +237,26 @@ namespace Oskas
 
         public bool MakeMsgLog(string FilePath)
         {
-            Encoding enc = Encoding.GetEncoding("utf-8");
+            ///////////////////////////////
+            //NLOGに移行の為、処理無し
+            ///////////////////////////////
 
-            try
-            {
-                StreamWriter writer = new StreamWriter(FilePath, false, enc);
-                writer.Close();
-            }
-            catch
-            {
-                return false;
-            }
+            //Encoding enc = Encoding.GetEncoding("utf-8");
 
-            if (!File.Exists(FilePath))
-            {
-                return false;
-            }
+            //try
+            //{
+            //    StreamWriter writer = new StreamWriter(FilePath, false, enc);
+            //    writer.Close();
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
+
+            //if (!File.Exists(FilePath))
+            //{
+            //    return false;
+            //}
 
             return true;
         }

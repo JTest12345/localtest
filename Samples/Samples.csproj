@@ -39,6 +39,9 @@
     <Reference Include="DotLiquid, Version=2.0.385.0, Culture=neutral, PublicKeyToken=82e46016ecf9f07c, processorArchitecture=MSIL">
       <HintPath>..\packages\DotLiquid.2.0.385\lib\net45\DotLiquid.dll</HintPath>
     </Reference>
+    <Reference Include="FluentFTP, Version=35.2.2.0, Culture=neutral, PublicKeyToken=f4af092b1d8df44f, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentFTP.35.2.2\lib\net45\FluentFTP.dll</HintPath>
+    </Reference>
     <Reference Include="MailKit, Version=2.15.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
       <HintPath>..\packages\MailKit.2.15.0\lib\net47\MailKit.dll</HintPath>
     </Reference>
@@ -72,6 +75,7 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -82,10 +86,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArmsWebApi.cs" />
+    <Compile Include="CojCsModel\gaikansample.cs" />
+    <Compile Include="FluentFtp.cs" />
+    <Compile Include="FmCojTasks.cs" />
+    <Compile Include="ISODatetime.cs" />
     <Compile Include="Json2Cs.cs" />
+    <Compile Include="JsonSchemaSamples\COJClassforLS_Csv.cs" />
     <Compile Include="JsonSchemaSamples\COJClass_Csv.cs" />
     <Compile Include="JsonSchemaSamples\COJInterface.cs" />
     <Compile Include="JsonSchemaSamples\COJSchemaBase.cs" />
+    <Compile Include="JsonSchemaSamples\NJsonSchema.cs" />
     <Compile Include="MagQrCode.cs" />
     <Compile Include="Mailkit.cs" />
     <Compile Include="JsonSchemaSamples\NJsonSchema_csv.cs" />
@@ -98,6 +108,8 @@
     <EmbeddedResource Include="fileContext\csvschema.json" />
     <EmbeddedResource Include="fileContext\csvdata.json" />
     <EmbeddedResource Include="fileContext\cojsample.json" />
+    <EmbeddedResource Include="fileContext\cojsample_ls.json" />
+    <EmbeddedResource Include="fileContext\cojsample_gaikan.json" />
     <None Include="packages.config" />
     <EmbeddedResource Include="fileContext\sctschema.json" />
   </ItemGroup>
@@ -109,6 +121,18 @@
     <ProjectReference Include="..\ArmsWebApi\ArmsWebApi.csproj">
       <Project>{9bf4ed69-2609-45a4-af4d-6c55802f0ac3}</Project>
       <Name>ArmsWebApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CojIF\CojIF.csproj">
+      <Project>{e39f3e7a-ef97-44d3-8bbc-fa3085efc4a1}</Project>
+      <Name>CojIF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileIF\FileIF.csproj">
+      <Project>{5ebc21f9-6af1-4547-96fb-2d408a4b8486}</Project>
+      <Name>FileIF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Oskas\Oskas.csproj">
+      <Project>{2f680f5e-efea-406b-a250-a52279b26263}</Project>
+      <Name>Oskas</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

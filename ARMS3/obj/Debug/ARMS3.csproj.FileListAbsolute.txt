@@ -133,3 +133,5 @@ C:\juni_ws\GitRepo\VSP\ARMS3\obj\Debug\ARMS3.application
 C:\juni_ws\GitRepo\VSP\ARMS3\obj\Debug\ARMS3.csproj.CopyComplete
 C:\juni_ws\GitRepo\VSP\ARMS3\obj\Debug\ARMS3.exe
 C:\juni_ws\GitRepo\VSP\ARMS3\obj\Debug\ARMS3.pdb
+C:\juni_ws\GitRepo\VSP\ARMS3\bin\Debug\ArmsCejApi.dll
+C:\juni_ws\GitRepo\VSP\ARMS3\bin\Debug\ArmsCejApi.pdb

@@ -1,0 +1,104 @@
+{
+  "title": "SCT生産履歴表",
+  "description": "記録番号：JQQ-E0036",
+  "type": "object",
+  "required": [
+
+  ],
+  "properties": {
+    "macno": {
+      "type": "integer",
+      "title": "設備No",
+      "minimum": 1
+    },
+    "nano_prgno": {
+      "type": "integer",
+      "title": "ナノマスター塗布CH",
+      "minimum": 1
+    },
+    "ml": {
+      "type": "number",
+      "title": "塗布量(ml)",
+      "minimum": 0
+    },
+    "shot_prgno": {
+      "type": "integer",
+      "title": "ショットマスター塗布CH",
+      "minimum": 1
+    },
+    "check1": {
+      "type": "string",
+      "title": "シリンジ状態確認",
+      "enum": [
+        "OK",
+        "交換"
+      ]
+    },
+    "check2": {
+      "type": "string",
+      "title": "ニードル状態確認",
+      "enum": [
+        "OK",
+        "交換"
+      ]
+    },
+    "check3": {
+      "type": "boolean",
+      "title": "ノズル高さ確認(2mm以上3mm未満)"
+    },
+    "strat_datetime": {
+      "title": "Lot開始時刻",
+      "type": "object",
+      "properties": {
+        "alt-datetime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "first_gaikan": {
+      "type": "array",
+      "title": "1枚目外観状態確認",
+      "items": {
+        "type": "string",
+        "enum": [
+          "不良無し",
+          "液だれ",
+          "気充填",
+          "溢れ",
+          "気泡"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "end_datetime": {
+      "title": "Lot終了時刻",
+      "type": "object",
+      "properties": {
+        "alt-datetime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "last_gaikan": {
+      "type": "array",
+      "title": "最終基板外観状態確認",
+      "items": {
+        "type": "string",
+        "enum": [
+          "不良無し",
+          "液だれ",
+          "気充填",
+          "溢れ",
+          "気泡"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "check4": {
+      "type": "boolean",
+      "title": "15分常温乾燥"
+    }
+  }
+}

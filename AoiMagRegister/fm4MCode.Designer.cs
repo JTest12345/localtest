@@ -76,6 +76,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(449, 69);
+            this.ControlBox = false;
             this.Controls.Add(this.bt_Ok4mcd);
             this.Controls.Add(this.bt_Cancel4mcd);
             this.Controls.Add(this.bt_clear4mcd);
@@ -84,6 +85,7 @@
             this.MinimumSize = new System.Drawing.Size(465, 108);
             this.Name = "fm4MCode";
             this.Text = "4MCode";
+            this.VisibleChanged += new System.EventHandler(this.fm4MCode_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 
