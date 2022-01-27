@@ -671,7 +671,7 @@ namespace FileIf
 
 
 
-        private bool Macconfjson2fs(Mcfilesys fs, string MacConfPath)
+        public static bool Macconfjson2fs(Mcfilesys fs, string MacConfPath)
         {
             try
             {

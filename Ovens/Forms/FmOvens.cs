@@ -129,7 +129,6 @@ namespace Ovens
             {
                 ConsoleShow("ひょうじされとる券", Cnslcnf.msg_error);
             }
-
         }
 
         private void bt_StopHub_Click(object sender, EventArgs e)
@@ -237,7 +236,7 @@ namespace Ovens
                             ConsoleShow("連続アラーム異常通知メールを発行しました", Cnslcnf.msg_error);
                             foreach (var someone in Config.ceObject.mailConf.mailto)
                             {
-                                Oskas.Mailkit.SendMail(someone, Config.ceObject.mailConf.mail_title, Config.ceObject.mailConf.mail_title);
+                                Oskas.Mailkit.SendMail(someone, Config.ceObject.mailConf.mail_title, Config.ceObject.mailConf.mail_contents);
                             }
                         }
                     }

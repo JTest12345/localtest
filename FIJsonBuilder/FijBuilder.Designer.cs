@@ -130,6 +130,7 @@
             this.bt_rm_mcfilekey = new System.Windows.Forms.Button();
             this.bt_add_mcfilekey = new System.Windows.Forms.Button();
             this.lb_mcfilekey = new System.Windows.Forms.ListBox();
+            this.chk_mcfile_disableEndfile = new System.Windows.Forms.CheckBox();
             this.tab_mstsf = new System.Windows.Forms.TabPage();
             this.tb_mstsfkey = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -152,7 +153,6 @@
             this.lb_mstsfkey = new System.Windows.Forms.ListBox();
             this.bt_svmcj = new System.Windows.Forms.Button();
             this.bt_closefm = new System.Windows.Forms.Button();
-            this.chk_mcfile_disableEndfile = new System.Windows.Forms.CheckBox();
             this.tb_main.SuspendLayout();
             this.tb_common.SuspendLayout();
             this.tb_plc.SuspendLayout();
@@ -1263,6 +1263,16 @@
             this.lb_mcfilekey.Size = new System.Drawing.Size(116, 344);
             this.lb_mcfilekey.TabIndex = 9;
             // 
+            // chk_mcfile_disableEndfile
+            // 
+            this.chk_mcfile_disableEndfile.AutoSize = true;
+            this.chk_mcfile_disableEndfile.Location = new System.Drawing.Point(274, 67);
+            this.chk_mcfile_disableEndfile.Name = "chk_mcfile_disableEndfile";
+            this.chk_mcfile_disableEndfile.Size = new System.Drawing.Size(71, 21);
+            this.chk_mcfile_disableEndfile.TabIndex = 32;
+            this.chk_mcfile_disableEndfile.Text = "返信不要";
+            this.chk_mcfile_disableEndfile.UseVisualStyleBackColor = true;
+            // 
             // tab_mstsf
             // 
             this.tab_mstsf.Controls.Add(this.tb_mstsfkey);
@@ -1521,16 +1531,6 @@
             this.bt_closefm.UseVisualStyleBackColor = true;
             this.bt_closefm.Click += new System.EventHandler(this.bt_closefm_Click);
             // 
-            // chk_mcfile_disableEndfile
-            // 
-            this.chk_mcfile_disableEndfile.AutoSize = true;
-            this.chk_mcfile_disableEndfile.Location = new System.Drawing.Point(274, 67);
-            this.chk_mcfile_disableEndfile.Name = "chk_mcfile_disableEndfile";
-            this.chk_mcfile_disableEndfile.Size = new System.Drawing.Size(71, 21);
-            this.chk_mcfile_disableEndfile.TabIndex = 32;
-            this.chk_mcfile_disableEndfile.Text = "返信不要";
-            this.chk_mcfile_disableEndfile.UseVisualStyleBackColor = true;
-            // 
             // fm_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -1542,7 +1542,7 @@
             this.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "fm_main";
-            this.Text = "FIJsonBuilder";
+            this.Text = "FIFConfBuilder";
             this.tb_main.ResumeLayout(false);
             this.tb_common.ResumeLayout(false);
             this.tb_common.PerformLayout();

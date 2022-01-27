@@ -105,6 +105,10 @@ namespace FileIf
         public string[] infilekey { get; set; }
         public string[] wipfilekey { get; set; }
         public string[] endfilekey { get; set; }
+        //FileFetch関連[]
+        public string[] FFetchPcat { get; set; }
+        public string[] FFetchMacName { get; set; }
+        public string[] FFetchFileKey { get; set; }
         //DB接続情報[dbconf]
         public string Server { get; set; }// ホスト名
         public string Port { get; set; }// ポート番号
@@ -147,6 +151,7 @@ namespace FileIf
                 string filepath = IniFileDir + inifilename;
                 if (!CommonFuncs.FileExists(filepath))
                     return false;
+
                 // [systemconf]
                 string debugmode = CommonFuncs.GetIniValue(filepath, "systemconf", "debug");
                 if (debugmode == "true")
@@ -171,6 +176,15 @@ namespace FileIf
                 wipfilekey = wipfilekey_ini.Split(',');
                 string endfilekey_ini = CommonFuncs.GetIniValue(filepath, "fileconf", "endfilekey");
                 endfilekey = endfilekey_ini.Split(',');
+
+                // [ffetch]
+                string proccat_ini = CommonFuncs.GetIniValue(filepath, "ffetch", "proccat");
+                FFetchPcat = proccat_ini.Split(',');
+                string macname_ini = CommonFuncs.GetIniValue(filepath, "ffetch", "macno");
+                FFetchMacName = macname_ini.Split(',');
+                string filekey_ini = CommonFuncs.GetIniValue(filepath, "ffetch", "filekey");
+                FFetchFileKey = filekey_ini.Split(',');
+
 
                 // [dbconf]
                 Server = CommonFuncs.GetIniValue(filepath, "dbconf", "Server");

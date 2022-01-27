@@ -65,16 +65,17 @@ namespace ARMS3.Model.Machines
         /// </summary>
         private const int FRAME_ADDR_OFFSET = 100;
 
-        private const string ADDR_HEADER = "DM";
+        private const string ADDR_HEADER = "EM";
         private const string ADDR_HEADER2 = "B";
 
         private const int MAG_NO_ADDR_START = 500;
         private const int MAG_NO_ADDR_LENGTH = 9;
 
-        private const int PCBNO_NO_ADDR = 509;
+        private const int PCBNO_NO_ADDR = 510;
+        private const int PCBNO_NO_ADDR_LENGTH = 10;
 
-        private const int TYPECD_NO_ADDR = 510;
-        private const int TYPECD_NO_ADDR_LENGTH = 10;
+        //private const int TYPECD_NO_ADDR = 510;
+        //private const int TYPECD_NO_ADDR_LENGTH = 10;
 
         private const int MATERIALCD_NO_ADDR = 520;
         private const int MATERIALCD_NO_ADDR_LENGTH = 10;
@@ -88,7 +89,7 @@ namespace ARMS3.Model.Machines
         private const int WORK_START_YEAR_ADDR = 550;
         private const int WORK_END_YEAR_ADDR = 560;
 
-        private const int MARKING_END_FG_ADDR = 0;
+        private const int MARKING_END_FG_ADDR = 1000;
         private const int WORKEND_RETCODE_ADDE = 499;
 
         private const int MAX_PCB_CT = 50;
@@ -110,7 +111,13 @@ namespace ARMS3.Model.Machines
         {
             if (success)
             {
+                Plc.SetWordAsDecimalData(ADDR_HEADER + WORKEND_RETCODE_ADDE.ToString("0000"), 0);
+                Log.RBLog.Info("エラーなし：Code(0)を返しています");
+            }
+            else
+            {
                 Plc.SetWordAsDecimalData(ADDR_HEADER + WORKEND_RETCODE_ADDE.ToString("0000"), 1);
+                Log.RBLog.Info("エラー発生：Code(1)を返しています");
             }
 
             this.Plc.SetBit(ADDR_HEADER2 + MARKING_END_FG_ADDR.ToString("0000"), 1, PLC.Common.BIT_OFF);
@@ -276,7 +283,8 @@ namespace ARMS3.Model.Machines
             {
                 try
                 {
-                    PcbNo = int.Parse(Plc.GetBit(ToAdr(PCBNO_NO_ADDR, pcbno)));
+                    //PcbNo = int.Parse(Plc.GetBit(ToAdr(PCBNO_NO_ADDR, pcbno)));
+                    PcbNo = int.Parse(Plc.GetString(ToAdr(PCBNO_NO_ADDR, pcbno), PCBNO_NO_ADDR_LENGTH, true));
                     return true;
                 }
                 catch (Exception ex)
@@ -289,7 +297,8 @@ namespace ARMS3.Model.Machines
             {
                 try
                 {
-                    TypeCd = Plc.GetString(ToAdr(TYPECD_NO_ADDR, pcbno), TYPECD_NO_ADDR_LENGTH, true);
+                    //TypeCd = Plc.GetString(ToAdr(TYPECD_NO_ADDR, pcbno), TYPECD_NO_ADDR_LENGTH, true);
+                    TypeCd = "---";
                     return true;
                 }
                 catch (Exception ex)

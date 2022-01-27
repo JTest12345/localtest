@@ -113,26 +113,26 @@ namespace CojIF
             var encoding = _Fd01.formdata.Encoding;
             var contents = new List<string>();
             var ret = string.Empty;
-            //抜き出して見たい項目の順番
-            var itemNO = 1;
 
             if (Oskas.CommonFuncs.ReadTextFileLine(filepath, ref contents, encoding))
             {
-                ret += "-------------------------------" + "\r\n";
-                ret += $"{itemNO+1}番目の項目だけ抜き出してみます " + "\r\n";
-                ret += "-------------------------------" + "\r\n";
+                for (var itemNO=0; itemNO<_Fd02.formdata.Count; itemNO++) {
+                    ret += "-------------------------------" + "\r\n";
+                    ret += $"{itemNO + 1}番目の項目抜き出し " + "\r\n";
+                    ret += "-------------------------------" + "\r\n";
 
-                var itemName = _Fd02.formdata[itemNO].Name;
-                var itemUnit = _Fd02.formdata[itemNO].Unit;
-                var itemCol = _Fd02.formdata[itemNO].Colno;
+                    var itemName = _Fd02.formdata[itemNO].Name;
+                    var itemUnit = _Fd02.formdata[itemNO].Unit;
+                    var itemCol = _Fd02.formdata[itemNO].Colno;
 
-                ret += $"◇項目：{itemName}" + "\r\n";
-                ret += $"◇単位：{itemUnit}" + "\r\n";
-                ret += "◇生データ" + "\r\n";
-                foreach (var item in contents)
-                {
-                    var itemValue = item.Split(',')[itemCol - 1];
-                    ret += itemValue + ", ";
+                    ret += $"◇項目：{itemName}" + "\r\n";
+                    ret += $"◇単位：{itemUnit}" + "\r\n";
+                    ret += "◇生データ" + "\r\n";
+                    foreach (var item in contents)
+                    {
+                        var itemValue = item.Split(',')[itemCol - 1];
+                        ret += itemValue + ", ";
+                    }
                 }
 
                 return ret;

@@ -10,6 +10,8 @@ namespace FileIf
 {
     public class FileIfFlame : Oskas.fmMain
     {
+        FileFetchForm fileFetchForm;
+
         Tasks_Common tcommons = new Tasks_Common();
         //MySQL db = new MySQL();
 
@@ -33,6 +35,8 @@ namespace FileIf
 
         // TaskHander
         TaskHandler tskhdl;
+        private ToolStripMenuItem オプションToolStripMenuItem;
+        private ToolStripMenuItem Mn_OpenFileFetch;
 
         // インターロック設備リスト
         List<string> IntLokMac = new List<string>();
@@ -55,6 +59,10 @@ namespace FileIf
                 OskNLog.Log(globalmsg, Cnslcnf.msg_error);
             }
 
+            // FileFetchコンストラクタ
+            fileFetchForm = new FileFetchForm(mci);
+
+
             // MySQLを使用しない仕様となった為コメントアウト
             // 2021.12.27
             //if (!db.PingUpdatesState(mci.ConnectionStrings, ref globalmsg))
@@ -65,12 +73,14 @@ namespace FileIf
             //else
             //    OskNLog.Log(globalmsg, Cnslcnf.msg_info);
 
+            // Mqttを使う？
             if (mci.isUseMqtt)
             {
                 mqttClient = new MqttClient(mci.mosquittoHost);
                 var ret = mqttClient.Connect(Guid.NewGuid().ToString());
             }
 
+            // FILEIF起動メッセージ
             if (btServerStart.Enabled)
                 OskNLog.Log("File InterFace(aka:MagCup)が起動しました", 0);
 
@@ -81,6 +91,8 @@ namespace FileIf
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.Mn_Files = new System.Windows.Forms.ToolStripMenuItem();
             this.Mn_Files_OpenFif = new System.Windows.Forms.ToolStripMenuItem();
+            this.オプションToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Mn_OpenFileFetch = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,7 +120,8 @@ namespace FileIf
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Mn_Files});
+            this.Mn_Files,
+            this.オプションToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(784, 24);
@@ -129,6 +142,21 @@ namespace FileIf
             this.Mn_Files_OpenFif.Size = new System.Drawing.Size(152, 22);
             this.Mn_Files_OpenFif.Text = "FIFフォルダを開く";
             // 
+            // オプションToolStripMenuItem
+            // 
+            this.オプションToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Mn_OpenFileFetch});
+            this.オプションToolStripMenuItem.Name = "オプションToolStripMenuItem";
+            this.オプションToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.オプションToolStripMenuItem.Text = "オプション";
+            // 
+            // Mn_OpenFileFetch
+            // 
+            this.Mn_OpenFileFetch.Name = "Mn_OpenFileFetch";
+            this.Mn_OpenFileFetch.Size = new System.Drawing.Size(168, 22);
+            this.Mn_OpenFileFetch.Text = "設備内ファイル取得";
+            this.Mn_OpenFileFetch.Click += new System.EventHandler(this.OpenFileFetchForm);
+            // 
             // FileIfFlame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
@@ -136,7 +164,7 @@ namespace FileIf
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "FileIfFlame";
-            this.Text = "VSP://FileInterFace";
+            this.Text = "FIF";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MagCupFlame_FormClosing);
             this.Controls.SetChildIndex(this.ErrorLogComsole, 0);
             this.Controls.SetChildIndex(this.consoleBox, 0);
@@ -302,6 +330,21 @@ namespace FileIf
             }
         }
 
+        private void OpenFileFetchForm(object sender, EventArgs e)
+        {
+            if (!fileFetchForm.Visible)
+            {
+                if (fileFetchForm.IsDisposed)
+                {
+                    fileFetchForm = new FileFetchForm(mci);
+                }
+                fileFetchForm.Show(this);
+            }
+            else
+            {
+                ConsoleShow("既に表示されています", Cnslcnf.msg_error);
+            }
+        }
     }
 
 }

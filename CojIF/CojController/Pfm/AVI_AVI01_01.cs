@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 namespace CojIF
 {
     /// <summary>
-    /// {COJ}のCSVファイル適用実験クラス
+    /// {COJ}
     /// </summary>
     /// 
     public class AVI_AVI01_01 : AVI01_01

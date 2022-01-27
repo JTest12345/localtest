@@ -20,7 +20,8 @@ namespace ARMS3.FakeVIPline
     {
 
         //RelayMachinePLC Plc = new RelayMachinePLC("192.168.1.100", 8501);
-        Keyence Plc = new Keyence("192.168.1.100", 8500);
+        //Keyence Plc = new Keyence("192.168.1.100", 8500);
+        Keyence Plc = new Keyence("10.129.98.107", 8500);
 
         public FrmLmSim()
         {

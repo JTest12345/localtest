@@ -1171,14 +1171,30 @@ namespace ArmsApi.Model
                     return true;
 				}
 
-                if (p.MixTypeCd.Contains(r.MixTypeCd) == false)
+                // 20220112 Juniwatanabe
+                // 複数樹脂対応実験
+                // OriginalCode
+                //if (p.MixTypeCd.Contains(r.MixTypeCd) == false)
+                //{
+                //    msg = $"[{m.MacNo}/{m.LongName}] 投入樹脂の調合タイプが一致しません "
+                //    + $"投入調合タイプ:『{r.MixTypeCd}/{Resin.GetMixTypeNm(r.MixTypeCd)}』 "
+                //    + $"投入樹脂:[樹脂ID『{r.MixResultId}』/樹脂グループコード『{r.ResinGroupCd}』]";
+
+                //    return true;
+                //}
+
+                var mixTypeCdArr = r.MixTypeCd.Split(',');
+
+                foreach (var mixtypeCode in mixTypeCdArr)
                 {
-                    msg = $"[{m.MacNo}/{m.LongName}] 投入樹脂の調合タイプが一致しません "
+                    if (p.MixTypeCd.Contains(mixtypeCode) == false)
+                    {
+                        msg = $"[{m.MacNo}/{m.LongName}] 投入樹脂の調合タイプが一致しません "
                         + $"投入調合タイプ:『{r.MixTypeCd}/{Resin.GetMixTypeNm(r.MixTypeCd)}』 "
-                        //+ $"投入調合タイプ:『{r.MixTypeCd}』" ///{Resin.GetMixTypeNm(r.MixTypeCd)}』 "
                         + $"投入樹脂:[樹脂ID『{r.MixResultId}』/樹脂グループコード『{r.ResinGroupCd}』]";
 
-                    return true;
+                        return true;
+                    }
                 }
             }
 
