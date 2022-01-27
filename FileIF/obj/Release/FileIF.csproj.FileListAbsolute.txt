@@ -161,3 +161,6 @@ C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\System.Buffers.xml
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\ResinPrg.dll
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\CojIF.dll
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\CojIF.pdb
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\FluentFTP.dll
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\FluentFTP.xml
+C:\juni_ws\GitRepo\VSP\FileIF\obj\Release\FileIf.FileFetchForm.resources
