@@ -85,7 +85,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArmsWebApi.cs" />
+    <Compile Include="ArmsWebApi_funcs.cs" />
+    <Compile Include="ArmsWebApi_startends.cs" />
     <Compile Include="CojCsModel\gaikansample.cs" />
     <Compile Include="FluentFtp.cs" />
     <Compile Include="FmCojTasks.cs" />

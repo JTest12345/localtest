@@ -14,7 +14,7 @@ namespace Samples
     class NJsonSchema
     {
 
-        static void Main(string[] args)
+        static void _Main(string[] args)
         {
             /////////////////////////////////////////////////////////////////
             // Json SchemaからC#クラスを生成するサンプル

@@ -289,6 +289,72 @@ namespace ArmsWeb.Models
             return retv;
         }
 
+        public List<VirtualMag> getUnloaderVtMag(string plantcd)
+        {
+            List<VirtualMag> retv = new List<VirtualMag>();
+
+            MachineInfo m = MachineInfo.GetMachine(plantcd);
+            List<VirtualMag> vmags = VirtualMag.GetVirtualMag(m.MacNo, ((int)Station.Loader)).ToList();
+
+            ///////////////////////////////////////////////////
+            //// 2021.07.28 Junichi Watanabe 追加コード
+            //if (vmags.Count == 1)
+            //{
+            //    var vm = vmags[0];
+            //    vm.CurrentLocation = new Location(m.MacNo, Station.Loader);
+            //    vm.Dequeue(vm.CurrentLocation);
+            //    vm.CurrentLocation.Station = Station.Unloader;
+            //    vm.LastMagazineNo = vm.MagazineNo;
+            //    vm.Enqueue(vm, vm.CurrentLocation);
+            //}
+            //// 追加コードここまで
+            //////////////////////////////////////////////////
+            ///
+            ///////////////////////////////////////////////////
+            //// 2021.11.16 Junichi Watanabe 追加コード
+            //// 上記コードでは1設備複数ロット投入が動作確認できなかった為変更
+            foreach (var mag in vmags)
+            {
+                mag.CurrentLocation = new Location(m.MacNo, Station.Loader);
+                mag.Dequeue(mag.CurrentLocation);
+                mag.CurrentLocation.Station = Station.Unloader;
+                mag.LastMagazineNo = mag.MagazineNo;
+                mag.Enqueue(mag, mag.CurrentLocation);
+            }
+            //// 追加コードここまで
+            //////////////////////////////////////////////////
+
+            vmags = VirtualMag.GetVirtualMag(m.MacNo, ((int)Station.Unloader)).ToList();
+
+            foreach (VirtualMag vmag in vmags)
+            {
+                Magazine svrmag = Magazine.GetCurrent(vmag.MagazineNo);
+
+                //ブレンドされているロット、かつ最終工程以降の工程の完了の場合
+                CutBlend[] cbs = CutBlend.GetData(vmag.MagazineNo);
+                if (cbs.Length > 0)
+                {
+                    AsmLot lot = AsmLot.GetAsmLot(cbs.First().LotNo);
+
+                    int lastprocno = Order.GetLastProcNoFromLotNo(cbs.First().BlendLotNo);
+                    Process prevprocess = Process.GetPrevProcess(lastprocno, lot.TypeCd);
+                    Process nextprocess = Process.GetNextProcess(prevprocess.ProcNo, lot);
+
+                    if (Process.IsFinalStAfterProcess(nextprocess, lot.TypeCd) == true)
+                    {
+                        svrmag = new Magazine();
+                        svrmag.NascaLotNO = cbs.First().BlendLotNo;
+                        svrmag.MagazineNo = vmag.MagazineNo;
+                    }
+                }
+                if (svrmag == null) continue;
+
+                retv.Add(vmag);
+            }
+
+            return retv;
+        }
+
         /// <summary>
         /// 作業完了前チェック
         /// </summary>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Samples
 {
-    class ArmsWebApSample
+    class ArmsWebAp_startends
     {
 
         static void _Main(string[] args)

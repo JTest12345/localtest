@@ -37,6 +37,7 @@ namespace AoiMagBuilder
             fm4mcd.fmm = this;
             ReadIniFile();
             InitCheckBoxes();
+            toolStripStatusLabel1.Text = "";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -88,21 +89,26 @@ namespace AoiMagBuilder
                 PcbMark.PcbMarkM pmm = new PcbMark.PcbMarkM
                 {
                     MagNo = txt_magno.Text.Replace("C30 ", ""),
-                    TypeCd = "",
+                    TypeCd = txt_typecd.Text,
                     MaterialCd = txt_matcode.Text,
                     WorkStDt = DateTime.Now,
                     WorkEndDt = DateTime.Now,
                     PcbMarks = pmds
                 };
 
+                toolStripStatusLabel1.Text = "上位に問合せしています";
+
                 string errmsg = PcbMark.InsertPcbMark(pmm);
+
                 if (errmsg != "")
                 {
                     MessageBox.Show(errmsg);
+                    toolStripStatusLabel1.Text = "";
                 }
                 else
                 {
                     MessageBox.Show("登録完了しました");
+                    toolStripStatusLabel1.Text = "";
                 }
 
                 // MessageBox.Show("登録完了しました");

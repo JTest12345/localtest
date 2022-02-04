@@ -47,6 +47,9 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txt_magno
@@ -222,11 +225,28 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 201);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(774, 22);
+            this.statusStrip1.TabIndex = 13;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
             // FrmAoiMag
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(774, 203);
+            this.ClientSize = new System.Drawing.Size(774, 223);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.checkBox4);
@@ -248,11 +268,13 @@
             this.Controls.Add(this.txt_magno);
             this.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MaximumSize = new System.Drawing.Size(790, 242);
-            this.MinimumSize = new System.Drawing.Size(790, 242);
+            this.MaximumSize = new System.Drawing.Size(790, 262);
+            this.MinimumSize = new System.Drawing.Size(790, 262);
             this.Name = "FrmAoiMag";
             this.Text = "AOI Builder";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmAoiMag_FormClosing);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -279,5 +301,7 @@
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }

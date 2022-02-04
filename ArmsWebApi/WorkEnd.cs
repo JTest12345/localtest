@@ -36,6 +36,12 @@ namespace ArmsWebApi
             this.NewMagFrameQty = NewMagFrameQty;
         }
 
+        public List<Magazine> GetMagazines(string plantcd)
+        {
+            wem = new WorkEndAltModel(plantcd);
+            return wem.getUnloaderMag(plantcd);
+        }
+
         public bool End(out string msg)
         {
             this.mag = Magazine.GetCurrent(magno);

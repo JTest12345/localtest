@@ -121,6 +121,9 @@ namespace ArmsWeb.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult InputEmpCd(string empcd)
         {
+            // Empcd Header Check Scripts here .... JuniWatanabe 
+            empcd = "01 " + empcd;
+
             if (empcd.StartsWith(ArmsApi.Config.EMP_BARCODE_HEADER) == false)
             {
                 TempData["AlertMsg"] = "バーコードヘッダー異常（01 )";

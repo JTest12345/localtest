@@ -157,6 +157,16 @@ namespace ArmsWeb.Controllers
                 int seqNo = 0;
 
                 string[] elms = txtMagNo.Split(' ');
+
+                // Magno Header Check Scripts here .... JuniWatanabe
+                // マガジンにヘッダー"A "がない場合の暫定対応
+                if (elms.Length == 1)
+                {
+                    elms = new string[] { "C30", txtMagNo };
+                    txtMagNo = "C30 " + txtMagNo;
+                }
+
+
                 if (elms.Length == 2 && txtMagNo.StartsWith(ArmsApi.Model.AsmLot.PREFIX_INLINE_LOT))
                 {
                     magno = elms[1];
