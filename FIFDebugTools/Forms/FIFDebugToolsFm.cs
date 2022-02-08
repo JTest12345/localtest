@@ -61,13 +61,18 @@ namespace FIFDebugTools
                 ConsoleShow(msg);
             };
 
-            var ret = mqttClient1.Connect(Guid.NewGuid().ToString());
-            ConsoleShow($"Connected with result code {ret}" + crlf);
-            mqttClient1.Subscribe(new[] { "test" }, new[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
-
-            //while (mqttClient.IsConnected)
-            //{
-            //}
+            try
+            {
+                var ret = mqttClient1.Connect(Guid.NewGuid().ToString());
+                ConsoleShow($"Connected with result code {ret}" + crlf);
+                mqttClient1.Subscribe(new[] { "console" }, new[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            }
+            catch(Exception ex)
+            {
+                ConsoleShow(ex.Message + crlf);
+                ConsoleShow("MQTTブローカー(ロギングモニタ)に接続できませんでした" + crlf);
+            }
+ 
         }
 
         private void mqttmagcup()
@@ -79,12 +84,17 @@ namespace FIFDebugTools
                 toolStripStatusLabel1.Text = string.Format("MagCupServer Status: " + msg);
             };
 
-            var ret = mqttClient2.Connect(Guid.NewGuid().ToString());
-            mqttClient2.Subscribe(new[] { "magcup" }, new[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            try
+            {
+                var ret = mqttClient2.Connect(Guid.NewGuid().ToString());
+                mqttClient2.Subscribe(new[] { "magcup" }, new[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
 
-            //while (mqttClient.IsConnected)
-            //{
-            //}
+            }
+            catch (Exception ex)
+            {
+                ConsoleShow(ex.Message + crlf);
+                ConsoleShow("MQTTブローカー(ステータスモニタ)に接続できませんでした" + crlf);
+            }
         }
 
 

@@ -50,8 +50,17 @@ namespace Oskas
 
             if (oskaini.isUseMqtt)
             {
-                mqttClient = new MqttClient(oskaini.mosquittoHost);
-                var ret = mqttClient.Connect(Guid.NewGuid().ToString());
+                try
+                {
+                    mqttClient = new MqttClient(oskaini.mosquittoHost);
+                    var ret = mqttClient.Connect(Guid.NewGuid().ToString());
+                }
+                catch (Exception ex)
+                {
+                    ConsoleShow(ex.Message, Cnslcnf.msg_error);
+                    ConsoleShow("MQTTブローカーに接続できませんでした。MQTTをOFFします。", Cnslcnf.msg_error);
+                    oskaini.isUseMqtt = false;
+                }
             }
 
             // NlogにConsoleActionを渡す
@@ -108,7 +117,7 @@ namespace Oskas
                             consoleBox.AppendText(message + text + crlf);
                             if (oskaini.isUseMqtt)
                             {
-                                mq.Mqtt_Publog(mqttClient, "test", message + text + crlf);
+                                mq.Mqtt_Publog(mqttClient, "console", message + text + crlf);
                             }
                         }
                         break;
@@ -119,7 +128,7 @@ namespace Oskas
 
                     if (oskaini.isUseMqtt)
                     {
-                        mq.Mqtt_Publog(mqttClient, "test", message + text + crlf);
+                        mq.Mqtt_Publog(mqttClient, "console", message + text + crlf);
                     }
                 }
 
@@ -188,7 +197,7 @@ namespace Oskas
                             fmm.consoleBox.AppendText(message + text + crlf);
                             if (fmm.oskaini.isUseMqtt)
                             {
-                                fmm.mq.Mqtt_Publog(fmm.mqttClient, "test", message + text + crlf);
+                                fmm.mq.Mqtt_Publog(fmm.mqttClient, "console", message + text + crlf);
                             }
                         }
                         break;
@@ -214,7 +223,7 @@ namespace Oskas
 
                     if (fmm.oskaini.isUseMqtt)
                     {
-                        fmm.mq.Mqtt_Publog(fmm.mqttClient, "test", message + text + crlf);
+                        fmm.mq.Mqtt_Publog(fmm.mqttClient, "console", message + text + crlf);
                     }
                 }
 

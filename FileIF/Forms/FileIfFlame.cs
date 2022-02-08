@@ -76,8 +76,18 @@ namespace FileIf
             // Mqttを使う？
             if (mci.isUseMqtt)
             {
-                mqttClient = new MqttClient(mci.mosquittoHost);
-                var ret = mqttClient.Connect(Guid.NewGuid().ToString());
+                try
+                {
+                    mqttClient = new MqttClient(mci.mosquittoHost);
+                    var ret = mqttClient.Connect(Guid.NewGuid().ToString());
+                }
+                catch (Exception ex)
+                {
+                    ConsoleShow(ex.Message, Cnslcnf.msg_error);
+                    ConsoleShow("MQTTブローカーに接続できませんでした。MQTTをOFFします。", Cnslcnf.msg_error);
+                    mci.isUseMqtt = false;
+                }
+                
             }
 
             // FILEIF起動メッセージ
