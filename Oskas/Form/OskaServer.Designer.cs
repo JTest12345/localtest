@@ -168,9 +168,9 @@
         protected System.Windows.Forms.Button btServerStart;
         protected System.Windows.Forms.StatusStrip statusStrip1;
         protected System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.Button bt_ClearErrLogs;
         private System.Windows.Forms.Label label1;
         protected System.Windows.Forms.TextBox ErrorLogComsole;
+        protected System.Windows.Forms.Button bt_ClearErrLogs;
     }
 }
 

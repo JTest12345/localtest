@@ -43,7 +43,6 @@ C:\juni_ws\GitRepo\Oskas\FileIF\bin\Debug\ArmsApi.XmlSerializers.dll
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FileIF.csprojAssemblyReference.cache
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FILEIF.exe.config
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FileIf.FileIfFlame.resources
-C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FileIf.PlcTestForm.resources
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FileIf.Properties.Resources.resources
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FileIF.csproj.GenerateResource.cache
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FileIF.csproj.CoreCompileInputs.cache

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Oskas;
 
-namespace FileIf
+namespace FIFDebugTools
 {
     public partial class PlcTestForm : Form
     {
@@ -26,12 +26,12 @@ namespace FileIf
         }
 
 
-        delegate void ConsoleDelegate(string text, int level);
-        private void ConsoleShow(string text, int level)
+        delegate void ConsoleDelegatePlc(string text, int level);
+        private void ConsoleShowPlc(string text, int level)
         {
-            if (consoleBox.InvokeRequired)
+            if (consoleBox_plc.InvokeRequired)
             {
-                ConsoleDelegate d = new ConsoleDelegate(ConsoleShow);
+                ConsoleDelegatePlc d = new ConsoleDelegatePlc(ConsoleShowPlc);
                 BeginInvoke(d, new object[] { text, level });
             }
             else
@@ -55,7 +55,7 @@ namespace FileIf
                         message = "[ERROR] ";
                         break;
                 }
-                consoleBox.AppendText(message + text + crlf);
+                consoleBox_plc.AppendText(message + text + crlf);
             }
         }
 
@@ -100,11 +100,11 @@ namespace FileIf
 
             if (!CmdError)
             {
-                ConsoleShow(msg, meslevel);
+                ConsoleShowPlc(msg, meslevel);
             }
             else
             {
-                ConsoleShow("コマンド条件が不正です", 4);
+                ConsoleShowPlc("コマンド条件が不正です", 4);
             }
             
         }
@@ -135,11 +135,11 @@ namespace FileIf
 
             if (!CmdError)
             {
-                ConsoleShow(msg, meslevel);
+                ConsoleShowPlc(msg, meslevel);
             }
             else
             {
-                ConsoleShow("コマンド条件が不正です", 4);
+                ConsoleShowPlc("コマンド条件が不正です", 4);
             } 
         }
 
@@ -171,11 +171,11 @@ namespace FileIf
                 txtPort.Text = retDict["Port"];
                 txtDevType.Text = retDict["Devtype"];
                 txtDeviceNo.Text = retDict["Devno"];
-                ConsoleShow("PLC情報取得完了", 0);
+                ConsoleShowPlc("PLC情報取得完了", 0);
             }
             else
             {
-                ConsoleShow("クエリ条件不正:" + msg, 4);
+                ConsoleShowPlc("クエリ条件不正:" + msg, 4);
             }
         }
 

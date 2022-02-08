@@ -1,4 +1,4 @@
-﻿namespace FIJsonBuilder
+﻿namespace FIFJsonBuilder
 {
     partial class fm_main
     {

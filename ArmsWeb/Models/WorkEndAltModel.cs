@@ -288,7 +288,10 @@ namespace ArmsWeb.Models
 
             return retv;
         }
-
+        // 2022.02.03 Junichi Watanabe
+        //  平田帳票SYS対応の為、VirtualMagのリストを返すメソッドが必要になったため
+        // Magaginを返しているgetUnloaderMagをまるっと使った下記コードを追加しました
+        //
         public List<VirtualMag> getUnloaderVtMag(string plantcd)
         {
             List<VirtualMag> retv = new List<VirtualMag>();

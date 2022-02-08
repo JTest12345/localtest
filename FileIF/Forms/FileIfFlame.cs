@@ -34,7 +34,7 @@ namespace FileIf
         private ToolStripMenuItem Mn_Files_OpenFif;
 
         // TaskHander
-        TaskHandler tskhdl;
+        TaskControlHandler tskhdl;
         private ToolStripMenuItem オプションToolStripMenuItem;
         private ToolStripMenuItem Mn_OpenFileFetch;
 
@@ -268,7 +268,7 @@ namespace FileIf
                 TaskTimer.Enabled = false;
 
                 // TaskHandler初期化
-                tskhdl = new TaskHandler(tcommons, mci, IntLokMac);
+                tskhdl = new TaskControlHandler(tcommons, mci, IntLokMac);
 
                 // INファイルの検索
                 tskhdl.Tasks("IN", mci.infilekey);

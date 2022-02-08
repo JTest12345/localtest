@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileIF", "FileIF\FileIF.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArmsWeb", "ArmsWeb\ArmsWeb.csproj", "{B06D2579-7C38-4CE4-A612-62C98FD59BB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIJsonBuilder", "FIJsonBuilder\FIJsonBuilder.csproj", "{70335CA4-317A-4E4B-9F41-E6B300725FC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIFJsonBuilder", "FIJsonBuilder\FIFJsonBuilder.csproj", "{70335CA4-317A-4E4B-9F41-E6B300725FC0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "Samples\Samples.csproj", "{B5CA4089-6CC0-4E31-B007-1E05C3B5FE72}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AoiBuilder", "AoiMagRegister\AoiBuilder.csproj", "{7542094B-F3F3-4A62-B85C-052B90A87FBF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CojIF", "CojIF\CojIF.csproj", "{E39F3E7A-EF97-44D3-8BBC-FA3085EFC4A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIFDebugTools", "FIFDebugTools\FIFDebugTools.csproj", "{F4244C81-A7FB-443C-95BD-2937EEEF4E20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{E39F3E7A-EF97-44D3-8BBC-FA3085EFC4A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E39F3E7A-EF97-44D3-8BBC-FA3085EFC4A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E39F3E7A-EF97-44D3-8BBC-FA3085EFC4A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4244C81-A7FB-443C-95BD-2937EEEF4E20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4244C81-A7FB-443C-95BD-2937EEEF4E20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4244C81-A7FB-443C-95BD-2937EEEF4E20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4244C81-A7FB-443C-95BD-2937EEEF4E20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

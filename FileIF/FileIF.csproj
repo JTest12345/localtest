@@ -92,28 +92,22 @@
     <Compile Include="Models\Arms\WorkEndModel.cs" />
     <Compile Include="Models\Arms\WorkStartModel.cs" />
     <Compile Include="Models\taskInterface.cs" />
-    <Compile Include="Tasks\TaskHandler.cs" />
-    <Compile Include="Tasks\TaskInterface.cs" />
-    <Compile Include="Tasks\Tasks4mJ\Tasks_avi01.cs" />
-    <Compile Include="Tasks\TasksCsv\Tasks_csvtest.cs" />
-    <Compile Include="Tasks\TasksCup\Tasks_cot1.cs" />
-    <Compile Include="Tasks\TasksCup\Tasks_cot2.cs" />
-    <Compile Include="Tasks\TasksCup\Tasks_rcp.cs" />
-    <Compile Include="Tasks\TasksCup\Tasks_sta.cs" />
-    <Compile Include="Tasks\TasksMag\Tasks_bto.cs" />
-    <Compile Include="Tasks\TasksMag\Tasks_vlin2 .cs" />
-    <Compile Include="Tasks\TasksMag\Tasks_vlin1.cs" />
-    <Compile Include="Tasks\TasksMag\Tasks_min1.cs" />
-    <Compile Include="Tasks\TasksMag\Tasks_min2.cs" />
-    <Compile Include="Tasks\TasksMag\Tasks_mio.cs" />
-    <Compile Include="Tasks\TasksMag\Tasks_mot.cs" />
+    <Compile Include="Controller\TaskControlHandler.cs" />
+    <Compile Include="Controller\TaskInterface.cs" />
+    <Compile Include="Controller\TaskCnt4mJ\Tasks_avi01.cs" />
+    <Compile Include="Controller\TaskCntCsv\Tasks_csvtest.cs" />
+    <Compile Include="Controller\TaskCntCup\Tasks_cot1.cs" />
+    <Compile Include="Controller\TaskCntCup\Tasks_cot2.cs" />
+    <Compile Include="Controller\TaskCntCup\Tasks_rcp.cs" />
+    <Compile Include="Controller\TaskCntCup\Tasks_sta.cs" />
+    <Compile Include="Controller\TasksCntMag\Tasks_bto.cs" />
+    <Compile Include="Controller\TasksCntMag\Tasks_vlin2 .cs" />
+    <Compile Include="Controller\TasksCntMag\Tasks_vlin1.cs" />
+    <Compile Include="Controller\TasksCntMag\Tasks_min1.cs" />
+    <Compile Include="Controller\TasksCntMag\Tasks_min2.cs" />
+    <Compile Include="Controller\TasksCntMag\Tasks_mio.cs" />
+    <Compile Include="Controller\TasksCntMag\Tasks_mot.cs" />
     <Compile Include="Functions\WipFuncs.cs" />
-    <Compile Include="Forms\PlcTestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\PlcTestForm.Designer.cs">
-      <DependentUpon>PlcTestForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\FileFetchForm.resx">
@@ -121,9 +115,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FileIfFlame.resx">
       <DependentUpon>FileIfFlame.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PlcTestForm.resx">
-      <DependentUpon>PlcTestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

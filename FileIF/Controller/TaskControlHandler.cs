@@ -13,14 +13,14 @@ using Oskas;
 
 namespace FileIf
 {
-    class TaskHandler
+    class TaskControlHandler
     {
 
         Tasks_Common tcommons;
         Magcupini mci;
         List<string> IntLokMac;
 
-        public TaskHandler(Tasks_Common tc, Magcupini mc, List<string> IntL)
+        public TaskControlHandler(Tasks_Common tc, Magcupini mc, List<string> IntL)
         {
             tcommons = tc;
             mci = mc;

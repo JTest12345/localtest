@@ -93,8 +93,10 @@ namespace ARMS3.FakeVIPline
             //
             // 帳票をインサート
             //
-            var msg = ProccessForms.InsertProcForms(comboBox1.Text, textBox2.Text);
-            MessageBox.Show(msg); 
+            //var msg = ProccessForms.InsertProcForms(comboBox1.Text, textBox2.Text);
+            //MessageBox.Show(msg); 
+
+            MessageBox.Show("Done");
         }
     }
 }

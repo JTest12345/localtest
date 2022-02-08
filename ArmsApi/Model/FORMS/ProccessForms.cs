@@ -72,6 +72,7 @@ namespace ArmsApi.Model.FORMS
 					cmd.Parameters.Add("@WORKCD", SqlDbType.NVarChar).Value = lpf.Workcd;
 					cmd.Parameters.Add("@FORMNO", SqlDbType.NVarChar).Value = lpf.FormNo;
 					cmd.Parameters.Add("@FORMREV", SqlDbType.Int).Value = lpf.FormRev;
+					cmd.Parameters.Add("@MANUBASE", SqlDbType.NVarChar).Value = "CET";
 
 					List<string> queryformdata = new List<string>();
 
@@ -114,9 +115,9 @@ namespace ArmsApi.Model.FORMS
 
 						cmd.CommandText = @"
                         INSERT INTO [TnFormTran]
-                            (typecd, lotno, procno, workcd, formno, formrev, formdata, isclosed, insertat)
+                            (typecd, lotno, procno, workcd, formno, formrev, formdata, isclosed, insertat, manubase)
                         VALUES
-                            (@TYPECD,@LOTNO,@PROCNO,@WORKCD, @FORMNO,@FORMREV,@FORMDATA,@ISCLOSED,@INSERTAT)";
+                            (@TYPECD,@LOTNO,@PROCNO,@WORKCD, @FORMNO,@FORMREV,@FORMDATA,@ISCLOSED,@INSERTAT, @MANUBASE)";
 						cmd.ExecuteNonQuery();
 
 						con.Close();

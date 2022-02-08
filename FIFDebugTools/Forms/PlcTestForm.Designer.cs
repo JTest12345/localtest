@@ -1,4 +1,4 @@
-﻿namespace FileIf
+﻿namespace FIFDebugTools
 {
     partial class PlcTestForm
     {
@@ -41,7 +41,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.btComTest = new System.Windows.Forms.Button();
             this.btSendCmd = new System.Windows.Forms.Button();
-            this.consoleBox = new System.Windows.Forms.TextBox();
+            this.consoleBox_plc = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cmbPcat = new System.Windows.Forms.ComboBox();
             this.txtDeviceNo = new System.Windows.Forms.TextBox();
@@ -180,16 +180,16 @@
             this.btSendCmd.UseVisualStyleBackColor = true;
             this.btSendCmd.Click += new System.EventHandler(this.btSendCmd_Click);
             // 
-            // consoleBox
+            // consoleBox_plc
             // 
-            this.consoleBox.Location = new System.Drawing.Point(18, 288);
-            this.consoleBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.consoleBox.Multiline = true;
-            this.consoleBox.Name = "consoleBox";
-            this.consoleBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.consoleBox.Size = new System.Drawing.Size(429, 83);
-            this.consoleBox.TabIndex = 16;
-            this.consoleBox.WordWrap = false;
+            this.consoleBox_plc.Location = new System.Drawing.Point(18, 288);
+            this.consoleBox_plc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.consoleBox_plc.Multiline = true;
+            this.consoleBox_plc.Name = "consoleBox_plc";
+            this.consoleBox_plc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.consoleBox_plc.Size = new System.Drawing.Size(429, 83);
+            this.consoleBox_plc.TabIndex = 16;
+            this.consoleBox_plc.WordWrap = false;
             // 
             // label7
             // 
@@ -269,7 +269,7 @@
             this.Controls.Add(this.txtPort);
             this.Controls.Add(this.txtIpaddress);
             this.Controls.Add(this.txtMno);
-            this.Controls.Add(this.consoleBox);
+            this.Controls.Add(this.consoleBox_plc);
             this.Controls.Add(this.btSendCmd);
             this.Controls.Add(this.btComTest);
             this.Controls.Add(this.btQueryIpPt);
@@ -307,7 +307,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btComTest;
         private System.Windows.Forms.Button btSendCmd;
-        private System.Windows.Forms.TextBox consoleBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmbPcat;
         private System.Windows.Forms.TextBox txtDeviceNo;
@@ -315,5 +314,6 @@
         private System.Windows.Forms.TextBox txtCmdData;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtDevType;
+        private System.Windows.Forms.TextBox consoleBox_plc;
     }
 }

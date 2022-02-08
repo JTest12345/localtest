@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FIJsonBuilder
+namespace FIFJsonBuilder
 {
     public partial class fm_main : Form
     {

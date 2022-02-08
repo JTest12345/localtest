@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FIJsonBuilder
+namespace FIFJsonBuilder
 {
     public partial class fm_input : Form
     {
