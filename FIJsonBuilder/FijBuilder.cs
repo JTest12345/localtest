@@ -579,6 +579,8 @@ namespace FIFJsonBuilder
             tb_plc_ftphomedir.Text = "";
             lb_plc_dev.Items.Clear();
             devconfnull();
+            lb_plc_sharefd.Items.Clear();
+            plcshfdconfnull();
         }
 
         /// <summary>
@@ -590,6 +592,7 @@ namespace FIFJsonBuilder
             tb_plc_devid.Text = dvconf.devid;
             tb_plc_devno.Text = dvconf.devno;
             cb_plc_devtype.Text = dvconf.devtype;
+            
         }
 
         /// <summary>

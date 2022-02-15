@@ -645,7 +645,7 @@ namespace FIFDebugTools
         }
 
         // TnMagのアップデート
-        private bool EditTnMag(string magno, string lotno, int bdqty, ref string msg)
+        private bool EditTnMag(string magno, string lotno, int procno, int bdqty, ref string msg)
         {
             try
             {
@@ -659,12 +659,11 @@ namespace FIFDebugTools
                     mag.Update();
                 }
 
-                fp = ArmsApi.Model.Process.GetFirstProcess(cmb_typecd.Text);
                 mag = new ArmsApi.Model.Magazine()
                 {
                     MagazineNo = magno,
                     NascaLotNO = lotno,
-                    NowCompProcess = fp.ProcNo,
+                    NowCompProcess = procno,
                     NewFg = true,
                     FrameQty = bdqty,
                     LastUpdDt = DateTime.Now
@@ -799,7 +798,7 @@ namespace FIFDebugTools
             //
             var magno = txt_dbcnt_lotno.Text;
 
-            if (!EditTnMag(magno, lotno, bdqty, ref msg))
+            if (!EditTnMag(magno, lotno, int.Parse(cb_procno.Items[0].ToString()), bdqty, ref msg))
             {
                 ConsoleShow("マガジン情報登録が失敗しました");
                 return;
@@ -919,7 +918,7 @@ namespace FIFDebugTools
             // TnMagインサート
             //////////////////////////
             ///
-            if (!EditTnMag(magno, lotno, bdqty, ref msg))
+            if (!EditTnMag(magno, lotno, int.Parse(cb_procno.Items[cb_procno.SelectedIndex-1].ToString()), bdqty, ref msg))
             {
                 ConsoleShow("マガジン情報登録が失敗しました");
                 return;
@@ -1013,20 +1012,20 @@ namespace FIFDebugTools
             // TnVirtualMag削除
             //////////////////////////
             key = "magno";
-            value = txt_dbcnt_lotno.Text + txt_magno;
+            value = txt_dbcnt_lotno.Text;
             if (tnvtmag.DeleteTnVirtualMag(key, value, ref msg))
             {
-                ConsoleShow("TnVirtualMagからmagno: " + value + "を含むVTマガジンを削除しました");
+                ConsoleShow("TnVirtualMagからmagno: " + value + " のVTマガジンを削除しました");
             }
             else
             {
                 ConsoleShow(msg);
             }
 
-            value = txt_debugmagheader.Text;
+            value = txt_debugmagheader.Text + txt_magno.Text;
             if (tnvtmag.DeleteTnVirtualMag(key, value, ref msg))
             {
-                ConsoleShow("TnVirtualMagからmagno: " + value + "を含むVTマガジンを削除しました");
+                ConsoleShow("TnVirtualMagからmagno: " + value + " のVTマガジンを削除しました");
             }
             else
             {

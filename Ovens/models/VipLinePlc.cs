@@ -323,7 +323,7 @@ namespace Ovens.models
 
         private async void RoutineFetchTask()
         {
-            FetchStatus = 0;
+            //FetchStatus = 0;
 
             await Task.Run(() =>
             {
@@ -402,6 +402,11 @@ namespace Ovens.models
                     //
 
                     consoleAction(msg, Cnslcnf.msg_info);
+
+                    //
+                    //  ステータス正常確定
+                    //
+                    FetchStatus = 0;
 
                 }
                 catch (Exception e)

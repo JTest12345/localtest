@@ -18,6 +18,15 @@ namespace ARMS3.Model.Machines
     /// </summary>
     class CejlLotMarkingPrototype : MachineBase
     {
+        // 基板データリスト
+        List<MarkingData> retv = new List<MarkingData>();
+
+        // CejApi
+        // TnPcbMarkF
+        List<PcbMark.PcbMarkF> pmds = new List<PcbMark.PcbMarkF>();
+        // TnPcbMarkF
+        PcbMark.PcbMarkM pmm = new PcbMark.PcbMarkM();
+
         static object lockobj = new object();
 
         // for debug log
@@ -25,30 +34,31 @@ namespace ARMS3.Model.Machines
 
         protected override void concreteThreadWork()
         {
-            workComplete();
+            WorkComplete();
         }
 
-        #region workComplete
-             
+ 
+        #region boardWorkComplete
+
         /// <summary>
         /// 作業完了
         /// </summary>
-        public void workComplete()
+        public void WorkComplete()
         {
+
             if (IsMarkingEnd() == false) return;
 
             lock (lockobj)
             {
-                Log.RBLog.Info("【VIP捺印機】上位通信要求受付・通信開始");
+                Log.RBLog.Info("【VIP捺印機】上位通信要求受付・通信開始【基板収納完了】");
 
                 var msg = string.Empty;
 
-                if (!GetMarkingData(out msg))
+                if (!GetMarkingDataOneByOne(out msg))
                 {
-                    
                     SetMarkingDataReadEnd(false);
                     Log.RBLog.Error(msg);
-                    throw new ApplicationException("上位通信(DB登録)が失敗しています");
+                    throw new ApplicationException("【エラー発生】上位通信が失敗しています");
                 }
 
                 SetMarkingDataReadEnd(true);
@@ -90,6 +100,7 @@ namespace ARMS3.Model.Machines
         private const int WORK_END_YEAR_ADDR = 560;
 
         private const int MARKING_END_FG_ADDR = 1000;
+        private const int MAGAZIN_END_FG_ADDR = 1000;
         private const int WORKEND_RETCODE_ADDE = 499;
 
         private const int MAX_PCB_CT = 50;
@@ -99,6 +110,16 @@ namespace ARMS3.Model.Machines
         public bool IsMarkingEnd()
         {
             if (this.Plc.GetBit(ADDR_HEADER2 + MARKING_END_FG_ADDR.ToString("0000")) == MachinePLC.BIT_ON)
+            {
+                return true;
+            }
+
+            else return false;
+        }
+
+        public bool IsMagaginEnd()
+        {
+            if (this.Plc.GetBit(ADDR_HEADER2 + MAGAZIN_END_FG_ADDR.ToString("0000")) == MachinePLC.BIT_ON)
             {
                 return true;
             }
@@ -121,25 +142,137 @@ namespace ARMS3.Model.Machines
             }
 
             this.Plc.SetBit(ADDR_HEADER2 + MARKING_END_FG_ADDR.ToString("0000"), 1, PLC.Common.BIT_OFF);
-
+            this.Plc.SetBit(ADDR_HEADER2 + MAGAZIN_END_FG_ADDR.ToString("0000"), 1, PLC.Common.BIT_OFF);
         }
 
 
-        #region GetMarkingData
-        
-        private bool GetMarkingData(out string msg)
+        #region GetMarkingDataOneByOne
+
+        // 基板毎処理・登録する為の関数
+        private bool GetMarkingDataOneByOne(out string msg)
         {
             MachinePLC plc = MachinePLC.GetInstance();
 
-            List<MarkingData> retv = new List<MarkingData>();
+            try
+            {
+                Plc.SetWordAsDecimalData(ADDR_HEADER + WORKEND_RETCODE_ADDE.ToString("0000"), 0);
+
+
+                // for debug
+                File.AppendAllText(logfilepath, DateTime.Now.ToString("G") + "：捺印データ受信中\r\n", System.Text.Encoding.GetEncoding("Shift-Jis"));
+
+                MarkingData m = new MarkingData();
+
+                if (m.GetAllData(Plc, pmds.Count()))
+                {
+                    if (pmds.Count() == 0)
+                    {
+                        pmm.MagNo = m.MagNo;
+                        pmm.TypeCd = m.TypeCd;
+                        pmm.MaterialCd = m.MaterialCd;
+                        pmm.WorkStDt = m.WorkStartDt;
+                        pmm.WorkEndDt = m.WorkEndDt;
+                    }
+                    else
+                    {
+                        if (pmm.MagNo != m.MagNo)
+                        {
+                            msg = $"[PCBNO.{m.MagNo}]PLC内のMagNoに不正があります";
+                            return false;
+                        }
+
+                        if (pmm.TypeCd != m.TypeCd)
+                        {
+                            msg = $"[PCBNO.{m.MagNo}]PLC内のTypeCdに不正があります";
+                            return false;
+                        }
+
+                        if (pmm.MaterialCd != m.MaterialCd)
+                        {
+                            msg = $"[PCBNO.{m.MagNo}]PLC内のMaterialCdに不正があります";
+                            return false;
+                        }
+
+                        pmm.WorkEndDt = m.WorkEndDt;
+                    }
+
+                    PcbMark.PcbMarkF pmd = new PcbMark.PcbMarkF
+                    {
+                        PcbNo = m.PcbNo,
+                        PcbLotNo = m.PcbLotno,
+                        Markstr = m.Markstr
+                    };
+
+                    pmds.Add(pmd);
+                    //retv.Add(m);
+
+
+                    // for debug
+                    var ret = m.MagNo + ","
+                        + m.MagNo + ","
+                        + m.PcbNo.ToString() + ","
+                        + m.TypeCd + ","
+                        + m.MaterialCd + ","
+                        + m.PcbLotno + ","
+                        + m.Markstr + ","
+                        + m.WorkStartDt.ToString("G") + ","
+                        + m.WorkEndDt.ToString("G") + ","
+                        + DateTime.Now.ToString("G") + "\r\n";
+                    File.AppendAllText(logfilepath, ret, System.Text.Encoding.GetEncoding("Shift-Jis"));
+
+                    Log.RBLog.Info($"【基板No.{m.PcbNo}】{ret}");
+
+                }
+
+                pmm.MacNo = this.MacNo;
+                pmm.PcbMarks = pmds;
+
+                // DB登録実行
+                if (IsMarkingEnd())
+                {
+                    msg = PcbMark.InsertPcbMark(pmm);
+                    if (msg != "")
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        msg = "マガジン情報を上位データベースに登録しました";
+                    }
+                }
+                else
+                {
+                    msg = "捺印基板情報を取得しました";
+                }
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                msg = ex.ToString();
+                return false;
+            }
+        }
+        #endregion
+
+
+        #region GetMarkingDataAll
+
+        // マガジンを一括で処理・登録する為の関数
+        private bool GetMarkingDataAll(out string msg)
+        {
+            MachinePLC plc = MachinePLC.GetInstance();
+
+            retv = new List<MarkingData>();
 
             try
             {
                 Plc.SetWordAsDecimalData(ADDR_HEADER + WORKEND_RETCODE_ADDE.ToString("0000"), 0);
 
                 // CejApi
-                List<PcbMark.PcbMarkF> pmds = new List<PcbMark.PcbMarkF>();
-                PcbMark.PcbMarkM pmm = new PcbMark.PcbMarkM();
+                pmds = new List<PcbMark.PcbMarkF>();
+                pmm = new PcbMark.PcbMarkM();
 
                 // for debug
                 File.AppendAllText(logfilepath, DateTime.Now.ToString("G") + "：捺印データ上位通信テスト\r\n", System.Text.Encoding.GetEncoding("Shift-Jis"));
@@ -190,6 +323,7 @@ namespace ARMS3.Model.Machines
                         };
                         
                         pmds.Add(pmd);
+                        //retv.Add(m);
 
 
                         // for debug
@@ -207,7 +341,6 @@ namespace ARMS3.Model.Machines
 
                         Log.RBLog.Info($"【基板No.{m.PcbNo}】{ret}");
 
-                        retv.Add(m);
                     }
                 }
 

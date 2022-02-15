@@ -75,7 +75,6 @@ C:\juni_ws\CSharp\VIP\5M-A\VARMS\FileIF\bin\Release\ja\System.Net.Http.Formattin
 C:\juni_ws\CSharp\VIP\5M-A\VARMS\FileIF\bin\Release\ja\System.Web.WebPages.Deployment.resources.dll
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Release\FileIF.csprojAssemblyReference.cache
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Release\FileIf.FileIfFlame.resources
-C:\juni_ws\GitRepo\VSP\FileIF\obj\Release\FileIf.PlcTestForm.resources
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Release\FileIf.Properties.Resources.resources
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Release\FileIF.csproj.GenerateResource.cache
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Release\FileIF.csproj.CoreCompileInputs.cache

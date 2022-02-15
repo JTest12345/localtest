@@ -122,7 +122,7 @@
             // 
             // btn_setdata
             // 
-            this.btn_setdata.Location = new System.Drawing.Point(618, 59);
+            this.btn_setdata.Location = new System.Drawing.Point(611, 101);
             this.btn_setdata.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_setdata.Name = "btn_setdata";
             this.btn_setdata.Size = new System.Drawing.Size(138, 79);
@@ -271,7 +271,7 @@
             this.MaximumSize = new System.Drawing.Size(790, 262);
             this.MinimumSize = new System.Drawing.Size(790, 262);
             this.Name = "FrmAoiMag";
-            this.Text = "AOI Builder";
+            this.Text = "マガジン(AOI)登録";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmAoiMag_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

@@ -40,6 +40,7 @@
             this.txt_4Mcode.Name = "txt_4Mcode";
             this.txt_4Mcode.Size = new System.Drawing.Size(424, 19);
             this.txt_4Mcode.TabIndex = 0;
+            this.txt_4Mcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_4Mcode_KeyDown);
             // 
             // bt_clear4mcd
             // 
@@ -85,7 +86,6 @@
             this.MinimumSize = new System.Drawing.Size(465, 108);
             this.Name = "fm4MCode";
             this.Text = "4MCode";
-            this.VisibleChanged += new System.EventHandler(this.fm4MCode_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 

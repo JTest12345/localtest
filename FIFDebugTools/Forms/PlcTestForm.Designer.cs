@@ -54,27 +54,27 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(45, 49);
+            this.label2.Location = new System.Drawing.Point(45, 46);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 18);
+            this.label2.Size = new System.Drawing.Size(57, 17);
             this.label2.TabIndex = 13;
             this.label2.Text = "設備NO：";
             // 
             // txtMno
             // 
             this.txtMno.Enabled = false;
-            this.txtMno.Location = new System.Drawing.Point(105, 46);
+            this.txtMno.Location = new System.Drawing.Point(105, 43);
             this.txtMno.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtMno.Name = "txtMno";
-            this.txtMno.Size = new System.Drawing.Size(108, 25);
+            this.txtMno.Size = new System.Drawing.Size(108, 24);
             this.txtMno.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(40, 16);
+            this.label1.Location = new System.Drawing.Point(40, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 18);
+            this.label1.Size = new System.Drawing.Size(61, 17);
             this.label1.TabIndex = 11;
             this.label1.Text = "工程CAT：";
             // 
@@ -82,10 +82,10 @@
             // 
             this.btQueryIpPt.Enabled = false;
             this.btQueryIpPt.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btQueryIpPt.Location = new System.Drawing.Point(282, 44);
+            this.btQueryIpPt.Location = new System.Drawing.Point(282, 42);
             this.btQueryIpPt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btQueryIpPt.Name = "btQueryIpPt";
-            this.btQueryIpPt.Size = new System.Drawing.Size(164, 27);
+            this.btQueryIpPt.Size = new System.Drawing.Size(164, 25);
             this.btQueryIpPt.TabIndex = 2;
             this.btQueryIpPt.Text = "PLCの情報をDB問い合わせ";
             this.btQueryIpPt.UseVisualStyleBackColor = true;
@@ -94,18 +94,18 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 84);
+            this.label3.Location = new System.Drawing.Point(27, 79);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 18);
+            this.label3.Size = new System.Drawing.Size(74, 17);
             this.label3.TabIndex = 13;
             this.label3.Text = "IPアドレス：";
             // 
             // txtIpaddress
             // 
-            this.txtIpaddress.Location = new System.Drawing.Point(105, 81);
+            this.txtIpaddress.Location = new System.Drawing.Point(105, 76);
             this.txtIpaddress.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtIpaddress.Name = "txtIpaddress";
-            this.txtIpaddress.Size = new System.Drawing.Size(175, 25);
+            this.txtIpaddress.Size = new System.Drawing.Size(175, 24);
             this.txtIpaddress.TabIndex = 3;
             // 
             // cmbCmd
@@ -115,54 +115,54 @@
             this.cmbCmd.Items.AddRange(new object[] {
             "デバイスデータ読み込み[RD]",
             "デバイスデータ読み込み[WD]"});
-            this.cmbCmd.Location = new System.Drawing.Point(105, 155);
+            this.cmbCmd.Location = new System.Drawing.Point(105, 146);
             this.cmbCmd.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbCmd.Name = "cmbCmd";
-            this.cmbCmd.Size = new System.Drawing.Size(341, 26);
+            this.cmbCmd.Size = new System.Drawing.Size(341, 25);
             this.cmbCmd.TabIndex = 6;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(51, 119);
+            this.label4.Location = new System.Drawing.Point(51, 112);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 18);
+            this.label4.Size = new System.Drawing.Size(52, 17);
             this.label4.TabIndex = 13;
             this.label4.Text = "ポート：";
             // 
             // txtPort
             // 
-            this.txtPort.Location = new System.Drawing.Point(105, 116);
+            this.txtPort.Location = new System.Drawing.Point(105, 110);
             this.txtPort.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtPort.Name = "txtPort";
-            this.txtPort.Size = new System.Drawing.Size(108, 25);
+            this.txtPort.Size = new System.Drawing.Size(108, 24);
             this.txtPort.TabIndex = 4;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 158);
+            this.label5.Location = new System.Drawing.Point(15, 149);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(92, 18);
+            this.label5.Size = new System.Drawing.Size(85, 17);
             this.label5.TabIndex = 13;
             this.label5.Text = "コマンド種別：";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 197);
+            this.label6.Location = new System.Drawing.Point(15, 186);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(92, 18);
+            this.label6.Size = new System.Drawing.Size(85, 17);
             this.label6.TabIndex = 13;
             this.label6.Text = "デバイス種別：";
             // 
             // btComTest
             // 
             this.btComTest.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btComTest.Location = new System.Drawing.Point(282, 116);
+            this.btComTest.Location = new System.Drawing.Point(282, 110);
             this.btComTest.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btComTest.Name = "btComTest";
-            this.btComTest.Size = new System.Drawing.Size(164, 25);
+            this.btComTest.Size = new System.Drawing.Size(164, 24);
             this.btComTest.TabIndex = 5;
             this.btComTest.Text = "Open/Close接続テスト";
             this.btComTest.UseVisualStyleBackColor = true;
@@ -171,10 +171,10 @@
             // btSendCmd
             // 
             this.btSendCmd.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btSendCmd.Location = new System.Drawing.Point(282, 231);
+            this.btSendCmd.Location = new System.Drawing.Point(282, 218);
             this.btSendCmd.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btSendCmd.Name = "btSendCmd";
-            this.btSendCmd.Size = new System.Drawing.Size(164, 25);
+            this.btSendCmd.Size = new System.Drawing.Size(164, 24);
             this.btSendCmd.TabIndex = 10;
             this.btSendCmd.Text = "コマンド送信";
             this.btSendCmd.UseVisualStyleBackColor = true;
@@ -182,21 +182,21 @@
             // 
             // consoleBox_plc
             // 
-            this.consoleBox_plc.Location = new System.Drawing.Point(18, 288);
+            this.consoleBox_plc.Location = new System.Drawing.Point(18, 272);
             this.consoleBox_plc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.consoleBox_plc.Multiline = true;
             this.consoleBox_plc.Name = "consoleBox_plc";
             this.consoleBox_plc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.consoleBox_plc.Size = new System.Drawing.Size(429, 83);
+            this.consoleBox_plc.Size = new System.Drawing.Size(429, 79);
             this.consoleBox_plc.TabIndex = 16;
             this.consoleBox_plc.WordWrap = false;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(16, 269);
+            this.label7.Location = new System.Drawing.Point(16, 254);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 18);
+            this.label7.Size = new System.Drawing.Size(74, 17);
             this.label7.TabIndex = 13;
             this.label7.Text = "コンソール：";
             // 
@@ -207,60 +207,60 @@
             this.cmbPcat.Items.AddRange(new object[] {
             "DB",
             "WB"});
-            this.cmbPcat.Location = new System.Drawing.Point(105, 10);
+            this.cmbPcat.Location = new System.Drawing.Point(105, 9);
             this.cmbPcat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbPcat.Name = "cmbPcat";
-            this.cmbPcat.Size = new System.Drawing.Size(108, 26);
+            this.cmbPcat.Size = new System.Drawing.Size(108, 25);
             this.cmbPcat.TabIndex = 0;
             this.cmbPcat.Tag = "";
             // 
             // txtDeviceNo
             // 
-            this.txtDeviceNo.Location = new System.Drawing.Point(320, 194);
+            this.txtDeviceNo.Location = new System.Drawing.Point(320, 183);
             this.txtDeviceNo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtDeviceNo.Name = "txtDeviceNo";
-            this.txtDeviceNo.Size = new System.Drawing.Size(108, 25);
+            this.txtDeviceNo.Size = new System.Drawing.Size(108, 24);
             this.txtDeviceNo.TabIndex = 8;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(229, 197);
+            this.label8.Location = new System.Drawing.Point(229, 186);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(92, 18);
+            this.label8.Size = new System.Drawing.Size(85, 17);
             this.label8.TabIndex = 13;
             this.label8.Text = "デバイス番号：";
             // 
             // txtCmdData
             // 
-            this.txtCmdData.Location = new System.Drawing.Point(105, 231);
+            this.txtCmdData.Location = new System.Drawing.Point(105, 218);
             this.txtCmdData.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtCmdData.Name = "txtCmdData";
-            this.txtCmdData.Size = new System.Drawing.Size(108, 25);
+            this.txtCmdData.Size = new System.Drawing.Size(108, 24);
             this.txtCmdData.TabIndex = 9;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(51, 234);
+            this.label9.Location = new System.Drawing.Point(51, 221);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(56, 18);
+            this.label9.Size = new System.Drawing.Size(52, 17);
             this.label9.TabIndex = 13;
             this.label9.Text = "データ：";
             // 
             // txtDevType
             // 
-            this.txtDevType.Location = new System.Drawing.Point(105, 194);
+            this.txtDevType.Location = new System.Drawing.Point(105, 183);
             this.txtDevType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtDevType.Name = "txtDevType";
-            this.txtDevType.Size = new System.Drawing.Size(108, 25);
+            this.txtDevType.Size = new System.Drawing.Size(108, 24);
             this.txtDevType.TabIndex = 17;
             // 
             // PlcTestForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(464, 381);
+            this.ClientSize = new System.Drawing.Size(464, 360);
             this.Controls.Add(this.txtDevType);
             this.Controls.Add(this.cmbPcat);
             this.Controls.Add(this.cmbCmd);
@@ -282,10 +282,10 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MaximumSize = new System.Drawing.Size(480, 420);
-            this.MinimumSize = new System.Drawing.Size(480, 420);
+            this.MaximumSize = new System.Drawing.Size(480, 399);
+            this.MinimumSize = new System.Drawing.Size(480, 399);
             this.Name = "PlcTestForm";
             this.Text = "PLC接続テスト";
             this.ResumeLayout(false);
