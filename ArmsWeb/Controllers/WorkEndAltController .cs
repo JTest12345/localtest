@@ -347,9 +347,12 @@ namespace ArmsWeb.Controllers
             {
                 return RedirectToAction("InputUnloaderMag");
             }
-
-            return RedirectToAction("Submit");
-            //return RedirectToAction("UnloaderMagConfirm");
+            else
+            {
+                //return RedirectToAction("FormInfo");
+                return RedirectToAction("UnloaderMagConfirm");
+            }
+            
             //return View(m);
         }
 

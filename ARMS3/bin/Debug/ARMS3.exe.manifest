@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ARMS3.exe" size="1719808">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ARMS3.exe" size="1721344">
       <assemblyIdentity name="ARMS3" version="1.159.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1WjxiSKb3EeYa1ZQpepgocFeblomVZ2UsFBSJXkGJks=</dsig:DigestValue>
+        <dsig:DigestValue>myYAm6MpWhziNB2mfFp4RZUmXRF0zCSxKdyvOlWYOEE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
