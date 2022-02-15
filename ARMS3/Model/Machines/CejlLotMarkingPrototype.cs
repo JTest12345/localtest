@@ -45,7 +45,6 @@ namespace ARMS3.Model.Machines
         /// </summary>
         public void WorkComplete()
         {
-
             if (IsMarkingEnd() == false) return;
 
             lock (lockobj)
@@ -54,7 +53,8 @@ namespace ARMS3.Model.Machines
 
                 var msg = string.Empty;
 
-                if (!GetMarkingDataOneByOne(out msg))
+                if (!GetMarkingDataAll(out msg))
+                //if (!GetMarkingDataOneByOne(out msg))
                 {
                     SetMarkingDataReadEnd(false);
                     Log.RBLog.Error(msg);
