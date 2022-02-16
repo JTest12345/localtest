@@ -141,6 +141,8 @@ namespace ARMS3.Model.Machines
                 Log.RBLog.Info("エラー発生：Code(1)を返しています");
             }
 
+            Thread.Sleep(100);
+
             this.Plc.SetBit(ADDR_HEADER2 + MARKING_END_FG_ADDR.ToString("0000"), 1, PLC.Common.BIT_OFF);
             this.Plc.SetBit(ADDR_HEADER2 + MAGAZIN_END_FG_ADDR.ToString("0000"), 1, PLC.Common.BIT_OFF);
         }
