@@ -78,7 +78,7 @@ namespace ARMS3.Model.Machines
         private const string ADDR_HEADER = "EM";
         private const string ADDR_HEADER2 = "B";
 
-        private const int MAG_NO_ADDR_START = 600;
+        private const int MAG_NO_ADDR_START = 500;
         private const int MAG_NO_ADDR_LENGTH = 9;
 
         private const int PCBNO_NO_ADDR = 510;
@@ -103,7 +103,7 @@ namespace ARMS3.Model.Machines
         private const int MAGAZIN_END_FG_ADDR = 1000;
         private const int WORKEND_RETCODE_ADDE = 499;
 
-        private const int MAX_PCB_CT = 50;
+        private const int MAX_PCB_CT = 32;
 
         #endregion
 
