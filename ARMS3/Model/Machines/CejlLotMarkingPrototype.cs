@@ -78,26 +78,26 @@ namespace ARMS3.Model.Machines
         private const string ADDR_HEADER = "EM";
         private const string ADDR_HEADER2 = "B";
 
-        private const int MAG_NO_ADDR_START = 500;
+        private const int MAG_NO_ADDR_START = 600;
         private const int MAG_NO_ADDR_LENGTH = 9;
 
-        private const int PCBNO_NO_ADDR = 510;
+        private const int PCBNO_NO_ADDR = 610;
         private const int PCBNO_NO_ADDR_LENGTH = 10;
 
         //private const int TYPECD_NO_ADDR = 510;
         //private const int TYPECD_NO_ADDR_LENGTH = 10;
 
-        private const int MATERIALCD_NO_ADDR = 520;
+        private const int MATERIALCD_NO_ADDR = 620;
         private const int MATERIALCD_NO_ADDR_LENGTH = 10;
 
-        private const int PCBLOT_NO_ADDR = 530;
+        private const int PCBLOT_NO_ADDR = 630;
         private const int PCBLOT_NO_ADDR_LENGTH = 10;
 
-        private const int MARKSTR_NO_ADDR = 540;
+        private const int MARKSTR_NO_ADDR = 640;
         private const int MARKSTR_NO_ADDR_LENGTH = 10;
 
-        private const int WORK_START_YEAR_ADDR = 550;
-        private const int WORK_END_YEAR_ADDR = 560;
+        private const int WORK_START_YEAR_ADDR = 650;
+        private const int WORK_END_YEAR_ADDR = 660;
 
         private const int MARKING_END_FG_ADDR = 1000;
         private const int MAGAZIN_END_FG_ADDR = 1000;
