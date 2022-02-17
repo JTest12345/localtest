@@ -298,19 +298,19 @@ namespace ARMS3.Model.Machines
                         {
                             if (pmm.MagNo != m.MagNo)
                             {
-                                msg = $"[PCBNO.{m.MagNo}]PLC内のMagNoに不正があります";
+                                msg = $"[PCBNO.{m.MagNo}]PLC内MagNo不正: 1枚目と{i + 1}枚目に差異があります";
                                 return false;
                             }
 
                             if (pmm.TypeCd != m.TypeCd)
                             {
-                                msg = $"[PCBNO.{m.MagNo}]PLC内のTypeCdに不正があります";
+                                msg = $"[PCBNO.{m.MagNo}]PLC内TypeCd不正: 1枚目と{i + 1}枚目に差異があります";
                                 return false;
                             }
 
                             if (pmm.MaterialCd != m.MaterialCd)
                             {
-                                msg = $"[PCBNO.{m.MagNo}]PLC内のMaterialCdに不正があります";
+                                msg = $"[PCBNO.{m.MagNo}]PLC内MaterialCd不正: 1枚目と{i + 1}枚目に差異があります";
                                 return false;
                             }
 
