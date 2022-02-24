@@ -184,7 +184,7 @@ namespace FileIf
 
                 foreach (var fmlot in contents)
                 {
-                    if (string.IsNullOrEmpty(fmlot))
+                    if (!string.IsNullOrEmpty(fmlot))
                     {
                         fmCodeList.Add(fmlot);
 
