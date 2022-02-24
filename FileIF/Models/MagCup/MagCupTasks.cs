@@ -184,10 +184,13 @@ namespace FileIf
 
                 foreach (var fmlot in contents)
                 {
-                    fmCodeList.Add(fmlot);
+                    if (string.IsNullOrEmpty(fmlot))
+                    {
+                        fmCodeList.Add(fmlot);
 
-                    //for Debug
-                    Dbgmsg += "設備:パラメータ：" + fmlot + "\r\n";
+                        //for Debug
+                        Dbgmsg += "設備:パラメータ：" + fmlot + "\r\n";
+                    }
                 }
 
                 return new string[] { "OK" };

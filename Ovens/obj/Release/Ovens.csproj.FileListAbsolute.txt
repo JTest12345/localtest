@@ -46,7 +46,6 @@ C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\Ovens.exe.config
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\Ovens.exe
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\Ovens.pdb
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\ArmsApi.dll
-C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\ArmsCejApi.dll
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\log4net.dll
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\Newtonsoft.Json.dll
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\Oskas.exe

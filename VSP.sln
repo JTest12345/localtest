@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CojIF", "CojIF\CojIF.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIFDebugTools", "FIFDebugTools\FIFDebugTools.csproj", "{F4244C81-A7FB-443C-95BD-2937EEEF4E20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcMasterIF", "ProcMasterIF\ProcMasterIF.csproj", "{5FA8B747-62A6-4ECA-9BC2-4EC38D8817DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{F4244C81-A7FB-443C-95BD-2937EEEF4E20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4244C81-A7FB-443C-95BD-2937EEEF4E20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4244C81-A7FB-443C-95BD-2937EEEF4E20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FA8B747-62A6-4ECA-9BC2-4EC38D8817DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FA8B747-62A6-4ECA-9BC2-4EC38D8817DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FA8B747-62A6-4ECA-9BC2-4EC38D8817DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FA8B747-62A6-4ECA-9BC2-4EC38D8817DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

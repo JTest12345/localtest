@@ -172,11 +172,11 @@ namespace Oskas
         /////////////////////////////
         // json file 書き込み用
         /////////////////////////////
-        public static bool JsonFileWriter(string FilePath, string jsonstr, ref string msg)
+        public static bool JsonFileWriter(string FilePath, object jsonobj, ref string msg)
         {
             try
             {
-                string json = JsonConvert.SerializeObject(jsonstr, Formatting.Indented);
+                string json = JsonConvert.SerializeObject(jsonobj, Formatting.Indented);
                 Encoding enc = Encoding.GetEncoding("utf-8");
                 StreamWriter writer = new StreamWriter(FilePath, false, enc);
                 writer.WriteLine(json);

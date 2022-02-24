@@ -85,17 +85,6 @@ namespace ArmsWebApi
                     return false;
                 }
 
-                ///////////////////////////////////
-                // 2021.10.12 Junichi Watanabe
-                // 開始完了一括の基板数はアウト分の基板数が操作しにくいので見合わせ
-                //
-                //wsem.LastReadMag = mag;
-                //if (string.IsNullOrEmpty(mio.val_in))
-                //{
-                //    mag.FrameQty = int.Parse(mio.val_in);
-                //}
-                ///////////////////////////////////
-
                 //開始完了の場合は仮想マガジンも処理しない
                 wsem.AddMagazine(mag);
 

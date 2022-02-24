@@ -10,7 +10,7 @@ namespace Samples
     class ArmsWebAp_functions
     {
 
-        static void Main(string[] args)
+        static void _Main(string[] args)
         {
             //////////////////////////////////////////////////////////////
             //①設備名(plantcd)からマガジン情報を入手
