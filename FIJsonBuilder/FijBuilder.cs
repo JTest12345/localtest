@@ -679,6 +679,7 @@ namespace FIFJsonBuilder
             if (lb_plc.SelectedIndex > -1)
             {
                 lb_plc_dev.Items.Clear();
+                lb_plc_sharefd.Items.Clear();
                 plcconf(mcconf.Plcs.plcconfs[lb_plc.SelectedIndex]);
             }
             else

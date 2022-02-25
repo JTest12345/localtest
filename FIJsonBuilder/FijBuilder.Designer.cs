@@ -315,6 +315,7 @@
             this.bt_rm_plcdev.Text = "-";
             this.bt_rm_plcdev.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.bt_rm_plcdev.UseVisualStyleBackColor = true;
+            this.bt_rm_plcdev.Click += new System.EventHandler(this.bt_rm_plcdev_Click);
             // 
             // bt_add_plcdev
             // 
@@ -435,7 +436,7 @@
             // 
             // bt_rm_plcsharefd
             // 
-            this.bt_rm_plcsharefd.Location = new System.Drawing.Point(93, 173);
+            this.bt_rm_plcsharefd.Location = new System.Drawing.Point(91, 175);
             this.bt_rm_plcsharefd.Name = "bt_rm_plcsharefd";
             this.bt_rm_plcsharefd.Size = new System.Drawing.Size(24, 24);
             this.bt_rm_plcsharefd.TabIndex = 18;
@@ -446,7 +447,7 @@
             // 
             // bt_add_plcsharefd
             // 
-            this.bt_add_plcsharefd.Location = new System.Drawing.Point(19, 173);
+            this.bt_add_plcsharefd.Location = new System.Drawing.Point(17, 175);
             this.bt_add_plcsharefd.Name = "bt_add_plcsharefd";
             this.bt_add_plcsharefd.Size = new System.Drawing.Size(24, 24);
             this.bt_add_plcsharefd.TabIndex = 17;
@@ -460,7 +461,7 @@
             this.lb_plc_sharefd.FormattingEnabled = true;
             this.lb_plc_sharefd.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lb_plc_sharefd.ItemHeight = 17;
-            this.lb_plc_sharefd.Location = new System.Drawing.Point(19, 13);
+            this.lb_plc_sharefd.Location = new System.Drawing.Point(17, 12);
             this.lb_plc_sharefd.Name = "lb_plc_sharefd";
             this.lb_plc_sharefd.Size = new System.Drawing.Size(98, 157);
             this.lb_plc_sharefd.TabIndex = 16;
@@ -644,6 +645,7 @@
             this.lb_plc.Name = "lb_plc";
             this.lb_plc.Size = new System.Drawing.Size(137, 89);
             this.lb_plc.TabIndex = 6;
+            this.lb_plc.SelectedIndexChanged += new System.EventHandler(this.lb_plc_SelectedIndexChanged);
             // 
             // label4
             // 
