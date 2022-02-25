@@ -298,16 +298,17 @@
             this.cb_plc_devtype.FormattingEnabled = true;
             this.cb_plc_devtype.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.cb_plc_devtype.Items.AddRange(new object[] {
+            "B",
             "MR",
             "DM"});
-            this.cb_plc_devtype.Location = new System.Drawing.Point(127, 78);
+            this.cb_plc_devtype.Location = new System.Drawing.Point(128, 79);
             this.cb_plc_devtype.Name = "cb_plc_devtype";
             this.cb_plc_devtype.Size = new System.Drawing.Size(185, 25);
             this.cb_plc_devtype.TabIndex = 23;
             // 
             // bt_rm_plcdev
             // 
-            this.bt_rm_plcdev.Location = new System.Drawing.Point(90, 174);
+            this.bt_rm_plcdev.Location = new System.Drawing.Point(91, 175);
             this.bt_rm_plcdev.Name = "bt_rm_plcdev";
             this.bt_rm_plcdev.Size = new System.Drawing.Size(24, 24);
             this.bt_rm_plcdev.TabIndex = 17;
@@ -317,7 +318,7 @@
             // 
             // bt_add_plcdev
             // 
-            this.bt_add_plcdev.Location = new System.Drawing.Point(16, 174);
+            this.bt_add_plcdev.Location = new System.Drawing.Point(17, 175);
             this.bt_add_plcdev.Name = "bt_add_plcdev";
             this.bt_add_plcdev.Size = new System.Drawing.Size(24, 24);
             this.bt_add_plcdev.TabIndex = 16;
@@ -328,7 +329,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(124, 106);
+            this.label23.Location = new System.Drawing.Point(125, 107);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(58, 17);
             this.label23.TabIndex = 20;
@@ -337,7 +338,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(123, 58);
+            this.label22.Location = new System.Drawing.Point(124, 59);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(68, 17);
             this.label22.TabIndex = 21;
@@ -346,7 +347,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(123, 11);
+            this.label21.Location = new System.Drawing.Point(124, 12);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(96, 17);
             this.label21.TabIndex = 22;
@@ -357,7 +358,7 @@
             this.lb_plc_dev.FormattingEnabled = true;
             this.lb_plc_dev.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lb_plc_dev.ItemHeight = 17;
-            this.lb_plc_dev.Location = new System.Drawing.Point(16, 11);
+            this.lb_plc_dev.Location = new System.Drawing.Point(17, 12);
             this.lb_plc_dev.Name = "lb_plc_dev";
             this.lb_plc_dev.Size = new System.Drawing.Size(98, 157);
             this.lb_plc_dev.TabIndex = 15;
@@ -365,7 +366,7 @@
             // tb_plc_devno
             // 
             this.tb_plc_devno.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.tb_plc_devno.Location = new System.Drawing.Point(126, 125);
+            this.tb_plc_devno.Location = new System.Drawing.Point(127, 126);
             this.tb_plc_devno.Name = "tb_plc_devno";
             this.tb_plc_devno.Size = new System.Drawing.Size(186, 24);
             this.tb_plc_devno.TabIndex = 18;
@@ -374,7 +375,7 @@
             // 
             this.tb_plc_devid.Enabled = false;
             this.tb_plc_devid.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.tb_plc_devid.Location = new System.Drawing.Point(126, 31);
+            this.tb_plc_devid.Location = new System.Drawing.Point(127, 32);
             this.tb_plc_devid.Name = "tb_plc_devid";
             this.tb_plc_devid.Size = new System.Drawing.Size(186, 24);
             this.tb_plc_devid.TabIndex = 19;
