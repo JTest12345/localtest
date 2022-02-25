@@ -1092,6 +1092,7 @@
             this.cb_mcf_cntid.Name = "cb_mcf_cntid";
             this.cb_mcf_cntid.Size = new System.Drawing.Size(195, 25);
             this.cb_mcf_cntid.TabIndex = 29;
+            this.cb_mcf_cntid.SelectedIndexChanged += new System.EventHandler(this.cb_mcf_cntid_SelectedIndexChanged);
             // 
             // label30
             // 

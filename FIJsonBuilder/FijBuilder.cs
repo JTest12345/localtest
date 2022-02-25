@@ -54,6 +54,8 @@ namespace FIFJsonBuilder
             //初期表示CONF
             cb_mcat.SelectedIndex = 0;
             cb_macno.SelectedIndex = 0;
+            cb_mcf_cntid.SelectedIndex = 0;
+
 
             //ConfigJson読込
             string FilePath = mcdir + @"\" + cb_mcat.Items[0].ToString() + @"\" + cb_macno.Items[0].ToString() + @"\" + @"conf\macconf.json";
@@ -910,6 +912,7 @@ namespace FIFJsonBuilder
             update_mcf_cbpulltype();
             cb_mcf_pulltype.Text = mcfconf.foi.pulltype; 
             update_mcf_cbshfld();
+            cb_mcf_plcdev_update();
             cb_mcf_shfld.Text = mcfconf.foi.shfld;
             tb_mcf_path.Text = mcfconf.foi.path;
             chk_mcf_serverpull.Checked = mcfconf.foi.serverpull;
@@ -975,13 +978,17 @@ namespace FIFJsonBuilder
         private void cb_mcf_plcdev_update()
         {
             cb_mcf_plcdev.Items.Clear();
-            for (int i = 0; i < mcconf.Plcs[lb_plc.SelectedIndex].devs.devconfs.Count; i++)
+            if (cb_mcf_cntid.SelectedIndex > -1)
             {
-                cb_mcf_plcdev.Items.Add(mcconf.Plcs[lb_plc.SelectedIndex].devs[i].devid);
-                //if (mcconf.Mcfs.mcfconfs[lb_mcfilekey.SelectedIndex].devid == mcconf.Plcs[lb_plc.SelectedIndex].devs[i].devid)
-                //    cb_mcf_plcdev.SelectedIndex = i;
-                cb_mcf_plcdev.Text = mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.devid;
+                for (int i = 0; i < mcconf.Plcs[cb_mcf_cntid.SelectedIndex].devs.devconfs.Count; i++)
+                {
+                    cb_mcf_plcdev.Items.Add(mcconf.Plcs[cb_mcf_cntid.SelectedIndex].devs[i].devid);
+                    //if (mcconf.Mcfs.mcfconfs[lb_mcfilekey.SelectedIndex].devid == mcconf.Plcs[lb_plc.SelectedIndex].devs[i].devid)
+                    //    cb_mcf_plcdev.SelectedIndex = i;
+                    cb_mcf_plcdev.Text = mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.devid;
+                }
             }
+            
         }
 
         /// <summary>(object sender, EventArgs e)
@@ -1040,8 +1047,10 @@ namespace FIFJsonBuilder
                 //cb_mstsf_cntid
                 if (((ComboBox)sender).Name == "cb_mcf_cntid")
                 {
-                    if (cb_mcf_cnttype.Text == "PLC")
+                    if ((cb_mcf_cnttype.Text == "PLC") && (cb_mcf_cntid.Text != ""))
+                    {
                         cb_mcf_plcdev_update();
+                    }
                     update_mcf_cbpulltype();
                 }
                 //cb_mstsf_shfld
@@ -1605,5 +1614,9 @@ namespace FIFJsonBuilder
             }
         }
 
+        private void cb_mcf_cntid_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
