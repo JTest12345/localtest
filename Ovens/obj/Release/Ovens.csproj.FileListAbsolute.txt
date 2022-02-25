@@ -91,3 +91,4 @@ C:\juni_ws\GitRepo\VSP\Ovens\obj\Release\Ovens.csproj.CoreCompileInputs.cache
 C:\juni_ws\GitRepo\VSP\Ovens\obj\Release\Ovens.csproj.CopyComplete
 C:\juni_ws\GitRepo\VSP\Ovens\obj\Release\Ovens.exe
 C:\juni_ws\GitRepo\VSP\Ovens\obj\Release\Ovens.pdb
+C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\ArmsCejApi.dll
