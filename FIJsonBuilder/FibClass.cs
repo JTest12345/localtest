@@ -9,8 +9,6 @@ using System.Windows.Forms;
 
 namespace FIFJsonBuilder
 {
-
-
     ////////////////////////////////////
     ///
     /// Mac_Config_Plusクラス

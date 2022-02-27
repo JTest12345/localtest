@@ -36,6 +36,7 @@ namespace Ovens
         public FmOvens()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
             ConsoleShow("Oven Data Hub", Cnslcnf.msg_info);
             toolStripStatusLabel1.Text = "オーブンデータハブは停止中";
             toolStripStatusLabel2.Text = "";

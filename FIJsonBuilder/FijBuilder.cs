@@ -10,7 +10,7 @@ namespace FIFJsonBuilder
     public partial class fm_main : Form
     {
         //読み込むJsonファイル格納用
-        macconfjson mcconf;
+        Oskas.macconfjson mcconf;
         //入力補助フォーム
         private string sharestring = "";
         fm_input fmin;
@@ -59,7 +59,7 @@ namespace FIFJsonBuilder
 
             //ConfigJson読込
             string FilePath = mcdir + @"\" + cb_mcat.Items[0].ToString() + @"\" + cb_macno.Items[0].ToString() + @"\" + @"conf\macconf.json";
-            mcconf = JsonConvert.DeserializeObject<macconfjson>(JsonFileReader(FilePath));
+            mcconf = JsonConvert.DeserializeObject<Oskas.macconfjson>(JsonFileReader(FilePath));
 
             ////////////////////////////////////////////////////////////////////////////
             /// UIメンバが増えた時にするべき以下のこと
@@ -153,6 +153,7 @@ namespace FIFJsonBuilder
             cb_mcf_pulltype.TextChanged += new EventHandler(mcfedited);
             cb_mcf_shfld.TextChanged += new EventHandler(mcfedited);
             tb_mcf_path.TextChanged += new EventHandler(mcfedited);
+            cmb_infilekey.TextChanged += new EventHandler(mcfedited);
 
             //設備情報ファイル
             tb_mstsfkey.TextChanged += new EventHandler(savedata2mcconf);
@@ -225,7 +226,7 @@ namespace FIFJsonBuilder
                     pcshfdconfnull();
                     Mcfconfnull();
                     Mstsfconfnull();
-                    mcconf = JsonConvert.DeserializeObject<macconfjson>(JsonFileReader(FilePath));
+                    mcconf = JsonConvert.DeserializeObject<Oskas.macconfjson>(JsonFileReader(FilePath));
                     //保存先表示
                     lb_confpath.Text = "設定ファイル保存先：" + FilePath;
                     //
@@ -273,7 +274,7 @@ namespace FIFJsonBuilder
                 {
                     if (words[0] == "plc")
                     {
-                        mcconf.Plcs.plcconfs.Add(new PLCconf
+                        mcconf.Plcs.plcconfs.Add(new Oskas.PLCconf
                         {
                             bender = "",
                             model = "",
@@ -282,16 +283,16 @@ namespace FIFJsonBuilder
                             devport = "",
                             //usemc = false,
                             //usemm = false,
-                            devs = new devs(),
-                            ftps = new ftps()
+                            devs = new Oskas.devs(),
+                            ftps = new Oskas.ftps()
                         });
-                        mcconf.Plcs[mcconf.Plcs.plcconfs.Count - 1].ftps.ftpconfs.Add(new ftpconf { id = "", password = "", port = "" });
+                        mcconf.Plcs[mcconf.Plcs.plcconfs.Count - 1].ftps.ftpconfs.Add(new Oskas.ftpconf { id = "", password = "", port = "" });
                         lb_plc.Items.Add(words[1]);
                         lb_plc.SelectedIndex = lb_plc.Items.Count - 1;
                     }
                     else if (words[0] == "plcdev")
                     {
-                        mcconf.Plcs[lb_plc.SelectedIndex].devs.devconfs.Add(new devconf
+                        mcconf.Plcs[lb_plc.SelectedIndex].devs.devconfs.Add(new Oskas.devconf
                         {
                             devid = words[1],
                             devno = "",
@@ -302,7 +303,7 @@ namespace FIFJsonBuilder
                     }
                     else if (words[0] == "plcshfd")
                     {
-                        mcconf.Plcs[lb_plc.SelectedIndex].shfld.sfconf.Add(new shfldconf
+                        mcconf.Plcs[lb_plc.SelectedIndex].shfld.sfconf.Add(new Oskas.shfldconf
                         {
                             name = words[1],
                             path = ""
@@ -312,22 +313,22 @@ namespace FIFJsonBuilder
                     }
                     else if (words[0] == "pc")
                     {
-                        mcconf.Pcs.pcconfs.Add(new PCconf
+                        mcconf.Pcs.pcconfs.Add(new Oskas.PCconf
                         {
                             name = words[1],
                             ipa = "",
                             //usemc = false,
                             //usemm = false,
-                            shfld = new Shareflds(),
-                            ftps = new ftps()
+                            shfld = new Oskas.Shareflds(),
+                            ftps = new Oskas.ftps()
                         });
-                        mcconf.Pcs[mcconf.Pcs.pcconfs.Count - 1].ftps.ftpconfs.Add(new ftpconf { id = "", password = "", port = "" });
+                        mcconf.Pcs[mcconf.Pcs.pcconfs.Count - 1].ftps.ftpconfs.Add(new Oskas.ftpconf { id = "", password = "", port = "" });
                         lb_pc.Items.Add(words[1]);
                         lb_pc.SelectedIndex = lb_pc.Items.Count - 1;
                     }
                     else if (words[0] == "pcshfd")
                     {
-                        mcconf.Pcs[lb_pc.SelectedIndex].shfld.sfconf.Add(new shfldconf
+                        mcconf.Pcs[lb_pc.SelectedIndex].shfld.sfconf.Add(new Oskas.shfldconf
                         {
                             name = words[1],
                             path = ""
@@ -337,14 +338,14 @@ namespace FIFJsonBuilder
                     }
                     else if (words[0] == "mcf")
                     {
-                        mcconf.Mcfs.mcfconfs.Add(new MCFconf
+                        mcconf.Mcfs.mcfconfs.Add(new Oskas.MCFconf
                         {
                             mcfilekey = words[1],
                             encoding = "",
                             returns = "",
                             spfnc1 = false,
                             verifiparam = false,
-                            foi = new fileOwnerinfo
+                            foi = new Oskas.fileOwnerinfo
                             {
                                 serverpull = false,
                                 cnttype = "",
@@ -357,15 +358,16 @@ namespace FIFJsonBuilder
                             }
                         });
                         lb_mcfilekey.Items.Add(words[1]);
+                        cmb_infilekey.Items.Add(words[1]);
                         lb_mcfilekey.SelectedIndex = lb_mcfilekey.Items.Count - 1;
                     }
                     else if (words[0] == "mstsf")
                     {
-                        mcconf.Mstsfs.mstsfconfs.Add(new MSTSFconf
+                        mcconf.Mstsfs.mstsfconfs.Add(new Oskas.MSTSFconf
                         {
                             mstsfilekey = words[1],
                             mstsfileid = "",
-                            foi = new fileOwnerinfo
+                            foi = new Oskas.fileOwnerinfo
                             {
                                 serverpull = false,
                                 cnttype = "",
@@ -417,7 +419,7 @@ namespace FIFJsonBuilder
             }
             else
             {
-                mcconf.Plcs = new PLCs();
+                mcconf.Plcs = new Oskas.PLCs();
             }
 
             //Tab: 設備PC設定
@@ -435,11 +437,12 @@ namespace FIFJsonBuilder
             }
             else
             {
-                mcconf.Pcs = new PCs();
+                mcconf.Pcs = new Oskas.PCs();
             }
 
             //Tab: MagCupファイル設定
             lb_mcfilekey.Items.Clear();
+            cmb_infilekey.Items.Clear();
             if (mcconf.Mcfs != null)
             {
                 if (mcconf.Mcfs.mcfconfs.Count > 0)
@@ -447,13 +450,15 @@ namespace FIFJsonBuilder
                     for (int i = 0; i < mcconf.Mcfs.mcfconfs.Count; i++)
                     {
                         lb_mcfilekey.Items.Add(mcconf.Mcfs.mcfconfs[i].mcfilekey);
+                        cmb_infilekey.Items.Add(mcconf.Mcfs.mcfconfs[i].mcfilekey);
                     }
                     lb_mcfilekey.SelectedIndex = 0;
+                    cmb_infilekey.SelectedIndex = 0;
                 }
             }
             else
             {
-                mcconf.Mcfs = new MCFs();
+                mcconf.Mcfs = new Oskas.MCFs();
             }
 
             //Tab: 設備情報ファイル設定
@@ -471,7 +476,7 @@ namespace FIFJsonBuilder
             }
             else
             {
-                mcconf.Mstsfs = new MSTSFs();
+                mcconf.Mstsfs = new Oskas.MSTSFs();
             }
         }
 
@@ -526,7 +531,7 @@ namespace FIFJsonBuilder
         /// PLCリストボックス内のアイテムが変更された時にタブ内の表示を変更します
         /// </summary>
         /// <param name="plcconf"></param>
-        private void plcconf(PLCconf plcconf)
+        private void plcconf(Oskas.PLCconf plcconf)
         {
             tb_plc_name.Text = plcconf.name;
             tb_plc_ipa.Text = plcconf.ipa;
@@ -589,7 +594,7 @@ namespace FIFJsonBuilder
         /// PLCのデバイスリストのアイテムが変更になったときにデバイス内容を変更します
         /// </summary>
         /// <param name="dvconf"></param>
-        private void devconf(devconf dvconf)
+        private void devconf(Oskas.devconf dvconf)
         {
             tb_plc_devid.Text = dvconf.devid;
             tb_plc_devno.Text = dvconf.devno;
@@ -611,7 +616,7 @@ namespace FIFJsonBuilder
         /// PCのシェアフォルダのアイテムが変更になったときにデバイス内容を変更します
         /// </summary>
         /// <param name="sfconf"></param>
-        private void plcshfdconf(shfldconf sfconf)
+        private void plcshfdconf(Oskas.shfldconf sfconf)
         {
             tb_plc_sharefdname.Text = sfconf.name;
             tb_plc_sharefdpath.Text = sfconf.path;
@@ -748,7 +753,7 @@ namespace FIFJsonBuilder
         /// PCリストボックス内のアイテムが変更された時にタブ内の表示を変更します
         /// </summary>
         /// <param name="pcconf"></param>
-        private void pcconf(PCconf pcconf)
+        private void pcconf(Oskas.PCconf pcconf)
         {
             tb_pc_name.Text = pcconf.name;
             tb_pc_ipa.Text = pcconf.ipa;
@@ -795,7 +800,7 @@ namespace FIFJsonBuilder
         /// PCのシェアフォルダのアイテムが変更になったときにデバイス内容を変更します
         /// </summary>
         /// <param name="sfconf"></param>
-        private void pcshfdconf(shfldconf sfconf)
+        private void pcshfdconf(Oskas.shfldconf sfconf)
         {
             tb_pc_sharefdname.Text = sfconf.name;
             tb_pc_sharefdpath.Text = sfconf.path;
@@ -895,7 +900,7 @@ namespace FIFJsonBuilder
         /// MCファイルリストボックス内のアイテムが変更された時にタブ内の表示を変更します
         /// </summary>
         /// <param name="mcfconf"></param>
-        private void Mcfconf(MCFconf mcfconf)
+        private void Mcfconf(Oskas.MCFconf mcfconf)
         {
             tb_mcfilekey.Text = mcfconf.mcfilekey;
             tb_mcfile_return.Text = mcfconf.returns;
@@ -916,6 +921,7 @@ namespace FIFJsonBuilder
             cb_mcf_shfld.Text = mcfconf.foi.shfld;
             tb_mcf_path.Text = mcfconf.foi.path;
             chk_mcf_serverpull.Checked = mcfconf.foi.serverpull;
+            cmb_infilekey.Text = mcfconf.foi.transinfilekey;
         }
 
         /// <summary>
@@ -930,6 +936,7 @@ namespace FIFJsonBuilder
             chk_mcfile_useplcdev.Checked = false;
             chk_mcfile_verifiparam.Checked = false;
             cb_mcf_plcdev.Items.Clear();
+            cmb_infilekey.Items.Clear();
         }
 
         /// <summary>
@@ -951,6 +958,7 @@ namespace FIFJsonBuilder
             {
                 mcconf.Mcfs.mcfconfs.RemoveAt(lb_mcfilekey.SelectedIndex);
                 lb_mcfilekey.Items.Remove(lb_mcfilekey.SelectedItem);
+                cmb_infilekey.Items.Remove(lb_mcfilekey.SelectedItem);
                 Mcfconfnull();
             }
         }
@@ -1028,6 +1036,7 @@ namespace FIFJsonBuilder
                     cb_mcf_pulltype.Enabled = true;
                     cb_mcf_shfld.Enabled = false;
                     tb_mcf_path.Enabled = true;
+                    cmb_infilekey.Enabled = true;
                 }
                 else
                 {
@@ -1035,6 +1044,7 @@ namespace FIFJsonBuilder
                     cb_mcf_pulltype.Enabled = false;
                     cb_mcf_shfld.Enabled = false;
                     tb_mcf_path.Enabled = false;
+                    cmb_infilekey.Enabled = false;
                 }
             }
             else if (type.Name == "ComboBox")
@@ -1140,7 +1150,7 @@ namespace FIFJsonBuilder
         /// 設備情報ファイルリストボックス内のアイテムが変更された時にタブ内の表示を変更します
         /// </summary>
         /// <param name="mcfconf"></param>
-        private void Mstsfconf(MSTSFconf mstsconf)
+        private void Mstsfconf(Oskas.MSTSFconf mstsconf)
         {
             tb_mstsfkey.Text = mstsconf.mstsfilekey;
             cb_mstsfid.Text = mstsconf.mstsfileid;
@@ -1435,6 +1445,7 @@ namespace FIFJsonBuilder
                         cb_mcf_plcdev.Enabled = false;
                     }
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.serverpull = chk_mcf_serverpull.Checked;
+                    mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.transinfilekey = cmb_infilekey.Text;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.cntid = cb_mcf_cntid.Text;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.cnttype = cb_mcf_cnttype.Text;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.pulltype = cb_mcf_pulltype.Text;
@@ -1614,9 +1625,5 @@ namespace FIFJsonBuilder
             }
         }
 
-        private void cb_mcf_cntid_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

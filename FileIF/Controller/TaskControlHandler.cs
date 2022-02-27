@@ -277,6 +277,13 @@ namespace FileIf
                     //Type[] types = new Type[1];
                     //types[0] = typeof(string);
                     Type[] types = new Type[0];
+                    //classの用意がない場合
+                    if (types.Length == 0)
+                    {
+                        var moveto = fs.filepath.Replace("in", "error") + DateTime.Now.ToString("yyyyMMddHHmmss") +".err";
+                        File.Move(fs.filepath, moveto);
+                        OskNLog.Log("検出されたファイルのクラス定義がみつかりません。ファイルはエラーフォルダに移動します。", Cnslcnf.msg_error);
+                    }
                     ConstructorInfo magicConstructor = iTaskType.GetConstructor(types);
 
                     // ◆keyfile対象クラスを実体化

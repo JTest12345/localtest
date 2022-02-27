@@ -9,13 +9,11 @@ namespace FileIf
 {
     ////////////////////////////////////
     ///
-    /// FmCojTaskFile クラス
+    /// CojTaskFile クラス
     ///
     ////////////////////////////////////
 
-    //
-    // MAGファイル：通常工程開始①
-    //
+
     class TaskFile_avi01 : IFile // avi01ファイル
     {
         public string fileId { get; set; } = "_avi01.csv";

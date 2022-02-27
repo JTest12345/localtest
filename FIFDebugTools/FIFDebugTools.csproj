@@ -108,6 +108,10 @@
       <Project>{a47c8eae-cf1f-4cd0-8a5d-a193d974354b}</Project>
       <Name>ArmsApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FIJsonBuilder\FIFJsonBuilder.csproj">
+      <Project>{70335ca4-317a-4e4b-9f41-e6b300725fc0}</Project>
+      <Name>FIFJsonBuilder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FileIF\FileIF.csproj">
       <Project>{5ebc21f9-6af1-4547-96fb-2d408a4b8486}</Project>
       <Name>FileIF</Name>

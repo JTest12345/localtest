@@ -105,6 +105,7 @@
             this.tb_mcfile = new System.Windows.Forms.TabPage();
             this.tb_mcfilekey = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.cmb_infilekey = new System.Windows.Forms.ComboBox();
             this.tb_mcf_path = new System.Windows.Forms.TextBox();
             this.chk_mcf_serverpull = new System.Windows.Forms.CheckBox();
             this.cb_mcf_inttimfetch = new System.Windows.Forms.ComboBox();
@@ -119,6 +120,7 @@
             this.label31 = new System.Windows.Forms.Label();
             this.cb_mcf_shfld = new System.Windows.Forms.ComboBox();
             this.cb_mcf_pulltype = new System.Windows.Forms.ComboBox();
+            this.label39 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.cb_mcfile_enc = new System.Windows.Forms.ComboBox();
             this.chk_mcfile_verifiparam = new System.Windows.Forms.CheckBox();
@@ -974,6 +976,7 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.cmb_infilekey);
             this.groupBox8.Controls.Add(this.tb_mcf_path);
             this.groupBox8.Controls.Add(this.chk_mcf_serverpull);
             this.groupBox8.Controls.Add(this.cb_mcf_inttimfetch);
@@ -988,6 +991,7 @@
             this.groupBox8.Controls.Add(this.label31);
             this.groupBox8.Controls.Add(this.cb_mcf_shfld);
             this.groupBox8.Controls.Add(this.cb_mcf_pulltype);
+            this.groupBox8.Controls.Add(this.label39);
             this.groupBox8.Controls.Add(this.label32);
             this.groupBox8.Location = new System.Drawing.Point(147, 160);
             this.groupBox8.Name = "groupBox8";
@@ -995,6 +999,16 @@
             this.groupBox8.TabIndex = 30;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "ファイル取得設定";
+            // 
+            // cmb_infilekey
+            // 
+            this.cmb_infilekey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_infilekey.Enabled = false;
+            this.cmb_infilekey.FormattingEnabled = true;
+            this.cmb_infilekey.Location = new System.Drawing.Point(273, 107);
+            this.cmb_infilekey.Name = "cmb_infilekey";
+            this.cmb_infilekey.Size = new System.Drawing.Size(104, 25);
+            this.cmb_infilekey.TabIndex = 33;
             // 
             // tb_mcf_path
             // 
@@ -1008,11 +1022,11 @@
             // chk_mcf_serverpull
             // 
             this.chk_mcf_serverpull.AutoSize = true;
-            this.chk_mcf_serverpull.Location = new System.Drawing.Point(11, 115);
+            this.chk_mcf_serverpull.Location = new System.Drawing.Point(11, 112);
             this.chk_mcf_serverpull.Name = "chk_mcf_serverpull";
-            this.chk_mcf_serverpull.Size = new System.Drawing.Size(187, 21);
+            this.chk_mcf_serverpull.Size = new System.Drawing.Size(143, 21);
             this.chk_mcf_serverpull.TabIndex = 30;
-            this.chk_mcf_serverpull.Text = "FILEIFがIOファイルをPULLする";
+            this.chk_mcf_serverpull.Text = "IOファイルをPULLする";
             this.chk_mcf_serverpull.UseVisualStyleBackColor = true;
             // 
             // cb_mcf_inttimfetch
@@ -1035,7 +1049,7 @@
             this.cb_mcf_plcdev.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_mcf_plcdev.Enabled = false;
             this.cb_mcf_plcdev.FormattingEnabled = true;
-            this.cb_mcf_plcdev.Location = new System.Drawing.Point(207, 86);
+            this.cb_mcf_plcdev.Location = new System.Drawing.Point(207, 77);
             this.cb_mcf_plcdev.Name = "cb_mcf_plcdev";
             this.cb_mcf_plcdev.Size = new System.Drawing.Size(129, 25);
             this.cb_mcf_plcdev.TabIndex = 16;
@@ -1063,7 +1077,7 @@
             // chk_mcfile_useplcdev
             // 
             this.chk_mcfile_useplcdev.AutoSize = true;
-            this.chk_mcfile_useplcdev.Location = new System.Drawing.Point(11, 90);
+            this.chk_mcfile_useplcdev.Location = new System.Drawing.Point(11, 81);
             this.chk_mcfile_useplcdev.Name = "chk_mcfile_useplcdev";
             this.chk_mcfile_useplcdev.Size = new System.Drawing.Size(190, 21);
             this.chk_mcfile_useplcdev.TabIndex = 14;
@@ -1088,17 +1102,16 @@
             "15",
             "30",
             "60"});
-            this.cb_mcf_cntid.Location = new System.Drawing.Point(111, 54);
+            this.cb_mcf_cntid.Location = new System.Drawing.Point(111, 47);
             this.cb_mcf_cntid.Name = "cb_mcf_cntid";
             this.cb_mcf_cntid.Size = new System.Drawing.Size(195, 25);
             this.cb_mcf_cntid.TabIndex = 29;
-            this.cb_mcf_cntid.SelectedIndexChanged += new System.EventHandler(this.cb_mcf_cntid_SelectedIndexChanged);
             // 
             // label30
             // 
             this.label30.AutoSize = true;
             this.label30.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label30.Location = new System.Drawing.Point(8, 57);
+            this.label30.Location = new System.Drawing.Point(8, 50);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(97, 17);
             this.label30.TabIndex = 28;
@@ -1112,7 +1125,7 @@
             this.cb_mcf_cnttype.Items.AddRange(new object[] {
             "PLC",
             "PC"});
-            this.cb_mcf_cnttype.Location = new System.Drawing.Point(111, 23);
+            this.cb_mcf_cnttype.Location = new System.Drawing.Point(111, 17);
             this.cb_mcf_cnttype.Name = "cb_mcf_cnttype";
             this.cb_mcf_cnttype.Size = new System.Drawing.Size(77, 25);
             this.cb_mcf_cnttype.TabIndex = 29;
@@ -1121,7 +1134,7 @@
             // 
             this.label31.AutoSize = true;
             this.label31.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label31.Location = new System.Drawing.Point(7, 27);
+            this.label31.Location = new System.Drawing.Point(7, 21);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(107, 17);
             this.label31.TabIndex = 28;
@@ -1155,6 +1168,16 @@
             this.cb_mcf_pulltype.Name = "cb_mcf_pulltype";
             this.cb_mcf_pulltype.Size = new System.Drawing.Size(105, 25);
             this.cb_mcf_pulltype.TabIndex = 29;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(169, 113);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(107, 17);
+            this.label39.TabIndex = 28;
+            this.label39.Text = "転送ファイルキー：";
+            this.label39.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label32
             // 
@@ -1706,6 +1729,8 @@
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.TextBox tb_pc_ftphomedir;
         private System.Windows.Forms.CheckBox chk_mcfile_disableEndfile;
+        private System.Windows.Forms.ComboBox cmb_infilekey;
+        private System.Windows.Forms.Label label39;
     }
 }
 

@@ -85,8 +85,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Models\Dbclass.cs" />
-    <Compile Include="Models\FmCoj\FmCojTasks.cs" />
+    <Compile Include="Models\Coj\CojTasks.cs" />
     <Compile Include="Models\MagCup\MagCupTasks.cs" />
+    <Compile Include="Models\OldSchool\OldSchool.cs" />
     <Compile Include="Models\Systemfile.cs" />
     <Compile Include="Functions\Tasks_Common.cs" />
     <Compile Include="Models\Arms\WorkEndModel.cs" />
@@ -171,6 +172,10 @@
     <ProjectReference Include="..\CojIF\CojIF.csproj">
       <Project>{e39f3e7a-ef97-44d3-8bbc-fa3085efc4a1}</Project>
       <Name>CojIF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FIJsonBuilder\FIFJsonBuilder.csproj">
+      <Project>{70335ca4-317a-4e4b-9f41-e6b300725fc0}</Project>
+      <Name>FIFJsonBuilder</Name>
     </ProjectReference>
     <ProjectReference Include="..\Oskas\Oskas.csproj">
       <Project>{2f680f5e-efea-406b-a250-a52279b26263}</Project>

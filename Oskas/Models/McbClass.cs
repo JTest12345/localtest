@@ -216,6 +216,7 @@ namespace Oskas
         public string mcfilekey { get; set; }
         public string encoding { get; set; }
         public string returns { get; set; }
+        public bool disableEndfile { get; set; }
         public bool verifiparam { get; set; }
         public bool spfnc1 { get; set; }
         public fileOwnerinfo foi = new fileOwnerinfo();
@@ -283,6 +284,7 @@ namespace Oskas
         //public bool usemm { get; set; }
         public devs devs = new devs();
         public ftps ftps = new ftps();
+        public Shareflds shfld = new Shareflds();
     }
 
 
@@ -342,6 +344,7 @@ namespace Oskas
         public string port { get; set; }
         public string id { get; set; }
         public string password { get; set; }
+        public string homedir { get; set; }
     }
 
 
@@ -388,7 +391,9 @@ namespace Oskas
         public string pulltype { get; set; }
         public string minttimefetch { get; set; }
         public string shfld { get; set; }
+        public string path { get; set; }
         public string inttimefetch { get; set; }
+        public string transinfilekey { get; set; }
     }
 
 }

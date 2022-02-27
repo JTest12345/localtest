@@ -20,6 +20,8 @@ namespace FIFDebugTools
         PlcTestForm _plcTestForm;
         //ArmsTranController
         ArmsTranController _armsTranController;
+        //FIFJsonBuilder
+        //FIFJsonBuilder.fm_main _jsonbuilder;
 
         // 改行コード
         static string crlf = "\r\n";
@@ -35,8 +37,10 @@ namespace FIFDebugTools
         {
             _plcTestForm = new PlcTestForm();
             _armsTranController = new ArmsTranController();
+            //_jsonbuilder = new FIFJsonBuilder.fm_main();
 
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
             toolStripStatusLabel1.Text = string.Format("");
             toolStripStatusLabel2.Text = string.Format("");
 
@@ -170,5 +174,21 @@ namespace FIFDebugTools
                 ConsoleShow("表示されてますよ！");
             }
         }
+
+        //private void 設備設定ToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    if (!_jsonbuilder.Visible)
+        //    {
+        //        if (_jsonbuilder.IsDisposed)
+        //        {
+        //            _jsonbuilder = new FIFJsonBuilder.fm_main();
+        //        }
+        //        _jsonbuilder.Show(this);
+        //    }
+        //    else
+        //    {
+        //        ConsoleShow("表示されてますよ！");
+        //    }
+        //}
     }
 }

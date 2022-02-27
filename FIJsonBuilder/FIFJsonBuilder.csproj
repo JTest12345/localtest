@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FibClass.cs" />
     <Compile Include="FijBuilder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +95,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Oskas\Oskas.csproj">
+      <Project>{2f680f5e-efea-406b-a250-a52279b26263}</Project>
+      <Name>Oskas</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

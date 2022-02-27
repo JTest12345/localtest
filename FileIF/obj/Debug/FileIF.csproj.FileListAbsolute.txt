@@ -129,3 +129,6 @@ C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\CojIF.pdb
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FileIf.FileFetchForm.resources
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\FluentFTP.dll
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\FluentFTP.xml
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\FIFJsonBuilder.exe
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\FIFJsonBuilder.pdb
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\FIFJsonBuilder.exe.config

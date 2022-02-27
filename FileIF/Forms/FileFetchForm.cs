@@ -19,8 +19,9 @@ namespace FileIf
         Magcupini mcini;
         Mcfilesys fs;
         macconfjson mconf;
-        
 
+        string crlf = "\r\n";
+ 
         //選択PLC情報
         string SelectedPlcName;
         PLCconf macplcConf;
@@ -38,8 +39,7 @@ namespace FileIf
             cmb_macname.Enabled = false;
             cmb_pcat.Enabled = false;
             btn_fetchfile.Enabled = false;
-            btn_submitdata.Enabled = false;
-            txt_fetchresults.Enabled = false;
+            //fetchConsole.Enabled = false;
 
             // iniファイルのコンボボックス条件を確認
             // カテゴリ
@@ -58,7 +58,7 @@ namespace FileIf
             }
             else
             {
-                txt_fetchresults.Text += "工程カテゴリの読込ができません" + "\r\n";
+                fetchConsole.Text += "工程カテゴリの読込ができません" + "\r\n";
                 return;
             }
 
@@ -72,7 +72,7 @@ namespace FileIf
                 }
                 else
                 {
-                    txt_fetchresults.Text += "設備名の読込ができません" + "\r\n";
+                    fetchConsole.Text += "設備名の読込ができません" + "\r\n";
                     return;
                 }
             }
@@ -86,9 +86,43 @@ namespace FileIf
                 }
                 else
                 {
-                    txt_fetchresults.Text += "設備名の読込ができません" + "\r\n";
+                    fetchConsole.Text += "設備名の読込ができません" + "\r\n";
                     return;
                 }
+
+            }
+        }
+
+        delegate void FetchConsoleDelegate(string text, int level);
+        private void FetchConsoleShow(string text, int level)
+        {
+            if (fetchConsole.InvokeRequired)
+            {
+                FetchConsoleDelegate d = new FetchConsoleDelegate(FetchConsoleShow);
+                BeginInvoke(d, new object[] { text, level });
+            }
+            else
+            {
+                string message = "";
+                switch (level)
+                {
+                    case 1:
+                        message = "[info] ";
+                        break;
+                    case 2:
+                        message = "[Send] ";
+                        break;
+                    case 3:
+                        message = "[Recieve] ";
+                        break;
+                    case 4:
+                        message = "[Warn] ";
+                        break;
+                    case 5:
+                        message = "[ERROR] ";
+                        break;
+                }
+                fetchConsole.AppendText(message + text + crlf);
             }
         }
 
@@ -131,41 +165,86 @@ namespace FileIf
                 var ftpuser = macplcConf.ftps[0].id;
                 var ftpupassword = macplcConf.ftps[0].password;
                 var ftpport = int.Parse(macplcConf.ftps[0].port);
+                var ftphomefolder = macplcConf.ftps[0].homedir;
+                var magcupdir = mcini.MCDir;
+                var maccat = cmb_pcat.Text;
+                var macname = cmb_macname.Text;
 
-                using (var ftp = new FtpClient(ipaddress, ftpuser, ftpupassword))
+                using (var client = new FtpClient(ipaddress, ftpuser, ftpupassword))
                 {
-                    ftp.Port = ftpport;
-                    ftp.ConnectTimeout = 5000;
-                    ftp.Connect();
+                    client.Port = ftpport;
+                    client.ConnectTimeout = 5000;
+                    client.Connect();
 
-                    var filelist = ftp.GetListing("tmp");
+                    //// download a file and ensure the local directory is created
+                    //if (client.DownloadFile(@"C:\Oskas\debug\magcupresorces\mag\00002_bto_ftp.csv", @"tmp\00002_bto.csv") != FtpStatus.Success)
+                    //// download a file and ensure the local directory is created, verify the file after download
+                    //// client.DownloadFile(@"D:\Github\FluentFTP\README.md", "/public_html/temp/README.md", FtpLocalExists.Overwrite, FtpVerify.Retry);
+                    //{
+                    //    FetchConsoleShow("失敗してます", 5);
+                    //    return;
+                    //}
 
-                    // download a file and ensure the local directory is created
-                    if (ftp.DownloadFile(@"C:\Oskas\debug\magcupresorces\mag\00002_bto_ftp.csv", @"tmp\00002_bto.csv") != FtpStatus.Success)
-                    // download a file and ensure the local directory is created, verify the file after download
-                    // ftp.DownloadFile(@"D:\Github\FluentFTP\README.md", "/public_html/temp/README.md", FtpLocalExists.Overwrite, FtpVerify.Retry);
+                    // get a list of files and directories in the "/htdocs" folder
+                    foreach (FtpListItem item in client.GetListing(ftphomefolder))
                     {
-                        MessageBox.Show("失敗してます");
+                        // if this is a file
+                        if (item.Type == FtpFileSystemObjectType.File)
+                        {
+
+                            // get the file size
+                            long size = client.GetFileSize(item.FullName);
+
+                            // calculate a hash for the file on the server side (default algorithm)
+                            //FtpHash hash = client.GetChecksum(item.FullName);
+                        }
+
+                        // get modified date/time of the file or folder
+                        DateTime time = client.GetModifiedTime(item.FullName);
+
+                        if (item.Name.Contains(cmb_fetchfile.Text))
+                        {
+                            FetchConsoleShow("検出したファイル：" + item.FullName + " " + time.ToString("G"), 1);
+                            FetchConsoleShow("ファイル取得を開始します", 1);
+
+                            if (client.DownloadFile($"{magcupdir}\\{maccat}\\{macname}\\temp\\" + item.Name, item.FullName) != FtpStatus.Success)
+                            {
+                                FetchConsoleShow("ファイル取得が失敗してます", 5);
+                                return;
+                            }
+
+                            FetchConsoleShow($"{magcupdir}\\{maccat}\\{macname}\\temp\\" + item.Name + "にファイル転送完了", 1);
+                        }
+                        else
+                        {
+                            FetchConsoleShow("指定のファイルは検出されませんでした", 1);
+                        }
+                        
                     }
 
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                FetchConsoleShow(e.Message, 5);
             }
 
         }
 
         private void btn_fetchfile_Click(object sender, EventArgs e)
         {
+            btn_fetchfile.Enabled = false;
             DownloadFile();
+            btn_fetchfile.Enabled = true;
         }
 
         private void cmb_macname_SelectionChangeCommitted(object sender, EventArgs e)
         {
             try
             {
+                btn_fetchfile.Enabled = false;
+                tmpFileWatchTimer.Enabled = false;
+
                 //ConfigJson読込関数
                 string MacFld = mcini.MCDir + "\\" + cmb_pcat.SelectedItem + "\\" + cmb_macname.SelectedItem;
                 string MacConfPath = MacFld + "\\conf\\macconf.json";
@@ -184,12 +263,13 @@ namespace FileIf
                 if (filekeylist.ToArray().Length != 0)
                 {
                     cmb_fetchfile.Enabled = true;
+                    cmb_fetchfile.Items.Clear();
                     cmb_fetchfile.Items.AddRange(filekeylist.ToArray());
                     cmb_fetchfile.Text = "選択してください";
                 }
                 else
                 {
-                    txt_fetchresults.Text += "設備名の読込ができません" + "\r\n";
+                    fetchConsole.Text += "設備名の読込ができません" + "\r\n";
                     return;
                 }
 
@@ -204,22 +284,32 @@ namespace FileIf
 
         private void cmb_pcat_SelectedIndexChanged(object sender, EventArgs e)
         {
+            btn_fetchfile.Enabled = false;
+            tmpFileWatchTimer.Enabled = false;
+
             var macnamearr = GetPcatDirName(mcini.MCDir + "\\" + cmb_pcat.Text);
 
             if (macnamearr.Length != 0)
             {
                 cmb_macname.Enabled = true;
+                cmb_macname.Items.Clear();
                 cmb_macname.Items.AddRange(macnamearr);
                 cmb_macname.Text = "選択してください";
+                cmb_fetchfile.Items.Clear();
+                cmb_fetchfile.Text = "";
+                cmb_fetchfile.Enabled = false;
             }
             else
             {
-                txt_fetchresults.Text += "設備名の読込ができません" + "\r\n";
+                fetchConsole.Text += "設備名の読込ができません" + "\r\n";
             }
         }
 
         private void cmb_fetchfile_SelectedIndexChanged(object sender, EventArgs e)
         {
+            btn_fetchfile.Enabled = false;
+            tmpFileWatchTimer.Enabled = false;
+
             //該当PLCの名称(ID)抽出
             foreach (var item in mconf.Mcfs.mcfconfs)
             {
@@ -239,9 +329,117 @@ namespace FileIf
                 {
                     macplcConf = item;
                     btn_fetchfile.Enabled = true;
+                    tmpFileWatchTimer.Enabled = true;
                 }
             }
         }
+
+        private void tmpFileWatchTimer_Tick(object sender, EventArgs e)
+        {
+            tmpFileWatchTimer.Enabled = false;
+
+            var magcupdir = mcini.MCDir;
+            var maccat = cmb_pcat.Text;
+            var macname = cmb_macname.Text;
+            var indir = $"{magcupdir}\\{maccat}\\{macname}\\in\\";
+            var tmpdir = $"{magcupdir}\\{maccat}\\{macname}\\temp\\";
+            var errdir = $"{magcupdir}\\{maccat}\\{macname}\\error\\";
+            var tmpkey = string.Empty;
+            var inkey = string.Empty;
+
+            foreach (string filepath in Directory.EnumerateFiles(tmpdir))
+            {
+                var filename = Path.GetFileName(filepath);
+
+                foreach (var mcfconf in mconf.Mcfs.mcfconfs)
+                {
+                    if (filename.Contains(mcfconf.mcfilekey))
+                    {
+                        tmpkey = mcfconf.mcfilekey;
+                        inkey = mcfconf.foi.transinfilekey;
+                    }
+                }
+
+                if (tmpkey != cmb_fetchfile.Text || string.IsNullOrEmpty(inkey))
+                {
+                    FetchConsoleShow("検出ファイルは設定ファイルに登録されていません", 5);
+                    File.Move(filepath, errdir + filename + ".err");
+                    FetchConsoleShow("検出ファイルはエラーフォルダに転送されました", 1);
+                    return;
+                }
+
+                if (filename.Contains(cmb_fetchfile.Text))
+                {
+                    // コンソールに検出ファイル情報
+                    FetchConsoleShow(ShowDetectFileContents(filepath), 1);
+
+                    string message = "検出されたファイルを上位に転送しますか？";
+                    string caption = "検出ファイルの転送";
+
+                    var result = MessageBox.Show(this, message, caption, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        File.Move(filepath, indir + filename.Replace(tmpkey, inkey));
+                        FetchConsoleShow("検出ファイルはINフォルダに転送されました", 1);
+                    }
+                    else if (result == DialogResult.No)
+                    {
+                        message = "検出されたファイルを削除しますか？";
+                        caption = "検出ファイルを削除";
+                        result = MessageBox.Show(this, message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result == DialogResult.Yes)
+                        {
+                            File.Delete(filepath);
+                            FetchConsoleShow("検出ファイルは削除されました", 1);
+                        }
+                    }
+                    else
+                    {
+                        message = "検出されたファイルをエラーフォルダに転送しますか？";
+                        caption = "検出ファイルをエラー処理";
+                        result = MessageBox.Show(this, message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result == DialogResult.Yes)
+                        {
+                            File.Move(filepath, errdir + filename + ".err");
+                            FetchConsoleShow("検出ファイルはエラーフォルダに転送されました", 1);
+                        }
+                    }
+                }
+            }
+
+            tmpFileWatchTimer.Enabled = true;
+        }
+
+        private string ShowDetectFileContents(string filepath)
+        {
+            var msg = string.Empty;
+            var contents = string.Empty;
+            var filename = Path.GetFileName(filepath);
+            var timestamp = File.GetCreationTime(filepath);
+
+            contents += "■■■■■■検出されたファイル■■■■■■" + crlf;
+            contents += "◆ファイル名：" + filename　+ crlf;
+            contents += "◆タイムスタンプ：" + timestamp + crlf;
+
+            // ファイル名により個別処理
+            var vipfile = new TaskFile_vip1();
+            var vipcontents = TaskFile_vip1.FileContents(filepath, ref msg);
+
+            contents += "◆機種名：" + vipcontents["機種名抜出し"] + crlf;
+            contents += "◆ロットNO：" + vipcontents["Lot名抜出し"] + crlf;
+            contents += "◆最終記録時間：" + vipcontents["年"] +  "/"  
+                                            + vipcontents["月"] + "/"
+                                            + vipcontents["日"] + " "
+                                            + vipcontents["時"] + ":"
+                                            + vipcontents["分"] + ":"
+                                            + vipcontents["秒"] + crlf;
+            contents += "◆BIN1：" + vipcontents["BIN1"] + crlf;
+            contents += "■■■■■■■■■■■■■■■■■■■■■■■[END]";
+
+            return contents;
+        }
+
     }
 
 }

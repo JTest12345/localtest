@@ -10,7 +10,10 @@ namespace FileIf
 {
     public class FileIfFlame : Oskas.fmMain
     {
+        //FTP Client
         FileFetchForm fileFetchForm;
+        //FIFJsonBuilder
+        FIFJsonBuilder.fm_main jsonbuilder;
 
         Tasks_Common tcommons = new Tasks_Common();
         //MySQL db = new MySQL();
@@ -37,6 +40,7 @@ namespace FileIf
         TaskControlHandler tskhdl;
         private ToolStripMenuItem オプションToolStripMenuItem;
         private ToolStripMenuItem Mn_OpenFileFetch;
+        private ToolStripMenuItem OpenFifJsonBuilder;
 
         // インターロック設備リスト
         List<string> IntLokMac = new List<string>();
@@ -44,6 +48,7 @@ namespace FileIf
         public FileIfFlame()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
             TaskTimer.Enabled = false;
             toolStripStatusLabel1.Text = string.Format("FILEIFは停止中です");
             toolStripStatusLabel2.Text = "";
@@ -61,6 +66,8 @@ namespace FileIf
 
             // FileFetchコンストラクタ
             fileFetchForm = new FileFetchForm(mci);
+            // FIFJsonBuilderコンストラクタ
+            jsonbuilder = new FIFJsonBuilder.fm_main();
 
 
             // MySQLを使用しない仕様となった為コメントアウト
@@ -103,6 +110,7 @@ namespace FileIf
             this.Mn_Files_OpenFif = new System.Windows.Forms.ToolStripMenuItem();
             this.オプションToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Mn_OpenFileFetch = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenFifJsonBuilder = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -141,7 +149,8 @@ namespace FileIf
             // Mn_Files
             // 
             this.Mn_Files.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Mn_Files_OpenFif});
+            this.Mn_Files_OpenFif,
+            this.OpenFifJsonBuilder});
             this.Mn_Files.Name = "Mn_Files";
             this.Mn_Files.Size = new System.Drawing.Size(53, 20);
             this.Mn_Files.Text = "ファイル";
@@ -149,7 +158,7 @@ namespace FileIf
             // Mn_Files_OpenFif
             // 
             this.Mn_Files_OpenFif.Name = "Mn_Files_OpenFif";
-            this.Mn_Files_OpenFif.Size = new System.Drawing.Size(152, 22);
+            this.Mn_Files_OpenFif.Size = new System.Drawing.Size(180, 22);
             this.Mn_Files_OpenFif.Text = "FIFフォルダを開く";
             // 
             // オプションToolStripMenuItem
@@ -163,9 +172,16 @@ namespace FileIf
             // Mn_OpenFileFetch
             // 
             this.Mn_OpenFileFetch.Name = "Mn_OpenFileFetch";
-            this.Mn_OpenFileFetch.Size = new System.Drawing.Size(168, 22);
+            this.Mn_OpenFileFetch.Size = new System.Drawing.Size(180, 22);
             this.Mn_OpenFileFetch.Text = "設備内ファイル取得";
             this.Mn_OpenFileFetch.Click += new System.EventHandler(this.OpenFileFetchForm);
+            // 
+            // OpenFifJsonBuilder
+            // 
+            this.OpenFifJsonBuilder.Name = "OpenFifJsonBuilder";
+            this.OpenFifJsonBuilder.Size = new System.Drawing.Size(180, 22);
+            this.OpenFifJsonBuilder.Text = "設備設定";
+            this.OpenFifJsonBuilder.Click += new System.EventHandler(this.OpenFifJsonBuilder_Click);
             // 
             // FileIfFlame
             // 
@@ -176,6 +192,7 @@ namespace FileIf
             this.Name = "FileIfFlame";
             this.Text = "FIF";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MagCupFlame_FormClosing);
+            this.Controls.SetChildIndex(this.bt_ClearErrLogs, 0);
             this.Controls.SetChildIndex(this.ErrorLogComsole, 0);
             this.Controls.SetChildIndex(this.consoleBox, 0);
             this.Controls.SetChildIndex(this.btServerStart, 0);
@@ -353,6 +370,22 @@ namespace FileIf
             else
             {
                 ConsoleShow("既に表示されています", Cnslcnf.msg_error);
+            }
+        }
+
+        private void OpenFifJsonBuilder_Click(object sender, EventArgs e)
+        {
+            if (!jsonbuilder.Visible)
+            {
+                if (jsonbuilder.IsDisposed)
+                {
+                    jsonbuilder = new FIFJsonBuilder.fm_main();
+                }
+                jsonbuilder.Show(this);
+            }
+            else
+            {
+                ConsoleShow("表示されてますよ！", Cnslcnf.msg_alarm);
             }
         }
     }
