@@ -134,10 +134,10 @@ namespace FileIf
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
 
-                //FMlotNo
+                //4MlotNo
                 foreach (string fmCode in vlin2.fmCodeList)
                 {
-                    if (!contents.Contains("fmlotno," + fmCode))
+                    if (!contents.Contains("m4lotno," + fmCode))
                     {
                         msg = $"WIPファイルの内容: 4MLOT[{fmCode}]は開始可能確認ができていません";
                         return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
