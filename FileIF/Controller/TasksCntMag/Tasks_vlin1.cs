@@ -104,12 +104,11 @@ namespace FileIf
                     VlotAccess vl = VlotAccess.CheckVLotInfo(Dict["vlotno"], seilotnolst);
                     if (vl.IsOkOnly)
                     {
-                        Dbgmsg += "Vlot整合チェック完了";
+                        Dbgmsg += "Vlot整合チェック完了" + crlf;
                     }
                     else
                     {
-                        Dbgmsg += "Vlot整合チェックで不正検出";
-
+                        Dbgmsg += "Vlot整合チェックで不正検出" + crlf;
                         //return new string[] { "NG", vl.ErrDescription, Dbgmsg, taskid.ToString() };
                     }
                 }
@@ -155,12 +154,12 @@ namespace FileIf
                 };
 
                 // wipに4Mロットを追加
-                foreach (var fmlot in vlin1.m4CodeList)
+                foreach (var m4lot in vlin1.m4CodeList)
                 {
-                    wiplist.Add("fmlotno," + fmlot);
+                    wiplist.Add("m4lotno," + m4lot);
                 }
 
-                Dbgmsg = "" + crlf;
+                Dbgmsg += "" + crlf;
 
                 string WipFilePath = fs.fpath + @"\wip\" + fs.MagCupNo + "_wipin1.dat";
                 string contents = "";
