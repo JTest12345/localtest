@@ -39,7 +39,6 @@ C:\juni_ws\GitRepo\VSP\ArmsApi\bin\Release\ArmsApi.pdb
 C:\juni_ws\GitRepo\VSP\ArmsApi\bin\Release\log4net.dll
 C:\juni_ws\GitRepo\VSP\ArmsApi\bin\Release\Newtonsoft.Json.dll
 C:\juni_ws\GitRepo\VSP\ArmsApi\bin\Release\log4net.xml
-C:\juni_ws\GitRepo\VSP\ArmsApi\bin\Release\Newtonsoft.Json.pdb
 C:\juni_ws\GitRepo\VSP\ArmsApi\bin\Release\Newtonsoft.Json.xml
 C:\juni_ws\GitRepo\VSP\ArmsApi\obj\Release\ArmsApi.csprojAssemblyReference.cache
 C:\juni_ws\GitRepo\VSP\ArmsApi\obj\Release\ArmsApi.csproj.CoreCompileInputs.cache

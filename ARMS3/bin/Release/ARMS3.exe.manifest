@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>7Agr4QBCmCJI8Afx0mJ1Y4JEkkOTpenn7tN+NPLlDws=</dsig:DigestValue>
+        <dsig:DigestValue>Ayc9WJrLq5U6UkeUOQGv4SZeypqqprwGFkcDOLZqXxo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -62,7 +62,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>EcnL6gUV4gcusoZpllw2n/Hp3ZhxmNTxCCBSgBnxKvQ=</dsig:DigestValue>
+        <dsig:DigestValue>X1tm8DaQlIgyomeiITT/uyRNbjQotQWNiNun74Flo6g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -91,14 +91,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="526336">
-      <assemblyIdentity name="Newtonsoft.Json" version="9.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="701992">
+      <assemblyIdentity name="Newtonsoft.Json" version="13.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>V14w+Y5OpCyeUW7ci7sprYtQsXOj5rNrW6OeEzzOlAY=</dsig:DigestValue>
+        <dsig:DigestValue>tiSUnfiw46YVP9+3MKfG9JkLZZLuDZIuF4hDPSdmEPM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -129,13 +129,13 @@
       <dsig:DigestValue>l6PmI+cq7IRJL4XR68N4xS8saeAuZnepUVGW8LLOwgk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="ARMS3.exe.config" size="715">
+  <file name="ARMS3.exe.config" size="1071">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>dJ5Q30prZf5LbZRTREc3UYZBwT4GfJe4mQ1iqebAup8=</dsig:DigestValue>
+      <dsig:DigestValue>fARaHCIHYkPLpXzOmunQoavMzR1XNGLbW3tJpSBRpTs=</dsig:DigestValue>
     </hash>
   </file>
   <file name="ringin.wav" size="5750">

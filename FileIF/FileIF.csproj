@@ -49,6 +49,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CejDataAccessCom">
+      <HintPath>..\libcej\CejDataAccessCom.dll</HintPath>
+    </Reference>
     <Reference Include="FluentFTP, Version=36.0.0.0, Culture=neutral, PublicKeyToken=f4af092b1d8df44f, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentFTP.36.0.0\lib\net45\FluentFTP.dll</HintPath>
     </Reference>

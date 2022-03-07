@@ -157,7 +157,7 @@ namespace FileIf
         public string fileId { get; set; } = "_vlin1.csv";
 
         //4Mロットコードリスト
-        public List<string> fmCodeList { get; set; }
+        public List<string> m4CodeList { get; set; }
         public string ErrorCode { get; set; }
 
         public string[] Readvlin1FileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
@@ -180,16 +180,16 @@ namespace FileIf
                 results = results.Replace("\"", "");
                 contents = results.Split(',');
 
-                fmCodeList = new List<string>();
+                m4CodeList = new List<string>();
 
-                foreach (var fmlot in contents)
+                foreach (var m4lot in contents)
                 {
-                    if (!string.IsNullOrEmpty(fmlot))
+                    if (!string.IsNullOrEmpty(m4lot))
                     {
-                        fmCodeList.Add(fmlot);
+                        m4CodeList.Add(m4lot);
 
                         //for Debug
-                        Dbgmsg += "設備:パラメータ：" + fmlot + "\r\n";
+                        Dbgmsg += "設備:パラメータ：" + m4lot + "\r\n";
                     }
                 }
 

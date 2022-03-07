@@ -31,7 +31,7 @@ namespace FileIf
                 // ファイル読取
                 var contents = new List<string>();
                 bin = new Dictionary<string, string>();
-                if (!Oskas.CommonFuncs.ReadTextFileLine(fs.filepath, ref contents, "UTF-16"))
+                if (!Oskas.CommonFuncs.ReadTextFileLine(fs.filepath, ref contents, fs.mcfc.encoding))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, "ファイル読取が失敗しました");
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
@@ -73,14 +73,14 @@ namespace FileIf
 
         }
 
-        public static Dictionary<string, string> FileContents(string filepath, ref string msg)
+        public static Dictionary<string, string> FileContents(string filepath, string enc, ref string msg)
         {
             try
             {
                 // ファイル読取
                 var contents = new List<string>();
                 var bin = new Dictionary<string, string>();
-                if (!Oskas.CommonFuncs.ReadTextFileLine(filepath, ref contents, "shift-jis"))
+                if (!Oskas.CommonFuncs.ReadTextFileLine(filepath, ref contents, enc))
                 {
                     msg = "ファイル読取が失敗しました";
                     return bin;

@@ -346,6 +346,7 @@ namespace FileIf
             var errdir = $"{magcupdir}\\{maccat}\\{macname}\\error\\";
             var tmpkey = string.Empty;
             var inkey = string.Empty;
+            var enc = string.Empty;
 
             foreach (string filepath in Directory.EnumerateFiles(tmpdir))
             {
@@ -357,6 +358,7 @@ namespace FileIf
                     {
                         tmpkey = mcfconf.mcfilekey;
                         inkey = mcfconf.foi.transinfilekey;
+                        enc = mcfconf.encoding;
                     }
                 }
 
@@ -371,7 +373,7 @@ namespace FileIf
                 if (filename.Contains(cmb_fetchfile.Text))
                 {
                     // コンソールに検出ファイル情報
-                    FetchConsoleShow(ShowDetectFileContents(filepath), 1);
+                    FetchConsoleShow(ShowDetectFileContents(filepath, enc), 1);
 
                     string message = "検出されたファイルを上位に転送しますか？";
                     string caption = "検出ファイルの転送";
@@ -411,7 +413,7 @@ namespace FileIf
             tmpFileWatchTimer.Enabled = true;
         }
 
-        private string ShowDetectFileContents(string filepath)
+        private string ShowDetectFileContents(string filepath, string enc)
         {
             var msg = string.Empty;
             var contents = string.Empty;
@@ -424,7 +426,7 @@ namespace FileIf
 
             // ファイル名により個別処理
             var vipfile = new TaskFile_vip1();
-            var vipcontents = TaskFile_vip1.FileContents(filepath, ref msg);
+            var vipcontents = TaskFile_vip1.FileContents(filepath, enc, ref msg);
 
             contents += "◆機種名：" + vipcontents["機種名抜出し"] + crlf;
             contents += "◆ロットNO：" + vipcontents["Lot名抜出し"] + crlf;

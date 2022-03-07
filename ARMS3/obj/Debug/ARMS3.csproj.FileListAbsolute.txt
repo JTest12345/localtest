@@ -113,7 +113,6 @@ C:\juni_ws\GitRepo\VSP\ARMS3\bin\Debug\Newtonsoft.Json.dll
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Debug\ArmsApi.pdb
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Debug\ArmsApi.dll.config
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Debug\log4net.xml
-C:\juni_ws\GitRepo\VSP\ARMS3\bin\Debug\Newtonsoft.Json.pdb
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Debug\Newtonsoft.Json.xml
 C:\juni_ws\GitRepo\VSP\ARMS3\obj\Debug\ARMS3.csprojAssemblyReference.cache
 C:\juni_ws\GitRepo\VSP\ARMS3\obj\Debug\ARMS3.FakeVIPline.TestForm.resources

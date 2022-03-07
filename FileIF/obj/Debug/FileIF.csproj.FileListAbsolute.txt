@@ -132,3 +132,8 @@ C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\FluentFTP.xml
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\FIFJsonBuilder.exe
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\FIFJsonBuilder.pdb
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\FIFJsonBuilder.exe.config
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\ArmsWebApi.dll.config
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\CojIF.dll.config
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\NLog_20220304.config
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\CejDataAccessCom.dll
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\CejDataAccessCom.dll.config

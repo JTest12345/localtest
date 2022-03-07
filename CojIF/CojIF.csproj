@@ -59,6 +59,7 @@
     <EmbeddedResource Include="fileContext\csvschema.json" />
     <EmbeddedResource Include="fileContext\sctdata.json" />
     <EmbeddedResource Include="fileContext\sctschema.json" />
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

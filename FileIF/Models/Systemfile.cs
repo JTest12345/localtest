@@ -95,6 +95,7 @@ namespace FileIf
         //システム情報[systemconf]
         public bool DebugMode { get; set; }
         public bool UsePlcTrig { get; set; }
+        public bool CheckVlot { get; set; }
         public int outfiletimeout { get; set; }
         //ディレクトリ情報[fileconf]
         public string MCDir { get; set; }
@@ -163,6 +164,11 @@ namespace FileIf
                     UsePlcTrig = false;
                 else
                     UsePlcTrig = true;
+                string checkvlot = CommonFuncs.GetIniValue(filepath, "systemconf", "check_vlot");
+                if (checkvlot == "false")
+                    CheckVlot = false;
+                else
+                    CheckVlot = true;
                 outfiletimeout = int.Parse(CommonFuncs.GetIniValue(filepath, "systemconf", "outfile_timeout"));
 
                 // [fileconf]

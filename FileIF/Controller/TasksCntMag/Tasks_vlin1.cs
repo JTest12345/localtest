@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-//using ArmsApi;
-//using ArmsApi.Model;
-//using ArmsApi.Model.NASCA;
-//using ArmsWeb.Models;
+using CejDataAccessCom;
 
 
 namespace FileIf
@@ -95,17 +92,32 @@ namespace FileIf
             {
                 taskid += 1;
 
-                //
-                // Vロット確認用のAPIをFJHさんに提供いただいて実装
-                // refで4Mロットのリスト List<string> fmList を返してもらう
-                // 下記はマガジンの開始前チェックサンプル
-                //
+                if (fs.mci.CheckVlot)
+                {
+                    //VLotの登録状態と受け取った4Mlotのリストの整合性を検証
+                    List<string> seilotnolst = new List<string>();
+                    foreach (var m4Code in vlin1.m4CodeList)
+                    {
+                        seilotnolst.Add(m4Code);
+                    }
+                    //VロットNo、4MロットNo整合性チェック
+                    VlotAccess vl = VlotAccess.CheckVLotInfo(Dict["vlotno"], seilotnolst);
+                    if (vl.IsOkOnly)
+                    {
+                        Dbgmsg += "Vlot整合チェック完了";
+                    }
+                    else
+                    {
+                        Dbgmsg += "Vlot整合チェックで不正検出";
 
+                        //return new string[] { "NG", vl.ErrDescription, Dbgmsg, taskid.ToString() };
+                    }
+                }
 
                 // CheckBeforeStartを全てのロットで処理
-                foreach (string fmCode in vlin1.fmCodeList)
+                foreach (string m4Code in vlin1.m4CodeList)
                 {
-                    ws = new ArmsWebApi.WorkStart(fs.Macno, "FileIF", fmCode);
+                    ws = new ArmsWebApi.WorkStart(fs.Macno, "FileIF", m4Code);
 
                     if (!ws.CheckBeforeStart(out msg))
                     {
@@ -115,9 +127,9 @@ namespace FileIf
 
                 //for Debug
                 Dbgmsg += "VロットNo.：" + Dict["vlotno"] + crlf;
-                foreach (var fmlot in vlin1.fmCodeList)
+                foreach (var m4Code in vlin1.m4CodeList)
                 {
-                    Dbgmsg += "4MロットNo.　：" + fmlot + crlf;
+                    Dbgmsg += "4MロットNo.　：" + m4Code + crlf;
                 }
                 //
             }
@@ -143,7 +155,7 @@ namespace FileIf
                 };
 
                 // wipに4Mロットを追加
-                foreach (var fmlot in vlin1.fmCodeList)
+                foreach (var fmlot in vlin1.m4CodeList)
                 {
                     wiplist.Add("fmlotno," + fmlot);
                 }

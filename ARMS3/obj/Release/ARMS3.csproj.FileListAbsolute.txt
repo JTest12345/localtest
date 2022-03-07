@@ -72,3 +72,4 @@ C:\juni_ws\GitRepo\VSP\ARMS3\obj\Release\ARMS3.exe
 C:\juni_ws\GitRepo\VSP\ARMS3\obj\Release\ARMS3.pdb
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\ArmsCejApi.dll
 C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\ArmsCejApi.pdb
+C:\juni_ws\GitRepo\VSP\ARMS3\bin\Release\Newtonsoft.Json.xml

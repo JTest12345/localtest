@@ -70,3 +70,4 @@ C:\juni_ws\GitRepo\VSP\Oskas\bin\Release\MailKit.xml
 C:\juni_ws\GitRepo\VSP\Oskas\bin\Release\MimeKit.pdb
 C:\juni_ws\GitRepo\VSP\Oskas\bin\Release\MimeKit.xml
 C:\juni_ws\GitRepo\VSP\Oskas\bin\Release\System.Buffers.xml
+C:\juni_ws\GitRepo\VSP\Oskas\bin\Release\NLog_20220304.config

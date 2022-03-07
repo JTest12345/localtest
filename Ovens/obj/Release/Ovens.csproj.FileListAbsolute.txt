@@ -92,3 +92,5 @@ C:\juni_ws\GitRepo\VSP\Ovens\obj\Release\Ovens.csproj.CopyComplete
 C:\juni_ws\GitRepo\VSP\Ovens\obj\Release\Ovens.exe
 C:\juni_ws\GitRepo\VSP\Ovens\obj\Release\Ovens.pdb
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\ArmsCejApi.dll
+C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\ArmsCejApi.pdb
+C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\NLog_20220304.config
