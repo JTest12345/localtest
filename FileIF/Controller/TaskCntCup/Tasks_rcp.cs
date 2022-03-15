@@ -107,6 +107,9 @@ namespace FileIf
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
 
+                ///////////////////////////////////////////////////
+                // DB先はPMMSとなったため下記コードはコメントアウト
+                //
                 //QueryScr.Add($"INSERT INTO recipe_info (recipefile_name, mac_name, datetime_in, create_at, create_by) VALUE ('{rrinfo.Recipe}', '{rrinfo.Mname}', '{rrinfo.Dtin}', '{datetime}', 'magcupsv')");
                 //Dbgmsg += "Query1: " + QueryScr[0] + crlf;
 
@@ -120,13 +123,16 @@ namespace FileIf
                 //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 //    }
                 //}
+                ////////////////////////////////////////ここまで
 
+
+                // PMMSデバッグ中の為、一時コメントアウト2022.03.15
                 // JunkiSys.Dll
-                if (!ResinPrg.WorkResin.RecipeRecieved(rrinfo.Recipe, rrinfo.Mname, dt, ref msg))
-                {
-                    msg = tcommons.ErrorMessage(taskid, fs, msg);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                }
+                //if (!ResinPrg.WorkResin.RecipeRecieved(rrinfo.Recipe, rrinfo.Mname, dt, ref msg))
+                //{
+                //    msg = tcommons.ErrorMessage(taskid, fs, msg);
+                //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //}
 
 
                 Dbgmsg += "DB登録が完了しました" + crlf;

@@ -34,8 +34,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>log4net\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>json\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -171,6 +172,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SosiCheck.cs" />
     <Compile Include="Web References\local.nichia.naweb\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -219,7 +221,6 @@
       <LastGenOutput>SQDB.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
     <None Include="Web References\local.nichia.naweb-dev\NppBinInfo1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -435,7 +436,6 @@
       <DependentUpon>LAMS.dbml</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

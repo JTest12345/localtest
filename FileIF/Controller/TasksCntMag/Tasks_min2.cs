@@ -256,7 +256,7 @@ namespace FileIf
                 //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 //}
 
-                ws = new ArmsWebApi.WorkStart(fs.Macno, "FileIF", fs.MagCupNo);
+                ws = new ArmsWebApi.WorkStart(fs.Macno, "FIF", fs.MagCupNo);
 
                 if (!ws.CheckBeforeStart(out msg))
                 {

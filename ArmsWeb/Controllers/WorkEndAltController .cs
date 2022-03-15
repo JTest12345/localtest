@@ -82,6 +82,16 @@ namespace ArmsWeb.Controllers
                 int seqNo = 0;
                 #region バーコードヘッダー部判定
 
+                //////////////////////////////////////////
+                // 照明合理化マガジン（ヘッダーなし）対応
+                // 2022.03.03 Junichi Watanabe
+                if (elms.Length == 1)
+                {
+                    elms = new string[] { "C30", txtMagNo };
+                    raw = "C30 " + txtMagNo;
+                }
+                //////////////////////////////////////////
+
                 if (elms.Length == 2 && raw.StartsWith(ArmsApi.Model.AsmLot.PREFIX_INLINE_LOT))
                 {
                     magno = elms[1];
@@ -170,6 +180,16 @@ namespace ArmsWeb.Controllers
 
                 string magno;
                 int seqNo = 0;
+
+                //////////////////////////////////////////
+                // 照明合理化マガジン（ヘッダーなし）対応
+                // 2022.03.03 Junichi Watanabe
+                if (elms.Length == 1)
+                {
+                    elms = new string[] { "C30", txtMagNo };
+                    raw = "C30 " + txtMagNo;
+                }
+                //////////////////////////////////////////
 
                 #region バーコードヘッダー部判定
                 if (elms.Length == 2 && raw.StartsWith(ArmsApi.Model.AsmLot.PREFIX_INLINE_LOT))
@@ -347,12 +367,9 @@ namespace ArmsWeb.Controllers
             {
                 return RedirectToAction("InputUnloaderMag");
             }
-            else
-            {
-                //return RedirectToAction("FormInfo");
-                return RedirectToAction("UnloaderMagConfirm");
-            }
-            
+
+            //return RedirectToAction("Submit");
+            return RedirectToAction("UnloaderMagConfirm");
             //return View(m);
         }
 
@@ -363,6 +380,12 @@ namespace ArmsWeb.Controllers
             {
                 return RedirectToAction("Message", "Home", new { msg = "引き継ぎデータが見つかりません" });
             }
+
+            #region FJH ADD 
+            //不良枚数取得
+            ArmsApi.Model.Defect defect = new ArmsApi.Model.Defect();
+            m.FailureBdQty = defect.GetDefectCtSubSt(m.MagList[0].NascaLotNO, (int)m.VirtualMags.ElementAt(0).Value.ProcNo);
+            #endregion 
 
             Session["model"] = m;
             return View(m);
@@ -378,6 +401,58 @@ namespace ArmsWeb.Controllers
 
             Session["model"] = m;
             return View(m);
+        }
+
+        public ActionResult Submit()
+        {
+            WorkEndAltModel m = Session["model"] as WorkEndAltModel;
+            if (m == null)
+            {
+                return RedirectToAction("Message", "Home", new { msg = "引き継ぎデータが見つかりません" });
+            }
+
+            try
+            {
+                List<string> msg;
+                bool success = m.WorkEnd(out msg);
+
+                if (!success)
+                {
+                    string rawmsg = string.Join(" ", msg.ToArray());
+                    return RedirectToAction("Message", "Home", new { msg = "エラー：" + rawmsg });
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Message", "Home", new { msg = "完了登録で予期せぬエラー：" + ex.Message });
+            }
+
+            string displayPrintLabelButtonFg = "false";
+            if (m.BlendLotList.Count > 0)
+            {
+                displayPrintLabelButtonFg = "true";
+            }
+
+            if (m.NeedInspectionWhenCompleteLotList.Count > 0)
+            {
+                string messageStr = "下記ﾛｯﾄは状態検査が必要です。\r\n";
+
+                foreach (string targetLot in m.NeedInspectionWhenCompleteLotList.Distinct())
+                {
+                    messageStr += string.Format("{0}\r\n", targetLot);
+                }
+
+                return RedirectToAction("Message", "Home", new { msg = messageStr, displayPrintLabelButtonFg = displayPrintLabelButtonFg });
+            }
+
+            if (m.NeedAutoInspectionNextProc)
+            {
+                return RedirectToAction("Message", "Home", new { msg = "検査機への投入が必要です", displayPrintLabelButtonFg = displayPrintLabelButtonFg });
+            }
+
+            Session["empcd"] = "";
+            Session["completemsg"] = m.Comment;
+            return RedirectToAction("Message", "Home", new { msg = "作業を完了しました\r\n", displayPrintLabelButtonFg = displayPrintLabelButtonFg });
         }
 
         public ActionResult FormInfo() //Submit()
@@ -467,6 +542,109 @@ namespace ArmsWeb.Controllers
             Session["model"] = m;
             return View(m);
         }
+
+        #region FJH ADD 
+        //FJH ADD START
+        public ActionResult Select()
+        {
+            WorkEndAltModel m = Session["model"] as WorkEndAltModel;
+
+            if (m == null)
+            {
+                return RedirectToAction("Message", "Home", new { msg = "引き継ぎデータが見つかりません" });
+            }
+
+            //TnTranを使用して「ProcNo」を取得する
+            //m.ProcNo = ArmsApi.Model.Order.GetLastProcNoFromLotNo(m.MagList[0].NascaLotNO);
+
+            if (m.TypeCd == null)
+            {
+                m.TypeCd = ArmsApi.Model.AsmLot.GetAsmLot(m.MagList[0].NascaLotNO).TypeCd;
+            }
+
+            Session["model"] = m;
+            return View(m);
+        }
+
+        public ActionResult InputDef(string classcd, string causecd, string defectcd, string qty)
+        {
+            WorkEndAltModel m = Session["model"] as WorkEndAltModel;
+
+            if (m == null)
+            {
+                return RedirectToAction("Message", "Home", new { msg = "引き継ぎデータが見つかりません" });
+            }
+
+            m.CurrentDefItem = m.GetDefItems().Where(d => d.CauseCd == causecd && d.ClassCd == classcd && d.DefectCd == defectcd).FirstOrDefault();
+            if (m.CurrentDefItem == null)
+            {
+                return RedirectToAction("Select");
+            }
+
+            Session["model"] = m;
+            return View(m);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult InputDef(string classcd, string causecd, string defectcd, string qty, string address, string unit)
+        {
+            WorkEndAltModel m = Session["model"] as WorkEndAltModel;
+
+            if (m == null)
+            {
+                return RedirectToAction("Message", "Home", new { msg = "引き継ぎデータが見つかりません" });
+            }
+
+            int ct;
+            if (int.TryParse(qty, out ct) == false)
+            {
+                TempData["AlertMsg"] = "不良数は数字を入力してください";
+                return View(m);
+            }
+
+            ArmsApi.Model.DefItem[] defs = m.GetDefItems();
+            ArmsApi.Model.DefItem di = defs.Where(d => d.CauseCd == causecd && d.ClassCd == classcd && d.DefectCd == defectcd).FirstOrDefault();
+            if (di == null)
+            {
+                TempData["AlertMsg"] = "不良明細が見つかりません";
+                return View(m);
+            }
+
+            di.DefectCt = ct;
+
+            ArmsApi.Model.Defect defect = new ArmsApi.Model.Defect();
+            defect.LotNo = m.MagList[0].NascaLotNO;
+            defect.DefItems = new List<ArmsApi.Model.DefItem>(defs);
+            //defect.ProcNo = m.ProcNo;
+            defect.ProcNo = (int)m.VirtualMags.ElementAt(0).Value.ProcNo;
+            defect.MagazineNo = m.MagList[0].MagazineNo;
+
+            //数量チェック
+            if (!defect.CheckDefectSubSt(null))
+            {
+                TempData["AlertMsg"] = "不良枚数が基板枚数を超えています:";
+                return View(m);
+            }
+
+            //EICSのWB不良アドレス更新
+            try
+            {
+                m.UpdateEicsWBAddress(di, address, unit);
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertMsg"] = "更新失敗:" + ex.Message;
+                return View(m);
+            }
+
+            //Defect更新
+            defect.DeleteInsertSubSt(null);
+
+            Session["empcd"] = "";
+            return View("Select", m);
+        }
+        //FJH ADD END
+        #endregion 
     }
 
 }

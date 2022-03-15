@@ -102,6 +102,10 @@ namespace FileIf
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
 
+
+                ///////////////////////////////////////////////////
+                // DB先はPMMSとなったため下記コードはコメントアウト
+                //
                 //QueryScr.Add($"INSERT INTO resincup_info (cupno, custom_product, led_rank, board_vol, datetime_haigo, macno_haigo, kubun, seikeiki, henkaten, recipefile_name, result, create_at, create_by) " +
                 //             $"VALUE ('{rcinfo.Cupno}','{rcinfo.Cstmproduct}','{rcinfo.Dierank}','{rcinfo.Bdvol}','{rcinfo.Dt_haigo}','{rcinfo.Macno_haigo}'" +
                 //                   $",'{rcinfo.Kubun}','{rcinfo.Seikeiki}','{rcinfo.Henkaten}','{rcinfo.Recipe}','{rcinfo.Result}', '{datetime}', 'magcupsv')");
@@ -136,14 +140,16 @@ namespace FileIf
                 //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 //    }
                 //}
+                ////////////////////////////////////////ここまで
 
 
+                // PMMSデバッグ中の為、一時コメントアウト2022.03.15
                 // JunkiSys.Dll
-                if (!ResinPrg.WorkResin.CupMatCompleted(rcinfo.resincupInfo, rcinfo.Macno_haigo, dt, ref msg))
-                {
-                    msg = tcommons.ErrorMessage(taskid, fs, msg);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                }
+                //if (!ResinPrg.WorkResin.CupMatCompleted(rcinfo.resincupInfo, rcinfo.Macno_haigo, dt, ref msg))
+                //{
+                //    msg = tcommons.ErrorMessage(taskid, fs, msg);
+                //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //}
 
                 Dbgmsg += "DB登録が完了しました" + crlf;
             }

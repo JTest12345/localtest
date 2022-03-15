@@ -82,130 +82,156 @@ namespace ArmsWeb.Models
         {
             if (string.IsNullOrEmpty(code)) throw new ApplicationException("バーコード内容が不正です");
 
-            // リングID対応
-            if(isRingId == true)
-            {
-                Material mat = Material.GetMaterial(code);
-                if (mat == null) throw new ApplicationException("原材料ロットが存在しません");
-
-                mat.InputDt = DateTime.Now;
-
-                //string errMsg;
-                //if (WorkChecker.IsErrorBeforeInputMat(mat, this.Mac, out errMsg)) throw new ApplicationException(errMsg);
-
-                return mat;
-            }
-
-            string[] inputval = code.Split(' ');
-			string[] psinputval = code.Split(',');
-
-			//蛍光体シート対応　2016.09.30
-			if (psinputval.Length == 12 || psinputval.Length == 11)
-			{
-				//string hinmokucd = psinputval[0] + ".PS"; //品目CD(例：PSL27CHLC-0A1.PS)
-				string lotno = psinputval[2];     //lotno (例：TFBG010-PS-0002)
-                Material mat = new Material();
-                //try
-                //{
-                //    mat = Material.GetMaterial(hinmokucd, lotno);
-                //}
-                //catch
-                //{ 
-                //    hinmokucd = psinputval[0] + ".DC"; //品目CD(例：PSL27CHLC-0A1.DC)
-                //    mat = Material.GetMaterial(hinmokucd, lotno);
-                //}
-
-                // PS, DC工程の合理化対応
-                string[] exts = { ".PS", ".DC", ".PSA", ".DCA" };
-
-                foreach (string ext in exts)
-                {
-                    string materialcd = psinputval[0] + ext;
-                    try
-                    {
-                        mat = Material.GetMaterial(materialcd, lotno);
-                        break;
-                    }
-                    catch
-                    {
-
-                    }
-                }
-                if (string.IsNullOrWhiteSpace(mat.MaterialCd) == true)
-                {
-                    throw new ArmsException(
-                        string.Format("原材料ロットが存在しません。 型番CD:{0} ロットNO:{1}", psinputval[0], lotno));
-                }
-
-                mat.InputDt = DateTime.Now;
-
-				return mat;
-			}
-
-
-			if (inputval.Length == 1)
-            {
-                //プレフィックス無しのロット番号のみラベルはウェハーラベルとして扱う
-                //ウェハーチェンジャー無しダイボンダーの対策　2014.01.08
-                Material[] matlst = Material.GetMaterials(null, null, inputval[0], false, false);
-                var waferlst = matlst.Where(m => m.IsWafer == true);
-
-                if (waferlst.Count() == 0)
-                {
-                    throw new ApplicationException("存在しないウェハーです：" + inputval[0]);
-                }
-
-                if (waferlst.Count() >= 2)
-                {
-                    throw new ApplicationException("同ロット番号の複数ウェハーが存在します：" + inputval[0]);
-                }
-                var wafer = waferlst.First();
-                wafer.InputDt = DateTime.Now;
-
-                return wafer;
-            }
-            else if (inputval.Length == 3)
-            {
-                string labelkb = inputval[0];
-                string labelno = inputval[1];
-
-                string ggcode = Material.GetMaterialCdFromLabel(labelkb, labelno);
-                string lotno = inputval[2];
-
-                if (ggcode == null) throw new ApplicationException("原材料ラベルのマスタに存在しません");
-
-                Material mat = Material.GetMaterial(ggcode, lotno);
-                if (mat == null) throw new ApplicationException("原材料ロットが存在しません");
-
-
-                if (!string.IsNullOrEmpty(this.MapDicingBladePlaceCd))
-                {
-                    if (Material.CanInputMapDicingBlade(this.MapDicingBladePlaceCd, mat) == false)
-                    {
-                        throw new ApplicationException("このブレードはこの場所に取付できません");
-                    }
-                }
-
-                mat.InputDt = DateTime.Now;
-
-                string errMsg;
-                if (WorkChecker.IsErrorBeforeInputMat(mat, this.Mac, out errMsg)) throw new ApplicationException(errMsg);
-
-                return mat;
-            }
-            else if (inputval.Length == 4)
-            {
-                // 19ラインのリングデータマトリックス読込を想定
-                string ringId = string.Join(" ", inputval.Skip(1));
-                Material wafer = Material.GetMaterial(ringId);
-                wafer.InputDt = DateTime.Now;
-
-                return wafer;
-            }
-            else
+            // 2021.6.4 富士情報　4Mラベル対応　S
+            Material.MatLabel ml = Material.GetMatLabelFromBarcode(code);
+            if (ml.IsBarcodeError)
             {
                 throw new ApplicationException("バーコード内容が不正です");
             }
+
+            Material mat = Material.GetMaterial(ml.MaterialCd, ml.LotNo);
+
+            if (!string.IsNullOrEmpty(this.MapDicingBladePlaceCd))
+            {
+                if (Material.CanInputMapDicingBlade(this.MapDicingBladePlaceCd, mat) == false)
+                {
+                    throw new ApplicationException("このブレードはこの場所に取付できません");
+                }
+            }
+
+            mat.InputDt = DateTime.Now;
+
+            string errMsg;
+            if (WorkChecker.IsErrorBeforeInputMat(mat, this.Mac, out errMsg)) throw new ApplicationException(errMsg);
+
+            return mat;
+
+            //// リングID対応
+            //if(isRingId == true)
+            //{
+            //    Material mat = Material.GetMaterial(code);
+            //    if (mat == null) throw new ApplicationException("原材料ロットが存在しません");
+
+            //    mat.InputDt = DateTime.Now;
+
+            //    //string errMsg;
+            //    //if (WorkChecker.IsErrorBeforeInputMat(mat, this.Mac, out errMsg)) throw new ApplicationException(errMsg);
+
+            //    return mat;
+            //}
+
+            //         string[] inputval = code.Split(' ');
+            //string[] psinputval = code.Split(',');
+
+            ////蛍光体シート対応　2016.09.30
+            //if (psinputval.Length == 12 || psinputval.Length == 11)
+            //{
+            //	//string hinmokucd = psinputval[0] + ".PS"; //品目CD(例：PSL27CHLC-0A1.PS)
+            //	string lotno = psinputval[2];     //lotno (例：TFBG010-PS-0002)
+            //             Material mat = new Material();
+            //             //try
+            //             //{
+            //             //    mat = Material.GetMaterial(hinmokucd, lotno);
+            //             //}
+            //             //catch
+            //             //{ 
+            //             //    hinmokucd = psinputval[0] + ".DC"; //品目CD(例：PSL27CHLC-0A1.DC)
+            //             //    mat = Material.GetMaterial(hinmokucd, lotno);
+            //             //}
+
+            //             // PS, DC工程の合理化対応
+            //             string[] exts = { ".PS", ".DC", ".PSA", ".DCA" };
+
+            //             foreach (string ext in exts)
+            //             {
+            //                 string materialcd = psinputval[0] + ext;
+            //                 try
+            //                 {
+            //                     mat = Material.GetMaterial(materialcd, lotno);
+            //                     break;
+            //                 }
+            //                 catch
+            //                 {
+
+            //                 }
+            //             }
+            //             if (string.IsNullOrWhiteSpace(mat.MaterialCd) == true)
+            //             {
+            //                 throw new ArmsException(
+            //                     string.Format("原材料ロットが存在しません。 型番CD:{0} ロットNO:{1}", psinputval[0], lotno));
+            //             }
+
+            //             mat.InputDt = DateTime.Now;
+
+            //	return mat;
+            //}
+
+
+            //if (inputval.Length == 1)
+            //         {
+            //             //プレフィックス無しのロット番号のみラベルはウェハーラベルとして扱う
+            //             //ウェハーチェンジャー無しダイボンダーの対策　2014.01.08
+            //             Material[] matlst = Material.GetMaterials(null, null, inputval[0], false, false);
+            //             var waferlst = matlst.Where(m => m.IsWafer == true);
+
+            //             if (waferlst.Count() == 0)
+            //             {
+            //                 throw new ApplicationException("存在しないウェハーです：" + inputval[0]);
+            //             }
+
+            //             if (waferlst.Count() >= 2)
+            //             {
+            //                 throw new ApplicationException("同ロット番号の複数ウェハーが存在します：" + inputval[0]);
+            //             }
+            //             var wafer = waferlst.First();
+            //             wafer.InputDt = DateTime.Now;
+
+            //             return wafer;
+            //         }
+            //         else if (inputval.Length == 3)
+            //         {
+            //             string labelkb = inputval[0];
+            //             string labelno = inputval[1];
+
+            //             string ggcode = Material.GetMaterialCdFromLabel(labelkb, labelno);
+            //             string lotno = inputval[2];
+
+            //             if (ggcode == null) throw new ApplicationException("原材料ラベルのマスタに存在しません");
+
+            //             Material mat = Material.GetMaterial(ggcode, lotno);
+            //             if (mat == null) throw new ApplicationException("原材料ロットが存在しません");
+
+
+            //             if (!string.IsNullOrEmpty(this.MapDicingBladePlaceCd))
+            //             {
+            //                 if (Material.CanInputMapDicingBlade(this.MapDicingBladePlaceCd, mat) == false)
+            //                 {
+            //                     throw new ApplicationException("このブレードはこの場所に取付できません");
+            //                 }
+            //             }
+
+            //             mat.InputDt = DateTime.Now;
+
+            //             string errMsg;
+            //             if (WorkChecker.IsErrorBeforeInputMat(mat, this.Mac, out errMsg)) throw new ApplicationException(errMsg);
+
+            //             return mat;
+            //         }
+            //         else if (inputval.Length == 4)
+            //         {
+            //             // 19ラインのリングデータマトリックス読込を想定
+            //             string ringId = string.Join(" ", inputval.Skip(1));
+            //             Material wafer = Material.GetMaterial(ringId);
+            //             wafer.InputDt = DateTime.Now;
+
+            //             return wafer;
+            //         }
+            //         else
+            //         {
+            //             throw new ApplicationException("バーコード内容が不正です");
+            //         }
+            // 2021.6.4 富士情報　4Mラベル対応　E
+
         }
 
         public void InsertNew(List<string> exceptMags)

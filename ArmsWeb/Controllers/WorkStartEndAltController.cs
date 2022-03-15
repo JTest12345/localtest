@@ -77,6 +77,16 @@ namespace ArmsWeb.Controllers
                 int seqNo = 0;
                 #region バーコードヘッダー部判定
 
+                //////////////////////////////////////////
+                // 照明合理化マガジン（ヘッダーなし）対応
+                // 2022.03.03 Junichi Watanabe
+                if (elms.Length == 1)
+                {
+                    elms = new string[] { "C30", txtMagNo };
+                    raw = "C30 " + txtMagNo;
+                }
+                //////////////////////////////////////////
+
                 if (elms.Length == 2 && raw.StartsWith(ArmsApi.Model.AsmLot.PREFIX_INLINE_LOT))
                 {
                     magno = elms[1];
@@ -250,6 +260,16 @@ namespace ArmsWeb.Controllers
                 string magno;
                 int seqNo = 0;
 
+                //////////////////////////////////////////
+                // 照明合理化マガジン（ヘッダーなし）対応
+                // 2022.03.03 Junichi Watanabe
+                if (elms.Length == 1)
+                {
+                    elms = new string[] { "C30", txtMagNo };
+                    raw = "C30 " + txtMagNo;
+                }
+                //////////////////////////////////////////
+
                 #region バーコードヘッダー部判定
                 if (elms.Length == 2 && raw.StartsWith(ArmsApi.Model.AsmLot.PREFIX_INLINE_LOT))
                 {
@@ -321,6 +341,47 @@ namespace ArmsWeb.Controllers
             return View(m);
         }
 
+        public ActionResult Submit()
+        {
+            WorkStartEndAltModel m = Session["model"] as WorkStartEndAltModel;
+            if (m == null)
+            {
+                return RedirectToAction("Message", "Home", new { msg = "引き継ぎデータが見つかりません" });
+            }
+
+            try
+            {
+                List<string> msg;
+                bool success = m.WorkEnd(out msg);
+
+                if (!success)
+                {
+                    string rawmsg = string.Join(" ", msg.ToArray());
+                    return RedirectToAction("Message", "Home", new { msg = "エラー：" + rawmsg });
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Message", "Home", new { msg = "開始完了登録で予期せぬエラー：" + ex.Message });
+            }
+
+            if (m.NeedInspectionWhenCompleteLotList.Count > 0)
+            {
+                string messageStr = "下記ﾛｯﾄは状態検査が必要です。\r\n";
+
+                foreach (string targetLot in m.NeedInspectionWhenCompleteLotList.Distinct())
+                {
+                    messageStr += string.Format("{0}\r\n", targetLot);
+                }
+
+                return RedirectToAction("Message", "Home", new { msg = messageStr });
+            }
+
+            Session["empcd"] = "";
+            return RedirectToAction("Message", "Home", new { msg = "作業を完了しました" });
+        }
+
+
         public ActionResult FormInfo() //Submit()
         {
             WorkStartEndAltModel m = Session["model"] as WorkStartEndAltModel;
@@ -359,22 +420,22 @@ namespace ArmsWeb.Controllers
 
 
 
-            // 帳票入力リンク対応　juniwatanabe
+            //// 帳票入力リンク対応　juniwatanabe
 
-            try
-            {
-                m.CurrentProcess = ArmsApi.Model.Process.GetNowProcess(m.MagList[0].NascaLotNO);
-                bool success = ArmsApi.Model.FORMS.ProccessForms.UpdateMacInfo(m.TypeCd, m.MagList[0].NascaLotNO, m.CurrentProcess.ProcNo, m.PlantCd, m.Mac.MacNo, m.EmpCd);
+            //try
+            //{
+            m.CurrentProcess = ArmsApi.Model.Process.GetNowProcess(m.MagList[0].NascaLotNO);
+            //    bool success = ArmsApi.Model.FORMS.ProccessForms.UpdateMacInfo(m.TypeCd, m.MagList[0].NascaLotNO, m.CurrentProcess.ProcNo, m.PlantCd, m.Mac.MacNo, m.EmpCd);
 
-                if (!success)
-                {
-                    return RedirectToAction("Message", "Home", new { msg = "帳票開始情報がアップデートできませんでした。" });
-                }
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Message", "Home", new { msg = "帳票開始情報がアップデートで予期せぬエラー：" + ex.Message });
-            }
+            //    if (!success)
+            //    {
+            //        return RedirectToAction("Message", "Home", new { msg = "帳票開始情報がアップデートできませんでした。" });
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return RedirectToAction("Message", "Home", new { msg = "帳票開始情報がアップデートで予期せぬエラー：" + ex.Message });
+            //}
 
             Session["empcd"] = "";
             // return RedirectToAction("Form", "Home", new { msg = messageStr });

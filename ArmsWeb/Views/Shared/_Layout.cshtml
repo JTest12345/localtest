@@ -42,8 +42,19 @@
             window.onload = function() {
                 alert("@TempData["AlertMsg"].ToString().Replace('\r', ' ').Replace('\n', ' ')");
             }
-        --></script>                    
-
+            //-->
+        </script>
+    }
+    <!--富士情報-->
+    @if (TempData["BackUpMsg"] != null)
+    {
+<script type='text/javascript'>
+            <!--
+            document.addEventListener('DOMContentLoaded', function () {
+                alert("@TempData["BackUpMsg"].ToString().Replace("\n", "\\n")");
+            });
+//-->
+</script>
     }
 
 </body>

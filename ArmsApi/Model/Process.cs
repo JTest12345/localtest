@@ -39,7 +39,6 @@ namespace ArmsApi.Model
             throw new ArmsException("インライン工程マスタに情報がありません:" + typecd + ":" + currentProcessNo.ToString()); ;
         }
 
-
         /// <summary>
         /// 工程のマガジン分割状態
         /// </summary>
@@ -338,7 +337,7 @@ namespace ArmsApi.Model
 
 					string sql = @"
                         SELECT
-                            procno, workorder, autodummytran
+                            procno, workorder, autodummytran, paramnm
                         FROM
                             TmWorkFlow WITH(nolock)
                         WHERE 1=1 AND typecd = @TYPECD ";
@@ -388,6 +387,8 @@ namespace ArmsApi.Model
                                     retv.AutoDummyTranKb = AutoDummyTran.Unknown;
                                 }
                             }
+
+                            retv.ParameterName = SQLite.ParseString(reader["paramnm"]);  // added Junichi Watanabe @2021.09.06
 
                             retlist.Add(retv);
                         }

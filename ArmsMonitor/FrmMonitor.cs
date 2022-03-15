@@ -329,7 +329,12 @@ namespace ArmsMonitor
                 foreach (string lotno in maglist.Select(m => Order.MagLotToNascaLot(m.NascaLotNO)).Distinct())
                 {
                     AsmLot lot = AsmLot.GetAsmLot(lotno);
-                    lotList.Add(lot);
+                    //juniwatanabe 20220310
+                    if (lot!=null)
+                    {
+                        lotList.Add(lot);
+                    }
+                    
                 }
                 List<string> typeList = lotList.Select(l => l.TypeCd).Distinct().ToList();
                 Dictionary<string, TimeLimit[]> dicLimit = new Dictionary<string, TimeLimit[]>();

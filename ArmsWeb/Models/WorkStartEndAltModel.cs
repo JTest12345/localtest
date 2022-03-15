@@ -294,6 +294,30 @@ namespace ArmsWeb.Models
                     //}
                     //else
                     //{
+
+                    //富士情報　start
+                    //開始工程の帳票データ更新情報設定
+                    order.IsUpdateForm = true;
+                    order.FormTypeCd = lot.TypeCd;
+                    order.FormProcNo = order.ProcNo;
+                    order.FormMacNo = order.MacNo;
+                    order.FormPlantCd = this.PlantCd;
+                    order.FormEmpCd = this.EmpCd;
+
+                    //次の工程の帳票情報取得
+                    ArmsApi.Model.FORMS.ProccessForms.forminfo pf = ArmsApi.Model.FORMS.ProccessForms.GetWorkFlow(lot.TypeCd, order.ProcNo, ArmsApi.Model.FORMS.ProccessForms.WorkOrder.Next);
+                    if (!string.IsNullOrEmpty(pf.FormNo))
+                    //次の工程に帳票情報がある場合帳票情報設定
+                    {
+                        order.IsUpdateForm2 = true;
+                        order.FormTypeCd2 = lot.TypeCd;
+                        order.FormProcNo2 = pf.ProcNo;
+                        order.FormMacNo2 = 0;
+                        order.FormPlantCd2 = "";
+                        order.FormEmpCd2 = this.EmpCd;
+                    }
+                    //富士情報　end
+
                     if (isError)
                     {
                         msg = errMsg + " ロットは完了しましたが警告状態になっています。";

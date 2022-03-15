@@ -5,33 +5,26 @@ C:\nichiasoft\ARMS(ver1.159.1.1)\ArmsApi\bin\Release\ArmsApi.pdb
 C:\nichiasoft\ARMS(ver1.159.1.1)\ArmsApi\bin\Release\log4net.dll
 C:\nichiasoft\ARMS(ver1.159.1.1)\ArmsApi\bin\Release\Newtonsoft.Json.dll
 C:\nichiasoft\ARMS(ver1.159.1.1)\ArmsApi\bin\Release\log4net.xml
-C:\nichiasoft\ARMS(ver1.159.1.1)\ArmsApi\bin\Release\Newtonsoft.Json.pdb
 C:\nichiasoft\ARMS(ver1.159.1.1)\ArmsApi\bin\Release\Newtonsoft.Json.xml
 C:\nichiasoft\ARMS(ver1.159.1.1)\ArmsApi\obj\Release\ArmsApi.csproj.CoreCompileInputs.cache
 C:\nichiasoft\ARMS(ver1.159.1.1)\ArmsApi\obj\Release\ArmsApi.csproj.CopyComplete
 C:\nichiasoft\ARMS(ver1.159.1.1)\ArmsApi\obj\Release\ArmsApi.dll
 C:\nichiasoft\ARMS(ver1.159.1.1)\ArmsApi\obj\Release\ArmsApi.pdb
 C:\nichiasoft\ARMS(ver1.159.1.1)\ArmsApi\obj\Release\ArmsApi.XmlSerializers.dll
-\\svfile2\fileserver\136商品企画\22_CEJ Project\03_ViP\13_システム\02_情シス資料\開発関連\プログラム\ARMS_マガジンC30ロット番号4M\ArmsApi\obj\Release\ArmsApi.csprojAssemblyReference.cache
-\\svfile2\fileserver\136商品企画\22_CEJ Project\03_ViP\13_システム\02_情シス資料\開発関連\プログラム\ARMS_マガジンC30ロット番号4M\ArmsApi\obj\Release\ArmsApi.csproj.CoreCompileInputs.cache
-\\svfile2\fileserver\136商品企画\22_CEJ Project\03_ViP\13_システム\02_情シス資料\開発関連\プログラム\ARMS_マガジンC30ロット番号4M\ArmsApi\obj\Release\ArmsApi.dll
-\\svfile2\fileserver\136商品企画\22_CEJ Project\03_ViP\13_システム\02_情シス資料\開発関連\プログラム\ARMS_マガジンC30ロット番号4M\ArmsApi\obj\Release\ArmsApi.pdb
-\\svfile2\fileserver\136商品企画\22_CEJ Project\03_ViP\13_システム\02_情シス資料\開発関連\プログラム\ARMS_マガジンC30ロット番号4M\ArmsApi\obj\Release\ArmsApi.XmlSerializers.dll
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\bin\Release\ArmsApi.dll.config
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\bin\Release\ArmsApi.dll
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\bin\Release\ArmsApi.XmlSerializers.dll
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\bin\Release\ArmsApi.pdb
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\bin\Release\log4net.dll
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\bin\Release\Newtonsoft.Json.dll
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\bin\Release\log4net.xml
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\bin\Release\Newtonsoft.Json.pdb
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\bin\Release\Newtonsoft.Json.xml
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\obj\Release\ArmsApi.csprojAssemblyReference.cache
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\obj\Release\ArmsApi.csproj.CoreCompileInputs.cache
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\obj\Release\ArmsApi.csproj.CopyComplete
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\obj\Release\ArmsApi.dll
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\obj\Release\ArmsApi.pdb
-C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsApi\obj\Release\ArmsApi.XmlSerializers.dll
+C:\nichiasoft\ARMS(ver1.159.1.1)\ArmsApi\obj\Release\ArmsApi.csprojAssemblyReference.cache
+C:\cejsoft\ARMS\ArmsApi\bin\Release\ArmsApi.dll.config
+C:\cejsoft\ARMS\ArmsApi\bin\Release\ArmsApi.dll
+C:\cejsoft\ARMS\ArmsApi\bin\Release\ArmsApi.XmlSerializers.dll
+C:\cejsoft\ARMS\ArmsApi\bin\Release\ArmsApi.pdb
+C:\cejsoft\ARMS\ArmsApi\bin\Release\log4net.dll
+C:\cejsoft\ARMS\ArmsApi\bin\Release\Newtonsoft.Json.dll
+C:\cejsoft\ARMS\ArmsApi\bin\Release\log4net.xml
+C:\cejsoft\ARMS\ArmsApi\bin\Release\Newtonsoft.Json.xml
+C:\cejsoft\ARMS\ArmsApi\obj\Release\ArmsApi.csproj.CoreCompileInputs.cache
+C:\cejsoft\ARMS\ArmsApi\obj\Release\ArmsApi.csproj.CopyComplete
+C:\cejsoft\ARMS\ArmsApi\obj\Release\ArmsApi.dll
+C:\cejsoft\ARMS\ArmsApi\obj\Release\ArmsApi.pdb
+C:\cejsoft\ARMS\ArmsApi\obj\Release\ArmsApi.XmlSerializers.dll
 C:\juni_ws\GitRepo\VSP\ArmsApi\bin\Release\ArmsApi.dll.config
 C:\juni_ws\GitRepo\VSP\ArmsApi\bin\Release\ArmsApi.dll
 C:\juni_ws\GitRepo\VSP\ArmsApi\bin\Release\ArmsApi.XmlSerializers.dll
@@ -40,7 +33,6 @@ C:\juni_ws\GitRepo\VSP\ArmsApi\bin\Release\log4net.dll
 C:\juni_ws\GitRepo\VSP\ArmsApi\bin\Release\Newtonsoft.Json.dll
 C:\juni_ws\GitRepo\VSP\ArmsApi\bin\Release\log4net.xml
 C:\juni_ws\GitRepo\VSP\ArmsApi\bin\Release\Newtonsoft.Json.xml
-C:\juni_ws\GitRepo\VSP\ArmsApi\obj\Release\ArmsApi.csprojAssemblyReference.cache
 C:\juni_ws\GitRepo\VSP\ArmsApi\obj\Release\ArmsApi.csproj.CoreCompileInputs.cache
 C:\juni_ws\GitRepo\VSP\ArmsApi\obj\Release\ArmsApi.csproj.CopyComplete
 C:\juni_ws\GitRepo\VSP\ArmsApi\obj\Release\ArmsApi.dll

@@ -21,6 +21,17 @@ namespace ArmsWeb.Controllers
                 int seqNo = 0;
 
                 string[] elms = magno.Split(' ');
+
+                //////////////////////////////////////////
+                // 照明合理化マガジン（ヘッダーなし）対応
+                // 2022.03.03 Junichi Watanabe
+                if (elms.Length == 1)
+                {
+                    elms = new string[] { "C30", magno };
+                    magno = "C30 " + magno;
+                }
+                //////////////////////////////////////////
+
                 if (elms.Length == 2 && magno.StartsWith(ArmsApi.Model.AsmLot.PREFIX_INLINE_LOT))
                 {
                     magno2 = elms[1];
@@ -98,6 +109,15 @@ namespace ArmsWeb.Controllers
                 int seqNo = 0;
 
                 string[] elms = magno.Split(' ');
+
+                // 照明合理化マガジン（ヘッダーなし）対応
+                // 2022.03.03 Junichi Watanabe
+                if (elms.Length == 1)
+                {
+                    elms = new string[] { "C30", magno };
+                    magno = "C30 " + magno;
+                }
+
                 if (elms.Length == 2 && magno.StartsWith(ArmsApi.Model.AsmLot.PREFIX_INLINE_LOT))
                 {
                     magno2 = elms[1];

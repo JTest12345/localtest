@@ -158,14 +158,15 @@ namespace ArmsWeb.Controllers
 
                 string[] elms = txtMagNo.Split(' ');
 
-                // Magno Header Check Scripts here .... JuniWatanabe
-                // マガジンにヘッダー"A "がない場合の暫定対応
+                //////////////////////////////////////////
+                // 照明合理化マガジン（ヘッダーなし）対応
+                // 2022.03.03 Junichi Watanabe
                 if (elms.Length == 1)
                 {
                     elms = new string[] { "C30", txtMagNo };
                     txtMagNo = "C30 " + txtMagNo;
                 }
-
+                //////////////////////////////////////////
 
                 if (elms.Length == 2 && txtMagNo.StartsWith(ArmsApi.Model.AsmLot.PREFIX_INLINE_LOT))
                 {
@@ -320,6 +321,57 @@ namespace ArmsWeb.Controllers
             return View(m);
         }
 
+
+        public ActionResult Submit()
+        {
+            WorkStartAltModel m = Session["model"] as WorkStartAltModel;
+            if (m == null)
+            {
+                return RedirectToAction("Message", "Home", new { msg = "WorkStartModelが見つかりません" });
+            }
+
+            try
+            {
+                string msg;
+                bool success = m.WorkStart(out msg);
+
+                if (!success)
+                {
+                    return RedirectToAction("Message", "Home", new { msg = "エラー：" + msg });
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Message", "Home", new { msg = "開始登録で予期せぬエラー：" + ex.Message });
+            }
+
+            //状態検査とダイシェアのメッセージが両立するように修正。　2015.9.23 湯浅
+            string messageStr = "作業開始しました。";
+
+            if (m.NeedInspectionWhenStartLotList.Count > 0)
+            {
+                messageStr += "下記ﾛｯﾄは状態検査が必要です。\r\n";
+
+                foreach (string targetLot in m.NeedInspectionWhenStartLotList.Distinct())
+                {
+                    messageStr += string.Format("{0}\r\n", targetLot);
+                }
+            }
+
+            if (m.DieShearSamplingLotList.Count > 0)
+            {
+                messageStr += "下記ﾛｯﾄはﾀﾞｲｼｪｱ対象です。\r\n";
+
+                foreach (string targetLot in m.DieShearSamplingLotList.Distinct())
+                {
+                    messageStr += string.Format("{0}\r\n", targetLot);
+                }
+            }
+
+            Session["empcd"] = "";
+            return RedirectToAction("Message", "Home", new { msg = messageStr });
+        }
+
         public ActionResult FormInfo() //Submit()
         {
             WorkStartAltModel m = Session["model"] as WorkStartAltModel;
@@ -366,22 +418,7 @@ namespace ArmsWeb.Controllers
                 }
             }
 
-            // 帳票入力リンク対応　juniwatanabe
-
-            try
-            {
-                m.CurrentProcess = ArmsApi.Model.Process.GetNowProcess(m.MagList[0].NascaLotNO);
-                bool success = ArmsApi.Model.FORMS.ProccessForms.UpdateMacInfo(m.TypeCd, m.MagList[0].NascaLotNO, m.CurrentProcess.ProcNo, m.PlantCd, m.Mac.MacNo, m.EmpCd);
-
-                if (!success)
-                {
-                    return RedirectToAction("Message", "Home", new { msg = "帳票開始情報がアップデートできませんでした。" });
-                }
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Message", "Home", new { msg = "帳票開始情報がアップデートで予期せぬエラー：" + ex.Message });
-            }
+            m.CurrentProcess = ArmsApi.Model.Process.GetNowProcess(m.MagList[0].NascaLotNO);
 
             Session["empcd"] = "";
            // return RedirectToAction("Form", "Home", new { msg = messageStr });

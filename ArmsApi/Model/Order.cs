@@ -221,6 +221,21 @@ namespace ArmsApi.Model
 
         public bool IsResinMixOrdered { get; set; }
 
+        //富士情報　start
+        public bool IsUpdateForm { get; set; }
+        public int FormProcNo { get; set; }
+        public string FormTypeCd { get; set; }
+        public int FormMacNo { get; set; }
+        public string FormPlantCd { get; set; }
+        public string FormEmpCd { get; set; }
+        public bool IsUpdateForm2 { get; set; }
+        public int FormProcNo2 { get; set; }
+        public string FormTypeCd2 { get; set; }
+        public int FormMacNo2 { get; set; }
+        public string FormPlantCd2 { get; set; }
+        public string FormEmpCd2 { get; set; } 
+        //富士情報　end
+
         #endregion
 
         #region GetOrder
@@ -983,6 +998,38 @@ namespace ArmsApi.Model
                                 , @ISRESINMIXORDERED)";
 
                     cmd.ExecuteNonQuery();
+
+                    //富士情報　start
+                    //帳票情報登録更新(現工程)
+                    //TnTranのトランザクションの中で帳票更新したかったのでむりやりここに配置した
+                    if (this.IsUpdateForm)
+                    {
+                        using (SqlConnection conf = new SqlConnection(Config.Settings.FORMSConSTR))
+                        using (SqlCommand cmdf = conf.CreateCommand())
+                        {
+                            try
+                            {
+                                conf.Open();
+                                cmdf.Transaction = conf.BeginTransaction();
+
+                                ArmsApi.Model.FORMS.ProccessForms.MergeFormTrn(this.FormTypeCd, this.NascaLotNo, this.FormProcNo, this.FormPlantCd, this.FormMacNo, this.FormEmpCd);
+                                if (this.IsUpdateForm2)
+                                {
+                                    ArmsApi.Model.FORMS.ProccessForms.MergeFormTrn(this.FormTypeCd2, this.NascaLotNo, this.FormProcNo2, this.FormPlantCd2, this.FormMacNo2, this.FormEmpCd2);
+                                }
+                                cmdf.Transaction.Commit();
+                            }
+                            catch (Exception ex)
+                            {
+                                if (cmdf.Transaction != null)
+                                {
+                                    cmdf.Transaction.Rollback();
+                                }
+                                throw new ArmsException("帳票情報エラー\r\n" + ex.Message);
+                            }
+                        }
+                    }
+                    //富士情報　end
 
                     cmd.Transaction.Commit();
 
@@ -1902,6 +1949,7 @@ namespace ArmsApi.Model
             List<Order> lotList = GetOrderRecordList(macno, fromDt, toDt, 1);
             return lotList.FirstOrDefault();
         }
+
     }
 
     public class MatRelation 

@@ -119,6 +119,9 @@ namespace FileIf
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
 
+                ///////////////////////////////////////////////////
+                // DB先はPMMSとなったため下記コードはコメントアウト
+                //
                 //QueryScr.Add($"UPDATE resincup_info SET datetime_kakuhan='{rcinfo.Dt_kakuhan}', macno_kakuhan='{rcinfo.Macno_kakuhan}' WHERE cupno='{rcinfo.Cupno}'");
                 //Dbgmsg += "Query1: " + QueryScr[0] + crlf;
 
@@ -133,13 +136,16 @@ namespace FileIf
                 //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 //    }
                 //}
+                ////////////////////////////////////////ここまで
 
+
+                // PMMSデバッグ中の為、一時コメントアウト2022.03.15
                 // JunkiSys.Dll
-                if (!ResinPrg.WorkResin.CupMatCompleted(rcinfo.resincupInfo, rcinfo.Macno_kakuhan, dt, ref msg))
-                {
-                    msg = tcommons.ErrorMessage(taskid, fs, msg);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                }
+                //if (!ResinPrg.WorkResin.CupMatCompleted(rcinfo.resincupInfo, rcinfo.Macno_kakuhan, dt, ref msg))
+                //{
+                //    msg = tcommons.ErrorMessage(taskid, fs, msg);
+                //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //}
 
                 Dbgmsg += "DB登録が完了しました" + crlf;
             }

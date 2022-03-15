@@ -13,13 +13,13 @@ namespace ArmsWebApi
 
         public static WorkEndAltModel wem;
 
-        public static List<VirtualMag> GetMagazines(string plantcd)
-        {
-            wem = new WorkEndAltModel(plantcd);
-            var vtmag = wem.getUnloaderVtMag(plantcd);
+        //public static List<VirtualMag> GetMagazines(string plantcd)
+        //{
+        //    wem = new WorkEndAltModel(plantcd);
+        //    var vtmag = wem.getUnloaderVtMag(plantcd);
 
-            return vtmag;
-        }
+        //    return vtmag;
+        //}
 
  
     }

@@ -265,7 +265,15 @@ namespace FileIf
                         foreach (string content in edcf.endfcontents)
                         {
                             string[] contentdata = content.Split(':');
-                            contents += Dict[contentdata[0]].PadRight(int.Parse(contentdata[1]), ' ') + ",";
+                            if (contentdata.Length == 2)
+                            {
+                                contents += Dict[contentdata[0]].PadRight(int.Parse(contentdata[1]), ' ') + ",";
+                            }
+                            else
+                            {
+                                contents += Dict[contentdata[0]] + ",";
+                            }
+                            
                         }
                         
                     }

@@ -25,7 +25,9 @@
     if (!string.IsNullOrEmpty(Model.UnloaderMagNo))
     {
     <div>
-        @Html.ActionLink("基板不良数入力", "InputFailureBdQty")
+        <!-- @Html.ActionLink("基板不良数入力", "InputFailureBdQty") -->
+        <!-- FJH MOD -->
+        @Html.ActionLink("基板不良枚数入力", "Select")
         &nbsp
         @Html.ActionLink("キャンセル", "CancelEdit")
     </div>

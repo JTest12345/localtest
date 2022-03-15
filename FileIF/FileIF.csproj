@@ -93,8 +93,6 @@
     <Compile Include="Models\OldSchool\OldSchool.cs" />
     <Compile Include="Models\Systemfile.cs" />
     <Compile Include="Functions\Tasks_Common.cs" />
-    <Compile Include="Models\Arms\WorkEndModel.cs" />
-    <Compile Include="Models\Arms\WorkStartModel.cs" />
     <Compile Include="Models\taskInterface.cs" />
     <Compile Include="Controller\TaskControlHandler.cs" />
     <Compile Include="Controller\TaskInterface.cs" />
@@ -185,6 +183,8 @@
       <Name>Oskas</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\Arms\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

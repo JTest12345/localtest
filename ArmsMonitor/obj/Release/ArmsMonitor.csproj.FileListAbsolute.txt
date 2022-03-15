@@ -43,7 +43,6 @@ C:\juni_ws\GitRepo\VSP\ArmsMonitor\bin\Release\Newtonsoft.Json.dll
 C:\juni_ws\GitRepo\VSP\ArmsMonitor\bin\Release\ArmsApi.pdb
 C:\juni_ws\GitRepo\VSP\ArmsMonitor\bin\Release\ArmsApi.dll.config
 C:\juni_ws\GitRepo\VSP\ArmsMonitor\bin\Release\log4net.xml
-C:\juni_ws\GitRepo\VSP\ArmsMonitor\bin\Release\Newtonsoft.Json.pdb
 C:\juni_ws\GitRepo\VSP\ArmsMonitor\bin\Release\Newtonsoft.Json.xml
 C:\juni_ws\GitRepo\VSP\ArmsMonitor\bin\Release\ArmsApi.XmlSerializers.dll
 C:\juni_ws\GitRepo\VSP\ArmsMonitor\obj\Release\ArmsMonitor.csprojAssemblyReference.cache

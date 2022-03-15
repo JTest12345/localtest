@@ -36,10 +36,12 @@ C:\juni_ws\GitRepo\Oskas\Ovens\obj\Debug\Ovens.exe
 C:\juni_ws\GitRepo\Oskas\Ovens\obj\Debug\Ovens.pdb
 C:\juni_ws\GitRepo\Oskas\Ovens\bin\Debug\ArmsCejApi.dll
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\NLog.config
+C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\NLog_20220304.config
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\Ovens.exe.config
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\Ovens.exe
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\Ovens.pdb
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\ArmsApi.dll
+C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\ArmsCejApi.dll
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\log4net.dll
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\Newtonsoft.Json.dll
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\Oskas.exe
@@ -63,6 +65,7 @@ C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\ArmsApi.pdb
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\ArmsApi.dll.config
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\Oskas.pdb
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\Oskas.exe.config
+C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\ArmsCejApi.pdb
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\log4net.xml
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\Newtonsoft.Json.xml
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\MailKit.pdb
@@ -84,6 +87,3 @@ C:\juni_ws\GitRepo\VSP\Ovens\obj\Debug\Ovens.csproj.CoreCompileInputs.cache
 C:\juni_ws\GitRepo\VSP\Ovens\obj\Debug\Ovens.csproj.CopyComplete
 C:\juni_ws\GitRepo\VSP\Ovens\obj\Debug\Ovens.exe
 C:\juni_ws\GitRepo\VSP\Ovens\obj\Debug\Ovens.pdb
-C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\ArmsCejApi.dll
-C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\NLog_20220304.config
-C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\ArmsCejApi.pdb

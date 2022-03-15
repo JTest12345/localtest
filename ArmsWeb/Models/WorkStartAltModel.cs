@@ -410,6 +410,16 @@ namespace ArmsWeb.Models
                         }
                     }
 
+                    //富士情報　start
+                    //開始工程の帳票データ更新情報設定
+                    order.IsUpdateForm = true;
+                    order.FormTypeCd = lot.TypeCd;
+                    order.FormProcNo = order.ProcNo;
+                    order.FormMacNo = order.MacNo;
+                    order.FormPlantCd = this.PlantCd;
+                    order.FormEmpCd = this.EmpCd;
+                    //富士情報　end
+
                     if ( 
                         (ArmsApi.Config.GetLineType == ArmsApi.Config.LineTypes.MEL_SV 
                             || ArmsApi.Config.GetLineType == ArmsApi.Config.LineTypes.NEL_SV

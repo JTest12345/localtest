@@ -31,6 +31,7 @@ namespace ArmsWebApi
         public WorkEnd(string plantcd, string empcd, string magno, string ulmagno, int NewMagFrameQty=0)
         {
             this.plantcd = plantcd;
+            this.empcd = empcd;
             this.magno = magno;
             this.UnloaderMagNo = ulmagno;
             this.NewMagFrameQty = NewMagFrameQty;

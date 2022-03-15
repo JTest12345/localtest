@@ -32,6 +32,14 @@ namespace ArmsApi.Model
         public bool IsNascaEnd { get; set; }
         public bool DelFg { get; set; }
 
+        //富士情報　start
+        public bool IsUpdateForm { get; set; }
+        public int FormProcNo { get; set; }
+        public string FormTypeCd { get; set; }
+        public int FormMacNo { get; set; }
+        public string FormPlantCd { get; set; }
+        public string FormEmpCd { get; set; }
+        //富士情報　end
 
         #region InputAsmLot
 
@@ -72,6 +80,18 @@ namespace ArmsApi.Model
             newrec.LotNo = mag.NascaLotNO;
             newrec.IsNascaEnd = false;
             newrec.IsNascaStart = false;
+
+            //富士情報　start
+            if (order.IsUpdateForm)
+            {
+                newrec.IsUpdateForm = order.IsUpdateForm;
+                newrec.FormTypeCd =order.FormTypeCd;
+                newrec.FormProcNo =order.FormProcNo;
+                newrec.FormMacNo = order.FormMacNo;
+                newrec.FormPlantCd = order.FormPlantCd;
+                newrec.FormEmpCd = order.FormEmpCd;
+            }
+            //富士情報　end
             newrec.DeleteInsert();
         }
         #endregion
@@ -136,6 +156,22 @@ namespace ArmsApi.Model
 	                            , @UPDDT)";
 
                     cmd.ExecuteNonQuery();
+
+                    //富士情報　start
+                    //帳票情報登録更新(現工程)
+                    //TnCutBlendのトランザクションの中で帳票更新したかったのでむりやりここに配置した
+                    if (this.IsUpdateForm)
+                    {
+                        try
+                        {
+                            ArmsApi.Model.FORMS.ProccessForms.MergeFormTrn(this.FormTypeCd, this.LotNo, this.FormProcNo, this.FormPlantCd, this.FormMacNo, this.FormEmpCd);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new ArmsException("帳票情報エラー\r\n" + ex.Message);
+                        }
+                    }
+                    //富士情報　end
 
                     cmd.Transaction.Commit();
                 }
@@ -381,10 +417,16 @@ namespace ArmsApi.Model
             }
             else
             {
-                blendlotno = Numbering.GetNewCutBlendLotNo(enddt, lineno, isAutoLine);
+                //富士情報　変更　s
+                blendlotno = blendlist[0].LotNo.Substring(0, 1) + Config.Settings.CutBlend12 + blendlist[0].LotNo.Substring(Config.Settings.CutBlend12.Length+1);
+                //blendlotno = Numbering.GetNewCutBlendLotNo(enddt, lineno, isAutoLine);
+                //富士情報　変更　e
             }
 
-            if (blendlotno.StartsWith(Config.Settings.CutBlend12)) //2015.10.15 車載特採対応。事前にブレンドロットを取得するようになったため、ブレンドした場合はブレンドロットの重複エラーを実施。
+            //富士情報　変更　s
+            if (blendlotno.Substring(1).StartsWith(Config.Settings.CutBlend12)) //2015.10.15 車載特採対応。事前にブレンドロットを取得するようになったため、ブレンドした場合はブレンドロットの重複エラーを実施。
+            //if (blendlotno.StartsWith(Config.Settings.CutBlend12)) //2015.10.15 車載特採対応。事前にブレンドロットを取得するようになったため、ブレンドした場合はブレンドロットの重複エラーを実施。
+            //富士情報　変更　e
             {
                 Order[] readyBlendLot = Order.SearchOrder(blendlotno, null, null, false, false);
                 if (readyBlendLot.Count() > 0)
@@ -550,6 +592,26 @@ namespace ArmsApi.Model
                 string typecd = AsmLot.GetAsmLot(blendlist[0].LotNo).TypeCd;
                 Process final = Process.GetWorkFlow(typecd).Where(p => p.FinalSt == true).FirstOrDefault();
                 ord.ProcNo = final.ProcNo;
+
+                //富士情報　start
+                //次の工程の帳票情報取得
+                FORMS.ProccessForms.forminfo pf = FORMS.ProccessForms.GetWorkFlow(typecd, ord.ProcNo, FORMS.ProccessForms.WorkOrder.Next);
+                if (pf.FormNo == null)
+                {
+                    throw new ApplicationException("次の工程が取得できませんでした");
+                }
+                if (pf.FormNo != "")
+                //次の工程に帳票情報がある場合帳票データ登録
+                {
+                    ord.IsUpdateForm = true;
+                    ord.FormTypeCd = typecd;
+                    ord.FormProcNo = pf.ProcNo;
+                    ord.FormMacNo = 0;
+                    ord.FormPlantCd = "";
+                    ord.FormEmpCd = empCd;
+                }
+                //富士情報　end
+
                 ord.DeleteInsert(blendlotno);
             }
             catch (Exception ex)

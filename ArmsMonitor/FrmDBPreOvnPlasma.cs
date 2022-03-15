@@ -20,7 +20,8 @@ namespace ArmsMonitor
             public string ChkWorkCd { get; set; }
         }
 
-        private static string PL_WORK_CD = "DB0027";
+        //private static string PL_WORK_CD = "DB0027";
+        private static string PL_WORK_CD = "WBP";
 
         private System.Media.SoundPlayer sp;
 

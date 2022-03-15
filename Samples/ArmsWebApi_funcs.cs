@@ -20,12 +20,12 @@ namespace Samples
             //var plantcd = "TCSDR01";
             var plantcd = "TCSCT01";
 
-            var list = ArmsWebApi.Functions.GetMagazines(plantcd);
+            //var list = ArmsWebApi.Functions.GetMagazines(plantcd);
 
-            foreach (var item in list)
-            {
-                Console.WriteLine("MagNo: " + item.MagazineNo + "  [" + item.WorkStart + "]");
-            }
+            //foreach (var item in list)
+            //{
+            //    Console.WriteLine("MagNo: " + item.MagazineNo + "  [" + item.WorkStart + "]");
+            //}
 
             Console.ReadKey();
         }

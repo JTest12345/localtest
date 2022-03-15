@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>ARMS</title>
+    @Styles.Render("~/Content/css")
+
+</head>
+<body>
+    <div><span class="title" runat="server" id="spanTitle">VSP版 ARMS Web ◆◆◆照明合理化評価中◆◆◆</span> @Html.ActionLink("戻る", "Index", "Home") </div>
+    <hr />
+
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+
+
+    <script type="text/javascript" src="~/Scripts/jquery.blockUI.js"></script>
+    <script type="text/javascript"><!--
+    var enableBlockUI = true;
+    window.onbeforeunload = function () {
+        if (enableBlockUI == true) {
+            $.blockUI({ message: '<div style="float:left; padding-left:15px;"></div>' });
+        }
+        else {
+            enableBlockUI = true;
+        }
+    };
+
+    window.onload = function() {
+        $("input:first").focus()
+    };
+
+    //-->
+    </script>
+
+    @if (TempData["AlertMsg"] != null)
+    {
+        <script type='text/javascript'><!--
+            window.onload = function() {
+                alert("@TempData["AlertMsg"].ToString().Replace('\r', ' ').Replace('\n', ' ')");
+            }
+        --></script>                    
+
+    }
+
+</body>
+</html>

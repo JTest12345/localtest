@@ -80,6 +80,16 @@ namespace ArmsWeb.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult InputPlantCd(string plantcd)
         {
+            //////////////////////////////////////////
+            // 照明合理化設備ヘッダーなし対応
+            // 2022.03.03 Junichi Watanabe
+            var splitedPlantcd = plantcd.Split(' ');
+            if (splitedPlantcd.Length == 1)
+            {
+                plantcd = "07 " + plantcd;
+            }
+            //////////////////////////////////////////
+
             if (plantcd.StartsWith(ArmsApi.Config.MAC_BARCODE_HEADER) == false 
                 && plantcd.StartsWith(ArmsApi.Config.MAC_COMP_BARCODE_HEADER) == false)
             {
@@ -121,9 +131,6 @@ namespace ArmsWeb.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult InputEmpCd(string empcd)
         {
-            // Empcd Header Check Scripts here .... JuniWatanabe 
-            // empcd = "01 " + empcd;
-
             if (empcd.StartsWith(ArmsApi.Config.EMP_BARCODE_HEADER) == false)
             {
                 TempData["AlertMsg"] = "バーコードヘッダー異常（01 )";
@@ -220,6 +227,17 @@ namespace ArmsWeb.Controllers
         public ActionResult InputMagazineNo(string magazineno)
         {
             string[] elms = magazineno.Split(' ');
+
+            //////////////////////////////////////////
+            // 照明合理化マガジン（ヘッダーなし）対応
+            // 2022.03.03 Junichi Watanabe
+            if (elms.Length == 1)
+            {
+                elms = new string[] { "C30", magazineno };
+                magazineno = "C30 " + magazineno;
+            }
+            //////////////////////////////////////////
+
             if (elms.Length >= 2)
             {
                 magazineno = elms[1];

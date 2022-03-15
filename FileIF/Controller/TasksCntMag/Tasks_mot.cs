@@ -355,7 +355,7 @@ namespace FileIf
                 //wem.NewMagFrameQty = int.Parse(mot.val_out);
                 //wem.UnloaderMagNo = mot.magno_out;
 
-                we = new ArmsWebApi.WorkEnd(fs.Macno, "FileIF", mot.magno_in, mot.magno_out, int.Parse(mot.val_out));
+                we = new ArmsWebApi.WorkEnd(fs.Macno, "FIF", mot.magno_in, mot.magno_out, int.Parse(mot.val_out));
 
                 if (!we.End(out msg))
                 {

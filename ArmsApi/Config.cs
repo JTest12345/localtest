@@ -19,6 +19,7 @@ namespace ArmsApi
 
         private const string SETTING_FILE_NM = "ArmsConfig.xml";
         public const string SETTING_FILE_FULLPATH = @"C:\ARMS\Config\ArmsConfig.xml";
+        //public const string SETTING_FILE_FULLPATH = @"C:\inetpub\wwwroot\arms\bin\ArmsConfig.xml";
 
         /// <summary>
         /// 作業者バーコード先頭文字
@@ -310,8 +311,7 @@ namespace ArmsApi
                 //    return true;
                 //}
 
-                //return false;
-                return true;
+                return false;
             }
             catch (IOException ex)
             {
@@ -1109,5 +1109,28 @@ namespace ArmsApi
         /// ARMS3の「信号確認」画面に表示する装置のライン
         /// </summary>
         public List<string> SignalDisplayLineNoList { get; set; }
+
+        //富士情報　ADD　START
+        /// <summary>
+        /// 素子チェック関連のマスタDB接続文字列
+        /// </summary>
+        public string HCHRankConSTR { get; set; }
+
+        /// <summary>
+        /// 4MIFのDB接続文字列
+        /// </summary>
+        public string IF4MConSTR { get; set; }
+
+        /// <summary>
+        /// 混成識別 禁止
+        /// </summary>
+        public const string BlendCD_Forbidden = "NA";
+
+        /// <summary>
+        /// 基板用不良識別
+        /// </summary>
+        public const string SUBST_DEFECT_CLASSCD = "2001";
+        //富士情報　　ADD　
+
     }
 }

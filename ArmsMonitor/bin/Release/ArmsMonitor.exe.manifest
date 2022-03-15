@@ -42,26 +42,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArmsApi.dll" size="1346560">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArmsApi.dll" size="1370112">
       <assemblyIdentity name="ArmsApi" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>gc9ipU7DAip9Mqu/aa6JIGoN4NAq2ZS+IK9HWqtCWg0=</dsig:DigestValue>
+        <dsig:DigestValue>V8gz9snAbnSXW4+uJ06pmXrOj1idE9i3Sod5uJaQqTo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArmsMonitor.exe" size="35840">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArmsMonitor.exe" size="34816">
       <assemblyIdentity name="ArmsMonitor" version="1.159.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>eRcIwGdp8caGfjpiPxfQsd4kQt8bYHuc0gI3G34nu0s=</dsig:DigestValue>
+        <dsig:DigestValue>u8YiUkqSIBVFq+d97DxE+NPWxurcIYIqvRJJojdJx4E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="368128">
-      <assemblyIdentity name="Newtonsoft.Json" version="4.5.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="526336">
+      <assemblyIdentity name="Newtonsoft.Json" version="9.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ExDbVKLp+SFRLI7saFy/JRE58xEX7k14a3C3rTybiqg=</dsig:DigestValue>
+        <dsig:DigestValue>V14w+Y5OpCyeUW7ci7sprYtQsXOj5rNrW6OeEzzOlAY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

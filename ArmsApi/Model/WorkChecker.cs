@@ -405,29 +405,70 @@ namespace ArmsApi.Model
                     //開始時はストッカー未確定のためストッカー内の全ウェハー取得
                     Material[] wafers = machine.GetWafers(order.WorkStartDt);
 
-                    //現作業コード取得
-                    string workcd = Process.GetProcess(order.ProcNo).WorkCd;
+                    //富士情報 mod start
+                    //製品、素子のコードから波長ランクのリストを取得する
+                    string[] okrnks = SosiCheck.GetHchRnkLstFronShn(lot.TypeCd, wafers[0].MaterialCd);
 
-                    foreach (Material wafer in wafers)
+                    if (okrnks.Length == 0)
                     {
-						if (Material.IsInHouseDice(wafer.DiceWaferKb))
-						{
-							// 社内チップはブレンドコードチェック
-							isError = IsDbWaferBlendCodeError(wafer, lot, workcd, out errMsg);
-							if (isError) return true;
-						}
-						else
-						{
-							// 社外チップは供給ID、品目チェック
-							isError = IsDBWaferSupplyIdError(wafer, lot, workcd, out errMsg);
-							if (isError) return true;
-						}
-
-						// DBウェハーの水洗浄後、有効期限チェック
-						// 2015.5.14 3in1高効率ラインのシステム変更依頼1(水洗浄)
-						isError = IsDbWaferWashedLimitError(wafer, lot.TypeCd, out errMsg);
-						if (isError) return true;
+                        errMsg = string.Format("製品素子波長ランクマスタが未登録です 機種:{0} 素子:{1}", lot.TypeCd, wafers[0].MaterialCd);
+                        return true;
                     }
+                    if (okrnks[0] != "")
+                    //波長ランクチェック対象の素子の場合はチェックする
+                    {
+                        //投入素子のリストからCEJ機種CDリスト取得
+                        IEnumerable<string> cejkshcds = wafers.Select(o => o.BlendCd.ToUpper()).Distinct();
+                        //投入素子のCEJ機種CDリストから波長ランクCEJ機種CDリスト取得
+                        SosiCheck.HchRnkCejKsh[] rnkkshs = SosiCheck.GetHchRnkCejKshList(cejkshcds.ToList());
+
+                        //投入素子のCEJ機種CDリストから波長ランクCEJ機種CDリスト取得できなかったリスト作成
+                        IEnumerable<string> exrnk = cejkshcds.Except<string>(rnkkshs.Select(o => o.CejKshCd));
+                        if (exrnk.Count() > 0)
+                        {
+                            errMsg = string.Format("CEJ機種波長ランクマスタが未登録です CEJ機種:{0}", string.Join(",", exrnk));
+                            return true;
+                        }
+
+                        if (rnkkshs.Select(o => o.CejHchRnk).Distinct().Count() > 1)
+                        {
+                            errMsg = "複数の波長ランクの素子が投入されています";
+                            return true;
+                        }
+
+                         //製品素子の波長ランクと一致するか
+                        if (!okrnks.Contains(rnkkshs[0].CejHchRnk))
+                        {
+                            errMsg = string.Format("製品に投入可能な波長ランクではありません 製品:{0} 素子波長ランク:{1}", lot.TypeCd, rnkkshs[0].CejKshCd);
+                            return true;
+                        }
+                    }
+
+                    //              //現作業コード取得
+                    //              string workcd = Process.GetProcess(order.ProcNo).WorkCd;
+
+                    //              foreach (Material wafer in wafers)
+                    //              {
+                    //if (Material.IsInHouseDice(wafer.DiceWaferKb))
+                    //{
+                    //	// 社内チップはブレンドコードチェック
+                    //	isError = IsDbWaferBlendCodeError(wafer, lot, workcd, out errMsg);
+                    //	if (isError) return true;
+                    //}
+                    //else
+                    //{
+                    //	// 社外チップは供給ID、品目チェック
+                    //	isError = IsDBWaferSupplyIdError(wafer, lot, workcd, out errMsg);
+                    //	if (isError) return true;
+                    //}
+
+                    //// DBウェハーの水洗浄後、有効期限チェック
+                    //// 2015.5.14 3in1高効率ラインのシステム変更依頼1(水洗浄)
+                    //isError = IsDbWaferWashedLimitError(wafer, lot.TypeCd, out errMsg);
+                    //if (isError) return true;
+                    //              }
+                    //富士情報 mod end
+
                 }
 
                 //製造条件判定（NASCAのPDA条件マスタ）
@@ -454,6 +495,15 @@ namespace ArmsApi.Model
                         }
                     }
                 }
+
+                //富士情報　start
+                //帳票システムで前の工程がクローズしていること
+                    if (!ArmsApi.Model.FORMS.ProccessForms.isClosedPrevProcess(lot.TypeCd, order.LotNo, order.ProcNo, out errMsg))
+                    {
+                        return true;
+                    }
+                //富士情報　end
+
 
                 //エラー無し
                 return false;
@@ -730,63 +780,116 @@ namespace ArmsApi.Model
                 //ウェハーブレンドコード、作業コード
                 if (mat.IsWafer)
                 {
-                    foreach (AsmLot lot in lotlist)
+                    //富士情報　更新　start
+                    if (lotlist.Length > 0)
+                    //設備で開始しているロットがある場合、製品が確定しているので波長ランクのチェックをする
                     {
-                        string workCd = string.Empty;
-                        if (macno.HasValue)
-                        {
-							workCd = Process.GetProcess(Order.GetLastProcNoFromLot(macno.Value, lot.NascaLotNo)).WorkCd;
-                        }
-                        else if (macno.HasValue == false && selectWorkCd == string.Empty)
-                        {
-                            workCd = Process.GetNowProcess(lot).WorkCd;
-                        }
-                        else
-                        {
-                            workCd = selectWorkCd;
-                        }
+                        //製品、素子のコードから波長ランクのリストを取得する
+                        string[] okrnks = SosiCheck.GetHchRnkLstFronShn(lotlist[0].TypeCd, mat.MaterialCd);
 
-						if (Material.IsInHouseDice(mat.DiceWaferKb))
-						{
-							// 社内チップはブレンドコードチェック
-							isError = IsDbWaferBlendCodeError(mat, lot, workCd, out errMsg);
-							if (isError) return true;
-						}
-						else
-						{
-							// 社外チップは供給ID、品目チェック
-							isError = IsDBWaferSupplyIdError(mat, lot, workCd, out errMsg);
-							if (isError) return true;
-						}
+                        //波長ランクチェック用のマスタが存在するか
+                        if (okrnks.Length == 0)
+                        {
+                            errMsg = string.Format("製品素子波長ランクマスタが未登録です 機種:{0} 素子:{1}", lotlist[0].TypeCd, mat.MaterialCd);
+                            return true;
+                        }
+                        if (okrnks[0] != "")
+                        //波長ランクチェック対象の素子の場合はチェックする
+                        {
+                            //投入素子のCEJ機種CDから波長ランク取得
+                            string matrnk = SosiCheck.GetHchRnkFromCejkscd(mat.BlendCd);
+                            if (matrnk == "")
+                            {
+                                errMsg = string.Format("CEJ機種波長ランクマスタが未登録です CEJ機種:{0}", mat.BlendCd);
+                                return true;
+                            }
+                            //投入素子波長ランクがマスタで許可する波長ランクに含まれているか
+                            if (!okrnks.Contains(matrnk))
+                            {
+                                errMsg = string.Format("製品に投入可能な波長ランクではありません 投入波長ランク:{0} 投入CEJ機種:{1}", matrnk, mat.BlendCd);
+                                return true;
+                            }
 
-						//// 2015.5.13 [変更]ブレンド詳細マスタ複数作業CD取り込み
-						////if (string.IsNullOrEmpty(mat.WorkCd))
-						//if (mat.WorkCd.Count == 0)
+                            //投入済みの素子と素子ランクが一致しているか
+                            if (macno.HasValue)
+                            {
+                                //設備に投入済みの素子情報を取得
+                                Material[] macmats = SosiCheck.GetMatCejKshLst(macno, mat.MaterialCd, mat.InputDt, mat.InputDt, false);
+
+                                if (macmats.Length > 0)
+                                {
+                                    //投入済み素子の波長ランク取得
+                                    string macrnk = SosiCheck.GetHchRnkFromCejkscd(macmats[0].BlendCd);
+
+                                   if (matrnk != macrnk)
+                                    {
+                                        errMsg = string.Format("投入済みの素子の波長ランクと一致しません　投入済み波長ランク:{0} 投入波長ランク:{1} 投入CEJ機種:{2}", macrnk, matrnk, mat.BlendCd);
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+      //              foreach (AsmLot lot in lotlist)
+      //              {
+      //                  string workCd = string.Empty;
+      //                  if (macno.HasValue)
+      //                  {
+						//	workCd = Process.GetProcess(Order.GetLastProcNoFromLot(macno.Value, lot.NascaLotNo)).WorkCd;
+      //                  }
+      //                  else if (macno.HasValue == false && selectWorkCd == string.Empty)
+      //                  {
+      //                      workCd = Process.GetNowProcess(lot).WorkCd;
+      //                  }
+      //                  else
+      //                  {
+      //                      workCd = selectWorkCd;
+      //                  }
+
+						//if (Material.IsInHouseDice(mat.DiceWaferKb))
 						//{
-						//	if (lot.BlendCd != mat.BlendCd)
-						//	{
-						//		errMsg = string.Format("ブレンドマスタと一致していません TnLot.blendcd:{0} = TnMaterials.blendcd:{1}"
-						//			, lot.BlendCd, mat.BlendCd);
-						//		return true;
-						//	}
+						//	// 社内チップはブレンドコードチェック
+						//	isError = IsDbWaferBlendCodeError(mat, lot, workCd, out errMsg);
+						//	if (isError) return true;
 						//}
 						//else
 						//{
-						//	// 2015.5.13 [変更]ブレンド詳細マスタ複数作業CD取り込み
-						//	//if (lot.BlendCd != mat.BlendCd || workcd != mat.WorkCd)
-						//	if (lot.BlendCd != mat.BlendCd || mat.WorkCd.Exists(w => w == workCd) == false)
-						//	{
-						//		errMsg = string.Format("ブレンドマスタと一致していません TnLot.blendcd:{0} = TnMaterials.blendcd:{1}, TnLot.workcd:{2} = TnMaterials.workcd:{3}"
-						//			, lot.BlendCd, mat.BlendCd, workCd, mat.WorkCd);
-						//		return true;
-						//	}
+						//	// 社外チップは供給ID、品目チェック
+						//	isError = IsDBWaferSupplyIdError(mat, lot, workCd, out errMsg);
+						//	if (isError) return true;
 						//}
 
-						// DBウェハーの水洗浄後、有効期限チェック
-						// 2015.5.14 3in1高効率ラインのシステム変更依頼1(水洗浄)
-						isError = IsDbWaferWashedLimitError(mat, lot.TypeCd, out errMsg);
-						if (isError) return true;
-                    }
+						////// 2015.5.13 [変更]ブレンド詳細マスタ複数作業CD取り込み
+						//////if (string.IsNullOrEmpty(mat.WorkCd))
+						////if (mat.WorkCd.Count == 0)
+						////{
+						////	if (lot.BlendCd != mat.BlendCd)
+						////	{
+						////		errMsg = string.Format("ブレンドマスタと一致していません TnLot.blendcd:{0} = TnMaterials.blendcd:{1}"
+						////			, lot.BlendCd, mat.BlendCd);
+						////		return true;
+						////	}
+						////}
+						////else
+						////{
+						////	// 2015.5.13 [変更]ブレンド詳細マスタ複数作業CD取り込み
+						////	//if (lot.BlendCd != mat.BlendCd || workcd != mat.WorkCd)
+						////	if (lot.BlendCd != mat.BlendCd || mat.WorkCd.Exists(w => w == workCd) == false)
+						////	{
+						////		errMsg = string.Format("ブレンドマスタと一致していません TnLot.blendcd:{0} = TnMaterials.blendcd:{1}, TnLot.workcd:{2} = TnMaterials.workcd:{3}"
+						////			, lot.BlendCd, mat.BlendCd, workCd, mat.WorkCd);
+						////		return true;
+						////	}
+						////}
+
+						//// DBウェハーの水洗浄後、有効期限チェック
+						//// 2015.5.14 3in1高効率ラインのシステム変更依頼1(水洗浄)
+						//isError = IsDbWaferWashedLimitError(mat, lot.TypeCd, out errMsg);
+						//if (isError) return true;
+      //              }
+                    //富士情報　更新　end
                 }
 
                 //有効期限判定
@@ -1171,31 +1274,14 @@ namespace ArmsApi.Model
                     return true;
 				}
 
-                // 20220112 Juniwatanabe
-                // 複数樹脂対応実験
-                // OriginalCode
-                //if (p.MixTypeCd.Contains(r.MixTypeCd) == false)
-                //{
-                //    msg = $"[{m.MacNo}/{m.LongName}] 投入樹脂の調合タイプが一致しません "
-                //    + $"投入調合タイプ:『{r.MixTypeCd}/{Resin.GetMixTypeNm(r.MixTypeCd)}』 "
-                //    + $"投入樹脂:[樹脂ID『{r.MixResultId}』/樹脂グループコード『{r.ResinGroupCd}』]";
-
-                //    return true;
-                //}
-
-                var mixTypeCdArr = r.MixTypeCd.Split(',');
-
-                foreach (var mixtypeCode in mixTypeCdArr)
-                {
-                    if (p.MixTypeCd.Contains(mixtypeCode) == false)
-                    {
-                        msg = $"[{m.MacNo}/{m.LongName}] 投入樹脂の調合タイプが一致しません "
+				if (p.MixTypeCd.Contains(r.MixTypeCd) == false) 
+				{                    
+					msg = $"[{m.MacNo}/{m.LongName}] 投入樹脂の調合タイプが一致しません "
                         + $"投入調合タイプ:『{r.MixTypeCd}/{Resin.GetMixTypeNm(r.MixTypeCd)}』 "
                         + $"投入樹脂:[樹脂ID『{r.MixResultId}』/樹脂グループコード『{r.ResinGroupCd}』]";
 
-                        return true;
-                    }
-                }
+                    return true;
+				}
             }
 
             msg = "";
@@ -1232,6 +1318,17 @@ namespace ArmsApi.Model
 
             foreach (AsmLot lot in lotlist)
             {
+                //富士情報　追加
+                // ブレンドCD＝"NA"の場合ブレンド不可
+                //登録ボタン押下後に2度この処理を行い、2度目はlotlistに同じロットが2件存在するため必ずエラーになる
+                //そのため重複するロットをカウントしない
+                if (lot.BlendCd == ArmsApi.Config.BlendCD_Forbidden && lotlist.Select(o => o.NascaLotNo).Distinct().Count() >= 2)
+                {
+                    msg = $"ブレンド禁止のロットです :「{lot.NascaLotNo}」 ブレンドCD:「{lot.BlendCd}」";
+                    return true;
+                }
+                //富士情報　追加
+
                 if (lot.IsKHLTest == true && lotlist.Length >= 2)
                 {
                     msg = $"吸湿保管点灯試験の対象ロットはブレンドできません ロット:「{lot.NascaLotNo}」";

@@ -142,6 +142,8 @@ namespace ArmsApi.Model
 
             try
             {
+               
+                return null;
                 using (SqlConnection con = new SqlConnection(Config.Settings.ResinDBConSTR))
                 using (SqlCommand cmd = con.CreateCommand())
                 {
@@ -182,6 +184,7 @@ namespace ArmsApi.Model
         /// </summary>
         public static string GetMixTypeNm(string mixtypecd)
         {
+            return null;
             using (SqlConnection con = new SqlConnection(Config.Settings.ResinDBConSTR))
             using (SqlCommand cmd = con.CreateCommand())
             {

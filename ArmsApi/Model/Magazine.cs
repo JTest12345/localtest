@@ -39,15 +39,15 @@ namespace ArmsApi.Model
             {
                 if (resinGpCd == null || resinGpCd.Count == 0)
                 {
-                    return resinGpCd;
-                }
-                else
-                {
+					return resinGpCd;
+				}
+				else
+				{
                     AsmLot lot = AsmLot.GetAsmLot(this.NascaLotNO);
                     if (lot == null) return null;
                     this.resinGpCd = lot.ResinGpCd;
 
-                    return resinGpCd;
+					return resinGpCd;
                 }
             }
         }
@@ -60,7 +60,7 @@ namespace ArmsApi.Model
         {
             get
             {
-                if (resinGpCd2 == null || resinGpCd2.Count == 0)
+                if (resinGpCd2== null || resinGpCd2.Count == 0)
                 {
                     return resinGpCd2;
                 }
@@ -155,12 +155,12 @@ namespace ArmsApi.Model
             return GetMagazine(magazineNo, lotno, newFg, resingpcd, SQLite.ConStr, null, null);
         }
 
-        public static Magazine[] GetMagazine(string lotno, bool newFg)
+        public static Magazine[] GetMagazine(string lotno, bool newFg) 
         {
             return GetMagazine(null, lotno, newFg, null, SQLite.ConStr, null, null);
         }
 
-        public static Magazine[] GetMagazine(bool newFg)
+        public static Magazine[] GetMagazine(bool newFg) 
         {
             return GetMagazine(null, null, newFg, null, SQLite.ConStr, null, null);
         }
@@ -186,8 +186,8 @@ namespace ArmsApi.Model
         public static Magazine[] GetMagazine(bool newfg, string typeCd)
         {
             return GetMagazine(null, null, newfg, null, SQLite.ConStr, null, typeCd);
-        }
-
+        } 
+        
         /// <summary>
         /// マガジン検索(汎用 パラメータnull許容)
         /// </summary>
@@ -226,7 +226,7 @@ namespace ArmsApi.Model
                     }
 
                     cmd.CommandText += " WHERE 1 = 1";
-
+                   
                     if (newFg == true)
                     {
                         cmd.CommandText += " AND t.newfg = 1";
@@ -493,14 +493,14 @@ namespace ArmsApi.Model
 
         public static void Delete(SqlCommand cmd, string lotno)
         {
-            if (string.IsNullOrEmpty(lotno))
+            if (string.IsNullOrEmpty(lotno)) 
             {
                 return;
             }
 
             //削除ログ出力用
             Magazine[] magazines = Magazine.GetMagazine(lotno, false);
-
+            
             string sql = " DELETE FROM TnMag WHERE lotno Like @LOTNO ";
             cmd.CommandText = sql;
 
@@ -534,21 +534,21 @@ namespace ArmsApi.Model
             string lotFormat = "{0}_{1}_{2}";
             string macFormat = "_【{0}_{1}_{2}】";
 
-            if (cfglist == null || cfglist.Count == 0)
+            if (cfglist == null || cfglist.Count == 0) 
             {
                 return;
             }
-
+            
             IEnumerable<KeyValuePair<int, string>?> wbcfglist = cfglist.Where(c => !string.IsNullOrEmpty(c.Value.Value));
             if (wbcfglist == null || wbcfglist.Count() == 0)
             {
                 return;
             }
             KeyValuePair<int, string>? wbcfg = wbcfglist.First();
-
+            
             //出力先ディレクトリ
             string basepath = wbcfg.Value.Value;
-
+           
             AsmLot lot = AsmLot.GetAsmLot(this.NascaLotNO);
             if (lot == null) throw new ArmsException("AsmLotが見つかりません mag:" + this.MagazineNo);
 
@@ -561,7 +561,7 @@ namespace ArmsApi.Model
             int lineno = MachineInfo.GetEICSLineNo(wbmac.NascaPlantCd);
 
             string filenm = string.Format(lotFormat, lineno, lot.TypeCd, lot.NascaLotNo);
-            foreach (KeyValuePair<int, string> cfg in cfglist)
+            foreach (KeyValuePair<int, string> cfg in cfglist) 
             {
                 Process proc = Process.GetProcess(cfg.Key);
                 if (proc == null) throw new ArmsException("工程マスタが存在しません procno:" + cfg.Key);
@@ -572,7 +572,7 @@ namespace ArmsApi.Model
                 MachineInfo mac = MachineInfo.GetMachine(order.MacNo);
                 if (mac == null) throw new ArmsException("装置マスタが存在しません mac:" + order.MacNo.ToString());
 
-                filenm += string.Format(macFormat, proc.WorkCd, mac.NascaPlantCd, mac.MachineName);
+                filenm += string.Format(macFormat, proc.WorkCd, mac.NascaPlantCd, mac.MachineName) ;
             }
 
             string fullpath = Path.Combine(basepath, filenm);
@@ -588,11 +588,11 @@ namespace ArmsApi.Model
                 sw.WriteLine(DateTime.Now.ToString());
             }
         }
-        public void WritePSTesterFile()
+        public void WritePSTesterFile() 
         {
             WriteTesterFile(Config.Settings.PSTesterLinkInfo);
         }
-        public void WriteBDTesterFile()
+        public void WriteBDTesterFile() 
         {
             WriteTesterFile(Config.Settings.BDTesterLinkInfo);
         }
@@ -614,16 +614,16 @@ namespace ArmsApi.Model
             {
                 con.Open();
 
-                //				string sql = @" SELECT TmFRAME.MagazineStepMAX_CT, TmFrame.LoadStep_CD
-                //                                FROM TmFILEFMTTYPE WITH(nolock)INNER JOIN
-                //                                TmFRAME WITH(nolock) ON TmFILEFMTTYPE.Frame_NO = TmFRAME.Frame_NO
-                //                                WHERE (TmFILEFMTTYPE.Del_FG = 0) AND (TmFRAME.Del_FG = 0) 
-                //                                AND (TmFILEFMTTYPE.Type_CD = @TypeCD) ";
+//				string sql = @" SELECT TmFRAME.MagazineStepMAX_CT, TmFrame.LoadStep_CD
+//                                FROM TmFILEFMTTYPE WITH(nolock)INNER JOIN
+//                                TmFRAME WITH(nolock) ON TmFILEFMTTYPE.Frame_NO = TmFRAME.Frame_NO
+//                                WHERE (TmFILEFMTTYPE.Del_FG = 0) AND (TmFRAME.Del_FG = 0) 
+//                                AND (TmFILEFMTTYPE.Type_CD = @TypeCD) ";
 
-                //string sql = @" SELECT TmMag.Step, TmMag.LoadStepCD
-                //				FROM TmMag WITH (nolock) 
-                //				INNER JOIN TmType WITH (nolock) ON TmMag.MagazineID = TmType.MagazineID
-                //				WHERE (TmMag.DelFG = 0) AND (TmType.DelFG = 0) AND (TmType.TypeCD = @TypeCD) ";
+				//string sql = @" SELECT TmMag.Step, TmMag.LoadStepCD
+				//				FROM TmMag WITH (nolock) 
+				//				INNER JOIN TmType WITH (nolock) ON TmMag.MagazineID = TmType.MagazineID
+				//				WHERE (TmMag.DelFG = 0) AND (TmType.DelFG = 0) AND (TmType.TypeCD = @TypeCD) ";
 
                 string sql = @" SELECT TmType.MagazineID, TmMag.MagazineID AS 'MagRecord', TmMag.Step, TmMag.LoadStepCD
 								FROM TmType WITH(NOLOCK)
@@ -649,13 +649,13 @@ namespace ArmsApi.Model
                             throw new Exception($"[型番={typeCD}] の[紐づけフレームID={frameid.ToString()}]のマスタがフレーム情報マスタ(LENS.TmMag)に存在しません。");
                         }
 
-                        //retv = rd.GetInt32(rd.GetOrdinal("MagazineStepMAX_CT"));
-                        //int loadStepCD = rd.GetInt32(rd.GetOrdinal("LoadStep_CD"));
+						//retv = rd.GetInt32(rd.GetOrdinal("MagazineStepMAX_CT"));
+						//int loadStepCD = rd.GetInt32(rd.GetOrdinal("LoadStep_CD"));
 
-                        retv = rd.GetInt32(rd.GetOrdinal("Step"));
-                        int loadStepCD = rd.GetInt32(rd.GetOrdinal("LoadStepCD"));
+						retv = rd.GetInt32(rd.GetOrdinal("Step"));
+						int loadStepCD = rd.GetInt32(rd.GetOrdinal("LoadStepCD"));
 
-                        switch (loadStepCD)
+                        switch(loadStepCD)
                         {
                             case (int)LoadStep.Even:
                             case (int)LoadStep.Odd:
@@ -724,7 +724,7 @@ namespace ArmsApi.Model
 
             Process p = Process.GetNextProcess(mag.NowCompProcess, lot);
             if (p == null) return null;
-
+            
             // TmGeneralからmacgroup, ライン名, キャリアNoリストを取得
             GnlMaster[] gnlMacGroupList = GnlMaster.GetMacGroup();
 
@@ -767,18 +767,18 @@ namespace ArmsApi.Model
                         continue;
 
                     allMachines.Add(availableMachine);
-
+                    
                     // 供給要求を確認 → LAMSのテーブルから取得する処理を追記する ********************************/
                     // 供給要求 と 供給禁止モードの両方を見る
                     bool reqOk = true;
-                    //// LAMS.MachineRequire machineRequire = reqAllMachines.Where(r => r.PlantCd == availableMachine.NascaPlantCd).FirstOrDefault();
-                    // if (machineRequire == null || 
-                    //     machineRequire.IsRequireInput == false || 
-                    //     machineRequire.IsInputForbidden == true)
-                    // {
-                    //     // レコードなし or 供給要求OFF or 供給禁止モード ON の場合、供給要求OFFとする
-                    //     reqOk = false;
-                    // }
+                   //// LAMS.MachineRequire machineRequire = reqAllMachines.Where(r => r.PlantCd == availableMachine.NascaPlantCd).FirstOrDefault();
+                   // if (machineRequire == null || 
+                   //     machineRequire.IsRequireInput == false || 
+                   //     machineRequire.IsInputForbidden == true)
+                   // {
+                   //     // レコードなし or 供給要求OFF or 供給禁止モード ON の場合、供給要求OFFとする
+                   //     reqOk = false;
+                   // }
 
                     if (reqOk)
                     {
@@ -786,7 +786,7 @@ namespace ArmsApi.Model
                         string errMsg;
                         if (ArmsApi.Model.WorkChecker.isMismatchBetweenLotAndMacProductType(lot, availableMachine, out errMsg) == true)
                             continue;
-
+                        
                         reqCount += availableMachine.LoaderMagazineMaxCt;
 
                         //仮想マガジン数をチェック
@@ -826,7 +826,7 @@ namespace ArmsApi.Model
                     lineName = kv.Key.Val;
                     canloadmagazinecount = kv.Value;
                 }
-
+                
                 // バッファの空き装置なし
                 if (canloadmagazinecount == 0)
                 {

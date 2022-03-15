@@ -27,6 +27,7 @@ namespace ArmsWebApi
         public WorkStart(string plantcd, string empcd, string magno)
         {
             this.plantcd = plantcd;
+            this.empcd = empcd;
             this.magno = magno;
         }
 

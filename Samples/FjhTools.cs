@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CejDataAccessCom;
+using ArmsApi.Model;
 
 
 namespace Samples
@@ -12,14 +13,24 @@ namespace Samples
     {
         static void Main(string[] args)
         {
-			var getvlot = GetVlot();
-			var checkvlot = CheckVlot();
+			/////////////////////////////////
+			///VLOT関連
+			/////////////////////////////////
+			//var getvlot = GetVlot();
+			//var checkvlot = CheckVlot();
 
-			Console.WriteLine(getvlot);
-			Console.WriteLine(checkvlot);
-            Console.ReadLine();
+			//Console.WriteLine(getvlot);
+			//Console.WriteLine(checkvlot);
+   //         Console.ReadLine();
 
-        }
+			/////////////////////////////////
+			///ARMS不良関連
+			/////////////////////////////////
+			var def = GetDefItems("720220308140000006", "AU0309-1210E1W11-00E-6012", 4);
+			Console.WriteLine(def);
+			Console.ReadLine();
+
+		}
 
 		private static string GetVlot()
 		{
@@ -112,6 +123,13 @@ namespace Samples
 			}
 
 			return ret;
+		}
+
+		//Arms基板不良項目リスト抽出
+		public static DefItem[] GetDefItems(string lotno, string typecd, int pocno)
+		{
+			DefItem[] defs = Defect.GetAllDefectSubSt(lotno, typecd, pocno);
+			return defs;
 		}
 	}
 

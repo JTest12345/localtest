@@ -180,7 +180,7 @@
             this.tb_main.Controls.Add(this.tb_pc);
             this.tb_main.Controls.Add(this.tb_mcfile);
             this.tb_main.Controls.Add(this.tab_mstsf);
-            this.tb_main.Location = new System.Drawing.Point(-3, -2);
+            this.tb_main.Location = new System.Drawing.Point(4, 2);
             this.tb_main.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tb_main.Multiline = true;
             this.tb_main.Name = "tb_main";
@@ -944,6 +944,7 @@
             // 
             // tb_mcfile
             // 
+            this.tb_mcfile.Controls.Add(this.tb_mcfile_return);
             this.tb_mcfile.Controls.Add(this.tb_mcfilekey);
             this.tb_mcfile.Controls.Add(this.groupBox8);
             this.tb_mcfile.Controls.Add(this.cb_mcfile_enc);
@@ -951,7 +952,6 @@
             this.tb_mcfile.Controls.Add(this.chk_mcfile_sp1);
             this.tb_mcfile.Controls.Add(this.label10);
             this.tb_mcfile.Controls.Add(this.label9);
-            this.tb_mcfile.Controls.Add(this.tb_mcfile_return);
             this.tb_mcfile.Controls.Add(this.label8);
             this.tb_mcfile.Controls.Add(this.bt_rm_mcfilekey);
             this.tb_mcfile.Controls.Add(this.bt_add_mcfilekey);
@@ -993,7 +993,7 @@
             this.groupBox8.Controls.Add(this.cb_mcf_pulltype);
             this.groupBox8.Controls.Add(this.label39);
             this.groupBox8.Controls.Add(this.label32);
-            this.groupBox8.Location = new System.Drawing.Point(147, 160);
+            this.groupBox8.Location = new System.Drawing.Point(154, 164);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(390, 242);
             this.groupBox8.TabIndex = 30;
@@ -1207,7 +1207,7 @@
             // chk_mcfile_verifiparam
             // 
             this.chk_mcfile_verifiparam.AutoSize = true;
-            this.chk_mcfile_verifiparam.Location = new System.Drawing.Point(158, 133);
+            this.chk_mcfile_verifiparam.Location = new System.Drawing.Point(354, 67);
             this.chk_mcfile_verifiparam.Name = "chk_mcfile_verifiparam";
             this.chk_mcfile_verifiparam.Size = new System.Drawing.Size(137, 21);
             this.chk_mcfile_verifiparam.TabIndex = 14;
@@ -1217,12 +1217,13 @@
             // chk_mcfile_sp1
             // 
             this.chk_mcfile_sp1.AutoSize = true;
-            this.chk_mcfile_sp1.Location = new System.Drawing.Point(331, 133);
+            this.chk_mcfile_sp1.Location = new System.Drawing.Point(158, 94);
             this.chk_mcfile_sp1.Name = "chk_mcfile_sp1";
             this.chk_mcfile_sp1.Size = new System.Drawing.Size(173, 21);
             this.chk_mcfile_sp1.TabIndex = 14;
             this.chk_mcfile_sp1.Text = "” ”で囲われている電文を使用";
             this.chk_mcfile_sp1.UseVisualStyleBackColor = true;
+            this.chk_mcfile_sp1.Visible = false;
             // 
             // label10
             // 
@@ -1247,7 +1248,7 @@
             this.tb_mcfile_return.Location = new System.Drawing.Point(153, 87);
             this.tb_mcfile_return.Multiline = true;
             this.tb_mcfile_return.Name = "tb_mcfile_return";
-            this.tb_mcfile_return.Size = new System.Drawing.Size(384, 37);
+            this.tb_mcfile_return.Size = new System.Drawing.Size(384, 62);
             this.tb_mcfile_return.TabIndex = 12;
             // 
             // label8
@@ -1540,7 +1541,7 @@
             // 
             // bt_svmcj
             // 
-            this.bt_svmcj.Location = new System.Drawing.Point(5, 442);
+            this.bt_svmcj.Location = new System.Drawing.Point(8, 445);
             this.bt_svmcj.Name = "bt_svmcj";
             this.bt_svmcj.Size = new System.Drawing.Size(103, 32);
             this.bt_svmcj.TabIndex = 1;
@@ -1550,7 +1551,7 @@
             // 
             // bt_closefm
             // 
-            this.bt_closefm.Location = new System.Drawing.Point(448, 442);
+            this.bt_closefm.Location = new System.Drawing.Point(452, 445);
             this.bt_closefm.Name = "bt_closefm";
             this.bt_closefm.Size = new System.Drawing.Size(103, 32);
             this.bt_closefm.TabIndex = 1;
@@ -1562,12 +1563,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(556, 478);
+            this.ClientSize = new System.Drawing.Size(564, 481);
             this.Controls.Add(this.bt_closefm);
             this.Controls.Add(this.bt_svmcj);
             this.Controls.Add(this.tb_main);
             this.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximumSize = new System.Drawing.Size(580, 520);
+            this.MinimumSize = new System.Drawing.Size(580, 520);
             this.Name = "fm_main";
             this.Text = "FIFConfBuilder";
             this.tb_main.ResumeLayout(false);

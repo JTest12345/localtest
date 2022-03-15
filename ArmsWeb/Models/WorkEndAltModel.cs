@@ -111,6 +111,12 @@ namespace ArmsWeb.Models
 
         public string Comment { get; set; }
 
+        #region FJH ADD 
+        public DefItem CurrentDefItem { get; set; }
+        public string Filter { get; set; }
+        public bool HasFilter { get { return !string.IsNullOrEmpty(Filter); } }
+        #endregion
+
         /// <summary>
         /// 全マガジンを完了
         /// </summary>
@@ -153,6 +159,9 @@ namespace ArmsWeb.Models
                 {
                     isSuccess = false;
                     errMsg.Add(lotlog);
+                    //富士情報　start
+                    return false;
+                    //富士情報　end
                 }
 
                 if (string.IsNullOrWhiteSpace(Comment) == false) Comment += "\r\n";
@@ -284,75 +293,6 @@ namespace ArmsWeb.Models
                 if (svrmag == null) continue;
 
                 retv.Add(svrmag);
-            }
-
-            return retv;
-        }
-        // 2022.02.03 Junichi Watanabe
-        //  平田帳票SYS対応の為、VirtualMagのリストを返すメソッドが必要になったため
-        // Magaginを返しているgetUnloaderMagをまるっと使った下記コードを追加しました
-        //
-        public List<VirtualMag> getUnloaderVtMag(string plantcd)
-        {
-            List<VirtualMag> retv = new List<VirtualMag>();
-
-            MachineInfo m = MachineInfo.GetMachine(plantcd);
-            List<VirtualMag> vmags = VirtualMag.GetVirtualMag(m.MacNo, ((int)Station.Loader)).ToList();
-
-            ///////////////////////////////////////////////////
-            //// 2021.07.28 Junichi Watanabe 追加コード
-            //if (vmags.Count == 1)
-            //{
-            //    var vm = vmags[0];
-            //    vm.CurrentLocation = new Location(m.MacNo, Station.Loader);
-            //    vm.Dequeue(vm.CurrentLocation);
-            //    vm.CurrentLocation.Station = Station.Unloader;
-            //    vm.LastMagazineNo = vm.MagazineNo;
-            //    vm.Enqueue(vm, vm.CurrentLocation);
-            //}
-            //// 追加コードここまで
-            //////////////////////////////////////////////////
-            ///
-            ///////////////////////////////////////////////////
-            //// 2021.11.16 Junichi Watanabe 追加コード
-            //// 上記コードでは1設備複数ロット投入が動作確認できなかった為変更
-            foreach (var mag in vmags)
-            {
-                mag.CurrentLocation = new Location(m.MacNo, Station.Loader);
-                mag.Dequeue(mag.CurrentLocation);
-                mag.CurrentLocation.Station = Station.Unloader;
-                mag.LastMagazineNo = mag.MagazineNo;
-                mag.Enqueue(mag, mag.CurrentLocation);
-            }
-            //// 追加コードここまで
-            //////////////////////////////////////////////////
-
-            vmags = VirtualMag.GetVirtualMag(m.MacNo, ((int)Station.Unloader)).ToList();
-
-            foreach (VirtualMag vmag in vmags)
-            {
-                Magazine svrmag = Magazine.GetCurrent(vmag.MagazineNo);
-
-                //ブレンドされているロット、かつ最終工程以降の工程の完了の場合
-                CutBlend[] cbs = CutBlend.GetData(vmag.MagazineNo);
-                if (cbs.Length > 0)
-                {
-                    AsmLot lot = AsmLot.GetAsmLot(cbs.First().LotNo);
-
-                    int lastprocno = Order.GetLastProcNoFromLotNo(cbs.First().BlendLotNo);
-                    Process prevprocess = Process.GetPrevProcess(lastprocno, lot.TypeCd);
-                    Process nextprocess = Process.GetNextProcess(prevprocess.ProcNo, lot);
-
-                    if (Process.IsFinalStAfterProcess(nextprocess, lot.TypeCd) == true)
-                    {
-                        svrmag = new Magazine();
-                        svrmag.NascaLotNO = cbs.First().BlendLotNo;
-                        svrmag.MagazineNo = vmag.MagazineNo;
-                    }
-                }
-                if (svrmag == null) continue;
-
-                retv.Add(vmag);
             }
 
             return retv;
@@ -495,12 +435,29 @@ namespace ArmsWeb.Models
                 string errMsg;
                 bool isError = WorkChecker.IsErrorWorkComplete(order, Mac, lot, out errMsg);
 
+
+                //富士情報　start
+                //次の工程の帳票情報取得
+               ArmsApi.Model.FORMS.ProccessForms.forminfo pf = ArmsApi.Model.FORMS.ProccessForms.GetWorkFlow(lot.TypeCd, order.ProcNo, ArmsApi.Model.FORMS.ProccessForms.WorkOrder.Next);
+               if (!string.IsNullOrEmpty(pf.FormNo))
+                //次の工程に帳票情報がある場合帳票情報設定
+                {
+                    order.IsUpdateForm = true;
+                    order.FormTypeCd = lot.TypeCd;
+                    order.FormProcNo = pf.ProcNo;
+                    order.FormMacNo = 0;
+                    order.FormPlantCd = "";
+                    order.FormEmpCd = this.EmpCd;
+                }
+                //富士情報　end
+
                 if (isError)
                 {
                     msg = errMsg + " ロットは完了しましたが警告状態になっています。";
                     lot.IsWarning = true;
                     lot.Update();
                     order.Comment += errMsg;
+
                     order.DeleteInsert(order.LotNo);
 
                     // インラインマガジンロット更新
@@ -619,6 +576,22 @@ namespace ArmsWeb.Models
                             // #2の稼働中マガジンがある場合のみダミー登録実施
                             if (doubleMag != null)
                             {
+
+                                //富士情報　start
+                                //次の工程の帳票情報取得
+                                ArmsApi.Model.FORMS.ProccessForms.forminfo pfd = ArmsApi.Model.FORMS.ProccessForms.GetWorkFlow(lot.TypeCd, order.ProcNo, ArmsApi.Model.FORMS.ProccessForms.WorkOrder.Next);
+                                if (!string.IsNullOrEmpty(pf.FormNo))
+                                //次の工程に帳票情報がある場合帳票データ登録
+                                {
+                                    doubleOrder.IsUpdateForm = true;
+                                    doubleOrder.FormTypeCd = lot.TypeCd;
+                                    doubleOrder.FormProcNo = pf.ProcNo;
+                                    doubleOrder.FormMacNo = 0;
+                                    doubleOrder.FormPlantCd = "";
+                                    doubleOrder.FormEmpCd = this.EmpCd;
+                                }
+                                //富士情報　end
+
                                 // #2のMD作業実績を作業中 ⇒ 作業完了にする
                                 doubleOrder.DeleteInsert(doubleOrder.LotNo);
                                 // 自動搬送用プレート使用： magno = 「Mxxxx_#2」のレコードの稼働中フラグを外す。
@@ -740,5 +713,61 @@ namespace ArmsWeb.Models
                 return false;
             }
         }
+
+        #region FJH ADD
+        public DefItem[] GetDefItems()
+        {
+            //DefItem[] defs = Defect.GetAllDefectSubSt(this.MagList[0].NascaLotNO, this.TypeCd, this.ProcNo);
+            DefItem[] defs = Defect.GetAllDefectSubSt(this.MagList[0].NascaLotNO, this.TypeCd, (int)this.VirtualMags.ElementAt(0).Value.ProcNo);
+            return defs;
+        }
+
+        public Dictionary<string, string> GetCauseCdList(DefItem[] defs)
+        {
+            Dictionary<string, string> retv = new Dictionary<string, string>();
+
+            foreach (DefItem def in defs)
+            {
+                if (!retv.Keys.Contains(def.CauseCd))
+                {
+                    retv.Add(def.CauseCd, def.CauseName);
+                }
+            }
+
+            return retv;
+        }
+
+        /// <summary>
+        /// EICSテーブルの
+        /// </summary>
+        public void UpdateEicsWBAddress(DefItem def, string address, string unit)
+        {
+            if (string.IsNullOrEmpty(address) && string.IsNullOrEmpty(unit))
+            {
+                // アドレス, ユニットが両方空白なら何もしない
+                return;
+            }
+            else if (string.IsNullOrEmpty(address) && string.IsNullOrEmpty(unit) == false)
+            {
+                throw new ApplicationException("ユニットが入力されているのにアドレスが空白です");
+            }
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "0";
+            }
+
+            int unitno;
+            if (!int.TryParse(unit, out unitno))
+            {
+                throw new ApplicationException("ユニットに数値変換できない文字が入力されています。");
+            }
+
+            ArmsApi.Model.AsmLot lot = ArmsApi.Model.AsmLot.GetAsmLot(this.MagList[0].NascaLotNO);
+
+            //Defect.UpdateEICSWireBondAddress(this.EditTarget.InMagazineNo, lot, def, address, unit, this.EmpCd);
+            ArmsApi.Model.LENS.MacDefect.InsertUpdate(VirtualMags.ElementAt(0).Value.LastMagazineNo, lot, def, address, unit, this.EmpCd);
+        }
+        #endregion
     }
 }

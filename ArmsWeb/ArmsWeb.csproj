@@ -57,8 +57,9 @@
       <HintPath>Component\LENS2_Api.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ArmsApi\json\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -149,6 +150,7 @@
     <Compile Include="Controllers\CutBlendController.cs" />
     <Compile Include="Controllers\CutLabelCompareController.cs" />
     <Compile Include="Controllers\DefectController.cs" />
+    <Compile Include="Controllers\DefectSubStController.cs" />
     <Compile Include="Controllers\GrinderRingController.cs" />
     <Compile Include="Controllers\ResinMeasurementTrayCompareController.cs" />
     <Compile Include="Controllers\WaferEachSheetController.cs" />
@@ -182,6 +184,7 @@
     <Compile Include="Models\CasseteRelationModel.cs" />
     <Compile Include="Models\CassetteTransfer2to1Model.cs" />
     <Compile Include="Models\CassetteTransferModel.cs" />
+    <Compile Include="Models\DefectSubStEditModel.cs" />
     <Compile Include="Models\GrinderRingModel.cs" />
     <Compile Include="Models\ResinMeasurementTrayCompareModel.cs" />
     <Compile Include="Models\WaferEachSheetEditModel.cs" />
@@ -433,6 +436,11 @@
     <Content Include="Views\WorkStartEndAlt\InputUnloaderMag.cshtml" />
     <Content Include="Views\WorkStartEndAlt\FormInfo.cshtml" />
     <Content Include="Views\WorkEndAlt\FormInfo.cshtml" />
+    <Content Include="Views\DefectSubSt\Index.cshtml" />
+    <Content Include="Views\DefectSubSt\InputDef.cshtml" />
+    <Content Include="Views\DefectSubSt\Select.cshtml" />
+    <Content Include="Views\WorkEndAlt\InputDef.cshtml" />
+    <Content Include="Views\WorkEndAlt\Select.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

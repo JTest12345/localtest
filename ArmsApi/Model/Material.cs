@@ -202,78 +202,57 @@ namespace ArmsApi.Model
 
         public class MatLabel
         {
-            public string LabelKb { get; set; }
-            public string LabelNo { get; set; }
+            public string MaterialCd { get; set; }
+
+            public string LotNo { get; set; }
+
+            /// <summary>
+            /// バーコードの不正
+            /// </summary>
+            public bool IsBarcodeError { get; set; }
         }
 
-        public static string GetMaterialCdFromLabel(string labelKb, string labelNo)
+        /// <summary>
+        /// 富士情報　部材バーコード4M対応
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static MatLabel GetMatLabelFromBarcode(string code)
         {
-            try
+            MatLabel ML = new MatLabel();
+            ML.IsBarcodeError = false;
+
+            string[] inputval = code.Split(',');
+            if (inputval.Length >= 10)
+            //4M部材受け入れ時に発行するラベルは10項目以上
             {
-                using (SqlConnection con = new SqlConnection(SQLite.ConStr))
-                using (SqlCommand cmd = con.CreateCommand())
+                ML.MaterialCd = inputval[0];
+                ML.LotNo = inputval[3] + "-" + inputval[4] + "-" + inputval[6];
+            }
+            else if (inputval.Length == 1)
+            {
+                string[] inputval2 = inputval[0].Split(' ');
+                if (inputval2.Length == 1)
+                //メーカーラベルの場合はロット番号(枝番なし)のみ
                 {
-                    con.Open();
-
-                    cmd.CommandText = @"
-                        SELECT materialcd FROM TmMatLabel
-                        WHERE
-                          delfg=0 AND labelkb=@LBLKB AND labelno=@LBLNO";
-
-                    cmd.Parameters.Add("@LBLKB", System.Data.SqlDbType.NVarChar).Value = labelKb ?? "";
-                    cmd.Parameters.Add("@LBLNO", System.Data.SqlDbType.NVarChar).Value = labelNo ?? "";
-                    cmd.CommandText = cmd.CommandText.Replace("\r\n", "");
-
-                    object o = cmd.ExecuteScalar();
-                    return (string)o;
+                    ML.MaterialCd = null;
+                    ML.LotNo = inputval2[0] + "-1-1";
+                }
+                else
+                //ソーティングラベルの場合は空白で区切ってロット番号(枝番なし)+ランク+個数+品種+色コード+作成日
+                {
+                    ML.MaterialCd = null;
+                    ML.LotNo = inputval2[0] + "-1-1";
                 }
             }
-            catch (Exception ex)
+            else
             {
-                throw new ArmsException("原材料ラベル情報" + labelKb + ":" + labelNo, ex);
+                ML.IsBarcodeError = true;
             }
+
+            return ML;
         }
-        public static MatLabel[] GetMaterialCdFromLabels(bool includeDelete)
-        {
-            try
-            {
-                List<MatLabel> retv = new List<MatLabel>();
 
-                using (SqlConnection con = new SqlConnection(SQLite.ConStr))
-                using (SqlCommand cmd = con.CreateCommand())
-                {
-                    con.Open();
-
-                    string sql = @"
-                        SELECT labelkb, labelno FROM TmMatLabel
-                        WHERE 1=1 ";
-
-                    if (!includeDelete)
-                    {
-                        sql += " AND delfg=0 ";
-                    }
-
-                    cmd.CommandText = sql;
-
-                    using (SqlDataReader rd = cmd.ExecuteReader())
-                    {
-                        while (rd.Read())
-                        {
-                            MatLabel ml = new MatLabel();
-                            ml.LabelKb = SQLite.ParseString(rd["labelkb"]).Trim();
-                            ml.LabelNo = SQLite.ParseString(rd["labelno"]).Trim();
-                            retv.Add(ml);
-                        }
-                    }
-                }
-
-                return retv.ToArray();
-            }
-            catch (Exception ex)
-            {
-                throw new ArmsException("", ex);
-            }
-        }
 
         /// <summary>
         /// ロット検索実体
@@ -1021,6 +1000,30 @@ namespace ArmsApi.Model
             }
         }
 
+        /// <summary>
+        /// 富士情報追加　素子チェック対応　
+        /// 在庫数のみ更新した情報を4MIF用テーブルに登録する　
+        /// </summary>
+        public static void InsertStockCount(string materialCd, string lotNo, string TOKUCD, decimal stockCt)
+        {
+            using (SqlConnection con = new SqlConnection(Config.Settings.IF4MConSTR))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                con.Open();
+
+                cmd.CommandText = @"
+                       Insert Into TnMatStock4m(materialcd, lotno,TOKUCD , stockct, stocklastupddt, ifflg)
+                        VALUES (@MaterialCd, @LotNo, @TOKUCD, @StockCt, @Stocklastupddt, 0)";
+
+                cmd.Parameters.Add("@MaterialCd", SqlDbType.NVarChar).Value = materialCd;
+                cmd.Parameters.Add("@LotNo", SqlDbType.NVarChar).Value = lotNo;
+                cmd.Parameters.Add("@StockCt", SqlDbType.Decimal).Value = stockCt;
+                cmd.Parameters.Add("@Stocklastupddt", SqlDbType.DateTime).Value = System.DateTime.Now;
+                cmd.Parameters.Add("@TOKUCD", SqlDbType.VarChar).Value = TOKUCD;
+
+                cmd.ExecuteNonQuery();
+            }
+        }
         public class BinLot
         {
             public decimal StockCt { get; set; }

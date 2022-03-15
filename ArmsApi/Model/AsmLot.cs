@@ -35,8 +35,9 @@ namespace ArmsApi.Model
         // 富士情報　開始
         // public const string PREFIX_INLINE_MAGAZINE = "30 ";
         public const string PREFIX_INLINE_MAGAZINE = "C30 ";
-        //public const string PREFIX_INLINE_MAGAZINE = "A ";
         // 富士情報　終了始
+        // JuncihiWatanabe 照明合理化工程マガジン用
+        // public const string PREFIX_INLINE_MAGAZINE = "A ";
 
         /// <summary>
         /// 高効率用　ロット番号バーコード

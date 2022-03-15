@@ -1,0 +1,74 @@
+﻿@using ArmsApi.Model;
+@model ArmsWeb.Models.WorkEndAltModel
+@{
+    ViewBag.Title = "Select";
+}
+
+
+<h3>基板不良枚数入力</h3>
+
+<h3>ロット：@Model.MagList[0].NascaLotNO</h3>
+<h3>装置名：@Model.VirtualMags.ElementAt(0).Value.LastMagazineNo</h3>
+<h3>検査者：@Model.EmpCd</h3>
+
+
+@{
+    if (Model.HasFilter)
+    { <h5>フィルタ条件:@Model.Filter</h5>}
+
+ArmsApi.Model.DefItem[] defs = Model.GetDefItems();
+
+if (defs.Length == 0)
+{
+    <p>現在の工程には不良項目が存在しません</p>
+
+    <p>@Html.ActionLink("作業完了へ", "Confirm")</p>
+}
+else
+{
+    defs = defs.OrderBy(i => i.CauseCd).ThenBy(i => i.ClassCd).ThenBy(i => i.OrderNo).ToArray();
+    Dictionary<string, string> causecdList = Model.GetCauseCdList(defs);
+
+
+    foreach (var cause in causecdList)
+    {
+        @Html.ActionLink(cause.Value, "Select", new { filter = cause.Key });
+        <span>&nbsp</span>
+    }
+
+    <hr />
+
+    <table>
+
+        @foreach (DefItem def in defs)
+        {
+            if (Model.HasFilter && def.CauseCd != Model.Filter) { continue; }
+            <tr>
+                <td>@Html.ActionLink("入力", "InputDef", new { classCd = def.ClassCd, causecd = def.CauseCd, defectcd = def.DefectCd }) </td>
+                <td>@def.ClassName</td>
+                @if (def.CauseName == "ダイボンド")
+                {
+                    <td>DB</td>
+                }
+                else if (def.CauseName == "ワイヤーボンド")
+                {
+                    <td>WB</td>
+                }
+                else
+                {
+                    <td>@def.CauseName</td>
+                }
+
+                <td>@def.DefectName</td>
+                <td>@def.DefectCt</td>
+            </tr>
+        }
+
+    </table>
+
+    <hr />
+
+    <p>@Html.ActionLink("作業完了へ", "Confirm")</p>
+
+}
+}

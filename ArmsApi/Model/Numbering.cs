@@ -25,7 +25,6 @@ namespace ArmsApi.Model
         /// <returns></returns>
         public static string GetNewAsmLotNo(DateTime dt, string lineNo)
         {
-
         // 富士情報テスト用　開始
             string Flotno = DateTime.Now.ToString("5yyyyMMdd20000HHmm");
             return Flotno;
