@@ -264,7 +264,7 @@ namespace FileIf
                 {"cupno", Cupno},
                 {"productnm", Cstmproduct},
                 {"ledrank", Dierank},
-                {"mixtypecd", "10"},
+                {"mixtypecd", "1"},
                 {"result", Result.ToString()},
                 {"kubun", Kubun},
                 {"seikeiki", Seikeiki},

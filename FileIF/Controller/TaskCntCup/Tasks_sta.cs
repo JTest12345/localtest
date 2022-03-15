@@ -109,11 +109,11 @@ namespace FileIf
 
                 // PMMSデバッグ中の為、一時コメントアウト2022.03.15
                 // JunkiSys.Dll
-                //if (!ResinPrg.WorkResin.RecipeStarted(fs.RecipeFile, dt, ref msg))
-                //{
-                //    msg = tcommons.ErrorMessage(taskid, fs, msg);
-                //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                //}
+                if (!ResinPrg.WorkResin.RecipeStarted(fs.RecipeFile, dt, ref msg))
+                {
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                }
 
 
                 Dbgmsg += "DB登録が完了しました" + crlf;
