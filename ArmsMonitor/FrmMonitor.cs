@@ -369,7 +369,7 @@ namespace ArmsMonitor
                         //判定の例外エラー時も他ロットの判定処理は止めないようにするため、ログだけ残しておいて後でエラー表示する。
                         if(string.IsNullOrWhiteSpace(limitCheckErrStr) == true)
                         {
-                            limitCheckErrStr = ex.Message;
+                            limitCheckErrStr = "【例外エラー発生】" + ex.Message;
                         }
                     }
 				}
@@ -858,5 +858,11 @@ namespace ArmsMonitor
             frm.Show();
         }
 
+        //20220329 JuniWatanabe 追加
+        private void btnFrmSRTimeKeeper_Click(object sender, EventArgs e)
+        {
+            FrmSRTimeKeeper frm = FrmSRTimeKeeper.GetInstance();
+            frm.Show();
+        }
     }
 }

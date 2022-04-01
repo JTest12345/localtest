@@ -20,13 +20,10 @@ namespace FileIf
         {
             //commons = new CommonFuncs();
             tcommons = new Tasks_Common();
-
             minfo = new Macconinfo();
             cot1 = new TaskFile_cot1();
-
-            Dict = new Dictionary<string, string>(); //Endファイル用変数格納用辞書
-            Dict.Add("ok", "OK");
-            Dict.Add("0", "0");
+            // 返信ファイル用辞書の初期化
+            Dict = tcommons.InitRetFileDict();
         }
 
         // データベース操作タスク関数
@@ -181,7 +178,7 @@ namespace FileIf
 
             //<taskid=cot1901>【ファイル生成】ENDファイルの発行
             taskid = 901;
-            string[] oef = tcommons.OutputEndFile(taskid, fs, errorcode, Dict, "end", ref msg, ref Dbgmsg);
+            string[] oef = tcommons.OutputEndFile(taskid, fs, errorcode, Dict, "end1", ref msg, ref Dbgmsg);
             if (oef[0] == "NG")
             {
                 return oef;

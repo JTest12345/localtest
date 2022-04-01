@@ -21,6 +21,8 @@ namespace FileIf
 
         // ArmsWebApi
         ArmsWebApi.WorkEnd we;
+        // Arms不良登録用Dict
+        Dictionary<string, int> Defectdict;
 
         //全リターン格納用辞書（Endファイルにデータが必要な場合に使用する）
         Dictionary<string, string> Dict; 
@@ -30,14 +32,10 @@ namespace FileIf
         public Tasks_mot()
         {
             tcommons = new Tasks_Common();
-
             mot = new TaskFile_mot();
-
             minfo = new Macconinfo();
-
-            Dict = new Dictionary<string, string>();
-            Dict.Add("ok", "OK");
-            Dict.Add("0", "0");
+            // 返信ファイル用辞書の初期化
+            Dict = tcommons.InitRetFileDict();
         }
 
         // outのデータベース操作タスク関数
@@ -355,8 +353,22 @@ namespace FileIf
                 //wem.NewMagFrameQty = int.Parse(mot.val_out);
                 //wem.UnloaderMagNo = mot.magno_out;
 
-                we = new ArmsWebApi.WorkEnd(fs.Macno, "FIF", mot.magno_in, mot.magno_out, int.Parse(mot.val_out));
 
+                /////////////////////////////////////////////////////////////////////////////////
+                //Arms Web完了実行
+                //
+                we = new ArmsWebApi.WorkEnd(fs.Macno, "FIF", mot.magno_in, mot.magno_out);
+
+                Defectdict = mot.defectdict;
+
+                //不良計上
+                if (!we.RegisterDefects(out msg, Defectdict))
+                {
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                }
+
+                //完了処理
                 if (!we.End(out msg))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, msg);

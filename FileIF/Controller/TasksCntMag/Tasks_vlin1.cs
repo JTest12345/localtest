@@ -18,12 +18,9 @@ namespace FileIf
         {
             tcommons = new Tasks_Common();
             minfo = new Macconinfo();
-
             vlin1 = new TaskFile_vlin1();
-
-            Dict = new Dictionary<string, string>();
-            Dict.Add("ok", "OK");
-            Dict.Add("0", "0");
+            // 返信ファイル用辞書の初期化
+            Dict = tcommons.InitRetFileDict();
         }
 
         // vlin1のデータベース操作タスク関数
@@ -116,7 +113,7 @@ namespace FileIf
                 // CheckBeforeStartを全てのロットで処理
                 foreach (string m4Code in vlin1.m4CodeList)
                 {
-                    ws = new ArmsWebApi.WorkStart(fs.Macno, "FileIF", m4Code);
+                    ws = new ArmsWebApi.WorkStart(fs.Macno, "FIF", m4Code);
 
                     if (!ws.CheckBeforeStart(out msg))
                     {

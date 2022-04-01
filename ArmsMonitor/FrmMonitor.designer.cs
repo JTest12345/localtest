@@ -44,6 +44,7 @@
             this.colChk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.grdMaterialLimit = new System.Windows.Forms.DataGridView();
             this.splitter1 = new System.Windows.Forms.Splitter();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdResinLimit)).BeginInit();
@@ -102,6 +103,7 @@
             // 
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.grdResinLimit);
+            this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.btnDBPreOvnPlasma);
             this.panel2.Controls.Add(this.btnCheck);
             this.panel2.Controls.Add(this.label1);
@@ -141,9 +143,9 @@
             this.btnDBPreOvnPlasma.Name = "btnDBPreOvnPlasma";
             this.btnDBPreOvnPlasma.Size = new System.Drawing.Size(152, 27);
             this.btnDBPreOvnPlasma.TabIndex = 7;
-            this.btnDBPreOvnPlasma.Text = "DB硬化前プラズマ監視";
+            this.btnDBPreOvnPlasma.Text = "樹脂カップ時間監視";
             this.btnDBPreOvnPlasma.UseVisualStyleBackColor = true;
-            this.btnDBPreOvnPlasma.Click += new System.EventHandler(this.btnDBPreOvnPlasma_Click);
+            this.btnDBPreOvnPlasma.Click += new System.EventHandler(this.btnFrmSRTimeKeeper_Click);
             // 
             // btnCheck
             // 
@@ -207,6 +209,17 @@
             this.splitter1.TabIndex = 11;
             this.splitter1.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(573, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(152, 27);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "DB硬化前プラズマ監視";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.btnDBPreOvnPlasma_Click);
+            // 
             // FrmMonitor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -248,5 +261,6 @@
         private System.Windows.Forms.Button btnDBPreOvnPlasma;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView grdResinLimit;
+        private System.Windows.Forms.Button button1;
     }
 }

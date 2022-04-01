@@ -18,12 +18,9 @@ namespace FileIf
         public Tasks_min1()
         {
             tcommons = new Tasks_Common();
-
             minfo = new Macconinfo();
-
-            Dict = new Dictionary<string, string>();
-            Dict.Add("ok", "OK");
-            Dict.Add("0", "0");
+            // 返信ファイル用辞書の初期化
+            Dict = tcommons.InitRetFileDict();
         }
 
         // in1のデータベース操作タスク関数
@@ -86,7 +83,7 @@ namespace FileIf
 
                 //bool isOk = wsm.CheckBeforeStart(jcm, out msg);
 
-                ws = new ArmsWebApi.WorkStart(fs.Macno, "FileIF", fs.MagCupNo);
+                ws = new ArmsWebApi.WorkStart(fs.Macno, "FIF", fs.MagCupNo);
                 
                 if (!ws.CheckBeforeStart(out msg))
                 {

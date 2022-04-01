@@ -31,10 +31,10 @@ namespace FileIf
         string globalmsg;
 
         // タイムアウト監視用カウンタ
-        int TofCnt = 1;
+        int TofCnt1 = 1;
+        int TofCnt2 = 1;
         private MenuStrip menuStrip;
         private ToolStripMenuItem Mn_Files;
-        private ToolStripMenuItem Mn_Files_OpenFif;
 
         // TaskHander
         TaskControlHandler tskhdl;
@@ -44,6 +44,9 @@ namespace FileIf
 
         // インターロック設備リスト
         List<string> IntLokMac = new List<string>();
+
+        // 改行コード
+        string CR = "\r\n";
 
         public FileIfFlame()
         {
@@ -99,18 +102,26 @@ namespace FileIf
 
             // FILEIF起動メッセージ
             if (btServerStart.Enabled)
-                OskNLog.Log("File InterFace(aka:MagCup)が起動しました", 0);
+                OskNLog.Log("File InterFace(aka:MagCup)が起動しました", Cnslcnf.msg_info);
 
+            // FIF動作条件表示
+            var msg = CR;
+            msg += "**********************************" + CR;
+            msg += "【FIF動作条件】" + CR;
+            msg += "◇デバッグ表示モード：" + mci.DebugMode + CR;
+            msg += "◇PLC上位リンク有効：" + mci.UsePlcTrig + CR;
+            msg += "◇Vlotリスト検査有効：" + mci.CheckVlot + CR;
+            msg += "**********************************" + CR;
+            OskNLog.Log(msg, Cnslcnf.msg_info);
         }
 
         private void InitializeComponent()
         {
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.Mn_Files = new System.Windows.Forms.ToolStripMenuItem();
-            this.Mn_Files_OpenFif = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenFifJsonBuilder = new System.Windows.Forms.ToolStripMenuItem();
             this.オプションToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Mn_OpenFileFetch = new System.Windows.Forms.ToolStripMenuItem();
-            this.OpenFifJsonBuilder = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -149,17 +160,17 @@ namespace FileIf
             // Mn_Files
             // 
             this.Mn_Files.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Mn_Files_OpenFif,
             this.OpenFifJsonBuilder});
             this.Mn_Files.Name = "Mn_Files";
             this.Mn_Files.Size = new System.Drawing.Size(53, 20);
             this.Mn_Files.Text = "ファイル";
             // 
-            // Mn_Files_OpenFif
+            // OpenFifJsonBuilder
             // 
-            this.Mn_Files_OpenFif.Name = "Mn_Files_OpenFif";
-            this.Mn_Files_OpenFif.Size = new System.Drawing.Size(180, 22);
-            this.Mn_Files_OpenFif.Text = "FIFフォルダを開く";
+            this.OpenFifJsonBuilder.Name = "OpenFifJsonBuilder";
+            this.OpenFifJsonBuilder.Size = new System.Drawing.Size(180, 22);
+            this.OpenFifJsonBuilder.Text = "設備設定";
+            this.OpenFifJsonBuilder.Click += new System.EventHandler(this.OpenFifJsonBuilder_Click);
             // 
             // オプションToolStripMenuItem
             // 
@@ -172,16 +183,9 @@ namespace FileIf
             // Mn_OpenFileFetch
             // 
             this.Mn_OpenFileFetch.Name = "Mn_OpenFileFetch";
-            this.Mn_OpenFileFetch.Size = new System.Drawing.Size(180, 22);
+            this.Mn_OpenFileFetch.Size = new System.Drawing.Size(168, 22);
             this.Mn_OpenFileFetch.Text = "設備内ファイル取得";
             this.Mn_OpenFileFetch.Click += new System.EventHandler(this.OpenFileFetchForm);
-            // 
-            // OpenFifJsonBuilder
-            // 
-            this.OpenFifJsonBuilder.Name = "OpenFifJsonBuilder";
-            this.OpenFifJsonBuilder.Size = new System.Drawing.Size(180, 22);
-            this.OpenFifJsonBuilder.Text = "設備設定";
-            this.OpenFifJsonBuilder.Click += new System.EventHandler(this.OpenFifJsonBuilder_Click);
             // 
             // FileIfFlame
             // 
@@ -232,7 +236,7 @@ namespace FileIf
                             btServerStart.Text = "Stop FILEIF";
                             if (mci.DebugMode)
                             {
-                                OskNLog.Log("デバックモードでFILEIFを開始しました", Cnslcnf.msg_info);
+                                OskNLog.Log("デバッグ表示モードでFILEIFを開始しました", Cnslcnf.msg_info);
                             }
                             else
                             {
@@ -300,7 +304,8 @@ namespace FileIf
                 // INファイルの検索
                 tskhdl.Tasks("IN", mci.infilekey);
 
-                if (TofCnt == 5)
+                // タイムアウトファイル監視
+                if (TofCnt1 == 10)
                 {
                     // WIPファイルの検索（タイムアウト監視）
                     tskhdl.Tasks("WIP", mci.wipfilekey);
@@ -308,10 +313,22 @@ namespace FileIf
                     // ENDファイルの検索（タイムアウト監視）
                     tskhdl.Tasks("END", mci.endfilekey);
 
-                    TofCnt = 1;
+                    TofCnt1 = 1;
                 }
+                TofCnt1++;
 
-                TofCnt++;
+                // 期限切れファイル監視
+                if (TofCnt2 == 60)
+                {
+                    // Doneファイルの検索（保管期限切れ監視）
+                    tskhdl.Tasks("DONE", mci.donefilekey);
+
+                    // errファイルの検索（保管期限切れ監視）
+                    tskhdl.Tasks("ERROR", mci.errfilekey);
+
+                    TofCnt2 = 1;
+                }
+                TofCnt2++;
 
                 TaskTimer.Enabled = true;
             }

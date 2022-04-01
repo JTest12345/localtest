@@ -84,3 +84,4 @@ C:\juni_ws\GitRepo\VSP\ArmsMonitor\obj\Debug\ArmsMonitor.application
 C:\juni_ws\GitRepo\VSP\ArmsMonitor\obj\Debug\ArmsMonitor.csproj.CopyComplete
 C:\juni_ws\GitRepo\VSP\ArmsMonitor\obj\Debug\ArmsMonitor.exe
 C:\juni_ws\GitRepo\VSP\ArmsMonitor\obj\Debug\ArmsMonitor.pdb
+C:\juni_ws\GitRepo\VSP\ArmsMonitor\obj\Debug\ArmsMonitor.FrmSRTimeKeeper.resources

@@ -90,6 +90,60 @@ namespace ArmsApi.Model
         /// </summary>
         public DateTime? StirringLimitDt { get; set; }
 
+        // 2022.03.29 Junichi Watanabe 追加
+        /// <summary>
+        /// 作業開始可能日時
+        /// </summary>
+        public DateTime? WorkStartDt { get; set; }
+
+
+        public static List<Resin> GetResinList(TimeSpan ts)
+        {
+            var retLst = new List<Resin>();
+            var dt = DateTime.Now - ts;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(SQLite.ConStr))
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    con.Open();
+
+                    cmd.CommandText = @"
+                        SELECT mixresultid, resingroupcd, uselimit, bincd, mixtypecd, stirringlimitdt, workstartdt
+                        FROM TnResinMix WITH(NOLOCK)
+                        WHERE 
+                          lastupddt > @DT";
+
+                    cmd.Parameters.Add("@DT", SqlDbType.DateTime).Value = dt.ToString("G");
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Resin r = new Resin();
+                            r.MixResultId = SQLite.ParseString(reader["mixresultid"]);
+                            r.ResinGroupCd = SQLite.ParseString(reader["resingroupcd"]);
+                            r.BinCD = SQLite.ParseString(reader["bincd"]);
+                            r.LimitDt = SQLite.ParseDate(reader["uselimit"]) ?? DateTime.MaxValue.AddYears(-2);
+                            r.MixTypeCd = reader["mixtypecd"].ToString().Trim();
+                            r.StirringLimitDt = SQLite.ParseDate(reader["stirringlimitdt"]);
+                            r.WorkStartDt = SQLite.ParseDate(reader["workstartdt"]);
+                            retLst.Add(r);
+                        }
+                    }
+                    return retLst;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.SysLog.Error(ex);
+                //LogManager.GetCurrentClassLogger().Error(ex);
+                throw ex;
+            }
+
+            return null;
+        }
+
         public static Resin GetResin(int mixresultId)
         {
             try
@@ -100,7 +154,7 @@ namespace ArmsApi.Model
                     con.Open();
 
                     cmd.CommandText = @"
-                        SELECT mixresultid, resingroupcd, uselimit, bincd, mixtypecd, stirringlimitdt
+                        SELECT mixresultid, resingroupcd, uselimit, bincd, mixtypecd, stirringlimitdt, workstartdt
                         FROM TnResinMix WITH(NOLOCK)
                         WHERE 
                           mixresultid = @MIXRESULTID";
@@ -118,6 +172,7 @@ namespace ArmsApi.Model
                             r.LimitDt = SQLite.ParseDate(reader["uselimit"]) ?? DateTime.MaxValue.AddYears(-2);
 							r.MixTypeCd = reader["mixtypecd"].ToString().Trim();
                             r.StirringLimitDt = SQLite.ParseDate(reader["stirringlimitdt"]);
+                            r.WorkStartDt = SQLite.ParseDate(reader["workstartdt"]);
                             return r;
                         }
                     }

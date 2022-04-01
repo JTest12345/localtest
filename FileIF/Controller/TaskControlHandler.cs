@@ -46,7 +46,8 @@ namespace FileIf
                 }
                 if (Files.Count() != 0)
                 {
-                    OskNLog.Log(Files.Count() + "件の" + TaskCat + "フォルダ関連のファイルを検出しました", Cnslcnf.msg_info);
+                    OskNLog.Log("> " + TaskCat + "カテゴリのファイルを" + Files.Count() + "件検出しました", Cnslcnf.msg_detect);
+
                     foreach (string file in Files)
                     {
                         /////////////////////////////////
@@ -121,7 +122,7 @@ namespace FileIf
                                     IntLokMac.RemoveAll(s => s.Contains(fs.Macno));
                                     TaskTimer.Enabled = true;
                                 }
-                                else
+                                else 
                                 {
                                     // 設備のインターロック解除
                                     IntLokMac.RemoveAll(s => s.Contains(fs.Macno));
@@ -130,11 +131,23 @@ namespace FileIf
                                 }
                                 */////////////////////////////////////////////////////
                             }
-                            else // INファイル以外はタイムアウト監視：タイムアウトファイルはエラーフォルダに移動
+                            else if (TaskCat == "WIP" || TaskCat == "END")
+                            // INファイル以外
+                            // ① タイムアウト監視：タイムアウトファイルはエラーフォルダに移動
                             {
                                 Task<bool> tmout = Task.Run(() =>
                                 {
                                     return TimeOutTask(file, fs);
+                                });
+
+                               
+                            }
+                            else if (TaskCat == "DONE" || TaskCat == "ERROR")
+                            // ② done. errファイルの補完期限切れ消去
+                            {
+                                Task<bool> HistOutOfDate = Task.Run(() =>
+                                {
+                                    return HistoryOutOfDateTask(file, fs);
                                 });
                             }
                         }
@@ -379,132 +392,28 @@ namespace FileIf
         }
 
 
-        //private bool InFileTaskRsltRouter(Mcfilesys fs, Tasks_MagCup Tsk, ref string[] InFileTaskRslt)
-        //{
-        //    try
-        //    {
-        //        OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスク({fs.keylbl})処理開始", Cnslcnf.msg_info);
-
-        //        switch (fs.key)
-        //        {
-        //            case "_min1.csv":
-        //                fs.mclbl = "MagNo";
-        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-        //                InFileTaskRslt = Tsk.Min1.InFileTasks(fs);
-        //                break;
-        //            case "_min2.csv":
-        //                fs.mclbl = "MagNo";
-        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-        //                InFileTaskRslt = Tsk.Min2.InFileTasks(fs);
-        //                break;
-        //            case "_mot.csv":
-        //                fs.mclbl = "MagNo";
-        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-        //                InFileTaskRslt = Tsk.Mout.InFileTasks(fs);
-        //                break;
-        //            case "_mio.csv":
-        //                fs.mclbl = "MagNo";
-        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-        //                InFileTaskRslt = Tsk.Mio.InFileTasks(fs);
-        //                break;
-        //            case "_vlin1.csv":
-        //                fs.mclbl = "VlotNo";
-        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-        //                InFileTaskRslt = Tsk.Vlin1.InFileTasks(fs);
-        //                break;
-        //            case "_vlin2.csv":
-        //                fs.mclbl = "VlotNo";
-        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-        //                InFileTaskRslt = Tsk.Vlin2.InFileTasks(fs);
-        //                break;
-        //            case "_bto.csv":
-        //                fs.mclbl = "MagNo[1]";
-        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-        //                InFileTaskRslt = Tsk.Bto.InFileTasks(fs);
-        //                break;
-        //            case "_rcp.txt":
-        //                fs.mclbl = "Recipe";
-        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-        //                InFileTaskRslt = Tsk.Crcp.InFileTasks(fs);
-        //                break;
-        //            case "_sta.csv":
-        //                fs.mclbl = "Recipe";
-        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-        //                InFileTaskRslt = Tsk.Csta.InFileTasks(fs);
-        //                break;
-        //            case "_cot1.csv":
-        //                fs.mclbl = "Cup";
-        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-        //                InFileTaskRslt = Tsk.Cot1.InFileTasks(fs);
-        //                break;
-        //            case "_cot2.csv":
-        //                fs.mclbl = "Cup";
-        //                fs.lbl = new string[] { fs.mclbl, fs.keylbl };
-        //                InFileTaskRslt = Tsk.Cot2.InFileTasks(fs);
-        //                break;
-        //        }
-
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        OskNLog.Log("【InFileTaskRsltRouter】実行中にExceptionが発生しました", Cnslcnf.msg_error);
-        //        OskNLog.Log(ex.Message, Cnslcnf.msg_error);
-        //        return false;
-        //    }
-        //}
-
-
         //private bool InFileTaskRsltIsOK(Mcfilesys fs, Tasks_MagCup Tsk, string[] InFileTaskRslt, ref string[] OutFileTask)
         private bool InFileTaskRsltIsOK(Mcfilesys fs, string[] InFileTaskRslt, ref string[] OutFileTask)
         {
             try
             {
-                //switch (fs.key)
-                //{
-                //    case "_min1.csv":
-                //        OutFileTask = Tsk.Min1.OutFileTasks(fs, 0);
-                //        break;
-                //    case "_min2.csv":
-                //        OutFileTask = Tsk.Min2.OutFileTasks(fs, 0);
-                //        break;
-                //    case "_mot.csv":
-                //        OutFileTask = Tsk.Mout.OutFileTasks(fs, 0);
-                //        break;
-                //    case "_mio.csv":
-                //        OutFileTask = Tsk.Mio.OutFileTasks(fs, 0);
-                //        break;
-                //    case "_vlin1.csv":
-                //        OutFileTask = Tsk.Vlin1.OutFileTasks(fs, 0);
-                //        break;
-                //    case "_vlin2.csv":
-                //        OutFileTask = Tsk.Vlin2.OutFileTasks(fs, 0);
-                //        break;
-                //    case "_bto.csv":
-                //        OutFileTask = Tsk.Bto.OutFileTasks(fs, 0);
-                //        break;
-                //    case "_rcp.txt":
-                //        OutFileTask = Tsk.Crcp.OutFileTasks(fs, 0);
-                //        break;
-                //    case "_sta.csv":
-                //        OutFileTask = Tsk.Csta.OutFileTasks(fs, 0);
-                //        break;
-                //    case "_cot1.csv":
-                //        OutFileTask = Tsk.Cot1.OutFileTasks(fs, 0);
-                //        break;
-                //    case "_cot2.csv":
-                //        OutFileTask = Tsk.Cot2.OutFileTasks(fs, 0);
-                //        break;
-                //}
-
                 if (OutFileTask[0] == "OK") //【OUTフォルダタスク】が正常終了の場合
                 {
                     OskNLog.Log(InFileTaskRslt[2], Cnslcnf.msg_debug);
                     if (InFileTaskRslt[1] != "") OskNLog.Log(InFileTaskRslt[1], Cnslcnf.msg_info);
                     //
                     //inファイルの消去
+                    // ⇒ doneフォルダに格納に変更
+                    //    ファイルは 1か月後に消去【未実装】
                     //
-                    File.Delete(fs.tmpfilepath);
+                    //File.Delete(fs.tmpfilepath);
+
+                    // ◇doneフォルダに移動
+                    string DonePath = $"{fs.fpath}\\done\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.done";
+                    //
+                    //[temp]=>[error]
+                    string[] mef = tcommons.MoveErrorFile(fs, fs.tmpfilepath, DonePath);
+                    if (mef[0] != "NA") OskNLog.Log(mef[0], int.Parse(mef[1]));
 
                     OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスクは正常に完了しました", Cnslcnf.msg_info);
                     OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} の{fs.keylbl}ファイルを削除しました", Cnslcnf.msg_info);
@@ -527,55 +436,6 @@ namespace FileIf
         {
             try
             {
-                ////【OUTフォルダタスク】マガジン情報出力
-                //switch (fs.key)
-                //{
-                //    // MAGファイル：通常工程開始①
-                //    case "_min1.csv":
-                //        OutFileTask = Tsk.Min1.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
-                //        break;
-                //    // MAGファイル：通常工程開始②
-                //    case "_min2.csv":
-                //        OutFileTask = Tsk.Min2.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
-                //        break;
-                //    // MAGファイル：通常工程完了
-                //    case "_mot.csv":
-                //        OutFileTask = Tsk.Mout.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
-                //        break;
-                //    // MAGファイル：通常工程開始完了一括
-                //    case "_mio.csv":
-                //        OutFileTask = Tsk.Mio.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
-                //        break;
-                //    // MAGファイル：V溝バリ取り工程開始①
-                //    case "_vlin1.csv":
-                //        OutFileTask = Tsk.Vlin1.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
-                //        break;
-                //    // MAGファイル：V溝バリ取り工程開始②
-                //    case "_vlin2.csv":
-                //        OutFileTask = Tsk.Vlin2.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
-                //        break;
-                //    // MAGファイル：レーザーダイサーのブレンド完了処理
-                //    case "_bto.csv":
-                //        OutFileTask = Tsk.Bto.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
-                //        break;
-                //    // CUPファイル：樹脂配合レシピ受付
-                //    case "_rcp.txt":
-                //        OutFileTask = Tsk.Crcp.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
-                //        break;
-                //    // CUPファイル：樹脂配合レシピ開始
-                //    case "_sta.csv":
-                //        OutFileTask = Tsk.Csta.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
-                //        break;
-                //    // CUPファイル：樹脂配合材料配合完了
-                //    case "_cot1.csv":
-                //        OutFileTask = Tsk.Cot1.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
-                //        break;
-                //    // CUPファイル：樹脂配合撹拌完了
-                //    case "_cot2.csv":
-                //        OutFileTask = Tsk.Cot2.OutFileTasks(fs, int.Parse(InFileTaskRslt[3]));
-                //        break;
-                //}
-
                 if (OutFileTask[0] == "OK") //【OUTフォルダタスク】が正常終了の場合
                 {
                     OskNLog.Log(InFileTaskRslt[2], Cnslcnf.msg_debug);
@@ -615,8 +475,6 @@ namespace FileIf
                 //  　①キャンセル返信が必要 ②INが同時に複数あり得る
                 // ことからクリーンはIN/OUTを除外します。
                 //
-                // =>クリーンの方法は別途検討したほうがいいと思われます！！！
-                //
                 //////////////////////////////////////////////////////////////////////////////////////
                 //【OUTフォルダタスク】マガジン情報出力
 
@@ -639,13 +497,48 @@ namespace FileIf
         }
 
 
+        private bool HistoryOutOfDateTask(string filepath, Mcfilesys fs)
+        {
+            try
+            {
+                TimeSpan timeout = new TimeSpan(mci.historyoutofdate, 0, 0, 0);
+                DateTime ts = System.IO.File.GetLastWriteTime(filepath); //削除後すぐに同名ファイルが書き込まれると上書きになる場合があるみたい
+                DateTime dt = DateTime.Now;
+
+                if ((dt - ts - timeout) > new TimeSpan(0, 0, 0, 0))
+                {
+                    OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo}{fs.keylbl}はタイムスタンプ[" + ts.ToString("yyyy-MM-dd HH:mm:ss") + "]にて保存期間外となりました", Cnslcnf.msg_alarm);
+                    string ErrorPath = $"{fs.fpath}\\error\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.err";
+                    //
+                    //done, errファイルを消去
+                    //
+                    File.Delete(filepath);
+
+                    if (!CommonFuncs.FileExists(filepath))
+                    {
+                        OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo}{fs.keylbl}ファイルを消去しました", Cnslcnf.msg_info);
+                    }
+                    else
+                    {
+                        OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo}{fs.keylbl}ファイルは消去出来ませんでした", Cnslcnf.msg_alarm);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                OskNLog.Log("【OutOfDateTask】実行中にExceptionが発生しました", Cnslcnf.msg_error);
+                OskNLog.Log(ex.Message, Cnslcnf.msg_error);
+                return false;
+            }
+        }
+
+
         private bool TimeOutTask(string filepath, Mcfilesys fs)
         {
             try
             {
-                string[] InFileTaskRslt = new string[4];
-                string[] OutFileTask = new string[4];
-
                 TimeSpan timeout = new TimeSpan(0, 0, mci.outfiletimeout);
                 DateTime ts = System.IO.File.GetLastWriteTime(filepath); //削除後すぐに同名ファイルが書き込まれると上書きになる場合があるみたい
                 DateTime dt = DateTime.Now;

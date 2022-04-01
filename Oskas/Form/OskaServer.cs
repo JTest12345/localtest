@@ -204,8 +204,18 @@ namespace Oskas
                     case Cnslcnf.msg_info:
                         message = "[INFO: " + dt;
                         break;
+                    case Cnslcnf.msg_detect:
+                        message = "[DETECT: " + dt;
+                        break;
+                    case Cnslcnf.msg_task:
+                        message = "[TASK: " + dt;
+                        break;
                     case Cnslcnf.msg_warn:
                         message = "[WARN: " + dt;
+                        fmm.ErrorLogComsole.AppendText(message + text + crlf);
+                        break;
+                    case Cnslcnf.msg_alarm:
+                        message = "[ALARM: " + dt;
                         fmm.ErrorLogComsole.AppendText(message + text + crlf);
                         break;
                     case Cnslcnf.msg_error:

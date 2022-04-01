@@ -40,6 +40,10 @@ namespace Oskas
                 {
                     logger.Warn(msg);
                 }
+                else if (level == Cnslcnf.msg_alarm)
+                {
+                    logger.Warn(msg);
+                }
                 else if (level == Cnslcnf.msg_error)
                 {
                     logger.Error(msg);

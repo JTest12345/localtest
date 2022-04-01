@@ -20,12 +20,9 @@ namespace FileIf
         public Tasks_csvtest()
         {
             tcommons = new Tasks_Common();
-
             minfo = new Macconinfo();
-
-            Dict = new Dictionary<string, string>();
-            Dict.Add("ok", "OK");
-            Dict.Add("0", "0");
+            // 返信ファイル用辞書の初期化
+            Dict = tcommons.InitRetFileDict();
         }
 
         // メインタスク関数

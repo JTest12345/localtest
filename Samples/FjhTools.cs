@@ -11,8 +11,19 @@ namespace Samples
 {
     class FjhTools
     {
-        static void Main(string[] args)
+        static void _Main(string[] args)
         {
+			/////////////////////////////////
+			///4m⇒実績
+			/////////////////////////////////
+			///
+			var lot_4m = "720220308140000006";
+			var jisski = LotConv4MtoJsk(lot_4m);
+			Console.WriteLine("4Mロット：" + lot_4m);
+			Console.WriteLine("実績コード：" + jisski[0] + " " + jisski[1]);
+			Console.ReadLine();
+
+
 			/////////////////////////////////
 			///VLOT関連
 			/////////////////////////////////
@@ -21,16 +32,29 @@ namespace Samples
 
 			//Console.WriteLine(getvlot);
 			//Console.WriteLine(checkvlot);
-   //         Console.ReadLine();
-
-			/////////////////////////////////
-			///ARMS不良関連
-			/////////////////////////////////
-			var def = GetDefItems("720220308140000006", "AU0309-1210E1W11-00E-6012", 4);
-			Console.WriteLine(def);
-			Console.ReadLine();
+			//Console.ReadLine();
+;
 
 		}
+
+
+		private static string[] LotConv4MtoJsk(string lotno_4m)
+        {
+			var cejlotno = new CejDataAccessCom.LotNo();
+
+			if (cejlotno.AddKeys4(lotno_4m) != 0)
+			{
+				return new string[] { "4Mロット番号を登録できませんでした" };
+			}
+
+			if (cejlotno.Chg4MtoJsk() != 0)
+			{
+				return new string[] { "4Mロット番号を実績ロットに変換できませんでした" };
+			}
+
+			return new string[] { cejlotno.Ret_KshCd(0), cejlotno.Ret_Lotno_J(0) };
+		}
+
 
 		private static string GetVlot()
 		{
@@ -125,12 +149,6 @@ namespace Samples
 			return ret;
 		}
 
-		//Arms基板不良項目リスト抽出
-		public static DefItem[] GetDefItems(string lotno, string typecd, int pocno)
-		{
-			DefItem[] defs = Defect.GetAllDefectSubSt(lotno, typecd, pocno);
-			return defs;
-		}
 	}
 
 }

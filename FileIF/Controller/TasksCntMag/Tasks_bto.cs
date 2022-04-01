@@ -27,14 +27,10 @@ namespace FileIf
         public Tasks_bto()
         {
             tcommons = new Tasks_Common();
-
             bto = new TaskFile_bto();
-
-            minfo = new Macconinfo();; 
-
-            Dict = new Dictionary<string, string>();
-            Dict.Add("ok", "OK");
-            Dict.Add("0", "0");
+            minfo = new Macconinfo();;
+            // 返信ファイル用辞書の初期化
+            Dict = tcommons.InitRetFileDict();
         }
 
         // outのデータベース操作タスク関数

@@ -72,6 +72,7 @@ namespace ArmsWebApi
             try
             {
                 wsm.MagList.Add(mag);
+                wsm.EmpCd = this.empcd;
                 return wsm.WorkStart(out msg);
             }
             catch (Exception e)

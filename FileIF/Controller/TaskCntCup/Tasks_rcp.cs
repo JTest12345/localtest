@@ -20,15 +20,11 @@ namespace FileIf
         public Tasks_rcp()
         {
             tcommons = new Tasks_Common();
-
             minfo = new Macconinfo();
             rcp = new TaskFile_recipe();
-            
             rrinfo = new recipe_info();
-
-            Dict = new Dictionary<string, string>();
-            Dict.Add("ok", "OK");
-            Dict.Add("0", "0");
+            // 返信ファイル用辞書の初期化
+            Dict = tcommons.InitRetFileDict();
         }
 
         // データベース操作タスク関数
@@ -128,11 +124,11 @@ namespace FileIf
 
                 // PMMSデバッグ中の為、一時コメントアウト2022.03.15
                 // JunkiSys.Dll
-                //if (!ResinPrg.WorkResin.RecipeRecieved(rrinfo.Recipe, rrinfo.Mname, dt, ref msg))
-                //{
-                //    msg = tcommons.ErrorMessage(taskid, fs, msg);
-                //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                //}
+                if (!ResinPrg.WorkResin.RecipeRecieved(rrinfo.Recipe, rrinfo.Mname, dt, ref msg))
+                {
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                }
 
 
                 Dbgmsg += "DB登録が完了しました" + crlf;

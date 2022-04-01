@@ -16,7 +16,13 @@ namespace ArmsWebApi
 
         public string lotno;
 
-        public int NewMagFrameQty;
+        public string typecd;
+
+        public int procno;
+
+        public int NewMagFrameQty { get; set; } = 0;
+
+        public int FailureBdQty { get; set; } = 0;
 
         public string UnloaderMagNo;
 
@@ -28,14 +34,60 @@ namespace ArmsWebApi
 
         public WorkEndAltModel wem;
 
-        public WorkEnd(string plantcd, string empcd, string magno, string ulmagno, int NewMagFrameQty=0)
+        public WorkEnd(string plantcd, string empcd, string magno, string ulmagno)
         {
             this.plantcd = plantcd;
             this.empcd = empcd;
             this.magno = magno;
             this.UnloaderMagNo = ulmagno;
-            this.NewMagFrameQty = NewMagFrameQty;
+
+            //製品名・Lotno取得
+            this.mag = Magazine.GetCurrent(magno);
+            this.lotno = this.mag.NascaLotNO;
+            this.typecd = AsmLot.GetAsmLot(lotno).TypeCd;
+
+            //工程No取得
+            lot = AsmLot.GetAsmLot(lotno);
+            Process p = Process.GetNextProcess(mag.NowCompProcess, lot);
+            this.procno = p.ProcNo;
+
         }
+
+
+        public bool RegisterDefects(out string msg, Dictionary<string, int> Defectdict)
+        {
+            try
+            {
+                //不良リスト取得
+                DefItem[] defs = Defect.GetAllDefectSubSt(lotno, typecd, procno);
+
+                //不良内訳計上
+                foreach (var defect in Defectdict)
+                {
+                    DefItem di = defs.Where(d => d.DefectCd == defect.Key).FirstOrDefault();
+                    if (di != null)
+                    {
+                        if (!InputDef(plantcd, out msg, di.ClassCd, di.CauseCd, di.DefectCd, defect.Value.ToString(), null, null))
+                        {
+                            return false;
+                        }
+                    }
+                }
+
+                //不良基板数計上
+                this.FailureBdQty = Defectdict.Count;
+                
+                msg = "";
+                return true;
+            }
+            catch(Exception ex)
+            {
+                msg = "不良項目の登録が失敗しています:" + ex.Message;
+                return false;
+            }
+
+        }
+
 
         public List<Magazine> GetMagazines(string plantcd)
         {
@@ -71,8 +123,20 @@ namespace ArmsWebApi
             try
             {
                 wem = new WorkEndAltModel(plantcd);
+                wem.MagList = new List<Magazine>();
+                wem.EmpCd = this.empcd;
 
-                wem.MagList = wem.getUnloaderMag(wem.PlantCd);
+                // すべてのロードされている仮想マガジンを強制的にアンロード
+                MachineInfo m = MachineInfo.GetMachine(plantcd);
+                List<VirtualMag> vmags = VirtualMag.GetVirtualMag(m.MacNo, ((int)Station.Loader)).ToList();
+                foreach (var mag in vmags)
+                {
+                    mag.CurrentLocation = new Location(m.MacNo, Station.Loader);
+                    mag.Dequeue(mag.CurrentLocation);
+                    mag.CurrentLocation.Station = Station.Unloader;
+                    mag.LastMagazineNo = mag.MagazineNo;
+                    mag.Enqueue(mag, mag.CurrentLocation);
+                }
 
                 ArmsApi.Model.VirtualMag[] vmgzs =
                     ArmsApi.Model.VirtualMag.GetVirtualMag(wem.Mac.MacNo.ToString(), ((int)ArmsApi.Model.Station.Unloader).ToString(), string.Empty);
@@ -109,7 +173,7 @@ namespace ArmsWebApi
                     ArmsApi.Model.VirtualMag vmag = vmgzs.Where(vm => vm.LastMagazineNo == mgz).FirstOrDefault();
                     if (vmag == null)
                     {
-                        msg = "Unloader位置に一致する仮想マガジンが見つかりません lastMag:" + vmag.MagazineNo;
+                        msg = "Unloader位置に一致する仮想マガジンが見つかりません lastMag:" + mgz;
                         return false;
                     }
                     wem.AddMagazine(svrmag, vmag);
@@ -117,14 +181,21 @@ namespace ArmsWebApi
 
                 wem.UnloaderMagNo = UnloaderMagNo;
 
-                if (NewMagFrameQty != 0)
-                {
-                    wem.NewMagFrameQty = NewMagFrameQty;
-                }
-                else
-                {
-                    wem.NewMagFrameQty = wem.MagList[0].FrameQty;
-                }
+                // 20220328 JuniWatanabe
+                // NewMagFrameQtyの強制入力はしない
+                // DefectDicからの計上のみにする
+                //if (NewMagFrameQty != 0)
+                //{
+                //    wem.NewMagFrameQty = NewMagFrameQty;
+                //}
+                //else
+                //{
+                //    wem.NewMagFrameQty = wem.MagList[0].FrameQty;
+                //}
+
+                // DefectDicからの不良基板数計上
+                wem.NewMagFrameQty = 0;
+                wem.FailureBdQty = FailureBdQty;
 
                 var msgs = new List<string>();
                 if (!wem.WorkEnd(out msgs))
@@ -141,7 +212,49 @@ namespace ArmsWebApi
                 msg = e.ToString();
                 return false;
             }
-            
+        }
+
+
+        public bool InputDef(string plantcd, out string msg, string classcd, string causecd, string defectcd, string qty, string address, string unit)
+        {
+            int ct;
+            if (int.TryParse(qty, out ct) == false)
+            {
+                msg = "不良数は数字を入力してください";
+                return false;
+            }
+
+            ArmsApi.Model.DefItem[] defs = Defect.GetAllDefectSubSt(this.lotno, this.typecd, this.procno);
+            ArmsApi.Model.DefItem di = defs.Where(d => d.CauseCd == causecd && d.ClassCd == classcd && d.DefectCd == defectcd).FirstOrDefault();
+            if (di == null)
+            {
+                msg = "不良明細が見つかりません";
+            }
+
+            di.DefectCt = ct;
+
+            ArmsApi.Model.Defect defect = new ArmsApi.Model.Defect();
+            defect.LotNo = this.lotno;
+            defect.DefItems = new List<ArmsApi.Model.DefItem>(defs);
+            defect.ProcNo = this.procno;
+            defect.MagazineNo = this.magno;
+
+            //数量チェック
+            if (!defect.CheckDefectSubSt(null))
+            {
+                msg = "不良枚数が基板枚数を超えています";
+                return false;
+            }
+
+            //EICSのWB不良アドレス更新
+            //wem.UpdateEicsWBAddress(di, address, unit);
+
+
+            //Defect更新
+            defect.DeleteInsertSubSt(null);
+            msg = "";
+            return true;
+
         }
     }
 }

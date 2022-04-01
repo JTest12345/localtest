@@ -20,6 +20,18 @@ namespace FileIf
         //const int msg_error = 4;
         //const int msg_debug = 10;
 
+
+        public Dictionary<string, string> InitRetFileDict()
+        {
+            var dict = new Dictionary<string, string>();
+            dict.Add("ok", "OK");
+            dict.Add("0", "0");
+            dict.Add("[CR]", "\r\n");
+
+            return dict;
+        }
+
+
         public string[] GetMacInfoConf(int taskid, Mcfilesys fs, Macconinfo minfo, ref Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
         {
             try
@@ -458,6 +470,24 @@ namespace FileIf
                 else
                 {
                     return new string[] { $"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} の{fs.keylbl}ファイルはエラーフォルダに移動できません", Cnslcnf.msg_warn.ToString() };
+                }
+            }
+
+            return new string[] { "NA", "" };
+        }
+
+        //
+        public string[] MoveDoneFile(Mcfilesys fs, string filepath, string DonerPath)
+        {
+            if (CommonFuncs.FileExists(filepath))
+            {
+                if (CommonFuncs.MoveFile(filepath, DonerPath))
+                {
+                    return new string[] { $"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} の{fs.keylbl}ファイルはDoneフォルダに移動しました", Cnslcnf.msg_info.ToString() };
+                }
+                else
+                {
+                    return new string[] { $"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} の{fs.keylbl}ファイルはDoneフォルダに移動できません", Cnslcnf.msg_warn.ToString() };
                 }
             }
 

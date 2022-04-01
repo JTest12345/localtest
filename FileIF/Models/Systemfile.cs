@@ -97,6 +97,7 @@ namespace FileIf
         public bool UsePlcTrig { get; set; }
         public bool CheckVlot { get; set; }
         public int outfiletimeout { get; set; }
+        public int historyoutofdate { get; set; }
         //ディレクトリ情報[fileconf]
         public string MCDir { get; set; }
         public string MsglogDir { get; set; }
@@ -106,6 +107,8 @@ namespace FileIf
         public string[] infilekey { get; set; }
         public string[] wipfilekey { get; set; }
         public string[] endfilekey { get; set; }
+        public string[] donefilekey { get; set; }
+        public string[] errfilekey { get; set; }
         //FileFetch関連[]
         public string[] FFetchPcat { get; set; }
         public string[] FFetchMacName { get; set; }
@@ -170,6 +173,7 @@ namespace FileIf
                 else
                     CheckVlot = true;
                 outfiletimeout = int.Parse(CommonFuncs.GetIniValue(filepath, "systemconf", "outfile_timeout"));
+                historyoutofdate = int.Parse(CommonFuncs.GetIniValue(filepath, "systemconf", "history_outofdate"));
 
                 // [fileconf]
                 MCDir = CommonFuncs.GetIniValue(filepath, "fileconf", "DirSearc");
@@ -182,6 +186,10 @@ namespace FileIf
                 wipfilekey = wipfilekey_ini.Split(',');
                 string endfilekey_ini = CommonFuncs.GetIniValue(filepath, "fileconf", "endfilekey");
                 endfilekey = endfilekey_ini.Split(',');
+                string donefilekey_ini = CommonFuncs.GetIniValue(filepath, "fileconf", "donefilekey");
+                donefilekey = donefilekey_ini.Split(',');
+                string errfilekey_ini = CommonFuncs.GetIniValue(filepath, "fileconf", "errfilekey");
+                errfilekey = errfilekey_ini.Split(',');
 
                 // [ffetch]
                 string proccat_ini = CommonFuncs.GetIniValue(filepath, "ffetch", "proccat");

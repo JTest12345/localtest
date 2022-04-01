@@ -25,15 +25,11 @@ namespace FileIf
         public Tasks_avi01()
         {
             tcommons = new Tasks_Common();
-
             minfo = new Macconinfo();
             avi01 = new TaskFile_avi01();
-
             rrinfo = new recipe_info();
-
-            Dict = new Dictionary<string, string>();
-            Dict.Add("ok", "OK");
-            Dict.Add("0", "0");
+            // 返信ファイル用辞書の初期化
+            Dict = tcommons.InitRetFileDict();
         }
 
         // INファイルタスク関数

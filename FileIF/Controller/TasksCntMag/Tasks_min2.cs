@@ -23,23 +23,11 @@ namespace FileIf
         // 初期化
         public Tasks_min2()
         {
-            //commons = new CommonFuncs();
             tcommons = new Tasks_Common();
-            //plc = new PlcCom();
-            //sql = new MySQL();
-
             min2 = new TaskFile_min2();
-
             minfo = new Macconinfo();
-            //jcm = new Current_mag(); 
-            //ppm = new Process_master();
-            //npm = new Process_master();
-            //mpp = new Mac_prams();
-            //mtc = new mactaskconf();
-
-            Dict = new Dictionary<string, string>();
-            Dict.Add("ok", "OK");
-            Dict.Add("0", "0");
+            // 返信ファイル用辞書の初期化
+            Dict = tcommons.InitRetFileDict();
         }
 
 

@@ -102,6 +102,7 @@ namespace Oskas
             }
             catch(Exception ex)
             {
+                contents.Add(ex.Message);
                 return false;
             }
         }

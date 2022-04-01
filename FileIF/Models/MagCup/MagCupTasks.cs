@@ -102,24 +102,29 @@ namespace FileIf
         public string val_in { get; set; }
         public string magno_out { get; set; }
         public string val_out { get; set; }
+        public Dictionary<string, int> defectdict { get; set; }
 
         public string[] ReadMotFileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
         {
             string msg = "";
-            //CommonFuncs commons = new CommonFuncs();
             Tasks_Common tcommons = new Tasks_Common();
 
             try
             {
                 string[] contents;
                 string content = "";
-                if (!CommonFuncs.ReadTextFile(fs.filepath, ref content))
+                List<string> contentList = new List<string>();
+                // 不良項目対応の為複数行を読む関数に変更
+                // if (!CommonFuncs.ReadTextFile(fs.filepath, ref content))
+                if (!CommonFuncs.ReadTextFileLine(fs.filepath, ref contentList))
                 {
-                    string mes = content;
+                    string mes = contentList[0];
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
                 }
 
+                // ◇実績(1行目)
+                content = contentList[0];
                 contents = content.Split(',');
 
                 if (contents[0] == "ERROR")
@@ -137,6 +142,52 @@ namespace FileIf
                 val_in = contents[3];
                 magno_out = contents[4];
                 val_out = contents[5];
+
+                // ◇不良(2行目以降)
+                defectdict = new Dictionary<string, int>();
+                int sumqty = 0;
+                if (contentList.Count > 1)
+                {
+                    for (int i = 1; i < contentList.Count; i++)
+                    {
+                        contents = contentList[i].Split(',');
+                        int qty = 0;
+                        if (int.TryParse(contents[1], out qty))
+                        {
+                            defectdict.Add(contents[0], qty);
+                        }
+                        else
+                        {
+                            string mes = "MOTファイル内の不良数が数値ではない為、処理できません";
+                            msg = tcommons.ErrorMessage(taskid, fs, mes);
+                            return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                        }
+                        sumqty += qty;
+                    }
+                }
+
+                // 基板計上数と基板不良数の整合確認
+                int qtyin = 0;
+                if (!int.TryParse(val_in, out qtyin))
+                {
+                    string mes = "MOTファイル内の受入基板数量が数値ではない為、処理できません";
+                    msg = tcommons.ErrorMessage(taskid, fs, mes);
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                }
+                int qtyout = 0;
+                if (!int.TryParse(val_out, out qtyout))
+                {
+                    string mes = "MOTファイル内の払出基板数量が数値ではない為、処理できません";
+                    msg = tcommons.ErrorMessage(taskid, fs, mes);
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                }
+                if (qtyin - qtyout != sumqty)
+                {
+                    string mes = "MOTファイル内の基板数量と不良数が不整合の為、処理できません";
+                    msg = tcommons.ErrorMessage(taskid, fs, mes);
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                }
+
 
                 return new string[] { "OK" };
             }

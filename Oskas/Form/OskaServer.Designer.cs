@@ -69,7 +69,7 @@
             // 
             // TaskTimer
             // 
-            this.TaskTimer.Interval = 1000;
+            this.TaskTimer.Interval = 2000;
             // 
             // statusStrip1
             // 

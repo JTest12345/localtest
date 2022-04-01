@@ -29,14 +29,10 @@ namespace FileIf
         public Tasks_mio()
         {
             tcommons = new Tasks_Common();
-
             mio = new TaskFile_mio();
-
             minfo = new Macconinfo();
-
-            Dict = new Dictionary<string, string>();
-            Dict.Add("ok", "OK");
-            Dict.Add("0", "0");
+            // 返信ファイル用辞書の初期化
+            Dict = tcommons.InitRetFileDict();
         }
 
         // outのデータベース操作タスク関数

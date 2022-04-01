@@ -12,7 +12,7 @@ namespace ArmsApi.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -130,16 +130,6 @@ namespace ArmsApi.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=172.16.34.201\\SQLExpress;Initial Catalog=ARMS;User ID=inline")]
-        public string ARMSConnectionString2 {
-            get {
-                return ((string)(this["ARMSConnectionString2"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SLA-0040-2\\SQLEXPRESS;Initial Catalog=QCIL;Integrated Security=True")]
         public string QCILConnectionString1 {
             get {
@@ -150,8 +140,18 @@ namespace ArmsApi.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=172.21.208.225\\SQLEXPRESS;Initial Catalog=ARMS;Persist Security Info=" +
-            "True;User ID=inline")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=10.129.97.154\\SQLExpress;Initial Catalog=ARMS;User ID=inline")]
+        public string ARMSConnectionString2 {
+            get {
+                return ((string)(this["ARMSConnectionString2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=10.129.97.154\\SQLEXPRESS;Initial Catalog=ARMS;Persist Security Info=T" +
+            "rue;User ID=inline")]
         public string ARMSConnectionString3 {
             get {
                 return ((string)(this["ARMSConnectionString3"]));
@@ -161,7 +161,7 @@ namespace ArmsApi.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=172.16.34.201\\SQLEXPRESS;Initial Catalog=ARMS;Persist Security Info=T" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=10.129.97.154\\SQLEXPRESS;Initial Catalog=ARMS;Persist Security Info=T" +
             "rue;User ID=inline")]
         public string ARMSConnectionString4 {
             get {

@@ -20,15 +20,11 @@ namespace FileIf
         public Tasks_sta()
         {
             tcommons = new Tasks_Common();
-
             minfo = new Macconinfo();
             sta = new TaskFile_sta();
-
             rrinfo = new recipe_info();
-
-            Dict = new Dictionary<string, string>();
-            Dict.Add("ok", "OK");
-            Dict.Add("0", "0");
+            // 返信ファイル用辞書の初期化
+            Dict = tcommons.InitRetFileDict();
         }
 
         // データベース操作タスク関数

@@ -27,7 +27,23 @@ namespace Samples
             //    Console.WriteLine("MagNo: " + item.MagazineNo + "  [" + item.WorkStart + "]");
             //}
 
+
+            /////////////////////////////////
+            ///ARMS不良関連
+            /////////////////////////////////
+            var def = GetDefItems("720220308140000006", "AU0309-1210E1W11-00E-6012", 4);
+            Console.WriteLine(def);
+            Console.ReadLine();
+
             Console.ReadKey();
+        }
+
+
+        //Arms基板不良項目リスト抽出
+        public static DefItem[] GetDefItems(string lotno, string typecd, int pocno)
+        {
+            DefItem[] defs = Defect.GetAllDefectSubSt(lotno, typecd, pocno);
+            return defs;
         }
     }
 }

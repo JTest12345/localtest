@@ -145,8 +145,6 @@ C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsWeb\obj\Debug\ArmsWeb.csproj.CopyComplete
 C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsWeb\obj\Debug\ArmsWeb.dll
 C:\juni_ws\CSharp\VIP\5M-A\VARMS\ArmsWeb\obj\Debug\ArmsWeb.pdb
 C:\cejSoft\ARMS\ArmsWeb\obj\Debug\ArmsWeb.csprojAssemblyReference.cache
-C:\juni_ws\GitRepo\VSP\ArmsWeb\obj\Debug\ArmsWeb.csprojAssemblyReference.cache
-C:\juni_ws\GitRepo\VSP\ArmsWeb\obj\Debug\ArmsWeb.csproj.CoreCompileInputs.cache
 C:\juni_ws\GitRepo\VSP\ArmsWeb\bin\ArmsWeb.dll.config
 C:\juni_ws\GitRepo\VSP\ArmsWeb\bin\ArmsWeb.dll
 C:\juni_ws\GitRepo\VSP\ArmsWeb\bin\ArmsWeb.pdb
@@ -191,6 +189,8 @@ C:\juni_ws\GitRepo\VSP\ArmsWeb\bin\ja\System.Web.WebPages.resources.dll
 C:\juni_ws\GitRepo\VSP\ArmsWeb\bin\ja\System.Web.WebPages.Deployment.resources.dll
 C:\juni_ws\GitRepo\VSP\ArmsWeb\bin\ja\System.Web.WebPages.Razor.resources.dll
 C:\juni_ws\GitRepo\VSP\ArmsWeb\bin\ArmsApi.XmlSerializers.dll
+C:\juni_ws\GitRepo\VSP\ArmsWeb\obj\Debug\ArmsWeb.csproj.CoreCompileInputs.cache
 C:\juni_ws\GitRepo\VSP\ArmsWeb\obj\Debug\ArmsWeb.csproj.CopyComplete
 C:\juni_ws\GitRepo\VSP\ArmsWeb\obj\Debug\ArmsWeb.dll
 C:\juni_ws\GitRepo\VSP\ArmsWeb\obj\Debug\ArmsWeb.pdb
+C:\juni_ws\GitRepo\VSP\ArmsWeb\obj\Debug\ArmsWeb.csprojAssemblyReference.cache
