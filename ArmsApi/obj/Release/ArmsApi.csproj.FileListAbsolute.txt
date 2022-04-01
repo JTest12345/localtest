@@ -38,3 +38,4 @@ C:\juni_ws\GitRepo\VSP\ArmsApi\obj\Release\ArmsApi.csproj.CopyComplete
 C:\juni_ws\GitRepo\VSP\ArmsApi\obj\Release\ArmsApi.dll
 C:\juni_ws\GitRepo\VSP\ArmsApi\obj\Release\ArmsApi.pdb
 C:\juni_ws\GitRepo\VSP\ArmsApi\obj\Release\ArmsApi.XmlSerializers.dll
+C:\juni_ws\GitRepo\VSP\ArmsApi\obj\Release\ArmsApi.csprojAssemblyReference.cache

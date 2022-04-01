@@ -318,7 +318,7 @@ namespace FileIf
                 TofCnt1++;
 
                 // 期限切れファイル監視
-                if (TofCnt2 == 60)
+                if (TofCnt2 == 180)
                 {
                     // Doneファイルの検索（保管期限切れ監視）
                     tskhdl.Tasks("DONE", mci.donefilekey);

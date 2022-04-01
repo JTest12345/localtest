@@ -42,26 +42,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArmsApi.dll" size="1369600">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArmsApi.dll" size="1371136">
       <assemblyIdentity name="ArmsApi" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>O3Yek6+c6Ks8IRIE0sCl3pCPTydP9MIQsL/douKzaNM=</dsig:DigestValue>
+        <dsig:DigestValue>sfEeb8nYpx8oXPsh2v/Vx0icUdN60yW4WsZF85iw13E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArmsMonitor.exe" size="34816">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArmsMonitor.exe" size="41984">
       <assemblyIdentity name="ArmsMonitor" version="1.159.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ziq0tZCMBsLiAn9lGYHOQuN4gU44hKoq/amvPpEi52E=</dsig:DigestValue>
+        <dsig:DigestValue>RXfvXv9sC4XRdotWYI81e7aUEpGydhX1zUXj4vT0/jI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

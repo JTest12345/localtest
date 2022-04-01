@@ -507,7 +507,7 @@ namespace FileIf
 
                 if ((dt - ts - timeout) > new TimeSpan(0, 0, 0, 0))
                 {
-                    OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo}{fs.keylbl}はタイムスタンプ[" + ts.ToString("yyyy-MM-dd HH:mm:ss") + "]にて保存期間外となりました", Cnslcnf.msg_alarm);
+                    OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo}{fs.keylbl}はタイムスタンプ[" + ts.ToString("yyyy-MM-dd HH:mm:ss") + "]にて保存期間外となりました", Cnslcnf.msg_info);
                     string ErrorPath = $"{fs.fpath}\\error\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.err";
                     //
                     //done, errファイルを消去

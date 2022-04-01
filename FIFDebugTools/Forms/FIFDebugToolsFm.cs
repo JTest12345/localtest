@@ -13,7 +13,11 @@ using FileIf;
 
 namespace FIFDebugTools
 {
-    
+    /// <summary>
+    /// 現状：お試し版状態
+    /// 　　　エラーコンソールは動作していない
+    /// 　　　コード、大分雑
+    /// </summary>
     public partial class FIFDebugToolsFm : Oskas.fmMain
     {
         //PlcTestForm
@@ -63,6 +67,11 @@ namespace FIFDebugTools
                 var msg = Encoding.UTF8.GetString(eventArgs.Message);
                 var topic = eventArgs.Topic;
                 ConsoleShow(msg);
+
+                if (msg.Contains("[ALARM:") || msg.Contains("[ERROR:"))
+                {
+                    ErrorConsoleShow(msg);
+                }
             };
 
             try
@@ -113,6 +122,20 @@ namespace FIFDebugTools
             else
             {
                 consoleBox.AppendText(text);
+            }
+        }
+
+        public delegate void _ErrorConsoleDelegate(string text);
+        public void ErrorConsoleShow(string text)
+        {
+            if (ErrorLogComsole.InvokeRequired)
+            {
+                _ErrorConsoleDelegate d = new _ErrorConsoleDelegate(ErrorConsoleShow);
+                BeginInvoke(d, new object[] { text });
+            }
+            else
+            {
+                ErrorLogComsole.AppendText(text);
             }
         }
 
