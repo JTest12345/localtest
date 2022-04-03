@@ -61,7 +61,8 @@ namespace FileIf
             OskNLog.setFolderName("FILEIF");
 
             // mugcup.iniを読み込み
-            if (!mci.GetMugCupIniValues(ref globalmsg))
+            // if (!mci.GetMugCupIniValues(ref globalmsg))
+            if (!mci.GetMugCupYamlValues(ref globalmsg))
             {
                 btServerStart.Enabled = false;
                 OskNLog.Log(globalmsg, Cnslcnf.msg_error);

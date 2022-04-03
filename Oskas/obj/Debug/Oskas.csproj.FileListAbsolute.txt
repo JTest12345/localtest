@@ -71,3 +71,5 @@ C:\juni_ws\GitRepo\VSP\Oskas\obj\Debug\Oskas.csproj.CopyComplete
 C:\juni_ws\GitRepo\VSP\Oskas\obj\Debug\Oskas.exe
 C:\juni_ws\GitRepo\VSP\Oskas\obj\Debug\Oskas.pdb
 C:\juni_ws\GitRepo\VSP\Oskas\obj\Debug\Oskas.csprojAssemblyReference.cache
+C:\juni_ws\GitRepo\VSP\Oskas\bin\Debug\YamlDotNet.dll
+C:\juni_ws\GitRepo\VSP\Oskas\bin\Debug\YamlDotNet.xml

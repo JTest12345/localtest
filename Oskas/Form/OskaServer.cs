@@ -42,7 +42,8 @@ namespace Oskas
             toolStripStatusLabel1.Text = string.Format("サーバーは停止中です");
 
             // oska.iniを読み込み
-            if (!oskaini.GetOskasIniValues(ref globalmsg))
+            //if (!oskaini.GetOskasIniValues(ref globalmsg))
+            if (!oskaini.GetOskasYamlValues(ref globalmsg))
             {
                 btServerStart.Enabled = false;
                 ConsoleShow(globalmsg, Cnslcnf.msg_error);

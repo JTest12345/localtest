@@ -137,3 +137,5 @@ C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\ja\System.Web.WebPages.Deployment.resour
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FileIF.csproj.CopyComplete
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FILEIF.exe
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FILEIF.pdb
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\YamlDotNet.dll
+C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\YamlDotNet.xml
