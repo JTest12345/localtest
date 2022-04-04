@@ -14,43 +14,43 @@ namespace ProcMasterIF
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class Formno
     {
-        public string address { get; set; }
+        public string xlsaddress { get; set; }
         public string value { get; set; }
     }
 
-    public class released
+    public class Released
     {
-        public string address { get; set; }
+        public string xlsaddress { get; set; }
         public string value { get; set; }
     }
 
     public class Updateat
     {
-        public string address { get; set; }
+        public string xlsaddress { get; set; }
         public string value { get; set; }
     }
 
     public class Revision
     {
-        public string address { get; set; }
+        public string xlsaddress { get; set; }
         public string value { get; set; }
     }
 
     public class Hankan
     {
-        public string col { get; set; }
+        public string xlscol { get; set; }
         public string value { get; set; }
     }
 
     public class Kansei
     {
-        public string col { get; set; }
+        public string xlscol { get; set; }
         public string value { get; set; }
     }
 
     public class Kyakusaki
     {
-        public string col { get; set; }
+        public string xlscol { get; set; }
         public string value { get; set; }
     }
 
@@ -63,19 +63,19 @@ namespace ProcMasterIF
 
     public class Torikosu
     {
-        public string col { get; set; }
+        public string xlscol { get; set; }
         public string value { get; set; }
     }
 
     public class MaisuLot
     {
-        public string col { get; set; }
+        public string xlscol { get; set; }
         public string value { get; set; }
     }
 
     public class PkgLot
     {
-        public string col { get; set; }
+        public string xlscol { get; set; }
         public string value { get; set; }
     }
 
@@ -88,13 +88,13 @@ namespace ProcMasterIF
 
     public class Jp
     {
-        public string col { get; set; }
+        public string xlscol { get; set; }
         public string value { get; set; }
     }
 
     public class Ch
     {
-        public string col { get; set; }
+        public string xlscol { get; set; }
         public string value { get; set; }
     }
 
@@ -109,7 +109,7 @@ namespace ProcMasterIF
         public Zuban zuban { get; set; }
         public Typecd typecd { get; set; }
         public Formno formno { get; set; }
-        public released released { get; set; }
+        public Released released { get; set; }
     }
 
     public class Etc
@@ -120,7 +120,7 @@ namespace ProcMasterIF
     public class Shinkishutenkai
     {
         public Formno formno { get; set; }
-        public released released { get; set; }
+        public Released released { get; set; }
         public Updateat updateat { get; set; }
         public Revision revision { get; set; }
         public Typeinfo typeinfo { get; set; }
@@ -130,7 +130,7 @@ namespace ProcMasterIF
 
     public class Typecd
     {
-        public string address { get; set; }
+        public string xlsaddress { get; set; }
         public string value { get; set; }
     }
 
@@ -159,8 +159,10 @@ namespace ProcMasterIF
     public class M4
     {
         public string proccd { get; set; }
+        public string kjunsho { get; set; }
         public Code code { get; set; }
         public Name name { get; set; }
+        public Qty qty { get; set; }
     }
 
     public class Pop
@@ -171,13 +173,19 @@ namespace ProcMasterIF
 
     public class Code
     {
-        public string address { get; set; }
+        public string bomaddress { get; set; }
         public string value { get; set; }
     }
 
     public class Name
     {
-        public string address { get; set; }
+        public string bomaddress { get; set; }
+        public string value { get; set; }
+    }
+
+    public class Qty
+    {
+        public string bomaddress { get; set; }
         public string value { get; set; }
     }
 
@@ -220,6 +228,7 @@ namespace ProcMasterIF
         public Buhinhyou buhinhyou { get; set; }
         public List<Process> process { get; set; }
     }
+
 
     public class MastermodelRoot
     {

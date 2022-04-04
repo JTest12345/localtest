@@ -13,6 +13,9 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using SpreadsheetLight;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using YamlDotNet.RepresentationModel;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace ProcMasterIF
 {
@@ -251,75 +254,75 @@ namespace ProcMasterIF
             //formo
             if (skt.formno.value == "")
             {
-                skt.formno.value = sl.GetCellValueAsString(skt.formno.address);
+                skt.formno.value = sl.GetCellValueAsString(skt.formno.xlsaddress);
             }
 
             //released
             if (skt.released.value == "")
             {
-                var dt = Double.Parse(sl.GetCellValueAsString(skt.released.address));
+                var dt = Double.Parse(sl.GetCellValueAsString(skt.released.xlsaddress));
                 skt.released.value = DateTime.FromOADate(dt).ToString("d");
             }
 
             //updateat
             if (skt.updateat.value == "")
             {
-                var dt = Double.Parse(sl.GetCellValueAsString(skt.updateat.address));
+                var dt = Double.Parse(sl.GetCellValueAsString(skt.updateat.xlsaddress));
                 skt.updateat.value = DateTime.FromOADate(dt).ToString("d");
             }
 
             //revision
             if (skt.revision.value == "")
             {
-                skt.revision.value = sl.GetCellValueAsString(skt.revision.address);
+                skt.revision.value = sl.GetCellValueAsString(skt.revision.xlsaddress);
             }
 
             //typeinfo.hankan
             if (skt.typeinfo.hankan.value == "")
             {
-                skt.typeinfo.hankan.value = sl.GetCellValueAsString(skt.typeinfo.hankan.col + row);
+                skt.typeinfo.hankan.value = sl.GetCellValueAsString(skt.typeinfo.hankan.xlscol + row);
             }
 
             //typeinfo.kansei
             if (skt.typeinfo.kansei.value == "")
             {
-                skt.typeinfo.kansei.value = sl.GetCellValueAsString(skt.typeinfo.kansei.col + row);
+                skt.typeinfo.kansei.value = sl.GetCellValueAsString(skt.typeinfo.kansei.xlscol + row);
             }
 
             //typeinfo.kyakusaki
             if (skt.typeinfo.kyakusaki.value == "")
             {
-                skt.typeinfo.kyakusaki.value = sl.GetCellValueAsString(skt.typeinfo.kyakusaki.col + row);
+                skt.typeinfo.kyakusaki.value = sl.GetCellValueAsString(skt.typeinfo.kyakusaki.xlscol + row);
             }
 
             //lotinfo.torikosu
             if (skt.lotinfo.torikosu.value == "")
             {
-                skt.lotinfo.torikosu.value = sl.GetCellValueAsString(skt.lotinfo.torikosu.col + row);
+                skt.lotinfo.torikosu.value = sl.GetCellValueAsString(skt.lotinfo.torikosu.xlscol + row);
             }
 
             //lotinfo.maisu_lot
             if (skt.lotinfo.maisu_lot.value == "")
             {
-                skt.lotinfo.maisu_lot.value = sl.GetCellValueAsString(skt.lotinfo.maisu_lot.col + row);
+                skt.lotinfo.maisu_lot.value = sl.GetCellValueAsString(skt.lotinfo.maisu_lot.xlscol + row);
             }
 
             //lotinfo.pkg_lot
             if (skt.lotinfo.pkg_lot.value == "")
             {
-                skt.lotinfo.pkg_lot.value = sl.GetCellValueAsString(skt.lotinfo.pkg_lot.col + row);
+                skt.lotinfo.pkg_lot.value = sl.GetCellValueAsString(skt.lotinfo.pkg_lot.xlscol + row);
             }
 
             //etc.buhinhyou.zuban.jp
             if (skt.etc.buhinhyou.zuban.jp.value == "")
             {
-                skt.etc.buhinhyou.zuban.jp.value = sl.GetCellValueAsString(skt.etc.buhinhyou.zuban.jp.col + row);
+                skt.etc.buhinhyou.zuban.jp.value = sl.GetCellValueAsString(skt.etc.buhinhyou.zuban.jp.xlscol + row);
             }
 
             //etc.buhinhyou.zuban.ch
             if (skt.etc.buhinhyou.zuban.ch.value == "")
             {
-                skt.etc.buhinhyou.zuban.ch.value = sl.GetCellValueAsString(skt.etc.buhinhyou.zuban.ch.col + row);
+                skt.etc.buhinhyou.zuban.ch.value = sl.GetCellValueAsString(skt.etc.buhinhyou.zuban.ch.xlscol + row);
             }
             
             // 部品表を検出する
@@ -345,14 +348,14 @@ namespace ProcMasterIF
                 {
                     if (material.name.value == "")
                     {
-                        material.name.value = slbom.GetCellValueAsString(material.name.address);
+                        material.name.value = slbom.GetCellValueAsString(material.name.bomaddress);
                     }
                     else
                     {
-                        if (material.name.value != slbom.GetCellValueAsString(material.name.address))
+                        if (material.name.value != slbom.GetCellValueAsString(material.name.bomaddress))
                         {
                             ConsoleShow("部品表から取得した部品コードが基底モデルと違っています", 2);
-                            ConsoleShow("部品表：" + slbom.GetCellValueAsString(material.name.address), 2);
+                            ConsoleShow("部品表：" + slbom.GetCellValueAsString(material.name.bomaddress), 2);
                             ConsoleShow("基底モデル：" + material.name.value, 2);
                             return false;
                         }
@@ -360,14 +363,14 @@ namespace ProcMasterIF
 
                     if (material.code.value == "")
                     {
-                        material.code.value = slbom.GetCellValueAsString(material.code.address);
+                        material.code.value = slbom.GetCellValueAsString(material.code.bomaddress);
                     }
                     else
                     {
-                        if (material.code.value != slbom.GetCellValueAsString(material.code.address))
+                        if (material.code.value != slbom.GetCellValueAsString(material.code.bomaddress))
                         {
                             ConsoleShow("部品表から取得した部品コードが基底モデルと違っています", 2);
-                            ConsoleShow("部品表：" + slbom.GetCellValueAsString(material.code.address), 2);
+                            ConsoleShow("部品表：" + slbom.GetCellValueAsString(material.code.bomaddress), 2);
                             ConsoleShow("基底モデル：" + material.code.value, 2);
                             return false;
                         }
@@ -392,6 +395,23 @@ namespace ProcMasterIF
             }
 
             return "";
+        }
+
+        private void btn_makeRootModel_Click(object sender, EventArgs e)
+        {
+            var yamlPath = @"C:\Oskas\procmaster\model\shoumei\ver9\rootmodel\shinkishutenkai.yaml";
+            // テキスト抽出
+            var input = new StreamReader(yamlPath, Encoding.UTF8);
+
+            // デシリアライザインスタンス作成
+            var deserializer = new DeserializerBuilder()
+                               .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                               .Build();
+
+            // yamlデータのオブジェクトを作成
+            var deserializeObject = deserializer.Deserialize<Shinkishutenkai>(input);
+
+            ConsoleShow(deserializeObject.ToString(), 1);
         }
     }
 

@@ -348,10 +348,15 @@ namespace FileIf
 
                 // データ終了コード
                 //edcf.stpcode = commons.GetIniValue(MacFilePath, "Endfileconf", "stpcodekey");
+                if (fs.mcfc.spfnc1)
+                {
+                    edcf.stpcode = "\r\n";
+                }
 
                 // ダブルクォーテーション要否
                 //edcf.needdbq = int.Parse(commons.GetIniValue(MacFilePath, "Endfileconf", "needdbq"));
-                edcf.needdbq = fs.mcfc.spfnc1;
+                //edcf.needdbq = fs.mcfc.spfnc1;
+                edcf.needdbq = false;
 
 
                 return true;

@@ -281,25 +281,25 @@ namespace FileIf
                 MsglogDir = fileconf["MsglogDir"].ToString(); // CommonFuncs.GetIniValue(filepath, "fileconf", "MsglogDir");
                 WipDir = fileconf["WipDir"].ToString(); // CommonFuncs.GetIniValue(filepath, "fileconf", "WipDir");
                 RecipUpLoadDir = fileconf["RecipUpLoadDir"].ToString(); // CommonFuncs.GetIniValue(filepath, "fileconf", "RecipUpLoadDir");
-                string infilekey_ini = fileconf["infilekey"].ToString().Replace("[","").Replace("]",""); // CommonFuncs.GetIniValue(filepath, "fileconf", "infilekey");
+                string infilekey_ini = fileconf["infilekey"].ToString().Replace("[","").Replace("]","").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "infilekey");
                 infilekey = infilekey_ini.Split(',');
-                string wipfilekey_ini = fileconf["wipfilekey"].ToString().Replace("[", "").Replace("]", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "wipfilekey");
+                string wipfilekey_ini = fileconf["wipfilekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "wipfilekey");
                 wipfilekey = wipfilekey_ini.Split(',');
-                string endfilekey_ini = fileconf["endfilekey"].ToString().Replace("[", "").Replace("]", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "endfilekey");
+                string endfilekey_ini = fileconf["endfilekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "endfilekey");
                 endfilekey = endfilekey_ini.Split(',');
-                string donefilekey_ini = fileconf["donefilekey"].ToString().Replace("[", "").Replace("]", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "donefilekey");
+                string donefilekey_ini = fileconf["donefilekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "donefilekey");
                 donefilekey = donefilekey_ini.Split(',');
-                string errfilekey_ini = fileconf["errfilekey"].ToString().Replace("[", "").Replace("]", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "errfilekey");
+                string errfilekey_ini = fileconf["errfilekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "errfilekey");
                 errfilekey = errfilekey_ini.Split(',');
 
                 // [ffetch]
                 var ffetch = (YamlMappingNode)rootNode["ffetch"];
 
-                string proccat_ini = ffetch["proccat"].ToString().Replace("[", "").Replace("]", ""); // CommonFuncs.GetIniValue(filepath, "ffetch", "proccat");
+                string proccat_ini = ffetch["proccat"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "ffetch", "proccat");
                 FFetchPcat = proccat_ini.Split(',');
-                string macname_ini = ffetch["macno"].ToString().Replace("[", "").Replace("]", ""); // CommonFuncs.GetIniValue(filepath, "ffetch", "macno");
+                string macname_ini = ffetch["macno"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "ffetch", "macno");
                 FFetchMacName = macname_ini.Split(',');
-                string filekey_ini = ffetch["filekey"].ToString().Replace("[", "").Replace("]", ""); // CommonFuncs.GetIniValue(filepath, "ffetch", "filekey");
+                string filekey_ini = ffetch["filekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "ffetch", "filekey");
                 FFetchFileKey = filekey_ini.Split(',');
 
 

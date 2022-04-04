@@ -189,6 +189,10 @@ namespace FileIf
             {
                 foreach (string d in Directory.GetDirectories(sDir))
                 {
+                    if (d.Contains("TCBTC01") && d.Contains("in") && key.Contains("_vlin2"))
+                    {
+                        Console.WriteLine("kita");
+                    }
                     foreach (string f in Directory.GetFiles(d, "*" + key))
                     {
 

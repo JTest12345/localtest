@@ -49,6 +49,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.txt_procjson_kansei = new System.Windows.Forms.TextBox();
+            this.btn_makeRootModel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -56,7 +57,7 @@
             // 
             // txt_shinkishutenkai
             // 
-            this.txt_shinkishutenkai.Location = new System.Drawing.Point(15, 28);
+            this.txt_shinkishutenkai.Location = new System.Drawing.Point(15, 87);
             this.txt_shinkishutenkai.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_shinkishutenkai.Name = "txt_shinkishutenkai";
             this.txt_shinkishutenkai.Size = new System.Drawing.Size(758, 25);
@@ -66,7 +67,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 6);
+            this.label1.Location = new System.Drawing.Point(12, 65);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 18);
             this.label1.TabIndex = 2;
@@ -75,7 +76,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 185);
+            this.label2.Location = new System.Drawing.Point(12, 244);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 18);
             this.label2.TabIndex = 5;
@@ -83,7 +84,7 @@
             // 
             // txt_buhinhyou
             // 
-            this.txt_buhinhyou.Location = new System.Drawing.Point(15, 204);
+            this.txt_buhinhyou.Location = new System.Drawing.Point(15, 263);
             this.txt_buhinhyou.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_buhinhyou.Name = "txt_buhinhyou";
             this.txt_buhinhyou.Size = new System.Drawing.Size(758, 25);
@@ -92,7 +93,7 @@
             // 
             // txt_typecd_kansei_start
             // 
-            this.txt_typecd_kansei_start.Location = new System.Drawing.Point(134, 89);
+            this.txt_typecd_kansei_start.Location = new System.Drawing.Point(134, 148);
             this.txt_typecd_kansei_start.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_typecd_kansei_start.Name = "txt_typecd_kansei_start";
             this.txt_typecd_kansei_start.Size = new System.Drawing.Size(462, 25);
@@ -101,7 +102,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 68);
+            this.label4.Location = new System.Drawing.Point(12, 127);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(102, 18);
             this.label4.TabIndex = 2;
@@ -109,7 +110,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(15, 89);
+            this.numericUpDown1.Location = new System.Drawing.Point(15, 148);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -123,7 +124,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(131, 68);
+            this.label5.Location = new System.Drawing.Point(131, 127);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(66, 18);
             this.label5.TabIndex = 2;
@@ -131,7 +132,7 @@
             // 
             // txt_typecd_kansei_end
             // 
-            this.txt_typecd_kansei_end.Location = new System.Drawing.Point(134, 147);
+            this.txt_typecd_kansei_end.Location = new System.Drawing.Point(134, 206);
             this.txt_typecd_kansei_end.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_typecd_kansei_end.Name = "txt_typecd_kansei_end";
             this.txt_typecd_kansei_end.Size = new System.Drawing.Size(462, 25);
@@ -140,7 +141,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 126);
+            this.label6.Location = new System.Drawing.Point(12, 185);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(102, 18);
             this.label6.TabIndex = 2;
@@ -149,7 +150,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(131, 126);
+            this.label7.Location = new System.Drawing.Point(131, 185);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(66, 18);
             this.label7.TabIndex = 2;
@@ -157,7 +158,7 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(15, 147);
+            this.numericUpDown2.Location = new System.Drawing.Point(15, 206);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -170,16 +171,16 @@
             // 
             // consoleBox
             // 
-            this.consoleBox.Location = new System.Drawing.Point(15, 337);
+            this.consoleBox.Location = new System.Drawing.Point(15, 400);
             this.consoleBox.Multiline = true;
             this.consoleBox.Name = "consoleBox";
             this.consoleBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.consoleBox.Size = new System.Drawing.Size(758, 244);
+            this.consoleBox.Size = new System.Drawing.Size(758, 181);
             this.consoleBox.TabIndex = 8;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(619, 89);
+            this.button3.Location = new System.Drawing.Point(619, 148);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(144, 83);
             this.button3.TabIndex = 9;
@@ -205,7 +206,7 @@
             // 
             // txt_procjson_hankan
             // 
-            this.txt_procjson_hankan.Location = new System.Drawing.Point(89, 262);
+            this.txt_procjson_hankan.Location = new System.Drawing.Point(89, 321);
             this.txt_procjson_hankan.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_procjson_hankan.Name = "txt_procjson_hankan";
             this.txt_procjson_hankan.Size = new System.Drawing.Size(683, 25);
@@ -215,7 +216,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(11, 243);
+            this.label10.Location = new System.Drawing.Point(11, 302);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(119, 18);
             this.label10.TabIndex = 5;
@@ -224,7 +225,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(27, 265);
+            this.label11.Location = new System.Drawing.Point(27, 324);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(56, 18);
             this.label11.TabIndex = 11;
@@ -233,7 +234,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(27, 297);
+            this.label12.Location = new System.Drawing.Point(27, 356);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(44, 18);
             this.label12.TabIndex = 11;
@@ -241,18 +242,29 @@
             // 
             // txt_procjson_kansei
             // 
-            this.txt_procjson_kansei.Location = new System.Drawing.Point(89, 294);
+            this.txt_procjson_kansei.Location = new System.Drawing.Point(89, 353);
             this.txt_procjson_kansei.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_procjson_kansei.Name = "txt_procjson_kansei";
             this.txt_procjson_kansei.Size = new System.Drawing.Size(683, 25);
             this.txt_procjson_kansei.TabIndex = 3;
             this.txt_procjson_kansei.Text = "C:\\Users\\jn-wtnb\\Desktop\\procmaster\\json";
             // 
+            // btn_makeRootModel
+            // 
+            this.btn_makeRootModel.Location = new System.Drawing.Point(26, 13);
+            this.btn_makeRootModel.Name = "btn_makeRootModel";
+            this.btn_makeRootModel.Size = new System.Drawing.Size(150, 33);
+            this.btn_makeRootModel.TabIndex = 12;
+            this.btn_makeRootModel.Text = "Make Root Model";
+            this.btn_makeRootModel.UseVisualStyleBackColor = true;
+            this.btn_makeRootModel.Click += new System.EventHandler(this.btn_makeRootModel_Click);
+            // 
             // FmProcMasterIF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 611);
+            this.Controls.Add(this.btn_makeRootModel);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.statusStrip1);
@@ -312,6 +324,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txt_procjson_kansei;
+        private System.Windows.Forms.Button btn_makeRootModel;
     }
 }
 

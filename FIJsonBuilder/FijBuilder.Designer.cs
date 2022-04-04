@@ -103,6 +103,8 @@
             this.lb_pc = new System.Windows.Forms.ListBox();
             this.label7 = new System.Windows.Forms.Label();
             this.tb_mcfile = new System.Windows.Forms.TabPage();
+            this.chk_mcfile_sp1 = new System.Windows.Forms.CheckBox();
+            this.tb_mcfile_return = new System.Windows.Forms.TextBox();
             this.tb_mcfilekey = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.cmb_infilekey = new System.Windows.Forms.ComboBox();
@@ -124,10 +126,8 @@
             this.label32 = new System.Windows.Forms.Label();
             this.cb_mcfile_enc = new System.Windows.Forms.ComboBox();
             this.chk_mcfile_verifiparam = new System.Windows.Forms.CheckBox();
-            this.chk_mcfile_sp1 = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.tb_mcfile_return = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.bt_rm_mcfilekey = new System.Windows.Forms.Button();
             this.bt_add_mcfilekey = new System.Windows.Forms.Button();
@@ -944,12 +944,12 @@
             // 
             // tb_mcfile
             // 
+            this.tb_mcfile.Controls.Add(this.chk_mcfile_sp1);
             this.tb_mcfile.Controls.Add(this.tb_mcfile_return);
             this.tb_mcfile.Controls.Add(this.tb_mcfilekey);
             this.tb_mcfile.Controls.Add(this.groupBox8);
             this.tb_mcfile.Controls.Add(this.cb_mcfile_enc);
             this.tb_mcfile.Controls.Add(this.chk_mcfile_verifiparam);
-            this.tb_mcfile.Controls.Add(this.chk_mcfile_sp1);
             this.tb_mcfile.Controls.Add(this.label10);
             this.tb_mcfile.Controls.Add(this.label9);
             this.tb_mcfile.Controls.Add(this.label8);
@@ -965,11 +965,29 @@
             this.tb_mcfile.Text = "FILEIF IOファイル設定";
             this.tb_mcfile.UseVisualStyleBackColor = true;
             // 
+            // chk_mcfile_sp1
+            // 
+            this.chk_mcfile_sp1.AutoSize = true;
+            this.chk_mcfile_sp1.Location = new System.Drawing.Point(274, 85);
+            this.chk_mcfile_sp1.Name = "chk_mcfile_sp1";
+            this.chk_mcfile_sp1.Size = new System.Drawing.Size(140, 21);
+            this.chk_mcfile_sp1.TabIndex = 14;
+            this.chk_mcfile_sp1.Text = "電文最後に改行(\\r\\n)";
+            this.chk_mcfile_sp1.UseVisualStyleBackColor = true;
+            // 
+            // tb_mcfile_return
+            // 
+            this.tb_mcfile_return.Location = new System.Drawing.Point(154, 106);
+            this.tb_mcfile_return.Multiline = true;
+            this.tb_mcfile_return.Name = "tb_mcfile_return";
+            this.tb_mcfile_return.Size = new System.Drawing.Size(384, 52);
+            this.tb_mcfile_return.TabIndex = 12;
+            // 
             // tb_mcfilekey
             // 
             this.tb_mcfilekey.Enabled = false;
             this.tb_mcfilekey.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.tb_mcfilekey.Location = new System.Drawing.Point(153, 31);
+            this.tb_mcfilekey.Location = new System.Drawing.Point(153, 28);
             this.tb_mcfilekey.Name = "tb_mcfilekey";
             this.tb_mcfilekey.Size = new System.Drawing.Size(159, 24);
             this.tb_mcfilekey.TabIndex = 31;
@@ -1199,7 +1217,7 @@
             "euc-jp",
             "iso-2022-jp",
             "utf-16"});
-            this.cb_mcfile_enc.Location = new System.Drawing.Point(331, 30);
+            this.cb_mcfile_enc.Location = new System.Drawing.Point(331, 27);
             this.cb_mcfile_enc.Name = "cb_mcfile_enc";
             this.cb_mcfile_enc.Size = new System.Drawing.Size(173, 25);
             this.cb_mcfile_enc.TabIndex = 15;
@@ -1207,28 +1225,17 @@
             // chk_mcfile_verifiparam
             // 
             this.chk_mcfile_verifiparam.AutoSize = true;
-            this.chk_mcfile_verifiparam.Location = new System.Drawing.Point(354, 67);
+            this.chk_mcfile_verifiparam.Location = new System.Drawing.Point(354, 66);
             this.chk_mcfile_verifiparam.Name = "chk_mcfile_verifiparam";
             this.chk_mcfile_verifiparam.Size = new System.Drawing.Size(137, 21);
             this.chk_mcfile_verifiparam.TabIndex = 14;
             this.chk_mcfile_verifiparam.Text = "パラメータ検査を行う";
             this.chk_mcfile_verifiparam.UseVisualStyleBackColor = true;
             // 
-            // chk_mcfile_sp1
-            // 
-            this.chk_mcfile_sp1.AutoSize = true;
-            this.chk_mcfile_sp1.Location = new System.Drawing.Point(158, 94);
-            this.chk_mcfile_sp1.Name = "chk_mcfile_sp1";
-            this.chk_mcfile_sp1.Size = new System.Drawing.Size(173, 21);
-            this.chk_mcfile_sp1.TabIndex = 14;
-            this.chk_mcfile_sp1.Text = "” ”で囲われている電文を使用";
-            this.chk_mcfile_sp1.UseVisualStyleBackColor = true;
-            this.chk_mcfile_sp1.Visible = false;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(150, 67);
+            this.label10.Location = new System.Drawing.Point(150, 66);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(118, 17);
             this.label10.TabIndex = 13;
@@ -1242,14 +1249,6 @@
             this.label9.Size = new System.Drawing.Size(96, 17);
             this.label9.TabIndex = 13;
             this.label9.Text = "文字コード設定：";
-            // 
-            // tb_mcfile_return
-            // 
-            this.tb_mcfile_return.Location = new System.Drawing.Point(153, 87);
-            this.tb_mcfile_return.Multiline = true;
-            this.tb_mcfile_return.Name = "tb_mcfile_return";
-            this.tb_mcfile_return.Size = new System.Drawing.Size(384, 62);
-            this.tb_mcfile_return.TabIndex = 12;
             // 
             // label8
             // 
@@ -1294,7 +1293,7 @@
             // chk_mcfile_disableEndfile
             // 
             this.chk_mcfile_disableEndfile.AutoSize = true;
-            this.chk_mcfile_disableEndfile.Location = new System.Drawing.Point(274, 67);
+            this.chk_mcfile_disableEndfile.Location = new System.Drawing.Point(274, 66);
             this.chk_mcfile_disableEndfile.Name = "chk_mcfile_disableEndfile";
             this.chk_mcfile_disableEndfile.Size = new System.Drawing.Size(71, 21);
             this.chk_mcfile_disableEndfile.TabIndex = 32;
