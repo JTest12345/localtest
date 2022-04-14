@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Oskas;
+using YamlDotNet.RepresentationModel;
 
 
 namespace FileIf
@@ -9,7 +10,7 @@ namespace FileIf
     {
         //◇評価実験用定数・変数
         //CSV移動先
-        string csvDirMoveTo = @"\\temp\temp\";
+        string csvDirMoveTo = string.Empty;
         //COJ格納変数
         string coj = string.Empty;
 
@@ -33,7 +34,7 @@ namespace FileIf
             fs.lbl = new string[] { fs.mclbl, fs.keylbl };
 
 
-            //<taskid=sta101>【macconf.ini】設備情報取得
+            //<taskid=csvtest101>【macconf.ini】設備情報取得
             taskid = 101;
             string[] gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
             if (gmic[0] == "NG")
@@ -42,7 +43,27 @@ namespace FileIf
             }
 
 
-            //<taskid=sta102>【CSV移動】生データを指定先フォルダにコピー / ファイルの存在確認
+            //<taskid=csvtest102>【CSV移動】fileconfigを読込
+            try
+            {
+                taskid += 1;
+                var filepath = fs.MacFld + "\\conf\\fileconf.yaml";
+                var rootNode = CommonFuncs.YamlFileReader(filepath, ref msg);
+
+                if (rootNode != null)
+                {
+                    var movedir = (YamlMappingNode)rootNode["movedir"];
+                    csvDirMoveTo = movedir[fs.keylbl].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
+                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+            }
+
+
+            //<taskid=csvtest103>【CSV移動】生データを指定先フォルダにコピー / ファイルの存在確認
             try
             {
                 taskid += 1;
@@ -67,7 +88,7 @@ namespace FileIf
             }
 
 
-            //<taskid=sta103>【COJ生成】FS及び設備情報からCOJ生成
+            //<taskid=csvtest104>【COJ生成】FS及び設備情報からCOJ生成
             try
             {
                 taskid += 1;
@@ -103,7 +124,7 @@ namespace FileIf
             }
 
 
-            //<taskid=sta104>【COJ生成】COJIFを生成したCOJでキック
+            //<taskid=csvtest105>【COJ生成】COJIFを生成したCOJでキック
             try
             {
                 taskid += 1;
@@ -125,7 +146,7 @@ namespace FileIf
             }
 
 
-            //<taskid=sta104> inフォルダからtempフォルダにCSVファイルを移動
+            //<taskid=csvtest106> inフォルダからtempフォルダにCSVファイルを移動
             taskid += 1;
             string[] mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref msg, ref Dbgmsg);
             if (mitf[0] == "NG")

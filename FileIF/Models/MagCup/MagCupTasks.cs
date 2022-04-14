@@ -154,7 +154,11 @@ namespace FileIf
                         int qty = 0;
                         if (int.TryParse(contents[1], out qty))
                         {
-                            defectdict.Add(contents[0], qty);
+                            // 20220414 空データ対応
+                            if (contents[0]!="" || qty != 0)
+                            {
+                                defectdict.Add(contents[0], qty);
+                            }
                         }
                         else
                         {

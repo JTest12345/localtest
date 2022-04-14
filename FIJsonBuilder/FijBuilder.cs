@@ -447,6 +447,7 @@ namespace FIFJsonBuilder
             {
                 if (mcconf.Mcfs.mcfconfs.Count > 0)
                 {
+                    cmb_infilekey.Items.Add("");
                     for (int i = 0; i < mcconf.Mcfs.mcfconfs.Count; i++)
                     {
                         lb_mcfilekey.Items.Add(mcconf.Mcfs.mcfconfs[i].mcfilekey);

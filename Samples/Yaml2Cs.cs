@@ -10,7 +10,7 @@ namespace Samples
 {
     class Yaml2Cs
     {
-        static void Main(string[] args)
+        static void _Main(string[] args)
         {
             string yamlPath = @"C:\Oskas\oskas.yaml";
             var input = new StreamReader(yamlPath, Encoding.UTF8);

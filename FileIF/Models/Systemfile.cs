@@ -246,97 +246,98 @@ namespace FileIf
         {
             try
             {
-                string filepath = IniFileDir + yamlfilename;
-                if (!CommonFuncs.FileExists(filepath))
-                    return false;
+                var msg = string.Empty;
+                var filepath = IniFileDir + yamlfilename;
 
-                var input = new StreamReader(filepath, Encoding.UTF8);
-                var yaml = new YamlStream();
-                yaml.Load(input);
+                var rootNode = CommonFuncs.YamlFileReader(filepath, ref msg);
 
-                var rootNode = yaml.Documents[0].RootNode;
-
-                // [systemconf]
-                var systemconf = (YamlMappingNode)rootNode["systemconf"];
-
-                if (systemconf["debug"].ToString() == "true")
-                    DebugMode = true;
-                else
-                    DebugMode = false;
-                if (systemconf["use_plctrig"].ToString() == "true")
-                    UsePlcTrig = true;
-                else
-                    UsePlcTrig = false;
-                if (systemconf["check_vlot"].ToString() == "true")
-                    CheckVlot = true;
-                else
-                    CheckVlot = false;
-                outfiletimeout = int.Parse(systemconf["outfile_timeout"].ToString()); // CommonFuncs.GetIniValue(filepath, "systemconf", "outfile_timeout"));
-                historyoutofdate = int.Parse(systemconf["history_outofdate"].ToString()); // CommonFuncs.GetIniValue(filepath, "systemconf", "history_outofdate"));
-
-                // [fileconf]
-                var fileconf = (YamlMappingNode)rootNode["fileconf"];
-
-                MCDir = fileconf["DirSearc"].ToString(); // CommonFuncs.GetIniValue(filepath, "fileconf", "DirSearc");
-                MsglogDir = fileconf["MsglogDir"].ToString(); // CommonFuncs.GetIniValue(filepath, "fileconf", "MsglogDir");
-                WipDir = fileconf["WipDir"].ToString(); // CommonFuncs.GetIniValue(filepath, "fileconf", "WipDir");
-                RecipUpLoadDir = fileconf["RecipUpLoadDir"].ToString(); // CommonFuncs.GetIniValue(filepath, "fileconf", "RecipUpLoadDir");
-                string infilekey_ini = fileconf["infilekey"].ToString().Replace("[","").Replace("]","").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "infilekey");
-                infilekey = infilekey_ini.Split(',');
-                string wipfilekey_ini = fileconf["wipfilekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "wipfilekey");
-                wipfilekey = wipfilekey_ini.Split(',');
-                string endfilekey_ini = fileconf["endfilekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "endfilekey");
-                endfilekey = endfilekey_ini.Split(',');
-                string donefilekey_ini = fileconf["donefilekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "donefilekey");
-                donefilekey = donefilekey_ini.Split(',');
-                string errfilekey_ini = fileconf["errfilekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "errfilekey");
-                errfilekey = errfilekey_ini.Split(',');
-
-                // [ffetch]
-                var ffetch = (YamlMappingNode)rootNode["ffetch"];
-
-                string proccat_ini = ffetch["proccat"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "ffetch", "proccat");
-                FFetchPcat = proccat_ini.Split(',');
-                string macname_ini = ffetch["macno"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "ffetch", "macno");
-                FFetchMacName = macname_ini.Split(',');
-                string filekey_ini = ffetch["filekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "ffetch", "filekey");
-                FFetchFileKey = filekey_ini.Split(',');
-
-
-                // [dbconf]
-                var dbconf = (YamlMappingNode)rootNode["dbconf"];
-
-                Server = dbconf["Server"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Server");
-                Port = dbconf["Port"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Port");
-                Database1 = dbconf["Database1"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Database1");
-                Uid1 = dbconf["Uid1"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Uid1");
-                Pwd1 = dbconf["Pwd1"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Pwd1");
-                Database2 = dbconf["Database2"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Database2");
-                Uid2 = dbconf["Uid2"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Uid2");
-                Pwd2 = dbconf["Pwd2"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Pwd2");
-
-                // [mosquitto]
-                var mqtt = (YamlMappingNode)rootNode["mqtt"];
-
-                if (mqtt["isUseMqtt"].ToString() == "true")
+                if (rootNode != null)
                 {
-                    isUseMqtt = true;
+                    // [systemconf]
+                    var systemconf = (YamlMappingNode)rootNode["systemconf"];
+
+                    if (systemconf["debug"].ToString() == "true")
+                        DebugMode = true;
+                    else
+                        DebugMode = false;
+                    if (systemconf["use_plctrig"].ToString() == "true")
+                        UsePlcTrig = true;
+                    else
+                        UsePlcTrig = false;
+                    if (systemconf["check_vlot"].ToString() == "true")
+                        CheckVlot = true;
+                    else
+                        CheckVlot = false;
+                    outfiletimeout = int.Parse(systemconf["outfile_timeout"].ToString()); // CommonFuncs.GetIniValue(filepath, "systemconf", "outfile_timeout"));
+                    historyoutofdate = int.Parse(systemconf["history_outofdate"].ToString()); // CommonFuncs.GetIniValue(filepath, "systemconf", "history_outofdate"));
+
+                    // [fileconf]
+                    var fileconf = (YamlMappingNode)rootNode["fileconf"];
+
+                    MCDir = fileconf["DirSearc"].ToString(); // CommonFuncs.GetIniValue(filepath, "fileconf", "DirSearc");
+                    MsglogDir = fileconf["MsglogDir"].ToString(); // CommonFuncs.GetIniValue(filepath, "fileconf", "MsglogDir");
+                    WipDir = fileconf["WipDir"].ToString(); // CommonFuncs.GetIniValue(filepath, "fileconf", "WipDir");
+                    RecipUpLoadDir = fileconf["RecipUpLoadDir"].ToString(); // CommonFuncs.GetIniValue(filepath, "fileconf", "RecipUpLoadDir");
+                    string infilekey_ini = fileconf["infilekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "infilekey");
+                    infilekey = infilekey_ini.Split(',');
+                    string wipfilekey_ini = fileconf["wipfilekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "wipfilekey");
+                    wipfilekey = wipfilekey_ini.Split(',');
+                    string endfilekey_ini = fileconf["endfilekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "endfilekey");
+                    endfilekey = endfilekey_ini.Split(',');
+                    string donefilekey_ini = fileconf["donefilekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "donefilekey");
+                    donefilekey = donefilekey_ini.Split(',');
+                    string errfilekey_ini = fileconf["errfilekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "fileconf", "errfilekey");
+                    errfilekey = errfilekey_ini.Split(',');
+
+                    // [ffetch]
+                    var ffetch = (YamlMappingNode)rootNode["ffetch"];
+
+                    string proccat_ini = ffetch["proccat"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "ffetch", "proccat");
+                    FFetchPcat = proccat_ini.Split(',');
+                    string macname_ini = ffetch["macno"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "ffetch", "macno");
+                    FFetchMacName = macname_ini.Split(',');
+                    string filekey_ini = ffetch["filekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "ffetch", "filekey");
+                    FFetchFileKey = filekey_ini.Split(',');
+
+
+                    // [dbconf]
+                    var dbconf = (YamlMappingNode)rootNode["dbconf"];
+
+                    Server = dbconf["Server"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Server");
+                    Port = dbconf["Port"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Port");
+                    Database1 = dbconf["Database1"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Database1");
+                    Uid1 = dbconf["Uid1"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Uid1");
+                    Pwd1 = dbconf["Pwd1"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Pwd1");
+                    Database2 = dbconf["Database2"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Database2");
+                    Uid2 = dbconf["Uid2"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Uid2");
+                    Pwd2 = dbconf["Pwd2"].ToString(); // CommonFuncs.GetIniValue(filepath, "dbconf", "Pwd2");
+
+                    // [mosquitto]
+                    var mqtt = (YamlMappingNode)rootNode["mqtt"];
+
+                    if (mqtt["isUseMqtt"].ToString() == "true")
+                    {
+                        isUseMqtt = true;
+                    }
+                    else
+                    {
+                        isUseMqtt = false;
+                    }
+                    mosquittoHost = mqtt["mosquittoHost"].ToString(); // CommonFuncs.GetIniValue(filepath, "mqtt", "mosquittoHost");
+
+                    // [SQL Server Connection string]
+                    ConnectionString1 = $"Server={Server}; Port={Port}; Database={Database1}; Uid={Uid1}; Pwd={Pwd1}; SslMode=none";
+                    ConnectionString2 = $"Server={Server}; Port={Port}; Database={Database2}; Uid={Uid2}; Pwd={Pwd2}; SslMode=none";
+                    ConnectionStrings = new string[] { ConnectionString1, ConnectionString2 };
                 }
                 else
                 {
-                    isUseMqtt = false;
+                    globalmsg = "magcup.yaml読み込みに問題が発生しました:" + msg;
                 }
-                mosquittoHost = mqtt["mosquittoHost"].ToString(); // CommonFuncs.GetIniValue(filepath, "mqtt", "mosquittoHost");
-
-                // [SQL Server Connection string]
-                ConnectionString1 = $"Server={Server}; Port={Port}; Database={Database1}; Uid={Uid1}; Pwd={Pwd1}; SslMode=none";
-                ConnectionString2 = $"Server={Server}; Port={Port}; Database={Database2}; Uid={Uid2}; Pwd={Pwd2}; SslMode=none";
-                ConnectionStrings = new string[] { ConnectionString1, ConnectionString2 };
-
             }
-            catch
+            catch (Exception ex)
             {
-                globalmsg = "magcup.yaml読み込みに問題が発生しました";
+                globalmsg = "magcup.yaml読み込みに問題が発生しました:" + ex.Message;
                 return false;
             }
             return true;

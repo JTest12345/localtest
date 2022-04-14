@@ -16,6 +16,7 @@ using Newtonsoft.Json.Linq;
 using YamlDotNet.RepresentationModel;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using Oskas;
 
 namespace ProcMasterIF
 {
@@ -23,31 +24,86 @@ namespace ProcMasterIF
     {
         string crlf = "\r\n";
         string msg;
-        string configpath = @"C:\Oskas\procmaster\config.json";
-        ConfigRoot conf;
+        string workingdir = @"C:\Oskas\procmaster\shomei\ver9";
+        MakeprocjsonRoot conf;
         SLDocument sl;
         public bool interLock = false;
+        SeriesTypeMaster sr;
+
 
         public FmProcMasterIF()
         {
             InitializeComponent();
 
-            var configstr = string.Empty;
-            if (!readJson(configpath, ref configstr))
+            // cojmakeprocfile
+            var yamlPath = workingdir + @"\cojmakeprocfile.yaml";
+            var cojmakeprocfile_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+            var deserializer = new DeserializerBuilder()
+                               .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                               .Build();
+            conf = deserializer.Deserialize<MakeprocjsonRoot>(cojmakeprocfile_yaml);
+
+            //// (とりあえず)表示処理
+            txt_shinkishutenkai.Text = conf.makeprocjson.config.path.shinkishutenkaifile;
+            txt_buhinhyou.Text = conf.makeprocjson.config.path.buhinhyoufolder;
+            txt_procjson_hankan.Text = conf.makeprocjson.config.path.procjsonfolder.hankan;
+            txt_procjson_kansei.Text = conf.makeprocjson.config.path.procjsonfolder.kansei;
+
+
+            /////////////////////////
+            ///ROOT
+            /////////////////////////
+            ///
+            var rootmodelfldpath = workingdir + @"\model\root";
+
+            // 新機種展開表
+            yamlPath = rootmodelfldpath + @"\shinkishutenkai.yaml";
+            var shinkishutenai_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+            deserializer = new DeserializerBuilder()
+                               .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                               .Build();
+            var shinkishutenai_obj = deserializer.Deserialize<Shinkishutenkai>(shinkishutenai_yaml);
+
+
+            // 部品表
+            yamlPath = rootmodelfldpath + @"\buhinhyou.yaml";
+            var buhinhyou_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+            deserializer = new DeserializerBuilder()
+                            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                            .Build();
+            var buhinhyou_obj = deserializer.Deserialize<Buhinhyou>(buhinhyou_yaml);
+
+
+            // 工程定義
+            yamlPath = rootmodelfldpath + @"\processlist.yaml";
+            var processlist_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+            deserializer = new DeserializerBuilder()
+                            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                            .Build();
+            var processlist_obj = deserializer.Deserialize<List<string>>(processlist_yaml);
+            var process_dict = new Dictionary<string, Process>();
+
+
+            foreach (var proc in processlist_obj)
             {
-                ConsoleShow("config.jsonが正常に読み込めませんでした", 3);
-                return;
+                yamlPath = rootmodelfldpath + @"\process\" + proc + ".yaml";
+                var proc_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                deserializer = new DeserializerBuilder()
+                                .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                .Build();
+                var proc_obj = deserializer.Deserialize<Process>(proc_yaml);
+                process_dict[proc] = proc_obj;
             }
 
-            conf = JsonConvert.DeserializeObject<ConfigRoot>(configstr);
+            // シリーズルート
+            sr = new SeriesTypeMaster();
+            sr.shinkishutenkai = shinkishutenai_obj;
+            sr.buhinhyou = buhinhyou_obj;
+            sr.processdict = process_dict;
 
-            // (とりあえず)表示処理
-            txt_shinkishutenkai.Text = conf.makeprocjson[0].config[0].path.shinkishutenkai_file;
-            txt_buhinhyou.Text = conf.makeprocjson[0].config[0].path.buhinhyou_folder;
-            txt_procjson_hankan.Text = conf.makeprocjson[0].config[0].path.procjson_folder.hankan;
-            txt_procjson_kansei.Text = conf.makeprocjson[0].config[0].path.procjson_folder.kansei;
+            numericUpDown1Set(1);
+            numericUpDown2Set(1);
         }
-
 
 
         delegate void ConsoleDelegate(string text, int level);
@@ -77,6 +133,7 @@ namespace ProcMasterIF
             }
         }
 
+
         delegate void ToolStripStatusDelegate(string text);
         private void ToolStripStatusShow(string text)
         {
@@ -90,6 +147,7 @@ namespace ProcMasterIF
                 toolStripStatusLabel1.Text = text;
             }
         }
+
 
         delegate void numericUpDown1Delegate(int value);
         private void numericUpDown1Set(int value)
@@ -105,6 +163,7 @@ namespace ProcMasterIF
             }
         }
 
+
         delegate void numericUpDown2Delegate(int value);
         private void numericUpDown2Set(int value)
         {
@@ -119,14 +178,120 @@ namespace ProcMasterIF
             }
         }
 
+
         private void button3_Click(object sender, EventArgs e)
         {
             if (!interLock)
             {
                 interLock = true;
 
+                var cols = conf.makeprocjson.config.model[0].shinkishutenkaicol[0].ToString().Split('/');
+                numericUpDown1.Value = int.Parse(cols[0].Replace(" ", ""));
+                numericUpDown2.Value = int.Parse(cols[1].Replace(" ", ""));
+
                 Task readHankan = Task.Run(() =>
                 {
+                    /////////////////////////////////
+                    /// 半完ルートからマスタ作成
+                    /////////////////////////////////
+                    var orthankanfld = workingdir + @"\model\sources\" + conf.makeprocjson.config.model[0].folder + @"\" + conf.makeprocjson.config.model[0].hankan;
+                    var orthankan = new Procmastermodel();
+
+                    // 新機種展開表をルートからコピー
+                    orthankan.shinkishutenkai = sr.shinkishutenkai;
+
+                    // 部品表をルートからコピー
+                    orthankan.buhinhyou = sr.buhinhyou;
+
+                    // 工程順
+                    var yamlPath = orthankanfld + @"\processorder.yaml";
+                    var processorder_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                    var deserializer = new DeserializerBuilder()
+                                    .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                    .Build();
+                    orthankan.processorder = deserializer.Deserialize<List<string>>(processorder_yaml);
+
+                    // 工程定義をルートの工程辞書から工程順リストを元に取得
+                    orthankan.process = new List<Process>();
+                    foreach (var proc in orthankan.processorder)
+                    {
+                        orthankan.process.Add(sr.processdict[proc]);
+                    }
+
+                    // オーバーライド処理
+                    // 新機種展開表
+                    yamlPath = orthankanfld + @"\shinkishutenkai.yaml";
+                    if (CommonFuncs.FileExists(yamlPath))
+                    {
+                        var shinkishutenai_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                        deserializer = new DeserializerBuilder()
+                                           .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                           .Build();
+                        orthankan.shinkishutenkai = deserializer.Deserialize<Shinkishutenkai>(shinkishutenai_yaml);
+                    }
+
+                    yamlPath = orthankanfld + @"\buhinhyou.yaml";
+                    if (CommonFuncs.FileExists(yamlPath))
+                    {
+                        var buhinhyou_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                        deserializer = new DeserializerBuilder()
+                                           .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                           .Build();
+                        orthankan.buhinhyou = deserializer.Deserialize<Buhinhyou>(buhinhyou_yaml);
+                    }
+
+                    /////////////////////////////////
+                    /// 完成ルートからマスタ作成
+                    /////////////////////////////////
+                    var ortkanseifld = workingdir + @"\model\sources\" + conf.makeprocjson.config.model[0].folder + @"\" + conf.makeprocjson.config.model[0].kansei;
+                    var ortkansei = new Procmastermodel();
+
+                    // 新機種展開表をルートからコピー
+                    ortkansei.shinkishutenkai = sr.shinkishutenkai;
+
+                    // 部品表をルートからコピー
+                    ortkansei.buhinhyou = sr.buhinhyou;
+
+                    // 工程順
+                    yamlPath = ortkanseifld + @"\processorder.yaml";
+                    processorder_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                    deserializer = new DeserializerBuilder()
+                                    .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                    .Build();
+                    ortkansei.processorder = deserializer.Deserialize<List<string>>(processorder_yaml);
+
+                    // 工程定義をルートの工程辞書から工程順リストを元に取得
+                    ortkansei.process = new List<Process>();
+                    foreach (var proc in ortkansei.processorder)
+                    {
+                        ortkansei.process.Add(sr.processdict[proc]);
+                    }
+
+                    // オーバーライド処理
+                    // 新機種展開表
+                    yamlPath = ortkanseifld + @"\shinkishutenkai.yaml";
+                    if (CommonFuncs.FileExists(yamlPath))
+                    {
+                        var shinkishutenai_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                        deserializer = new DeserializerBuilder()
+                                           .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                           .Build();
+                        ortkansei.shinkishutenkai = deserializer.Deserialize<Shinkishutenkai>(shinkishutenai_yaml);
+                    }
+
+                    yamlPath = ortkanseifld + @"\buhinhyou.yaml";
+                    if (CommonFuncs.FileExists(yamlPath))
+                    {
+                        var buhinhyou_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                        deserializer = new DeserializerBuilder()
+                                           .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                           .Build();
+                        ortkansei.buhinhyou = deserializer.Deserialize<Buhinhyou>(buhinhyou_yaml);
+                    }
+
+                    ///////////////////////////
+                    ///make procjson
+                    ///////////////////////////
                     for (var i = numericUpDown1.Value; i <= numericUpDown2.Value; i++)
                     {
                         var procobj_hankan = new MastermodelRoot();
@@ -138,56 +303,153 @@ namespace ProcMasterIF
                         ConsoleShow("hankan-" + i + "=" + hankan, 1);
                         ConsoleShow("kansei-" + i + "=" + kansei, 1);
 
-                        var jsonmodelpath_hankan = conf.makeprocjson[0].config[0].defaultmodel.hankan;
-                        var jsonmodelpath_kansei = conf.makeprocjson[0].config[0].defaultmodel.kansei;
-
-                        foreach (var model in conf.makeprocjson[0].config[0].models)
-                        {
-                            if (kansei.Contains(model.typekey))
-                            {
-                                jsonmodelpath_hankan = model.hankan;
-                                jsonmodelpath_kansei = model.kansei;
-                                break;
-                            }
-                        }
+                        ////////////////////////////////
+                        // 半完マスタ
+                        ////////////////////////////////
+                        ///
                         
-                        // ProcJson作成
-                        if(!makeProcJson(jsonmodelpath_hankan, i, ref procobj_hankan))
+                        ortkansei = new Procmastermodel();
+
+                        // 新機種展開表をルートからコピー
+                        ortkansei.shinkishutenkai = sr.shinkishutenkai.DeepClone(); ;
+
+                        // 部品表をルートからコピー
+                        ortkansei.buhinhyou = sr.buhinhyou.DeepClone(); ;
+
+                        // 工程順
+                        yamlPath = orthankanfld + @"\processorder.yaml";
+                        processorder_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                        deserializer = new DeserializerBuilder()
+                                        .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                        .Build();
+                        ortkansei.processorder = deserializer.Deserialize<List<string>>(processorder_yaml);
+
+                        // 工程定義をルートの工程辞書から工程順リストを元に取得
+                        ortkansei.process = new List<Process>();
+                        foreach (var proc in ortkansei.processorder)
                         {
-                            interLock = false;
-                            return;
+                            ortkansei.process.Add(sr.processdict[proc]);
                         }
-                        if (!makeProcJson(jsonmodelpath_kansei, i, ref procobj_kansei))
+
+                        // オーバーライド処理
+                        // 新機種展開表
+                        yamlPath = orthankanfld + @"\shinkishutenkai.yaml";
+                        if (CommonFuncs.FileExists(yamlPath))
+                        {
+                            var shinkishutenai_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                            deserializer = new DeserializerBuilder()
+                                               .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                               .Build();
+                            ortkansei.shinkishutenkai = deserializer.Deserialize<Shinkishutenkai>(shinkishutenai_yaml);
+                        }
+
+                        yamlPath = orthankanfld + @"\buhinhyou.yaml";
+                        if (CommonFuncs.FileExists(yamlPath))
+                        {
+                            var buhinhyou_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                            deserializer = new DeserializerBuilder()
+                                               .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                               .Build();
+                            ortkansei.buhinhyou = deserializer.Deserialize<Buhinhyou>(buhinhyou_yaml);
+                        }
+
+                        procobj_hankan.procmastermodel = ortkansei;
+
+                        // ProcJson作成
+                        if (!makeProcJson(i, ref procobj_hankan))
                         {
                             interLock = false;
                             return;
                         }
 
+
+                        ////////////////////////////////
+                        // 完成品マスタ
+                        ////////////////////////////////
+                        ///
+
+                        ortkansei = new Procmastermodel();
+
+                        // 新機種展開表をルートからコピー
+                        ortkansei.shinkishutenkai = sr.shinkishutenkai.DeepClone(); ;
+
+                        // 部品表をルートからコピー
+                        ortkansei.buhinhyou = sr.buhinhyou.DeepClone(); ;
+
+                        // 工程順
+                        yamlPath = ortkanseifld + @"\processorder.yaml";
+                        processorder_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                        deserializer = new DeserializerBuilder()
+                                        .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                        .Build();
+                        ortkansei.processorder = deserializer.Deserialize<List<string>>(processorder_yaml);
+
+                        // 工程定義をルートの工程辞書から工程順リストを元に取得
+                        ortkansei.process = new List<Process>();
+                        foreach (var proc in ortkansei.processorder)
+                        {
+                            ortkansei.process.Add(sr.processdict[proc]);
+                        }
+
+                        // オーバーライド処理
+                        // 新機種展開表
+                        yamlPath = ortkanseifld + @"\shinkishutenkai.yaml";
+                        if (CommonFuncs.FileExists(yamlPath))
+                        {
+                            var shinkishutenai_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                            deserializer = new DeserializerBuilder()
+                                               .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                               .Build();
+                            ortkansei.shinkishutenkai = deserializer.Deserialize<Shinkishutenkai>(shinkishutenai_yaml);
+                        }
+
+                        yamlPath = ortkanseifld + @"\buhinhyou.yaml";
+                        if (CommonFuncs.FileExists(yamlPath))
+                        {
+                            var buhinhyou_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                            deserializer = new DeserializerBuilder()
+                                               .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                               .Build();
+                            ortkansei.buhinhyou = deserializer.Deserialize<Buhinhyou>(buhinhyou_yaml);
+                        }
+
+                        procobj_kansei.procmastermodel = ortkansei;
+
+                        if (!makeProcJson(i, ref procobj_kansei))
+                        {
+                            interLock = false;
+                            return;
+                        }
+
+
+                        /////////////////////////////////
+                        // Jsonファイルに書き出し
+                        /////////////////////////////////
+                        ///
                         procobj_hankan.procmastermodel.typecd = procobj_hankan.procmastermodel.shinkishutenkai.typeinfo.hankan.value;
                         procobj_kansei.procmastermodel.typecd = procobj_kansei.procmastermodel.shinkishutenkai.typeinfo.kansei.value;
-
-                        // Jsonファイルに書き出し
-                        var procjsonfolder_hankan = conf.makeprocjson[0].config[0].path.procjson_folder.hankan;
-                        var procjsonfolder_kansei = conf.makeprocjson[0].config[0].path.procjson_folder.kansei;
+                                               
+                        var procjsonfolder_hankan = conf.makeprocjson.config.path.procjsonfolder.hankan;
+                        var procjsonfolder_kansei = conf.makeprocjson.config.path.procjsonfolder.kansei;
 
                         if (!string.IsNullOrEmpty(procjsonfolder_hankan))
                         {
-                            var procjsonfolder = procjsonfolder_hankan + "\\" + procobj_hankan.procmastermodel.typecd + ".json";
-                            //if (!System.IO.File.Exists(jsonpath) )
-                            //{
-                            //    Oskas.CommonFuncs.JsonFileWriter(jsonpath, procobj, ref msg);
-                            //}
-                            Oskas.CommonFuncs.JsonFileWriter(procjsonfolder, procobj_hankan, ref msg);
+                            var jsonpath = procjsonfolder_hankan + "\\" + procobj_hankan.procmastermodel.typecd + ".json";
+                            if (!System.IO.File.Exists(jsonpath))
+                            {
+                                Oskas.CommonFuncs.JsonFileWriter(jsonpath, procobj_hankan, ref msg);
+                            }
+                            //Oskas.CommonFuncs.JsonFileWriter(jsonpath, procobj_hankan, ref msg);
                         }
 
                         if (!string.IsNullOrEmpty(procjsonfolder_kansei))
                         {
-                            var procjsonfolder = procjsonfolder_kansei + "\\" + procobj_kansei.procmastermodel.typecd + ".json";
+                            var jsonpath = procjsonfolder_kansei + "\\" + procobj_kansei.procmastermodel.typecd + ".json";
                             //if (!System.IO.File.Exists(jsonpath) )
                             //{
                             //    Oskas.CommonFuncs.JsonFileWriter(jsonpath, procobj, ref msg);
                             //}
-                            Oskas.CommonFuncs.JsonFileWriter(procjsonfolder, procobj_kansei, ref msg);
+                            Oskas.CommonFuncs.JsonFileWriter(jsonpath, procobj_kansei, ref msg);
                         }
                     }
                     ToolStripStatusShow("");
@@ -195,6 +457,7 @@ namespace ProcMasterIF
                 });
             }
         }
+
 
         private void FmProcMasterIF_Shown(object sender, EventArgs e)
         {
@@ -204,21 +467,27 @@ namespace ProcMasterIF
                 ToolStripStatusShow("◆新機種展開表を読み込んでいます");
                 sl = new SLDocument(txt_shinkishutenkai.Text);
                 ToolStripStatusShow("読込完了");
-
-                numericUpDown1Set(10);
-                numericUpDown2Set(10);
             });
         }
 
+
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            txt_typecd_kansei_start.Text = sl.GetCellValueAsString("B" + numericUpDown1.Value);
+            if (sl != null)
+            {
+                txt_typecd_kansei_start.Text = sl.GetCellValueAsString("B" + numericUpDown1.Value);
+            }
         }
+
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
-            txt_typecd_kansei_end.Text = sl.GetCellValueAsString("B" + numericUpDown2.Value);
+            if (sl != null)
+            {
+                txt_typecd_kansei_end.Text = sl.GetCellValueAsString("B" + numericUpDown2.Value);
+            }
         }
+
 
         private bool readJson(string jsonpath, ref string json)
         {
@@ -233,17 +502,17 @@ namespace ProcMasterIF
         }
 
 
-        private bool makeProcJson(string jsonmodelpath, decimal row, ref MastermodelRoot procobj)
+        private bool makeProcJson(decimal row, ref MastermodelRoot procobj)
         {
-            var jsonstr = string.Empty;
+            //var jsonstr = string.Empty;
 
-            if (!readJson(jsonmodelpath, ref jsonstr))
-            {
-                procobj = null;
-                return false;
-            }
+            //if (!readJson(jsonmodelpath, ref jsonstr))
+            //{
+            //    procobj = null;
+            //    return false;
+            //}
 
-            procobj = JsonConvert.DeserializeObject<MastermodelRoot>(jsonstr);
+            //procobj = JsonConvert.DeserializeObject<MastermodelRoot>(jsonstr);
 
             //////////////////////
             //新機種展開表を読込
@@ -302,15 +571,15 @@ namespace ProcMasterIF
             }
 
             //lotinfo.maisu_lot
-            if (skt.lotinfo.maisu_lot.value == "")
+            if (skt.lotinfo.lotmaisu.value == "")
             {
-                skt.lotinfo.maisu_lot.value = sl.GetCellValueAsString(skt.lotinfo.maisu_lot.xlscol + row);
+                skt.lotinfo.lotmaisu.value = sl.GetCellValueAsString(skt.lotinfo.lotmaisu.xlscol + row);
             }
 
             //lotinfo.pkg_lot
-            if (skt.lotinfo.pkg_lot.value == "")
+            if (skt.lotinfo.lotpics.value == "")
             {
-                skt.lotinfo.pkg_lot.value = sl.GetCellValueAsString(skt.lotinfo.pkg_lot.xlscol + row);
+                skt.lotinfo.lotpics.value = sl.GetCellValueAsString(skt.lotinfo.lotpics.xlscol + row);
             }
 
             //etc.buhinhyou.zuban.jp
@@ -381,6 +650,7 @@ namespace ProcMasterIF
             return true;
         }
 
+
         private string GetBomPath(string bomno)
         {
             var serchDir = txt_buhinhyou.Text;
@@ -397,22 +667,122 @@ namespace ProcMasterIF
             return "";
         }
 
+
         private void btn_makeRootModel_Click(object sender, EventArgs e)
         {
-            var yamlPath = @"C:\Oskas\procmaster\model\shoumei\ver9\rootmodel\shinkishutenkai.yaml";
-            // テキスト抽出
-            var input = new StreamReader(yamlPath, Encoding.UTF8);
+            var rootmodelfldpath = @"C:\Oskas\procmaster\model\shoumei\ver9\root";
 
-            // デシリアライザインスタンス作成
+            // 新機種展開表
+            var yamlPath = rootmodelfldpath + @"\shinkishutenkai.yaml";
+            var shinkishutenai_yaml = new StreamReader(yamlPath, Encoding.UTF8);
             var deserializer = new DeserializerBuilder()
                                .WithNamingConvention(CamelCaseNamingConvention.Instance)
                                .Build();
+            var shinkishutenai_obj = deserializer.Deserialize<Shinkishutenkai>(shinkishutenai_yaml);
 
-            // yamlデータのオブジェクトを作成
-            var deserializeObject = deserializer.Deserialize<Shinkishutenkai>(input);
 
-            ConsoleShow(deserializeObject.ToString(), 1);
+            // 部品表
+            yamlPath = rootmodelfldpath + @"\buhinhyou.yaml";
+            var buhinhyou_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+            deserializer = new DeserializerBuilder()
+                            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                            .Build();
+            var buhinhyou_obj = deserializer.Deserialize<Buhinhyou>(buhinhyou_yaml);
+
+
+            // 工程定義
+            yamlPath = rootmodelfldpath + @"\processlist.yaml";
+            var processlist_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+            deserializer = new DeserializerBuilder()
+                            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                            .Build();
+            var processlist_obj = deserializer.Deserialize<List<string>>(processlist_yaml);
+            var process_dict = new Dictionary<string, Process>();
+
+
+            foreach (var proc in processlist_obj)
+            {
+                yamlPath = rootmodelfldpath + @"\process\" + proc + ".yaml";
+                var proc_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                deserializer = new DeserializerBuilder()
+                                .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                .Build();
+                var proc_obj = deserializer.Deserialize<Process>(proc_yaml);
+                process_dict[proc] = proc_obj;
+            }
+
+            // シリーズルート
+            var sr = new SeriesTypeMaster();
+            sr.shinkishutenkai = shinkishutenai_obj;
+            sr.buhinhyou = buhinhyou_obj;
+            sr.processdict = process_dict;
+
+            ////////////////////////////////
+            //　オーバーライドテスト
+            ////////////////////////////////
+            ///
+            var ortfld = @"C:\Oskas\procmaster\model\shoumei\ver9\modelsources\ver9_hankan_as0309";
+            var ort = new Procmastermodel();
+            
+            // 新機種展開表をルートからコピー
+            ort.shinkishutenkai = sr.shinkishutenkai;
+
+            // 部品表をルートからコピー
+            ort.buhinhyou = sr.buhinhyou;
+
+            // 工程順
+            yamlPath = ortfld + @"\processorder.yaml";
+            var processorder_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+            deserializer = new DeserializerBuilder()
+                            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                            .Build();
+            ort.processorder = deserializer.Deserialize<List<string>>(processorder_yaml);
+
+            // 工程定義をルートの工程辞書から工程順リストを元に取得
+            ort.process = new List<Process>();
+            foreach (var proc in ort.processorder)
+            {
+                ort.process.Add(sr.processdict[proc]);
+            }
+
+            // オーバーライド処理
+            // 新機種展開表
+            yamlPath = ortfld + @"\shinkishutenkai.yaml";
+            if (CommonFuncs.FileExists(yamlPath))
+            {
+                shinkishutenai_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                deserializer = new DeserializerBuilder()
+                                   .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                   .Build();
+                ort.shinkishutenkai = deserializer.Deserialize<Shinkishutenkai>(shinkishutenai_yaml);
+            }
+
+            yamlPath = ortfld + @"\buhinhyou.yaml";
+            if (CommonFuncs.FileExists(yamlPath))
+            {
+                buhinhyou_yaml = new StreamReader(yamlPath, Encoding.UTF8);
+                deserializer = new DeserializerBuilder()
+                                   .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                   .Build();
+                ort.buhinhyou = deserializer.Deserialize<Buhinhyou>(buhinhyou_yaml);
+            }
         }
     }
 
+    public static class ObjectExtension
+    {
+        // ディープコピーの複製を作る拡張メソッド
+        public static T DeepClone<T>(this T src)
+        {
+            using (var memoryStream = new System.IO.MemoryStream())
+            {
+                var binaryFormatter
+                  = new System.Runtime.Serialization
+                        .Formatters.Binary.BinaryFormatter();
+                binaryFormatter.Serialize(memoryStream, src); // シリアライズ
+                memoryStream.Seek(0, System.IO.SeekOrigin.Begin);
+                return (T)binaryFormatter.Deserialize(memoryStream); // デシリアライズ
+            }
+        }
+    }
 }

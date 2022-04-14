@@ -273,7 +273,7 @@ namespace FileIf
                 {
                     if (GetEndContentItems(fs, ref edcf))
                     {
-
+                        // 桁数を指定する対応（データ:桁数）
                         foreach (string content in edcf.endfcontents)
                         {
                             string[] contentdata = content.Split(':');
@@ -396,12 +396,15 @@ namespace FileIf
                 string[] rets = fs.mcfc.returns.Split(',');
                 foreach (string ret in rets)
                 {
+                    // 桁数を指定する対応（データ:桁数）
                     if (ret.Contains(":"))
                     {
+                        // 桁数指定あり
                         edcf.endfcontents.Add(ret);
                     }
                     else
                     {
+                        // 桁数指定なし
                         edcf.endfcontents.Add(ret + ":0");
                     }
                 }

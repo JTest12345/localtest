@@ -15,7 +15,7 @@ namespace FluentFTPtest
 {
     public class FluetFtpTst
     {
-        static void _Main()
+        static void Main()
         {
             //var ftptest = new FluentFtp();
 
@@ -34,19 +34,43 @@ namespace FluentFTPtest
         {
             try
             {
-                using (var ftp = new FtpClient("127.0.0.1", "test", ""))
+                using (var conn = new FtpClient("127.0.0.1", "test", ""))
                 {
-                    ftp.ConnectTimeout = 5000;
-                    ftp.Connect();
+                    conn.ConnectTimeout = 5000;
+                    conn.Connect();
 
-                    // download a file and ensure the local directory is created
-                    ftp.DownloadFile(@"C:\Oskas\debug\magcupresorces\mag\00002_bto_ftp.csv", @"tmp\00002_bto.csv");
+                    //// download a file and ensure the local directory is created
+                    //conn.DownloadFile(@"C:\Oskas\debug\magcupresorces\mag\00002_bto_ftp.csv", @"tmp\00002_bto.csv");
 
-                    // download a file and ensure the local directory is created, verify the file after download
-                    // ftp.DownloadFile(@"D:\Github\FluentFTP\README.md", "/public_html/temp/README.md", FtpLocalExists.Overwrite, FtpVerify.Retry);
+                    foreach (var item in conn.GetListing("/tmp", FtpListOption.Recursive))
+                    {
+                        switch (item.Type)
+                        {
 
+                            case FtpFileSystemObjectType.Directory:
+
+                                Console.WriteLine("Directory!  " + item.FullName);
+                                Console.WriteLine("Modified date:  " + conn.GetModifiedTime(item.FullName));
+
+                                break;
+
+                            case FtpFileSystemObjectType.File:
+
+                                Console.WriteLine("File!  " + item.FullName);
+                                Console.WriteLine("File size:  " + conn.GetFileSize(item.FullName));
+                                Console.WriteLine("Modified date:  " + conn.GetModifiedTime(item.FullName));
+                                Console.WriteLine("Chmod:  " + conn.GetChmod(item.FullName));
+
+                                break;
+
+                            case FtpFileSystemObjectType.Link:
+                                break;
+
+                        }
+                    }
                 }
             }
+
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);

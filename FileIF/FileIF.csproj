@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\TaskCntCsv\Tasks_vip1.cs" />
     <Compile Include="Forms\FileFetchForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -88,6 +88,12 @@ namespace FileIf
                 taskid += 1;
 
                 jcm = Magazine.GetCurrent(fs.MagCupNo);
+                if (jcm == null)
+                {
+                    msg = "マガジン情報が取得できませんでした。";
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);
+                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                }
                 lot = AsmLot.GetAsmLot(jcm.NascaLotNO);
 
                 Dict.Add("product", lot.TypeCd.PadRight(25, ' '));

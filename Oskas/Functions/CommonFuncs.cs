@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using YamlDotNet.RepresentationModel;
 
 
 namespace Oskas
@@ -224,6 +225,29 @@ namespace Oskas
             }
         }
 
+
+        public static YamlNode YamlFileReader(string FilePath, ref string msg)
+        {
+            try
+            {
+                if (!FileExists(FilePath))
+                {
+                    msg = "ファイルは存在していません";
+                    return null;
+                }  
+
+                var input = new StreamReader(FilePath, Encoding.UTF8);
+                var yaml = new YamlStream();
+                yaml.Load(input);
+
+                return yaml.Documents[0].RootNode;
+            }
+            catch (Exception ex)
+            {
+                msg = ex.Message;
+                return null;
+            }
+        }
 
         ///////////////////////////////////
         // 汎用ファイル作成保存用

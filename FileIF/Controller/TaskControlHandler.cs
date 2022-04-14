@@ -415,8 +415,8 @@ namespace FileIf
                     // ◇doneフォルダに移動
                     string DonePath = $"{fs.fpath}\\done\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.done";
                     //
-                    //[temp]=>[error]
-                    string[] mef = tcommons.MoveErrorFile(fs, fs.tmpfilepath, DonePath);
+                    //[temp]=>[done]
+                    string[] mef = tcommons.MoveDoneFile(fs, fs.tmpfilepath, DonePath);
                     if (mef[0] != "NA") OskNLog.Log(mef[0], int.Parse(mef[1]));
 
                     OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスクは正常に完了しました", Cnslcnf.msg_info);

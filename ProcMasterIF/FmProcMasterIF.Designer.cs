@@ -62,7 +62,7 @@
             this.txt_shinkishutenkai.Name = "txt_shinkishutenkai";
             this.txt_shinkishutenkai.Size = new System.Drawing.Size(758, 25);
             this.txt_shinkishutenkai.TabIndex = 0;
-            this.txt_shinkishutenkai.Text = "C:\\Users\\jn-wtnb\\Desktop\\procmaster\\211210@Ver.9 新機種展開 仕様一覧【3版】.xlsm";
+            this.txt_shinkishutenkai.Text = "C:\\Oskas\\procmaster\\shomei\\ver9\\shinkishutenkai\\211210@Ver.9 新機種展開 仕様一覧【3版】.xlsm";
             // 
             // label1
             // 
@@ -89,7 +89,7 @@
             this.txt_buhinhyou.Name = "txt_buhinhyou";
             this.txt_buhinhyou.Size = new System.Drawing.Size(758, 25);
             this.txt_buhinhyou.TabIndex = 3;
-            this.txt_buhinhyou.Text = "C:\\Users\\jn-wtnb\\Desktop\\procmaster\\システム化部品表";
+            this.txt_buhinhyou.Text = "C:\\Oskas\\procmaster\\shomei\\ver9\\bom\\システム化部品表";
             // 
             // txt_typecd_kansei_start
             // 
