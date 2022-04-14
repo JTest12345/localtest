@@ -48,9 +48,21 @@ namespace ArmsWebApi
 
             //工程No取得
             lot = AsmLot.GetAsmLot(lotno);
-            Process p = Process.GetNextProcess(mag.NowCompProcess, lot);
-            this.procno = p.ProcNo;
+            this.procno = Process.GetNowProcess(lot.NascaLotNo).ProcNo;
 
+            //上記で十分だったため不用コード化
+            //var curp = Process.GetWorkFlow(lot.TypeCd, "", false);
+            //if (curp[0].ProcNo == Process.GetNowProcess(lot.NascaLotNo).ProcNo)
+            //{
+            //    //初工程用処理
+            //    this.procno = mag.NowCompProcess;
+            //}
+            //else
+            //{
+            //    //初工程以外処理
+            //    Process p = Process.GetNextProcess(mag.NowCompProcess, lot);
+            //    this.procno = p.ProcNo;
+            //}
         }
 
 

@@ -368,11 +368,19 @@ namespace FileIf
                 Defectdict = mot.defectdict;
 
                 //不良計上
-                if (!we.RegisterDefects(out msg, Defectdict))
+                if (Defectdict.Count != 0)
                 {
-                    msg = tcommons.ErrorMessage(taskid, fs, msg);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    if (!we.RegisterDefects(out msg, Defectdict))
+                    {
+                        msg = tcommons.ErrorMessage(taskid, fs, msg);
+                        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    }
                 }
+                else
+                {
+                    Dbgmsg += "不良の計上はありませんでした" + crlf;
+                }
+                
 
                 //完了処理
                 if (!we.End(out msg))
