@@ -27,7 +27,7 @@ namespace FileIf
         }
 
         // メインタスク関数
-        public string[] InFileTasks(Mcfilesys fs) //(string pcat, string macno, string rcpname, string fpath, string[] fs.lbl)
+        public Task_Ret InFileTasks(Mcfilesys fs) //(string pcat, string macno, string rcpname, string fpath, string[] fs.lbl)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
             fs.mclbl = "Vip";
@@ -36,8 +36,8 @@ namespace FileIf
 
             //<taskid=vip101>【macconf.ini】設備情報取得
             taskid = 101;
-            string[] gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gmic[0] == "NG")
+            Task_Ret gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
+            if (gmic.Result == "NG")
             {
                 return gmic;
             }
@@ -58,13 +58,13 @@ namespace FileIf
                 else
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, "fileconfig.yamlが読み込めませんでした");
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -80,7 +80,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -137,7 +137,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -149,22 +149,22 @@ namespace FileIf
                 var filepath = csvDirMoveTo + "\\jisseki.csv";
                 if (!CommonFuncs.CreateFile(filepath, contents, ref msg))
                 {
-                    msg = tcommons.ErrorMessage(taskid, fs, msg);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);;
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
 
             //<taskid=vip106>【完了処理】inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
-            string[] mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref msg, ref Dbgmsg);
-            if (mitf[0] == "NG")
+            Task_Ret mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref Dict, ref msg, ref Dbgmsg);
+            if (mitf.Result == "NG")
             {
                 return mitf;
             }
@@ -172,13 +172,13 @@ namespace FileIf
             {
                 Dbgmsg += "タスクの実行は全て終了しました" + crlf;
                 msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} タスク終了";
-                return new string[] { "OK", msg, Dbgmsg, "0" };
+                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
             }
         }
 
 
         // outのEND出力タスク関数
-        public string[] OutFileTasks(Mcfilesys fs, int errorcode)
+        public Task_Ret OutFileTasks(Mcfilesys fs, Task_Ret taskret)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
 
@@ -186,14 +186,14 @@ namespace FileIf
             taskid = 901;
             if (!fs.mcfc.disableEndfile)
             {
-                string[] oef = tcommons.OutputEndFile(taskid, fs, errorcode, Dict, "end", ref msg, ref Dbgmsg);
-                if (oef[0] == "NG")
+                Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end", ref msg, ref Dbgmsg);
+                if (oef.Result == "NG")
                 {
                     return oef;
                 }
             }
-            
-            return new string[] { "OK", msg, Dbgmsg, "0" };
+
+            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
         }
     }
 }

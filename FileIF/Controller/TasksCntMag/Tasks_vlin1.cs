@@ -21,10 +21,12 @@ namespace FileIf
             vlin1 = new TaskFile_vlin1();
             // 返信ファイル用辞書の初期化
             Dict = tcommons.InitRetFileDict();
+            //Dict.Add("{retcode_list}", "9");
+            //Dict.Add("{bdqty_list}", "0");
         }
 
         // vlin1のデータベース操作タスク関数
-        public string[] InFileTasks(Mcfilesys fs) // string pcat, string macno, string magno, string fpath, string[] fs.lbl)
+        public Task_Ret InFileTasks(Mcfilesys fs) // string pcat, string macno, string magno, string fpath, string[] fs.lbl)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
             fs.mclbl = "VlotNo";
@@ -34,13 +36,13 @@ namespace FileIf
             WipFuncs wip = new WipFuncs(fs.mci.WipDir);
 
             // VlotはMagCupNoに入る
-            Dict.Add("vlotno", fs.MagCupNo);
+            Dict.Add("{vlotno}", fs.MagCupNo);
 
 
             //<taskid=vlin1101>【FileSys】設備情報取得
             taskid = 101;
-            string[] gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gmic[0] == "NG")
+            Task_Ret gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
+            if (gmic.Result == "NG")
             {
                 return gmic;
             }
@@ -48,8 +50,8 @@ namespace FileIf
 
             //<taskid=vlin1102>【FileSys】PLCの接続条件取得
             taskid += 1;
-            string[] gpcc = tcommons.GetPlcConnectConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gpcc[0] == "NG")
+            Task_Ret gpcc = tcommons.GetPlcConnectConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
+            if (gpcc.Result == "NG")
             {
                 return gpcc;
             }
@@ -59,8 +61,8 @@ namespace FileIf
             taskid += 1;
             if (fs.mci.UsePlcTrig)
             {
-                string[] cpa = tcommons.ChkPlcAccess(taskid, fs, minfo, ref msg, ref Dbgmsg);
-                if (cpa[0] == "NG")
+                Task_Ret cpa = tcommons.ChkPlcAccess(taskid, fs, minfo,ref Dict, ref msg, ref Dbgmsg);
+                if (cpa.Result == "NG")
                 {
                     return cpa;
                 }
@@ -71,8 +73,8 @@ namespace FileIf
             {
                 taskid += 1;
 
-                string[] rl2f = vlin1.Readvlin1FileTask(taskid, fs, ref Dbgmsg);
-                if (rl2f[0] == "NG" || rl2f[0] == "Cancel")
+                Task_Ret rl2f = vlin1.Readvlin1FileTask(taskid, fs, ref Dict, ref Dbgmsg);
+                if (rl2f.Result == "NG" || rl2f.Result == "CANCEL")
                 {
                     return rl2f;
                 }
@@ -80,7 +82,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -98,7 +100,7 @@ namespace FileIf
                         seilotnolst.Add(m4Code);
                     }
                     //VロットNo、4MロットNo整合性チェック
-                    VlotAccess vl = VlotAccess.CheckVLotInfo(Dict["vlotno"], seilotnolst);
+                    VlotAccess vl = VlotAccess.CheckVLotInfo(Dict["{vlotno}"], seilotnolst);
                     if (vl.IsOkOnly)
                     {
                         Dbgmsg += "Vlot整合チェック完了" + crlf;
@@ -106,33 +108,98 @@ namespace FileIf
                     else
                     {
                         Dbgmsg += "Vlot整合チェックで不正検出" + crlf;
-                        //return new string[] { "NG", vl.ErrDescription, Dbgmsg, taskid.ToString() };
+                        msg = "Vlot整合チェックで不正検出";
+                        msg = tcommons.ErrorMessage(taskid, fs, msg);
+                        return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+            }
+
+
+            //<taskid=vlin1106> ARMS開始前チェック：マガジン状態の確認
+            try
+            {
+                taskid += 1;
+                //LOTステータスArr文字列
+                var magstateArr = string.Empty;
+                //LOT数量Arr文字列
+                string bdqtyArr = string.Empty;
+                vlin1.beStaMagLst = new List<string>();
+
+                //for Debug
+                Dbgmsg += "VロットNo.：" + Dict["{vlotno}"] + crlf;
+
+
+                foreach (string m4Code in vlin1.m4CodeList)
+                {
+                    //Vlotはmagno = lotnoで確認
+                    var magstatus = tcommons.GetMagazineState(m4Code, fs.Pcat, m4Code, ref msg);
+                    magstateArr += magstatus + ",";
+
+                    if (magstatus == 0)
+                    {
+                        vlin1.beStaMagLst.Add(m4Code);
+                    }
+
+                    // マガジンの数量を取得
+                    var bdqty = ArmsApi.Model.Magazine.GetMagazine(m4Code).FrameQty;
+                    bdqtyArr += bdqty.ToString() + ",";
+
+                    //for Debug
+                    Dbgmsg += "4MロットNo.：" + m4Code + "[qty:" + bdqty.ToString() + ", status:" + magstatus.ToString() + "]" + crlf;
+                }
+
+                // LOTステータス返信用文字列辞書追加
+                magstateArr = magstateArr.TrimEnd(',');
+                //Dict["{retcode_list}"] = magstateArr;
+                Dict.Add("{retcode_list}", magstateArr);
+
+                // ロット構成基板数返信用文字列辞書追加
+                bdqtyArr = bdqtyArr.TrimEnd(',');
+                //Dict["{bdqty_list}"] =  bdqtyArr;
+                Dict.Add("{bdqty_list}", bdqtyArr);
+
+                //◆開始可能なLOTがなければWARNで終了する
+                if (vlin1.beStaMagLst.Count == 0)
+                {
+                    msg = "問合せのロットリストに開始可能なロットがありません";
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);
+                    return tcommons.MakeRet("WARN", msg, Dbgmsg, (int)retcode.Warn);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+            }
+
+
+            //<taskid=vlin1106> ARMS開始前チェック：CheckBeforeStart
+            try
+            {
+                taskid += 1;
 
                 // CheckBeforeStartを全てのロットで処理
-                foreach (string m4Code in vlin1.m4CodeList)
+                foreach (string m4Code in vlin1.beStaMagLst)
                 {
                     ws = new ArmsWebApi.WorkStart(fs.Macno, "FIF", m4Code);
 
                     if (!ws.CheckBeforeStart(out msg))
                     {
-                        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                        return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                     }
                 }
-
-                //for Debug
-                Dbgmsg += "VロットNo.：" + Dict["vlotno"] + crlf;
-                foreach (var m4Code in vlin1.m4CodeList)
-                {
-                    Dbgmsg += "4MロットNo.　：" + m4Code + crlf;
-                }
-                //
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -147,11 +214,12 @@ namespace FileIf
                 // wipの内容を初期化
                 List<string> wiplist = new List<string>() {
                     "date," + datein,
-                    "vlotno," + Dict["vlotno"],
+                    "vlotno," + Dict["{vlotno}"],
                 };
 
                 // wipに4Mロットを追加
-                foreach (var m4lot in vlin1.m4CodeList)
+                // ※vlotのwipはLOTNO指定の為マガジン照合内容の照合なしでLOTNOのみになります。
+                foreach (var m4lot in vlin1.beStaMagLst)
                 {
                     wiplist.Add("m4lotno," + m4lot);
                 }
@@ -169,39 +237,39 @@ namespace FileIf
                 {
                     string mes = "WIPファイル作成時に問題が発生しました";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
             //<taskid=vlin1106> inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
-            string[] mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref msg, ref Dbgmsg);
-            if (mitf[0] == "NG")
+            Task_Ret mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref Dict, ref msg, ref Dbgmsg);
+            if (mitf.Result == "NG")
             {
                 return mitf;
             }
 
-            return new string[] { "OK", msg, Dbgmsg, "0" };
+            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
         }
 
 
 
         // vlin1のEND出力タスク関数
-        public string[] OutFileTasks(Mcfilesys fs, int errorcode)
+        public Task_Ret OutFileTasks(Mcfilesys fs, Task_Ret taskret)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
 
             //<taskid=vlin1901>【ファイル生成】ENDファイルの発行
             taskid = 901;
-            string[] oef = tcommons.OutputEndFile(taskid, fs, errorcode, Dict, "end1", ref msg, ref Dbgmsg);
-            if (oef[0] == "NG")
+            Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end1", ref msg, ref Dbgmsg);
+            if (oef.Result == "NG")
             {
                 return oef;
             }
@@ -211,15 +279,14 @@ namespace FileIf
             taskid += 1;
             if (fs.mci.UsePlcTrig)
             {
-                string[] fgr = tcommons.FileGetRequest_Plc(taskid, fs, minfo, ref msg, ref Dbgmsg);
-                if (fgr[0] == "NG")
+                Task_Ret fgr = tcommons.FileGetRequest_Plc(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
+                if (fgr.Result == "NG")
                 {
                     return fgr;
                 }
             }
 
-
-            return new string[] { "OK", msg, Dbgmsg, "0" };
+            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
         }
 
     }

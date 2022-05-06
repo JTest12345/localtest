@@ -27,7 +27,7 @@ namespace FileIf
         }
 
         // データベース操作タスク関数
-        public string[] InFileTasks(Mcfilesys fs)
+        public Task_Ret InFileTasks(Mcfilesys fs)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
             fs.mclbl = "Cup";
@@ -37,8 +37,8 @@ namespace FileIf
 
             //<taskid=min1101>【macconf.ini】設備情報取得
             taskid = 101;
-            string[] gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gmic[0] == "NG")
+            Task_Ret gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
+            if (gmic.Result == "NG")
             {
                 return gmic;
             }
@@ -49,8 +49,8 @@ namespace FileIf
             {
                 taskid += 1;
 
-                string[] rco1f = cot1.ReadCot1FileTask(taskid, fs, ref Dbgmsg);
-                if (rco1f[0] == "NG")
+                Task_Ret rco1f = cot1.ReadCot1FileTask(taskid, fs, ref Dict, ref Dbgmsg);
+                if (rco1f.Result == "NG")
                 {
                     return rco1f;
                 }
@@ -59,7 +59,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -96,7 +96,7 @@ namespace FileIf
                 {
                     string mes = "CupデータのDB登録に必要なデータに空があります";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
 
@@ -144,8 +144,8 @@ namespace FileIf
                 // JunkiSys.Dll
                 if (!ResinPrg.WorkResin.CupMatCompleted(rcinfo.resincupInfo, rcinfo.Macno_haigo, dt, ref msg))
                 {
-                    msg = tcommons.ErrorMessage(taskid, fs, msg);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);;
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 Dbgmsg += "DB登録が完了しました" + crlf;
@@ -153,38 +153,38 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
             //<taskid=cot1104> inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
-            string[] mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref msg, ref Dbgmsg);
-            if (mitf[0] == "NG")
+            Task_Ret mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref Dict, ref msg, ref Dbgmsg);
+            if (mitf.Result == "NG")
             {
                 return mitf;
             }
 
             msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} タスク終了";
-            return new string[] { "OK", msg, Dbgmsg, "0" };
+            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
         }
 
 
 
         // outのEND出力タスク関数
-        public string[] OutFileTasks(Mcfilesys fs, int errorcode)
+        public Task_Ret OutFileTasks(Mcfilesys fs, Task_Ret taskret)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
 
             //<taskid=cot1901>【ファイル生成】ENDファイルの発行
             taskid = 901;
-            string[] oef = tcommons.OutputEndFile(taskid, fs, errorcode, Dict, "end1", ref msg, ref Dbgmsg);
-            if (oef[0] == "NG")
+            Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end1", ref msg, ref Dbgmsg);
+            if (oef.Result == "NG")
             {
                 return oef;
             }
 
-            return new string[] { "OK", msg, Dbgmsg, "0" };
+            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
         }
 
     }

@@ -7,6 +7,10 @@ namespace FileIf
 {
 
     ////////////////////////////////////
+    /// 
+    /// Arms使用により未使用化
+    /// 
+    ////////////////////////////////////
     ///
     /// DB_TABLEクラス 
     /// class名 = DB Table名
@@ -29,7 +33,7 @@ namespace FileIf
         public string Henkaten { get { return henkaten; } set { if (value != "") henkaten = value; } }
         Tasks_Common tcommons = new Tasks_Common();
 
-        public string[] SelectFromCurrent_magTable(int taskid, Mcfilesys fs, string Magno, ref string Dbgmsg)
+        public string[] SelectFromCurrent_magTable(int taskid, Mcfilesys fs, string Magno, ref Dictionary<string, string> Dict, ref string Dbgmsg)
         {
             string msg = "";
             try
@@ -75,7 +79,7 @@ namespace FileIf
         public int Pno { get; set; }  //dbname: pno
         //public string Mparam { get; set; }  // v1_2で削除
 
-        public string[] SelectFromProcess_masterTable(int taskid, Mcfilesys fs, string[] Lproc, string Product, ref string Dbgmsg)
+        public string[] SelectFromProcess_masterTable(int taskid, Mcfilesys fs, string[] Lproc, string Product, ref Dictionary<string, string> Dict, ref string Dbgmsg)
         {
             string msg = "";
             Tasks_Common tcommons = new Tasks_Common();
@@ -131,7 +135,7 @@ namespace FileIf
         public string Mparam { get; set; }  //dbname: mac_param
         Tasks_Common tcommons = new Tasks_Common();
 
-        public string[] GetParamFromMacprocparamTable(int taskid, Mcfilesys fs, string Product, string Pcode, ref string Dbgmsg)
+        public string[] GetParamFromMacprocparamTable(int taskid, Mcfilesys fs, string Product, string Pcode, ref Dictionary<string, string> Dict, ref string Dbgmsg)
         {
             string msg = "";
             try
@@ -184,7 +188,7 @@ namespace FileIf
         public string Dateout { get; set; }  //dbname: date_mag_out
         public string Macno { get; set; }  //dbname: macno
 
-        public string[] SelectFromProcess_resultsTable(int taskid, Mcfilesys fs, string Product, string Lotno, string Pcode,  ref string Dbgmsg)
+        public string[] SelectFromProcess_resultsTable(int taskid, Mcfilesys fs, string Product, string Lotno, string Pcode, ref Dictionary<string, string> Dict, ref string Dbgmsg)
         {
             string msg = "";
             Tasks_Common tcommons = new Tasks_Common();

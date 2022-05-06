@@ -28,7 +28,7 @@ namespace FileIf
         }
 
         // データベース操作タスク関数
-        public string[] InFileTasks(Mcfilesys fs) //(string pcat, string macno, string rcpname, string fpath, string[] fs.lbl)
+        public Task_Ret InFileTasks(Mcfilesys fs) //(string pcat, string macno, string rcpname, string fpath, string[] fs.lbl)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
             fs.mclbl = "Recipe";
@@ -38,8 +38,8 @@ namespace FileIf
 
             //<taskid=rcp101>【macconf.ini】設備情報取得
             taskid = 101;
-            string[] gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gmic[0] == "NG")
+            Task_Ret gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
+            if (gmic.Result == "NG")
             {
                 return gmic;
             }
@@ -50,8 +50,8 @@ namespace FileIf
             {
                 taskid += 1;
                 //recipeファイル読み込み
-                string[] rrf = rcp.ReadRcpFileTask(taskid, fs, ref Dbgmsg);
-                if (rrf[0] == "NG")
+                Task_Ret rrf = rcp.ReadRcpFileTask(taskid, fs, ref Dict, ref Dbgmsg);
+                if (rrf.Result == "NG")
                 {
                     return rrf;
                 }
@@ -66,7 +66,7 @@ namespace FileIf
                 {
                     string mes = "配合設備へのレシピ転送に失敗しました";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
                 // アップロード先にレシピ転送
                 // アップロード失敗ではタスク停止しない！
@@ -79,7 +79,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -100,7 +100,7 @@ namespace FileIf
                 {
                     string mes = "レシピのDB登録に必要なデータに空があります";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 ///////////////////////////////////////////////////
@@ -127,7 +127,7 @@ namespace FileIf
                 if (!ResinPrg.WorkResin.RecipeRecieved(rrinfo.Recipe, rrinfo.Mname, dt, ref msg))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, msg);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
 
@@ -136,38 +136,37 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
             //<taskid=rcp104> inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
-            string[] mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref msg, ref Dbgmsg);
-            if (mitf[0] == "NG")
+            Task_Ret mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref Dict, ref msg, ref Dbgmsg);
+            if (mitf.Result == "NG")
             {
                 return mitf;
             }
 
             msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.RecipeFile} タスク終了";
-            return new string[] { "OK", msg, Dbgmsg, "0" };
+            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
         }
 
 
         // outのEND出力タスク関数
-        public string[] OutFileTasks(Mcfilesys fs, int errorcode)
+        public Task_Ret OutFileTasks(Mcfilesys fs, Task_Ret taskret)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
 
             //<taskid=rcp901>【ファイル生成】ENDファイルの発行
             taskid = 901;
-            string[] oef = tcommons.OutputEndFile(taskid, fs, errorcode, Dict, "end", ref msg, ref Dbgmsg);
-            if (oef[0] == "NG")
+            Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end", ref msg, ref Dbgmsg);
+            if (oef.Result == "NG")
             {
                 return oef;
             }
 
-
-            return new string[] { "OK", msg, Dbgmsg, "0" };
+            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
         }
     }
 }

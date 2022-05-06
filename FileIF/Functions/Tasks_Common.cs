@@ -23,52 +23,141 @@ namespace FileIf
 
         public Dictionary<string, string> InitRetFileDict()
         {
-            var dict = new Dictionary<string, string>();
-            dict.Add("ok", "OK");
-            dict.Add("0", "0");
-            dict.Add("[CR]", "\r\n");
+            var dict = new Dictionary<string, string>()
+            {
+                { "ok" , "OK" },
+                { "OK", "OK" },
+                { "ng" , "NG" },
+                { "NG", "NG" },
+                { "cancel", "CANCEL" },
+                { "CANCEL", "CANCEL" },
+                { "0", "0" },
+                { "1", "1" },
+                { "2", "2" },
+                { "3", "3" },
+                { "4", "4" },
+                { "5", "5" },
+                { "6", "6" },
+                { "7", "7" },
+                { "8", "8" },
+                { "9", "9" },
+                { "[CR]", "\r" },
+                { "[LF]", "\n" },
+                { "[CRLF]", "\r\n" },
+            };
 
             return dict;
         }
 
 
-        public string[] GetMacInfoConf(int taskid, Mcfilesys fs, Macconinfo minfo, ref Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
+
+        public int GetMagazineState(string lotno, string workcd, string magno, ref string msg)
         {
             try
             {
-                //var mcc = new macconfini();
-
-                /*
-                if (!mcc.GetMacInfoProfile(fs, ref Dbgmsg))
+                // FIFがファイルを受けた工程(ワークスペース)のProcNoを取得
+                var prclist = ArmsApi.Model.Process.GetProcessList(workcd);
+                if (prclist.Length != 1)
                 {
-                    string mes = "設備情報がiniから取得ができません";
-                    msg = ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    msg = "工程がマスタ登録されていない、もしくはマスタが不正です";
+                    return 9;
                 }
-                */
 
+                // TnTranの状態確認
+                var order = ArmsApi.Model.Order.GetOrder(lotno);
+                if (order.Length != 0)
+                {
+                    // TnTranにレコードが確認できれば対象は初工程開始済以降となる
+                    // FIFの対象工程ProcnoからTnTranを特定する
+                    var curorder = ArmsApi.Model.Order.GetOrder(lotno, prclist[0].ProcNo);
+
+                    // ◆TnTranに対象工程レコードがない
+                    if (curorder.Length == 0)
+                    {
+                        // 開始前の可能性を探る
+                        var mag = ArmsApi.Model.Magazine.GetCurrent(magno);
+                        var lot = ArmsApi.Model.AsmLot.GetAsmLot(lotno);
+                        var nextmagproc = ArmsApi.Model.Process.GetNextProcess(prclist[0].ProcNo, lot);
+                        if (nextmagproc.ProcNo == prclist[0].ProcNo)
+                        {
+                            //◇マガジンの登録工程の次工程がFIF工程と一致すれば開始前確定
+                            msg = "FIF問合せのマガジンは開始前のマガジンです";
+                            return (int)retcode.BeforeStart;
+                        }
+                        else
+                        {
+                            //一致しない場合は何か不正な状態
+                            msg = "FIF問合せのマガジンは本工程で処理不可能、もしくはデータベースが不正な状態です";
+                            return (int)retcode.Failure;
+                        }
+                    }
+
+                    // ◆TnTranに対象工程レコードあり
+                    if (curorder[0].WorkEndDt != null)
+                    {
+                        // ◇WordEndDtがUpdate済
+                        msg = "FIF問合せのマガジンは本工程完了済みの状態です";
+                        return (int)retcode.Closed;
+                    }
+                    else
+                    {
+                        // ◇WordEndDtがnull
+                        msg = "FIF問合せのマガジンは本工程開始済みの状態です";
+                        return (int)retcode.Started;
+                    }
+                }
+                else
+                {
+                    // ◆TnTranにレコードがなく、FIF工程が初工程である場合
+                    var mag = ArmsApi.Model.Magazine.GetCurrent(lotno);
+                    if (mag != null)
+                    {
+                        // ◇ロットNOでGetCurrentが取得可能であれば初工程開始前確定
+                        msg = "FIF問合せのロットは初工程開始前の状態です";
+                        return (int)retcode.BeforeStart;
+                    }
+                    else
+                    {
+                        // 取得できなければ不正
+                        msg = "FIF問合せのマガジンは本工程で処理不可能、もしくはデータベースが不正な状態です";
+                        return (int)retcode.Failure;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                msg =  ex.Message;
+                return (int)retcode.Failure;
+            }
+        }
+
+        //public string[] GetMacInfoConf(int taskid, Mcfilesys fs, Macconinfo minfo, ref Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
+        public Task_Ret GetMacInfoConf(int taskid, Mcfilesys fs, Macconinfo minfo, ref Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
+        {
+            try
+            {
                 if (fs.mconf.Mchd.mcat.ToLower() == fs.Pcat.ToLower() && fs.mconf.Mchd.macno.ToLower() == fs.Macno.ToLower())
                 {
                     minfo.Pcat = fs.mconf.Mchd.mcat;
                     minfo.Macno = fs.mconf.Mchd.macno;
-                    Dict.Add("pcat", fs.mconf.Mchd.mcat);
-                    Dict.Add("macno", fs.mconf.Mchd.mcat);
+                    Dict.Add("{pcat}", fs.mconf.Mchd.mcat);
+                    Dict.Add("{macno}", fs.mconf.Mchd.mcat);
                 }
                 else
                 {
                     string mes = "設備情報(confとfilesystem)が一致していません";
                     msg = ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return MakeRet( "NG", msg, Dbgmsg,  (int)retcode.Failure );
                 }
 
             }
             catch (Exception ex)
             {
                 msg = ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
-            return new string[] { "OK" };
+            return MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
         }
 
 
@@ -117,7 +206,7 @@ namespace FileIf
         */
 
         // macconfフォルダ内json使用版　⇒　現在使用中
-        public string[] GetPlcConnectConf(int taskid, Mcfilesys fs, Macconinfo minfo, ref Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
+        public Task_Ret GetPlcConnectConf(int taskid, Mcfilesys fs, Macconinfo minfo, ref Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
         {
             try
             {
@@ -143,22 +232,22 @@ namespace FileIf
                 }
                 
 
-                Dict.Add("ipaddress", minfo.Ipaddress);
-                Dict.Add("port", minfo.Port);
-                Dict.Add("plctrgdevid", minfo.plctrgdevid);
-                Dict.Add("plctrgdevtype", minfo.plctrgdevtype);
-                Dict.Add("plctrgdevno", minfo.plctrgdevno);
+                Dict.Add("{ipaddress}", minfo.Ipaddress);
+                Dict.Add("{port}", minfo.Port);
+                Dict.Add("{plctrgdevid}", minfo.plctrgdevid);
+                Dict.Add("{plctrgdevtype}", minfo.plctrgdevtype);
+                Dict.Add("{plctrgdevno}", minfo.plctrgdevno);
             }
             catch (Exception ex)
             {
                 msg = ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
-            return new string[] { "OK" };
+            return MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
         }
 
-        public string[] ChkPlcAccess(int taskid, Mcfilesys fs, Macconinfo minfo, ref string msg, ref string Dbgmsg)
+        public Task_Ret ChkPlcAccess(int taskid, Mcfilesys fs, Macconinfo minfo, ref Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
         {
             try
             {
@@ -168,20 +257,20 @@ namespace FileIf
                 {
                     string mes = Dbgmsg;
                     msg = ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
             }
             catch (Exception ex)
             {
                 msg = ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
-            return new string[] {"OK"};
+            return MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
         }
 
 
-        public string[] FileGetRequest_Plc(int taskid, Mcfilesys fs, Macconinfo minfo, ref string msg, ref string Dbgmsg)
+        public Task_Ret FileGetRequest_Plc(int taskid, Mcfilesys fs, Macconinfo minfo, ref Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
         {
             try
             {
@@ -196,7 +285,7 @@ namespace FileIf
                         {
                             string mes = Dbgmsg;
                             msg = ErrorMessage(taskid, fs, mes);
-                            return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                            return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                         }
 
                         Dbgmsg += $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} " + minfo.plctrgdevtype + "-" + int.Parse(minfo.plctrgdevno) + $"に1を書き込みました: taskid={fs.lbl[1]}{taskid.ToString()}";
@@ -205,26 +294,27 @@ namespace FileIf
                     {
                         string mes = Dbgmsg;
                         msg = ErrorMessage(taskid, fs, mes);
-                        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                        return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                     }
+
+                    // 成功
+                    return MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
                 }
                 else
                 {
-                    return new string[] { "OK", "", "PLCデバイストリガはmacconfにて使用しない設定になっています", taskid.ToString() };
+                    return MakeRet("OK", "", "PLCデバイストリガはmacconfにて使用しない設定になっています", (int)retcode.Success);
                 }
 
             }
             catch (Exception ex)
             {
                 msg = ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
-
-            return new string[] { "OK", "", "", taskid.ToString() };
         }
 
 
-        public string[] MoveIn2TempFolder(int taskid, Mcfilesys fs, ref string msg, ref string Dbgmsg)
+        public Task_Ret MoveIn2TempFolder(int taskid, Mcfilesys fs, ref Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
         {
             try
             {
@@ -235,20 +325,27 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure); ;
             }
 
-            return new string[] { "OK" };
+            return MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
         }
 
 
-        public string[] OutputEndFile(int taskid, Mcfilesys fs, int errorcode, Dictionary<string,string> Dict, string endkey, ref string msg, ref string Dbgmsg)
+        public Task_Ret OutputEndFile(int taskid, Mcfilesys fs, Task_Ret taskret, Dictionary<string,string> Dict, string endkey, ref string msg, ref string Dbgmsg)
         {
             try
             {
                 var edcf = new Endfileconf();
                 edcf.endfcontents = new List<string>(); // endファイル内容格納配列
                 string contents = "";
+
+                //返信用のresult,message,retcodeをここで追加
+                Dict.Add("{result}", taskret.Result);
+                Dict.Add("{message}", taskret.Msg);
+                Dict.Add("{retcode}", taskret.RetCode.ToString());
+                Dict.Add("{debugmsg}", taskret.DebugMsg.Replace("\r", "").Replace("\n", ""));
+
                 //string MacFilePath = fs.fpath + @"\conf\macconf.ini";
 
                 if (GeEndfileconfIniValues(fs, ref edcf))
@@ -262,54 +359,115 @@ namespace FileIf
                 }
                 else
                 {
-                string mes = "エンドファイル設定が読み込めません";
-                msg = ErrorMessage(taskid, fs, mes);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    string mes = "エンドファイル設定が読み込めません";
+                    msg = ErrorMessage(taskid, fs, mes);
+                    return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 contents += edcf.stacode;
 
-                if (errorcode == 0)
+                //if (errorcode == 0)
+                //{
+                //    if (GetEndContentItems(fs, ref edcf))
+                //    {
+                //        //桁数を指定する対応（データ:桁数）
+                //        foreach (string content in edcf.endfcontents)
+                //        {
+                //            //[0]: Key, [1]:文字数
+                //            string[] contentdata = content.Split(':');
+
+                //            //返信Dictにキーが存在しない場合は""をAdd
+                //            if (!Dict.ContainsKey(contentdata[0]))
+                //            {
+                //                Dict.Add(contentdata[0], "");
+                //            }
+
+                //            //電文(contents)成形処理
+                //            if (contentdata[0].Contains("[CR") || contentdata[0].Contains("LF]"))
+                //            {
+                //                //改行指定[CR][LF][CRLF]はカンマなし
+                //                contents += Dict[contentdata[0]];
+                //            }
+                //            else if (contentdata.Length == 2)
+                //            {
+                //                contents += Dict[contentdata[0]].PadRight(int.Parse(contentdata[1]), ' ') + ",";
+                //            }
+                //            else
+                //            {
+                //                //現状ここには入らなくなっている模様
+                //                contents += Dict[contentdata[0]] + ",";
+                //            }
+                //        }
+                //    }
+                //    else
+                //    {
+                //        string mes = "エンドファイル項目設定が読み込めません";
+                //        msg = ErrorMessage(taskid, fs, mes);
+                //        return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                //    }
+                //}
+                //else if (errorcode == 999)
+                //{
+                //    contents = $"CANCEL,0,";
+                //}
+                //else
+                //{
+                //    contents = $"ERROR,{fs.lbl[1]}{errorcode},";
+                //}
+
+
+                if (GetEndContentItems(fs, ref edcf))
                 {
-                    if (GetEndContentItems(fs, ref edcf))
+                    //桁数を指定する対応（データ:桁数）
+                    foreach (string content in edcf.endfcontents)
                     {
-                        // 桁数を指定する対応（データ:桁数）
-                        foreach (string content in edcf.endfcontents)
+                        //[0]: Key, [1]:文字数
+                        string[] contentdata = content.Split(':');
+
+                        //返信Dictにキーが存在しない場合は""をAdd
+                        if (!Dict.ContainsKey(contentdata[0]))
                         {
-                            string[] contentdata = content.Split(':');
-                            if (contentdata.Length == 2)
+                            Dict.Add(contentdata[0], "");
+                        }
+
+                        //電文(contents)成形処理
+                        if (contentdata[0].Contains("[CR") || contentdata[0].Contains("LF]"))
+                        {
+                            //改行前のカンマを消去
+                            contents = contents.TrimEnd(',');
+                            //改行指定[CR][LF][CRLF]はカンマなし
+                            contents += Dict[contentdata[0]];
+                        }
+                        else if (contentdata.Length == 2)
+                        {
+                            if (int.Parse(contentdata[1]) > 0)
                             {
-                                contents += Dict[contentdata[0]].PadRight(int.Parse(contentdata[1]), ' ') + ",";
+                                contents += Dict[contentdata[0]].PadRight(int.Parse(contentdata[1]), ' ').Substring(0, int.Parse(contentdata[1])) + ",";
                             }
                             else
                             {
-                                contents += Dict[contentdata[0]] + ",";
+                                contents += Dict[contentdata[0]].PadRight(int.Parse(contentdata[1]), ' ') + ",";
                             }
                             
                         }
-                        
+                        else
+                        {
+                            //現状ここには入らなくなっている模様
+                            contents += Dict[contentdata[0]] + ",";
+                        }
                     }
-                    else
-                    {
-                        string mes = "エンドファイル項目設定が読み込めません";
-                        msg = ErrorMessage(taskid, fs, mes);
-                        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                    }
-                }
-                else if (errorcode == 999)
-                {
-                    contents = $"CANCEL,0,";
                 }
                 else
                 {
-                    contents = $"ERROR,{fs.lbl[1]}{errorcode},";
+                    string mes = "エンドファイル項目設定が読み込めません";
+                    msg = ErrorMessage(taskid, fs, mes);
+                    return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
-                //contents += "fin";
-                //contents = contents.Replace(",fin", "");
-                contents = contents.Substring(0, contents.Length - 1);
+                //contents = contents.Substring(0, contents.Length - 1);
+                contents = contents.TrimEnd(',');
                 contents += edcf.stpcode;
-                //if (edcf.needdbq == 1)
+
                 if (edcf.needdbq)
                 {
                     contents += '"';
@@ -323,10 +481,10 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
-            return new string[] { "OK" };
+            return MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
         }
 
 
@@ -570,6 +728,17 @@ namespace FileIf
                 }
             }
             return "None";
+        }
+
+        public Task_Ret MakeRet(string result, string msg, string debugmsg, int retcode)
+        {
+            return new Task_Ret
+            {
+                Result = result,
+                Msg = msg,
+                DebugMsg = debugmsg,
+                RetCode = retcode
+            };
         }
     }
 }

@@ -15,7 +15,7 @@ namespace FluentFTPtest
 {
     public class FluetFtpTst
     {
-        static void Main()
+        static void _Main()
         {
             //var ftptest = new FluentFtp();
 

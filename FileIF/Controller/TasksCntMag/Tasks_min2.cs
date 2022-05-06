@@ -32,7 +32,7 @@ namespace FileIf
 
 
         // in2のデータベース操作タスク関数
-        public string[] InFileTasks(Mcfilesys fs) // string pcat, string macno, string magno, string fs.fpath, string[] fs.lbl)
+        public Task_Ret InFileTasks(Mcfilesys fs) // string pcat, string macno, string magno, string fs.fpath, string[] fs.lbl)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
             fs.mclbl = "MagNo";
@@ -42,14 +42,14 @@ namespace FileIf
             MySQL sql = new MySQL();
             WipFuncs wip = new WipFuncs(fs.mci.WipDir);
 
-            Dict.Add("magno", fs.MagCupNo);
+            Dict.Add("{magno}", fs.MagCupNo);
 
 
             //<taskid=min2101>【FileSys】設備情報取得
             taskid = 101;
-            string[] gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
+            Task_Ret gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
 
-            if (gmic[0] == "NG")
+            if (gmic.Result == "NG")
             {
                 return gmic;
             }
@@ -64,8 +64,8 @@ namespace FileIf
 
             //<taskid=min2102>【FileSys】PLCの接続条件取得(Table: Macconinfo)
             taskid += 1;
-            string[] gpcc = tcommons.GetPlcConnectConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gpcc[0] == "NG")
+            Task_Ret gpcc = tcommons.GetPlcConnectConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
+            if (gpcc.Result == "NG")
             {
                 return gpcc;
             }
@@ -78,8 +78,8 @@ namespace FileIf
             taskid += 1;
             if (fs.mci.UsePlcTrig)
             {
-                string[] cpa = tcommons.ChkPlcAccess(taskid, fs, minfo, ref msg, ref Dbgmsg);
-                if (cpa[0] == "NG")
+                Task_Ret cpa = tcommons.ChkPlcAccess(taskid, fs, minfo,ref Dict, ref msg, ref Dbgmsg);
+                if (cpa.Result == "NG")
                 {
                     return cpa;
                 }
@@ -92,23 +92,29 @@ namespace FileIf
                 taskid += 1;
 
                 jcm = Magazine.GetCurrent(fs.MagCupNo);
+                if(jcm == null)
+                {
+                    msg = "マガジン情報が取得できませんでした。";
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                }
                 lot = AsmLot.GetAsmLot(jcm.NascaLotNO);
 
-                Dict.Add("product", lot.TypeCd.PadRight(25, ' '));
-                Dict.Add("lotno", lot.NascaLotNo);
-                Dict.Add("valout", jcm.FrameQty.ToString()); //ARMS要改修
+                Dict.Add("{product}", lot.TypeCd.PadRight(25, ' '));
+                Dict.Add("{lotno}", lot.NascaLotNo);
+                Dict.Add("{bdqty}", jcm.FrameQty.ToString()); 
 
                 //for Debug
-                Dbgmsg += "マガジンNo.：" + Dict["magno"] + crlf;
-                Dbgmsg += "製品名　　 ：" + Dict["product"] + crlf;
-                Dbgmsg += "ロットNo.　：" + Dict["lotno"] + crlf;
-                Dbgmsg += "基板数   　：" + Dict["valout"] + crlf;
+                Dbgmsg += "マガジンNo.：" + Dict["{magno}"] + crlf;
+                Dbgmsg += "製品名　　 ：" + Dict["{product}"] + crlf;
+                Dbgmsg += "ロットNo.　：" + Dict["{lotno}"] + crlf;
+                Dbgmsg += "基板数   　：" + Dict["{bdqty}"] + crlf;
                 //
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -117,8 +123,8 @@ namespace FileIf
             {
                 taskid += 1;
 
-                string[] rm2f = min2.ReadMin2FileTask(taskid, fs, ref Dbgmsg);
-                if (rm2f[0] == "NG" || rm2f[0] == "Cancel")
+                Task_Ret rm2f = min2.ReadMin2FileTask(taskid, fs, ref Dict, ref Dbgmsg);
+                if (rm2f.Result == "NG" || rm2f.Result == "CANCEL")
                 {
                     return rm2f;
                 }
@@ -126,7 +132,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -152,7 +158,7 @@ namespace FileIf
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     if (fs.mcfc.verifiparam)
                     {
-                        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                        return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                     }
                     else
                     {
@@ -163,7 +169,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -181,33 +187,33 @@ namespace FileIf
                 {
                     string mes = "対象のWIPファイルが見つかりません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
                 // 読めない
                 if (!CommonFuncs.ReadTextFileLine(WipFilePath, ref contents))
                 {
                     string mes = "対象のWIPファイルが読み込めません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
                 // 空
                 if (contents[0]=="")
                 {
                     string mes = "対象のWIPファイルの内容が空です";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 // WIPファイルの確認
                 foreach (string content in contents)
                 {
                     var ct = content.Split(',');
-                    if (ct[0] != "date")
+                    if (ct[0] != "{date}")
                     {
                         if (Dict[ct[0]] != ct[1])
                         {
                             msg = "WIPファイルの内容が不正です";
-                            return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                            return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                         }
                     }
                 }
@@ -219,7 +225,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -246,49 +252,51 @@ namespace FileIf
 
                 ws = new ArmsWebApi.WorkStart(fs.Macno, "FIF", fs.MagCupNo);
 
+                // 開始前にチェックを入れないと開始できない
                 if (!ws.CheckBeforeStart(out msg))
                 {
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
+                // 開始処理
                 if (!ws.Start(out msg))
                 {
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
             //<taskid=min2109> inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
-            string[] mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref msg, ref Dbgmsg);
-            if (mitf[0] == "NG")
+            Task_Ret mitf = tcommons.MoveIn2TempFolder(taskid, fs,ref Dict, ref msg, ref Dbgmsg);
+            if (mitf.Result == "NG")
             {
                 return mitf;
             }
 
 
             msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} 対象ロットは開始処理が成功しました";
-            return new string[] { "OK", msg, Dbgmsg, "0" };
+            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
 
         }
 
 
 
         // in2のEND出力タスク関数
-        public string[] OutFileTasks(Mcfilesys fs, int errorcode)
+        public Task_Ret OutFileTasks(Mcfilesys fs, Task_Ret taskret)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
 
             //<taskid=min2901>【ファイル生成】ENDファイルの発行
             taskid = 901;
-            string[] oef = tcommons.OutputEndFile(taskid, fs, errorcode, Dict, "end2", ref msg, ref Dbgmsg);
-            if (oef[0] == "NG")
+            Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end2", ref msg, ref Dbgmsg);
+            if (oef.Result == "NG")
             {
                 return oef;
             }
@@ -298,15 +306,14 @@ namespace FileIf
             taskid += 1;
             if (fs.mci.UsePlcTrig)
             {
-                string[] fgr = tcommons.FileGetRequest_Plc(taskid, fs, minfo, ref msg, ref Dbgmsg);
-                if (fgr[0] == "NG")
+                Task_Ret fgr = tcommons.FileGetRequest_Plc(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
+                if (fgr.Result == "NG")
                 {
                     return fgr;
                 }
             }
-                
 
-            return new string[] { "OK", msg, Dbgmsg, "0" };
+            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
         }
 
     }

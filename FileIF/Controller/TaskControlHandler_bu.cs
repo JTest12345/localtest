@@ -13,14 +13,14 @@ using Oskas;
 
 namespace FileIf
 {
-    class TaskControlHandler
+    class TaskControlHandler_bu
     {
 
         Tasks_Common tcommons;
         Magcupini mci;
         List<string> IntLokMac;
 
-        public TaskControlHandler(Tasks_Common tc, Magcupini mc, List<string> IntL)
+        public TaskControlHandler_bu(Tasks_Common tc, Magcupini mc, List<string> IntL)
         {
             tcommons = tc;
             mci = mc;
@@ -270,11 +270,8 @@ namespace FileIf
         {
             try
             {
-                //string[] InFileTaskRslt = new string[4];
-                //string[] OutFileTask = new string[4];
-
-                Task_Ret InFileTaskRslt = new Task_Ret();
-                Task_Ret OutFileTask = new Task_Ret();
+                string[] InFileTaskRslt = new string[4];
+                string[] OutFileTask = new string[4];
 
                 //Tasks_MagCup Tsk = new Tasks_MagCup();
 
@@ -316,130 +313,60 @@ namespace FileIf
 
                     // ◆InFileTask実行
                     object InFileTaskRsltArr = InFileTasks.Invoke(TaskClass, new object[] { fs });
-                    InFileTaskRslt = (Task_Ret)InFileTaskRsltArr;
-
+                    InFileTaskRslt = (string[])InFileTaskRsltArr;
+                    
 
 
                     ///////////////////////////////////////////////
                     // タスク結果処理
                     ///////////////////////////////////////////////
-
-                    // ◆FOutTask実行
-                    object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, InFileTaskRslt });
-                    OutFileTask = (Task_Ret)FOutTaskRsltArr;
-
-                    //if (InFileTaskRslt.Result == "OK" || InFileTaskRslt.Result == "WARN") //【DBタスク】が正常完了の場合
-                    //{
-                    //    //// ◆FOutTask実行
-                    //    //object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, InFileTaskRslt });
-                    //    //OutFileTask = (Task_Ret)FOutTaskRsltArr;
-
-                    //    if (!InFileTaskRsltIsOK(fs, InFileTaskRslt, ref OutFileTask))
-                    //    {
-                    //        return false;
-                    //    }
-                    //}
-                    //else if (InFileTaskRslt.Result == "NG") //【DBタスク】が正常でない場合
-                    //{
-                    //    //// ◆FOutTask実行(エラーコード有)
-                    //    //object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, InFileTaskRslt });
-                    //    //OutFileTask = (Task_Ret)FOutTaskRsltArr;
-                    //    if (!InFileTaskRsltIsNG(fs, InFileTaskRslt, ref OutFileTask))
-                    //    {
-                    //        return false;
-                    //    }
-                    //}
-                    //else if (InFileTaskRslt.Result == "CANCEL") //【DBタスク】中止する場合
-                    //{
-                    //    // ◆FOutTask実行(エラーコード999)
-                    //    //object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, "CANCEL" });
-                    //    //OutFileTask = (Task_Ret)FOutTaskRsltArr;
-
-                    //    if (!InFileTaskRsltIsCancel(fs, InFileTaskRslt, ref OutFileTask))
-                    //    {
-                    //        return false;
-                    //    }
-                    //}
-
-                    //////////////////////////////////////////////
-                    // OutFileTask結果処理
-                    ///////////////////////////////////////////////
-                    // 【OUTフォルダタスク】が正常終了の場合
-                    if (OutFileTask.Result == "OK") 
+                    if (InFileTaskRslt[0] == "OK") //【DBタスク】が正常完了の場合
                     {
-                        OskNLog.Log(InFileTaskRslt.DebugMsg, Cnslcnf.msg_debug);
-                        if (InFileTaskRslt.Msg != "") OskNLog.Log(InFileTaskRslt.Msg, Cnslcnf.msg_info);
-                        //
-                        //inファイルの消去
-                        // ⇒ doneフォルダに格納に変更
-                        //    ファイルは 1か月後に消去【未実装】
-                        //
-                        //File.Delete(fs.tmpfilepath);
+                        // ◆FOutTask実行
+                        object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, 0 });
+                        OutFileTask = (string[])FOutTaskRsltArr;
 
-                        // ◇doneフォルダに移動
-                        if (InFileTaskRslt.Result == "OK")
+                        //if (!InFileTaskRsltIsOK(fs, Tsk, InFileTaskRslt, ref OutFileTask))
+                        if (!InFileTaskRsltIsOK(fs, InFileTaskRslt, ref OutFileTask))
                         {
-                            string DonePath = $"{fs.fpath}\\done\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.ok";
-                            //[temp]=>[done]
-                            string[] mef = tcommons.MoveDoneFile(fs, fs.tmpfilepath, DonePath);
-                            if (mef[0] != "NA") OskNLog.Log(mef[0], int.Parse(mef[1]));
-
-                            OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスクは正常に完了しました", Cnslcnf.msg_info);
+                            return false;
                         }
-                        else if (InFileTaskRslt.Result == "WARN")
+                    }
+                    else if (InFileTaskRslt[0] == "NG") //【DBタスク】が正常でない場合
+                    {
+                        // ◆FOutTask実行(エラーコード有)
+                        object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, int.Parse(InFileTaskRslt[3]) });
+                        OutFileTask = (string[])FOutTaskRsltArr;
+
+                        //if (!InFileTaskRsltIsNG(fs, Tsk, InFileTaskRslt, ref OutFileTask))
+                        if (!InFileTaskRsltIsNG(fs, InFileTaskRslt, ref OutFileTask))
                         {
-                            string DonePath = $"{fs.fpath}\\done\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.warn";
-                            //[in]=>[done]
-                            string[] mef = tcommons.MoveDoneFile(fs, fs.filepath, DonePath);
-                            if (mef[0] != "NA") OskNLog.Log(mef[0], int.Parse(mef[1]));
-
-                            OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスクはWARNNINGが発生しています", Cnslcnf.msg_info);
+                            return false;
                         }
-                        else if (InFileTaskRslt.Result == "CANCEL")
+                    }
+                    else if (InFileTaskRslt[0] == "Cancel") //【DBタスク】中止する場合
+                    {
+                        // ◆FOutTask実行(エラーコード999)
+                        object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, 999 });
+                        OutFileTask = (string[])FOutTaskRsltArr;
+
+                        //if (!InFileTaskRsltIsCancel(fs, Tsk, InFileTaskRslt, ref OutFileTask))
+                        if (!InFileTaskRsltIsCancel(fs, InFileTaskRslt, ref OutFileTask))
                         {
-                            //////////////////////////////////////////////////////////////////////////////////////
-                            // 設備側からタスクのキャンセル要求(ERROR返信)があった場合はMagCupDirをクリーンします
-                            // 但し、レシピについては
-                            //  　①キャンセル返信が必要 
-                            //    ②INが同時に複数あり得る
-                            // ことからクリーンはIN/OUTを除外します。
-                            //
-                            //////////////////////////////////////////////////////////////////////////////////////
-                            //【OUTフォルダタスク】マガジン情報出力
-
-                            var fldn = new List<string> { "wip", "temp", "in", "out" };
-                            cleanfiles(fs, fldn);
-                            OskNLog.Log(InFileTaskRslt.Result, Cnslcnf.msg_debug);
-                            if (InFileTaskRslt.Msg != "") OskNLog.Log(InFileTaskRslt.Msg, Cnslcnf.msg_info);
-
-                            if (OutFileTask.Result == "OK") OutFileTask.Result = "CANCEL";
-                            OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスクは設備側からのエラー返信によりキャンセルされました", Cnslcnf.msg_info);
+                            return false;
                         }
-                        else
-                        {
-                            OskNLog.Log(InFileTaskRslt.DebugMsg, Cnslcnf.msg_debug);
-                            OskNLog.Log(InFileTaskRslt.Msg, Cnslcnf.msg_error);
-
-                            string ErrorPath = $"{fs.fpath}\\error\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.err";
-                            //[temp]=>[error]
-                            string[] mef = tcommons.MoveErrorFile(fs, fs.tmpfilepath, ErrorPath);
-                            if (mef[0] != "NA") OskNLog.Log(mef[0], int.Parse(mef[1]));
-                            //[in]=>[error]
-                            mef = tcommons.MoveErrorFile(fs, fs.filepath, ErrorPath);
-                            if (mef[0] != "NA") OskNLog.Log(mef[0], int.Parse(mef[1]));
-
-                            OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスクは不正な状態で終了しています", Cnslcnf.msg_info);
-                        }
-
-                        OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} の{fs.keylbl}ファイルを削除しました", Cnslcnf.msg_info);
 
                     }
-                 //
-                 // 【OUTフォルダタスク】が異常終了の場合
-                    if (OutFileTask.Result == "NG")
+
+                    ///////////////////////////////////////////////
+                    // 異常終了時処理
+                    // return falseなし（でよいの？）
+                    ///////////////////////////////////////////////
+                    // 【OUTフォルダタスク】が異常終了の場合
+                    if (OutFileTask[0] == "NG")
                     {
-                        OskNLog.Log(InFileTaskRslt.DebugMsg, Cnslcnf.msg_debug);
-                        OskNLog.Log(OutFileTask.Msg, Cnslcnf.msg_error);
+                        OskNLog.Log(InFileTaskRslt[2], Cnslcnf.msg_debug);
+                        OskNLog.Log(OutFileTask[1], Cnslcnf.msg_error);
                         OskNLog.Log("FILEIF動作異常：エラーが発生しています、管理者に報告してください", Cnslcnf.msg_error);
                         string ErrorPath = $"{fs.fpath}\\error\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.err";
                         //
@@ -469,115 +396,109 @@ namespace FileIf
         }
 
 
-        //private bool InFileTaskRsltIsOK(Mcfilesys fs, Task_Ret InFileTaskRslt, ref Task_Ret OutFileTask)
-        //{
-        //    try
-        //    {
-        //        if (OutFileTask.Result == "OK") //【OUTフォルダタスク】が正常終了の場合
-        //        {
-        //            OskNLog.Log(InFileTaskRslt.DebugMsg, Cnslcnf.msg_debug);
-        //            if (InFileTaskRslt.Msg != "") OskNLog.Log(InFileTaskRslt.Msg, Cnslcnf.msg_info);
-        //            //
-        //            //inファイルの消去
-        //            // ⇒ doneフォルダに格納に変更
-        //            //    ファイルは 1か月後に消去【未実装】
-        //            //
-        //            //File.Delete(fs.tmpfilepath);
+        //private bool InFileTaskRsltIsOK(Mcfilesys fs, Tasks_MagCup Tsk, string[] InFileTaskRslt, ref string[] OutFileTask)
+        private bool InFileTaskRsltIsOK(Mcfilesys fs, string[] InFileTaskRslt, ref string[] OutFileTask)
+        {
+            try
+            {
+                if (OutFileTask[0] == "OK") //【OUTフォルダタスク】が正常終了の場合
+                {
+                    OskNLog.Log(InFileTaskRslt[2], Cnslcnf.msg_debug);
+                    if (InFileTaskRslt[1] != "") OskNLog.Log(InFileTaskRslt[1], Cnslcnf.msg_info);
+                    //
+                    //inファイルの消去
+                    // ⇒ doneフォルダに格納に変更
+                    //    ファイルは 1か月後に消去【未実装】
+                    //
+                    //File.Delete(fs.tmpfilepath);
 
-        //            // ◇doneフォルダに移動
-        //            string DonePath = string.Empty;
-        //            if (InFileTaskRslt.Result == "WARN")
-        //            {
-        //                DonePath = $"{fs.fpath}\\done\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.warn";
-        //            }
-        //            else
-        //            {
-        //                DonePath = $"{fs.fpath}\\done\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.ok";
-        //            }
-        //            //
-        //            //[temp]=>[done]
-        //            string[] mef = tcommons.MoveDoneFile(fs, fs.tmpfilepath, DonePath);
-        //            if (mef[0] != "NA") OskNLog.Log(mef[0], int.Parse(mef[1]));
+                    // ◇doneフォルダに移動
+                    string DonePath = $"{fs.fpath}\\done\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.done";
+                    //
+                    //[temp]=>[done]
+                    string[] mef = tcommons.MoveDoneFile(fs, fs.tmpfilepath, DonePath);
+                    if (mef[0] != "NA") OskNLog.Log(mef[0], int.Parse(mef[1]));
 
-        //            OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスクは正常に完了しました", Cnslcnf.msg_info);
-        //            OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} の{fs.keylbl}ファイルを削除しました", Cnslcnf.msg_info);
-        //        }
-        //        // OUTファイルNGの場合の処理は「【OUTフォルダタスク】が異常終了の場合」で共通処理
+                    OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスクは正常に完了しました", Cnslcnf.msg_info);
+                    OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} の{fs.keylbl}ファイルを削除しました", Cnslcnf.msg_info);
+                }
+                // OUTファイルNGの場合の処理は「【OUTフォルダタスク】が異常終了の場合」で共通処理
 
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        OskNLog.Log("【InFileTaskRsltIsOK】実行中にExceptionが発生しました", Cnslcnf.msg_error);
-        //        OskNLog.Log(ex.Message, Cnslcnf.msg_error);
-        //        return false;
-        //    }
-        //}
+                return true;
+            }
+            catch (Exception ex)
+            {
+                OskNLog.Log("【InFileTaskRsltIsOK】実行中にExceptionが発生しました", Cnslcnf.msg_error);
+                OskNLog.Log(ex.Message, Cnslcnf.msg_error);
+                return false;
+            }
+        }
 
 
-        //private bool InFileTaskRsltIsNG(Mcfilesys fs, Task_Ret InFileTaskRslt, ref Task_Ret OutFileTask)
-        //{
-        //    try
-        //    {
-        //        if (OutFileTask.Result == "OK") //【OUTフォルダタスク】が正常終了の場合
-        //        {
-        //            OskNLog.Log(InFileTaskRslt.DebugMsg, Cnslcnf.msg_debug);
-        //            OskNLog.Log(InFileTaskRslt.Msg, Cnslcnf.msg_error);
-        //            string ErrorPath = $"{fs.fpath}\\error\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.err";
-        //            //
-        //            //inファイルをエラーフォルダに移動
-        //            //
-        //            //[temp]=>[error]
-        //            string[] mef = tcommons.MoveErrorFile(fs, fs.tmpfilepath, ErrorPath);
-        //            if (mef[0] != "NA") OskNLog.Log(mef[0], int.Parse(mef[1]));
-        //            //[in]=>[error]
-        //            mef = tcommons.MoveErrorFile(fs, fs.filepath, ErrorPath);
-        //            if (mef[0] != "NA") OskNLog.Log(mef[0], int.Parse(mef[1]));
-        //        }
-        //        // OUTファイルNGの場合の処理は「【OUTフォルダタスク】が異常終了の場合」で共通処理
+        //private bool InFileTaskRsltIsNG(Mcfilesys fs, Tasks_MagCup Tsk, string[] InFileTaskRslt, ref string[] OutFileTask)
+        private bool InFileTaskRsltIsNG(Mcfilesys fs, string[] InFileTaskRslt, ref string[] OutFileTask)
+        {
+            try
+            {
+                if (OutFileTask[0] == "OK") //【OUTフォルダタスク】が正常終了の場合
+                {
+                    OskNLog.Log(InFileTaskRslt[2], Cnslcnf.msg_debug);
+                    OskNLog.Log(InFileTaskRslt[1], Cnslcnf.msg_error);
+                    string ErrorPath = $"{fs.fpath}\\error\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.err";
+                    //
+                    //inファイルをエラーフォルダに移動
+                    //
+                    //[temp]=>[error]
+                    string[] mef = tcommons.MoveErrorFile(fs, fs.tmpfilepath, ErrorPath);
+                    if (mef[0] != "NA") OskNLog.Log(mef[0], int.Parse(mef[1]));
+                    //[in]=>[error]
+                    mef = tcommons.MoveErrorFile(fs, fs.filepath, ErrorPath);
+                    if (mef[0] != "NA") OskNLog.Log(mef[0], int.Parse(mef[1]));
+                }
+                // OUTファイルNGの場合の処理は「【OUTフォルダタスク】が異常終了の場合」で共通処理
 
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        OskNLog.Log("【InFileTaskRsltIsNG】実行中にExceptionが発生しました", Cnslcnf.msg_error);
-        //        OskNLog.Log(ex.Message, Cnslcnf.msg_error);
-        //        return false;
-        //    }
-        //}
+                return true;
+            }
+            catch (Exception ex)
+            {
+                OskNLog.Log("【InFileTaskRsltIsNG】実行中にExceptionが発生しました", Cnslcnf.msg_error);
+                OskNLog.Log(ex.Message, Cnslcnf.msg_error);
+                return false;
+            }
+        }
 
 
-        //private bool InFileTaskRsltIsCancel(Mcfilesys fs, Task_Ret InFileTaskRslt, ref Task_Ret OutFileTask)
-        //{
-        //    try
-        //    {
-        //        //////////////////////////////////////////////////////////////////////////////////////
-        //        // 設備側からタスクのキャンセル要求(ERROR返信)があった場合はMagCupDirをクリーンします
-        //        // 但し、レシピについては
-        //        //  　①キャンセル返信が必要 
-        //        //    ②INが同時に複数あり得る
-        //        // ことからクリーンはIN/OUTを除外します。
-        //        //
-        //        //////////////////////////////////////////////////////////////////////////////////////
-        //        //【OUTフォルダタスク】マガジン情報出力
+        //private bool InFileTaskRsltIsCancel(Mcfilesys fs, Tasks_MagCup Tsk, string[] InFileTaskRslt, ref string[] OutFileTask)
+        private bool InFileTaskRsltIsCancel(Mcfilesys fs, string[] InFileTaskRslt, ref string[] OutFileTask)
+        {
+            try
+            {
+                //////////////////////////////////////////////////////////////////////////////////////
+                // 設備側からタスクのキャンセル要求(ERROR返信)があった場合はMagCupDirをクリーンします
+                // 但し、レシピについては
+                //  　①キャンセル返信が必要 ②INが同時に複数あり得る
+                // ことからクリーンはIN/OUTを除外します。
+                //
+                //////////////////////////////////////////////////////////////////////////////////////
+                //【OUTフォルダタスク】マガジン情報出力
 
-        //        var fldn = new List<string> { "wip", "temp", "in", "out" };
-        //        cleanfiles(fs, fldn);
-        //        OskNLog.Log(InFileTaskRslt.Result, Cnslcnf.msg_debug);
-        //        if (InFileTaskRslt.Msg != "") OskNLog.Log(InFileTaskRslt.Msg, Cnslcnf.msg_info);
+                var fldn = new List<string> { "wip", "temp", "in", "out" };
+                cleanfiles(fs, fldn);
+                OskNLog.Log(InFileTaskRslt[2], Cnslcnf.msg_debug);
+                if (InFileTaskRslt[1] != "") OskNLog.Log(InFileTaskRslt[1], Cnslcnf.msg_info);
 
-        //        if (OutFileTask.Result == "OK") OutFileTask.Result = "CANCEL";
-        //        // OUTファイルNGの場合の処理は「【OUTフォルダタスク】が異常終了の場合」で共通処理
+                if (OutFileTask[0] == "OK") OutFileTask[0] = "Cancel";
+                // OUTファイルNGの場合の処理は「【OUTフォルダタスク】が異常終了の場合」で共通処理
 
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        OskNLog.Log("【InFileTaskRsltIsCANCEL】実行中にExceptionが発生しました", Cnslcnf.msg_error);
-        //        OskNLog.Log(ex.Message, Cnslcnf.msg_error);
-        //        return false;
-        //    }
-        //}
+                return true;
+            }
+            catch (Exception ex)
+            {
+                OskNLog.Log("【InFileTaskRsltIsCancel】実行中にExceptionが発生しました", Cnslcnf.msg_error);
+                OskNLog.Log(ex.Message, Cnslcnf.msg_error);
+                return false;
+            }
+        }
 
 
         private bool HistoryOutOfDateTask(string filepath, Mcfilesys fs)

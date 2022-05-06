@@ -21,7 +21,7 @@ namespace FileIf
         public string logdatetime { get; set; }
         public Dictionary<string, string> bin { get; set; }
 
-        public string[] ReadInFile(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        public Task_Ret ReadInFile(int taskid, Mcfilesys fs, ref Dictionary<string,string> Dict, ref string Dbgmsg)
         {
             string msg;
             Tasks_Common tcommons = new Tasks_Common();
@@ -34,7 +34,7 @@ namespace FileIf
                 if (!Oskas.CommonFuncs.ReadTextFileLine(fs.filepath, ref contents, fs.mcfc.encoding))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, "ファイル読取が失敗しました");
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 var index = 0;
@@ -50,7 +50,7 @@ namespace FileIf
                 if (index == contents.Count())
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, "ファイル内容が不正です");
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 var keys = contents[index].Split(',');
@@ -63,12 +63,12 @@ namespace FileIf
                     index++;
                 }
 
-                return new string[] { "OK" };
+                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
         }

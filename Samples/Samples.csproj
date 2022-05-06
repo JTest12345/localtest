@@ -109,6 +109,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArmsApiPlayGround.cs" />
     <Compile Include="FjhTools.cs" />
     <Compile Include="SpreadSheetLight.cs" />
     <Compile Include="ArmsWebApi_funcs.cs" />

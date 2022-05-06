@@ -31,7 +31,7 @@ namespace FileIf
         public string Mparam { get; set; }
         public string ErrorCode { get; set; }
 
-        public string[] ReadMin2FileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        public Task_Ret ReadMin2FileTask(int taskid, Mcfilesys fs, ref Dictionary<string,string> Dict, ref string Dbgmsg)
         {
             string msg = "";
             //CommonFuncs commons = new CommonFuncs();
@@ -47,7 +47,7 @@ namespace FileIf
                 {
                     string mes = content;
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
                 string results = new string(content.Where(c => !char.IsControl(c)).ToArray());
                 results = results.Replace("\"", "");
@@ -61,7 +61,8 @@ namespace FileIf
                     string mes = $"エラー通知(No.{ErrorCode}受信、全タスクを中止します";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     Dbgmsg += "IN2処理で設備側からタスクのキャンセル要求がありました";
-                    return new string[] { "Cancel", msg, Dbgmsg, taskid.ToString() };
+                    //return new string[] { "CANCEL", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("CANCEL", msg, Dbgmsg, (int)retcode.Cancel);
                 }
                 else
                 {
@@ -70,12 +71,12 @@ namespace FileIf
                     //
                 }
 
-                return new string[] { "OK" };
+                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
         }
@@ -99,12 +100,12 @@ namespace FileIf
         public string product_out { get; set; }
         public string lotno_out { get; set; }
         public string magno_in { get; set; }
-        public string val_in { get; set; }
+        public string bd_in { get; set; }
         public string magno_out { get; set; }
-        public string val_out { get; set; }
+        public string bd_out { get; set; }
         public Dictionary<string, int> defectdict { get; set; }
 
-        public string[] ReadMotFileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        public Task_Ret ReadMotFileTask(int taskid, Mcfilesys fs, ref Dictionary<string, string> Dict, ref string Dbgmsg)
         {
             string msg = "";
             Tasks_Common tcommons = new Tasks_Common();
@@ -120,7 +121,7 @@ namespace FileIf
                 {
                     string mes = contentList[0];
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 // ◇実績(1行目)
@@ -133,15 +134,16 @@ namespace FileIf
                     string mes = $"エラー通知(No.{contents[1]}受信、全タスクを中止します";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     Dbgmsg += "MOT処理で設備側からタスクのキャンセル要求がありました";
-                    return new string[] { "Cancel", msg, Dbgmsg, taskid.ToString() };
+                    //return new string[] { "CANCEL", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("CANCEL", msg, Dbgmsg, (int)retcode.Cancel);
                 }
 
                 product_out = contents[0];
                 lotno_out = contents[1];
                 magno_in = contents[2];
-                val_in = contents[3];
+                bd_in = contents[3];
                 magno_out = contents[4];
-                val_out = contents[5];
+                bd_out = contents[5];
 
                 // ◇不良(2行目以降)
                 defectdict = new Dictionary<string, int>();
@@ -164,7 +166,7 @@ namespace FileIf
                         {
                             string mes = "MOTファイル内の不良数が数値ではない為、処理できません";
                             msg = tcommons.ErrorMessage(taskid, fs, mes);
-                            return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                            return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                         }
                         sumqty += qty;
                     }
@@ -172,33 +174,32 @@ namespace FileIf
 
                 // 基板計上数と基板不良数の整合確認
                 int qtyin = 0;
-                if (!int.TryParse(val_in, out qtyin))
+                if (!int.TryParse(bd_in, out qtyin))
                 {
                     string mes = "MOTファイル内の受入基板数量が数値ではない為、処理できません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
                 int qtyout = 0;
-                if (!int.TryParse(val_out, out qtyout))
+                if (!int.TryParse(bd_out, out qtyout))
                 {
                     string mes = "MOTファイル内の払出基板数量が数値ではない為、処理できません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
                 if (qtyin - qtyout != sumqty)
                 {
                     string mes = "MOTファイル内の基板数量と不良数が不整合の為、処理できません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
-
-                return new string[] { "OK" };
+                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
         }
@@ -213,9 +214,13 @@ namespace FileIf
 
         //4Mロットコードリスト
         public List<string> m4CodeList { get; set; }
+
+        // 開始可能4Mロットリスト
+        public List<string>  beStaMagLst { get; set; }
+
         public string ErrorCode { get; set; }
 
-        public string[] Readvlin1FileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        public Task_Ret Readvlin1FileTask(int taskid, Mcfilesys fs, ref Dictionary<string, string> Dict, ref string Dbgmsg)
         {
             string msg = "";
             Tasks_Common tcommons = new Tasks_Common();
@@ -229,7 +234,7 @@ namespace FileIf
                 {
                     string mes = content;
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
                 string results = new string(content.Where(c => !char.IsControl(c)).ToArray());
                 results = results.Replace("\"", "");
@@ -242,18 +247,15 @@ namespace FileIf
                     if (!string.IsNullOrEmpty(m4lot))
                     {
                         m4CodeList.Add(m4lot);
-
-                        //for Debug
-                        Dbgmsg += "設備:パラメータ：" + m4lot + "\r\n";
                     }
                 }
 
-                return new string[] { "OK" };
+                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
         }
@@ -270,7 +272,7 @@ namespace FileIf
         public List<string> fmCodeList { get; set; }
         public string ErrorCode { get; set; }
 
-        public string[] Readvlin2FileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        public Task_Ret Readvlin2FileTask(int taskid, Mcfilesys fs, ref Dictionary<string, string> Dict, ref string Dbgmsg)
         {
             string msg = "";
             Tasks_Common tcommons = new Tasks_Common();
@@ -284,7 +286,7 @@ namespace FileIf
                 {
                     string mes = content;
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
                 string results = new string(content.Where(c => !char.IsControl(c)).ToArray());
                 results = results.Replace("\"", "");
@@ -297,7 +299,8 @@ namespace FileIf
                     string mes = $"エラー通知(No.{ErrorCode}受信、全タスクを中止します";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     Dbgmsg += "Vlin2処理で設備側からタスクのキャンセル要求がありました";
-                    return new string[] { "Cancel", msg, Dbgmsg, taskid.ToString() };
+                    //return new string[] { "CANCEL", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("CANCEL", msg, Dbgmsg, (int)retcode.Cancel);
                 }
                 else
                 {
@@ -310,17 +313,17 @@ namespace FileIf
                             fmCodeList.Add(m4lot);
 
                             //for Debug
-                            Dbgmsg += "設備:パラメータ：" + m4lot + "\r\n";
+                            Dbgmsg += "開始要求Lot：" + m4lot + "\r\n";
                         }
                     }
                 }
 
-                return new string[] { "OK" };
+                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
 
         }
@@ -352,7 +355,7 @@ namespace FileIf
             magnoList = new List<string>();
         }
 
-        public string[] ReadBtoFileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        public Task_Ret ReadBtoFileTask(int taskid, Mcfilesys fs, ref Dictionary<string, string> Dict, ref string Dbgmsg)
         {
             string msg = "";
             Tasks_Common tcommons = new Tasks_Common();
@@ -365,7 +368,7 @@ namespace FileIf
                 {
                     string mes = "btoファイルが読み込めません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 // 空
@@ -373,7 +376,7 @@ namespace FileIf
                 {
                     string mes = "btoファイルの内容が空です";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 //Errorメッセージか確認
@@ -385,7 +388,8 @@ namespace FileIf
                     string mes = $"エラー通知(No.{err[1]}受信、全タスクを中止します";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     Dbgmsg += "BTO処理で設備側からタスクのキャンセル要求がありました";
-                    return new string[] { "Cancel", msg, Dbgmsg, taskid.ToString() };
+                    //return new string[] { "CANCEL", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("CANCEL", msg, Dbgmsg, (int)retcode.Cancel);
                 }
 
                 // LdMagInfoにデータ格納
@@ -403,12 +407,12 @@ namespace FileIf
                     magnoList.Add(arrminfo[0]);
                 }
 
-                return new string[] { "OK" };
+                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
         }
     }
@@ -422,7 +426,7 @@ namespace FileIf
 
         public string mname { get; set; }
 
-        public string[] ReadRcpFileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        public Task_Ret ReadRcpFileTask(int taskid, Mcfilesys fs, ref Dictionary<string, string> Dict, ref string Dbgmsg)
         {
             string msg = "";
             //CommonFuncs commons = new CommonFuncs();
@@ -436,19 +440,18 @@ namespace FileIf
                 {
                     string mes = "レシピファイルの読み込みに失敗しました";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 mname = Recipelines[0];
 
-                return new string[] { "OK" };
+                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
-
         }
     }
 
@@ -462,7 +465,7 @@ namespace FileIf
         public string Result { get; set; }
         public string ErrorCode { get; set; }
 
-        public string[] ReadStaFileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        public Task_Ret ReadStaFileTask(int taskid, Mcfilesys fs, ref Dictionary<string, string> Dict, ref string Dbgmsg)
         {
             string msg = "";
             //CommonFuncs commons = new CommonFuncs();
@@ -476,7 +479,7 @@ namespace FileIf
                 {
                     string mes = content;
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
                 contents = content.Split(',');
 
@@ -489,15 +492,16 @@ namespace FileIf
                     string mes = $"エラー通知(No.{ErrorCode}受信、全タスクを中止します";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     Dbgmsg += "STA処理で設備側からタスクのキャンセル要求がありました";
-                    return new string[] { "Cancel", msg, Dbgmsg, taskid.ToString() };
+                    //return new string[] { "CANCEL", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("CANCEL", msg, Dbgmsg, (int)retcode.Cancel);
                 }
 
-                return new string[] { "OK" };
+                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
         }
     }
@@ -520,7 +524,7 @@ namespace FileIf
         public string[] lotno_out { get; set; }
         public int result { get; set; }
 
-        public string[] ReadCot1FileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        public Task_Ret ReadCot1FileTask(int taskid, Mcfilesys fs, ref Dictionary<string, string> Dict, ref string Dbgmsg)
         {
             string msg = "";
             //CommonFuncs commons = new CommonFuncs();
@@ -534,7 +538,7 @@ namespace FileIf
                 {
                     string mes = "ファイルの読み込みに失敗しました";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 string[] cupdata = Cupdataline[0].Split(',');
@@ -552,12 +556,12 @@ namespace FileIf
 
                 result = int.Parse(resultstr[0]);
 
-                return new string[] { "OK" };
+                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
         }
     }
@@ -571,7 +575,7 @@ namespace FileIf
 
         public string product_out { get; set; }
 
-        public string[] ReadCot2FileTask(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        public Task_Ret ReadCot2FileTask(int taskid, Mcfilesys fs, ref Dictionary<string, string> Dict, ref string Dbgmsg)
         {
             string msg = "";
             //CommonFuncs commons = new CommonFuncs();
@@ -585,19 +589,19 @@ namespace FileIf
                 {
                     string mes = "ファイルの読み込みに失敗しました";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 string[] cupdata = Cupdataline[0].Split(',');
 
                 product_out = cupdata[0];
 
-                return new string[] { "OK" };
+                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
         }
     }

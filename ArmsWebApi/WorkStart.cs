@@ -61,6 +61,8 @@ namespace ArmsWebApi
             return wsm.CheckBeforeStart(mag, out msg);
         }
 
+
+
         public bool Start(out string msg)
         {
             if (wsm == null)

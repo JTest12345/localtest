@@ -32,7 +32,7 @@ namespace FileIf
         public List<string[]> furyomeisai { get; set; }
 
 
-        public string[] ReadInFile(int taskid, Mcfilesys fs, ref string Dbgmsg)
+        public Task_Ret ReadInFile(int taskid, Mcfilesys fs,ref Dictionary<string, string> Dict, ref string Dbgmsg)
         {
             furyomeisai = new List<string[]>();
             Tasks_Common tcommons = new Tasks_Common();
@@ -58,7 +58,7 @@ namespace FileIf
                 if (!CommonFuncs.ReadTextFileLine(fs.filepath, ref contents, "UTF-16"))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, "不良項目の読取が失敗しました");
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 foreach (var item in contents)
@@ -70,12 +70,12 @@ namespace FileIf
                     }
                 }
 
-                return new string[] { "OK" };
+                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
             }
             catch(Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
             }
             
         }

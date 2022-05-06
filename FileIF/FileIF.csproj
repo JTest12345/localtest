@@ -97,9 +97,8 @@
     <Compile Include="Models\OldSchool\OldSchool.cs" />
     <Compile Include="Models\Systemfile.cs" />
     <Compile Include="Functions\Tasks_Common.cs" />
-    <Compile Include="Models\taskInterface.cs" />
     <Compile Include="Controller\TaskControlHandler.cs" />
-    <Compile Include="Controller\TaskInterface.cs" />
+    <Compile Include="Models\TaskInterface.cs" />
     <Compile Include="Controller\TaskCnt4mJ\Tasks_avi01.cs" />
     <Compile Include="Controller\TaskCntCsv\Tasks_csvtest.cs" />
     <Compile Include="Controller\TaskCntCup\Tasks_cot1.cs" />
