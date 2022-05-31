@@ -39,7 +39,7 @@ namespace FileIf
             //<taskid=rcp101>【macconf.ini】設備情報取得
             taskid = 101;
             Task_Ret gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gmic.Result == "NG")
+            if (gmic.Result == retkey.ng)
             {
                 return gmic;
             }
@@ -51,7 +51,7 @@ namespace FileIf
                 taskid += 1;
                 //recipeファイル読み込み
                 Task_Ret rrf = rcp.ReadRcpFileTask(taskid, fs, ref Dict, ref Dbgmsg);
-                if (rrf.Result == "NG")
+                if (rrf.Result == retkey.ng)
                 {
                     return rrf;
                 }
@@ -66,7 +66,7 @@ namespace FileIf
                 {
                     string mes = "配合設備へのレシピ転送に失敗しました";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
                 // アップロード先にレシピ転送
                 // アップロード失敗ではタスク停止しない！
@@ -79,7 +79,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -100,7 +100,7 @@ namespace FileIf
                 {
                     string mes = "レシピのDB登録に必要なデータに空があります";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 ///////////////////////////////////////////////////
@@ -116,7 +116,7 @@ namespace FileIf
                 //    {
                 //        string mes = "Queryの実行が失敗しました";
                 //        msg = tcommons.ErrorMessage(taskid, fs, mes);
-                //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //        return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
                 //    }
                 //}
                 ////////////////////////////////////////ここまで
@@ -127,7 +127,7 @@ namespace FileIf
                 if (!ResinPrg.WorkResin.RecipeRecieved(rrinfo.Recipe, rrinfo.Mname, dt, ref msg))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, msg);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
 
@@ -136,20 +136,20 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
             //<taskid=rcp104> inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
             Task_Ret mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref Dict, ref msg, ref Dbgmsg);
-            if (mitf.Result == "NG")
+            if (mitf.Result == retkey.ng)
             {
                 return mitf;
             }
 
             msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.RecipeFile} タスク終了";
-            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
 
@@ -161,12 +161,12 @@ namespace FileIf
             //<taskid=rcp901>【ファイル生成】ENDファイルの発行
             taskid = 901;
             Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end", ref msg, ref Dbgmsg);
-            if (oef.Result == "NG")
+            if (oef.Result == retkey.ng)
             {
                 return oef;
             }
 
-            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
     }
 }

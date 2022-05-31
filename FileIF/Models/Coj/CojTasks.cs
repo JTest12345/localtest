@@ -58,7 +58,7 @@ namespace FileIf
                 if (!CommonFuncs.ReadTextFileLine(fs.filepath, ref contents, "UTF-16"))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, "不良項目の読取が失敗しました");
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 foreach (var item in contents)
@@ -70,12 +70,12 @@ namespace FileIf
                     }
                 }
 
-                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+                return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
             }
             catch(Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
             
         }

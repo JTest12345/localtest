@@ -94,3 +94,5 @@ C:\juni_ws\GitRepo\VSP\Ovens\obj\Release\Ovens.pdb
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\ArmsCejApi.dll
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\ArmsCejApi.pdb
 C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\NLog_20220304.config
+C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\YamlDotNet.dll
+C:\juni_ws\GitRepo\VSP\Ovens\bin\Release\YamlDotNet.xml

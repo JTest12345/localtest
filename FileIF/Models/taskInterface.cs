@@ -57,9 +57,19 @@ namespace FileIf
         BeforeStart = 0,
         Info = 1,
         Warn = 2,
-        Started = 1,
-        Closed = 2,
+        Started = 2,
+        Closed = 3,
+        AllClosed = 3,
         Failure = 9,
         Cancel = 999
+    }
+
+    public class retkey
+    {
+        public const string ok = "OK";
+        public const string ng = "NG";
+        public const string error = retkey.ng;
+        public const string warn = "WARN";
+        public const string cancel = "CANCEL";
     }
 }

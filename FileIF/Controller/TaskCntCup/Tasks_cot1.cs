@@ -38,7 +38,7 @@ namespace FileIf
             //<taskid=min1101>【macconf.ini】設備情報取得
             taskid = 101;
             Task_Ret gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gmic.Result == "NG")
+            if (gmic.Result == retkey.ng)
             {
                 return gmic;
             }
@@ -50,7 +50,7 @@ namespace FileIf
                 taskid += 1;
 
                 Task_Ret rco1f = cot1.ReadCot1FileTask(taskid, fs, ref Dict, ref Dbgmsg);
-                if (rco1f.Result == "NG")
+                if (rco1f.Result == retkey.ng)
                 {
                     return rco1f;
                 }
@@ -59,7 +59,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -96,7 +96,7 @@ namespace FileIf
                 {
                     string mes = "CupデータのDB登録に必要なデータに空があります";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
 
@@ -120,7 +120,7 @@ namespace FileIf
                 //    {
                 //        string mes = "resincup_lotsテーブルのINSERTに必要なデータに空があります";
                 //        msg = tcommons.ErrorMessage(taskid, fs, mes);
-                //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //        return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
                 //    }
                 //    QueryScr.Add($"INSERT INTO resincup_lots (custom_product, custom_lotno, cupno, create_at, create_by) VALUE ('{rclot.Cstmproduct}','{rclot.Cstmlotno}','{rclot.Cupno}, '{datetime}', 'magcupsv'')");
                 //    Dbgmsg += $"Query{i}: " + QueryScr[i-1] + crlf;
@@ -134,7 +134,7 @@ namespace FileIf
                 //    {
                 //        string mes = "Queryの実行が失敗しました";
                 //        msg = tcommons.ErrorMessage(taskid, fs, mes);
-                //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //        return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
                 //    }
                 //}
                 ////////////////////////////////////////ここまで
@@ -145,7 +145,7 @@ namespace FileIf
                 if (!ResinPrg.WorkResin.CupMatCompleted(rcinfo.resincupInfo, rcinfo.Macno_haigo, dt, ref msg))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, msg);;
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 Dbgmsg += "DB登録が完了しました" + crlf;
@@ -153,20 +153,20 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
             //<taskid=cot1104> inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
             Task_Ret mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref Dict, ref msg, ref Dbgmsg);
-            if (mitf.Result == "NG")
+            if (mitf.Result == retkey.ng)
             {
                 return mitf;
             }
 
             msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} タスク終了";
-            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
 
@@ -179,12 +179,12 @@ namespace FileIf
             //<taskid=cot1901>【ファイル生成】ENDファイルの発行
             taskid = 901;
             Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end1", ref msg, ref Dbgmsg);
-            if (oef.Result == "NG")
+            if (oef.Result == retkey.ng)
             {
                 return oef;
             }
 
-            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
     }

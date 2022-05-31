@@ -47,7 +47,7 @@ namespace FileIf
                 {
                     string mes = "マガジンテーブル(Current_mag)から情報が取得できません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
                 }
 
                 Magno = retDict["magno"];
@@ -60,12 +60,12 @@ namespace FileIf
                 Io = retDict["in_out"];
                 Valbs = int.Parse(retDict["val_bs"]);
 
-                return new string[] { "OK" };
+                return new string[] { retkey.ok };
             }
             catch(Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
             }
         }
     }
@@ -97,7 +97,7 @@ namespace FileIf
                 {
                     string mes = "Queryの条件（Pno or Pcode）が設定されていません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
                 }
 
                 int rcdlen = 1;
@@ -106,7 +106,7 @@ namespace FileIf
                 {
                     string mes = "テーブル(Process_master)から情報が取得できません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
                 }
 
                 Product = retDict["product"];
@@ -115,12 +115,12 @@ namespace FileIf
                 Pno = int.Parse(retDict["pno"]);
                 //Mparam = retDict["Mparam"];
 
-                return new string[] { "OK" };
+                return new string[] { retkey.ok };
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
             }
         }
     }
@@ -150,7 +150,7 @@ namespace FileIf
                 {
                     string mes = $"取得した条件/'{fs.Macno}'/'{Product}'/'{Pcode}'/でテーブル(mac_params)から情報が取得できません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
                 }
 
                 Product = retDict["product"];
@@ -159,12 +159,12 @@ namespace FileIf
                 Macno = retDict["macno"];
                 Mparam = retDict["mac_param"];
 
-                return new string[] { "OK" };
+                return new string[] { retkey.ok };
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
             }
         }
     }
@@ -204,7 +204,7 @@ namespace FileIf
                 {
                     string mes = "テーブル(Process_results)から基板数量が取得できません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
                 }
 
                 Product = retDict["product"];
@@ -223,12 +223,12 @@ namespace FileIf
                 Product = retDict["date_mag_out"];
                 Macno = retDict["macno"];
 
-                return new string[] { "OK" };
+                return new string[] { retkey.ok };
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
             }
         }
     }

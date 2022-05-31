@@ -45,7 +45,7 @@ namespace FileIf
             //<taskid=mot101>【FileSys】設備情報取得
             taskid = 101;
             Task_Ret gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gmic.Result == "NG")
+            if (gmic.Result == retkey.ng)
             {
                 return gmic;
             }
@@ -54,7 +54,7 @@ namespace FileIf
             //<taskid=mot102>【FileSys】PLCの接続条件取得(Table: Macconinfo)
             taskid += 1;
             Task_Ret gpcc = tcommons.GetPlcConnectConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gpcc.Result == "NG")
+            if (gpcc.Result == retkey.ng)
             {
                 return gpcc;
             }
@@ -65,7 +65,7 @@ namespace FileIf
             if (fs.mci.UsePlcTrig)
             {
                 Task_Ret cpa = tcommons.ChkPlcAccess(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-                if (cpa.Result == "NG")
+                if (cpa.Result == retkey.ng)
                 {
                     return cpa;
                 }
@@ -81,7 +81,7 @@ namespace FileIf
                 if (jcm == null)
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, "ファイル名に使われているマガジンは実マガジン登録がありません");
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
                 lot = AsmLot.GetAsmLot(jcm.NascaLotNO);
 
@@ -100,7 +100,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -110,7 +110,7 @@ namespace FileIf
                 taskid += 1;
 
                 Task_Ret rmf = bto.ReadBtoFileTask(taskid, fs, ref Dict, ref Dbgmsg);
-                if (rmf.Result == "NG" || rmf.Result == "CANCEL")
+                if (rmf.Result == retkey.ng || rmf.Result == retkey.cancel)
                 {
                     return rmf;
                 }
@@ -132,7 +132,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -164,7 +164,7 @@ namespace FileIf
                 //if (NoMag)
                 //{
                 //    msg = $"Btoファイルで指定されたマガジンNoは設備：{fs.Macno}のブレンド対象ではありません";
-                //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //    return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
                 //}
 
                 //// ブレンド実行
@@ -175,33 +175,33 @@ namespace FileIf
                 //catch (Exception ex)
                 //{
                 //    msg = "ブレンドロット完了エラー：" + ex.Message;
-                //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //    return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
                 //}
 
                 if (!ArmsWebApi.LdcBlend.mkblendlot(fs.Macno, bto.magnoList, ref msg))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, msg);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
             //<taskid=mot109> inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
             Task_Ret mitf = tcommons.MoveIn2TempFolder(taskid, fs,ref Dict, ref msg, ref Dbgmsg);
-            if (mitf.Result == "NG")
+            if (mitf.Result == retkey.ng)
             {
                 return mitf;
             }
 
             Dbgmsg += "タスクの実行は全て終了しました" + crlf;
             msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} タスク終了";
-            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
 
@@ -213,7 +213,7 @@ namespace FileIf
             //<taskid=mot901>【ファイル生成】ENDファイルの発行
             taskid = 901;
             Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end", ref msg, ref Dbgmsg);
-            if (oef.Result == "NG")
+            if (oef.Result == retkey.ng)
             {
                 return oef;
             }
@@ -224,13 +224,13 @@ namespace FileIf
             if (fs.mci.UsePlcTrig)
             {
                 Task_Ret fgr = tcommons.FileGetRequest_Plc(taskid, fs, minfo,ref Dict, ref msg, ref Dbgmsg);
-                if (fgr.Result == "NG")
+                if (fgr.Result == retkey.ng)
                 {
                     return fgr;
                 }
             }
 
-            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
     }
 }

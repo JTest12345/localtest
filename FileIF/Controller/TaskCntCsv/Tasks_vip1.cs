@@ -37,7 +37,7 @@ namespace FileIf
             //<taskid=vip101>【macconf.ini】設備情報取得
             taskid = 101;
             Task_Ret gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gmic.Result == "NG")
+            if (gmic.Result == retkey.ng)
             {
                 return gmic;
             }
@@ -58,13 +58,13 @@ namespace FileIf
                 else
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, "fileconfig.yamlが読み込めませんでした");
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -80,7 +80,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -137,7 +137,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -150,13 +150,13 @@ namespace FileIf
                 if (!CommonFuncs.CreateFile(filepath, contents, ref msg))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, msg);;
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -164,7 +164,7 @@ namespace FileIf
             //<taskid=vip106>【完了処理】inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
             Task_Ret mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref Dict, ref msg, ref Dbgmsg);
-            if (mitf.Result == "NG")
+            if (mitf.Result == retkey.ng)
             {
                 return mitf;
             }
@@ -172,7 +172,7 @@ namespace FileIf
             {
                 Dbgmsg += "タスクの実行は全て終了しました" + crlf;
                 msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} タスク終了";
-                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+                return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
             }
         }
 
@@ -187,13 +187,13 @@ namespace FileIf
             if (!fs.mcfc.disableEndfile)
             {
                 Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end", ref msg, ref Dbgmsg);
-                if (oef.Result == "NG")
+                if (oef.Result == retkey.ng)
                 {
                     return oef;
                 }
             }
 
-            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
     }
 }

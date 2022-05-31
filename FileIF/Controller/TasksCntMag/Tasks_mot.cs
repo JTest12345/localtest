@@ -52,7 +52,7 @@ namespace FileIf
             //<taskid=mot101>【FileSys】設備情報取得
             taskid = 101;
             Task_Ret gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gmic.Result == "NG")
+            if (gmic.Result == retkey.ng)
             {
                 return gmic;
             }
@@ -61,7 +61,7 @@ namespace FileIf
             //<taskid=mot102>【FileSys】PLCの接続条件取得(Table: Macconinfo)
             taskid += 1;
             Task_Ret gpcc = tcommons.GetPlcConnectConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gpcc.Result == "NG")
+            if (gpcc.Result == retkey.ng)
             {
                 return gpcc;
             }
@@ -75,7 +75,7 @@ namespace FileIf
             if (fs.mci.UsePlcTrig)
             {
                 Task_Ret cpa = tcommons.ChkPlcAccess(taskid, fs, minfo,ref Dict, ref msg, ref Dbgmsg);
-                if (cpa.Result == "NG")
+                if (cpa.Result == retkey.ng)
                 {
                     return cpa;
                 }
@@ -92,7 +92,7 @@ namespace FileIf
                 {
                     msg = "マガジン情報が取得できませんでした。";
                     msg = tcommons.ErrorMessage(taskid, fs, msg);;
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
                 lot = AsmLot.GetAsmLot(jcm.NascaLotNO);
 
@@ -110,7 +110,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
             ////<taskid=mot105>【SQL】工程コード(Pcode)を得る(Table: Process_master)
@@ -121,7 +121,7 @@ namespace FileIf
             //    string[] Lproc = new string[] { "Pcode", kcm.Lpcode };
             //    //string[] sfpt = cpm.SelectFromProcess_masterTable(taskid, fs, Lproc, kcm.Product, kcm.Mno, ref Dbgmsg); //v1_2でMno廃止
             //    string[] sfpt = cpm.SelectFromProcess_masterTable(taskid, fs, Lproc, kcm.Product, ref Dbgmsg);
-            //    if (sfpt[0] == "NG")
+            //    if (sfpt[0] == retkey.ng)
             //    {
             //        return sfpt;
             //    }
@@ -135,7 +135,7 @@ namespace FileIf
             //catch (Exception ex)
             //{
             //    msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-            //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+            //    return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
             //}
 
 
@@ -145,7 +145,7 @@ namespace FileIf
                 taskid += 1;
 
                 Task_Ret rmf = mot.ReadMotFileTask(taskid, fs, ref Dict, ref Dbgmsg);
-                if (rmf.Result == "NG" || rmf.Result == "CANCEL")
+                if (rmf.Result == retkey.ng || rmf.Result == retkey.cancel)
                 {
                     return rmf;
                 }
@@ -170,20 +170,20 @@ namespace FileIf
                 {
                     string mes = "OUTファイル内の製品名が不正です";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
                 if (mot.lotno_out != lot.NascaLotNo)
                 {
                     string mes = "OUTファイル内のロットNoが不正です";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -193,7 +193,7 @@ namespace FileIf
             //    taskid += 1;
             //    //①出力マガジンはCurrent_magテーブルが空マガジン登録の状態か？ 
             //    string[] sfct = jcm.SelectFromCurrent_magTable(taskid, fs, mot.magno_out, ref Dbgmsg);
-            //    if (sfct[0] == "NG")
+            //    if (sfct[0] == retkey.ng)
             //    {
             //        return sfct;
             //    }
@@ -202,12 +202,12 @@ namespace FileIf
             //    {
             //        string mes = "出力マガジンのDB登録が不正です（既に実マガジンの状態）";
             //        msg = tcommons.ErrorMessage(taskid, fs, mes);
-            //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+            //        return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
             //    }
 
             //    //②入力マガジンはProcess_resultsテーブルでmagin登録されているか？
             //    string[] sfpt = cpv.SelectFromProcess_resultsTable(taskid, fs, kcm.Product, kcm.Lotno, cpm.Pcode, ref Dbgmsg);
-            //    if (sfpt[0] == "NG")
+            //    if (sfpt[0] == retkey.ng)
             //    {
             //        return sfpt;
             //    }
@@ -216,14 +216,14 @@ namespace FileIf
             //    {
             //        string mes = "入力マガジンのDB登録が不正です（マガジン実績登録されたMag[in]ではない）";
             //        msg = tcommons.ErrorMessage(taskid, fs, mes);
-            //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+            //        return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
 
             //    }
             //}
             //catch (Exception ex)
             //{
             //    msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-            //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+            //    return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
             //}
 
 
@@ -247,7 +247,7 @@ namespace FileIf
             //    {
             //        string mes = "Process_resultsテーブルのUPDATEに必要なデータに空があります";
             //        msg = tcommons.ErrorMessage(taskid, fs, mes);
-            //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+            //        return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
             //    }
             //    QueryScr.Add($"UPDATE Process_results SET val_in='{udpv.Valin}', val_out='{udpv.Valout}', magno_out='{udpv.Magout}', date_mag_out='{udpv.Dateout}' WHERE product = '{kcm.Product}' AND lotno = '{kcm.Lotno}' AND pcode = '{cpm.Pcode}'");
             //    Dbgmsg += "Query1: " + QueryScr[0] + crlf;
@@ -265,7 +265,7 @@ namespace FileIf
             //    {
             //        string mes = "Current_magテーブルのUPDATEに必要なデータに空があります";
             //        msg = tcommons.ErrorMessage(taskid, fs, mes);
-            //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+            //        return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
             //    }
             //    QueryScr.Add($"UPDATE Current_mag SET last_pcode='{jcm.Lpcode}', product='{jcm.Product}', lotno='{jcm.Lotno}', macno='{jcm.Macno}', in_out='OUT' WHERE magno='{jcm.Magno}'");
             //    Dbgmsg += "Query2: " + QueryScr[1] + crlf;
@@ -284,7 +284,7 @@ namespace FileIf
             //    {
             //        string mes = "Current_magテーブルのUPDATEに必要なデータに空があります";
             //        msg = tcommons.ErrorMessage(taskid, fs, mes);
-            //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+            //        return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
             //    }
             //    QueryScr.Add($"UPDATE Current_mag SET last_pcode='{kcm.Lpcode}', product='{kcm.Product}', lotno='{kcm.Lotno}', macno='{kcm.Macno}', in_out='{kcm.Io}', val_bs='{kcm.Valbs}' WHERE magno='{kcm.Magno}'");
             //    Dbgmsg += "Query3: " + QueryScr[2] + crlf;
@@ -297,14 +297,14 @@ namespace FileIf
             //            Dbgmsg = msg;
             //            string mes = "Queryの実行が失敗しました";
             //            msg = tcommons.ErrorMessage(taskid, fs, mes);
-            //            return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+            //            return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
             //        }
             //    }
             //}
             //catch (Exception ex)
             //{
             //    msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-            //    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+            //    return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
             //}
 
             //<taskid=mot106> ARMS完了処理
@@ -351,7 +351,7 @@ namespace FileIf
                 //    if (vmag == null)
                 //    {
                 //        msg = "Unloader位置に一致する仮想マガジンが見つかりません lastMag:" + vmag.MagazineNo;
-                //        return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                //        return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
                 //    }
                 //    wem.AddMagazine(svrmag, vmag);
                 //}
@@ -373,7 +373,7 @@ namespace FileIf
                     if (!we.RegisterDefects(out msg, Defectdict))
                     {
                         msg = tcommons.ErrorMessage(taskid, fs, msg);
-                        return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                        return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                     }
                 }
                 else
@@ -386,20 +386,20 @@ namespace FileIf
                 if (!we.End(out msg))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, msg);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
             //<taskid=mot109> inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
             Task_Ret mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref Dict, ref msg, ref Dbgmsg);
-            if (mitf.Result == "NG")
+            if (mitf.Result == retkey.ng)
             {
                 return mitf;
             }
@@ -407,7 +407,7 @@ namespace FileIf
 
             Dbgmsg += "Queryの実行は全て終了しました" + crlf;
             msg = $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} タスク終了";
-            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
 
@@ -419,7 +419,7 @@ namespace FileIf
             //<taskid=mot901>【ファイル生成】ENDファイルの発行
             taskid = 901;
             Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end", ref msg, ref Dbgmsg);
-            if (oef.Result == "NG")
+            if (oef.Result == retkey.ng)
             {
                 return oef;
             }
@@ -430,13 +430,13 @@ namespace FileIf
             if (fs.mci.UsePlcTrig)
             {
                 Task_Ret fgr = tcommons.FileGetRequest_Plc(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-                if (fgr.Result == "NG")
+                if (fgr.Result == retkey.ng)
                 {
                     return fgr;
                 }
             }
 
-            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
     }
 }

@@ -70,18 +70,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbKeeper.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FmProcMasterIF.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FmProcMasterIF.Designer.cs">
       <DependentUpon>FmProcMasterIF.cs</DependentUpon>
     </Compile>
+    <Compile Include="FmSQLBuilder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FmSQLBuilder.Designer.cs">
+      <DependentUpon>FmSQLBuilder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\Common.cs" />
     <Compile Include="model\interface.cs" />
     <Compile Include="model\models.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DbKeeper.resx">
+      <DependentUpon>DbKeeper.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FmProcMasterIF.resx">
       <DependentUpon>FmProcMasterIF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FmSQLBuilder.resx">
+      <DependentUpon>FmSQLBuilder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -34,7 +34,7 @@ namespace FileIf
                 if (!Oskas.CommonFuncs.ReadTextFileLine(fs.filepath, ref contents, fs.mcfc.encoding))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, "ファイル読取が失敗しました");
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 var index = 0;
@@ -50,7 +50,7 @@ namespace FileIf
                 if (index == contents.Count())
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, "ファイル内容が不正です");
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 var keys = contents[index].Split(',');
@@ -63,12 +63,12 @@ namespace FileIf
                     index++;
                 }
 
-                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+                return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
         }

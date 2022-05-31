@@ -125,7 +125,7 @@ namespace FIFDebugTools
             // MagCupのイニシャルファイルを読込
             var mci = new Magcupini();
             string msg = "";
-            if (!mci.GetMugCupIniValues(ref msg))
+            if (!mci.GetMugCupYamlValues(ref msg))
             {
                 Console.WriteLine(msg);
             }

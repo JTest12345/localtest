@@ -1,15 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Spreadsheet;
 using SpreadsheetLight;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -20,7 +14,7 @@ using Oskas;
 
 namespace ProcMasterIF
 {
-    public partial class FmProcMasterIF : Form
+    class DbKeeper : Oskas.fmMain
     {
         string crlf = "\r\n";
         string msg;
@@ -30,8 +24,27 @@ namespace ProcMasterIF
         public bool interLock = false;
         SeriesTypeMaster sr;
 
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // btServerStart
+            // 
+            this.btServerStart.Text = "Start DBK";
+            this.btServerStart.Click += new System.EventHandler(this.btServerStart_Click);
+            // 
+            // DbKeeper
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
+            this.ClientSize = new System.Drawing.Size(784, 591);
+            this.Name = "DbKeeper";
+            this.Text = "DBKeeper for ARMS";
+            this.Shown += new System.EventHandler(this.DbKeeper_Shown);
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
-        public FmProcMasterIF()
+        }
+        public DbKeeper()
         {
             InitializeComponent();
 
@@ -44,10 +57,12 @@ namespace ProcMasterIF
             conf = deserializer.Deserialize<MakeprocjsonRoot>(cojmakeprocfile_yaml);
 
             //// (とりあえず)表示処理
-            txt_shinkishutenkai.Text = conf.makeprocjson.config.path.shinkishutenkaifile;
-            txt_buhinhyou.Text = conf.makeprocjson.config.path.buhinhyoufolder;
-            txt_procjson_hankan.Text = conf.makeprocjson.config.path.procjsonfolder.hankan;
-            txt_procjson_kansei.Text = conf.makeprocjson.config.path.procjsonfolder.kansei;
+            msg = crlf;
+            msg += conf.makeprocjson.config.path.shinkishutenkaifile + crlf;
+            msg += conf.makeprocjson.config.path.buhinhyoufolder + crlf;
+            msg += conf.makeprocjson.config.path.procjsonfolder.hankan + crlf;
+            msg += conf.makeprocjson.config.path.procjsonfolder.kansei + crlf;
+            OskNLog.Log(msg, Cnslcnf.msg_info);
 
 
             /////////////////////////
@@ -101,96 +116,61 @@ namespace ProcMasterIF
             sr.buhinhyou = buhinhyou_obj;
             sr.processdict = process_dict;
 
-            numericUpDown1Set(1);
-            numericUpDown2Set(1);
         }
 
 
-        delegate void ConsoleDelegate(string text, int level);
-        private void ConsoleShow(string text, int level)
-        {
-            if (consoleBox.InvokeRequired)
-            {
-                ConsoleDelegate d = new ConsoleDelegate(ConsoleShow);
-                BeginInvoke(d, new object[] { text, level });
-            }
-            else
-            {
-                string message = "";
-                switch (level)
-                {
-                    case 1:
-                        message = "[info] ";
-                        break;
-                    case 2:
-                        message = "[Warn] ";
-                        break;
-                    case 3:
-                        message = "[ERROR] ";
-                        break;
-                }
-                consoleBox.AppendText(message + text + crlf);
-            }
-        }
 
-
-        delegate void ToolStripStatusDelegate(string text);
-        private void ToolStripStatusShow(string text)
-        {
-            if (consoleBox.InvokeRequired)
-            {
-                ToolStripStatusDelegate d = new ToolStripStatusDelegate(ToolStripStatusShow);
-                BeginInvoke(d, new object[] { text });
-            }
-            else
-            {
-                toolStripStatusLabel1.Text = text;
-            }
-        }
-
-
-        delegate void numericUpDown1Delegate(int value);
-        private void numericUpDown1Set(int value)
-        {
-            if (numericUpDown1.InvokeRequired)
-            {
-                numericUpDown1Delegate d = new numericUpDown1Delegate(numericUpDown1Set);
-                BeginInvoke(d, new object[] { value });
-            }
-            else
-            {
-                numericUpDown1.Value = value;
-            }
-        }
-
-
-        delegate void numericUpDown2Delegate(int value);
-        private void numericUpDown2Set(int value)
-        {
-            if (numericUpDown2.InvokeRequired)
-            {
-                numericUpDown2Delegate d = new numericUpDown2Delegate(numericUpDown2Set);
-                BeginInvoke(d, new object[] { value });
-            }
-            else
-            {
-                numericUpDown2.Value = value;
-            }
-        }
-
-
-        private void button3_Click(object sender, EventArgs e)
+        private void makeProcMaster()
         {
             if (!interLock)
             {
                 interLock = true;
 
-                var cols = conf.makeprocjson.config.model[0].shinkishutenkaicol[0].ToString().Split('/');
-                numericUpDown1.Value = int.Parse(cols[0].Replace(" ", ""));
-                numericUpDown2.Value = int.Parse(cols[1].Replace(" ", ""));
+                var colList = new List<int>();
+                foreach (var colstr in conf.makeprocjson.config.model[0].shinkishutenkaicol)
+                {
+                    var cols = colstr.ToString().Split('/');
+                    if (cols.Length > 1)
+                    {
+                        int startColNum, stopColNum;
+                        if (!int.TryParse(cols[0].Replace(" ", ""), out startColNum))
+                        {
+                            OskNLog.Log("新機種展開のCOL指定が不正です", Cnslcnf.msg_error);
+                            return;
+                        }
+                        if (!int.TryParse(cols[1].Replace(" ", ""), out stopColNum))
+                        {
+                            OskNLog.Log("新機種展開のCOL指定が不正です", Cnslcnf.msg_error);
+                            return;
+                        }
+                        for (int i = startColNum; i < stopColNum + 1; i++)
+                        {
+                            colList.Add(i);
+                        }
+                    }
+                    else
+                    {
+                        int colNum;
+                        if (!int.TryParse(colstr.ToString().Replace(" ", ""), out colNum))
+                        {
+                            OskNLog.Log("新機種展開のCOL指定が不正です", Cnslcnf.msg_error);
+                            return;
+                        }
+                        colList.Add(colNum);
+                    }
+                }
+
+                OskNLog.Log("makeを開始しました。", Cnslcnf.msg_info);
 
                 Task readHankan = Task.Run(() =>
                 {
+                    /////////////////////////////////
+                    /// 新機種展開表読込
+                    /////////////////////////////////
+                    OskNLog.Log("新機種展開表を読込開始", Cnslcnf.msg_info);
+                    sl = new SLDocument(conf.makeprocjson.config.path.shinkishutenkaifile);
+                    OskNLog.Log("新機種展開表を読込完了", Cnslcnf.msg_info);
+
                     /////////////////////////////////
                     /// 半完ルートからマスタ作成
                     /////////////////////////////////
@@ -292,22 +272,22 @@ namespace ProcMasterIF
                     ///////////////////////////
                     ///make procjson
                     ///////////////////////////
-                    for (var i = numericUpDown1.Value; i <= numericUpDown2.Value; i++)
+                    foreach (var col in colList)
                     {
                         var procobj_hankan = new MastermodelRoot();
                         var procobj_kansei = new MastermodelRoot();
 
-                        var hankan = sl.GetCellValueAsString("A" + i);
-                        var kansei = sl.GetCellValueAsString("B" + i);
+                        var hankan = sl.GetCellValueAsString("A" + col);
+                        var kansei = sl.GetCellValueAsString("B" + col);
 
-                        ConsoleShow("hankan-" + i + "=" + hankan, 1);
-                        ConsoleShow("kansei-" + i + "=" + kansei, 1);
+                        OskNLog.Log("hankan-" + col + "=" + hankan, 1);
+                        OskNLog.Log("kansei-" + col + "=" + kansei, 1);
 
                         ////////////////////////////////
                         // 半完マスタ
                         ////////////////////////////////
                         ///
-                        
+
                         ortkansei = new Procmastermodel();
 
                         // 新機種展開表をルートからコピー
@@ -356,7 +336,7 @@ namespace ProcMasterIF
                         procobj_hankan.procmastermodel = ortkansei;
 
                         // ProcJson作成
-                        if (!makeProcJson(i, ref procobj_hankan))
+                        if (!makeProcJson(col, ref procobj_hankan))
                         {
                             interLock = false;
                             return;
@@ -415,7 +395,7 @@ namespace ProcMasterIF
 
                         procobj_kansei.procmastermodel = ortkansei;
 
-                        if (!makeProcJson(i, ref procobj_kansei))
+                        if (!makeProcJson(col, ref procobj_kansei))
                         {
                             interLock = false;
                             return;
@@ -428,18 +408,18 @@ namespace ProcMasterIF
                         ///
                         procobj_hankan.procmastermodel.typecd = procobj_hankan.procmastermodel.shinkishutenkai.typeinfo.hankan.value;
                         procobj_kansei.procmastermodel.typecd = procobj_kansei.procmastermodel.shinkishutenkai.typeinfo.kansei.value;
-                                               
+
                         var procjsonfolder_hankan = conf.makeprocjson.config.path.procjsonfolder.hankan;
                         var procjsonfolder_kansei = conf.makeprocjson.config.path.procjsonfolder.kansei;
 
                         if (!string.IsNullOrEmpty(procjsonfolder_hankan))
                         {
                             var jsonpath = procjsonfolder_hankan + "\\" + procobj_hankan.procmastermodel.typecd + ".json";
-                            if (!System.IO.File.Exists(jsonpath))
-                            {
-                                Oskas.CommonFuncs.JsonFileWriter(jsonpath, procobj_hankan, ref msg);
-                            }
-                            //Oskas.CommonFuncs.JsonFileWriter(jsonpath, procobj_hankan, ref msg);
+                            //if (!System.IO.File.Exists(jsonpath))
+                            //{
+                            //    Oskas.CommonFuncs.JsonFileWriter(jsonpath, procobj_hankan, ref msg);
+                            //}
+                            Oskas.CommonFuncs.JsonFileWriter(jsonpath, procobj_hankan, ref msg);
                         }
 
                         if (!string.IsNullOrEmpty(procjsonfolder_kansei))
@@ -452,53 +432,14 @@ namespace ProcMasterIF
                             Oskas.CommonFuncs.JsonFileWriter(jsonpath, procobj_kansei, ref msg);
                         }
                     }
-                    ToolStripStatusShow("");
+                    toolStripStatusLabel2.Text = "";
                     interLock = false;
+
+                    msg = "makeを完了しました。";
+                    OskNLog.Log(msg, Cnslcnf.msg_info);
+
                 });
             }
-        }
-
-
-        private void FmProcMasterIF_Shown(object sender, EventArgs e)
-        {
-
-            Task readHankan = Task.Run(() =>
-            {
-                ToolStripStatusShow("◆新機種展開表を読み込んでいます");
-                sl = new SLDocument(txt_shinkishutenkai.Text);
-                ToolStripStatusShow("読込完了");
-            });
-        }
-
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-            if (sl != null)
-            {
-                txt_typecd_kansei_start.Text = sl.GetCellValueAsString("B" + numericUpDown1.Value);
-            }
-        }
-
-
-        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
-        {
-            if (sl != null)
-            {
-                txt_typecd_kansei_end.Text = sl.GetCellValueAsString("B" + numericUpDown2.Value);
-            }
-        }
-
-
-        private bool readJson(string jsonpath, ref string json)
-        {
-            var msg = string.Empty;
-            if (!Oskas.CommonFuncs.JsonFileReader(jsonpath, ref json, ref msg))
-            {
-                ConsoleShow(jsonpath + "を読み込み失敗", 1);
-                return false;
-            }
-            ConsoleShow(jsonpath + "を読み込み完了", 1);
-            return true;
         }
 
 
@@ -519,7 +460,7 @@ namespace ProcMasterIF
             //////////////////////
             ///
             var skt = procobj.procmastermodel.shinkishutenkai;
-            
+
             //formo
             if (skt.formno.value == "")
             {
@@ -593,14 +534,14 @@ namespace ProcMasterIF
             {
                 skt.etc.buhinhyou.zuban.ch.value = sl.GetCellValueAsString(skt.etc.buhinhyou.zuban.ch.xlscol + row);
             }
-            
+
             // 部品表を検出する
             var bompath = GetBomPath(skt.etc.buhinhyou.zuban.jp.value + "@" + skt.typeinfo.kansei.value + ".xlsx");
 
             if (bompath == "")
             {
-                ConsoleShow(skt.etc.buhinhyou.zuban.jp.value + "@" + skt.typeinfo.kansei.value + ".xlsx は対検索対象フォルダから検出できませんでした", 2);
-                ConsoleShow("中止します", 2);
+                OskNLog.Log(skt.etc.buhinhyou.zuban.jp.value + "@" + skt.typeinfo.kansei.value + ".xlsx は対検索対象フォルダから検出できませんでした", 2);
+                OskNLog.Log("中止します", 2);
                 return false;
             }
 
@@ -623,9 +564,9 @@ namespace ProcMasterIF
                     {
                         if (material.name.value != slbom.GetCellValueAsString(material.name.bomaddress))
                         {
-                            ConsoleShow("部品表から取得した部品コードが基底モデルと違っています", 2);
-                            ConsoleShow("部品表：" + slbom.GetCellValueAsString(material.name.bomaddress), 2);
-                            ConsoleShow("基底モデル：" + material.name.value, 2);
+                            OskNLog.Log("部品表から取得した部品コードが基底モデルと違っています", 2);
+                            OskNLog.Log("部品表：" + slbom.GetCellValueAsString(material.name.bomaddress), 2);
+                            OskNLog.Log("基底モデル：" + material.name.value, 2);
                             return false;
                         }
                     }
@@ -638,9 +579,9 @@ namespace ProcMasterIF
                     {
                         if (material.code.value != slbom.GetCellValueAsString(material.code.bomaddress))
                         {
-                            ConsoleShow("部品表から取得した部品コードが基底モデルと違っています", 2);
-                            ConsoleShow("部品表：" + slbom.GetCellValueAsString(material.code.bomaddress), 2);
-                            ConsoleShow("基底モデル：" + material.code.value, 2);
+                            OskNLog.Log("部品表から取得した部品コードが基底モデルと違っています", 2);
+                            OskNLog.Log("部品表：" + slbom.GetCellValueAsString(material.code.bomaddress), 2);
+                            OskNLog.Log("基底モデル：" + material.code.value, 2);
                             return false;
                         }
                     }
@@ -653,13 +594,13 @@ namespace ProcMasterIF
 
         private string GetBomPath(string bomno)
         {
-            var serchDir = txt_buhinhyou.Text;
+            var serchDir = conf.makeprocjson.config.path.buhinhyoufolder;
             foreach (string d in Directory.GetDirectories(serchDir))
             {
                 var fileName = d + "\\" + bomno;
                 if (System.IO.File.Exists(fileName))
                 {
-                    ConsoleShow("'" + fileName + "'は存在します。", 1);
+                    OskNLog.Log("'" + fileName + "'の存在を確認", 1);
                     return fileName;
                 }
             }
@@ -723,7 +664,7 @@ namespace ProcMasterIF
             ///
             var ortfld = @"C:\Oskas\procmaster\model\shoumei\ver9\modelsources\ver9_hankan_as0309";
             var ort = new Procmastermodel();
-            
+
             // 新機種展開表をルートからコピー
             ort.shinkishutenkai = sr.shinkishutenkai;
 
@@ -767,6 +708,17 @@ namespace ProcMasterIF
                 ort.buhinhyou = deserializer.Deserialize<Buhinhyou>(buhinhyou_yaml);
             }
         }
+
+        private void btServerStart_Click(object sender, EventArgs e)
+        {
+            makeProcMaster();
+        }
+
+        private void DbKeeper_Shown(object sender, EventArgs e)
+        {
+
+        }
+
     }
 
 }

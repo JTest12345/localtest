@@ -328,7 +328,7 @@ namespace FileIf
                     object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, InFileTaskRslt });
                     OutFileTask = (Task_Ret)FOutTaskRsltArr;
 
-                    //if (InFileTaskRslt.Result == "OK" || InFileTaskRslt.Result == "WARN") //【DBタスク】が正常完了の場合
+                    //if (InFileTaskRslt.Result == retkey.ok || InFileTaskRslt.Result == retkey.warn) //【DBタスク】が正常完了の場合
                     //{
                     //    //// ◆FOutTask実行
                     //    //object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, InFileTaskRslt });
@@ -339,7 +339,7 @@ namespace FileIf
                     //        return false;
                     //    }
                     //}
-                    //else if (InFileTaskRslt.Result == "NG") //【DBタスク】が正常でない場合
+                    //else if (InFileTaskRslt.Result == retkey.ng) //【DBタスク】が正常でない場合
                     //{
                     //    //// ◆FOutTask実行(エラーコード有)
                     //    //object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, InFileTaskRslt });
@@ -349,10 +349,10 @@ namespace FileIf
                     //        return false;
                     //    }
                     //}
-                    //else if (InFileTaskRslt.Result == "CANCEL") //【DBタスク】中止する場合
+                    //else if (InFileTaskRslt.Result == retkey.cancel) //【DBタスク】中止する場合
                     //{
                     //    // ◆FOutTask実行(エラーコード999)
-                    //    //object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, "CANCEL" });
+                    //    //object FOutTaskRsltArr = OutFileTasks.Invoke(TaskClass, new object[] { fs, retkey.cancel });
                     //    //OutFileTask = (Task_Ret)FOutTaskRsltArr;
 
                     //    if (!InFileTaskRsltIsCancel(fs, InFileTaskRslt, ref OutFileTask))
@@ -365,7 +365,7 @@ namespace FileIf
                     // OutFileTask結果処理
                     ///////////////////////////////////////////////
                     // 【OUTフォルダタスク】が正常終了の場合
-                    if (OutFileTask.Result == "OK") 
+                    if (OutFileTask.Result == retkey.ok) 
                     {
                         OskNLog.Log(InFileTaskRslt.DebugMsg, Cnslcnf.msg_debug);
                         if (InFileTaskRslt.Msg != "") OskNLog.Log(InFileTaskRslt.Msg, Cnslcnf.msg_info);
@@ -377,7 +377,7 @@ namespace FileIf
                         //File.Delete(fs.tmpfilepath);
 
                         // ◇doneフォルダに移動
-                        if (InFileTaskRslt.Result == "OK")
+                        if (InFileTaskRslt.Result == retkey.ok)
                         {
                             string DonePath = $"{fs.fpath}\\done\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.ok";
                             //[temp]=>[done]
@@ -386,7 +386,7 @@ namespace FileIf
 
                             OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスクは正常に完了しました", Cnslcnf.msg_info);
                         }
-                        else if (InFileTaskRslt.Result == "WARN")
+                        else if (InFileTaskRslt.Result == retkey.warn)
                         {
                             string DonePath = $"{fs.fpath}\\done\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.warn";
                             //[in]=>[done]
@@ -395,7 +395,7 @@ namespace FileIf
 
                             OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスクはWARNNINGが発生しています", Cnslcnf.msg_info);
                         }
-                        else if (InFileTaskRslt.Result == "CANCEL")
+                        else if (InFileTaskRslt.Result == retkey.cancel)
                         {
                             //////////////////////////////////////////////////////////////////////////////////////
                             // 設備側からタスクのキャンセル要求(ERROR返信)があった場合はMagCupDirをクリーンします
@@ -412,7 +412,7 @@ namespace FileIf
                             OskNLog.Log(InFileTaskRslt.Result, Cnslcnf.msg_debug);
                             if (InFileTaskRslt.Msg != "") OskNLog.Log(InFileTaskRslt.Msg, Cnslcnf.msg_info);
 
-                            if (OutFileTask.Result == "OK") OutFileTask.Result = "CANCEL";
+                            if (OutFileTask.Result == retkey.ok) OutFileTask.Result = retkey.cancel;
                             OskNLog.Log($"設備:{fs.Pcat} ({fs.Macno})/ {fs.mclbl}:{fs.MagCupNo} のタスクは設備側からのエラー返信によりキャンセルされました", Cnslcnf.msg_info);
                         }
                         else
@@ -436,7 +436,7 @@ namespace FileIf
                     }
                  //
                  // 【OUTフォルダタスク】が異常終了の場合
-                    if (OutFileTask.Result == "NG")
+                    if (OutFileTask.Result == retkey.ng)
                     {
                         OskNLog.Log(InFileTaskRslt.DebugMsg, Cnslcnf.msg_debug);
                         OskNLog.Log(OutFileTask.Msg, Cnslcnf.msg_error);
@@ -473,7 +473,7 @@ namespace FileIf
         //{
         //    try
         //    {
-        //        if (OutFileTask.Result == "OK") //【OUTフォルダタスク】が正常終了の場合
+        //        if (OutFileTask.Result == retkey.ok) //【OUTフォルダタスク】が正常終了の場合
         //        {
         //            OskNLog.Log(InFileTaskRslt.DebugMsg, Cnslcnf.msg_debug);
         //            if (InFileTaskRslt.Msg != "") OskNLog.Log(InFileTaskRslt.Msg, Cnslcnf.msg_info);
@@ -486,7 +486,7 @@ namespace FileIf
 
         //            // ◇doneフォルダに移動
         //            string DonePath = string.Empty;
-        //            if (InFileTaskRslt.Result == "WARN")
+        //            if (InFileTaskRslt.Result == retkey.warn)
         //            {
         //                DonePath = $"{fs.fpath}\\done\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.warn";
         //            }
@@ -519,7 +519,7 @@ namespace FileIf
         //{
         //    try
         //    {
-        //        if (OutFileTask.Result == "OK") //【OUTフォルダタスク】が正常終了の場合
+        //        if (OutFileTask.Result == retkey.ok) //【OUTフォルダタスク】が正常終了の場合
         //        {
         //            OskNLog.Log(InFileTaskRslt.DebugMsg, Cnslcnf.msg_debug);
         //            OskNLog.Log(InFileTaskRslt.Msg, Cnslcnf.msg_error);
@@ -566,7 +566,7 @@ namespace FileIf
         //        OskNLog.Log(InFileTaskRslt.Result, Cnslcnf.msg_debug);
         //        if (InFileTaskRslt.Msg != "") OskNLog.Log(InFileTaskRslt.Msg, Cnslcnf.msg_info);
 
-        //        if (OutFileTask.Result == "OK") OutFileTask.Result = "CANCEL";
+        //        if (OutFileTask.Result == retkey.ok) OutFileTask.Result = retkey.cancel;
         //        // OUTファイルNGの場合の処理は「【OUTフォルダタスク】が異常終了の場合」で共通処理
 
         //        return true;

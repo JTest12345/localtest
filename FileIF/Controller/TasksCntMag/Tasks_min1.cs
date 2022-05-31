@@ -39,7 +39,7 @@ namespace FileIf
             //<taskid=min1101>【FileSys】設備情報取得
             taskid = 101;
             Task_Ret gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gmic.Result == "NG")
+            if (gmic.Result == retkey.ng)
             {
                 return gmic;
             }
@@ -48,7 +48,7 @@ namespace FileIf
             //<taskid=min1102>【FileSys】PLCの接続条件取得
             taskid += 1;
             Task_Ret gpcc = tcommons.GetPlcConnectConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gpcc.Result == "NG")
+            if (gpcc.Result == retkey.ng)
             {
                 return gpcc;
             }
@@ -62,7 +62,7 @@ namespace FileIf
             if (fs.mci.UsePlcTrig)
             {
                 Task_Ret cpa = tcommons.ChkPlcAccess(taskid, fs, minfo,ref Dict, ref msg, ref Dbgmsg);
-                if (cpa.Result == "NG")
+                if (cpa.Result == retkey.ng)
                 {
                     return cpa;
                 }
@@ -79,7 +79,7 @@ namespace FileIf
                 if (!ws.CheckBeforeStart(out msg))
                 {
 
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 Dict.Add("{product}", ws.lot.TypeCd.PadRight(25, ' '));
@@ -103,15 +103,15 @@ namespace FileIf
                 if (magstatus != 0)
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, msg);
-                    return tcommons.MakeRet("WARN", msg, Dbgmsg, magstatus);
+                    return tcommons.MakeRet(retkey.warn, msg, Dbgmsg, magstatus);
                 }
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
                 //完了時の出力
-                //return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                //return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -143,27 +143,27 @@ namespace FileIf
                 {
                     string mes = "WIPファイル作成時に問題が発生しました";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
             //<taskid=min1106> inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
             Task_Ret mitf = tcommons.MoveIn2TempFolder(taskid, fs,ref Dict, ref msg, ref Dbgmsg);
-            if (mitf.Result == "NG")
+            if (mitf.Result == retkey.ng)
             {
                 return mitf;
             }
 
 
-            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
 
@@ -176,7 +176,7 @@ namespace FileIf
             //<taskid=min1901>【ファイル生成】ENDファイルの発行
             taskid = 901;
             Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end1", ref msg, ref Dbgmsg);
-            if (oef.Result == "NG")
+            if (oef.Result == retkey.ng)
             {
                 return oef;
             }
@@ -187,13 +187,13 @@ namespace FileIf
             if (fs.mci.UsePlcTrig)
             {
                 Task_Ret fgr = tcommons.FileGetRequest_Plc(taskid, fs, minfo,ref Dict, ref msg, ref Dbgmsg);
-                if (fgr.Result == "NG")
+                if (fgr.Result == retkey.ng)
                 {
                     return fgr;
                 }
             }
 
-            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
     }

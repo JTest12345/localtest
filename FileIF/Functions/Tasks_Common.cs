@@ -25,12 +25,15 @@ namespace FileIf
         {
             var dict = new Dictionary<string, string>()
             {
-                { "ok" , "OK" },
-                { "OK", "OK" },
-                { "ng" , "NG" },
-                { "NG", "NG" },
-                { "cancel", "CANCEL" },
-                { "CANCEL", "CANCEL" },
+                { "OK" , retkey.ok },
+                { "Ok", retkey.ok },
+                { "ok", retkey.ok },
+                { "NG" , retkey.ng },
+                { "Ng", retkey.ng },
+                { "ng", retkey.ng },
+                { "CANCEL", retkey.cancel },
+                { "Cancel", retkey.cancel },
+                { "cancel", retkey.cancel },
                 { "0", "0" },
                 { "1", "1" },
                 { "2", "2" },
@@ -147,17 +150,17 @@ namespace FileIf
                 {
                     string mes = "設備情報(confとfilesystem)が一致していません";
                     msg = ErrorMessage(taskid, fs, mes);
-                    return MakeRet( "NG", msg, Dbgmsg,  (int)retcode.Failure );
+                    return MakeRet( retkey.ng, msg, Dbgmsg,  (int)retcode.Failure );
                 }
 
             }
             catch (Exception ex)
             {
                 msg = ErrorMessage(taskid, fs, ex.Message);
-                return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
-            return MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
 
@@ -173,7 +176,7 @@ namespace FileIf
                 {
                     string mes = "PLCの接続情報取得ができません";
                     msg = ErrorMessage(taskid, fs, mes);
-                    return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                    return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
                 }
 
                 minfo.Ipaddress = mcc.ipa;
@@ -198,10 +201,10 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = ErrorMessage(taskid, fs, ex.Message);
-                return new string[] { "NG", msg, Dbgmsg, taskid.ToString() };
+                return new string[] { retkey.ng, msg, Dbgmsg, taskid.ToString() };
             }
 
-            return new string[] { "OK" };
+            return new string[] { retkey.ok };
         }
         */
 
@@ -241,10 +244,10 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = ErrorMessage(taskid, fs, ex.Message);
-                return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
-            return MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
         public Task_Ret ChkPlcAccess(int taskid, Mcfilesys fs, Macconinfo minfo, ref Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
@@ -257,16 +260,16 @@ namespace FileIf
                 {
                     string mes = Dbgmsg;
                     msg = ErrorMessage(taskid, fs, mes);
-                    return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
             }
             catch (Exception ex)
             {
                 msg = ErrorMessage(taskid, fs, ex.Message);
-                return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
-            return MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
 
@@ -285,7 +288,7 @@ namespace FileIf
                         {
                             string mes = Dbgmsg;
                             msg = ErrorMessage(taskid, fs, mes);
-                            return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                            return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                         }
 
                         Dbgmsg += $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} " + minfo.plctrgdevtype + "-" + int.Parse(minfo.plctrgdevno) + $"に1を書き込みました: taskid={fs.lbl[1]}{taskid.ToString()}";
@@ -294,22 +297,22 @@ namespace FileIf
                     {
                         string mes = Dbgmsg;
                         msg = ErrorMessage(taskid, fs, mes);
-                        return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                        return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                     }
 
                     // 成功
-                    return MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+                    return MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
                 }
                 else
                 {
-                    return MakeRet("OK", "", "PLCデバイストリガはmacconfにて使用しない設定になっています", (int)retcode.Success);
+                    return MakeRet(retkey.ok, "", "PLCデバイストリガはmacconfにて使用しない設定になっています", (int)retcode.Success);
                 }
 
             }
             catch (Exception ex)
             {
                 msg = ErrorMessage(taskid, fs, ex.Message);
-                return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
         }
 
@@ -325,10 +328,10 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = ErrorMessage(taskid, fs, ex.Message);
-                return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure); ;
+                return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure); ;
             }
 
-            return MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
 
@@ -361,7 +364,7 @@ namespace FileIf
                 {
                     string mes = "エンドファイル設定が読み込めません";
                     msg = ErrorMessage(taskid, fs, mes);
-                    return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 contents += edcf.stacode;
@@ -403,7 +406,7 @@ namespace FileIf
                 //    {
                 //        string mes = "エンドファイル項目設定が読み込めません";
                 //        msg = ErrorMessage(taskid, fs, mes);
-                //        return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                //        return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 //    }
                 //}
                 //else if (errorcode == 999)
@@ -461,7 +464,7 @@ namespace FileIf
                 {
                     string mes = "エンドファイル項目設定が読み込めません";
                     msg = ErrorMessage(taskid, fs, mes);
-                    return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 //contents = contents.Substring(0, contents.Length - 1);
@@ -481,10 +484,10 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = ErrorMessage(taskid, fs, ex.Message);
-                return MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
-            return MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
 

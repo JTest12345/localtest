@@ -16,7 +16,9 @@ namespace ProcMasterIF
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FmProcMasterIF());
+            //Application.Run(new FmProcMasterIF());
+            Application.Run(new FmSQLBuilder());
+            //Application.Run(new DbKeeper());
         }
     }
 }

@@ -42,7 +42,7 @@ namespace FileIf
             //<taskid=vlin1101>【FileSys】設備情報取得
             taskid = 101;
             Task_Ret gmic = tcommons.GetMacInfoConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gmic.Result == "NG")
+            if (gmic.Result == retkey.ng)
             {
                 return gmic;
             }
@@ -51,7 +51,7 @@ namespace FileIf
             //<taskid=vlin1102>【FileSys】PLCの接続条件取得
             taskid += 1;
             Task_Ret gpcc = tcommons.GetPlcConnectConf(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-            if (gpcc.Result == "NG")
+            if (gpcc.Result == retkey.ng)
             {
                 return gpcc;
             }
@@ -62,7 +62,7 @@ namespace FileIf
             if (fs.mci.UsePlcTrig)
             {
                 Task_Ret cpa = tcommons.ChkPlcAccess(taskid, fs, minfo,ref Dict, ref msg, ref Dbgmsg);
-                if (cpa.Result == "NG")
+                if (cpa.Result == retkey.ng)
                 {
                     return cpa;
                 }
@@ -74,7 +74,7 @@ namespace FileIf
                 taskid += 1;
 
                 Task_Ret rl2f = vlin1.Readvlin1FileTask(taskid, fs, ref Dict, ref Dbgmsg);
-                if (rl2f.Result == "NG" || rl2f.Result == "CANCEL")
+                if (rl2f.Result == retkey.ng || rl2f.Result == retkey.cancel)
                 {
                     return rl2f;
                 }
@@ -82,7 +82,7 @@ namespace FileIf
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -110,14 +110,14 @@ namespace FileIf
                         Dbgmsg += "Vlot整合チェックで不正検出" + crlf;
                         msg = "Vlot整合チェックで不正検出";
                         msg = tcommons.ErrorMessage(taskid, fs, msg);
-                        return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                        return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                     }
                 }
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -164,19 +164,28 @@ namespace FileIf
                 //Dict["{bdqty_list}"] =  bdqtyArr;
                 Dict.Add("{bdqty_list}", bdqtyArr);
 
-                //◆開始可能なLOTがなければWARNで終了する
+                //◆開始可能なLOTなし且つmagstateArrにretcode.Startedが含まれなければエラーで返信
+
+                if (vlin1.beStaMagLst.Count == 0 && !magstateArr.Contains(((int)retcode.Started).ToString()))
+                {
+                    msg = "問合せのロットリストは全て完了済みです";
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.AllClosed);
+                }
+
+                //◆上記以外で開始可能なLOTがなければWARNで終了する
                 if (vlin1.beStaMagLst.Count == 0)
                 {
                     msg = "問合せのロットリストに開始可能なロットがありません";
                     msg = tcommons.ErrorMessage(taskid, fs, msg);
-                    return tcommons.MakeRet("WARN", msg, Dbgmsg, (int)retcode.Warn);
+                    return tcommons.MakeRet(retkey.warn, msg, Dbgmsg, (int)retcode.Warn);
                 }
 
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -192,14 +201,14 @@ namespace FileIf
 
                     if (!ws.CheckBeforeStart(out msg))
                     {
-                        return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                        return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                     }
                 }
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
@@ -237,26 +246,26 @@ namespace FileIf
                 {
                     string mes = "WIPファイル作成時に問題が発生しました";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
 
             //<taskid=vlin1106> inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
             Task_Ret mitf = tcommons.MoveIn2TempFolder(taskid, fs, ref Dict, ref msg, ref Dbgmsg);
-            if (mitf.Result == "NG")
+            if (mitf.Result == retkey.ng)
             {
                 return mitf;
             }
 
-            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
 
@@ -269,7 +278,7 @@ namespace FileIf
             //<taskid=vlin1901>【ファイル生成】ENDファイルの発行
             taskid = 901;
             Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end1", ref msg, ref Dbgmsg);
-            if (oef.Result == "NG")
+            if (oef.Result == retkey.ng)
             {
                 return oef;
             }
@@ -280,13 +289,13 @@ namespace FileIf
             if (fs.mci.UsePlcTrig)
             {
                 Task_Ret fgr = tcommons.FileGetRequest_Plc(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-                if (fgr.Result == "NG")
+                if (fgr.Result == retkey.ng)
                 {
                     return fgr;
                 }
             }
 
-            return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
         }
 
     }

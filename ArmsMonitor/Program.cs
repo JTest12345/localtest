@@ -58,8 +58,8 @@ namespace ArmsMonitor
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                //Application.Run(FrmMonitor.GetInstance());
-                Application.Run(FrmSRTimeKeeper.GetInstance());
+                Application.Run(FrmMonitor.GetInstance());
+                //Application.Run(FrmSRTimeKeeper.GetInstance());
             }
             catch (Exception ex)
             {

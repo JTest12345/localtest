@@ -21,7 +21,8 @@ namespace ArmsMonitor
         }
 
         // 検索対象時間(日, 時間, 分, 秒)
-        private TimeSpan searchts = new TimeSpan(1, 0, 0, 0);
+        private TimeSpan searchtsMax = new TimeSpan(0, 24, 0, 0);
+        private TimeSpan searchtsMin = new TimeSpan(0, -24, 0, 0);
 
         private static string SR_WORK_CD = "SR";
 
@@ -179,12 +180,11 @@ namespace ArmsMonitor
         private SRReginInst[] getSRInsts()
         {
             List<SRReginInst> retv = new List<SRReginInst>();
-            List<Resin> rlist = Resin.GetResinList(searchts);
+            List<Resin> rlist = Resin.GetResinList(searchtsMax);
             List<LimitCheckResult> lcr = new List<LimitCheckResult>();
 
             foreach (Resin rsin in rlist)
             {
-
                 SRReginInst ins = new SRReginInst();
                 ins.mixresultid = rsin.MixResultId;
                 ins.bincd = rsin.BinCD;
@@ -227,10 +227,11 @@ namespace ArmsMonitor
                 ins.uselimit = rsin.LimitDt.ToString();
                 var warnts = new TimeSpan(0, 0, 60, 0);
                 var odts = new TimeSpan(0, 0, 90, 0);
+                var currts = new TimeSpan(0, 0, 0, 0);
 
                 if (rsin.LimitDt != null)
                 {
-                    var currts = (DateTime)rsin.LimitDt - DateTime.Now;
+                    currts = (DateTime)rsin.LimitDt - DateTime.Now;
                     if (currts > new TimeSpan(0, 0, 0, 0))
                     {
                         if (currts < warnts)
@@ -243,100 +244,103 @@ namespace ArmsMonitor
                         ins.Result = ResultKb.Expired;
                     }
                 }
-
-                retv.Add(ins);
+                if (currts < searchtsMax && currts > searchtsMin)
+                {
+                    retv.Add(ins);
+                }
             }
 
             return retv.OrderBy(o => o.uselimit).ToArray();
         }
 
 
-        private DBPreOvnPLInst[] getInsts()
-        {
-            List<DBPreOvnPLInst> retv = new List<DBPreOvnPLInst>();
+        //private DBPreOvnPLInst[] getInsts()
+        //{
+        //    List<DBPreOvnPLInst> retv = new List<DBPreOvnPLInst>();
 
-            Process plProc = Process.GetProcess(SR_WORK_CD);
+        //    Process plProc = Process.GetProcess(SR_WORK_CD);
 
-            TimeLimit[] limits = TimeLimit.GetLimits(null, plProc.ProcNo, false);
-            SortedList<string, TimeLimit> includeTypes = new SortedList<string, TimeLimit>();
-            List<int> includeProcs = new List<int>();
+        //    TimeLimit[] limits = TimeLimit.GetLimits(null, plProc.ProcNo, false);
+        //    SortedList<string, TimeLimit> includeTypes = new SortedList<string, TimeLimit>();
+        //    List<int> includeProcs = new List<int>();
 
-            foreach (var lim in limits)
-            {
-                //マイナス時間を持っている設定しか考慮しない
-                if (lim.EffectLimit < 0)
-                {
-                    if (MoldWaitTimeLimitSettingList.Count() > 0)
-                    {
-                        if (MoldWaitTimeLimitSettingList.Any(m => m.TypeCd == lim.TypeCd && m.ChkWorkCd == lim.ChkWorkCd) == false)
-                        {
-                            continue;
-                        }
-                    }
-                    includeTypes.Add(lim.TypeCd, lim);
-                }
-            }
+        //    foreach (var lim in limits)
+        //    {
+        //        //マイナス時間を持っている設定しか考慮しない
+        //        if (lim.EffectLimit < 0)
+        //        {
+        //            if (MoldWaitTimeLimitSettingList.Count() > 0)
+        //            {
+        //                if (MoldWaitTimeLimitSettingList.Any(m => m.TypeCd == lim.TypeCd && m.ChkWorkCd == lim.ChkWorkCd) == false)
+        //                {
+        //                    continue;
+        //                }
+        //            }
+        //            includeTypes.Add(lim.TypeCd, lim);
+        //        }
+        //    }
 
-            Magazine[] mags = Magazine.GetMagazine(true);
+        //    Magazine[] mags = Magazine.GetMagazine(true);
 
-            foreach (Magazine m in mags)
-            {
-                AsmLot lot = AsmLot.GetAsmLot(m.NascaLotNO);
+        //    foreach (Magazine m in mags)
+        //    {
+        //        AsmLot lot = AsmLot.GetAsmLot(m.NascaLotNO);
 
-                //監視タイプに含まれていれば処理無し
-                if (includeTypes.Keys.Contains(lot.TypeCd) == false) continue;
+        //        //監視タイプに含まれていれば処理無し
+        //        if (includeTypes.Keys.Contains(lot.TypeCd) == false) continue;
 
-                //硬化前プラズマ開始ロットは通知なし
-                Order ord = Order.GetMagazineOrder(lot.NascaLotNo, plProc.ProcNo);
-                if (ord != null)
-                {
-                    continue;
-                }
+        //        //硬化前プラズマ開始ロットは通知なし
+        //        Order ord = Order.GetMagazineOrder(lot.NascaLotNo, plProc.ProcNo);
+        //        if (ord != null)
+        //        {
+        //            continue;
+        //        }
 
-                TimeLimit limit = includeTypes[lot.TypeCd];
-                Process dbproc = limit.TgtProc;
+        //        TimeLimit limit = includeTypes[lot.TypeCd];
+        //        Process dbproc = limit.TgtProc;
 
-                ord = Order.GetMagazineOrder(lot.NascaLotNo, dbproc.ProcNo);
+        //        ord = Order.GetMagazineOrder(lot.NascaLotNo, dbproc.ProcNo);
 
-                //DB完了前ロットは通知なし
-                if (ord == null || ord.WorkEndDt.HasValue == false)
-                {
-                    continue;
-                }
+        //        //DB完了前ロットは通知なし
+        //        if (ord == null || ord.WorkEndDt.HasValue == false)
+        //        {
+        //            continue;
+        //        }
 
-                //ダイボンド終了時刻から現時刻が時間監視のマイナス値以下なら通知なし
-                //if ((DateTime.Now - ord.WorkEndDt.Value).TotalMinutes <= Math.Abs(limit.EffectLimit))
-                //{
-                //    continue;
-                //}
+        //        //ダイボンド終了時刻から現時刻が時間監視のマイナス値以下なら通知なし
+        //        //if ((DateTime.Now - ord.WorkEndDt.Value).TotalMinutes <= Math.Abs(limit.EffectLimit))
+        //        //{
+        //        //    continue;
+        //        //}
 
-                DateTime tgtDt;
-                if (limit.TgtKb == TimeLimit.JudgeKb.End)
-                {
-                    tgtDt = ord.WorkEndDt.Value;
-                }
-                else
-                {
-                    tgtDt = ord.WorkStartDt;
-                }
-                if ((DateTime.Now - tgtDt).TotalMinutes <= Math.Abs(limit.EffectLimit))
-                {
-                    continue;
-                }
+        //        DateTime tgtDt;
+        //        if (limit.TgtKb == TimeLimit.JudgeKb.End)
+        //        {
+        //            tgtDt = ord.WorkEndDt.Value;
+        //        }
+        //        else
+        //        {
+        //            tgtDt = ord.WorkStartDt;
+        //        }
+        //        if ((DateTime.Now - tgtDt).TotalMinutes <= Math.Abs(limit.EffectLimit))
+        //        {
+        //            continue;
+        //        }
 
-                DBPreOvnPLInst ins = new DBPreOvnPLInst();
-                ins.TypeCd = lot.TypeCd;
-                ins.LotNo = lot.NascaLotNo;
-                ins.MacGroup = string.Join(",", lot.MacGroup);
-                ins.MagNo = m.MagazineNo;
-                ins.ProcNo = m.NowCompProcess;
-                ins.DBEndDt = ord.WorkEndDt.Value;
+        //        DBPreOvnPLInst ins = new DBPreOvnPLInst();
+        //        ins.TypeCd = lot.TypeCd;
+        //        ins.LotNo = lot.NascaLotNo;
+        //        ins.MacGroup = string.Join(",", lot.MacGroup);
+        //        ins.MagNo = m.MagazineNo;
+        //        ins.ProcNo = m.NowCompProcess;
+        //        ins.DBEndDt = ord.WorkEndDt.Value;
 
-                retv.Add(ins);
-            }
+        //        retv.Add(ins);
+        //    }
 
-            return retv.OrderBy(o => o.DBEndDt).ToArray();
-        }
+        //    return retv.OrderBy(o => o.DBEndDt).ToArray();
+        //}
+
         #endregion
 
 

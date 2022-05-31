@@ -47,7 +47,7 @@ namespace FileIf
                 {
                     string mes = content;
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
                 string results = new string(content.Where(c => !char.IsControl(c)).ToArray());
                 results = results.Replace("\"", "");
@@ -61,8 +61,8 @@ namespace FileIf
                     string mes = $"エラー通知(No.{ErrorCode}受信、全タスクを中止します";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     Dbgmsg += "IN2処理で設備側からタスクのキャンセル要求がありました";
-                    //return new string[] { "CANCEL", msg, Dbgmsg, taskid.ToString() };
-                    return tcommons.MakeRet("CANCEL", msg, Dbgmsg, (int)retcode.Cancel);
+                    //return new string[] { retkey.cancel, msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet(retkey.cancel, msg, Dbgmsg, (int)retcode.Cancel);
                 }
                 else
                 {
@@ -71,12 +71,12 @@ namespace FileIf
                     //
                 }
 
-                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+                return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
         }
@@ -121,7 +121,7 @@ namespace FileIf
                 {
                     string mes = contentList[0];
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 // ◇実績(1行目)
@@ -134,8 +134,8 @@ namespace FileIf
                     string mes = $"エラー通知(No.{contents[1]}受信、全タスクを中止します";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     Dbgmsg += "MOT処理で設備側からタスクのキャンセル要求がありました";
-                    //return new string[] { "CANCEL", msg, Dbgmsg, taskid.ToString() };
-                    return tcommons.MakeRet("CANCEL", msg, Dbgmsg, (int)retcode.Cancel);
+                    //return new string[] { retkey.cancel, msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet(retkey.cancel, msg, Dbgmsg, (int)retcode.Cancel);
                 }
 
                 product_out = contents[0];
@@ -166,7 +166,7 @@ namespace FileIf
                         {
                             string mes = "MOTファイル内の不良数が数値ではない為、処理できません";
                             msg = tcommons.ErrorMessage(taskid, fs, mes);
-                            return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                            return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                         }
                         sumqty += qty;
                     }
@@ -178,28 +178,28 @@ namespace FileIf
                 {
                     string mes = "MOTファイル内の受入基板数量が数値ではない為、処理できません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
                 int qtyout = 0;
                 if (!int.TryParse(bd_out, out qtyout))
                 {
                     string mes = "MOTファイル内の払出基板数量が数値ではない為、処理できません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
                 if (qtyin - qtyout != sumqty)
                 {
                     string mes = "MOTファイル内の基板数量と不良数が不整合の為、処理できません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
-                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+                return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
         }
@@ -234,7 +234,7 @@ namespace FileIf
                 {
                     string mes = content;
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
                 string results = new string(content.Where(c => !char.IsControl(c)).ToArray());
                 results = results.Replace("\"", "");
@@ -250,12 +250,12 @@ namespace FileIf
                     }
                 }
 
-                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+                return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
         }
@@ -286,7 +286,7 @@ namespace FileIf
                 {
                     string mes = content;
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
                 string results = new string(content.Where(c => !char.IsControl(c)).ToArray());
                 results = results.Replace("\"", "");
@@ -299,8 +299,8 @@ namespace FileIf
                     string mes = $"エラー通知(No.{ErrorCode}受信、全タスクを中止します";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     Dbgmsg += "Vlin2処理で設備側からタスクのキャンセル要求がありました";
-                    //return new string[] { "CANCEL", msg, Dbgmsg, taskid.ToString() };
-                    return tcommons.MakeRet("CANCEL", msg, Dbgmsg, (int)retcode.Cancel);
+                    //return new string[] { retkey.cancel, msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet(retkey.cancel, msg, Dbgmsg, (int)retcode.Cancel);
                 }
                 else
                 {
@@ -318,12 +318,12 @@ namespace FileIf
                     }
                 }
 
-                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+                return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
 
         }
@@ -368,7 +368,7 @@ namespace FileIf
                 {
                     string mes = "btoファイルが読み込めません";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 // 空
@@ -376,7 +376,7 @@ namespace FileIf
                 {
                     string mes = "btoファイルの内容が空です";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 //Errorメッセージか確認
@@ -388,8 +388,8 @@ namespace FileIf
                     string mes = $"エラー通知(No.{err[1]}受信、全タスクを中止します";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     Dbgmsg += "BTO処理で設備側からタスクのキャンセル要求がありました";
-                    //return new string[] { "CANCEL", msg, Dbgmsg, taskid.ToString() };
-                    return tcommons.MakeRet("CANCEL", msg, Dbgmsg, (int)retcode.Cancel);
+                    //return new string[] { retkey.cancel, msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet(retkey.cancel, msg, Dbgmsg, (int)retcode.Cancel);
                 }
 
                 // LdMagInfoにデータ格納
@@ -407,12 +407,12 @@ namespace FileIf
                     magnoList.Add(arrminfo[0]);
                 }
 
-                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+                return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
         }
     }
@@ -440,17 +440,17 @@ namespace FileIf
                 {
                     string mes = "レシピファイルの読み込みに失敗しました";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 mname = Recipelines[0];
 
-                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+                return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
         }
     }
@@ -479,7 +479,7 @@ namespace FileIf
                 {
                     string mes = content;
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
                 contents = content.Split(',');
 
@@ -492,16 +492,16 @@ namespace FileIf
                     string mes = $"エラー通知(No.{ErrorCode}受信、全タスクを中止します";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
                     Dbgmsg += "STA処理で設備側からタスクのキャンセル要求がありました";
-                    //return new string[] { "CANCEL", msg, Dbgmsg, taskid.ToString() };
-                    return tcommons.MakeRet("CANCEL", msg, Dbgmsg, (int)retcode.Cancel);
+                    //return new string[] { retkey.cancel, msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet(retkey.cancel, msg, Dbgmsg, (int)retcode.Cancel);
                 }
 
-                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+                return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
         }
     }
@@ -538,7 +538,7 @@ namespace FileIf
                 {
                     string mes = "ファイルの読み込みに失敗しました";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 string[] cupdata = Cupdataline[0].Split(',');
@@ -556,12 +556,12 @@ namespace FileIf
 
                 result = int.Parse(resultstr[0]);
 
-                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+                return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
         }
     }
@@ -589,19 +589,19 @@ namespace FileIf
                 {
                     string mes = "ファイルの読み込みに失敗しました";
                     msg = tcommons.ErrorMessage(taskid, fs, mes);
-                    return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
                 string[] cupdata = Cupdataline[0].Split(',');
 
                 product_out = cupdata[0];
 
-                return tcommons.MakeRet("OK", "", Dbgmsg, (int)retcode.Success);
+                return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
-                return tcommons.MakeRet("NG", msg, Dbgmsg, (int)retcode.Failure);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
         }
     }

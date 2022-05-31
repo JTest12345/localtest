@@ -378,6 +378,45 @@ namespace ProcMasterIF
     //    public List<Makeprocjson> makeprocjson { get; set; }
     //}
 
+    ////////////////////////////////////////
+    /// 共通台帳： 工程定義台帳.yaml
+    ////////////////////////////////////////
+    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+    public class Armsproc
+    {
+        public string table { get; set; }
+        public List<string> key { get; set; }
+        public List<Col> cols { get; set; }
+    }
+
+    public class Col
+    {
+        public string name { get; set; }
+        public string type { get; set; }
+        public string allownull { get; set; }
+        public string address { get; set; }
+    }
+
+    public class Datum
+    {
+        public Armsproc arms { get; set; }
+    }
+
+    public class Header
+    {
+        public string aunther { get; set; }
+        public string firstdate { get; set; }
+        public object update { get; set; }
+        public string datatype { get; set; }
+        public int rowstart { get; set; }
+        public List<string> sheets { get; set; }
+    }
+
+    public class KouteiTigiRoot
+    {
+        public Header header { get; set; }
+        public List<Datum> data { get; set; }
+    }
 
 }
 
