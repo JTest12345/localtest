@@ -65,6 +65,44 @@ namespace ArmsWebApi
             //}
         }
 
+        public WorkEnd(string plantcd, string empcd, string magno, string ulmagno, string lotno)
+        {
+            this.plantcd = plantcd;
+            this.empcd = empcd;
+            this.magno = magno;
+            this.UnloaderMagNo = ulmagno;
+
+            //製品名・Lotno取得
+            if (string.IsNullOrEmpty(magno))
+            {
+                this.mag = Magazine.GetCurrent(magno);
+                this.lotno = this.mag.NascaLotNO;
+                this.typecd = AsmLot.GetAsmLot(lotno).TypeCd;
+            }
+            if (string.IsNullOrEmpty(lotno))
+            {
+                this.lotno = this.mag.NascaLotNO;
+                this.typecd = AsmLot.GetAsmLot(lotno).TypeCd;
+            }
+
+            //工程No取得
+            lot = AsmLot.GetAsmLot(lotno);
+            this.procno = Process.GetNowProcess(lot.NascaLotNo).ProcNo;
+
+            //上記で十分だったため不用コード化
+            //var curp = Process.GetWorkFlow(lot.TypeCd, "", false);
+            //if (curp[0].ProcNo == Process.GetNowProcess(lot.NascaLotNo).ProcNo)
+            //{
+            //    //初工程用処理
+            //    this.procno = mag.NowCompProcess;
+            //}
+            //else
+            //{
+            //    //初工程以外処理
+            //    Process p = Process.GetNextProcess(mag.NowCompProcess, lot);
+            //    this.procno = p.ProcNo;
+            //}
+        }
 
         public bool RegisterDefects(out string msg, Dictionary<string, int> Defectdict)
         {

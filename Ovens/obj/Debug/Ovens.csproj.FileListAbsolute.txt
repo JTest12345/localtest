@@ -87,3 +87,5 @@ C:\juni_ws\GitRepo\VSP\Ovens\obj\Debug\Ovens.csproj.CoreCompileInputs.cache
 C:\juni_ws\GitRepo\VSP\Ovens\obj\Debug\Ovens.csproj.CopyComplete
 C:\juni_ws\GitRepo\VSP\Ovens\obj\Debug\Ovens.exe
 C:\juni_ws\GitRepo\VSP\Ovens\obj\Debug\Ovens.pdb
+C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\YamlDotNet.dll
+C:\juni_ws\GitRepo\VSP\Ovens\bin\Debug\YamlDotNet.xml

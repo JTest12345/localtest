@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcMasterIF", "ProcMasterI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArmsMonitor", "ArmsMonitor\ArmsMonitor.csproj", "{0C28D3B6-2FAB-4C79-9DC3-7F30C6649BB7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSlabelPrint", "JSlabelPrint\JSlabelPrint.csproj", "{FBC91665-EBE5-4114-A401-FCFF75A0646A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{0C28D3B6-2FAB-4C79-9DC3-7F30C6649BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C28D3B6-2FAB-4C79-9DC3-7F30C6649BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C28D3B6-2FAB-4C79-9DC3-7F30C6649BB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBC91665-EBE5-4114-A401-FCFF75A0646A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBC91665-EBE5-4114-A401-FCFF75A0646A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBC91665-EBE5-4114-A401-FCFF75A0646A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBC91665-EBE5-4114-A401-FCFF75A0646A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

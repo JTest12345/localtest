@@ -8,7 +8,7 @@ namespace Samples
 {
     class ArmsApiPlayGround
     {
-        static void Main(string[] args)
+        static void _Main(string[] args)
         {
             var lotno = "FJ0000001";
             //var order = ArmsApi.Model.Order.GetOrder(lotno);

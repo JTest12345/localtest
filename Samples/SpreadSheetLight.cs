@@ -13,7 +13,7 @@ namespace Samples
 {
     class Spreadsheetlight
     {
-        static void _Main(string[] args)
+        static void Main(string[] args)
         {
             ///////////////////////////////////////
             //書込み
@@ -102,11 +102,15 @@ namespace Samples
             ///////////////////////////////////////
             ///
 
-            SLDocument sl = new SLDocument("HelloWorld.xlsx");
+            //SLDocument sl = new SLDocument("HelloWorld.xlsx");
 
-            var str = sl.GetCellValueAsString("A1");
-            
-            Console.WriteLine(str + "\r\n");
+            //var str = sl.GetCellValueAsString("A1");
+
+            //Console.WriteLine(str + "\r\n");
+
+            SLDocument sl = new SLDocument("C:\\temp\\ninjosystem\\system\\resources\\custmRpt\\ENERGY.xlsx");
+
+            sl.SaveAs("C:\\temp\\spreadsheetlight.xlsx");
 
             Console.WriteLine("End of program");
             Console.ReadLine();

@@ -6,21 +6,29 @@ using System.Threading.Tasks;
 
 namespace ProcMasterIF
 {
+
     ////////////////////////////////////////
     /// makeprocjson
     ////////////////////////////////////////
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-    public class Procjsonfolder
+    public class Jsonfolder
     {
         public string hankan { get; set; }
         public string kansei { get; set; }
+    }
+
+    public class CojFolder
+    {
+        public Jsonfolder jissekifolder { get; set; }
+        public Jsonfolder m4folder { get; set; }
     }
 
     public class Path
     {
         public string shinkishutenkaifile { get; set; }
         public string buhinhyoufolder { get; set; }
-        public Procjsonfolder procjsonfolder { get; set; }
+        public Jsonfolder procjsonfolder { get; set; }
+        public CojFolder cojfolder { get; set; }
     }
 
     public class Model
@@ -96,6 +104,7 @@ namespace ProcMasterIF
         public string xlscol { get; set; }
         public string value { get; set; }
     }
+
 
     [Serializable]
     public class Kyakusaki
@@ -222,6 +231,8 @@ namespace ProcMasterIF
     }
 
     [Serializable]
+    // 構造が被っているところがあるので整理が必要
+    // とりあえず動いていそうなので後回し。。。
     public class M4
     {
         public string proccd { get; set; }
@@ -263,7 +274,7 @@ namespace ProcMasterIF
     public class Material
     {
         public List<M4> m4 { get; set; }
-        public Arms arms { get; set; }
+        //public Arms arms { get; set; }
     }
 
     [Serializable]
@@ -292,7 +303,7 @@ namespace ProcMasterIF
         public M4 m4 { get; set; }
         public Pop pop { get; set; }
         public Material material { get; set; }
-        public List<Defect> defect { get; set; }
+        // public List<Defect> defect { get; set; }
     }
 
     [Serializable]
@@ -301,6 +312,7 @@ namespace ProcMasterIF
         public string typecd { get; set; }
         public Shinkishutenkai shinkishutenkai { get; set; }
         public Buhinhyou buhinhyou { get; set; }
+        public List<HINMOKUMASTER> hinmokumaster { get; set; }
         public List<string> processorder { get; set; }
         public List<Process> process { get; set; }
     }
@@ -323,6 +335,8 @@ namespace ProcMasterIF
         public Shinkishutenkai shinkishutenkai { get; set; }
         public Buhinhyou buhinhyou { get; set; }
         public Dictionary<string, Process> processdict { get; set; }
+        public Model model { get; set; }
+        public List<int> collist { get; set; }
     }
 
 

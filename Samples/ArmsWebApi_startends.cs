@@ -62,70 +62,70 @@ namespace Samples
             //②開始
             ////////////////////////
 
-            //ArmsWebApi.WorkStart ws;
-            //ws = new ArmsWebApi.WorkStart(plantcd, empcd, magcode);
+            ArmsWebApi.WorkStart ws;
+            ws = new ArmsWebApi.WorkStart(plantcd, empcd, magcode);
 
-            //bool success_cbs = ws.CheckBeforeStart(out msg);
+            bool success_cbs = ws.CheckBeforeStart(out msg);
 
-            //if (success_cbs)
-            //{
-            //    Console.WriteLine("登録前確認完了。\r\n");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("登録前確認で不正がありました。\r\n");
-            //    Console.WriteLine(msg);
+            if (success_cbs)
+            {
+                Console.WriteLine("登録前確認完了。\r\n");
+            }
+            else
+            {
+                Console.WriteLine("登録前確認で不正がありました。\r\n");
+                Console.WriteLine(msg);
 
-            //    Console.ReadKey();
-            //    return;
-            //}
+                Console.ReadKey();
+                return;
+            }
 
-            //bool success_in = ws.Start(out msg);
+            bool success_in = ws.Start(out msg);
 
-            //if (success_in)
-            //{
-            //    Console.WriteLine("開始登録処理完了。\r\n");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("開始登録処理できませんでした。\r\n");
-            //    Console.WriteLine(msg);
+            if (success_in)
+            {
+                Console.WriteLine("開始登録処理完了。\r\n");
+            }
+            else
+            {
+                Console.WriteLine("開始登録処理できませんでした。\r\n");
+                Console.WriteLine(msg);
 
-            //    Console.ReadKey();
-            //    return;
-            //}
+                Console.ReadKey();
+                return;
+            }
 
 
             ////////////////////////
             //③完了
             ////////////////////////
-            string outmagcode = "J10013";
-            //var outmagcode = outmagqr.Split(' ');
-            //int newMagFrameQty = 25;
-            Dictionary<string, int> Defectdict = new Dictionary<string, int> { { "00019", 1} };
+            //string outmagcode = "J10013";
+            ////var outmagcode = outmagqr.Split(' ');
+            ////int newMagFrameQty = 25;
+            //Dictionary<string, int> Defectdict = new Dictionary<string, int> { { "00019", 1} };
 
-            ArmsWebApi.WorkEnd we;
-            we = new ArmsWebApi.WorkEnd(plantcd, empcd, magcode, outmagcode);
+            //ArmsWebApi.WorkEnd we;
+            //we = new ArmsWebApi.WorkEnd(plantcd, empcd, magcode, outmagcode);
 
-            if (we.RegisterDefects(out msg, Defectdict))
-            {
-                Console.WriteLine("不良登録完了。\r\n");
-            }
-            else
-            {
-                Console.WriteLine("不良登録できませんでした。\r\n");
-                Console.WriteLine(msg);
-            }
+            //if (we.RegisterDefects(out msg, Defectdict))
+            //{
+            //    Console.WriteLine("不良登録完了。\r\n");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("不良登録できませんでした。\r\n");
+            //    Console.WriteLine(msg);
+            //}
 
-            if (we.End(out msg))
-            {
-                Console.WriteLine("完了登録処理完了。\r\n");
-            }
-            else
-            {
-                Console.WriteLine("完了登録処理できませんでした。\r\n");
-                Console.WriteLine(msg);
-            }
+            //if (we.End(out msg))
+            //{
+            //    Console.WriteLine("完了登録処理完了。\r\n");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("完了登録処理できませんでした。\r\n");
+            //    Console.WriteLine(msg);
+            //}
 
             Console.ReadKey();
         }

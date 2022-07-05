@@ -24,7 +24,7 @@ namespace ProcMasterIF
     {
         string crlf = "\r\n";
         string msg;
-        string workingdir = @"C:\Oskas\procmaster\shomei\ver9";
+        string workingdir = @"C:\Oskas\procmaster\shomei\ver9_old";
         MakeprocjsonRoot conf;
         SLDocument sl;
         public bool interLock = false;
@@ -191,6 +191,16 @@ namespace ProcMasterIF
 
                 Task readHankan = Task.Run(() =>
                 {
+                    ////////////////////////////////////////////////////////////////////////////
+                    /// マスタ作成
+                    /// ◆新機種展開／部品表
+                    /// 　ROOTからの情報に個別の情報をオーバーライドする
+                    /// 　個別JSON作成の為のマスタをここで完成させている
+                    /// 　オーバーライドが必要ない場合はオーバーライド用のファイルなし
+                    /// ◆工程順
+                    /// 　個別の対応となる為、必ずファイルprocessorder.yamlが必要
+                    ////////////////////////////////////////////////////////////////////////////
+                    ///
                     /////////////////////////////////
                     /// 半完ルートからマスタ作成
                     /////////////////////////////////
@@ -670,7 +680,7 @@ namespace ProcMasterIF
 
         private void btn_makeRootModel_Click(object sender, EventArgs e)
         {
-            var rootmodelfldpath = @"C:\Oskas\procmaster\model\shoumei\ver9\root";
+            var rootmodelfldpath = @"C:\Oskas\procmaster\model\shoumei\ver9_old\root";
 
             // 新機種展開表
             var yamlPath = rootmodelfldpath + @"\shinkishutenkai.yaml";
@@ -721,7 +731,7 @@ namespace ProcMasterIF
             //　オーバーライドテスト
             ////////////////////////////////
             ///
-            var ortfld = @"C:\Oskas\procmaster\model\shoumei\ver9\modelsources\ver9_hankan_as0309";
+            var ortfld = @"C:\Oskas\procmaster\model\shoumei\ver9_old\modelsources\ver9_hankan_as0309";
             var ort = new Procmastermodel();
             
             // 新機種展開表をルートからコピー
