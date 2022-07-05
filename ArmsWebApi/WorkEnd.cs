@@ -65,7 +65,7 @@ namespace ArmsWebApi
             //}
         }
 
-        public WorkEnd(string plantcd, string empcd, string magno, string ulmagno, string lotno)
+        public WorkEnd(string plantcd, string empcd, string magno, string ulmagno, string lotno = "")
         {
             this.plantcd = plantcd;
             this.empcd = empcd;
@@ -81,8 +81,8 @@ namespace ArmsWebApi
             }
             if (string.IsNullOrEmpty(lotno))
             {
-                this.lotno = this.mag.NascaLotNO;
-                this.typecd = AsmLot.GetAsmLot(lotno).TypeCd;
+                this.lotno = lotno;
+                this.typecd = AsmLot.GetAsmLot(this.lotno).TypeCd;
             }
 
             //工程No取得
