@@ -34,36 +34,36 @@ namespace ArmsWebApi
 
         public WorkEndAltModel wem;
 
-        public WorkEnd(string plantcd, string empcd, string magno, string ulmagno)
-        {
-            this.plantcd = plantcd;
-            this.empcd = empcd;
-            this.magno = magno;
-            this.UnloaderMagNo = ulmagno;
+        //public WorkEnd(string plantcd, string empcd, string magno, string ulmagno)
+        //{
+        //    this.plantcd = plantcd;
+        //    this.empcd = empcd;
+        //    this.magno = magno;
+        //    this.UnloaderMagNo = ulmagno;
 
-            //製品名・Lotno取得
-            this.mag = Magazine.GetCurrent(magno);
-            this.lotno = this.mag.NascaLotNO;
-            this.typecd = AsmLot.GetAsmLot(lotno).TypeCd;
+        //    //製品名・Lotno取得
+        //    this.mag = Magazine.GetCurrent(magno);
+        //    this.lotno = this.mag.NascaLotNO;
+        //    this.typecd = AsmLot.GetAsmLot(lotno).TypeCd;
 
-            //工程No取得
-            lot = AsmLot.GetAsmLot(lotno);
-            this.procno = Process.GetNowProcess(lot.NascaLotNo).ProcNo;
+        //    //工程No取得
+        //    lot = AsmLot.GetAsmLot(lotno);
+        //    this.procno = Process.GetNowProcess(lot.NascaLotNo).ProcNo;
 
-            //上記で十分だったため不用コード化
-            //var curp = Process.GetWorkFlow(lot.TypeCd, "", false);
-            //if (curp[0].ProcNo == Process.GetNowProcess(lot.NascaLotNo).ProcNo)
-            //{
-            //    //初工程用処理
-            //    this.procno = mag.NowCompProcess;
-            //}
-            //else
-            //{
-            //    //初工程以外処理
-            //    Process p = Process.GetNextProcess(mag.NowCompProcess, lot);
-            //    this.procno = p.ProcNo;
-            //}
-        }
+        //    //上記で十分だったため不用コード化
+        //    //var curp = Process.GetWorkFlow(lot.TypeCd, "", false);
+        //    //if (curp[0].ProcNo == Process.GetNowProcess(lot.NascaLotNo).ProcNo)
+        //    //{
+        //    //    //初工程用処理
+        //    //    this.procno = mag.NowCompProcess;
+        //    //}
+        //    //else
+        //    //{
+        //    //    //初工程以外処理
+        //    //    Process p = Process.GetNextProcess(mag.NowCompProcess, lot);
+        //    //    this.procno = p.ProcNo;
+        //    //}
+        //}
 
         public WorkEnd(string plantcd, string empcd, string magno, string ulmagno, string lotno = "")
         {
@@ -73,16 +73,17 @@ namespace ArmsWebApi
             this.UnloaderMagNo = ulmagno;
 
             //製品名・Lotno取得
-            if (string.IsNullOrEmpty(magno))
+            if (!string.IsNullOrEmpty(magno))
             {
                 this.mag = Magazine.GetCurrent(magno);
                 this.lotno = this.mag.NascaLotNO;
                 this.typecd = AsmLot.GetAsmLot(lotno).TypeCd;
             }
-            if (string.IsNullOrEmpty(lotno))
+            if (!string.IsNullOrEmpty(lotno))
             {
                 this.lotno = lotno;
                 this.typecd = AsmLot.GetAsmLot(this.lotno).TypeCd;
+                this.mag = Magazine.GetMagazine(this.lotno, true)[0];
             }
 
             //工程No取得

@@ -13,7 +13,7 @@ namespace Samples
 {
     class Spreadsheetlight
     {
-        static void Main(string[] args)
+        static void _Main(string[] args)
         {
             ///////////////////////////////////////
             //書込み
