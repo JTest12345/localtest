@@ -83,7 +83,7 @@ namespace ArmsWebApi
             {
                 this.lotno = lotno;
                 this.typecd = AsmLot.GetAsmLot(this.lotno).TypeCd;
-                this.mag = Magazine.GetMagazine(this.lotno, true)[0];
+                this.magno = Magazine.GetMagazine(this.lotno, true)[0].MagazineNo;
             }
 
             //工程No取得

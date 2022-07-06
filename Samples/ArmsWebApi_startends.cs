@@ -32,7 +32,7 @@ namespace Samples
 
             string plantcd = "TCBTC01";
             string empcd = "APP";
-            string magcode = "FJ0000001";
+            string magcode = "TESTLOT001";
             //var magcode = magqr.Split(' ');
 
 
@@ -105,7 +105,8 @@ namespace Samples
             Dictionary<string, int> Defectdict = new Dictionary<string, int> { { "00019", 1 } };
 
             ArmsWebApi.WorkEnd we;
-            we = new ArmsWebApi.WorkEnd(plantcd, empcd, magcode, outmagcode, "");
+            //we = new ArmsWebApi.WorkEnd(plantcd, empcd, magcode, outmagcode, "");
+            we = new ArmsWebApi.WorkEnd(plantcd, empcd, "", outmagcode, magcode);
 
             if (we.RegisterDefects(out msg, Defectdict))
             {
