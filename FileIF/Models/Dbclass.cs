@@ -258,23 +258,32 @@ namespace FileIf
         public string Henkaten { get { return henkaten; } set { if (value != "") henkaten = value; } }  //dbname: henkaten
         private string recipe = "NA";
         public string Recipe { get { return recipe; } set { if (value != "") recipe = value; } }  //dbname: recipefile_name
+        public string[] Lotnoout { get; set; }
 
         public Dictionary<string, string> resincupInfo { get; set; }
 
         public void updateResinCCupInfo()
         {
+            var lotnoout = string.Empty;
+            foreach (var lotno in Lotnoout)
+            {
+                lotnoout += lotno + "/";
+            }
+            lotnoout = lotnoout.TrimEnd('/');
             this.resincupInfo = new Dictionary<string, string>()
             {
                 {"cupno", Cupno},
                 {"productnm", Cstmproduct},
                 {"ledrank", Dierank},
-                {"mixtypecd", "1"},
+                {"mixtypecd", "101"}, //20220930 1->101に修正
                 {"result", Result.ToString()},
                 {"kubun", Kubun},
                 {"seikeiki", Seikeiki},
                 {"henkaten", Henkaten},
                 {"recipefilenm", Recipe},
-                {"bdqty", Bdvol}
+                {"bdqty", Bdvol},
+                {"resingroupcd", "NA"},
+                {"lotno", lotnoout }
             };
         }
 

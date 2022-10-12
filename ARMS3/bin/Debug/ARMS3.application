@@ -14,14 +14,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="ARMS3.exe.manifest" size="7107">
+    <dependentAssembly dependencyType="install" codebase="ARMS3.exe.manifest" size="7791">
       <assemblyIdentity name="ARMS3.exe" version="1.159.1.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>U35h8zWR6k46RU0lhViKtGYExQyNNa52YChYmwH0j3A=</dsig:DigestValue>
+        <dsig:DigestValue>fVHrKad98lT0EJv8aJQcaUIV9HPGSONqRD7+YfPiMUY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

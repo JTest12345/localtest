@@ -84,7 +84,8 @@ namespace FileIf
                     Seikeiki = cot1.seikeiki_out,
                     Henkaten = cot1.henkaten_out,
                     Recipe = cot1.recipe_out,
-                    Result = cot1.result
+                    Result = cot1.result,
+                    Lotnoout = cot1.lotno_out
                 };
 
                 rcinfo.updateResinCCupInfo();

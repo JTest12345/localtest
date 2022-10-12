@@ -121,8 +121,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArmsApiPlayGround.cs" />
+    <Compile Include="ArmsTblBuckUp.cs" />
     <Compile Include="excelDataReader.cs" />
     <Compile Include="FjhTools.cs" />
+    <Compile Include="Ftp1.cs" />
     <Compile Include="qrcoder.cs" />
     <Compile Include="Regex.cs" />
     <Compile Include="SpreadSheetLight.cs" />
@@ -176,6 +178,10 @@
     <ProjectReference Include="..\Oskas\Oskas.csproj">
       <Project>{2f680f5e-efea-406b-a250-a52279b26263}</Project>
       <Name>Oskas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProcMasterIF\ProcMasterIF.csproj">
+      <Project>{5fa8b747-62a6-4eca-9bc2-4ec38d8817db}</Project>
+      <Name>ProcMasterIF</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

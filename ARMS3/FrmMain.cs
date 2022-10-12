@@ -144,6 +144,9 @@ namespace ARMS3
             //FakeVIPline.FrmFakeNline frmFakeNline = new FakeVIPline.FrmFakeNline();
             //frmFakeNline.Show();
 
+            FakeVSPline.FrmFakeNline frmFakeNline = new FakeVSPline.FrmFakeNline();
+            frmFakeNline.Show();
+
             //FakeVIPline.FrmLmSim FrmLmSim = new FakeVIPline.FrmLmSim();
             //FrmLmSim.Show();
         }

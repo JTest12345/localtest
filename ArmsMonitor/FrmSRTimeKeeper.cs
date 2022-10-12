@@ -224,14 +224,18 @@ namespace ArmsMonitor
                 }
 
                 //使用期限時間処理
-                ins.uselimit = rsin.LimitDt.ToString();
+                // 20220915 期限表示は脱泡後データとのことで変更
+                //ins.uselimit = rsin.LimitDt.ToString();
+                ins.uselimit = rsin.StirringLimitDt.ToString();
                 var warnts = new TimeSpan(0, 0, 60, 0);
                 var odts = new TimeSpan(0, 0, 90, 0);
                 var currts = new TimeSpan(0, 0, 0, 0);
 
-                if (rsin.LimitDt != null)
+                //if (rsin.LimitDt != null)
+                if (rsin.StirringLimitDt != null)
                 {
-                    currts = (DateTime)rsin.LimitDt - DateTime.Now;
+                    //currts = (DateTime)rsin.LimitDt - DateTime.Now;
+                    currts = (DateTime)rsin.StirringLimitDt - DateTime.Now;
                     if (currts > new TimeSpan(0, 0, 0, 0))
                     {
                         if (currts < warnts)

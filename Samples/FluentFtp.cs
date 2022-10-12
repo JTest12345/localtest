@@ -17,7 +17,7 @@ namespace FluentFTPtest
     {
         static void _Main()
         {
-            //var ftptest = new FluentFtp();
+            // ftptest = new FluentFtp();
 
             DownloadFileExample.DownloadFile();
 
@@ -34,15 +34,18 @@ namespace FluentFTPtest
         {
             try
             {
+                //using (var conn = new FtpClient("192.168.1.100", "KV", "KV"))
                 using (var conn = new FtpClient("127.0.0.1", "test", ""))
                 {
                     conn.ConnectTimeout = 5000;
-                    conn.Connect();
+                    //conn.ListingParser = FtpParser.IBMzOS;
+                    conn.Connect( );
 
                     //// download a file and ensure the local directory is created
-                    //conn.DownloadFile(@"C:\Oskas\debug\magcupresorces\mag\00002_bto_ftp.csv", @"tmp\00002_bto.csv");
+                    //conn.DownloadFile(@"test.csv", @"/lineconfig_v9.xml");
 
-                    foreach (var item in conn.GetListing("/tmp", FtpListOption.Recursive))
+                    //foreach (var item in conn.GetListing("/", FtpListOption.UseLS))
+                    foreach (var item in conn.GetListing("", FtpListOption.ForceNameList))
                     {
                         switch (item.Type)
                         {
@@ -50,16 +53,16 @@ namespace FluentFTPtest
                             case FtpFileSystemObjectType.Directory:
 
                                 Console.WriteLine("Directory!  " + item.FullName);
-                                Console.WriteLine("Modified date:  " + conn.GetModifiedTime(item.FullName));
+                                //Console.WriteLine("Modified date:  " + conn.GetModifiedTime(item.FullName));
 
                                 break;
 
                             case FtpFileSystemObjectType.File:
 
                                 Console.WriteLine("File!  " + item.FullName);
-                                Console.WriteLine("File size:  " + conn.GetFileSize(item.FullName));
-                                Console.WriteLine("Modified date:  " + conn.GetModifiedTime(item.FullName));
-                                Console.WriteLine("Chmod:  " + conn.GetChmod(item.FullName));
+                                //Console.WriteLine("File size:  " + conn.GetFileSize(item.FullName));
+                                //Console.WriteLine("Modified date:  " + conn.GetModifiedTime(item.FullName));
+                                //Console.WriteLine("Chmod:  " + conn.GetChmod(item.FullName));
 
                                 break;
 
@@ -107,7 +110,7 @@ namespace FluentFTPtest
             FtpClient client = new FtpClient();
 
             client.Host = "127.0.0.1";
-            client.Port = 21;
+            //client.Port = 21;
             // 資格情報の設定
             client.Credentials = new NetworkCredential("test", "");
             // 要求の完了後に接続を閉じる

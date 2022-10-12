@@ -41,6 +41,7 @@
             this.rb_getLatestFile = new System.Windows.Forms.RadioButton();
             this.rb_getSelectedFile = new System.Windows.Forms.RadioButton();
             this.cbx_cleanFtpFold = new System.Windows.Forms.CheckBox();
+            this.bbx_usebat = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -88,7 +89,7 @@
             this.cmb_fetchfile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmb_fetchfile.FormattingEnabled = true;
-            this.cmb_fetchfile.Location = new System.Drawing.Point(177, 95);
+            this.cmb_fetchfile.Location = new System.Drawing.Point(177, 129);
             this.cmb_fetchfile.Name = "cmb_fetchfile";
             this.cmb_fetchfile.Size = new System.Drawing.Size(142, 25);
             this.cmb_fetchfile.TabIndex = 1;
@@ -108,7 +109,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 158);
+            this.label4.Location = new System.Drawing.Point(12, 193);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(96, 17);
             this.label4.TabIndex = 0;
@@ -125,21 +126,19 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fetchConsole.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.fetchConsole.Location = new System.Drawing.Point(12, 178);
+            this.fetchConsole.Location = new System.Drawing.Point(12, 213);
             this.fetchConsole.Multiline = true;
             this.fetchConsole.Name = "fetchConsole";
-            this.fetchConsole.Size = new System.Drawing.Size(400, 401);
+            this.fetchConsole.Size = new System.Drawing.Size(400, 366);
             this.fetchConsole.TabIndex = 3;
             // 
             // rb_getLatestFile
             // 
             this.rb_getLatestFile.AutoSize = true;
-            this.rb_getLatestFile.Checked = true;
-            this.rb_getLatestFile.Location = new System.Drawing.Point(13, 74);
+            this.rb_getLatestFile.Location = new System.Drawing.Point(13, 106);
             this.rb_getLatestFile.Name = "rb_getLatestFile";
             this.rb_getLatestFile.Size = new System.Drawing.Size(136, 21);
             this.rb_getLatestFile.TabIndex = 4;
-            this.rb_getLatestFile.TabStop = true;
             this.rb_getLatestFile.Text = "最新のファイルを取得";
             this.rb_getLatestFile.UseVisualStyleBackColor = true;
             this.rb_getLatestFile.CheckedChanged += new System.EventHandler(this.getfileradio_CheckedChanged);
@@ -147,7 +146,7 @@
             // rb_getSelectedFile
             // 
             this.rb_getSelectedFile.AutoSize = true;
-            this.rb_getSelectedFile.Location = new System.Drawing.Point(13, 99);
+            this.rb_getSelectedFile.Location = new System.Drawing.Point(13, 133);
             this.rb_getSelectedFile.Name = "rb_getSelectedFile";
             this.rb_getSelectedFile.Size = new System.Drawing.Size(158, 21);
             this.rb_getSelectedFile.TabIndex = 5;
@@ -158,18 +157,29 @@
             // cbx_cleanFtpFold
             // 
             this.cbx_cleanFtpFold.AutoSize = true;
-            this.cbx_cleanFtpFold.Location = new System.Drawing.Point(13, 127);
+            this.cbx_cleanFtpFold.Location = new System.Drawing.Point(12, 160);
             this.cbx_cleanFtpFold.Name = "cbx_cleanFtpFold";
             this.cbx_cleanFtpFold.Size = new System.Drawing.Size(388, 21);
             this.cbx_cleanFtpFold.TabIndex = 6;
             this.cbx_cleanFtpFold.Text = "ファイル取得が成功した場合、FTPフォルダ内のファイルを全て削除する";
             this.cbx_cleanFtpFold.UseVisualStyleBackColor = true;
             // 
+            // bbx_usebat
+            // 
+            this.bbx_usebat.AutoSize = true;
+            this.bbx_usebat.Location = new System.Drawing.Point(12, 79);
+            this.bbx_usebat.Name = "bbx_usebat";
+            this.bbx_usebat.Size = new System.Drawing.Size(317, 21);
+            this.bbx_usebat.TabIndex = 7;
+            this.bbx_usebat.Text = "ftpスクリプトファイルによる規定動作にてファイルを取得";
+            this.bbx_usebat.UseVisualStyleBackColor = true;
+            // 
             // FileFetchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(424, 591);
+            this.Controls.Add(this.bbx_usebat);
             this.Controls.Add(this.cbx_cleanFtpFold);
             this.Controls.Add(this.rb_getSelectedFile);
             this.Controls.Add(this.rb_getLatestFile);
@@ -205,5 +215,6 @@
         private System.Windows.Forms.RadioButton rb_getLatestFile;
         private System.Windows.Forms.RadioButton rb_getSelectedFile;
         private System.Windows.Forms.CheckBox cbx_cleanFtpFold;
+        private System.Windows.Forms.CheckBox bbx_usebat;
     }
 }

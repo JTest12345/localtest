@@ -9,7 +9,7 @@ namespace Samples
     class ArmsWebAp_startends
     {
 
-        static void Main(string[] args)
+        static void _Main(string[] args)
         {
             ////////////////////////
             // ArmsWebApiサンプル //

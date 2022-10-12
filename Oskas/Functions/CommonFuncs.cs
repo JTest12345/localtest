@@ -169,7 +169,51 @@ namespace Oskas
             }
         }
 
+        //
+        /* フォルダ内ファイル全移動関数
+         * OK: true
+         * NG: false
+         */
+        //
+        public static bool MoveFiles(string FolderPath, string MoveToPath, string ext="")
+        {
+            try
+            {
+                foreach (string FilePath in Directory.GetFiles(FolderPath, "*.*"))
+                {
+                    File.Copy(FilePath, MoveToPath + @"\" + Path.GetFileName(FilePath) + ext, true);
+                    File.Delete(FilePath);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
+        //
+        /* フォルダ内ファイル全削除関数
+         * OK: true
+         * NG: false
+         */
+        //
+        public static bool RemoveFiles(string FolderPath)
+        {
+            try
+            {
+                foreach (string file in Directory.GetFiles(FolderPath, "*.*"))
+                {
+
+                    File.Delete(file);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
         /////////////////////////////
         // json file 書き込み用

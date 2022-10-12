@@ -18,6 +18,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIFJsonBuilder", "FIJsonBuilder\FIFJsonBuilder.csproj", "{70335CA4-317A-4E4B-9F41-E6B300725FC0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "Samples\Samples.csproj", "{B5CA4089-6CC0-4E31-B007-1E05C3B5FE72}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5FA8B747-62A6-4ECA-9BC2-4EC38D8817DB} = {5FA8B747-62A6-4ECA-9BC2-4EC38D8817DB}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArmsWebApi", "ArmsWebApi\ArmsWebApi.csproj", "{9BF4ED69-2609-45A4-AF4D-6C55802F0AC3}"
 EndProject

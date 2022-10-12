@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,6 +12,8 @@ using System.Windows.Forms;
 using Oskas;
 using FluentFTP;
 using Newtonsoft.Json;
+using YamlDotNet.RepresentationModel;
+
 
 namespace FileIf
 {
@@ -25,6 +28,23 @@ namespace FileIf
         //選択PLC情報
         string SelectedPlcName;
         PLCconf macplcConf;
+
+        string msg = string.Empty;
+        string ipaddress;
+        string ftpuser;
+        string ftpupassword;
+        int ftpport;
+        string ftphomefolder;
+        string maccat;
+        string macname;
+        string magcupdir;
+        string workingDir;
+        string scrspath;
+        string wippath;
+        string tmppath;
+        string donepath;
+        string fileconfpath;
+        YamlNode fileconf;
 
         public FileFetchForm(Magcupini mci)
         {
@@ -47,6 +67,10 @@ namespace FileIf
             {
                 // iniがNAならMagCupFolderを読込
                 mcini.FFetchPcat = GetPcatDirName(mcini.MCDir);
+            }
+            else
+            {
+                cmb_pcat.Text = mcini.FFetchPcat[0];
             }
 
             if (mcini.FFetchPcat.Length != 0)
@@ -75,6 +99,10 @@ namespace FileIf
                     fetchConsole.Text += "設備名の読込ができません" + "\r\n";
                     return;
                 }
+            }
+            else
+            {
+
             }
 
             if (mcini.FFetchFileKey[0] != "NA")
@@ -157,8 +185,25 @@ namespace FileIf
             return pcatarr.ToArray();
         }
 
-        public void DownloadFile()
+        public async void DownloadFile()
         {
+            ipaddress = macplcConf.ipa;
+            ftpuser = macplcConf.ftps[0].id;
+            ftpupassword = macplcConf.ftps[0].password;
+            ftpport = int.Parse(macplcConf.ftps[0].port);
+            ftphomefolder = macplcConf.ftps[0].homedir;
+            maccat = cmb_pcat.Text;
+            macname = cmb_macname.Text;
+            msg = string.Empty;
+            magcupdir = mcini.MCDir;
+            workingDir = magcupdir + @"\" + maccat + @"\" + macname;
+            scrspath = workingDir + @"\conf\scripts";
+            wippath = workingDir + @"\wip";
+            tmppath = workingDir + @"\temp";
+            donepath = workingDir + @"\done";
+            fileconfpath = workingDir + @"\conf\fileconf.yaml";
+            fileconf = CommonFuncs.YamlFileReader(fileconfpath, ref msg);
+
             try
             {
                 if (macplcConf.ipa == null)
@@ -167,101 +212,260 @@ namespace FileIf
                     return;
                 }
 
-                var ipaddress = macplcConf.ipa;
-                var ftpuser = macplcConf.ftps[0].id;
-                var ftpupassword = macplcConf.ftps[0].password;
-                var ftpport = int.Parse(macplcConf.ftps[0].port);
-                var ftphomefolder = macplcConf.ftps[0].homedir;
-                var magcupdir = mcini.MCDir;
-                var maccat = cmb_pcat.Text;
-                var macname = cmb_macname.Text;
-
-                using (var client = new FtpClient(ipaddress, ftpuser, ftpupassword))
+                if (!bbx_usebat.Checked)
                 {
-                    client.Port = ftpport;
-                    client.ConnectTimeout = 5000;
-                    client.Connect();
-
-                    //// download a file and ensure the local directory is created
-                    //if (client.DownloadFile(@"C:\Oskas\debug\magcupresorces\mag\00002_bto_ftp.csv", @"tmp\00002_bto.csv") != FtpStatus.Success)
-                    //// download a file and ensure the local directory is created, verify the file after download
-                    //// client.DownloadFile(@"D:\Github\FluentFTP\README.md", "/public_html/temp/README.md", FtpLocalExists.Overwrite, FtpVerify.Retry);
-                    //{
-                    //    FetchConsoleShow("失敗してます", 5);
-                    //    return;
-                    //}
-
-                    var lastTimeStamp = new DateTime(2000, 1, 1, 0, 0, 0);
-                    var lastTSFile = new FtpListItem();
-
-                    foreach (FtpListItem item in client.GetListing(ftphomefolder))
-                    {
-                        if (item.Type == FtpFileSystemObjectType.File)
-                        {
-
-                            long size = client.GetFileSize(item.FullName);
-
-                            DateTime time = client.GetModifiedTime(item.FullName);
-                            if (time > lastTimeStamp)
-                            {
-                                lastTimeStamp = time;
-                                lastTSFile = item;
-                            }
-
-                            // 指定ファイルダウンロード処理
-                            if (rb_getSelectedFile.Checked)
-                            {
-                                if (item.Name.Contains(cmb_fetchfile.Text))
-                                {
-                                    FetchConsoleShow("検出したファイル：" + item.FullName + " " + time.ToString("G"), 1);
-                                    if (downloadFile(client, $"{magcupdir}\\{maccat}\\{macname}\\ftp\\" + item.Name, item.FullName))
-                                    {
-                                        FetchConsoleShow("ファイルダウンロードが失敗しています", 5);
-                                        return;
-                                    }
-                                }
-                                else
-                                {
-                                    FetchConsoleShow("指定のファイルは検出されませんでした", 1);
-                                    return;
-                                }
-                            }
-                        }
-                    }
-
-                    // 最新ファイルダウンロード処理
-                    if (rb_getLatestFile.Checked)
-                    {
-                        FetchConsoleShow("検出したファイル：" + lastTSFile.FullName + " " + lastTimeStamp.ToString("G"), 1);
-                        if (!downloadFile(client, $"{magcupdir}\\{maccat}\\{macname}\\ftp\\" + lastTSFile.Name, lastTSFile.FullName))
-                        {
-                            FetchConsoleShow("ファイルダウンロードが失敗しています", 5);
-                            return;
-                        }
-                    }
-
-                    FetchConsoleShow("ファイルダウンロードが完了しました", 1);
-
-                    // FTPサーバー側ワーキングフォルダのクリーン
-                    if (cbx_cleanFtpFold.Checked)
-                    {
-                        FetchConsoleShow("FTPフォルダ内のファイルを全て削除します", 1);
-
-                        foreach (FtpListItem item in client.GetListing(ftphomefolder))
-                        {
-                            if (item.Type == FtpFileSystemObjectType.File)
-                            {
-                                client.DeleteFile(item.FullName);
-                                FetchConsoleShow(item.Name + "を削除しました", 1);
-                            }
-                        }
-                    }
+                       downloadWithFluentFTP(macplcConf);
                 }
+                else
+                {
+                    downloadWithVbScript(macplcConf);
+                    
+                }
+
             }
             catch (Exception e)
             {
                 FetchConsoleShow(e.Message, 5);
             }
+
+            
+        }
+
+        public async void downloadWithVbScript(PLCconf macplcConf)
+        {
+            btn_fetchfile.Enabled = false;
+
+            //スクリプト内の変数書き換え用辞書
+            var scrvardct = new Dictionary<string, string>()
+            {
+                {"{ipaddress}", ipaddress},
+                {"{user}", ftpuser},
+                {"{password}", ftpupassword},
+                {"{port}", ftpport.ToString()},
+                {"{ftphomefolder}", ftphomefolder},
+                {"{maccat}", ftphomefolder},
+                {"{macname}", ftphomefolder},
+                {"{magcupdir}", ftphomefolder},
+                {"{workingDir}", ftphomefolder},
+                {"{scrspath}", ftphomefolder},
+                {"{wippath}", ftphomefolder},
+                {"{tmppath}", ftphomefolder}
+            };
+
+            var scrs = new YamlSequenceNode();
+            if (fileconf != null)
+            {
+                scrs = (YamlSequenceNode)fileconf["scripts"];
+            }
+            else
+            {
+                FetchConsoleShow("fileconfig.yamlが読み込めませんでした", 5);
+                return;
+            }
+
+            foreach (var scr in scrs)
+            {
+                Process scriptProc = new Process();
+                if (scr.ToString().Contains(".bat"))
+                {
+                    scriptProc.StartInfo.FileName = scr.ToString();
+                    scriptProc.StartInfo.Arguments = "";
+                }
+                else if (scr.ToString().Contains(".vbs"))
+                {
+                    scriptProc.StartInfo.FileName = "CScript";
+                    scriptProc.StartInfo.Arguments = scr.ToString();
+                }
+                else if (scr.ToString().Contains(".py"))
+                {
+                    scriptProc.StartInfo.FileName = "python";
+                    scriptProc.StartInfo.Arguments = scr.ToString();
+                }
+                scriptProc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden; // 非表示で実行したい場合
+                scriptProc.StartInfo.WorkingDirectory = wippath;
+
+                // ConfからWipにスクリプトをコピー
+                if (!CommonFuncs.CopyFile(scrspath + @"\" + scr, scriptProc.StartInfo.WorkingDirectory + @"\" + scr))
+                {
+                    FetchConsoleShow("スクリプトコピーが失敗しています", 5);
+                    break;
+                }
+
+                // WIP内のスクリプトの変数を辞書で書き換え
+                var contentslist = new List<string>();
+                var contentslst_replaced = new List<string>();
+                if (!CommonFuncs.ReadTextFileLine(wippath + @"\" + scr, ref contentslist))
+                {
+                    FetchConsoleShow("スクリプトコピーが読み込めません", 5);
+                    break;
+                }
+                foreach (var text in contentslist) 
+                {
+                    var text_replaced = text;
+                    foreach (KeyValuePair<string, string> scrvar in scrvardct)
+                    {
+                        text_replaced = text_replaced.Replace(scrvar.Key, scrvar.Value);
+                    }
+                    contentslst_replaced.Add(text_replaced);
+                }
+
+                var contents = string.Empty;
+                foreach (var text in contentslst_replaced)
+                {
+                    contents += text + crlf;
+                }
+                if (!CommonFuncs.CreateFile(wippath + @"\" + scr, contents, ref msg))
+                {
+                    FetchConsoleShow("スクリプトの書き換えができません", 5);
+                    break;
+                }
+
+                // ロギング用ファイル作成
+                if (!CommonFuncs.CreateFile(wippath + @"\log.txt", "", ref msg))
+                {
+                    FetchConsoleShow("ロギングファイル作成が失敗しています", 5);
+                    break;
+                }
+                // 実行結果ファイル作成
+                if (!CommonFuncs.CreateFile(wippath + @"\result.txt", "", ref msg))
+                {
+                    FetchConsoleShow("実行結果ファイル作成が失敗しています", 5);
+                    break;
+                }
+                await Task.Delay(500);
+
+                scriptProc.Start();
+                scriptProc.WaitForExit();
+                scriptProc.Close();
+                // Log.txt読込
+                var loglst = new List<string>();
+                var enc = "UTF-8";
+                if (scr.ToString().Contains(".bat"))
+                {
+                    enc = "shift-jis";
+                }
+                if (!CommonFuncs.ReadTextFileLine(wippath + @"\log.txt", ref loglst, enc)){
+                    FetchConsoleShow("ログの読込が失敗しています", 5);
+                    break;
+                }
+                // log表示
+                foreach (var log in loglst)
+                {
+                    FetchConsoleShow(log, 1);
+                }
+                // result.txt参照
+                var result = string.Empty;
+                if (!CommonFuncs.ReadTextFile(wippath + @"\result.txt", ref result))
+                {
+                    FetchConsoleShow("結果ファイルの読込が失敗しています", 5);
+                    break;
+                }
+                if (!(result.ToLower().Contains("pass")))
+                {
+                    FetchConsoleShow("スクリプトの実行が失敗しています", 5);
+                    break;
+                }
+            }
+
+            // WIP内のファイルを全移動
+            var dt = DateTime.Now.ToString("yyyyMMddHHmmss");
+            if (!CommonFuncs.MoveFiles(wippath, donepath, "_" + dt + "_wip"))
+            {
+                FetchConsoleShow("WIPフォルダ内のファイル削除が失敗しています", 5);
+            }
+
+            // TEMP内のファイルを全削除
+            if (!CommonFuncs.RemoveFiles(tmppath))
+            {
+                FetchConsoleShow("TEMPフォルダ内のファイル削除が失敗しています", 5);
+            }
+
+            btn_fetchfile.Enabled = true;
+        }
+
+        public void downloadWithFluentFTP(PLCconf macplcConf)
+        {
+            using (var client = new FtpClient(ipaddress, ftpuser, ftpupassword))
+            {
+                client.Port = ftpport;
+                client.ConnectTimeout = 5000;
+                client.Connect();
+
+                //// download a file and ensure the local directory is created
+                //if (client.DownloadFile(@"C:\Oskas\debug\magcupresorces\mag\00002_bto_ftp.csv", @"tmp\00002_bto.csv") != FtpStatus.Success)
+                //// download a file and ensure the local directory is created, verify the file after download
+                //// client.DownloadFile(@"D:\Github\FluentFTP\README.md", "/public_html/temp/README.md", FtpLocalExists.Overwrite, FtpVerify.Retry);
+                //{
+                //    FetchConsoleShow("失敗してます", 5);
+                //    return;
+                //}
+
+                var lastTimeStamp = new DateTime(2000, 1, 1, 0, 0, 0);
+                var lastFileNo = 0;
+                var lastTSFile = new FtpListItem();
+
+                foreach (FtpListItem item in client.GetListing(ftphomefolder))
+                {
+                    if (item.Type == FtpFileSystemObjectType.File)
+                    {
+                        //◇FTPサーバーがタイムスタンプに対応している場合
+                        DateTime time = client.GetModifiedTime(item.FullName);
+                        if (time > lastTimeStamp)
+                        {
+                            lastTimeStamp = time;
+                            lastTSFile = item;
+                        }
+
+                        //◆指定ファイルダウンロード処理
+                        if (rb_getSelectedFile.Checked)
+                        {
+                            if (item.Name.Contains(cmb_fetchfile.Text))
+                            {
+                                FetchConsoleShow("検出したファイル：" + item.FullName + " " + time.ToString("G"), 1);
+                                if (downloadFile(client, $"{magcupdir}\\{maccat}\\{macname}\\ftp\\" + item.Name, item.FullName))
+                                {
+                                    FetchConsoleShow("ファイルダウンロードが失敗しています", 5);
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                FetchConsoleShow("指定のファイルは検出されませんでした", 1);
+                                return;
+                            }
+                        }
+                    }
+                }
+
+                //◆最新ファイルダウンロード処理
+                if (rb_getLatestFile.Checked)
+                {
+                    FetchConsoleShow("検出したファイル：" + lastTSFile.FullName + " " + lastTimeStamp.ToString("G"), 1);
+                    if (!downloadFile(client, $"{magcupdir}\\{maccat}\\{macname}\\ftp\\" + lastTSFile.Name, lastTSFile.FullName))
+                    {
+                        FetchConsoleShow("ファイルダウンロードが失敗しています", 5);
+                        return;
+                    }
+                }
+
+                FetchConsoleShow("ファイルダウンロードが完了しました", 1);
+
+                //◆FTPサーバー側ワーキングフォルダのクリーン
+                if (cbx_cleanFtpFold.Checked)
+                {
+                    FetchConsoleShow("FTPフォルダ内のファイルを全て削除します", 1);
+
+                    foreach (FtpListItem item in client.GetListing(ftphomefolder))
+                    {
+                        if (item.Type == FtpFileSystemObjectType.File)
+                        {
+                            client.DeleteFile(item.FullName);
+                            FetchConsoleShow(item.Name + "を削除しました", 1);
+                        }
+                    }
+                }
+            }
+
         }
 
         private bool downloadFile(FtpClient client, string localpath, string remotepath)
@@ -536,15 +740,36 @@ namespace FileIf
                     return "";
                 }
 
-                contents += "◆機種名：" + vipcontents["機種名抜出し"] + crlf;
-                contents += "◆ロットNO：" + vipcontents["Lot名抜出し"] + crlf;
-                contents += "◆最終記録時間：" + vipcontents["年"] + "/"
+                if (vipcontents.ContainsKey("年"))
+                {
+                    contents += "◆機種名：" + vipcontents["機種名抜出し"] + crlf;
+                    contents += "◆ロットNO：" + vipcontents["Lot名抜出し"] + crlf;
+                    contents += "◆最終記録時間：" + vipcontents["年"] + "/"
                                                 + vipcontents["月"] + "/"
                                                 + vipcontents["日"] + " "
                                                 + vipcontents["時"] + ":"
                                                 + vipcontents["分"] + ":"
                                                 + vipcontents["秒"] + crlf;
-                contents += "◆BIN1：" + vipcontents["BIN1"] + crlf;
+                    contents += "◆BIN1：" + vipcontents["BIN1"] + crlf;
+                }
+                else if (vipcontents.ContainsKey("W1300"))
+                {
+                    contents += "◆機種名：" + vipcontents["W1100"] + crlf;
+                    contents += "◆ロットNO：" + vipcontents["W1200"] + crlf;
+                    contents += "◆最終記録時間：" + vipcontents["W1300"] + "/"
+                                                + vipcontents["W1301"] + "/"
+                                                + vipcontents["W1302"] + " "
+                                                + vipcontents["W1303"] + ":"
+                                                + vipcontents["W1304"] + ":"
+                                                + vipcontents["W1305"] + crlf;
+                    contents += "◆BIN1：" + vipcontents["ZR11512"] + crlf;
+                }
+                else
+                {
+                    throw new Exception("KEYががみつかりません");
+                    
+                }
+
                 contents += "■■■■■■■■■■■■■■■■■■■■■■■[END]";
 
                 return contents;

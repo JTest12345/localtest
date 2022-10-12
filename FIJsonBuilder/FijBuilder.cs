@@ -989,12 +989,15 @@ namespace FIFJsonBuilder
             cb_mcf_plcdev.Items.Clear();
             if (cb_mcf_cntid.SelectedIndex > -1)
             {
-                for (int i = 0; i < mcconf.Plcs[cb_mcf_cntid.SelectedIndex].devs.devconfs.Count; i++)
+                if(mcconf.Plcs.plcconfs.Count > 0)
                 {
-                    cb_mcf_plcdev.Items.Add(mcconf.Plcs[cb_mcf_cntid.SelectedIndex].devs[i].devid);
-                    //if (mcconf.Mcfs.mcfconfs[lb_mcfilekey.SelectedIndex].devid == mcconf.Plcs[lb_plc.SelectedIndex].devs[i].devid)
-                    //    cb_mcf_plcdev.SelectedIndex = i;
-                    cb_mcf_plcdev.Text = mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.devid;
+                    for (int i = 0; i < mcconf.Plcs[cb_mcf_cntid.SelectedIndex].devs.devconfs.Count; i++)
+                    {
+                        cb_mcf_plcdev.Items.Add(mcconf.Plcs[cb_mcf_cntid.SelectedIndex].devs[i].devid);
+                        //if (mcconf.Mcfs.mcfconfs[lb_mcfilekey.SelectedIndex].devid == mcconf.Plcs[lb_plc.SelectedIndex].devs[i].devid)
+                        //    cb_mcf_plcdev.SelectedIndex = i;
+                        cb_mcf_plcdev.Text = mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.devid;
+                    }
                 }
             }
             

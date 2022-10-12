@@ -6,6 +6,29 @@ using System.Threading.Tasks;
 
 namespace ProcMasterIF
 {
+    ////////////////////////////////////////
+    /// ProcObjects
+    ////////////////////////////////////////
+    public class PROC_OBJECTS
+    {
+        public MastermodelRoot ProcObj { get; set; }
+        public Coj.mst000001.Root CojJsk { get; set; }
+        public Coj.mst000002.Root Coj4m { get; set; }
+        public Coj.mst000003.Root CojSs { get; set; }
+        public string TypeCdList { get; set; }
+    }
+
+    ////////////////////////////////////////
+    /// ArmsConfigObj
+    ////////////////////////////////////////
+    public class ArmsDbConfig
+    {
+        public string datasource { get; set; }
+        public string userid { get; set; }
+        public string password { get; set; }
+        public string initialcatalog { get; set; }
+        public List<string> table { get; set; }
+    }
 
     ////////////////////////////////////////
     /// makeprocjson
@@ -17,10 +40,17 @@ namespace ProcMasterIF
         public string kansei { get; set; }
     }
 
+    public class ArmsTypecdTbls
+    {
+        public string hankan { get; set; }
+        public string kansei { get; set; }
+    }
+
     public class CojFolder
     {
         public Jsonfolder jissekifolder { get; set; }
         public Jsonfolder m4folder { get; set; }
+        public Jsonfolder soshifolder { get; set; }
     }
 
     public class Path
@@ -29,6 +59,8 @@ namespace ProcMasterIF
         public string buhinhyoufolder { get; set; }
         public Jsonfolder procjsonfolder { get; set; }
         public CojFolder cojfolder { get; set; }
+        public string soshiseigenfile { get; set; }
+        public ArmsTypecdTbls armstypecdtbls { get; set; }
     }
 
     public class Model
@@ -50,6 +82,7 @@ namespace ProcMasterIF
     {
         public string productcat { get; set; }
         public Config config { get; set; }
+        public Etcinfo etc { get; set; }
     }
 
     public class MakeprocjsonRoot
@@ -57,7 +90,10 @@ namespace ProcMasterIF
         public Makeprocjson makeprocjson { get; set; }
     }
 
-
+    public class Etcinfo
+    {
+        public string soukogr { get; set; }
+    }
 
     ////////////////////////////////////////
     /// procjsonmodel
@@ -237,9 +273,127 @@ namespace ProcMasterIF
     {
         public string proccd { get; set; }
         public string kjunsho { get; set; }
+        public string kanritani { get; set; }
+        private string _platform { get; set; }
+        private string _setteisagyoujikan { get; set; }
+        private string _setteikousu { get; set; }
+        private string _kousujyougen { get; set; }
+        private string _kousukagen { get; set; }
+        private string _setteibudomari { get; set; }
+        private string _budomarijyougen { get; set; }
+        private string _budomarikagen { get; set; }
+        private string _houchijikan { get; set; }
+        private string _tairyukanoujikan { get; set; }
+        private string _seisanhituyoujikan { get; set; }
+        private string _seisankanoujikan { get; set; }
         public Code code { get; set; }
         public Name name { get; set; }
         public Qty qty { get; set; }
+        public string orzai { get; set; }
+
+        public string platform 
+        {
+            set { _platform = CheckValueAndFormat(value, 0); }
+            get { return _platform;  }
+        }
+        public string setteisagyoujikan
+        {
+            set { _setteisagyoujikan = CheckValueAndFormat(value, 2); }
+            get { return _setteisagyoujikan; }
+        }
+        public string setteikousu
+        {
+            set { _setteikousu = CheckValueAndFormat(value, 4); }
+            get { return _setteikousu; }
+        }
+        public string kousujyougen
+        {
+            set { _kousujyougen = CheckValueAndFormat(value, 2); }
+            get { return _kousujyougen; }
+        }
+        public string kousukagen
+        {
+            set { _kousukagen = CheckValueAndFormat(value, 2); }
+            get { return _kousukagen; }
+        }
+        public string setteibudomari
+        {
+            set { _setteibudomari = CheckValueAndFormat(value, 2); }
+            get { return _setteibudomari; }
+        }
+        public string budomarijyougen
+        {
+            set { _budomarijyougen = CheckValueAndFormat(value, 2); }
+            get { return _budomarijyougen; }
+        }
+        public string budomarikagen
+        {
+            set { _budomarikagen = CheckValueAndFormat(value, 2); }
+            get { return _budomarikagen; }
+        }
+        public string houchijikan
+        {
+            set { _houchijikan = CheckValueAndFormat(value, 2); }
+            get { return _houchijikan; }
+        }
+        public string tairyukanoujikan
+        {
+            set { _tairyukanoujikan = CheckValueAndFormat(value, 2); }
+            get { return _tairyukanoujikan; }
+        }
+        public string seisanhituyoujikan
+        {
+            set { _seisanhituyoujikan = CheckValueAndFormat(value, 2); }
+            get { return _seisanhituyoujikan; }
+        }
+        public string seisankanoujikan
+        {
+            set { _seisankanoujikan = CheckValueAndFormat(value, 2); }
+            get { return _seisankanoujikan; }
+        }
+        
+        private string CheckValueAndFormat(string stringNumber, int dp)
+        {
+            if (stringNumber == "")
+            {
+                return "";
+            }
+
+            int numericValue;
+            bool isNumber = int.TryParse(stringNumber, out numericValue);
+            if (!isNumber)
+            {
+                return "error";
+            }
+
+            var ret = string.Empty;
+            if (dp == 0)
+            {
+                ret = $"{numericValue:F0}";
+            }
+            else if (dp == 1)
+            {
+                ret = $"{numericValue:F1}";
+            }
+            else if (dp == 2)
+            {
+                ret = $"{numericValue:F2}";
+            }
+            else if (dp == 3)
+            {
+                ret = $"{numericValue:F3}";
+            }
+            else if (dp == 4)
+            {
+                ret = $"{numericValue:F4}";
+            }
+            else
+            {
+                ret = "error";
+            }
+
+            return ret;
+        }
     }
 
     [Serializable]
@@ -315,6 +469,7 @@ namespace ProcMasterIF
         public List<HINMOKUMASTER> hinmokumaster { get; set; }
         public List<string> processorder { get; set; }
         public List<Process> process { get; set; }
+        public Dictionary<string, System.Data.DataTable> amstbls { get; set; }
     }
 
     [Serializable]
@@ -337,6 +492,9 @@ namespace ProcMasterIF
         public Dictionary<string, Process> processdict { get; set; }
         public Model model { get; set; }
         public List<int> collist { get; set; }
+        public SoshiSeigen soshiseigen { get; set; }
+        public ArmsDbConfig armsdbconfig { get; set; }
+        public Dictionary<string, Dictionary<string, System.Data.DataTable>> amstblsdict { get; set; }
     }
 
 
@@ -431,6 +589,103 @@ namespace ProcMasterIF
         public Header header { get; set; }
         public List<Datum> data { get; set; }
     }
+
+
+
+    ////////////////////////////////////////
+    /// 素子制限.yaml
+    ////////////////////////////////////////
+    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+    public class Buhinkodo
+    {
+        public string xlscol { get; set; }
+        public string xlsaddress { get; set; }
+    }
+
+    public class Cejrank
+    {
+        public int xlsrow { get; set; }
+        public int datasu { get; set; }
+        public Datasta datasta { get; set; }
+    }
+
+    public class Datasta
+    {
+        public int xlscol { get; set; }
+    }
+
+    public class Hachouinfo
+    {
+        public Hinfo Buhinkodo { get; set; }
+        public Hinfo hachourank { get; set; }
+        public Hinfo cejrank { get; set; }
+    }
+
+    public class Hinfo
+    {
+        public int xlsrow { get; set; }
+        public int datasu { get; set; }
+        public Datasta datasta { get; set; }
+    }
+
+    public class Indexinfo
+    {
+        public Kishu kishu { get; set; }
+        public Shiyousoshi shiyousoshi { get; set; }
+        public Buhinkodo buhinkodo { get; set; }
+        public Buhinkodo sbuhinkodo { get; set; }
+    }
+
+    public class Kishu
+    {
+        public string xlscol { get; set; }
+        public int start { get; set; }
+        public int end { get; set; }
+    }
+
+    public class Released_ss
+    {
+        public string xlsaddress { get; set; }
+    }
+
+    public class Revision_ss
+    {
+        public string xlscol { get; set; }
+    }
+
+
+    public class Shiyousoshi
+    {
+        public string xlscol { get; set; }
+    }
+
+    public class Sortinginfo
+    {
+        public Sortingrank sortingrank { get; set; }
+    }
+
+    public class Sortingrank
+    {
+        public int xlsrow { get; set; }
+        public int datasu { get; set; }
+        public Datasta datasta { get; set; }
+    }
+
+    public class Updateat_ss
+    {
+        public string xlscol { get; set; }
+    }
+
+    public class SoshiSeigen
+    {
+        public Released_ss released { get; set; }
+        public Updateat_ss updateat { get; set; }
+        public Revision_ss revision { get; set; }
+        public Indexinfo indexinfo { get; set; }
+        public Hachouinfo hachouinfo { get; set; }
+        public Sortinginfo sortinginfo { get; set; }
+    }
+
 
 }
 

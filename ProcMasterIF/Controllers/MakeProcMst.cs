@@ -16,27 +16,33 @@ using ExcelDataReader;
 
 namespace ProcMasterIF
 {
-    class JissekiCojIF
+    class MakeProcMst
     {
         string workingdir = @"C:\Oskas\procmaster\shomei\ver9";
+        string armsworkingdir = @"C:\Oskas\procmaster\shomei\ver9\model\root\arms";
+        string armssqldir = @"C:\Oskas\procmaster\shomei\ver9\sql\arms";
         SeriesTypeMaster sr;
         //新機種展開表オブジェクト
         //SLDocument sl; //SpreadSheetLight
-        System.Data.DataTable sl; //ExcelDataReader
+        System.Data.DataTable sl;
 
         //素子波長一覧オブジェクト
         //SLDocument sl; //SpreadSheetLight
-        System.Data.DataTable ss_hist; //ExcelDataReader
-        System.Data.DataTable ss_data; //ExcelDataReader
+        System.Data.DataTable ss_hist; 
+        System.Data.DataTable ss_data;
+
+        //Arms機種Keyテーブルオブジェクト
+        Dictionary<string, System.Data.DataTable> amstbls_hankan;
+        Dictionary<string, System.Data.DataTable> amstbls_kansei; 
 
         MakeprocjsonRoot conf;
-        List<SeriesTypeMaster> srList;
+        public List<SeriesTypeMaster> srList;
         string msg;
         string crlf = "\r\n";
 
         ArmsSqlIF asif = new ArmsSqlIF();
 
-        public JissekiCojIF()
+        public MakeProcMst()
         {
             //*************************************************************************************************************
             // ※ルート：ここでは対象ヴァージョンの共通情報をルートという
@@ -79,7 +85,7 @@ namespace ProcMasterIF
             ///
             var rootmodelfldpath = workingdir + @"\model\root";
 
-            // 新機種展開表
+            // ◇新機種展開表
             // 機種名・ロット構成・部品表図番・改定情報などのExcelアドレスと値枠
             yamlPath = rootmodelfldpath + @"\shinkishutenkai.yaml";
             var shinkishutenai_yaml = new StreamReader(yamlPath, Encoding.UTF8);
@@ -88,7 +94,7 @@ namespace ProcMasterIF
                                .Build();
             var shinkishutenai_obj = deserializer.Deserialize<Shinkishutenkai>(shinkishutenai_yaml);
 
-            // 部品表
+            // ◇部品表
             // 機種名・図番・改定情報などのExcelアドレスと値枠
             yamlPath = rootmodelfldpath + @"\buhinhyou.yaml";
             var buhinhyou_yaml = new StreamReader(yamlPath, Encoding.UTF8);
@@ -97,8 +103,7 @@ namespace ProcMasterIF
                             .Build();
             var buhinhyou_obj = deserializer.Deserialize<Buhinhyou>(buhinhyou_yaml);
 
-
-            // 素子制限
+            // ◇素子制限
             // 機種名・素子情報・制限・ソーティング情報・改定情報などのExcelアドレスと値枠
             yamlPath = rootmodelfldpath + @"\soshiseigen.yaml";
             var soshiseigen_yaml = new StreamReader(yamlPath, Encoding.UTF8);
@@ -107,8 +112,7 @@ namespace ProcMasterIF
                             .Build();
             var soshiseigen_obj = deserializer.Deserialize<SoshiSeigen>(soshiseigen_yaml);
 
-
-            // 工程定義
+            // ◇工程定義
             // 工程記号の工程順列記リスト
             yamlPath = rootmodelfldpath + @"\processlist.yaml";
             var processlist_yaml = new StreamReader(yamlPath, Encoding.UTF8);
@@ -117,7 +121,7 @@ namespace ProcMasterIF
                             .Build();
             var processlist_obj = deserializer.Deserialize<List<string>>(processlist_yaml);
 
-            // 工程詳細辞書
+            // ◇工程詳細辞書
             // 実績, 4M, Armsの工程情報、部材情報の部品表Excelアドレスと値枠
             var process_dict = new Dictionary<string, Process>();
             foreach (var proc in processlist_obj)
@@ -130,6 +134,46 @@ namespace ProcMasterIF
                 var proc_obj = deserializer.Deserialize<Process>(proc_yaml);
                 process_dict[proc] = proc_obj;
             }
+
+            // ◇ARMSコンフィグ
+            // テーブル情報／DB接続情報
+            var armsyamlPath = armsworkingdir + @"\config\armsconfig.yaml";
+            var armsconfig_yaml = new StreamReader(armsyamlPath, Encoding.UTF8);
+            var armsdeserializer = new DeserializerBuilder()
+                               .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                               .Build();
+            var armsconf_obj = armsdeserializer.Deserialize<ArmsDbConfig>(armsconfig_yaml);
+
+            /// ◇ Arms機種Keyテーブル
+            /// テーブルオブジェクトのList:
+            /// amstbls_hankan
+            /// amstbls_kansei
+            amstbls_hankan = new Dictionary<string, System.Data.DataTable>();
+            amstbls_kansei = new Dictionary<string, System.Data.DataTable>();
+            foreach (var tblnm in armsconf_obj.table)
+            {
+                var shettbl = new System.Data.DataTable();
+                if (!string.IsNullOrEmpty(ExcelDataReader(conf.makeprocjson.config.path.armstypecdtbls.hankan, tblnm, ref shettbl)))
+                {
+                    OskNLog.Log("半完用Arms機種KeyテーブルExcelを読込失敗", Cnslcnf.msg_error);
+                    return;
+                }
+                amstbls_hankan.Add(tblnm, shettbl);
+
+                shettbl = new System.Data.DataTable();
+                if (!string.IsNullOrEmpty(ExcelDataReader(conf.makeprocjson.config.path.armstypecdtbls.kansei, tblnm, ref shettbl)))
+                {
+                    OskNLog.Log("完成用Arms機種KeyテーブルExcelを読込失敗", Cnslcnf.msg_error);
+                    return;
+                }
+                amstbls_kansei.Add(tblnm, shettbl);
+            }
+            var amstbls_dict = new Dictionary<string, Dictionary<string, System.Data.DataTable>>()
+            {
+                {"hankan",  amstbls_hankan},
+                {"kansei",  amstbls_kansei},
+            };
+
 
             //*************************************************************************************************************
             // ◆ルート処理②　各種yamlファイル情報のオブジェクト化
@@ -144,6 +188,8 @@ namespace ProcMasterIF
                 sr.processdict = process_dict;
                 sr.model = model;
                 sr.soshiseigen = soshiseigen_obj;
+                sr.armsdbconfig = armsconf_obj;
+                sr.amstblsdict = amstbls_dict;
 
                 sr.collist = new List<int>();
                 foreach (var colstr in model.shinkishutenkaicol)
@@ -180,10 +226,9 @@ namespace ProcMasterIF
                 }
                 srList.Add(sr);
             }
-            
+
             OskNLog.Log("makeを開始しました。", Cnslcnf.msg_info);
         }
-
 
         public bool Excute()
         {
@@ -204,7 +249,7 @@ namespace ProcMasterIF
             // SpreadSheetlightで読込
             // sl = new SLDocument(conf.makeprocjson.config.path.shinkishutenkaifile);
             // ExcelDataReaderで読込
-            if ( !string.IsNullOrEmpty(ExcelDataReader(conf.makeprocjson.config.path.shinkishutenkaifile, "一覧", ref sl)))
+            if (!string.IsNullOrEmpty(ExcelDataReader(conf.makeprocjson.config.path.shinkishutenkaifile, "一覧", ref sl)))
             {
                 OskNLog.Log("新機種展開表を読込失敗", Cnslcnf.msg_error);
                 return false;
@@ -234,61 +279,32 @@ namespace ProcMasterIF
             OskNLog.Log("素子波長指定一覧を読込完了", Cnslcnf.msg_info);
 
 
-            //*************************************************************************************************************
-            // ◆形状シリーズ毎の処理
-            // 新機種展開表／素子波長指定一覧をExcelDataReaderで読込
-            //*************************************************************************************************************
-            foreach (var srl in srList)
-            {
-                var orthankanfld = workingdir + @"\model\sources\" + srl.model.folder + @"\" + srl.model.hankan;
-                var ortkanseifld = workingdir + @"\model\sources\" + srl.model.folder + @"\" + srl.model.kansei;
-
-                ///////////////////////////////////////////
-                /// シリーズフォルダ処理
-                /// シリーズ毎に半完／完成の
-                /// ①工程定義
-                /// ②ルートの情報に対するオーバーライド
-                ///////////////////////////////////////////
-
-                var typecdList = new List<string>();
-                if (!makeProcObjectsAndJson(orthankanfld, srl, false, ref typecdList))
-                {
-                    OskNLog.Log("半完成品を処理中に問題が発生しました", Cnslcnf.msg_info);
-                    return false;
-                }
-
-                if (!makeProcObjectsAndJson(ortkanseifld, srl, true, ref typecdList))
-                {
-                    OskNLog.Log("完成品を処理中に問題が発生しました", Cnslcnf.msg_info);
-                    return false;
-                }
-
-            }
-
             return true;
         }
 
 
-        private bool makeProcObjectsAndJson(string folder, SeriesTypeMaster srl, bool isThisKansei, ref List<string> typecdList)
+        public bool makeProcObjectsAndJson(string folder, SeriesTypeMaster sr, bool isThisKansei, ref Dictionary<string, PROC_OBJECTS> PrObjDict)
         {
-            foreach (var col in srl.collist)
+            foreach (var col in sr.collist)
             {
                 //*************************************************************************************************************
                 //
                 // ■ ProcMasterObjectを作成開始
+                //    全ての情報はPrObjDictに機種名keyで参照渡し
                 //
                 //*************************************************************************************************************
                 var procobj = new MastermodelRoot();
                 var ort = new Procmastermodel();
+                var PrObj = new PROC_OBJECTS();
 
                 // ◇新機種展開objをルートからコピー
-                ort.shinkishutenkai = srl.shinkishutenkai.DeepClone(); ;
+                ort.shinkishutenkai = sr.shinkishutenkai.DeepClone(); ;
 
                 // ◇部品表objをルートからコピー
-                ort.buhinhyou = srl.buhinhyou.DeepClone(); ;
+                ort.buhinhyou = sr.buhinhyou.DeepClone(); ;
 
                 // ◇工程辞書objをルートからコピー
-                var processdict = srl.processdict.DeepClone();
+                var processdict = sr.processdict.DeepClone();
 
                 // ◇品目マスタ―
                 // 形状シリーズ毎の実績・4Mの工程定義読込
@@ -299,6 +315,15 @@ namespace ProcMasterIF
                                 .Build();
                 ort.hinmokumaster = deserializer.Deserialize<List<HINMOKUMASTER>>(hinmokumaster_yaml);
 
+                // ◇Armsテーブル
+                if (!isThisKansei)
+                {
+                    ort.amstbls = sr.amstblsdict["hankan"];
+                }
+                else
+                {
+                    ort.amstbls = sr.amstblsdict["kansei"];
+                }
 
                 //*************************************************************************************************************
                 // ◇オーバーライド処理
@@ -309,6 +334,7 @@ namespace ProcMasterIF
                 yamlPath = folder + @"\shinkishutenkai.yaml";
                 if (CommonFuncs.FileExists(yamlPath))
                 {
+                    OskNLog.Log("新機種展開objオーバーライド実施", Cnslcnf.msg_info);
                     var shinkishutenai_yaml = new StreamReader(yamlPath, Encoding.UTF8);
                     deserializer = new DeserializerBuilder()
                                        .WithNamingConvention(CamelCaseNamingConvention.Instance)
@@ -320,6 +346,7 @@ namespace ProcMasterIF
                 yamlPath = folder + @"\buhinhyou.yaml";
                 if (CommonFuncs.FileExists(yamlPath))
                 {
+                    OskNLog.Log("部品表objオーバーライド実施", Cnslcnf.msg_info);
                     var buhinhyou_yaml = new StreamReader(yamlPath, Encoding.UTF8);
                     deserializer = new DeserializerBuilder()
                                        .WithNamingConvention(CamelCaseNamingConvention.Instance)
@@ -331,6 +358,7 @@ namespace ProcMasterIF
                 yamlPath = folder + @"\processlist.yaml";
                 if (CommonFuncs.FileExists(yamlPath))
                 {
+                    OskNLog.Log("工程定義objオーバーライド実施", Cnslcnf.msg_info);
                     var processlist_yaml = new StreamReader(yamlPath, Encoding.UTF8);
                     deserializer = new DeserializerBuilder()
                                     .WithNamingConvention(CamelCaseNamingConvention.Instance)
@@ -363,19 +391,30 @@ namespace ProcMasterIF
                     }
                 }
 
+                //【オーバーライド処理】Armsテーブル
+                var xlsPath = folder + @"\arms_override\arms_typecd_tbls.xls";
+                var amstbls = new Dictionary<string, System.Data.DataTable>();
+                if (CommonFuncs.FileExists(xlsPath))
+                {
+                    OskNLog.Log("Armsテーブルオーバーライド実施", Cnslcnf.msg_info);
+                    foreach (var tblnm in sr.armsdbconfig.table)
+                    {
+                        var shettbl = new System.Data.DataTable();
+                        if (!string.IsNullOrEmpty(ExcelDataReader(xlsPath, tblnm, ref shettbl)))
+                        {
+                            OskNLog.Log("オーバーライド用Arms機種KeyテーブルExcelを読込失敗", Cnslcnf.msg_error);
+                            return false;
+                        }
+                        amstbls.Add(tblnm, shettbl);
+                    }
+                        
+                    ort.amstbls = amstbls;
+                }
+
                 //*************************************************************************************************************
                 // ◇ シリーズ工程詳細情報割付
                 // シリーズ用にオーバーライド処理された工程詳細辞書を用いて品目マスタで定義された工程詳細を引き出す処理
                 //*************************************************************************************************************
-                //ort.process = new List<Process>();
-                //foreach (var obj in ort.hinmokumaster)
-                //{
-                //    foreach (var proc in obj.kouteisagyoubango)
-                //    {
-                //        ort.process.Add(processdict[proc.sagyobango]);
-                //    }
-                //}
-
                 ort.process = new List<Process>();
                 foreach (var obj in ort.hinmokumaster)
                 {
@@ -407,10 +446,9 @@ namespace ProcMasterIF
                     typecd = procobj.procmastermodel.shinkishutenkai.typeinfo.kansei.value;
                 }
 
-                if (!typecdList.Contains(typecd))
-                {
-                    typecdList.Add(typecd);
-                }
+                PrObj.ProcObj = new MastermodelRoot();
+                PrObj.ProcObj.procmastermodel = procobj.procmastermodel;
+                PrObj.TypeCdList = typecd;
 
                 //*************************************************************************************************************
                 // ◆ Coj_Jisseki作成
@@ -418,10 +456,12 @@ namespace ProcMasterIF
                 //*************************************************************************************************************
                 var coj_jisseki = new Coj.mst000001.Root();
                 var update_jisseki = false;
-                if (!makeJissekiCoj(procobj, isThisKansei, update_jisseki, ref coj_jisseki))
+                if (!makeJissekiCoj(procobj, false, update_jisseki, ref coj_jisseki))
                 {
                     return false;
                 }
+
+                PrObj.CojJsk = coj_jisseki;
 
                 //*************************************************************************************************************
                 // ◆ Coj_4M作成
@@ -429,10 +469,12 @@ namespace ProcMasterIF
                 //*************************************************************************************************************
                 var coj_4m = new Coj.mst000002.Root();
                 var update_4m = false;
-                if (!make4mCoj(procobj, isThisKansei, update_4m, ref coj_4m))
+                if (!make4mCoj(procobj, false, update_4m, ref coj_4m))
                 {
                     return false;
                 }
+
+                PrObj.Coj4m = coj_4m;
 
                 //*************************************************************************************************************
                 // ◆ Coj_SoshiSeigen作成
@@ -440,65 +482,19 @@ namespace ProcMasterIF
                 //*************************************************************************************************************
                 var coj_ss = new Coj.mst000003.Root();
                 //var update_ss_kansei = false;
-                if (!makeSoshiCoj(procobj, isThisKansei, srl, ref coj_ss))
+                if (!makeSoshiCoj(procobj, false, sr, ref coj_ss))
                 {
                     return false;
                 }
 
-                //*************************************************************************************************************
-                //
-                // ■ 各COJオブジェクトをJSONファイルに書き出し
-                //
-                //*************************************************************************************************************
-                var procjsonfolder = string.Empty;
-                var cojfolder_jisseki = string.Empty;
-                var cojfolder_4m = string.Empty;
-                var cojfolder_soshi = string.Empty;
+                PrObj.CojSs = coj_ss;
 
-                if (!isThisKansei)
+                if (!PrObjDict.ContainsKey(typecd))
                 {
-                    procobj.procmastermodel.typecd = procobj.procmastermodel.shinkishutenkai.typeinfo.hankan.value;
-                    procjsonfolder = conf.makeprocjson.config.path.procjsonfolder.hankan;
-                    cojfolder_jisseki = conf.makeprocjson.config.path.cojfolder.jissekifolder.hankan;
-                    cojfolder_4m = conf.makeprocjson.config.path.cojfolder.m4folder.hankan;
-                    cojfolder_soshi = conf.makeprocjson.config.path.cojfolder.soshifolder.hankan;
+                    PrObjDict.Add(typecd, PrObj);
                 }
-                else
-                {
-                    procobj.procmastermodel.typecd = procobj.procmastermodel.shinkishutenkai.typeinfo.kansei.value;
-                    procjsonfolder = conf.makeprocjson.config.path.procjsonfolder.kansei;
-                    cojfolder_jisseki = conf.makeprocjson.config.path.cojfolder.jissekifolder.kansei;
-                    cojfolder_4m = conf.makeprocjson.config.path.cojfolder.m4folder.kansei;
-                    cojfolder_soshi = conf.makeprocjson.config.path.cojfolder.soshifolder.kansei;
-                }
-
-
-                if (!string.IsNullOrEmpty(procjsonfolder))
-                {
-                    // Procmaster
-                    var jsonpath = procjsonfolder + "\\" + procobj.procmastermodel.typecd + ".json";
-                    CommonFuncs.JsonFileWriter(jsonpath, procobj, ref msg);
-                }
-                if (!string.IsNullOrEmpty(cojfolder_jisseki))
-                {
-                    // JissekiCoj
-                    var jsonpath = cojfolder_jisseki + "\\" + procobj.procmastermodel.typecd + "_j.json";
-                    CommonFuncs.JsonFileWriter(jsonpath, coj_jisseki, ref msg);
-                }
-                if (!string.IsNullOrEmpty(cojfolder_4m))
-                {
-                    // 4mCoj
-                    var jsonpath = cojfolder_4m + "\\" + procobj.procmastermodel.typecd + "_m.json";
-                    CommonFuncs.JsonFileWriter(jsonpath, coj_4m, ref msg);
-                }
-                if (!string.IsNullOrEmpty(cojfolder_soshi))
-                {
-                    // SoshiCoj
-                    var jsonpath = cojfolder_soshi + "\\" + procobj.procmastermodel.typecd + "_s.json";
-                    CommonFuncs.JsonFileWriter(jsonpath, coj_ss, ref msg);
-                }
+                
             }
-
             return true;
         }
 
@@ -535,7 +531,7 @@ namespace ProcMasterIF
 
                 var dtstring = GetCellValueAsString(sl, skt.released.xlsaddress);
                 skt.released.value = dtstring;
-                
+
             }
 
             //updateat
@@ -689,7 +685,7 @@ namespace ProcMasterIF
                         }
                         else
                         {
-                            material.name.value = "半完成品"; 
+                            material.name.value = "半完成品";
                         }
                     }
                     else
@@ -802,16 +798,13 @@ namespace ProcMasterIF
                     }
                     else
                     {
-                        if (material.qty.bomaddress != "NA")
+                        if (material.qty.value != GetCellValueAsString(slbom, material.qty.bomaddress))
                         {
-                            if (material.qty.value != GetCellValueAsString(slbom, material.qty.bomaddress))
-                            {
-                                OskNLog.Log("部品表から取得した部品数量が基底モデルと違っています", 2);
-                                OskNLog.Log("工程：" + proc.code, 2);
-                                OskNLog.Log("部品表：" + GetCellValueAsString(slbom, material.qty.bomaddress), 2);
-                                OskNLog.Log("基底モデル：" + material.qty.value, 2);
-                                return false;
-                            }
+                            OskNLog.Log("部品表から取得した部品数量が基底モデルと違っています", 2);
+                            OskNLog.Log("工程：" + proc.code, 2);
+                            OskNLog.Log("部品表：" + GetCellValueAsString(slbom, material.qty.bomaddress), 2);
+                            OskNLog.Log("基底モデル：" + material.qty.value, 2);
+                            return false;
                         }
                     }
                 }
@@ -947,7 +940,8 @@ namespace ProcMasterIF
                 var kouteisagyoubangoList = new List<string>();
                 foreach (var ks in item.kouteisagyoubango)
                 {
-                    if (ks != null){
+                    if (ks != null)
+                    {
                         kouteisagyoubangoList.Add(ks.sagyobango);
                     }
                 }
@@ -1111,27 +1105,12 @@ namespace ProcMasterIF
                     {
                         if (ksb.prop.command == "append")
                         {
-                            var option = new ProcMasterIF.Coj.mst000002.KouteisagyouOption();
-                            var sagyoukijunsho = string.Empty;
-                            foreach (var proc in procobj.procmastermodel.process)
-                            {
-                                if (proc.code == ksb.sagyobango)
-                                {
-                                    if (!inputOption(proc, ref option))
-                                    {
-                                        return false;
-                                    }
-                                    sagyoukijunsho = conf.makeprocjson.etc.soukogr + proc.m4.kjunsho;
-                                }
-                            }
                             var kpd = new Coj.mst000002.KouteisagyouPropData()
                             {
                                 kouteisagyou = ksb.sagyobango,
-                                sagyoukijunkodo = sagyoukijunsho,
                                 koutei = item.code,
                                 sagyoujun = ksb.prop.sagyoujun,
-                                yukoujyoutai = ksb.prop.yukoujyoutai,
-                                option = option
+                                yukoujyoutai = ksb.prop.yukoujyoutai
                             };
                             colistobj.props.propdata.Add(kpd);
                         }
@@ -1156,30 +1135,42 @@ namespace ProcMasterIF
                     {
                         if (ksb.prop.command == "modify")
                         {
-                            var option = new ProcMasterIF.Coj.mst000002.KouteisagyouOption();
-                            var sagyoukijunsho = string.Empty;
-                            foreach (var proc in procobj.procmastermodel.process)
-                            {
-                                if (proc.code == ksb.sagyobango)
-                                {
-                                    if (!inputOption(proc, ref option))
-                                    {
-                                        return false;
-                                    }
-                                    sagyoukijunsho = conf.makeprocjson.etc.soukogr + proc.m4.kjunsho;
-                                }
-                            }
                             var kpd = new Coj.mst000002.KouteisagyouPropData()
                             {
                                 kouteisagyou = ksb.sagyobango,
-                                sagyoukijunkodo = sagyoukijunsho,
                                 koutei = item.code,
                                 sagyoujun = ksb.prop.sagyoujun,
-                                yukoujyoutai = ksb.prop.yukoujyoutai,
-                                option = option
+                                yukoujyoutai = ksb.prop.yukoujyoutai
                             };
                             colistobj.props.propdata.Add(kpd);
                         }
+                    }
+                }
+            }
+            coj_4m.cejObject.coList.Add(colistobj);
+            //++++++++++++++++++++++++++
+            // coList
+            // "verify_curent_kouteisagyou"
+            //++++++++++++++++++++++++++
+            colistobj = new Coj.mst000002.CoList();
+            colistobj.function = "verify_curent_kouteisagyou";
+            colistobj.props = new Coj.mst000002.Props();
+            colistobj.props.propname = "工程作業照合";
+            colistobj.props.propdata = new List<object>();
+            foreach (var item in procobj.procmastermodel.hinmokumaster)
+            {
+                if (item.kouteisagyoubango[0] != null)
+                {
+                    foreach (var ksb in item.kouteisagyoubango)
+                    {
+                        var kpd = new Coj.mst000002.KouteisagyouPropData()
+                        {
+                            kouteisagyou = ksb.sagyobango,
+                            koutei = item.code,
+                            sagyoujun = ksb.prop.sagyoujun,
+                            yukoujyoutai = ksb.prop.yukoujyoutai
+                        };
+                        colistobj.props.propdata.Add(kpd);
                     }
                 }
             }
@@ -1196,7 +1187,7 @@ namespace ProcMasterIF
 
             foreach (var item in procobj.procmastermodel.hinmokumaster)
             {
-                
+
                 foreach (var ksb in item.kouteisagyoubango)
                 {
                     var bzilst = new List<Coj.mst000002.Buzai>();
@@ -1218,17 +1209,17 @@ namespace ProcMasterIF
                                     }
 
                                     var orzai = mat.orzai;
-                                    //if (orzai == "") orzai = "-";
+                                    if (orzai == "") orzai = "-";
 
                                     var bzi = new Coj.mst000002.Buzai()
                                     {
                                         buzaikodo = mat.code.value,
-                                        siyouryou = (double.Parse(siyousu[0]) / double.Parse(siyousu[1])).ToString("F10").TrimEnd('0').TrimEnd('.'),
+                                        siyouryou = (double.Parse(siyousu[0]) / double.Parse(siyousu[1])).ToString("F9"),
                                         orzairyou = orzai
                                     };
                                     bzilst.Add(bzi);
                                 }
-                                sagyoukijunsho = conf.makeprocjson.etc.soukogr + proc.m4.kjunsho;
+                                sagyoukijunsho = proc.m4.kjunsho;
                             }
                         }
 
@@ -1243,168 +1234,12 @@ namespace ProcMasterIF
                 }
             }
             coj_4m.cejObject.coList.Add(colistobj);
-            var colistobj_buzi = colistobj;
-            //++++++++++++++++++++++++++
-            // coList
-            // "verify_curent_kouteisagyou"
-            //++++++++++++++++++++++++++
-            colistobj = new Coj.mst000002.CoList();
-            colistobj.function = "verify_curent_kouteisagyou";
-            colistobj.props = new Coj.mst000002.Props();
-            colistobj.props.propname = "工程作業照合";
-            colistobj.props.propdata = new List<object>();
-            foreach (var item in procobj.procmastermodel.hinmokumaster)
-            {
-                if (item.kouteisagyoubango[0] != null)
-                {
-                    foreach (var ksb in item.kouteisagyoubango)
-                    {
-                        var option = new ProcMasterIF.Coj.mst000002.KouteisagyouOption();
-                        var sagyoukijunsho = string.Empty;
-                        foreach (var proc in procobj.procmastermodel.process)
-                        {
-                            if (proc.code == ksb.sagyobango)
-                            {
-                                if (!inputOption(proc, ref option))
-                                {
-                                    return false;
-                                }
-                                sagyoukijunsho = conf.makeprocjson.etc.soukogr + proc.m4.kjunsho;
-                            }
-
-                        }
-                        var buzai = new List<Coj.mst000002.Buzai>();
-                        foreach (Coj.mst000002.HenshuKouteiSagyouPropData prop in colistobj_buzi.props.propdata)
-                        {
-                            if (prop.kouteisagyou == ksb.sagyobango)
-                            {
-                                buzai = prop.buzai;
-                            }
-                        }
-                        var kpd = new Coj.mst000002.KouteisagyouPropData()
-                        {
-                            kouteisagyou = ksb.sagyobango,
-                            sagyoukijunkodo = sagyoukijunsho,
-                            koutei = item.code,
-                            sagyoujun = ksb.prop.sagyoujun,
-                            yukoujyoutai = ksb.prop.yukoujyoutai,
-                            option = option,
-                            buzai = buzai
-                        };
-                        colistobj.props.propdata.Add(kpd);
-                    }
-                }
-            }
-            coj_4m.cejObject.coList.Add(colistobj);
-
-            return true;
-        }
-
-        private bool inputOption(Process proc, ref Coj.mst000002.KouteisagyouOption option)
-        {
-            option.kanritani = proc.m4.kanritani;
-            if (proc.m4.platform != "error")
-            {
-                option.platform = proc.m4.platform;
-            }
-            else
-            {
-                return false;
-            }
-            if (proc.m4.setteisagyoujikan != "error")
-            {
-                option.setteisagyoujikan = proc.m4.setteisagyoujikan;
-            }
-            else
-            {
-                return false;
-            }
-            if (proc.m4.setteikousu != "error")
-            {
-                option.setteikousu = proc.m4.setteikousu;
-            }
-            else
-            {
-                return false;
-            }
-            if (proc.m4.kousujyougen != "error")
-            {
-                option.kousujyougen = proc.m4.kousujyougen;
-            }
-            else
-            {
-                return false;
-            }
-            if (proc.m4.kousukagen != "error")
-            {
-                option.kousukagen = proc.m4.kousukagen;
-            }
-            else
-            {
-                return false;
-            }
-            if (proc.m4.setteibudomari != "error")
-            {
-                option.setteibudomari = proc.m4.setteibudomari;
-            }
-            else
-            {
-                return false;
-            }
-            if (proc.m4.budomarijyougen != "error")
-            {
-                option.budomarijyougen = proc.m4.budomarijyougen;
-            }
-            else
-            {
-                return false;
-            }
-            if (proc.m4.budomarikagen != "error")
-            {
-                option.budomarikagen = proc.m4.budomarikagen;
-            }
-            else
-            {
-                return false;
-            }
-            if (proc.m4.houchijikan != "error")
-            {
-                option.houchijikan = proc.m4.houchijikan;
-            }
-            else
-            {
-                return false;
-            }
-            if (proc.m4.tairyukanoujikan != "error")
-            {
-                option.tairyukanoujikan = proc.m4.tairyukanoujikan;
-            }
-            else
-            {
-                return false;
-            }
-            if (proc.m4.seisanhituyoujikan != "error")
-            {
-                option.seisanhituyoujikan = proc.m4.seisanhituyoujikan;
-            }
-            else
-            {
-                return false;
-            }
-            if (proc.m4.seisankanoujikan != "error")
-            {
-                option.seisankanoujikan = proc.m4.seisankanoujikan;
-            }
-            else
-            {
-                return false;
-            }
 
             return true;
         }
 
 
-        private bool makeSoshiCoj(MastermodelRoot procobj, bool kansei,SeriesTypeMaster srl, ref Coj.mst000003.Root coj_ss)
+        private bool makeSoshiCoj(MastermodelRoot procobj, bool kansei, SeriesTypeMaster srl, ref Coj.mst000003.Root coj_ss)
         {
             string typecd;
             if (kansei)
@@ -1518,11 +1353,11 @@ namespace ProcMasterIF
             propdata.meisho = "素子名";
             propdata.code = GetCellValueAsString(ss_data, srl.soshiseigen.indexinfo.shiyousoshi.xlscol, i);
             colistobj.props.propdata.Add(propdata);
-            //部品コード 20220906 FJH羽田さんリクエストでコメントアウト
-            //propdata = new Coj.mst000003.Propdatum();
-            //propdata.meisho = "部品コード";
-            //propdata.code = GetCellValueAsString(ss_data, srl.soshiseigen.indexinfo.buhinkodo.xlsaddress);
-            //colistobj.props.propdata.Add(propdata);
+            //部品コード
+            propdata = new Coj.mst000003.Propdatum();
+            propdata.meisho = "部品コード";
+            propdata.code = GetCellValueAsString(ss_data, srl.soshiseigen.indexinfo.buhinkodo.xlsaddress);
+            colistobj.props.propdata.Add(propdata);
             //ソーティング部品コード
             propdata = new Coj.mst000003.Propdatum();
             propdata.meisho = "部品コード";
@@ -1543,9 +1378,6 @@ namespace ProcMasterIF
             for (int s = 0; s < soshiranksu; s++)
             {
                 propdata = new Coj.mst000003.Propdatum();
-                var buhinkodocol = srl.soshiseigen.hachouinfo.Buhinkodo.datasta.xlscol + s;
-                var buhinkodorow = srl.soshiseigen.hachouinfo.Buhinkodo.xlsrow;
-                propdata.meisho = GetCellValueAsString(ss_data, buhinkodocol, buhinkodorow);
                 var soshirankcol = srl.soshiseigen.hachouinfo.hachourank.datasta.xlscol + s;
                 var soshirankrow = srl.soshiseigen.hachouinfo.hachourank.xlsrow;
                 propdata.code = GetCellValueAsString(ss_data, soshirankcol, soshirankrow);
@@ -1607,15 +1439,15 @@ namespace ProcMasterIF
 
         private string GetCellValueAsString(SLDocument exobj, string col, decimal row)
         {
-            return exobj.GetCellValueAsString(col+row);
+            return exobj.GetCellValueAsString(col + row);
         }
 
 
         private string GetCellValueAsString(System.Data.DataTable exobj, string address)
         {
             var addarr = Regex.Split(address, @"(?<=[a-zA-Z])(?=\d)");
-            var rownm = ToAlphabetIndex(addarr[0]) -1;
-            var colnm = int.Parse(addarr[1]) -1;
+            var rownm = ToAlphabetIndex(addarr[0]) - 1;
+            var colnm = int.Parse(addarr[1]) - 1;
             var ret = exobj.Rows[colnm][rownm].ToString();
             return ret;
         }

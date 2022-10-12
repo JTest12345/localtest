@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ArmsApi;
-using ArmsApi.Model.FORMS;
+//using ArmsApi.Model.FORMS;
 
 
 namespace ARMS3.FakeVIPline
@@ -83,7 +83,7 @@ namespace ARMS3.FakeVIPline
                 NascaLotNO = textBox2.Text,
                 NowCompProcess = fp.ProcNo,
                 NewFg = true,
-                FrameQty = int.Parse(textBox7.Text),
+                //FrameQty = int.Parse(textBox7.Text),
                 LastUpdDt = DateTime.Now
             };
 
