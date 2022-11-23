@@ -22,11 +22,14 @@ namespace ArmsApi.Model
         public DefItem() { }
         public DefItem(int procNO, string classCD, string causeCD, string defectCD, int defectCT)
         {
-			this.ProcNo = procNO;
+            this.ProcNo = procNO;
             this.CauseCd = causeCD;
             this.ClassCd = classCD;
             this.DefectCd = defectCD;
             this.DefectCt = defectCT;
+            // test 
+            this.OrgDefectCt = defectCT;
+            // test
         }
 
         /// <summary>
@@ -69,15 +72,22 @@ namespace ArmsApi.Model
         /// </summary>
         public int DefectCt { get; set; }
 
-		/// <summary>
-		/// EICS画面にエラー表示するか
-		/// </summary>
-		public bool IsDisplayedEICS { get; set; }
+        /// <summary>
+        /// EICS画面にエラー表示するか
+        /// </summary>
+        public bool IsDisplayedEICS { get; set; }
 
 		/// <summary>
 		/// 工程NO
 		/// </summary>
 		public int ProcNo { get; set; }
+
+        //20220422 ADD START
+        /// <summary>
+        /// 変更前不良数
+        /// </summary>
+        public int? OrgDefectCt { get; set; }
+        //20220422 ADD END
 
         #region IComparable メンバ
 
@@ -102,7 +112,108 @@ namespace ArmsApi.Model
     }
     #endregion
 
-	public class DefectJudge
+    #region 不良項目（基板不良ありI DefItemSubSt　2022/04/22 ADD
+
+    public class DefItemSubSt : IComparable
+    {
+        public DefItemSubSt() { }
+        public DefItemSubSt(int procNO, string classCD, string causeCD, string defectCD, int defectCT)
+        {
+            this.ProcNo = procNO;
+            this.CauseCd = causeCD;
+            this.ClassCd = classCD;
+            this.DefectCd = defectCD;
+            if (this.ClassCd == ArmsApi.Config.SUBST_DEFECT_CLASSCD)
+            {
+                this.DefectCt = defectCT;
+            }
+            else
+            {
+
+            this.DefectCtSubSt = defectCT;
+            }
+        }
+
+        /// <summary>
+        /// 表示順
+        /// </summary>
+        public int OrderNo { get; set; }
+
+        /// <summary>
+        /// 起因CD
+        /// </summary>
+        public string CauseCd { get; set; }
+
+        /// <summary>
+        /// 起因名称
+        /// </summary>
+        public string CauseName { get; set; }
+
+        /// <summary>
+        /// 分類CD
+        /// </summary>
+        public string ClassCd { get; set; }
+
+        /// <summary>
+        /// 分類名称
+        /// </summary>
+        public string ClassName { get; set; }
+
+        /// <summary>
+        /// 不良CD
+        /// </summary>
+        public string DefectCd { get; set; }
+
+        /// <summary>
+        /// 不良名称
+        /// </summary>
+        public string DefectName { get; set; }
+
+        /// <summary>
+        /// 不良数
+        /// </summary>
+        public int DefectCt { get; set; }
+
+        /// <summary>
+        /// 基板不良枚数
+        /// </summary>
+        public int DefectCtSubSt { get; set; }
+
+        /// <summary>
+        /// EICS画面にエラー表示するか
+        /// </summary>
+        public bool IsDisplayedEICS { get; set; }
+
+        /// <summary>
+        /// 工程NO
+        /// </summary>
+        public int ProcNo { get; set; }
+
+        #region IComparable メンバ
+
+        public int CompareTo(object obj)
+        {
+            //nullより大きい
+            if (obj == null)
+            {
+                return 1;
+            }
+
+            //違う型とは比較できない
+            if (this.GetType() != obj.GetType())
+            {
+                throw new ArgumentException("別の型とは比較できません。", "obj");
+            }
+            DefItem def = (DefItem)obj;
+            return this.GetHashCode().CompareTo(def.GetHashCode());
+        }
+
+        #endregion
+    }
+    #endregion
+
+
+    public class DefectJudge
 	{
 		public string DefItemCd { get; set; }
 		public decimal JudgDefectCt { get; set; }
@@ -338,6 +449,14 @@ namespace ArmsApi.Model
             return master;
         }
 
+        //20220422 ADD START
+        public static DefItem[] GetAllDefectSubSt(AsmLot lot, int procno)
+        {
+            return GetAllDefectSubSt(lot.NascaLotNo, lot.TypeCd, procno);
+        }
+        //20220422 ADD END
+
+
         /// <summary>
         /// マスタ上存在する全ての不良項目を返す。
         /// 記録されている不良以外は数量0
@@ -511,8 +630,8 @@ namespace ArmsApi.Model
                     cmd.CommandText = "DELETE FROM TnDefect WHERE lotno=@LOTNO AND procno=@PROC";
 
                     //FJH ADD START
-                    cmd.Parameters.Add("@CLASSCD", SqlDbType.Char).Value = ArmsApi.Config.SUBST_DEFECT_CLASSCD;
-                    cmd.CommandText += " AND classcd <> @CLASSCD";
+                    cmd.Parameters.Add("@CLASSCD_2", SqlDbType.Char).Value = ArmsApi.Config.SUBST_DEFECT_CLASSCD;
+                    cmd.CommandText += " AND classcd <> @CLASSCD_2";
                     //FJH ADD END
 
                     cmd.ExecuteNonQuery();
@@ -1828,6 +1947,9 @@ namespace ArmsApi.Model
                     if (d.CauseCd == m.CauseCd && d.ClassCd == m.ClassCd && d.DefectCd == m.DefectCd)
                     {
                         m.DefectCt = d.DefectCt;
+                        // test
+                        m.OrgDefectCt = d.DefectCt;
+                        // test
                         found = true;
                         break;
                     }
@@ -1926,6 +2048,55 @@ namespace ArmsApi.Model
         {
             DeleteInsertSubSt(SQLite.ConStr, frameqty);
         }
+
+        //20220422 ADD START
+        //public bool CheckDefectSubSt(string LotNo, int OrgNum, int NewNum, ref int? FrameQty)
+        //{
+        //    return CheckDefectSubSt(SQLite.ConStr, LotNo, OrgNum, NewNum, ref FrameQty);
+        //}
+        //public bool CheckDefectSubSt(string constr, string LotNo, int OrgNum, int NewNum, ref int? FrameQty)
+        //{
+        //    int iFrameQty = 0;
+        //    try
+        //    {
+        //        using (SqlConnection con = new SqlConnection(constr))
+        //        using (SqlCommand cmd = con.CreateCommand())
+        //        {
+        //            con.Open();
+
+        //            cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = LotNo ?? "";
+        //            cmd.CommandText = @"
+        //                SELECT frameqty
+        //                    FROM TnMag
+        //                    WHERE lotno  = @LOTNO
+        //                    AND newfg  = '1'";
+        //            using (SqlDataReader reader = cmd.ExecuteReader())
+        //            {
+        //                while (reader.Read())
+        //                {
+        //                    iFrameQty = SQLite.ParseInt(reader["frameqty"]);
+        //                }
+        //            }
+        //        }
+
+        //        //加算した枚数＞TnMag.frameqtyの場合は、エラーとする
+        //        FrameQty = iFrameQty + OrgNum;
+        //        if (FrameQty < NewNum)
+        //        {
+        //            return false;
+        //        }
+        //        else
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return false;
+        //        throw new ArmsException("不良枚数チェックエラー", ex);
+        //    }
+        //}
+        //20220422 ADD END
 
         /// <summary>
         /// 入力不良枚数チェック
@@ -2115,10 +2286,11 @@ namespace ArmsApi.Model
                     con.Open();
                     cmd.Transaction = con.BeginTransaction();
 
+                    cmd.Parameters.Clear();
                     cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = this.LotNo ?? "";
                     cmd.Parameters.Add("@PROC", SqlDbType.BigInt).Value = this.ProcNo;
                     cmd.Parameters.Add("@UPDDT", SqlDbType.DateTime).Value = DateTime.Now;
-                    cmd.Parameters.Add("@MAGAZINENO", SqlDbType.NVarChar).Value = this.MagazineNo;
+                    //cmd.Parameters.Add("@MAGAZINENO", SqlDbType.NVarChar).Value = this.MagazineNo;
                     cmd.Parameters.Add("@CLASSCD1", SqlDbType.NVarChar).Value = ArmsApi.Config.SUBST_DEFECT_CLASSCD;
 
                     //前履歴は削除
@@ -2220,6 +2392,507 @@ namespace ArmsApi.Model
                     UpdateEICS(lot, this.ProcNo, updateList, displayList);
                 }
             }
+        }
+
+        public void DeleteInsert_IF4M()
+        {
+            DeleteInsert_IF4M(SQLite.ConStr, ArmsApi.Config.Settings.IF4MConSTR);
+        }
+
+        /// <summary>
+        /// 該当proc,lotの不良を全削除した上で登録
+        /// </summary>
+        /// <param name="procno"></param>
+        /// <param name="defects"></param>
+        public void DeleteInsert_IF4M(string constr, string if4mconstr)
+        {
+            //ライン受渡しに使われるため呼び出し先全てにconstrの受け渡し必要
+            Log.SysLog.Info("不良情報更新" + this.LotNo);
+
+            // データベース登録前にマスタに存在するかの確認
+            #region 登録対象の不良項目のマスタ有無チェック
+            AsmLot lot = AsmLot.GetAsmLot(this.LotNo);
+            if (lot != null)
+            {
+                DefItem[] master = GetDefectMaster(lot.TypeCd, this.ProcNo);
+                foreach (DefItem d in this.DefItems)
+                {
+                    List<DefItem> foundList = master.Where(m => m.CauseCd == d.CauseCd && m.ClassCd == d.ClassCd && m.DefectCd == d.DefectCd).ToList();
+                    if (foundList.Count == 0)
+                    {
+                        throw new ArmsException("不良マスタに存在しません: " + lot.TypeCd + "- (" + d.DefectCd + ", " + d.CauseCd + ", " + d.ClassCd + ")");
+                    }
+                }
+            }
+            #endregion
+
+            using (SqlConnection con = new SqlConnection(constr))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                try
+                {
+                    con.Open();
+                    cmd.Transaction = con.BeginTransaction();
+
+                    cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = this.LotNo ?? "";
+                    cmd.Parameters.Add("@PROC", SqlDbType.BigInt).Value = this.ProcNo;
+                    cmd.Parameters.Add("@UPDDT", SqlDbType.DateTime).Value = DateTime.Now;
+
+                    //前履歴は削除
+                    cmd.CommandText = "DELETE FROM TnDefect WHERE lotno=@LOTNO AND procno=@PROC";
+
+                    //FJH ADD START
+                    cmd.Parameters.Add("@CLASSCD_2", SqlDbType.Char).Value = ArmsApi.Config.SUBST_DEFECT_CLASSCD;
+                    cmd.CommandText += " AND classcd <> @CLASSCD_2";
+                    //FJH ADD END
+
+                    cmd.ExecuteNonQuery();
+
+                    SqlParameter prmCauseCd = cmd.Parameters.Add("@CAUSECD", SqlDbType.NVarChar);
+                    SqlParameter prmClassCd = cmd.Parameters.Add("@CLASSCD", SqlDbType.NVarChar);
+                    SqlParameter prmDefectCd = cmd.Parameters.Add("@DEFECTCD", SqlDbType.NVarChar);
+                    SqlParameter prmDefectCt = cmd.Parameters.Add("@DEFECTCT", SqlDbType.BigInt);
+
+                    //新規Insert
+                    cmd.CommandText = @"
+                            INSERT
+                             INTO TnDefect(lotno
+	                            , procno
+	                            , causecd
+	                            , classcd
+	                            , defectcd
+	                            , defectct
+	                            , lastupddt
+                                , delfg)
+                            values(@LOTNO
+	                            , @PROC
+	                            , @CAUSECD
+	                            , @CLASSCD
+	                            , @DEFECTCD
+	                            , @DEFECTCT
+	                            , @UPDDT
+                                , 0)";
+
+                    IEnumerable<string> defectNotIncludeList = GnlMaster.GetDefectNotInclude()
+                        .Select(d => d.Code);
+
+                    foreach (DefItem d in this.DefItems)
+                    {
+                        // 不良数0は対象外
+                        if (d.DefectCt == 0) continue;
+
+                        // 計上済前工程不良は登録しない
+                        if (defectNotIncludeList.Contains(d.DefectCd)) continue;
+
+                        prmCauseCd.Value = d.CauseCd ?? "";
+                        prmClassCd.Value = d.ClassCd ?? "";
+                        prmDefectCd.Value = d.DefectCd ?? "";
+                        prmDefectCt.Value = d.DefectCt;
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    using (SqlConnection if4mcon = new SqlConnection(if4mconstr))
+                    using (SqlCommand if4mcmd = if4mcon.CreateCommand())
+                    {
+                        try
+                        {
+                            if4mcon.Open();
+                            if4mcmd.Transaction = if4mcon.BeginTransaction();
+
+                            if4mcmd.Parameters.Clear();
+                            if4mcmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = this.LotNo ?? "";
+                            if4mcmd.Parameters.Add("@PROC", SqlDbType.BigInt).Value = this.ProcNo;
+                            if4mcmd.Parameters.Add("@UPDDT", SqlDbType.DateTime).Value = DateTime.Now;
+
+                            SqlParameter if4mprmCauseCd = if4mcmd.Parameters.Add("@CAUSECD", SqlDbType.NVarChar);
+                            SqlParameter if4mprmClassCd = if4mcmd.Parameters.Add("@CLASSCD", SqlDbType.NVarChar);
+                            SqlParameter if4mprmDefectCd = if4mcmd.Parameters.Add("@DEFECTCD", SqlDbType.NVarChar);
+                            SqlParameter if4mprmDefectCt = if4mcmd.Parameters.Add("@DEFECTCT", SqlDbType.BigInt);
+
+                            //新規Insert
+                            if4mcmd.CommandText = @"
+                            INSERT
+                             INTO TnDefect4M(
+                                  lotno
+	                            , procno
+	                            , causecd
+	                            , classcd
+	                            , defectcd
+	                            , defectct
+	                            , lastupddt
+                                , delfg
+                                , ifflg)
+                            values(@LOTNO
+	                            , @PROC
+	                            , @CAUSECD
+	                            , @CLASSCD
+	                            , @DEFECTCD
+	                            , @DEFECTCT
+	                            , @UPDDT
+                                , 0
+                                , 0)";
+
+                            foreach (DefItem d in this.DefItems)
+                            {
+                                // 新旧同一の場合は対象外
+                                if (!d.OrgDefectCt.HasValue)
+                                {
+                                    d.OrgDefectCt = 0;
+                                }
+                                if (d.OrgDefectCt != d.DefectCt)
+                                {
+                                    if4mprmCauseCd.Value = d.CauseCd ?? "";
+                                    if4mprmClassCd.Value = d.ClassCd ?? "";
+                                    if4mprmDefectCd.Value = d.DefectCd ?? "";
+                                    if (d.OrgDefectCt.HasValue)
+                                    {
+                                        if (d.OrgDefectCt != 0)
+                                        {
+                                            if4mprmDefectCt.Value = d.OrgDefectCt * -1;
+                                            if4mcmd.ExecuteNonQuery();
+                                        }
+                                    }
+                                    if (d.DefectCt != 0)
+                                    {
+                                        if4mprmDefectCt.Value = d.DefectCt;
+                                        if4mcmd.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+                            if4mcmd.Transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            if4mcmd.Transaction.Rollback();
+                            throw new ArmsException("不良情報更新エラー", ex);
+                        }
+                    }
+                    cmd.Transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Transaction.Rollback();
+                    throw new ArmsException("不良情報更新エラー", ex);
+                }
+            }
+
+            //ライン間受渡しの場合は処理を行わない
+            if (constr == SQLite.ConStr)
+            {
+                if (Config.GetLineType != Config.LineTypes.NEL_GAM && Config.GetLineType != Config.LineTypes.MEL_GAM)
+                {
+                    KHLTestCheckAndUpdateLot(this.LotNo, this.ProcNo, this.DefItems);
+                }
+
+                //特定工程・不良発生時の抜き取り検査フラグ追加判定
+                JudgeDefIsp();
+
+                //QCIL更新
+                lot = AsmLot.GetAsmLot(this.LotNo);
+                if (lot != null)
+                {
+                    DefItem[] updateList = GetAllDefect(lot, this.ProcNo);
+
+                    List<DefItem> displayList = this.DefItems.Where(d => d.IsDisplayedEICS).ToList();
+
+                    UpdateEICS(lot, this.ProcNo, updateList, displayList);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="frameqty"></param>
+        public void DeleteInsertSubSt_IF4M(int? frameqty, int limitsheartestfg)
+        {
+            DeleteInsertSubSt_IF4M(SQLite.ConStr, ArmsApi.Config.Settings.IF4MConSTR, frameqty, limitsheartestfg);
+        }
+        public void DeleteInsertSubSt_IF4M(string constr, string if4mconstr, int? iFrameQty, int limitsheartestfg)
+        {
+            //ライン受渡しに使われるため呼び出し先全てにconstrの受け渡し必要
+            Log.SysLog.Info("不良情報更新" + this.LotNo);
+
+            // データベース登録前にマスタに存在するかの確認
+            #region 登録対象の不良項目のマスタ有無チェック
+            AsmLot lot = AsmLot.GetAsmLot(this.LotNo);
+            if (lot != null)
+            {
+                DefItem[] master = GetDefectMaster(lot.TypeCd, this.ProcNo, "SUBST");
+                foreach (DefItem d in this.DefItems)
+                {
+                    List<DefItem> foundList = master.Where(m => m.CauseCd == d.CauseCd && m.ClassCd == d.ClassCd && m.DefectCd == d.DefectCd).ToList();
+                    if (foundList.Count == 0)
+                    {
+                        throw new ArmsException("不良マスタに存在しません: " + lot.TypeCd + "- (" + d.DefectCd + ", " + d.CauseCd + ", " + d.ClassCd + ")");
+                    }
+                }
+            }
+            #endregion
+
+            using (SqlConnection con = new SqlConnection(constr))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                try
+                {
+                    con.Open();
+                    cmd.Transaction = con.BeginTransaction();
+
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = this.LotNo ?? "";
+                    cmd.Parameters.Add("@PROC", SqlDbType.BigInt).Value = this.ProcNo;
+                    cmd.Parameters.Add("@UPDDT", SqlDbType.DateTime).Value = DateTime.Now;
+                    //cmd.Parameters.Add("@MAGAZINENO", SqlDbType.NVarChar).Value = this.MagazineNo;
+                    cmd.Parameters.Add("@CLASSCD1", SqlDbType.NVarChar).Value = ArmsApi.Config.SUBST_DEFECT_CLASSCD;
+
+                    //前履歴は削除
+                    cmd.CommandText = @"DELETE FROM TnDefect
+                                         WHERE lotno   = @LOTNO
+                                           AND procno  = @PROC
+                                           AND classcd = @CLASSCD1";
+                    cmd.ExecuteNonQuery();
+
+                    SqlParameter prmCauseCd = cmd.Parameters.Add("@CAUSECD", SqlDbType.NVarChar);
+                    SqlParameter prmClassCd = cmd.Parameters.Add("@CLASSCD", SqlDbType.NVarChar);
+                    SqlParameter prmDefectCd = cmd.Parameters.Add("@DEFECTCD", SqlDbType.NVarChar);
+                    SqlParameter prmDefectCt = cmd.Parameters.Add("@DEFECTCT", SqlDbType.BigInt);
+
+                    //新規Insert
+                    cmd.CommandText = @"
+                            INSERT INTO TnDefect(
+                                   lotno
+	                             , procno
+	                             , causecd
+	                             , classcd
+	                             , defectcd
+	                             , defectct
+	                             , lastupddt
+                                 , delfg)
+                            SELECT @LOTNO
+	                             , @PROC
+	                             , @CAUSECD
+	                             , @CLASSCD
+	                             , @DEFECTCD
+                                 , CASE
+                                     WHEN l.limitsheartestfg IS NULL OR
+                                          l.limitsheartestfg = 0 THEN @DEFECTCT
+                                     ELSE @DEFECTCT * l.limitsheartestfg
+                                   END 
+	                             , @UPDDT
+                                 , 0
+                              FROM tnlot l
+                             WHERE l.lotno = @LOTNO";
+                    IEnumerable<string> defectNotIncludeList = GnlMaster.GetDefectNotInclude()
+                        .Select(d => d.Code);
+
+                    int defectct = 0;
+                    foreach (DefItem d in this.DefItems)
+                    {
+                        // 不良数0は対象外
+                        if (d.DefectCt == 0) continue;
+
+                        // 計上済前工程不良は登録しない
+                        if (defectNotIncludeList.Contains(d.DefectCd)) continue;
+
+                        prmCauseCd.Value = d.CauseCd ?? "";
+                        prmClassCd.Value = d.ClassCd ?? "";
+                        prmDefectCd.Value = d.DefectCd ?? "";
+                        prmDefectCt.Value = d.DefectCt;
+                        defectct += d.DefectCt;
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    if (iFrameQty.HasValue)
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = this.LotNo ?? "";
+                        cmd.Parameters.Add("@FRAMEQTY", SqlDbType.Int).Value = iFrameQty - defectct;
+                        cmd.CommandText = @"UPDATE TnMag
+                                               SET frameqty = @FRAMEQTY
+                                             WHERE lotno    = @LOTNO
+                                               AND newfg    = 1";
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using (SqlConnection if4mcon = new SqlConnection(if4mconstr))
+                    using (SqlCommand if4mcmd = if4mcon.CreateCommand())
+                    {
+                        try
+                        {
+                            if4mcon.Open();
+                            if4mcmd.Transaction = if4mcon.BeginTransaction();
+
+                            if4mcmd.Parameters.Clear();
+                            if4mcmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = this.LotNo ?? "";
+                            if4mcmd.Parameters.Add("@PROC", SqlDbType.BigInt).Value = this.ProcNo;
+                            if4mcmd.Parameters.Add("@UPDDT", SqlDbType.DateTime).Value = DateTime.Now;
+
+                            SqlParameter if4mprmCauseCd = if4mcmd.Parameters.Add("@CAUSECD", SqlDbType.NVarChar);
+                            SqlParameter if4mprmClassCd = if4mcmd.Parameters.Add("@CLASSCD", SqlDbType.NVarChar);
+                            SqlParameter if4mprmDefectCd = if4mcmd.Parameters.Add("@DEFECTCD", SqlDbType.NVarChar);
+                            SqlParameter if4mprmDefectCt = if4mcmd.Parameters.Add("@DEFECTCT", SqlDbType.BigInt);
+
+                            //新規Insert
+                            if4mcmd.CommandText = @"
+                            INSERT
+                             INTO TnDefect4M(
+                                  lotno
+	                            , procno
+	                            , causecd
+	                            , classcd
+	                            , defectcd
+	                            , defectct
+	                            , lastupddt
+                                , delfg
+                                , ifflg)
+                            values(@LOTNO
+	                            , @PROC
+	                            , @CAUSECD
+	                            , @CLASSCD
+	                            , @DEFECTCD
+	                            , @DEFECTCT
+	                            , @UPDDT
+                                , 0
+                                , 0)";
+                            //IEnumerable<string> defectNotIncludeList = GnlMaster.GetDefectNotInclude()
+                            //    .Select(d => d.Code);
+                            foreach (DefItem d in this.DefItems)
+                            {
+                                if (!d.OrgDefectCt.HasValue)
+                                {
+                                    d.OrgDefectCt = 0;
+                                }
+                                if (d.OrgDefectCt != d.DefectCt)
+                                {
+                                    if4mprmCauseCd.Value = d.CauseCd ?? "";
+                                    if4mprmClassCd.Value = d.ClassCd ?? "";
+                                    if4mprmDefectCd.Value = d.DefectCd ?? "";
+                                    if (d.OrgDefectCt.HasValue)
+                                    {
+                                        if (d.OrgDefectCt != 0)
+                                        {
+                                            if4mprmDefectCt.Value = d.OrgDefectCt * limitsheartestfg * -1;
+                                            if4mcmd.ExecuteNonQuery();
+                                        }
+                                    }
+                                    if (d.DefectCt != 0)
+                                    {
+                                        if4mprmDefectCt.Value = d.DefectCt * limitsheartestfg;
+                                        if4mcmd.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+                            if4mcmd.Transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            if4mcmd.Transaction.Rollback();
+                            throw new ArmsException("不良情報更新エラー", ex);
+                        }
+                    }
+                    cmd.Transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Transaction.Rollback();
+                    throw new ArmsException("不良情報更新エラー", ex);
+                }
+            }
+
+            //ライン間受渡しの場合は処理を行わない
+            if (constr == SQLite.ConStr)
+            {
+                if (Config.GetLineType != Config.LineTypes.NEL_GAM && Config.GetLineType != Config.LineTypes.MEL_GAM)
+                {
+                    KHLTestCheckAndUpdateLot(this.LotNo, this.ProcNo, this.DefItems);
+                }
+
+                //特定工程・不良発生時の抜き取り検査フラグ追加判定
+                JudgeDefIsp();
+
+                //QCIL更新
+                lot = AsmLot.GetAsmLot(this.LotNo);
+                if (lot != null)
+                {
+                    DefItem[] updateList = GetAllDefect(lot, this.ProcNo);
+
+                    List<DefItem> displayList = this.DefItems.Where(d => d.IsDisplayedEICS).ToList();
+
+                    UpdateEICS(lot, this.ProcNo, updateList, displayList);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 指定ロット、工程の不良全取得
+        /// </summary>
+        /// <param name="lotno"></param>
+        /// <param name="procno"></param>
+        /// <returns></returns>
+        public static Defect GetDefectAll(string lotno, int? procno)
+        {
+            //マガジン分割対応
+            lotno = Order.MagLotToNascaLot(lotno);
+
+            List<DefItem> items = new List<DefItem>();
+
+            using (SqlConnection con = new SqlConnection(SQLite.ConStr))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = lotno ?? "";
+
+                try
+                {
+                    con.Open();
+
+                    //新規Insert
+                    cmd.CommandText = @"
+                        SELECT 
+                          procno, 
+                          causecd , 
+                          classcd , 
+                          defectcd , 
+                          defectct 
+                        FROM 
+                          tndefect 
+                        WHERE 
+                          lotno = @LOTNO";
+
+                    if (procno.HasValue)
+                    {
+                        cmd.CommandText += " AND procno = @PROCNO";
+                        cmd.Parameters.Add("@PROCNO", SqlDbType.BigInt).Value = procno.Value;
+                    }
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DefItem item = new DefItem();
+                            item.ProcNo = SQLite.ParseInt(reader["procno"]);
+                            item.CauseCd = SQLite.ParseString(reader["causecd"]);
+                            item.ClassCd = SQLite.ParseString(reader["classcd"]);
+                            item.DefectCd = SQLite.ParseString(reader["defectcd"]);
+                            item.DefectCt = SQLite.ParseInt(reader["defectct"]);
+
+                            items.Add(item);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new ArmsException("不良情報取得エラー:" + lotno, ex);
+                }
+            }
+
+            Defect retv = new Defect();
+            retv.LotNo = lotno;
+            if (procno.HasValue)
+            {
+                retv.ProcNo = procno.Value;
+            }
+            retv.DefItems = items;
+            return retv;
         }
         #endregion
     }

@@ -141,8 +141,8 @@ namespace ARMS3
         ///////////////////////
         private void FrmMain_Shown(Object sender, EventArgs e)
         {
-            //FakeVIPline.FrmFakeNline frmFakeNline = new FakeVIPline.FrmFakeNline();
-            //frmFakeNline.Show();
+        //    FakeVIPline.FrmFakeNline frmFakeNline = new FakeVIPline.FrmFakeNline();
+        //    frmFakeNline.Show();
 
             FakeVSPline.FrmFakeNline frmFakeNline = new FakeVSPline.FrmFakeNline();
             frmFakeNline.Show();

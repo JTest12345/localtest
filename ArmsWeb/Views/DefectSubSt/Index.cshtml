@@ -10,15 +10,17 @@
 {
     if (Model.Orders.Length >= 1)
     {
-        
-        <select size="5" name="orderindex">
+
+        <ul>
             @for (int i = 0; i < Model.Orders.Length; i++)
             {
                 ArmsApi.Model.Order ord = Model.Orders[i];
-                <option value="@i">@ord.InMagazineNo : @ord.NascaLotNo</option>
+                <li>
+                    <input type="radio" name="orderindex" value="@i" />@ord.InMagazineNo : @ord.NascaLotNo
+                </li>
             }
-        </select>
-    
+        </ul>
+
         <p>
             <button type="submit">不良入力</button>
         </p>

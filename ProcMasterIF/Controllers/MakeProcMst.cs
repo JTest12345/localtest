@@ -798,14 +798,17 @@ namespace ProcMasterIF
                     }
                     else
                     {
-                        if (material.qty.value != GetCellValueAsString(slbom, material.qty.bomaddress))
+                        if (material.qty.bomaddress != "NA")
                         {
-                            OskNLog.Log("部品表から取得した部品数量が基底モデルと違っています", 2);
-                            OskNLog.Log("工程：" + proc.code, 2);
-                            OskNLog.Log("部品表：" + GetCellValueAsString(slbom, material.qty.bomaddress), 2);
-                            OskNLog.Log("基底モデル：" + material.qty.value, 2);
-                            return false;
-                        }
+                            if (material.qty.value != GetCellValueAsString(slbom, material.qty.bomaddress))
+                            {
+                                OskNLog.Log("部品表から取得した部品数量が基底モデルと違っています", 2);
+                                OskNLog.Log("工程：" + proc.code, 2);
+                                OskNLog.Log("部品表：" + GetCellValueAsString(slbom, material.qty.bomaddress), 2);
+                                OskNLog.Log("基底モデル：" + material.qty.value, 2);
+                                return false;
+                            }
+                        }  
                     }
                 }
             }
@@ -966,7 +969,7 @@ namespace ProcMasterIF
 
                                     var buzai = new Seihinkousei();
                                     buzai.meisho = mat.code.value;
-                                    buzai.siyouryou = new List<int> { int.Parse(siyousu[0]), int.Parse(siyousu[1]) };
+                                    buzai.siyouryou = new List<double> { Double.Parse(siyousu[0]), int.Parse(siyousu[1]) };
                                     buzai.yukokigen = new List<string>
                                         {
                                             DateTime.Now.AddYears(-1).ToString("yyyy") + "0101",

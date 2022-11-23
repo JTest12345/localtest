@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Message";
+}
+
+<h3>@Html.Raw(ViewData["msg"])</h3>
+
+@if (ViewData["displayPrintLabelButton"] != null &&
+     string.IsNullOrWhiteSpace(ViewData["displayPrintLabelButton"].ToString()) == false &&
+     Convert.ToBoolean(ViewData["displayPrintLabelButton"]) == true)
+{
+<p>
+    <button onclick="location.href='@Url.Action("PrintLabel")';return false;">ラベル印字</button>
+</p>
+}
+
+@using (Html.BeginForm())
+{
+    if (ViewData["workunitid"] != null)
+    {
+        <p>帳票は下記のリンクから入力開始してください</p>
+
+        var url = ViewData["URL"];
+        <div>
+            <a href=@url target="_blank" rel="noopener noreferrer">
+                帳票へのリンク
+            </a>
+        </div>
+    }
+}
+<br />
+
+@Html.ActionLink("戻る", "UnloaderMag");

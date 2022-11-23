@@ -112,6 +112,7 @@ namespace ArmsWeb.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult InputDef(string classcd, string causecd, string defectcd, string qty, string address, string unit)
         {
+            bool TnMagUpdateFg = true;
             DefectSubStEditModel m = Session["model"] as DefectSubStEditModel;
 
             if (m == null)
@@ -144,6 +145,12 @@ namespace ArmsWeb.Controllers
 
             //変更前不良枚数取得
             ArmsApi.Model.Magazine mags = ArmsApi.Model.Magazine.GetMagazine(defect.LotNo);
+            if (mags == null)
+            {
+                //最新のTnMagから枚数を求める
+                mags = ArmsApi.Model.Magazine.GetLastMagazine(defect.LotNo);
+                TnMagUpdateFg = false;
+            }
             m.FailureBdQty = defect.GetDefectCtSubSt(defect.LotNo, defect.ProcNo);
             mags.FrameQty += m.FailureBdQty;
 
@@ -166,7 +173,15 @@ namespace ArmsWeb.Controllers
             }
 
             //defect更新
-            defect.DeleteInsertSubSt(mags.FrameQty);
+            ArmsApi.Model.AsmLot lot = ArmsApi.Model.AsmLot.GetAsmLot(defect.LotNo);
+            if (TnMagUpdateFg)
+            {
+                defect.DeleteInsertSubSt_IF4M(mags.FrameQty, lot.limitsheartestfg);
+            }
+            else
+            {
+                defect.DeleteInsertSubSt_IF4M(null, lot.limitsheartestfg);
+            }
 
             Session["empcd"] = "";
             return View("Select", m);

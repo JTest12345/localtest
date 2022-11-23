@@ -251,6 +251,35 @@ namespace ArmsApi.Model
         /// </summary>
         public string MnggrNm { get; set; }
 
+        #region "FJH ADD"
+        //20220516 ADD START
+        /// <summary>
+        /// 硬化後確認SKIPフラグ
+        /// </summary>
+        public int AfterCuringConfirmfg { get; set; }
+        //20220516 ADD END
+
+        //20220519 ADD START
+        /// <summary>
+        /// 保留区分
+        /// </summary>
+        public string HoryuKbn { get; set; }
+        //20220519 ADD END
+
+        //20220602 ADD START
+        /// <summary>
+        /// 取個数
+        /// </summary>
+        public int limitsheartestfg { get; set; }
+        //20220602 ADD END
+
+        //20220929 ADD START
+        /// <summary>
+        /// 波長ランク
+        /// </summary>
+        public string CejHchRnk { get; set; } = "";
+        ///20220929 ADD END
+        #endregion
 
         #endregion
 
@@ -797,6 +826,37 @@ namespace ArmsApi.Model
                 {
                     con.Open();
 
+                    //20220516 MOD START
+                    //cmd.CommandText = @"
+                    //    SELECT 
+                    //      t.lotno , 
+                    //      t.typecd ,
+                    //      t.profileid, 
+                    //      t.blendcd , 
+                    //      t.resingpcd,
+                    //      t.cutblendcd,
+                    //      t.warningfg, 
+                    //      t.colortestfg,
+                    //      t.templotno,
+                    //      t.istemp,
+                    //      t.isnascalotcharend,
+                    //      t.restrictfg,
+                    //      t.lotsize,
+                    //      t.macgroup,
+                    //      t.isbadmarkframe,
+                    //      t.dbthrowdt,
+                    //      t.diesheartestfg,
+                    //      t.movestockct,
+                    //      t.beforelifetestcondcd,
+                    //      t.tempcutblendno,
+                    //      t.mnggrid,
+                    //      t.mnggrnm, 
+                    //      t.resingpcd2
+                    //    FROM
+                    //      tnlot t with(nolock)
+                    //    WHERE
+                    //      1=1 ";
+                    //20220929 MOD START
                     cmd.CommandText = @"
                         SELECT 
                           t.lotno , 
@@ -815,17 +875,58 @@ namespace ArmsApi.Model
                           t.macgroup,
                           t.isbadmarkframe,
                           t.dbthrowdt,
-						  t.diesheartestfg,
-						  t.movestockct,
-						  t.beforelifetestcondcd,
+                          t.diesheartestfg,
+                          t.movestockct,
+                          t.beforelifetestcondcd,
                           t.tempcutblendno,
                           t.mnggrid,
                           t.mnggrnm, 
-                          t.resingpcd2
+                          t.resingpcd2,
+                          t.aftercuringconfirmfg,
+                          isnull(t.horyukbn, '') as horyukbn,
+                          t.limitsheartestfg,
+                          t.cejhchrnk
                         FROM
                           tnlot t with(nolock)
                         WHERE
                           1=1 ";
+                    //cmd.CommandText = @"
+                    //    SELECT 
+                    //      t.lotno , 
+                    //      t.typecd ,
+                    //      t.profileid, 
+                    //      t.blendcd , 
+                    //      t.resingpcd,
+                    //      t.cutblendcd,
+                    //      t.warningfg, 
+                    //      t.colortestfg,
+                    //      t.templotno,
+                    //      t.istemp,
+                    //      t.isnascalotcharend,
+                    //      t.restrictfg,
+                    //      t.lotsize,
+                    //      t.macgroup,
+                    //      t.isbadmarkframe,
+                    //      t.dbthrowdt,
+                    //      t.diesheartestfg,
+                    //      t.movestockct,
+                    //      t.beforelifetestcondcd,
+                    //      t.tempcutblendno,
+                    //      t.mnggrid,
+                    //      t.mnggrnm, 
+                    //      t.resingpcd2,
+                    //      t.aftercuringconfirmfg,
+                    //      isnull(t.horyukbn, '') as horyukbn,
+                    //      t.limitsheartestfg
+                    //    FROM
+                    //      tnlot t with(nolock)
+                    //    WHERE
+                    //      1=1 ";
+                    //20220929 MOD END
+                    //20220516 MOD END
+                    //
+                    //Note:horyukbnを追加 20220519
+                    //
 
                     if (string.IsNullOrEmpty(lotno) == false)
                     {
@@ -949,6 +1050,18 @@ namespace ArmsApi.Model
                             }
                             lot.MnggrId = SQLite.ParseNullableInt(rd["mnggrid"]);
                             lot.MnggrNm = SQLite.ParseString(rd["mnggrnm"]);
+                            //20220516 ADD START
+                            lot.AfterCuringConfirmfg = SQLite.ParseInt(rd["aftercuringconfirmfg"]);
+                            //20220516 ADD END
+                            //20220519 ADD START
+                            lot.HoryuKbn = SQLite.ParseString(rd["horyukbn"]);
+                            //20220519 ADD END
+                            //20220602 ADD START
+                            lot.limitsheartestfg = SQLite.ParseInt(rd["limitsheartestfg"]);
+                            //20220602 ADD END
+                            //20220929 ADD START
+                            lot.CejHchRnk = SQLite.ParseString(rd["cejhchrnk"]);
+                            //20220929 ADD END
                             retv.Add(lot);
                         }
                     }
@@ -1592,8 +1705,139 @@ namespace ArmsApi.Model
                 throw new ApplicationException(string.Format("ロット:{0}とトレイの関連付けの解除に失敗しました。", lotNo));
             }
         }
+        
+        #region "20220516 ADD FJH"
+        //public static void SerachAfterCuringConfirm()
+        public static AsmLot[] SerachAfterCuringConfirm()
+        {
+            List<AsmLot> retv = new List<AsmLot>();
+
+            using (SqlConnection con = new SqlConnection(SQLite.ConStr))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                try
+                {
+                    con.Open();
+                    cmd.CommandText = @"
+                        SELECT t.lotno
+                             , t.typecd
+                          FROM tnlot t with(nolock)
+                         WHERE t.aftercuringconfirmfg = 1 ";
+
+                    using (SqlDataReader rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            AsmLot lot = new AsmLot();
+                            lot.NascaLotNo = SQLite.ParseString(rd["lotno"]);
+                            lot.TypeCd = SQLite.ParseString(rd["typecd"]);
+                            retv.Add(lot);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new ArmsException("ロット情報取得時エラー:", ex);
+                }
+            }
+
+            return retv.ToArray();
+        }
+
+        public static void UpdateAfterCuringConfirm(string lotno, int updkbn)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Config.Settings.LocalConnString))
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    con.Open();
+
+                    string sql = @" UPDATE TnLot
+                                       SET aftercuringconfirmfg = @UpdKbn
+                                         , lastupddt            = @LastUpdDt
+                                     WHERE lotno                = @lotno";
+
+                    cmd.Parameters.Add("@UpdKbn", SqlDbType.Int).Value = updkbn;
+                    cmd.Parameters.Add("@LastUpdDt", SqlDbType.DateTime).Value = DateTime.Now;
+                    cmd.Parameters.Add("@lotno", SqlDbType.NVarChar).Value = lotno;
+
+                    cmd.CommandText = sql;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+                throw new ApplicationException(string.Format("ロット:{0}の更新に失敗しました。", lotno));
+            }
+        }
+        #endregion
+        #region "202210 ADD FJH"
+        public static string SerachHchRnk(string lotno)
+        {
+            string retv = "";
+
+            using (SqlConnection con = new SqlConnection(SQLite.ConStr))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                try
+                {
+                    con.Open();
+                    cmd.CommandText = @"
+                        SELECT t.lotno
+                             , t.cejhchrnk
+                          FROM tnlot t with(nolock)
+                         WHERE t.lotno = @LOTNO";
+
+                    cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = lotno;
+
+                    using (SqlDataReader rd = cmd.ExecuteReader())
+                    {
+                        if (rd.Read())
+                        {
+                            retv = SQLite.ParseString(rd["cejhchrnk"]) ?? "";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new ArmsException("ロット情報取得時エラー:", ex);
+                }
+            }
+
+            return retv;
+        }
+
+        public static void UpdateHchRnk(string lotno, string cejhchrnk)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Config.Settings.LocalConnString))
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    con.Open();
+
+                    string sql = @" UPDATE TnLot
+                                       SET cejhchrnk = @CEJHCHRNK
+                                         , lastupddt = @LASTUPDDT
+                                     WHERE lotno     = @LOTNO";
+
+                    cmd.Parameters.Add("@CEJHCHRNK", SqlDbType.VarChar).Value = cejhchrnk;
+                    cmd.Parameters.Add("@LASTUPDDT", SqlDbType.DateTime).Value = DateTime.Now;
+                    cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = lotno;
+
+                    cmd.CommandText = sql;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+                throw new ApplicationException(string.Format("ロット:{0}の更新に失敗しました。", lotno));
+            }
+        }
+        #endregion
     }
-    public class AsmLotLog
+        public class AsmLotLog
     {
         public string LotNo{ get; set; }
         public DateTime InDt { get; set; }

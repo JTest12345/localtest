@@ -139,7 +139,7 @@ namespace ArmsApi
         private static void ConfigSysLogAppender()
         {
             log4net.Appender.RollingFileAppender rolling = new log4net.Appender.RollingFileAppender();
-            rolling.File = "C:\\ARMS\\LOG\\LOG";
+            rolling.File = "C:\\ARMS_VSP\\LOG\\LOG";
             rolling.DatePattern = "yyyyMMdd";
             rolling.StaticLogFileName = false;
             rolling.AppendToFile = true;
@@ -169,7 +169,7 @@ namespace ArmsApi
         private static void ConfigRBLogAppender()
         {
             log4net.Appender.RollingFileAppender rolling = new log4net.Appender.RollingFileAppender();
-            rolling.File = "C:\\ARMS\\LOG\\MOVELOG";
+            rolling.File = "C:\\ARMS_VSP\\LOG\\MOVELOG";
             rolling.DatePattern = "yyyyMMdd";
             rolling.StaticLogFileName = false;
             rolling.AppendToFile = true;
@@ -193,7 +193,7 @@ namespace ArmsApi
         private static void ConfigDelLogAppender()
         {
             log4net.Appender.RollingFileAppender rolling = new log4net.Appender.RollingFileAppender();
-            rolling.File = "C:\\ARMS\\LOG\\DELETELOG";
+            rolling.File = "C:\\ARMS_VSP\\LOG\\DELETELOG";
             rolling.DatePattern = "yyyyMMdd";
             rolling.StaticLogFileName = false;
             rolling.AppendToFile = true;
@@ -223,7 +223,7 @@ namespace ArmsApi
         private static void ConfigApiLogAppender()
         {
             log4net.Appender.RollingFileAppender rolling = new log4net.Appender.RollingFileAppender();
-            rolling.File = "C:\\ARMS\\LOG\\APILOG";
+            rolling.File = "C:\\ARMS_VSP\\LOG\\APILOG";
             rolling.DatePattern = "yyyyMMdd";
             rolling.StaticLogFileName = false;
             rolling.AppendToFile = true;
@@ -249,7 +249,7 @@ namespace ArmsApi
         private static void ConfigAGVLogAppender()
         {
             log4net.Appender.RollingFileAppender rolling = new log4net.Appender.RollingFileAppender();
-            rolling.File = "C:\\ARMS\\LOG\\AGVLOG";
+            rolling.File = "C:\\ARMS_VSP\\LOG\\AGVLOG";
             rolling.DatePattern = "yyyyMMdd";
             rolling.StaticLogFileName = false;
             rolling.AppendToFile = true;

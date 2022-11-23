@@ -1,0 +1,24 @@
+﻿@model ArmsWeb.Models.MaterialThawingModel
+
+@{
+    ViewBag.Title = "Confirm";
+}
+
+<p>下記の原材料を解凍登録します</p>
+<h3>作業者：@Model.EmpCd</h3>
+
+@using (Html.BeginForm())
+{
+    <ul>
+        @foreach (ArmsApi.Model.Material m in Model.EditTarget)
+        {
+            <li>@m.TypeCd : @m.LongName</li>
+        }
+    </ul>        
+    <br />
+    <div>
+        @Html.ActionLink("登録", "Submit"); 
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+    </div>
+}

@@ -63,6 +63,9 @@
     <Compile Include="Model\AsmLot.cs" />
     <Compile Include="Model\CarrierInfo.cs" />
     <Compile Include="Model\Cassette.cs" />
+    <Compile Include="Model\POPLotNo.cs" />
+    <Compile Include="Model\POPSgyubsh.cs" />
+    <Compile Include="Model\VLot.cs" />
     <Compile Include="Model\CutBlend.cs" />
     <Compile Include="Model\CutLabelFile.cs" />
     <Compile Include="Model\DataContext\ARMS.designer.cs">
@@ -172,7 +175,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SosiCheck.cs" />
+    <Compile Include="Model\SosiCheck.cs" />
     <Compile Include="Web References\local.nichia.naweb\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

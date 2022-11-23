@@ -156,6 +156,36 @@ namespace ArmsApi.Model
 
         public Decimal? InputCt { get; set; }
 
+        // 富士情報追加 開始 2022/9
+        /// <summary>
+        /// ソーティングランク　素子のみ設定
+        /// </summary>
+        public string SortingRnk
+        {
+            get
+            {
+                if (BlendCd.Length > 2)
+                    return BlendCd.Substring(0, 2);
+                else
+                    return "";
+            }
+        }
+
+        /// <summary>
+        /// 色コード　　素子のみ設定
+        /// </summary>
+        public string IrCd
+        {
+            get
+            {
+                if (BlendCd.Length > 2)
+                    return BlendCd.Substring(2);
+                else
+                    return "";
+            }
+        }
+        // 富士情報追加 終了
+
         /// <summary>
         /// 原材料情報を取得
         /// </summary>
@@ -522,7 +552,9 @@ namespace ArmsApi.Model
         /// <param name="resinMatCd"></param>
         /// <param name="includeDelete"></param>
         /// <returns></returns>
-        private static ResinLife[] getResinLifes(string typeCd, string resinMatCd, bool includeDelete)
+        //20221005 MOD private -> public
+        //private static ResinLife[] getResinLifes(string typeCd, string resinMatCd, bool includeDelete)
+        public static ResinLife[] getResinLifes(string typeCd, string resinMatCd, bool includeDelete)
         {
             List<ResinLife> retv = new List<ResinLife>();
 

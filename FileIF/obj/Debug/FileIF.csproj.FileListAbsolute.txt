@@ -139,3 +139,4 @@ C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FILEIF.exe
 C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FILEIF.pdb
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\YamlDotNet.dll
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Debug\YamlDotNet.xml
+C:\juni_ws\GitRepo\VSP\FileIF\obj\Debug\FileIf.FmVipFetchMac.resources

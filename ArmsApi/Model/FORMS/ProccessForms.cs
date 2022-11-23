@@ -14,6 +14,7 @@ namespace ArmsApi.Model.FORMS
 		public class forminfo
 		{
 			public int ProcNo { get; set; }
+			public string ProcNm { get; set; }
 			public string FormNo { get; set; }
 			public int? FormRev { get; set; }
 			public string Workcd { get; set; }
@@ -23,21 +24,29 @@ namespace ArmsApi.Model.FORMS
 		{
 			Current,
 			Next,
-			Previous
+			Previous,
+			SkipPrevious,
 		}
 
-		//帳票システムで前の工程がクローズしていること
-		public static bool isClosedPrevProcess(string typecd, string lotno, int procno, out string Msg)
+		/// <summary>
+		/// 対象工程の帳票データがクローズしていること
+		/// </summary>
+		/// <param name="typecd"></param>
+		/// <param name="lotno"></param>
+		/// <param name="procno"></param>
+		/// <param name="Msg"></param>
+		/// <param name="wo"></param>
+		/// <returns></returns>
+		public static bool IsClosedProcess(string typecd, string lotno, int procno, out string Msg, WorkOrder wo)
 		{
 			bool retv = false;
 			Msg = "";
 
-			//帳票対象の前の工程取得
-			forminfo pf = GetWorkFlow(typecd, procno, WorkOrder.Previous);
-			if (string.IsNullOrEmpty(pf.FormNo))
+			//指定工程または指定工程の前後工程の帳票マスタ情報取得
+			forminfo pf = GetWorkFlow(typecd, procno, wo);
+			if (string.IsNullOrWhiteSpace(pf.FormNo))
 			{
-				//先頭工程の場合は前の工程がないのでTrue
-				//前の工程が帳票対象でない場合もTrue
+				//工程がないor工程が帳票対象でない場合もTrue
 				return true;
 			}
 
@@ -46,13 +55,18 @@ namespace ArmsApi.Model.FORMS
 			{
 				con.Open();
 
-				string sql = @" SELECT isclosed FROM TnFormTran 
+				//ダイシング工程でブレンドするとブレンド前の複数のロット番号に対して
+				//ブレンド後のロットがworkunitidに設定される
+				//全ロットがクローズしているか判定するためclosestateでソートして1件目判定する
+				string sql = @" SELECT closestate FROM TnFormTran 
 								WHERE typecd = @TypeCd 
-								AND lotno = @LotNo
-								AND procno = @ProcNo ";
+								AND (lotno = @LotNo OR workunitid LIKE @WorkUnitID)
+								AND procno = @ProcNo
+								ORDER BY closestate";
 
 				cmd.Parameters.Add("@TypeCd", System.Data.SqlDbType.NVarChar).Value = typecd;
 				cmd.Parameters.Add("@LotNo", System.Data.SqlDbType.NVarChar).Value = lotno;
+				cmd.Parameters.Add("@WorkUnitID", System.Data.SqlDbType.NVarChar).Value = lotno + '%';
 				cmd.Parameters.Add("@ProcNo", System.Data.SqlDbType.Int).Value = pf.ProcNo;
 
 				cmd.CommandText = sql;
@@ -60,49 +74,66 @@ namespace ArmsApi.Model.FORMS
 				{
 					if (rd.Read())
 					{
-						if (SQLite.ParseBool(rd["isclosed"]))
+						if (SQLite.ParseInt(rd["closestate"])== 1)
 						{
 							retv = true;
+
+							if (wo != WorkOrder.Previous)
+							{
+							retv = true;
+								Msg = "帳票入力は完了しています。\r\n";
+								Msg += "次工程は開始可能です。";
+							}
 						}
 						else
 						{
-							Msg = string.Format("帳票がクローズしていません 工程ID:{0}", pf.ProcNo);
-							retv = false;
+							if (wo == WorkOrder.Previous)
+							{
+								Msg = string.Format("前工程の帳票入力は完了していません。 前工程:{0}", pf.ProcNm);
+							}
+							else
+                            {
+								Msg = "帳票入力は完了していません。\r\n";
+								Msg += "帳票入力が未完了の状態で次工程の開始はできません。";
+							}
 						}
 					}
 					else
 					{
-						Msg = string.Format("帳票データが存在しません 工程ID:{0}", pf.ProcNo);
-						retv = false;
+						Msg = string.Format("帳票データが存在しません 工程:{0}", pf.ProcNm);
 					}
 				}
 			}
 			return retv;
 		}
-
-		public static bool MergeFormTrn(string typecd, string lotno, int procno, string plantcd, long macno, string empcd)
+		public static bool MergeFormTrn(string typecd, string lotno, int procno, string workunitid, string plantcd, long macno, string empcd)
         {
 			using (SqlConnection con = new SqlConnection(Config.Settings.FORMSConSTR))
 			using (SqlCommand cmd = con.CreateCommand())
             {
 				con.Open();
-				return MergeFormTrn(typecd, lotno, procno, plantcd, macno, empcd, cmd);
+				return MergeFormTrn(typecd, lotno, procno, workunitid, plantcd, macno, empcd, cmd);
 			}
 		}
-		public static bool MergeFormTrn(string typecd, string lotno, int procno, string plantcd, long macno, string empcd, SqlCommand cmd)
+		public static bool MergeFormTrn(string typecd, string lotno, int procno, string workunitid, string plantcd, long macno, string empcd, SqlCommand cmd)
 		{
 			//対象工程の帳票情報取得
 			forminfo pf = GetWorkFlow(typecd, procno, WorkOrder.Current);
-			if (pf.FormNo == "")
+			if (string.IsNullOrWhiteSpace(pf.FormNo))
 			//対象工程の帳票情報が無ければ処理を抜ける
 			{
 				return true;
             }
 
+			cmd.Parameters.Clear();
 			cmd.Parameters.Add("@TYPECD", SqlDbType.NVarChar).Value = typecd;
 			cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = lotno;
 			cmd.Parameters.Add("@PROCNO", SqlDbType.Int).Value = pf.ProcNo;
 			cmd.Parameters.Add("@MANUBASE", SqlDbType.VarChar).Value = "CET";
+			if (workunitid == null)
+				cmd.Parameters.Add("@WORKUNITID", SqlDbType.NVarChar).Value = DBNull.Value;
+			else
+				cmd.Parameters.Add("@WORKUNITID", SqlDbType.NVarChar).Value = workunitid;
 			cmd.Parameters.Add("@WORKCD", SqlDbType.NVarChar).Value = pf.Workcd;
 			cmd.Parameters.Add("@PLANTCD", SqlDbType.NVarChar).Value = plantcd;
 			cmd.Parameters.Add("@MACNO", SqlDbType.BigInt).Value = macno;
@@ -111,7 +142,7 @@ namespace ArmsApi.Model.FORMS
             {
 				cmd.Parameters.Add("@FORMREV", SqlDbType.Int).Value = pf.FormRev;
 			}
-			cmd.Parameters.Add("@ISCLOSED", SqlDbType.Int).Value = SQLite.SerializeBool(false);
+			cmd.Parameters.Add("@CLOSESTATE", SqlDbType.Int).Value = 0;
 			cmd.Parameters.Add("@EMPCD", SqlDbType.NVarChar).Value = empcd;
 			cmd.Parameters.Add("@LASTUPDDT", SqlDbType.DateTime).Value = DateTime.Now;
 
@@ -121,13 +152,14 @@ namespace ArmsApi.Model.FORMS
 	                    , @LOTNO as lotno
 	                    , @PROCNO as procno
 	                    , @MANUBASE as manubase
+	                    , @WORKUNITID as workunitid
 	                    , @WORKCD as workcd
 	                    , @PLANTCD as plantcd
 	                    , @MACNO as macno
                         , formno
                         , formrev
                         , coj
-	                    , @ISCLOSED isclosed
+	                    , @CLOSESTATE closestate
 	                    , @EMPCD empcd 
 	                    , @LASTUPDDT lastupddt
                     FROM TmFormMaster WITH (NOLOCK)
@@ -145,27 +177,27 @@ namespace ArmsApi.Model.FORMS
 			cmd.CommandText += @"
 	                ) as m ON ( t.typecd = m.typecd AND t.lotno = m.lotno AND t.procno = m.procno)
                     WHEN MATCHED THEN
-                    UPDATE SET plantcd = m.plantcd, macno = m.macno, updateat = m.lastupddt, updateby = m.empcd
+                    UPDATE SET plantcd = isnull(m.plantcd, t.plantcd), macno = isnull(m.macno, t.macno), workunitid = isnull(m.workunitid, t.workunitid), updateat = m.lastupddt, updateby = m.empcd
                     WHEN NOT MATCHED THEN
-                    INSERT (typecd, lotno, procno, manubase, Workcd, plantcd, macno, formno, formrev, coj, isclosed, insertat, insertby)
-                    VALUES (typecd, lotno, procno, manubase, Workcd, plantcd, macno, formno, formrev, coj,  isclosed, lastupddt, empcd);";
+                    INSERT (typecd, lotno, procno, manubase, workunitid, workcd, plantcd, macno, formno, formrev, coj, closestate, insertat, insertby)
+                    VALUES (typecd, lotno, procno, manubase, workunitid, workcd, plantcd, macno, formno, formrev, coj, closestate, lastupddt, empcd);";
 
 			int rcnt = cmd.ExecuteNonQuery();
 
-			if (rcnt == 0)
-            {
-				throw new ArmsException($"帳票マスタが存在しません　formno：{pf.FormNo} formrev:{pf.FormRev}");
-			}
-			if (rcnt > 1)
-			{
-				throw new ArmsException($"帳票マスタが複数存在します　formno：{pf.FormNo} formrev:{pf.FormRev}");
-			}
+			string key2 = "";
+			if (pf.FormRev == null) key2 = $" iscurrversion: 1";
+			else key2 = $"formrev:{pf.FormRev.ToString()}";
+
+			if (rcnt == 0) throw new ArmsException($"帳票マスタが存在しません　formno：{pf.FormNo} " + key2);
+			if (rcnt > 1) throw new ArmsException($"帳票マスタが複数存在します　formno：{pf.FormNo} " + key2);
+
 			return true;
 		}
 
 		public static forminfo GetWorkFlow(string typecd, int procno, WorkOrder wo)
 		{
 			forminfo retv = new forminfo();
+			forminfo svretv = new forminfo();
 
 			try
 			{
@@ -173,7 +205,7 @@ namespace ArmsApi.Model.FORMS
 				using (SqlCommand cmd = con.CreateCommand())
 				{
 					string sql = @"
-                        SELECT w.procno, w.formno, w.formrev, p.workcd
+                        SELECT w.procno, w.formno, w.formrev, p.procnm, p.workcd
                         FROM TmWorkFlow w WITH (NOLOCK)
 						INNER JOIN TmProcess p WITH(nolock) ON w.procno = p.procno
                         WHERE w.typecd = @TYPECD AND w.delfg = 0 AND p.delfg = 0";
@@ -189,7 +221,7 @@ namespace ArmsApi.Model.FORMS
 					{
 						sql += " ORDER BY w.workorder Desc";
 					}
-					else if (wo == WorkOrder.Previous)
+					else if (wo == WorkOrder.Previous || wo == WorkOrder.SkipPrevious)
 					{
 						sql += " ORDER BY w.workorder";
 					}
@@ -200,35 +232,17 @@ namespace ArmsApi.Model.FORMS
 					{
 						while (rd.Read())
 						{
-							if (SQLite.ParseInt(rd["procno"]) == procno)
+							if (SQLite.ParseInt(rd["procno"]) == procno && wo != WorkOrder.Current)
                             {
-								if (wo == WorkOrder.Current)
-								{
-									retv.ProcNo = SQLite.ParseInt(rd["procno"]);
-									retv.Workcd = SQLite.ParseString(rd["workcd"]);
-									if (string.IsNullOrEmpty(SQLite.ParseString(rd["formno"])))
-                                    {
-										retv.FormNo = "";
-									}
-									else
-                                    {
-										retv.FormNo = SQLite.ParseString(rd["formno"]);
-									}
-									if (rd["FormRev"] != DBNull.Value)
-									{
-										retv.FormRev = SQLite.ParseInt(rd["formrev"]);
-									}
-								}
 								break;
                             }
+							svretv = retv;
+							retv = new forminfo();
 							retv.ProcNo = SQLite.ParseInt(rd["procno"]);
+							retv.ProcNm = SQLite.ParseString(rd["procnm"]);
 							retv.Workcd = SQLite.ParseString(rd["workcd"]);
 
-							if (string.IsNullOrEmpty(SQLite.ParseString(rd["formno"])))
-							{
-								retv.FormNo = "";
-							}
-							else
+							if (!string.IsNullOrWhiteSpace(SQLite.ParseString(rd["formno"])))
 							{
 								retv.FormNo = SQLite.ParseString(rd["formno"]);
 							}
@@ -236,6 +250,12 @@ namespace ArmsApi.Model.FORMS
 							{
 								retv.FormRev = SQLite.ParseInt(rd["formrev"]);
 							}
+
+						}
+						//前工程をスキップするロットで、前工程がスキップ対象の場合さらに前の工程を返す
+						if (wo == WorkOrder.SkipPrevious && retv.ProcNo == ArmsApi.Config.Settings.AFTER_CURING_CONFIRM)
+						{
+							retv = svretv;
 						}
 					}
 				}
@@ -243,52 +263,44 @@ namespace ArmsApi.Model.FORMS
 			}
 			catch (Exception ex)
 			{
-				throw new ArmsException("TnWorkFlow取得エラー/r/n" + ex.ToString());
+				throw new ArmsException("TnWorkFlow取得エラー\r\n" + ex.ToString());
 			}
 
 			return retv;
 		}
-		public static bool UpdateMacInfo(string typecd, string lotno, int procno, string plantcd, long macno, string empcd)
+
+		//20220627 ADD START
+		public static string GetWorkUnitID(string typecd, string lotno, int procno)
 		{
+			string workunitid = null;
+			
 			using (SqlConnection con = new SqlConnection(Config.Settings.FORMSConSTR))
 			using (SqlCommand cmd = con.CreateCommand())
 			{
+				con.Open();
 
-				cmd.Parameters.Add("@TYPECD", SqlDbType.NVarChar).Value = typecd;
-				cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = lotno;
-				cmd.Parameters.Add("@PROCNO", SqlDbType.Int).Value = procno;
-				cmd.Parameters.Add("@PLANTCD", SqlDbType.NVarChar).Value = plantcd;
-				cmd.Parameters.Add("@MACNO", SqlDbType.BigInt).Value = macno;
-				cmd.Parameters.Add("@EMPCD", SqlDbType.NVarChar).Value = empcd;
-				cmd.Parameters.Add("@LASTUPDDT", SqlDbType.DateTime).Value = DateTime.Now;
+				string sql = @"SELECT ISNULL(workunitid, '') as workunitid
+                                 FROM TnFormTran 
+								WHERE typecd = @TypeCd 
+				                  AND lotno  = @LotNo
+                                  AND procno = @ProcNo
+							  ";
+				cmd.Parameters.Add("@TypeCd", System.Data.SqlDbType.NVarChar).Value = typecd;
+				cmd.Parameters.Add("@LotNo", System.Data.SqlDbType.NVarChar).Value = lotno;
+				cmd.Parameters.Add("@ProcNo", System.Data.SqlDbType.Int).Value = procno;
 
-				try
+				cmd.CommandText = sql;
+				using (SqlDataReader rd = cmd.ExecuteReader())
 				{
-					con.Open();
-
-					#region Updateコマンド
-
-					cmd.CommandText = @"
-                        UPDATE [TnFormTran]
-                        SET 
-                            plantcd = @PLANTCD, 
-                            macno = @MACNO, 
-							updateby = @EMPCD,
-                            updateat = @LASTUPDDT 
-                        WHERE 
-                            typecd = @TYPECD AND lotno = @LOTNO AND procno = @PROCNO";
-					#endregion
-
-					cmd.ExecuteNonQuery();
-				}
-				catch (Exception ex)
-				{
-					throw new ArmsException("帳票開始情報更新エラー/r/n" + ex.ToString());
+					if (rd.Read())
+					{
+						workunitid = SQLite.ParseString(rd["workunitid"]);
+					}
 				}
 			}
-
-			return true;
+			return workunitid;
 		}
+		//20220627 ADD START
 	}
 }
 

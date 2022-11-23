@@ -14,6 +14,7 @@ namespace ProcMasterIF
     public class SeihinKouteiKosei
     {
         public string hinmokukodo { get; set; }
+        public List<string> sagyobasyo { get; set; }
         public List<Seihinkousei> seihinkousei { get; set; }
     }
 
@@ -21,7 +22,7 @@ namespace ProcMasterIF
     public class Seihinkousei
     {
         public string meisho { get; set; }
-        public List<int> siyouryou { get; set; }
+        public List<double> siyouryou { get; set; }
         public List<string> yukokigen { get; set; }
     }
 
@@ -36,6 +37,7 @@ namespace ProcMasterIF
     {
         public string code { get; set; }
         public string kouteimei { get; set; }
+        public List<string> sagyobasyo { get; set; }
         public List<Kouteisagyoubango> kouteisagyoubango { get; set; }
     }
 

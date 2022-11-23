@@ -468,7 +468,70 @@ namespace ArmsApi.Model
                 return true;
             }
         }
-	}
+
+        #region "FJH ADD 20221006"
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="materialcd"></param>
+        /// <param name="lotno"></param>
+        /// <param name="lotcharcd"></param>
+        /// <param name="lotcharval"></param>
+        /// <param name="delfg"></param>
+        /// <param name="lastupddt"></param>
+        public static void InsertUpdateMatCond(string materialcd, string lotno, string lotcharcd, string lotcharval, bool delfg, DateTime lastupddt)
+        {
+            if (string.IsNullOrEmpty(materialcd) || string.IsNullOrEmpty(lotno) || string.IsNullOrEmpty(lotcharcd) || string.IsNullOrEmpty(lotcharval))
+            {
+                throw new ApplicationException("TnMatCondの更新に必要なキー情報が不足しています。");
+            }
+
+            using (SqlConnection conn = new SqlConnection(Config.Settings.LocalConnString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                conn.Open();
+
+                string sql = @" SELECT lotcharval FROM TnMatCond WITH(nolock) 
+                                WHERE materialcd = @MaterialCd and lotno = @LotNo and lotcharcd = @LotCharCd ";
+
+                cmd.CommandText = sql;
+
+                cmd.Parameters.Add("@MaterialCd", SqlDbType.NVarChar).Value = materialcd;
+                cmd.Parameters.Add("@LotNo", SqlDbType.NVarChar).Value = lotno;
+                cmd.Parameters.Add("@LotCharCd", SqlDbType.NVarChar).Value = lotcharcd;
+                cmd.Parameters.Add("@LotCharVal", SqlDbType.NVarChar).Value = lotcharval;
+                cmd.Parameters.Add("@DelFG", SqlDbType.Int).Value = SQLite.ParseInt(delfg);
+                cmd.Parameters.Add("@LastUpdDt", SqlDbType.DateTime).Value = lastupddt;
+
+                object objLotCharVal = cmd.ExecuteScalar();
+                if (objLotCharVal == null)
+                {
+                    // 存在しない場合は登録
+                    sql = @" INSERT INTO TnMatCond (materialcd, lotno, lotcharcd, lotcharval, lastupddt)
+                             SELECT @MaterialCd, @LotNo, @LotCharCd, @LotCharVal, @LastUpdDt ";
+                }
+                else if (delfg)
+                {
+                    // 削除FLGがtrueの場合の処理
+                    sql = @" UPDATE TnMatCond SET
+                                     delfg = @DelFG, lastupddt = @LastUpdDt
+                                WHERE materialcd = @MaterialCd AND lotno = @LotNo AND lotcharcd = @LotCharCd ";
+                }
+                else if (objLotCharVal.ToString() != lotcharval)
+                {
+                    // 開封日が異なる場合は更新
+                    sql = @" UPDATE TnMatCond SET
+                                     lotcharval = @LotCharVal, delfg = @DelFG, lastupddt = @LastUpdDt
+                                WHERE materialcd = @MaterialCd AND lotno = @LotNo AND lotcharcd = @LotCharCd ";
+                }
+
+                cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+            }
+        }
+        #endregion
+    }
+
 
     public class WorkCondition
     {

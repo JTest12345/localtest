@@ -72,6 +72,14 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=SL5-9742\SQLEXPRESS;Initial Catalog=ARMS;Persist Security Info=True;User ID=inline;Password=R28uHta</Value>
     </Setting>
+    <Setting Name="ARMSConnectionString2" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=172.16.34.201\SQLExpress;Initial Catalog=ARMS;User ID=inline&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=172.16.34.201\SQLExpress;Initial Catalog=ARMS;User ID=inline</Value>
+    </Setting>
     <Setting Name="QCILConnectionString1" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
@@ -80,29 +88,21 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=SLA-0040-2\SQLEXPRESS;Initial Catalog=QCIL;Integrated Security=True</Value>
     </Setting>
-    <Setting Name="ARMSConnectionString2" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=10.129.97.154\SQLExpress;Initial Catalog=ARMS;User ID=inline&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=10.129.97.154\SQLExpress;Initial Catalog=ARMS;User ID=inline</Value>
-    </Setting>
     <Setting Name="ARMSConnectionString3" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=10.129.97.154\SQLEXPRESS;Initial Catalog=ARMS;Persist Security Info=True;User ID=inline&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=172.21.208.225\SQLEXPRESS;Initial Catalog=ARMS;Persist Security Info=True;User ID=inline&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=10.129.97.154\SQLEXPRESS;Initial Catalog=ARMS;Persist Security Info=True;User ID=inline</Value>
+      <Value Profile="(Default)">Data Source=172.21.208.225\SQLEXPRESS;Initial Catalog=ARMS;Persist Security Info=True;User ID=inline</Value>
     </Setting>
     <Setting Name="ARMSConnectionString4" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=10.129.97.154\SQLEXPRESS;Initial Catalog=ARMS;Persist Security Info=True;User ID=inline&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=172.16.34.201\SQLEXPRESS;Initial Catalog=ARMS;Persist Security Info=True;User ID=inline&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=10.129.97.154\SQLEXPRESS;Initial Catalog=ARMS;Persist Security Info=True;User ID=inline</Value>
+      <Value Profile="(Default)">Data Source=172.16.34.201\SQLEXPRESS;Initial Catalog=ARMS;Persist Security Info=True;User ID=inline</Value>
     </Setting>
   </Settings>
 </SettingsFile>

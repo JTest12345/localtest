@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ArmsApi.Model.NASCA;      //富士情報　追加
 
 namespace ArmsWeb.Models
 {
@@ -63,7 +64,10 @@ namespace ArmsWeb.Models
             if (lst == null || lst.Count() == 0)
             {
                 IsOK = false;
-                errMsg = "照合NG：親ロット情報が存在しません";
+                //富士情報　変更　start
+                errMsg = "照合NG：ダイシング後ラベルロット情報が存在しません";
+                //errMsg = "照合NG：親ロット情報が存在しません";
+                //富士情報　変更　end
             }
             else
             {
@@ -192,14 +196,36 @@ namespace ArmsWeb.Models
                 }
 
                 bool isError = WorkChecker.IsErrorWorkComplete(order, Mac, lot, out errMsg);
+                
+                //富士情報　start
+                //次の工程の帳票情報取得
+                ArmsApi.Model.FORMS.ProccessForms.forminfo pf = ArmsApi.Model.FORMS.ProccessForms.GetWorkFlow(lot.TypeCd, order.ProcNo, ArmsApi.Model.FORMS.ProccessForms.WorkOrder.Next);
+                if (!string.IsNullOrWhiteSpace(pf.FormNo))
+                //次の工程に帳票情報がある場合帳票情報設定
+                {
+                    order.IsUpdateForm = true;
+                    order.FormTypeCd = lot.TypeCd;
+                    order.FormProcNo = pf.ProcNo;
+                    order.FormMacNo = 0;
+                    order.FormPlantCd = "";
+                    order.FormEmpCd = this.EmpCd;
+                }
+                //富士情報　end
 
                 if (isError)
                 {
                     msg = errMsg + " ロットは完了しましたが警告状態になっています。";
+                    msg += "\r\n Armsメンテナンスにて実績の修正と4M連携を行ってください。";
                     lot.IsWarning = true;
                     lot.Update();
                     order.Comment += errMsg;
                     order.DeleteInsert(order.LotNo);
+
+                    ////富士情報　追加　start
+                    ////前工程からすべての情報を連携する
+                    //Exporter exp = Exporter.GetInstance();
+                    //NASCAResponse res = exp.SendAllData(BlendLotNo);
+                    ////富士情報　追加　end
 
                     return false;
                 }
@@ -208,6 +234,14 @@ namespace ArmsWeb.Models
                     order.DeleteInsert(order.LotNo);
 
                     msg = "";
+
+                    //富士情報　追加　start
+                    //前工程からすべての情報を連携する
+                    Exporter exp = Exporter.GetInstance();
+                    NASCAResponse res = exp.SendAllData(BlendLotNo);
+                    if (res.Status != NASCAStatus.OK)
+                        msg = "ロットは完了しましたが4M連携は失敗しました。";
+                    //富士情報　追加　end
 
                     return true;
                 }

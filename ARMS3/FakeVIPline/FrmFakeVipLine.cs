@@ -3742,8 +3742,8 @@ namespace ARMS3.FakeVIPline
                 LEDDBComboRouter(cb_leddbno.Text),
                 WBComboRouter(cb_wbno.Text),
                 AVI_01,
-                SUP_01,
-                MDComboRouter(cb_mb_macno.Text),
+                //SUP_01,
+                //MDComboRouter(cb_mb_macno.Text),
                 ECK_01
             };
             var MLfolderpath = "";

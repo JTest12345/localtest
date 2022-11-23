@@ -395,6 +395,7 @@ namespace ArmsApi.Model
             List<int> hMachines = new List<int>();
 
             //到達可能な装置リストを取得
+            //*J TmRouteとTmMachineから抽出
             List<int> reachMachines = GetMachines(carno);
 
             foreach(int machine in machines)

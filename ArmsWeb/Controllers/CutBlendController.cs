@@ -191,7 +191,6 @@ namespace ArmsWeb.Controllers
             }
 
             Session["empcd"] = "";
-
             Session["model"] = m;
             return View("Finish", m);
         }

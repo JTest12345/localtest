@@ -1,0 +1,20 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.LotLabelCompareModel
+@{
+    ViewBag.Title = "Finish";
+}
+
+<h3>マガジンNoとロット管理表ロットNoの照合完了</h3>
+<h3>マガジンNo：@Model.MagNo</h3>
+<h3>ロットNo：@Model.LotNo </h3>
+@if (Model.IsOK)
+{
+    <H3 style="color:blue">@Model.Msg</H3>
+}
+else
+{
+    <H3 style="color:red">@Model.Msg</H3>
+}
+
+
+

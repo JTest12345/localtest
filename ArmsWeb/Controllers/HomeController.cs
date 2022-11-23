@@ -43,6 +43,14 @@ namespace ArmsWeb.Controllers
                 ViewData["displayPrintLabelButton"] = "true";
             }
 
+            //20220627 ADD START
+            if (Session["workunitid"] != null)
+            {
+                ViewData["workunitid"] = Session["workunitid"];
+                ViewData["URL"] = Session["URL"];
+            }
+            //20220627 ADD END
+
             return View();
         }
 

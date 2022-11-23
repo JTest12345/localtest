@@ -743,5 +743,40 @@ namespace FileIf
                 RetCode = retcode
             };
         }
+
+
+        // *****************************************
+        // FileFetch用関数
+        // *****************************************
+        // mciを元にDir検索 ⇒ カテゴリ抽出
+        // カテゴリが選択 ⇒ 設備選択
+        // 設備選択 ⇒ ファイル選択
+        // 実行 ⇒ FTP、など？
+        // ファイル読取 ／ 後処理
+        // Submit ⇒ 後処理形式データの転送
+
+        public static string[] GetPcatDirName(string sDir)
+        {
+            var pcatarr = new List<string>();
+
+            try
+            {
+                foreach (string d in Directory.GetDirectories(sDir))
+                {
+                    var foldername = d.Replace(sDir + "\\", "");
+                    if (!foldername.Contains("_"))
+                    {
+                        pcatarr.Add(foldername);
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                OskNLog.Log("ファイル取得時に問題が発生しました", Cnslcnf.msg_error);
+                OskNLog.Log(ex.Message, Cnslcnf.msg_error);
+            }
+
+            return pcatarr.ToArray();
+        }
     }
 }

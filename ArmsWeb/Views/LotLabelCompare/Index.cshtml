@@ -1,0 +1,25 @@
+﻿@model ArmsWeb.Models.LotLabelCompareModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>マガジンNoとロット管理表ロットNoの照合</h3>
+<h3>設備：@Model.PlantCd</h3>
+<h3>作業者：@Model.EmpCd</h3>
+<h3>マガジンNo：@Model.MagNo</h3>
+<h3>ロットNo：@Model.LotNo</h3>
+<br />
+
+@using (Html.BeginForm())
+{
+
+    <div>
+        @Html.ActionLink("登録", "Submit");
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+    </div>
+
+    <br />
+
+}

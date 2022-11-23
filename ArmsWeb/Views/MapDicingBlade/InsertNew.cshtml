@@ -10,18 +10,18 @@
     <h3>原材料コード読み込み</h3>
     <h3>装置：@Model.Mac.LongName</h3>
     <h3>取りつけ位置：@Model.MapDicingBladePlaceCd</h3>
-    <input type="text" id="barcode" name="barcode"/>
+    <input type="text" id="barcode" name="barcode" />
     <input type="submit" value="Go" />
-    <br /> <br />
+    <br />
     if (Model.EditTarget.Count() >= 1)
     {
-        <select size="5" name="matindex">
+        <ul>
             @foreach (ArmsApi.Model.Material m in Model.EditTarget)
             {
-                <option value="@m.LotNo" >@m.LongName</option>
+            <li>@m.LongName</li>
             }
-        </select>
+        </ul>
     }
-    
+    <br />
     <button onclick="location.href='@Url.Action("InsertConfirm","Material")';return false;">決定</button>
 }

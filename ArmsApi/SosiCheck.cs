@@ -19,7 +19,7 @@ namespace ArmsApi.Model
         /// <param name="todt"></param>
         /// <param name="newfg"></param>
         /// <returns></returns>
-        public static Material[] GetMatCejKshLst(int? macno, string materialcd, DateTime? fromdt, DateTime? todt, bool newfg)
+        public static List<Material> GetMatCejKshLst(int? macno, string materialcd, DateTime? fromdt, DateTime? todt, bool newfg)
         {
             DateTime compDate = DateTime.Now;
             if (todt.HasValue)
@@ -39,7 +39,7 @@ namespace ArmsApi.Model
                     cmd.CommandText = @"
                         SELECT mm.stockerno, mm.materialcd, mm.lotno, mm.startdt, mm.enddt, mm.issampled, mm.ringid, mt.blendcd
                         FROM TnMacMat mm WITH(nolock) INNER JOIN TnMaterials mt WITH(nolock) ON mm.materialcd = mt.materialcd AND mm.lotno = mt.lotno
-                        WHERE delfg = 0 AND mm.macno = @MACNO";
+                        WHERE delfg = 0 AND mm.macno = @MACNO AND mt.iswafer = 1";
 
                     cmd.Parameters.Add("@MACNO", System.Data.SqlDbType.BigInt).Value = macno;
 
@@ -91,7 +91,7 @@ namespace ArmsApi.Model
             {
                 throw new ArmsException("投入済み原材料取得エラー", ex);
             }
-            return retv.ToArray();
+            return retv;
         }
         public class HchRnkCejKsh
         {
@@ -103,7 +103,7 @@ namespace ArmsApi.Model
         /// </summary>
         /// <param name="cejkshcd"></param>
         /// <returns></returns>
-        public static HchRnkCejKsh[] GetHchRnkCejKshList(List<string> cejkshcd)
+        public static List<HchRnkCejKsh> GetHchRnkCejKshList(List<string> cejkshcd)
         {
             List<HchRnkCejKsh> retv = new List<HchRnkCejKsh>();
 
@@ -141,7 +141,7 @@ namespace ArmsApi.Model
             {
                 throw new ArmsException("波長ランクCEJ機種取得エラー", ex);
             }
-            return retv.ToArray();
+            return retv;
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace ArmsApi.Model
         /// <param name="shncd"></param>
         /// <param name="sosicd"></param>
         /// <returns></returns>
-        public static string[] GetHchRnkLstFronShn(string shncd, string sosicd)
+        public static List<string> GetHchRnkLstFromShn(string shncd, string sosicd)
         {
             List<string> retv = new List<string>();
 
@@ -193,7 +193,7 @@ namespace ArmsApi.Model
             {
                 throw new ArmsException("波長ランク取得エラー", ex);
             }
-            return retv.ToArray();
+            return retv;
         }
 
         /// <summary>
@@ -225,6 +225,58 @@ namespace ArmsApi.Model
                         if (rd.Read())
                         {
                             retv=SQLite.ParseString(rd["CEJ_HCH_RNK"]).ToUpper();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArmsException("波長ランク取得エラー", ex);
+            }
+            return retv;
+        }
+
+        /// <summary>
+        /// 製品、素子のコードからソーティングランクのリストを取得する
+        /// </summary>
+        /// <param name="shncd"></param>
+        /// <param name="sosicd"></param>
+        /// <returns></returns>
+        public static List<string> GetSortingRnkLstFromShn(string shncd, string sosicd)
+        {
+            List<string> retv = new List<string>();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Config.Settings.HCHRankConSTR))
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+
+                    con.Open();
+
+                    cmd.CommandText = @"
+                        SELECT SORTING_RNK
+                          FROM SHN_SOSI_SORTING_MST WITH(NOLOCK)
+                         WHERE 1 = 1
+                        ";
+
+                    if (!string.IsNullOrEmpty(shncd))
+                    {
+                        cmd.CommandText += " AND SHNCD = @SHNCD";
+                        cmd.Parameters.Add("@SHNCD", SqlDbType.NVarChar).Value = shncd;
+                    }
+                    if (!string.IsNullOrEmpty(sosicd))
+                    {
+                        cmd.CommandText += " AND SOSICD = @SOSICD";
+                        cmd.Parameters.Add("@SOSICD", SqlDbType.NVarChar).Value = sosicd;
+                    }
+                    cmd.CommandText += " ORDER BY SORTING_RNK";
+
+                    using (SqlDataReader rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            retv.Add(SQLite.ParseString(rd["SORTING_RNK"]).ToUpper());
                         }
                     }
                 }

@@ -12,6 +12,8 @@ namespace FileIf
     {
         //FTP Client
         FileFetchForm fileFetchForm;
+        //VIPFTP Client
+        FmVipFetchMac fmVipFetchMac;
         //FIFJsonBuilder
         FIFJsonBuilder.fm_main jsonbuilder;
 
@@ -39,11 +41,12 @@ namespace FileIf
         // TaskHander
         TaskControlHandler tskhdl;
         private ToolStripMenuItem オプションToolStripMenuItem;
-        private ToolStripMenuItem Mn_OpenFileFetch;
         private ToolStripMenuItem OpenFifJsonBuilder;
 
         // インターロック設備リスト
         List<string> IntLokMac = new List<string>();
+        private ToolStripMenuItem vIP分類設備ファイル取得ToolStripMenuItem;
+        private ToolStripMenuItem debugFetchToolStripMenuItem;
 
         // 改行コード
         string CR = "\r\n";
@@ -70,6 +73,8 @@ namespace FileIf
 
             // FileFetchコンストラクタ
             fileFetchForm = new FileFetchForm(mci);
+            // FmVipFetchMacコンストラクタ
+            fmVipFetchMac = new FmVipFetchMac(mci);
             // FIFJsonBuilderコンストラクタ
             jsonbuilder = new FIFJsonBuilder.fm_main();
 
@@ -103,17 +108,28 @@ namespace FileIf
 
             // FILEIF起動メッセージ
             if (btServerStart.Enabled)
+            {
                 OskNLog.Log("File InterFace(aka:MagCup)が起動しました", Cnslcnf.msg_info);
 
-            // FIF動作条件表示
-            var msg = CR;
-            msg += "**********************************" + CR;
-            msg += "【FIF動作条件】" + CR;
-            msg += "◇デバッグ表示モード：" + mci.DebugMode + CR;
-            msg += "◇PLC上位リンク有効：" + mci.UsePlcTrig + CR;
-            msg += "◇Vlotリスト検査有効：" + mci.CheckVlot + CR;
-            msg += "**********************************" + CR;
-            OskNLog.Log(msg, Cnslcnf.msg_info);
+                // FIF動作条件表示
+                var msg = CR;
+                msg += "**********************************" + CR;
+                msg += "【FIF動作条件】" + CR;
+                msg += "◇デバッグ表示モード：" + mci.DebugMode + CR;
+                msg += "◇PLC上位リンク有効：" + mci.UsePlcTrig + CR;
+                msg += "◇Vlotリスト検査有効：" + mci.CheckVlot + CR;
+                msg += "**********************************" + CR;
+                OskNLog.Log(msg, Cnslcnf.msg_info);
+
+                if (mci.AutoStart)
+                {
+                    StartFIF();
+                }
+            }
+            else
+            {
+                OskNLog.Log("プログラムを起動できません", Cnslcnf.msg_info);
+            }
         }
 
         private void InitializeComponent()
@@ -122,7 +138,8 @@ namespace FileIf
             this.Mn_Files = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenFifJsonBuilder = new System.Windows.Forms.ToolStripMenuItem();
             this.オプションToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Mn_OpenFileFetch = new System.Windows.Forms.ToolStripMenuItem();
+            this.vIP分類設備ファイル取得ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugFetchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -169,24 +186,32 @@ namespace FileIf
             // OpenFifJsonBuilder
             // 
             this.OpenFifJsonBuilder.Name = "OpenFifJsonBuilder";
-            this.OpenFifJsonBuilder.Size = new System.Drawing.Size(180, 22);
+            this.OpenFifJsonBuilder.Size = new System.Drawing.Size(122, 22);
             this.OpenFifJsonBuilder.Text = "設備設定";
             this.OpenFifJsonBuilder.Click += new System.EventHandler(this.OpenFifJsonBuilder_Click);
             // 
             // オプションToolStripMenuItem
             // 
             this.オプションToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Mn_OpenFileFetch});
+            this.vIP分類設備ファイル取得ToolStripMenuItem,
+            this.debugFetchToolStripMenuItem});
             this.オプションToolStripMenuItem.Name = "オプションToolStripMenuItem";
             this.オプションToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.オプションToolStripMenuItem.Text = "オプション";
             // 
-            // Mn_OpenFileFetch
+            // vIP分類設備ファイル取得ToolStripMenuItem
             // 
-            this.Mn_OpenFileFetch.Name = "Mn_OpenFileFetch";
-            this.Mn_OpenFileFetch.Size = new System.Drawing.Size(168, 22);
-            this.Mn_OpenFileFetch.Text = "設備内ファイル取得";
-            this.Mn_OpenFileFetch.Click += new System.EventHandler(this.OpenFileFetchForm);
+            this.vIP分類設備ファイル取得ToolStripMenuItem.Name = "vIP分類設備ファイル取得ToolStripMenuItem";
+            this.vIP分類設備ファイル取得ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.vIP分類設備ファイル取得ToolStripMenuItem.Text = "VIP分類設備ファイル取得";
+            this.vIP分類設備ファイル取得ToolStripMenuItem.Click += new System.EventHandler(this.OpenVipFetchMac);
+            // 
+            // debugFetchToolStripMenuItem
+            // 
+            this.debugFetchToolStripMenuItem.Name = "debugFetchToolStripMenuItem";
+            this.debugFetchToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.debugFetchToolStripMenuItem.Text = "DebugFetch";
+            this.debugFetchToolStripMenuItem.Click += new System.EventHandler(this.debugFetchToolStripMenuItem_Click);
             // 
             // FileIfFlame
             // 
@@ -195,6 +220,7 @@ namespace FileIf
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "FileIfFlame";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FIF";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MagCupFlame_FormClosing);
             this.Controls.SetChildIndex(this.bt_ClearErrLogs, 0);
@@ -210,6 +236,12 @@ namespace FileIf
         }
 
         private void btServerStart_Click(object sender, EventArgs e)
+        {
+            StartFIF();
+        }
+
+
+        private void StartFIF()
         {
             if (!serverOn)
             {
@@ -269,7 +301,6 @@ namespace FileIf
                 toolStripStatusLabel2.Image = null;
             }
         }
-
 
         void DirSearch(string sDir, string key, ref List<String> Files)
         {
@@ -405,6 +436,38 @@ namespace FileIf
             else
             {
                 ConsoleShow("表示されてますよ！", Cnslcnf.msg_alarm);
+            }
+        }
+
+        private void OpenVipFetchMac(object sender, EventArgs e)
+        {
+            if (!fmVipFetchMac.Visible)
+            {
+                if (fmVipFetchMac.IsDisposed)
+                {
+                    fmVipFetchMac = new FmVipFetchMac(mci);
+                }
+                fmVipFetchMac.Show(this);
+            }
+            else
+            {
+                ConsoleShow("既に表示されています", Cnslcnf.msg_error);
+            }
+        }
+
+        private void debugFetchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!fileFetchForm.Visible)
+            {
+                if (fileFetchForm.IsDisposed)
+                {
+                    fileFetchForm = new FileFetchForm(mci);
+                }
+                fileFetchForm.Show(this);
+            }
+            else
+            {
+                ConsoleShow("既に表示されています", Cnslcnf.msg_error);
             }
         }
     }

@@ -9,24 +9,27 @@
 
 @using (Html.BeginForm("Remove", "WorkCnd"))
 {
-    
-    if (Model.Conditions.Count() >= 1){
-        
-    <select size="5" name="cndindex">
-        @foreach (KeyValuePair<int, ArmsApi.Model.WorkCondition> kv in Model.Conditions)
-        {
-            <option value="@kv.Key" >@kv.Value.WebString</option>
-        }
-    </select>
 
-    <br />
-    <button type="submit">取り外し</button>
-    <br />
+    if (Model.Conditions.Count() >= 1)
+    {
+
+        <ul>
+            @foreach (KeyValuePair<int, ArmsApi.Model.WorkCondition> kv in Model.Conditions)
+            {
+                <li>
+                    <input type="radio" name="cndindex" value="@kv.Key" />@kv.Value.WebString
+                </li>
+            }
+        </ul>
+
+        <br />
+        <button type="submit">取り外し</button>
+        <br />
     }
     else
     {
         <h5>現在割り付け中の製造条件はありません</h5>
     }
-       
+
     <button onclick="location.href='@Url.Action("InsertNew")';return false;">新規割付</button>
 }

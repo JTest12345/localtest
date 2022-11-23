@@ -12,15 +12,18 @@
 {
     if (Model.MatList.Count() >= 1)
     {
-        <select size="5" name="matindex">
+
+        <ul>
             @foreach (KeyValuePair<int, ArmsApi.Model.Material> kv in Model.MatList)
             {
-                <option value="@kv.Key" >@kv.Value.LongName</option>
+            <li>
+                <input type="radio" name="matindex" value="@kv.Key" />@kv.Value.LongName
+            </li>
             }
-        </select>
-    <br />
-    <button type="submit">取り外し</button>
-    <br />
+        </ul>
+	    <br />
+	    <button type="submit">取り外し</button>
+	    <br />
     }
         else
     {

@@ -37,8 +37,21 @@ namespace ArmsWeb.Models
                 this.LcrList_FI = GetTimeLimitForbiddenInputFromLot(this.Lot);
 
                 // 次投入ライン
-                string msg;
-                this.NextLine = Magazine.GetNextLine(this.Magazine, out msg);
+                //20220711 MOD START（次工程を表示するように変更）
+                //string msg;
+                //this.NextLine = Magazine.GetNextLine(this.Magazine, out msg);
+                string msg = string.Empty;
+                Process prc = Process.GetNextProcess(Magazine.NowCompProcess, this.Lot);
+                if (prc != null)
+                {
+                    Magazine.NextProcess = prc.ProcNo;
+                    this.NextLine = prc.ProcNo + " (" + Magazine.NextProcessNm + ")";
+                }
+                else
+                {
+                    this.NextLine = null;
+                }
+                //20220711 MOD END
                 this.NextLineComment = msg;
             }
             else

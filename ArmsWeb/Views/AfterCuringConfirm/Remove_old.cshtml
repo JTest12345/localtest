@@ -1,0 +1,23 @@
+﻿@model ArmsWeb.Models.AfterCuringConfirmModel
+
+@{
+    ViewBag.Title = "Remove";
+}
+
+<h3>樹脂キュア硬化後確認工程実施取消確認</h3>
+<p>以下のロット番号を取り消します</p>
+
+
+    <ul>
+        @foreach (ArmsApi.Model.AsmLot m in Model.EditTarget)
+        {
+            <li>@m.TypeCd : @m.NascaLotNo</li>
+        }
+    </ul> 
+<br />
+
+<div>
+@Html.ActionLink("OK", "RemoveConfirmed")
+&nbsp
+@Html.ActionLink("キャンセル", "Index")
+    </div>

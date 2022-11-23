@@ -48,11 +48,26 @@ namespace ArmsWeb.Controllers
                 }
                 else
                 {
-                    TempData["AlertMsg"] = "マガジンバーコードを読み込んでください";
+                    //20220701 MOD START
+                    //TempData["AlertMsg"] = "マガジンバーコードを読み込んでください";
+                    TempData["AlertMsg"] = "マガジンバーコード/ロット番号を読み込んでください";
+                    //20220701 MOD END
                     return View();
                 }
 
                 ArmsApi.Model.Magazine mag = ArmsApi.Model.Magazine.GetCurrent(magno2);
+
+                //20220701 ADD START
+                if (mag == null)
+                {
+                    //マガジン番号で取得できない場合、入力されたコードをロット番号として再度検索
+                    ArmsApi.Model.Magazine mag2 = ArmsApi.Model.Magazine.GetMagazine(magno2);
+                    if (mag2 != null)
+                    {
+                        mag = ArmsApi.Model.Magazine.GetCurrent(mag2.MagazineNo);
+                    }
+                }
+                //20220701 ADD END
 
                 if (mag == null)
                 {

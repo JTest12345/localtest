@@ -5,6 +5,7 @@
 }
 
 <h3>カットブレンド完了</h3>
+<h3>@Html.Raw(Model.Comment)</h3>
 <h3>設備：@Model.PlantCd</h3>
 <h3>作業者：@Model.EmpCd</h3>
 <h3>ロット：@Model.BlendLotNo</h3>
@@ -15,10 +16,26 @@
 <p>
     <button onclick="location.href='@Url.Action("InputDefect")';return false;">検査入力画面へ</button>
 </p>
-    
+
 <p>
     <button onclick="location.href='@Url.Action("PrintLabel")';return false;">ラベル印字</button>
 </p>
+
+@using (Html.BeginForm())
+{
+    if (@Model.WorkUnitId != null)
+    {
+        <p>帳票は下記のリンクから入力開始してください</p>
+
+        var url = @Model.URL;
+        <div>
+            <a href=@url target="_blank" rel="noopener noreferrer">
+                帳票へのリンク
+            </a>
+        </div>
+    }
+}
+
 
 
 

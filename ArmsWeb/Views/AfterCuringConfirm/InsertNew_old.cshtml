@@ -1,0 +1,28 @@
+﻿@model ArmsWeb.Models.AfterCuringConfirmModel
+
+@{
+    ViewBag.Title = "InsertNew";
+}
+
+@using (Html.BeginForm())
+{
+    <h3>樹脂キュア硬化後確認実施ロット</h3>
+
+    <h3>ロット番号読み込み</h3>
+    
+    <input type="text" id="barcode" name="barcode" autofocus="autofocus" />
+    <input type="submit" value="Go" />
+    <h3></h3>
+    if (Model.EditTarget.Count() >= 1)
+    {
+        <select size="5" name="matindex">
+            @foreach (ArmsApi.Model.AsmLot m in Model.EditTarget)
+            {
+                <option value="@m.NascaLotNo">@m.TypeCd : @m.NascaLotNo</option>
+            }
+        </select>
+    }
+    <h3></h3>
+
+    <button onclick="location.href='@Url.Action("InsertConfirm")';return false;">決定</button>
+}

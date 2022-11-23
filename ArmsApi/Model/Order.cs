@@ -222,18 +222,30 @@ namespace ArmsApi.Model
         public bool IsResinMixOrdered { get; set; }
 
         //富士情報　start
-        public bool IsUpdateForm { get; set; }
+        public bool IsUpdateForm { get; set; } = false;
         public int FormProcNo { get; set; }
         public string FormTypeCd { get; set; }
         public int FormMacNo { get; set; }
         public string FormPlantCd { get; set; }
         public string FormEmpCd { get; set; }
-        public bool IsUpdateForm2 { get; set; }
+        //初工程ならVlotno登録する
+        public bool IsFirstProcess { get; set; }
+
+        public bool IsUpdateForm2 { get; set; } = false;
         public int FormProcNo2 { get; set; }
         public string FormTypeCd2 { get; set; }
         public int FormMacNo2 { get; set; }
         public string FormPlantCd2 { get; set; }
-        public string FormEmpCd2 { get; set; } 
+        public string FormEmpCd2 { get; set; }
+
+        public bool IsUpdateFormBlend { get; set; } = false;
+        public int FormProcNoBlend { get; set; }
+        public string FormTypeCdBlend { get; set; }
+        public int FormMacNoBlend { get; set; }
+        public string FormPlantCdBlend { get; set; }
+        public string FormEmpCdBlend { get; set; }
+        //カットブレンド前のロットNo
+        public List<string> BlendedLotNoLst { get; set; } = new List<string>();
         //富士情報　end
 
         #endregion
@@ -1000,9 +1012,24 @@ namespace ArmsApi.Model
                     cmd.ExecuteNonQuery();
 
                     //富士情報　start
+                    //完了更新の場合でTnLotに波長ランクの設定が無い場合
+                    //現工程で波長ランクのある素子を使用していたらTnLotの波長ランクを更新する
+                    if (this.WorkEndDt != null)
+                    {
+                        string hchrnk = AsmLot.SerachHchRnk(this.LotNo);
+                        if (hchrnk == "")
+                        {
+                            hchrnk = SosiCheck.GetHchRnkFromOrder(this.MacNo, this.WorkStartDt, this.WorkEndDt);
+                            if (hchrnk != "")
+                            {
+                                AsmLot.UpdateHchRnk(this.LotNo, hchrnk);
+                            }
+                        }
+                    }
+
                     //帳票情報登録更新(現工程)
                     //TnTranのトランザクションの中で帳票更新したかったのでむりやりここに配置した
-                    if (this.IsUpdateForm)
+                    if (this.IsUpdateForm || this.IsUpdateForm2 || this.IsUpdateFormBlend)
                     {
                         using (SqlConnection conf = new SqlConnection(Config.Settings.FORMSConSTR))
                         using (SqlCommand cmdf = conf.CreateCommand())
@@ -1012,11 +1039,33 @@ namespace ArmsApi.Model
                                 conf.Open();
                                 cmdf.Transaction = conf.BeginTransaction();
 
-                                ArmsApi.Model.FORMS.ProccessForms.MergeFormTrn(this.FormTypeCd, this.NascaLotNo, this.FormProcNo, this.FormPlantCd, this.FormMacNo, this.FormEmpCd);
+                                if (this.IsUpdateForm)
+                                {
+                                    //初工程の場合VlotNo取得してworkunitcdに設定する
+                                    string vlotno = null;
+                                    if (this.IsFirstProcess)
+                                    {
+                                        vlotno = ArmsApi.Model.VLot.GetVLotFrom4MLot(this.NascaLotNo).VLotNo;
+                                        if (vlotno == "") vlotno = null;
+                                    }
+
+                                    ArmsApi.Model.FORMS.ProccessForms.MergeFormTrn(this.FormTypeCd, this.NascaLotNo, this.FormProcNo, vlotno, this.FormPlantCd, this.FormMacNo, this.FormEmpCd, cmdf);
+                                }
+
                                 if (this.IsUpdateForm2)
                                 {
-                                    ArmsApi.Model.FORMS.ProccessForms.MergeFormTrn(this.FormTypeCd2, this.NascaLotNo, this.FormProcNo2, this.FormPlantCd2, this.FormMacNo2, this.FormEmpCd2);
+                                    ArmsApi.Model.FORMS.ProccessForms.MergeFormTrn(this.FormTypeCd2, this.NascaLotNo, this.FormProcNo2, null, this.FormPlantCd2, this.FormMacNo2, this.FormEmpCd2, cmdf);
                                 }
+
+                                //カットブレンドロットの場合、ブレンド前のロットのworkunitcdににカットブレンドロットNoを設定する
+                                if (this.IsUpdateFormBlend)
+                                {
+                                    foreach (string blotno in this.BlendedLotNoLst)
+                                    {
+                                        ArmsApi.Model.FORMS.ProccessForms.MergeFormTrn(this.FormTypeCdBlend, blotno, this.FormProcNoBlend, this.NascaLotNo, this.FormPlantCdBlend, this.FormMacNoBlend, this.FormEmpCdBlend, cmdf);
+                                    }
+                                }
+
                                 cmdf.Transaction.Commit();
                             }
                             catch (Exception ex)
@@ -1094,6 +1143,99 @@ namespace ArmsApi.Model
                 }
             }
         }
+        
+        //20220516 ADD START
+        public void AfterCuringConfirm(string lotno, int oldProcno, int newProcno, string constr)
+        {
+            using (SqlConnection con = new SqlConnection(constr))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                //マガジン分割対応
+                cmd.Parameters.Add("@lotno", SqlDbType.NVarChar).Value = lotno;
+                cmd.Parameters.Add("@inlineprocno", SqlDbType.Int).Value = newProcno;
+                cmd.Parameters.Add("@procno", SqlDbType.Int).Value = oldProcno;
+                cmd.Parameters.Add("@now", SqlDbType.DateTime).Value = DateTime.Now;
+
+                try
+                {
+                    con.Open();
+                    cmd.Transaction = con.BeginTransaction();
+
+                    //前履歴は削除
+                    cmd.CommandText = @"UPDATE TnMag
+                                           SET inlineprocno = @inlineprocno
+                                         WHERE lotno        = @lotno
+                                           AND newfg        = '1'";
+                    cmd.ExecuteNonQuery();
+
+                    //新規Insert
+                    cmd.CommandText = @"
+                            INSERT INTO TnTran(
+                                   lotno
+                                 , procno
+                                 , macno
+                                 , inmag
+                                 , outmag
+                                 , startdt
+                                 , enddt
+                                 , iscomplt
+                                 , stocker1
+                                 , stocker2
+                                 , comment
+                                 , inspectct
+                                 , inspectempcd
+                                 , transtartempcd
+                                 , trancompempcd
+                                 , isnascastart
+                                 , isnascaend
+                                 , isnascarunning
+                                 , lastupddt
+                                 , delfg
+                                 , isdefectend
+                                 , isdefectautoimportend
+                                 , isautoimport
+                                 , isresinmixordered
+                                   )
+                            SELECT lotno
+                                 , @inlineprocno
+                                 , macno
+                                 , outmag
+                                 , outmag
+                                 , @now
+                                 , @now
+                                 , '1'
+                                 , null
+                                 , null
+                                 , ''
+                                 , 0
+                                 , trancompempcd
+                                 , trancompempcd
+                                 , ''
+                                 , 0
+                                 , 0
+                                 , 0
+                                 , @now
+                                 , '0'
+                                 , 0
+                                 , 0
+                                 , 0
+                                 , 0
+                              FROM TnTran
+                             WHERE lotno  = @lotno
+                               AND procno = @procno";
+ 
+                    cmd.ExecuteNonQuery();
+                    cmd.Transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    Log.SysLog.Info(ex.ToString());
+                    cmd.Transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+        //20220516 ADD END
 
         #endregion
 
@@ -1347,7 +1489,7 @@ namespace ArmsApi.Model
                             matRelate.ProcNo = SQLite.ParseInt(rd["procno"]);
                             matRelate.MaterialCd = SQLite.ParseString(rd["materialcd"]);
                             matRelate.MatLotNo = SQLite.ParseString(rd["matlotno"]);
-                            matRelate.ResinmixResultId = SQLite.ParseInt(rd["resinmixresultid"]);
+                            matRelate.ResinmixResultId = SQLite.ParseString(rd["resinmixresultid"]);
 
                             if (!rd.IsDBNull(ordInputCt))
                             {
@@ -1456,7 +1598,7 @@ namespace ArmsApi.Model
                     {
                         while (rd.Read())
                         {
-                            int mixresultid = SQLite.ParseInt(rd["resinmixresultid"]);
+                            string mixresultid = SQLite.ParseString(rd["resinmixresultid"]);
 
                             Resin r = Resin.GetResin(mixresultid);
                             if (r != null)
@@ -1602,7 +1744,7 @@ namespace ArmsApi.Model
                     cmd.CommandText = "DELETE FROM TnMatRelation WHERE lotno=@LOTNO AND procno=@PROC AND resinmixresultid IS NOT NULL";
                     cmd.ExecuteNonQuery();
 
-                    SqlParameter prmResinMixResultId = cmd.Parameters.Add("@MIXID", SqlDbType.BigInt);
+                    SqlParameter prmResinMixResultId = cmd.Parameters.Add("@MIXID", SqlDbType.NVarChar);
 
                     //新規Insert
                     cmd.CommandText = @"
@@ -1950,6 +2092,67 @@ namespace ArmsApi.Model
             return lotList.FirstOrDefault();
         }
 
+        //20220627 ADD START
+        public static int CountOrder(string magno)
+        {
+
+            int iCnt = 0;
+
+            using (SqlConnection con = new SqlConnection(SQLite.ConStr))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                try
+                {
+                    con.Open();
+                    cmd.CommandText = @"
+                        SELECT COUNT(1) AS cnt
+                          FROM tnmag m INNER JOIN tntran t ON
+                               m.magno = t.inmag
+                         WHERE m.magno = @MAGNO
+                           AND t.enddt IS NULL
+                                      ";
+                    cmd.Parameters.Add("@MAGNO", SqlDbType.NVarChar).Value = magno;
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            iCnt = SQLite.ParseInt(reader["cnt"]);
+                        }
+                    }
+                    if (iCnt == 0)
+                    {
+                        cmd.CommandText = @"
+                        SELECT COUNT(1) AS cnt
+                          FROM tnmag m INNER JOIN tncutblend c ON
+                               m.magno = c.magno
+                         WHERE m.magno = @MAGNO
+                           AND c.enddt IS NULL
+                                      ";
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add("@MAGNO", SqlDbType.NVarChar).Value = magno;
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+
+                            while (reader.Read())
+                            {
+                                iCnt = SQLite.ParseInt(reader["cnt"]);
+                            }
+                        }
+                    }
+                    return iCnt;
+                }
+                catch (Exception ex)
+                {
+                    Log.SysLog.Info(ex.ToString());
+                    throw ex;
+                }
+            }
+        }
+        //20220627 ADD END
+
     }
 
     public class MatRelation 
@@ -1958,7 +2161,7 @@ namespace ArmsApi.Model
         public int ProcNo { get; set; }
         public string MaterialCd { get; set; }
         public string MatLotNo { get; set; }
-        public int ResinmixResultId { get; set; }
+        public string ResinmixResultId { get; set; }
         public Decimal? inputCt  { get; set; }
     }
 

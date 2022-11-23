@@ -90,61 +90,33 @@ namespace ArmsApi.Model
         /// </summary>
         public DateTime? StirringLimitDt { get; set; }
 
-        // 2022.03.29 Junichi Watanabe 追加
+        // 20220413 ADD START
         /// <summary>
-        /// 作業開始可能日時
+        /// 樹脂使用開始時間
         /// </summary>
         public DateTime? WorkStartDt { get; set; }
+        // 20220413 ADD END
 
+        /// <summary>
+        /// 対象製品ロットNo
+        /// 　富士情報追加
+        /// </summary>
+		public List<string> SeiLotNoList { get; set; } = new List<string>();
+        public const char SeiLotNo_SEPARATOR = '/';
 
-        public static List<Resin> GetResinList(TimeSpan ts)
-        {
-            var retLst = new List<Resin>();
-            var dt = DateTime.Now - ts;
-            try
-            {
-                using (SqlConnection con = new SqlConnection(SQLite.ConStr))
-                using (SqlCommand cmd = con.CreateCommand())
-                {
-                    con.Open();
+        /// <summary>
+        /// 対象機種
+        /// 　富士情報追加
+        /// </summary>
+		public string TypeCd { get; set; } = "";
 
-                    cmd.CommandText = @"
-                        SELECT mixresultid, resingroupcd, uselimit, bincd, mixtypecd, stirringlimitdt, workstartdt
-                        FROM TnResinMix WITH(NOLOCK)
-                        WHERE 
-                          lastupddt > @DT";
+        /// <summary>
+        /// 対象波長ランク
+        /// 　富士情報追加
+        /// </summary>
+		public string CejHchRnk { get; set; } = "";
 
-                    cmd.Parameters.Add("@DT", SqlDbType.DateTime).Value = dt.ToString("G");
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Resin r = new Resin();
-                            r.MixResultId = SQLite.ParseString(reader["mixresultid"]);
-                            r.ResinGroupCd = SQLite.ParseString(reader["resingroupcd"]);
-                            r.BinCD = SQLite.ParseString(reader["bincd"]);
-                            r.LimitDt = SQLite.ParseDate(reader["uselimit"]) ?? DateTime.MaxValue.AddYears(-2);
-                            r.MixTypeCd = reader["mixtypecd"].ToString().Trim();
-                            r.StirringLimitDt = SQLite.ParseDate(reader["stirringlimitdt"]);
-                            r.WorkStartDt = SQLite.ParseDate(reader["workstartdt"]);
-                            retLst.Add(r);
-                        }
-                    }
-                    return retLst;
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.SysLog.Error(ex);
-                //LogManager.GetCurrentClassLogger().Error(ex);
-                throw ex;
-            }
-
-            return null;
-        }
-
-        public static Resin GetResin(int mixresultId)
+        public static Resin GetResin(string mixresultId)
         {
             try
             {
@@ -153,13 +125,42 @@ namespace ArmsApi.Model
                 {
                     con.Open();
 
+                    //20220413 MOD START
+                    //cmd.CommandText = @"
+                    //    SELECT mixresultid, resingroupcd, uselimit, bincd, mixtypecd, stirringlimitdt
+                    //    FROM TnResinMix WITH(NOLOCK)
+                    //    WHERE 
+                    //      mixresultid = @MIXRESULTID";
+                    //富士情報 MOD START
                     cmd.CommandText = @"
-                        SELECT mixresultid, resingroupcd, uselimit, bincd, mixtypecd, stirringlimitdt, workstartdt
+                        SELECT mixresultid
+                             , resingroupcd
+                             , uselimit
+                             , bincd
+                             , mixtypecd
+                             , stirringlimitdt
+                             , workstartdt
+                             , productnm
+                             , ledrank
+                             , lotno
                         FROM TnResinMix WITH(NOLOCK)
                         WHERE 
                           mixresultid = @MIXRESULTID";
+                    //cmd.CommandText = @"
+                    //    SELECT mixresultid
+                    //         , resingroupcd
+                    //         , uselimit
+                    //         , bincd
+                    //         , mixtypecd
+                    //         , stirringlimitdt
+                    //         , workstartdt
+                    //    FROM TnResinMix WITH(NOLOCK)
+                    //    WHERE 
+                    //      mixresultid = @MIXRESULTID";
+                    //富士情報 MOD END
+                    //20220413 MOD END
 
-                    cmd.Parameters.Add("@MIXRESULTID", SqlDbType.BigInt).Value = mixresultId;
+                    cmd.Parameters.Add("@MIXRESULTID", SqlDbType.NVarChar).Value = mixresultId;
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -172,7 +173,27 @@ namespace ArmsApi.Model
                             r.LimitDt = SQLite.ParseDate(reader["uselimit"]) ?? DateTime.MaxValue.AddYears(-2);
 							r.MixTypeCd = reader["mixtypecd"].ToString().Trim();
                             r.StirringLimitDt = SQLite.ParseDate(reader["stirringlimitdt"]);
+                            //20220413 ADD START
                             r.WorkStartDt = SQLite.ParseDate(reader["workstartdt"]);
+                            //20220413 ADD END
+                            //富士情報 ADD START
+                            r.TypeCd = SQLite.ParseString(reader["productnm"]);
+                            r.CejHchRnk = SQLite.ParseString(reader["ledrank"]);
+                            if (reader["productnm"] != DBNull.Value)
+                            {
+                                string[] lotnos = reader["lotno"].ToString().Split(SeiLotNo_SEPARATOR);
+                                foreach (string lotno in lotnos)
+                                {
+                                    //実ロットから計画ロット取得
+                                    string seilotno = POPLotNo.GetSeiLotNoSCM(r.TypeCd, lotno, true);
+                                    if (seilotno == "")
+                                        //実ロットが見つからない場合は元のロットを計画ロットとする
+                                        r.SeiLotNoList.Add(lotno);
+                                    else
+                                        r.SeiLotNoList.Add(seilotno);
+                                }
+                            }
+                            //富士情報 ADD END
                             return r;
                         }
                     }
@@ -272,5 +293,71 @@ namespace ArmsApi.Model
                 }
             }
         }
+
+        public static List<Resin> GetResinList(TimeSpan ts)
+        {
+            var retLst = new List<Resin>();
+            var dt = DateTime.Now - ts;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(SQLite.ConStr))
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    con.Open();
+
+                    cmd.CommandText = @"
+                        SELECT mixresultid, resingroupcd, uselimit, bincd, mixtypecd, stirringlimitdt, workstartdt, productnm, ledrank, lotno
+                        FROM TnResinMix WITH(NOLOCK)
+                        WHERE 
+                          lastupddt > @DT";
+
+                    cmd.Parameters.Add("@DT", SqlDbType.DateTime).Value = dt.ToString("G");
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Resin r = new Resin();
+                            r.MixResultId = SQLite.ParseString(reader["mixresultid"]);
+                            r.ResinGroupCd = SQLite.ParseString(reader["resingroupcd"]);
+                            r.BinCD = SQLite.ParseString(reader["bincd"]);
+                            r.LimitDt = SQLite.ParseDate(reader["uselimit"]) ?? DateTime.MaxValue.AddYears(-2);
+                            r.MixTypeCd = reader["mixtypecd"].ToString().Trim();
+                            r.StirringLimitDt = SQLite.ParseDate(reader["stirringlimitdt"]);
+                            r.WorkStartDt = SQLite.ParseDate(reader["workstartdt"]);
+                            //富士情報 ADD START
+                            r.TypeCd = SQLite.ParseString(reader["productnm"]);
+                            r.CejHchRnk = SQLite.ParseString(reader["ledrank"]);
+                            if (reader["productnm"] != DBNull.Value)
+                            {
+                                string[] lotnos = reader["lotno"].ToString().Split(SeiLotNo_SEPARATOR);
+                                foreach (string lotno in lotnos)
+                                {
+                                    //実ロットから計画ロット取得
+                                    string seilotno = POPLotNo.GetSeiLotNoSCM(r.TypeCd, lotno, true);
+                                    if (seilotno == "")
+                                        //実ロットが見つからない場合は元のロットを計画ロットとする
+                                        r.SeiLotNoList.Add(lotno);
+                                    else
+                                        r.SeiLotNoList.Add(seilotno);
+                                }
+                            }
+                            //富士情報 ADD END
+                            retLst.Add(r);
+                        }
+                    }
+                    return retLst;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.SysLog.Error(ex);
+                //LogManager.GetCurrentClassLogger().Error(ex);
+                throw ex;
+            }
+
+            return null;
+        }
+        
     }
 }

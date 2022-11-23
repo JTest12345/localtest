@@ -328,6 +328,7 @@
             this.bt_add_plcdev.Text = "+";
             this.bt_add_plcdev.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.bt_add_plcdev.UseVisualStyleBackColor = true;
+            this.bt_add_plcdev.Click += new System.EventHandler(this.bt_add_plcdev_Click);
             // 
             // label23
             // 

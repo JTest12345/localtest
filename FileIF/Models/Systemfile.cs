@@ -101,6 +101,7 @@ namespace FileIf
         public bool CheckVlot { get; set; }
         public int outfiletimeout { get; set; }
         public int historyoutofdate { get; set; }
+        public bool AutoStart { get; set; }
         //ディレクトリ情報[fileconf]
         public string MCDir { get; set; }
         public string MsglogDir { get; set; }
@@ -116,6 +117,7 @@ namespace FileIf
         public string[] FFetchPcat { get; set; }
         public string[] FFetchMacName { get; set; }
         public string[] FFetchFileKey { get; set; }
+        public int AutoTimerSpan { get; set; }
         //DB接続情報[dbconf]
         public string Server { get; set; }// ホスト名
         public string Port { get; set; }// ポート番号
@@ -177,7 +179,11 @@ namespace FileIf
                     CheckVlot = true;
                 outfiletimeout = int.Parse(CommonFuncs.GetIniValue(filepath, "systemconf", "outfile_timeout"));
                 historyoutofdate = int.Parse(CommonFuncs.GetIniValue(filepath, "systemconf", "history_outofdate"));
-
+                string autostart = CommonFuncs.GetIniValue(filepath, "systemconf", "auto_start");
+                if (autostart == "false")
+                    AutoStart = false;
+                else
+                    AutoStart = true;
                 // [fileconf]
                 MCDir = CommonFuncs.GetIniValue(filepath, "fileconf", "DirSearc");
                 MsglogDir = CommonFuncs.GetIniValue(filepath, "fileconf", "MsglogDir");
@@ -270,7 +276,10 @@ namespace FileIf
                         CheckVlot = false;
                     outfiletimeout = int.Parse(systemconf["outfile_timeout"].ToString()); // CommonFuncs.GetIniValue(filepath, "systemconf", "outfile_timeout"));
                     historyoutofdate = int.Parse(systemconf["history_outofdate"].ToString()); // CommonFuncs.GetIniValue(filepath, "systemconf", "history_outofdate"));
-
+                    if (systemconf["auto_start"].ToString() == "true")
+                        AutoStart = true;
+                    else
+                        AutoStart = false;
                     // [fileconf]
                     var fileconf = (YamlMappingNode)rootNode["fileconf"];
 
@@ -298,7 +307,15 @@ namespace FileIf
                     FFetchMacName = macname_ini.Split(',');
                     string filekey_ini = ffetch["filekey"].ToString().Replace("[", "").Replace("]", "").Replace(" ", ""); // CommonFuncs.GetIniValue(filepath, "ffetch", "filekey");
                     FFetchFileKey = filekey_ini.Split(',');
-
+                    int dammy;
+                    if (int.TryParse(ffetch["autotimerspan"].ToString(), out dammy)){
+                        AutoTimerSpan = int.Parse(ffetch["autotimerspan"].ToString());
+                    }
+                    else
+                    {
+                        AutoTimerSpan = 10;
+                    }
+                    
 
                     // [dbconf]
                     var dbconf = (YamlMappingNode)rootNode["dbconf"];

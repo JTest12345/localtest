@@ -397,7 +397,7 @@ namespace ArmsApi.Model
                     cmd.Transaction = con.BeginTransaction();
 
                     cmd.Parameters.Add("@MACNO", SqlDbType.BigInt).Value = this.MacNo;
-                    cmd.Parameters.Add("@MIXRESID", SqlDbType.BigInt).Value = resin.MixResultId;
+                    cmd.Parameters.Add("@MIXRESID", SqlDbType.NVarChar).Value = resin.MixResultId;
                     cmd.Parameters.Add("@STARTDT", SqlDbType.DateTime).Value = (object)resin.InputDt ?? DBNull.Value;
                     cmd.Parameters.Add("@ENDDT", SqlDbType.DateTime).Value = (object)resin.RemoveDt ?? DBNull.Value;
                     cmd.Parameters.Add("@ISNASCASTART", SqlDbType.Int).Value = SQLite.SerializeBool(resin.IsNascaStart);
@@ -408,8 +408,8 @@ namespace ArmsApi.Model
                     cmd.ExecuteNonQuery();
 
                     cmd.CommandText = @"
-                        INSERT INTO TnMacResin(macno, mixresultid, startdt, enddt, isnascastart, isnascaend)
-                        VALUES (@MACNO, @MIXRESID, @STARTDT, @ENDDT, @ISNASCASTART, @ISNASCAEND)";
+                    INSERT INTO TnMacResin(macno, mixresultid, startdt, enddt, isnascastart, isnascaend)
+                        VALUES(@MACNO, @MIXRESID, @STARTDT, @ENDDT, @ISNASCASTART, @ISNASCAEND)";
 
                     cmd.ExecuteNonQuery();
                     cmd.Transaction.Commit();
@@ -591,7 +591,7 @@ namespace ArmsApi.Model
                     con.Open();
 
                     cmd.CommandText = @"
-                        SELECT macno, mixresultid, startdt, enddt, isnascastart, isnascaend
+                       SELECT macno, mixresultid, startdt, enddt, isnascastart, isnascaend
                         FROM TnMacResin 
                         WHERE 
                           macno     = @MACNO";
@@ -624,7 +624,7 @@ namespace ArmsApi.Model
                     {
                         while (reader.Read())
                         {
-                            int mixresultid = SQLite.ParseInt(reader["mixresultid"]);
+                             string mixresultid = SQLite.ParseString(reader["mixresultid"]);
 
                             Resin r = Resin.GetResin(mixresultid);
                             r.InputDt = SQLite.ParseDate(reader["startdt"]) ?? DateTime.MinValue;
@@ -1529,6 +1529,145 @@ namespace ArmsApi.Model
                 return false;
             }
         }
+
+        //20220615 ADD START
+        //TmProcessを検索し、finalst=1の場合、trueを返す
+        public static bool IsCutMachine(int procno)
+        {
+            int cutblendfg = 0;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(SQLite.ConStr))
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    con.Open();
+
+                    cmd.CommandText = @"SELECT cutblendfg
+                                          FROM tmprocess
+                                         WHERE procno = @PROCNO
+                                       ";
+                    cmd.Parameters.Add("@PROCNO", SqlDbType.Int).Value = procno;
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            cutblendfg = SQLite.ParseInt(reader["cutblendfg"]);
+                        }
+                    }
+                }
+                if (cutblendfg == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.SysLog.Error(ex);
+                throw ex;
+            }
+        }
+        //20220615 ADD END
+
+        //20220627 ADD START
+        public static bool IsFirstSt(string plantcd)
+        {
+
+            int firstst = 0;
+            
+            try
+            {
+                using (SqlConnection con = new SqlConnection(SQLite.ConStr))
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    con.Open();
+
+                    cmd.CommandText = @"SELECT ISNULL(p.firstst, 0) AS firstst
+                                          FROM TmProcess p INNER JOIN TmProMac m ON
+                                               p.procno  = m.procno INNER JOIN TmMachine t ON
+                                               m.macno   = t.macno
+                                         WHERE t.plantcd = @PLANTCD
+                                           AND p.delfg   = 0
+                                       ";
+                    cmd.Parameters.Add("@PLANTCD", SqlDbType.NChar).Value = plantcd;
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            firstst = SQLite.ParseInt(reader["firstst"]);
+                        }
+                    }
+                }
+                if (firstst == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.SysLog.Error(ex);
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="procNo"></param>
+        /// <returns></returns>
+        public static bool IsLotNoChkProc(string plantcd)
+        {
+            int lotnochkfg = 0;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(SQLite.ConStr))
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    con.Open();
+
+                    cmd.CommandText = @"SELECT ISNULL(p.lotnochkfg, 0) AS lotnochkfg
+                                          FROM TmProcess p INNER JOIN TmProMac m ON
+                                               p.procno  = m.procno INNER JOIN TmMachine t ON
+                                               m.macno   = t.macno
+                                         WHERE t.plantcd = @PLANTCD
+                                           AND p.delfg   = 0
+                                       ";
+                    cmd.Parameters.Add("@PLANTCD", SqlDbType.NChar).Value = plantcd;
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            lotnochkfg = SQLite.ParseInt(reader["lotnochkfg"]);
+                        }
+                    }
+                    if (lotnochkfg == 1)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.SysLog.Error(ex);
+                throw ex;
+            }
+        }
+        //20220627 ADD END
 
         public static bool IsWireBondMachine(string clasnm)
         {

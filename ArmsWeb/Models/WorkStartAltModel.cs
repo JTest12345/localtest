@@ -65,6 +65,30 @@ namespace ArmsWeb.Models
 
 		public List<string> NeedInspectionWhenStartLotList { get; set; }
 
+        #region "FJH ADD"
+        public string Comment { get; set; }     //富士情報追加
+        //20220413 ADD START
+        public string Comment2 { get; set; }
+        //20220413 ADD END
+        //20220627 ADD START
+        /// <summary>
+        /// 投入時の項目名編集
+        /// </summary>
+        public string InputItem { get; set; }
+
+        /// <summary>
+        /// TnFormTran.workunitid
+        /// </summary>
+        public string WorkUnitId { get; set; }
+
+        public string URL { get; set; }
+        public bool IsLotNoChkProc { get; set; }
+
+        public string magazineno { get; set; }
+        public string lotno { get; set; }
+        //20220627 ADD END
+        #endregion
+
         public ReservedOrder[] GetReserveList()
         {
             if (this.Mac != null)
@@ -80,6 +104,10 @@ namespace ArmsWeb.Models
 
         public bool WorkStart(out string errMsg)
         {
+            //20220627 ADD START
+            WorkUnitId = null;
+            //20220627 ADD START
+
             int startoffsetsec  = 0;
             foreach (ArmsApi.Model.Magazine mag in MagList)
             {
@@ -155,6 +183,24 @@ namespace ArmsWeb.Models
             return startMag(mag, 0, true, out msg);
         }
 
+        //20220627 ADD START
+        public bool CheckInputDuplication(Magazine mag, out string msg)
+        {
+            int iCnt = ArmsApi.Model.Order.CountOrder(mag.MagazineNo);
+
+            if (iCnt == 0)
+            {
+                msg = "";
+                return true;
+            }
+            else
+            {
+                msg = "既に開始済のロットです。";
+                return false;
+
+            }
+        }
+        //20220627 ADD END
 
         /// <summary>
         /// 遠心沈降中架空マガジンNOの識別文字
@@ -316,6 +362,9 @@ namespace ArmsWeb.Models
                 bool isError = false;
                 //ブレンドされているロット、かつ最終工程以降の工程の場合
                 //引数に子ロット(mag.NascaLotNO)を追加する
+                //20220413 ADD START
+                ArmsApi.Model.WorkChecker.ResinMessage = "";
+                //20220413 ADD END
                 if (this.BlendLotList.ContainsKey(mag.MagazineNo) == true)
                 {
                     isError = WorkChecker.IsErrorBeforeStartWork(lot, Mac, order, mag.NascaLotNO, p, out errMsg);
@@ -336,6 +385,7 @@ namespace ArmsWeb.Models
                 }
                 else if (!isCheckOnly)
                 {
+                
                     WorkCondition[] conds = this.Mac.GetWorkConditions(order.WorkStartDt, null);
                     int? programMinutes = null;
                     foreach (WorkCondition cond in conds)
@@ -373,8 +423,12 @@ namespace ArmsWeb.Models
                     }
                     else
                     {
-                        if (this.Mac.IsHighLine && MachineInfo.IsCutMachine(this.Mac.ClassName) &&
+                        //20220615 MOD START
+                        //if (this.Mac.IsHighLine && MachineInfo.IsCutMachine(this.Mac.ClassName) &&
+                        //    this.BlendLotList.ContainsKey(mag.MagazineNo) == false)
+                        if (this.Mac.IsHighLine && MachineInfo.IsCutMachine(p.ProcNo) &&
                             this.BlendLotList.ContainsKey(mag.MagazineNo) == false)
+                        //20220615 MOD END
                         {
                             //高効率のカット機はLoaderに仮想マガジンを生成しない
                             //※ただしブレンドされているロット、かつ最終工程以降の工程の開始の場合は除く
@@ -418,6 +472,23 @@ namespace ArmsWeb.Models
                     order.FormMacNo = order.MacNo;
                     order.FormPlantCd = this.PlantCd;
                     order.FormEmpCd = this.EmpCd;
+                    order.IsFirstProcess = firstProcessFg;
+
+                    if (string.IsNullOrWhiteSpace(Comment))
+                    {
+                        //対象工程の帳票情報取得
+                        ArmsApi.Model.FORMS.ProccessForms.forminfo pf = ArmsApi.Model.FORMS.ProccessForms.GetWorkFlow(lot.TypeCd, order.ProcNo, ArmsApi.Model.FORMS.ProccessForms.WorkOrder.Current);
+                        if (string.IsNullOrWhiteSpace(pf.FormNo))
+                        //対象工程の帳票情報がなければばコメントする
+                        {
+                            Comment = $"本工程〔{pf.ProcNm}〕は帳票入力対象外です。";
+                        }
+                        else
+                        //対象工程の帳票情報があればコメントする
+                        {
+                            Comment = $"本工程〔{pf.ProcNm}〕は帳票入力対象工程となります。";
+                        }
+                    }
                     //富士情報　end
 
                     if ( 
@@ -460,6 +531,7 @@ namespace ArmsWeb.Models
                         else
                         {
                             order.DeleteInsert(order.LotNo);
+
                         }
 
                         //2015.1.1 3in1改修
@@ -485,7 +557,33 @@ namespace ArmsWeb.Models
                         //    Inspection.PSTesterSampling(order, mag);
                         //}
                     }
+                    //20220627 ADD START
+                    WorkUnitId = ArmsApi.Model.FORMS.ProccessForms.GetWorkUnitID(lot.TypeCd, order.NascaLotNo, order.ProcNo);
+                    if (WorkUnitId == null)
+                    {
+                        URL = string.Empty;
+                    }
+                    else if (WorkUnitId == string.Empty)
+                    {
+                        if (MagList.Count == 1)
+                        {
+                            URL = ArmsApi.Config.Settings.UrlUnitID_Nas + "/" + EmpCd + "::" + TypeCd + "::" + lot.NascaLotNo + "::" + order.ProcNo;
+                        }
+                        else
+                        {
+                            URL = ArmsApi.Config.Settings.UrlUnitID_Ari;
+                        }
+                    }
+                    else
+                    {
+                        URL = ArmsApi.Config.Settings.UrlUnitID_Ari;
+                    }
+                    //20220627 ADD END
                 }
+
+                //20220413 ADD START
+                Comment2 = ArmsApi.Model.WorkChecker.ResinMessage;
+                //20220413 ADD END
 
                 //カットブレンド判定処理 
                 //→高生産の場合は、複数マガジンを一括登録するので下記チェック処理が必要！！

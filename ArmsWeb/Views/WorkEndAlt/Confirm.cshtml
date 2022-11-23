@@ -31,7 +31,13 @@ else
 
 <br />
 <div>
+    @if (!Model.IsNeedMagazineChange && Model.iCnt > 1)
+    {
+        @Html.ActionLink("登録後再入力", "Submit", new { kbn = "1" });
+    }
+    &nbsp
     @Html.ActionLink("登録", "Submit");
-                &nbsp
-    @Html.ActionLink("キャンセル", "CancelEdit")
+    &nbsp
+    <!--@Html.ActionLink("キャンセル", "CancelEdit")-->
+    @Html.ActionLink("キャンセル", "Select")
 </div>

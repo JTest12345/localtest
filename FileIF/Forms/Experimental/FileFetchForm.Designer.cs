@@ -41,7 +41,13 @@
             this.rb_getLatestFile = new System.Windows.Forms.RadioButton();
             this.rb_getSelectedFile = new System.Windows.Forms.RadioButton();
             this.cbx_cleanFtpFold = new System.Windows.Forms.CheckBox();
-            this.bbx_usebat = new System.Windows.Forms.CheckBox();
+            this.cbx_usebat = new System.Windows.Forms.CheckBox();
+            this.cbx_autofetch = new System.Windows.Forms.CheckBox();
+            this.cbx_autofetchInterval = new System.Windows.Forms.ComboBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.AutoFecthTimer = new System.Windows.Forms.Timer(this.components);
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -89,7 +95,7 @@
             this.cmb_fetchfile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmb_fetchfile.FormattingEnabled = true;
-            this.cmb_fetchfile.Location = new System.Drawing.Point(177, 129);
+            this.cmb_fetchfile.Location = new System.Drawing.Point(176, 158);
             this.cmb_fetchfile.Name = "cmb_fetchfile";
             this.cmb_fetchfile.Size = new System.Drawing.Size(142, 25);
             this.cmb_fetchfile.TabIndex = 1;
@@ -109,7 +115,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 193);
+            this.label4.Location = new System.Drawing.Point(12, 223);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(96, 17);
             this.label4.TabIndex = 0;
@@ -126,16 +132,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fetchConsole.Font = new System.Drawing.Font("メイリオ", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.fetchConsole.Location = new System.Drawing.Point(12, 213);
+            this.fetchConsole.Location = new System.Drawing.Point(12, 243);
             this.fetchConsole.Multiline = true;
             this.fetchConsole.Name = "fetchConsole";
-            this.fetchConsole.Size = new System.Drawing.Size(400, 366);
+            this.fetchConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.fetchConsole.Size = new System.Drawing.Size(400, 317);
             this.fetchConsole.TabIndex = 3;
             // 
             // rb_getLatestFile
             // 
             this.rb_getLatestFile.AutoSize = true;
-            this.rb_getLatestFile.Location = new System.Drawing.Point(13, 106);
+            this.rb_getLatestFile.Location = new System.Drawing.Point(12, 133);
             this.rb_getLatestFile.Name = "rb_getLatestFile";
             this.rb_getLatestFile.Size = new System.Drawing.Size(136, 21);
             this.rb_getLatestFile.TabIndex = 4;
@@ -146,7 +153,7 @@
             // rb_getSelectedFile
             // 
             this.rb_getSelectedFile.AutoSize = true;
-            this.rb_getSelectedFile.Location = new System.Drawing.Point(13, 133);
+            this.rb_getSelectedFile.Location = new System.Drawing.Point(12, 158);
             this.rb_getSelectedFile.Name = "rb_getSelectedFile";
             this.rb_getSelectedFile.Size = new System.Drawing.Size(158, 21);
             this.rb_getSelectedFile.TabIndex = 5;
@@ -157,29 +164,79 @@
             // cbx_cleanFtpFold
             // 
             this.cbx_cleanFtpFold.AutoSize = true;
-            this.cbx_cleanFtpFold.Location = new System.Drawing.Point(12, 160);
+            this.cbx_cleanFtpFold.Location = new System.Drawing.Point(12, 189);
             this.cbx_cleanFtpFold.Name = "cbx_cleanFtpFold";
             this.cbx_cleanFtpFold.Size = new System.Drawing.Size(388, 21);
             this.cbx_cleanFtpFold.TabIndex = 6;
             this.cbx_cleanFtpFold.Text = "ファイル取得が成功した場合、FTPフォルダ内のファイルを全て削除する";
             this.cbx_cleanFtpFold.UseVisualStyleBackColor = true;
             // 
-            // bbx_usebat
+            // cbx_usebat
             // 
-            this.bbx_usebat.AutoSize = true;
-            this.bbx_usebat.Location = new System.Drawing.Point(12, 79);
-            this.bbx_usebat.Name = "bbx_usebat";
-            this.bbx_usebat.Size = new System.Drawing.Size(317, 21);
-            this.bbx_usebat.TabIndex = 7;
-            this.bbx_usebat.Text = "ftpスクリプトファイルによる規定動作にてファイルを取得";
-            this.bbx_usebat.UseVisualStyleBackColor = true;
+            this.cbx_usebat.AutoSize = true;
+            this.cbx_usebat.Location = new System.Drawing.Point(12, 79);
+            this.cbx_usebat.Name = "cbx_usebat";
+            this.cbx_usebat.Size = new System.Drawing.Size(317, 21);
+            this.cbx_usebat.TabIndex = 7;
+            this.cbx_usebat.Text = "ftpスクリプトファイルによる規定動作にてファイルを取得";
+            this.cbx_usebat.UseVisualStyleBackColor = true;
+            // 
+            // cbx_autofetch
+            // 
+            this.cbx_autofetch.AutoSize = true;
+            this.cbx_autofetch.Location = new System.Drawing.Point(12, 106);
+            this.cbx_autofetch.Name = "cbx_autofetch";
+            this.cbx_autofetch.Size = new System.Drawing.Size(180, 21);
+            this.cbx_autofetch.TabIndex = 8;
+            this.cbx_autofetch.Text = "ファイルを自動取得：周期(分)";
+            this.cbx_autofetch.UseVisualStyleBackColor = true;
+            this.cbx_autofetch.CheckedChanged += new System.EventHandler(this.cbx_autofetch_CheckedChanged);
+            // 
+            // cbx_autofetchInterval
+            // 
+            this.cbx_autofetchInterval.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbx_autofetchInterval.FormattingEnabled = true;
+            this.cbx_autofetchInterval.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3"});
+            this.cbx_autofetchInterval.Location = new System.Drawing.Point(198, 102);
+            this.cbx_autofetchInterval.Name = "cbx_autofetchInterval";
+            this.cbx_autofetchInterval.Size = new System.Drawing.Size(70, 25);
+            this.cbx_autofetchInterval.TabIndex = 9;
+            this.cbx_autofetchInterval.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 569);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(424, 22);
+            this.statusStrip1.TabIndex = 10;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(125, 17);
+            this.toolStripStatusLabel1.Text = "ファイル自動取得停止中";
+            // 
+            // AutoFecthTimer
+            // 
+            this.AutoFecthTimer.Interval = 1000;
+            this.AutoFecthTimer.Tick += new System.EventHandler(this.AutoFecthTimer_Tick);
             // 
             // FileFetchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(424, 591);
-            this.Controls.Add(this.bbx_usebat);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.cbx_autofetchInterval);
+            this.Controls.Add(this.cbx_autofetch);
+            this.Controls.Add(this.cbx_usebat);
             this.Controls.Add(this.cbx_cleanFtpFold);
             this.Controls.Add(this.rb_getSelectedFile);
             this.Controls.Add(this.rb_getLatestFile);
@@ -195,7 +252,10 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MinimumSize = new System.Drawing.Size(440, 630);
             this.Name = "FileFetchForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FileFetch";
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,6 +275,11 @@
         private System.Windows.Forms.RadioButton rb_getLatestFile;
         private System.Windows.Forms.RadioButton rb_getSelectedFile;
         private System.Windows.Forms.CheckBox cbx_cleanFtpFold;
-        private System.Windows.Forms.CheckBox bbx_usebat;
+        private System.Windows.Forms.CheckBox cbx_usebat;
+        private System.Windows.Forms.CheckBox cbx_autofetch;
+        private System.Windows.Forms.ComboBox cbx_autofetchInterval;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Timer AutoFecthTimer;
     }
 }

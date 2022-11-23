@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArmsApi.dll" size="1371136">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArmsApi.dll" size="1435136">
       <assemblyIdentity name="ArmsApi" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Deny1yIHS27CTCMz5OYlwGR2G8wmQLGh4K686fXQ06s=</dsig:DigestValue>
+        <dsig:DigestValue>veGvwB9VhBqiN6seMDRY0LgTgyWou27DBEdupSdgcHc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -61,7 +61,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NkgMV6Ge5yVCmGMcxp9p+CnCI+sJ65PB5+4S+eLXebI=</dsig:DigestValue>
+        <dsig:DigestValue>vUtpUdVSJ/9AI8/JwCxpxS1b+m5zSZLguNbUtC3qDEc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

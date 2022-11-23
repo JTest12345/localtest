@@ -1,0 +1,58 @@
+﻿@model ArmsWeb.Models.WorkStartAltModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>作業開始登録</h3>
+<h3>設備：@Model.PlantCd</h3>
+<h3>作業者：@Model.EmpCd</h3>
+
+@using (Html.BeginForm())
+{
+
+    <h3>投入マガジン読み込み</h3>
+    <input type="text" id="txtMagNo" name="txtMagNo" />
+    <input type="submit" value="Go" />
+        
+    <br />
+
+    <h5>読み込み済みロット @Model.MagList.Count().ToString() </h5>
+    <ul>
+        @foreach (ArmsApi.Model.Magazine mag in Model.MagList)
+        {
+            <li>@mag.MagazineNo : @mag.NascaLotNO : @mag.FrameQty [枚]</li>
+        }
+    </ul>
+    <br />
+    
+    <div>
+        @Html.ActionLink("作業開始", "Confirm")
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+    </div>
+    
+    <br />
+    
+    
+    if (Model.CutBlendList != null && Model.CutBlendList.Count >= 1)
+    {
+        <h5>投入中ロット一覧 @Model.CutBlendList.Count().ToString() </h5>
+        <ul>
+            @foreach (ArmsApi.Model.CutBlend cb in Model.CutBlendList)
+            {
+                <li>@cb.MagNo</li>
+            }
+        </ul>
+    
+        <br />
+    
+        <h5>ブレンド可能ロット一覧 @Model.RecommendList.Count().ToString() </h5>
+        <ul>
+            @foreach (string rc in Model.RecommendList)
+            {
+                <li>@rc</li>
+            }
+        </ul>
+    }
+}

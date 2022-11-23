@@ -11,6 +11,7 @@ namespace FileIf
         //◇評価実験用定数・変数
         //CSV移動先
         string csvDirMoveTo = string.Empty;
+        string csvFileNameMoveTo = string.Empty;
         //COJ格納変数
         string coj = string.Empty;
 
@@ -54,6 +55,8 @@ namespace FileIf
                 {
                     var movedir = (YamlMappingNode)rootNode["movedir"];
                     csvDirMoveTo = movedir[fs.keylbl].ToString();
+                    var filename = (YamlMappingNode)rootNode["filename"];
+                    csvFileNameMoveTo = filename[fs.keylbl].ToString();
                 }
                 else
                 {
@@ -173,7 +176,7 @@ namespace FileIf
             {
                 taskid += 1;
 
-                var filepath = csvDirMoveTo + "\\jisseki.csv";
+                var filepath = csvDirMoveTo + "\\" + csvFileNameMoveTo;
                 if (!CommonFuncs.CreateFile(filepath, contents, ref msg))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, msg);;

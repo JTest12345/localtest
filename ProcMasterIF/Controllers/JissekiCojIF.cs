@@ -18,8 +18,17 @@ namespace ProcMasterIF
 {
     class JissekiCojIF
     {
-        string workingdir = @"C:\Oskas\procmaster\shomei\ver9";
+        //string proctypefld = "chip";
+        //string proctype = "チップLED";
+        //string typeseriesfld = "vip";
+        //string typeseries = "VIP";
+        string proctypefld = "shomei";
+        string proctype = "照明LED";
+        string typeseriesfld = "ver9";
+        string typeseries = "Ver9";
+        string workingdir;
         SeriesTypeMaster sr;
+        
         //新機種展開表オブジェクト
         //SLDocument sl; //SpreadSheetLight
         System.Data.DataTable sl; //ExcelDataReader
@@ -38,6 +47,8 @@ namespace ProcMasterIF
 
         public JissekiCojIF()
         {
+            workingdir = @"C:\Oskas\procmaster\" + proctypefld + @"\" + typeseriesfld;
+
             //*************************************************************************************************************
             // ※ルート：ここでは対象ヴァージョンの共通情報をルートという
             //
@@ -240,8 +251,6 @@ namespace ProcMasterIF
             //*************************************************************************************************************
             foreach (var srl in srList)
             {
-                var orthankanfld = workingdir + @"\model\sources\" + srl.model.folder + @"\" + srl.model.hankan;
-                var ortkanseifld = workingdir + @"\model\sources\" + srl.model.folder + @"\" + srl.model.kansei;
 
                 ///////////////////////////////////////////
                 /// シリーズフォルダ処理
@@ -249,19 +258,41 @@ namespace ProcMasterIF
                 /// ①工程定義
                 /// ②ルートの情報に対するオーバーライド
                 ///////////////////////////////////////////
-
                 var typecdList = new List<string>();
-                if (!makeProcObjectsAndJson(orthankanfld, srl, false, ref typecdList))
+
+                if (proctypefld == "shomei")
                 {
-                    OskNLog.Log("半完成品を処理中に問題が発生しました", Cnslcnf.msg_info);
+                    var orthankanfld = workingdir + @"\model\sources\" + srl.model.folder + @"\" + srl.model.hankan;
+                    
+                    if (!makeProcObjectsAndJson(orthankanfld, srl, false, ref typecdList))
+                    {
+                        OskNLog.Log("半完成品を処理中に問題が発生しました", Cnslcnf.msg_info);
+                        return false;
+                    }
+
+                    var ortkanseifld = workingdir + @"\model\sources\" + srl.model.folder + @"\" + srl.model.kansei;
+                    if (!makeProcObjectsAndJson(ortkanseifld, srl, true, ref typecdList))
+                    {
+                        OskNLog.Log("完成品を処理中に問題が発生しました", Cnslcnf.msg_info);
+                        return false;
+                    }
+                }
+                else if (proctypefld == "chip")
+                {
+                    var ortkanseifld = workingdir + @"\model\sources\" + srl.model.folder;
+                    if (!makeProcObjectsAndJson(ortkanseifld, srl, true, ref typecdList))
+                    {
+                        OskNLog.Log("完成品を処理中に問題が発生しました", Cnslcnf.msg_info);
+                        return false;
+                    }
+                }
+                else
+                {
+                    OskNLog.Log("typeが不正です", Cnslcnf.msg_info);
                     return false;
                 }
 
-                if (!makeProcObjectsAndJson(ortkanseifld, srl, true, ref typecdList))
-                {
-                    OskNLog.Log("完成品を処理中に問題が発生しました", Cnslcnf.msg_info);
-                    return false;
-                }
+
 
             }
 
@@ -625,7 +656,7 @@ namespace ProcMasterIF
 
             if (bompath == "")
             {
-                OskNLog.Log(skt.etc.buhinhyou.zuban.jp.value + "@" + skt.typeinfo.kansei.value + ".xlsx は対検索対象フォルダから検出できませんでした", 2);
+                OskNLog.Log(skt.etc.buhinhyou.zuban.jp.value + "@" + skt.typeinfo.kansei.value + ".xlsx は検索対象フォルダから検出できませんでした", 2);
                 OskNLog.Log("中止します", 2);
                 return false;
             }
@@ -762,9 +793,10 @@ namespace ProcMasterIF
                         if (!string.IsNullOrEmpty(material.qty.bomaddress))
                         {
                             int i;
-                            if (!int.TryParse(GetCellValueAsString(slbom, material.qty.bomaddress).Replace("/", "").Replace("／", "").Replace(" ", ""), out i))
+                            if (!int.TryParse(GetCellValueAsString(slbom, material.qty.bomaddress).Replace("/", "").Replace("／", "").Replace(" ", "").Replace(",", ""), out i))
                             {
-                                OskNLog.Log("部品表の数値が不正です" + material.code.value, 2);
+                                OskNLog.Log("部品表の数値が不正です：" + material.code.value, 2);
+                                OskNLog.Log("部品表の数値：" + GetCellValueAsString(slbom, material.qty.bomaddress), 2);
                                 OskNLog.Log("工程：" + proc.code, 2);
                                 return false;
                             }
@@ -892,8 +924,8 @@ namespace ProcMasterIF
             //   - kishuprofile
             //++++++++++++++++++++++++++
             coj_jisseki.cejObject.coHeader.kishuprofile = new Coj.mst000001.Kishuprofile();
-            coj_jisseki.cejObject.coHeader.kishuprofile.name = "照明HWLED_Ver.9";
-            coj_jisseki.cejObject.coHeader.kishuprofile.foldername = "ver9";
+            coj_jisseki.cejObject.coHeader.kishuprofile.name = $"{proctype}_{typeseries}";
+            coj_jisseki.cejObject.coHeader.kishuprofile.foldername = typeseriesfld;
             coj_jisseki.cejObject.coHeader.kishuprofile.revision = 1;
             //++++++++++++++++++++++++++
             // coList
@@ -942,6 +974,7 @@ namespace ProcMasterIF
             {
                 var seihinkoutei = new SeihinKouteiKosei();
                 seihinkoutei.hinmokukodo = typecd + "_" + item.code;
+                seihinkoutei.sagyobasyo = item.sagyobasyo;
                 seihinkoutei.seihinkousei = new List<Seihinkousei>();
                 var addedCodeList = new List<string>();
                 var kouteisagyoubangoList = new List<string>();
@@ -962,7 +995,7 @@ namespace ProcMasterIF
                             {
                                 if (!addedCodeList.Contains(mat.code.value))
                                 {
-                                    var siyousu = mat.qty.value.Split('/');
+                                    var siyousu = mat.qty.value.Replace(",","").Split('/');
                                     if (siyousu.Length != 2)
                                     {
                                         msg = "使用数の分子分母が不正です";
@@ -972,7 +1005,7 @@ namespace ProcMasterIF
 
                                     var buzai = new Seihinkousei();
                                     buzai.meisho = mat.code.value;
-                                    buzai.siyouryou = new List<int> { int.Parse(siyousu[0]), int.Parse(siyousu[1]) };
+                                    buzai.siyouryou = new List<double> { Double.Parse(siyousu[0]), int.Parse(siyousu[1]) };
                                     buzai.yukokigen = new List<string>
                                         {
                                             DateTime.Now.AddYears(-1).ToString("yyyy") + "0101",
@@ -1075,8 +1108,8 @@ namespace ProcMasterIF
             //   - kishuprofile
             //++++++++++++++++++++++++++
             coj_4m.cejObject.coHeader.kishuprofile = new Coj.mst000002.Kishuprofile();
-            coj_4m.cejObject.coHeader.kishuprofile.name = "照明HWLED_Ver.9";
-            coj_4m.cejObject.coHeader.kishuprofile.foldername = "ver9";
+            coj_4m.cejObject.coHeader.kishuprofile.name = $"{proctype}_{typeseries}";
+            coj_4m.cejObject.coHeader.kishuprofile.foldername = typeseriesfld;
             coj_4m.cejObject.coHeader.kishuprofile.revision = 1;
             //++++++++++++++++++++++++++
             // coList
@@ -1495,8 +1528,8 @@ namespace ProcMasterIF
             //   - kishuprofile
             //++++++++++++++++++++++++++
             coj_ss.cejObject.coHeader.kishuprofile = new Coj.mst000003.Kishuprofile();
-            coj_ss.cejObject.coHeader.kishuprofile.name = "照明HWLED_Ver.9";
-            coj_ss.cejObject.coHeader.kishuprofile.foldername = "ver9";
+            coj_ss.cejObject.coHeader.kishuprofile.name = $"{proctype}_{typeseries}";
+            coj_ss.cejObject.coHeader.kishuprofile.foldername = typeseriesfld;
             coj_ss.cejObject.coHeader.kishuprofile.revision = 1;
             //++++++++++++++++++++++++++
             // coList

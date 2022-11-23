@@ -2,7 +2,7 @@
   <Connection Mode="AppSettings" ConnectionString="Data Source=172.16.34.201\SQLExpress;Initial Catalog=ARMS;User ID=inline" SettingsObjectName="ArmsApi.Properties.Settings" SettingsPropertyName="ARMSConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.TnResinMixMat" Member="TnResinMixMat">
     <Type Name="TnResinMixMat">
-      <Column Name="mixresultid" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="mixresultid" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="materialcd" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="lotno" Type="System.String" DbType="NVarChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
     </Type>

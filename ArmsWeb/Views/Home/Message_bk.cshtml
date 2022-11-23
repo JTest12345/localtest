@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Message";
+}
+
+<h3>@Html.Raw(ViewData["msg"])</h3>
+
+@if (ViewData["displayPrintLabelButton"] != null &&
+     string.IsNullOrWhiteSpace(ViewData["displayPrintLabelButton"].ToString()) == false &&
+     Convert.ToBoolean(ViewData["displayPrintLabelButton"]) == true)
+{
+<p>
+    <button onclick="location.href='@Url.Action("PrintLabel")';return false;">ラベル印字</button>
+</p>
+}
+
+@Html.ActionLink("戻る", "Index");

@@ -32,6 +32,14 @@ namespace ArmsApi.Model
         public bool IsNascaEnd { get; set; }
         public bool DelFg { get; set; }
 
+        //富士情報　start
+        public bool IsUpdateForm { get; set; }
+        public int FormProcNo { get; set; }
+        public string FormTypeCd { get; set; }
+        public int FormMacNo { get; set; }
+        public string FormPlantCd { get; set; }
+        public string FormEmpCd { get; set; }
+        //富士情報　end
 
         #region InputAsmLot
 
@@ -72,6 +80,18 @@ namespace ArmsApi.Model
             newrec.LotNo = mag.NascaLotNO;
             newrec.IsNascaEnd = false;
             newrec.IsNascaStart = false;
+
+            //富士情報　start
+            if (order.IsUpdateForm)
+            {
+                newrec.IsUpdateForm = order.IsUpdateForm;
+                newrec.FormTypeCd =order.FormTypeCd;
+                newrec.FormProcNo =order.FormProcNo;
+                newrec.FormMacNo = order.FormMacNo;
+                newrec.FormPlantCd = order.FormPlantCd;
+                newrec.FormEmpCd = order.FormEmpCd;
+            }
+            //富士情報　end
             newrec.DeleteInsert();
         }
         #endregion
@@ -136,6 +156,22 @@ namespace ArmsApi.Model
 	                            , @UPDDT)";
 
                     cmd.ExecuteNonQuery();
+
+                    //富士情報　start
+                    //帳票情報登録更新(現工程)
+                    //TnCutBlendのトランザクションの中で帳票更新したかったのでむりやりここに配置した
+                    if (this.IsUpdateForm)
+                    {
+                        try
+                        {
+                            ArmsApi.Model.FORMS.ProccessForms.MergeFormTrn(this.FormTypeCd, this.LotNo, this.FormProcNo, null, this.FormPlantCd, this.FormMacNo, this.FormEmpCd);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new ArmsException("帳票情報エラー\r\n" + ex.Message);
+                        }
+                    }
+                    //富士情報　end
 
                     cmd.Transaction.Commit();
                 }
@@ -382,13 +418,24 @@ namespace ArmsApi.Model
             else
             {
                 //富士情報　変更　s
-                blendlotno = blendlist[0].LotNo.Substring(0, 1) + Config.Settings.CutBlend12 + blendlist[0].LotNo.Substring(Config.Settings.CutBlend12.Length+1);
+                //試作用ロットの場合、試作用のロットNoヘッダーを残して採番する
+                if (blendlist[0].LotNo.StartsWith(Config.TrialProc_CD))
+                {
+                    blendlotno = blendlist[0].LotNo.Substring(0, Config.TrialProc_CD.Length) + Config.Settings.CutBlend12 + blendlist[0].LotNo.Substring(Config.TrialProc_CD.Length);
+                }
+                else
+                {
+                    blendlotno = blendlist[0].LotNo.Substring(0, 1) + Config.Settings.CutBlend12 + blendlist[0].LotNo.Substring(Config.Settings.CutBlend12.Length + 1);
+                }
+                //blendlotno = blendlist[0].LotNo.Substring(0, 1) + Config.Settings.CutBlend12 + blendlist[0].LotNo.Substring(Config.Settings.CutBlend12.Length+1);
                 //blendlotno = Numbering.GetNewCutBlendLotNo(enddt, lineno, isAutoLine);
                 //富士情報　変更　e
             }
 
             //富士情報　変更　s
-            if (blendlotno.Substring(1).StartsWith(Config.Settings.CutBlend12)) //2015.10.15 車載特採対応。事前にブレンドロットを取得するようになったため、ブレンドした場合はブレンドロットの重複エラーを実施。
+            //if (blendlotno.Substring(1).StartsWith(Config.Settings.CutBlend12) || blendlotno.Substring(1).StartsWith(Config.Settings.試作用ロットヘッダ+Config.Settings.CutBlend12)) //2015.10.15 車載特採対応。事前にブレンドロットを取得するようになったため、ブレンドした場合はブレンドロットの重複エラーを実施。
+            if (blendlotno.Substring(1).StartsWith(Config.Settings.CutBlend12) || blendlotno.StartsWith(Config.TrialProc_CD + Config.Settings.CutBlend12)) //2015.10.15 車載特採対応。事前にブレンドロットを取得するようになったため、ブレンドした場合はブレンドロットの重複エラーを実施。
+            //if (blendlotno.Substring(1).StartsWith(Config.Settings.CutBlend12)) //2015.10.15 車載特採対応。事前にブレンドロットを取得するようになったため、ブレンドした場合はブレンドロットの重複エラーを実施。
             //if (blendlotno.StartsWith(Config.Settings.CutBlend12)) //2015.10.15 車載特採対応。事前にブレンドロットを取得するようになったため、ブレンドした場合はブレンドロットの重複エラーを実施。
             //富士情報　変更　e
             {
@@ -556,6 +603,39 @@ namespace ArmsApi.Model
                 string typecd = AsmLot.GetAsmLot(blendlist[0].LotNo).TypeCd;
                 Process final = Process.GetWorkFlow(typecd).Where(p => p.FinalSt == true).FirstOrDefault();
                 ord.ProcNo = final.ProcNo;
+
+                //富士情報　start
+                //次の工程の帳票情報取得
+                FORMS.ProccessForms.forminfo pf = FORMS.ProccessForms.GetWorkFlow(typecd, ord.ProcNo, FORMS.ProccessForms.WorkOrder.Next);
+
+                if (!string.IsNullOrWhiteSpace(pf.FormNo))
+                //次の工程に帳票情報がある場合帳票データ登録
+                {
+                    ord.IsUpdateForm = true;
+                    ord.FormTypeCd = typecd;
+                    ord.FormProcNo = pf.ProcNo;
+                    ord.FormMacNo = 0;
+                    ord.FormPlantCd = "";
+                    ord.FormEmpCd = empCd;
+                }
+                //ブレンドロットの場合
+                if (blendlist.Count() > 1)
+                {
+                    FORMS.ProccessForms.forminfo pfc = FORMS.ProccessForms.GetWorkFlow(typecd, ord.ProcNo, FORMS.ProccessForms.WorkOrder.Current);
+                    if (!string.IsNullOrWhiteSpace(pfc.FormNo))
+                    //現工程に帳票情報がある場合帳票データのworkunitidにブレンドロットNo更新
+                    {
+                        ord.IsUpdateFormBlend = true;
+                        ord.FormTypeCdBlend = typecd;
+                        ord.FormProcNoBlend = ord.ProcNo;
+                        ord.FormMacNoBlend = ord.MacNo;
+                        ord.FormPlantCdBlend = MachineInfo.GetMachine(ord.MacNo).NascaPlantCd;
+                        ord.FormEmpCdBlend = empCd;
+                        ord.BlendedLotNoLst.AddRange(blendlist.Select(o => o.LotNo));
+                    }
+                }
+                //富士情報　end
+
                 ord.DeleteInsert(blendlotno);
             }
             catch (Exception ex)
@@ -582,13 +662,19 @@ namespace ArmsApi.Model
         {
             CalcTotal(blendlist, blendlotNo, false, out total, out deftotal, out testtotal);
         }
-
         public static void CalcTotal(CutBlend[] blendlist, string blendlotNo, bool afterFinalStFg, out int total, out int deftotal, out int testtotal)
+        //富士情報　追加　start
+        {
+            CalcTotal(blendlist, blendlotNo, afterFinalStFg, out total, out deftotal, out testtotal, out int deftotal_m);
+        }
+        public static void CalcTotal(CutBlend[] blendlist, string blendlotNo, bool afterFinalStFg, out int total, out int deftotal, out int testtotal, out int deftotal_m)
+        //富士情報　追加　end
         {
             total = 0;
             deftotal = 0;
             testtotal = 0;
-			int movetotal = 0;
+            int movetotal = 0;
+            deftotal_m = 0;        //富士情報　追加 ダイシング前不良
 
             bool isSingleLot = false;
             if (blendlist.Length == 1) isSingleLot = true;
@@ -604,6 +690,10 @@ namespace ArmsApi.Model
 
                 Process[] proclist = Process.GetWorkFlow(lot.TypeCd);
                 Process finalprocess = proclist.Where(r => r.FinalSt == true).FirstOrDefault();
+                //富士情報　追加　start
+                finalprocess = proclist.Where(r => r.ProcGroupCd == finalprocess.ProcGroupCd).FirstOrDefault();
+                //富士情報　追加　end
+
                 if (afterFinalStFg == true && finalprocess == null)
                 {
                     throw new ApplicationException($"FinalSt=trueの工程が取得できませんでした。型番:{lot.TypeCd}");
@@ -616,7 +706,21 @@ namespace ArmsApi.Model
 				movetotal += lot.MoveStockCt;
 
                 //不良数計算
-                Defect def = Defect.GetDefect(lot.NascaLotNo, null);
+                //富士情報　変更　start
+                //まず半完成品の基板不良以外の不良を集計する。
+                MatRelation[] matRelate = Order.GetRelatedMaterials(lot.NascaLotNo);
+                foreach (MatRelation mr in matRelate)
+                {
+                    Defect defh = Defect.GetDefectAll(mr.MatLotNo.Replace("-1-1",""), null);
+                    foreach (DefItem di in defh.DefItems)
+                    {
+                        if (di.ClassCd != ArmsApi.Config.SUBST_DEFECT_CLASSCD)
+                            deftotal_m += di.DefectCt;
+                    }
+                }
+                Defect def = Defect.GetDefectAll(lot.NascaLotNo, null);
+                //Defect def = Defect.GetDefect(lot.NascaLotNo, null);
+                //富士情報　変更　end
                 foreach (DefItem di in def.DefItems)
                 {
                     //ブレンドロットの場合カット中に不良入力した数をアッセンロット、カット工程で登録する為、その分を差し引く
@@ -638,6 +742,25 @@ namespace ArmsApi.Model
                     }
 
                     deftotal += di.DefectCt;
+
+                    //富士情報　追加　start
+                    //カット中に不良入力した数はダイシング前不良にカウントしない
+                    if (Process.GetProcess(di.ProcNo).FinalSt == true)
+                    {
+                        continue;
+                    }
+                    //最終作業以降の作業の場合ダイシング前不良にカウントしない
+                    if (afterFinalStFg == true && p.WorkOrder >= finalprocess.WorkOrder)
+                    {
+                        continue;
+                    }
+                    //基板抜取不良はダイシング前不良にカウントしない
+                    if (di.ClassCd == ArmsApi.Config.SUBST_DEFECT_CLASSCD)
+                        continue;
+
+                    deftotal_m += di.DefectCt;
+                    deftotal -= di.DefectCt;
+                    //富士情報　追加　end
                 }
             }
 
@@ -732,13 +855,14 @@ namespace ArmsApi.Model
 
 
         #region カットラベル照合
-        
+
 
         /// <summary>
         /// カットラベル照合時に何分以上経過したら警告を出すかの閾値
         /// 今後一度でもこの値が変更される場合は汎用マスタに切り出すこと
+        /// 富士情報　目的不明のため120から一か月に変更
         /// </summary>
-        private const int TIME_THRESHOLD_MINUTES = 120;
+        private const int TIME_THRESHOLD_MINUTES = 43200;
 
         public static bool CompareCutLabel(string cutLabel, int macno, out string errMsg)
         {

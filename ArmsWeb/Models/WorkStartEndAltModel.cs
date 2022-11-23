@@ -50,6 +50,8 @@ namespace ArmsWeb.Models
 
         public List<ArmsApi.Model.Magazine> MagList { get; set; }
 
+        public string Comment { get; set; }             //富士情報追加
+
         /// <summary>
         /// 仮想マガジンリスト　キー=NascaLotNo
         /// </summary>
@@ -113,6 +115,7 @@ namespace ArmsWeb.Models
         {
             bool isSuccess = true;
             errMsg = new List<string>();
+            Comment = "";      //富士情報追加
 
             foreach (Magazine mag in this.MagList)
             {
@@ -296,6 +299,10 @@ namespace ArmsWeb.Models
                     //{
 
                     //富士情報　start
+                    //帳票システムで工程がクローズしているか
+                    ArmsApi.Model.FORMS.ProccessForms.IsClosedProcess(lot.TypeCd, order.LotNo, order.ProcNo, out string omsg, ArmsApi.Model.FORMS.ProccessForms.WorkOrder.Current);
+                    if (string.IsNullOrWhiteSpace(Comment)) Comment = omsg;
+
                     //開始工程の帳票データ更新情報設定
                     order.IsUpdateForm = true;
                     order.FormTypeCd = lot.TypeCd;
@@ -306,7 +313,7 @@ namespace ArmsWeb.Models
 
                     //次の工程の帳票情報取得
                     ArmsApi.Model.FORMS.ProccessForms.forminfo pf = ArmsApi.Model.FORMS.ProccessForms.GetWorkFlow(lot.TypeCd, order.ProcNo, ArmsApi.Model.FORMS.ProccessForms.WorkOrder.Next);
-                    if (!string.IsNullOrEmpty(pf.FormNo))
+                    if (!string.IsNullOrWhiteSpace(pf.FormNo))
                     //次の工程に帳票情報がある場合帳票情報設定
                     {
                         order.IsUpdateForm2 = true;

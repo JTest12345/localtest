@@ -9,27 +9,50 @@
 
 @using (Html.BeginForm("Remove", "Resin"))
 {
-    
-    
+
+
     if (Model.ResinList.Count() >= 1)
     {
-    <select size="5" name="resinindex">
-        @foreach (KeyValuePair<int, ArmsApi.Model.Resin> kv in Model.ResinList)
+        if (!string.IsNullOrEmpty(Model.ResinList[0].TypeCd))
         {
-            <option value="@kv.Key">@kv.Value.MixResultId  [期限]  @kv.Value.LimitDt.ToString()</option>
+            <ul>
+                @foreach (KeyValuePair<int, ArmsApi.Model.Resin> kv in Model.ResinList)
+                {
+                    <li>
+                        <input type="radio" name="resinindex" value="@kv.Key" />@kv.Value.MixResultId  [期限]  @kv.Value.LimitDt.ToString()
+                        <ul style="list-style: none;">
+                            <li>  [機種]  @kv.Value.TypeCd</li>
+                            <li>  [波長ランク]  @kv.Value.CejHchRnk</li>
+                            @foreach (string lotno in kv.Value.SeiLotNoList)
+                            {
+                                <li>  [ロットNo]  @lotno</li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
         }
-    </select>
-
-    <br />
-    <button type="submit">取り外し</button>
-    <br />
-
-    }
         else
+        {
+            <ul>
+                @foreach (KeyValuePair<int, ArmsApi.Model.Resin> kv in Model.ResinList)
+                {
+                    <li>
+                        <input type="radio" name="resinindex" value="@kv.Key" />@kv.Value.MixResultId  [期限]  @kv.Value.LimitDt.ToString()
+                    </li>
+                }
+            </ul>
+        }
+
+        <br />
+        <button type="submit">取り外し</button>
+        <br />
+    }
+    else
     {
         <h5>現在投入中の樹脂はありません</h5>
     }
 
-       
+
     <button onclick="location.href='@Url.Action("InsertNew")';return false;">新規割付</button>
 }

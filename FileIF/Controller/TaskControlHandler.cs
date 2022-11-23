@@ -372,7 +372,6 @@ namespace FileIf
                         //
                         //inファイルの消去
                         // ⇒ doneフォルダに格納に変更
-                        //    ファイルは 1か月後に消去【未実装】
                         //
                         //File.Delete(fs.tmpfilepath);
 

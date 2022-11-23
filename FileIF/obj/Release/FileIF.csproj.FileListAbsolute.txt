@@ -173,3 +173,4 @@ C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\CejDataAccessCom.dll
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\CejDataAccessCom.dll.config
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\YamlDotNet.dll
 C:\juni_ws\GitRepo\VSP\FileIF\bin\Release\YamlDotNet.xml
+C:\juni_ws\GitRepo\VSP\FileIF\obj\Release\FileIf.FmVipFetchMac.resources

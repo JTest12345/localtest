@@ -4,22 +4,26 @@
 }
 
 
-@using(Html.BeginForm("InsertConfirm", "WorkCnd"))
+@using (Html.BeginForm("InsertConfirm", "WorkCnd"))
 {
     <h3>製造条件コード読み込み</h3>
-    
+
     <h5>装置：@Model.PlantCd</h5>
-      
-    <select size="5" name="condindex">
+
+    <ul>
         @foreach (KeyValuePair<int, ArmsApi.Model.WorkCondition> cond in Model.WorkCondList)
         {
-            <option value="@cond.Key" >@cond.Value.CondName</option>
+            <li>
+                <input type="radio" name="condindex" value="@cond.Key" />@cond.Value.CondName
+            </li>
         }
-    </select>   
+    </ul>
+
+
 
     <br />
     <br />
 
-    <input type="text" id="barcode" name="barcode"/>
+    <input type="text" id="barcode" name="barcode" />
     <input type="submit" value="Go" />
 }

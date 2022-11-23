@@ -54,6 +54,26 @@ namespace ArmsWeb.Controllers
                 Session["model"] = m;
             }
 
+            //20220627 ADD START
+            //設備番号をキーに初工程かどうかを判定する
+            if (!string.IsNullOrEmpty(m.PlantCd))
+            {
+                if (ArmsApi.Model.MachineInfo.IsFirstSt(m.PlantCd))
+                {
+                    //初工程
+                    m.InputItem = "計画ロット読み込み";
+                }
+                else
+                {
+                    //以外
+                    m.InputItem = "投入マガジン読み込み";
+                }
+                
+                //マガジンコードとロット番号を照合する工程かどうかを判定
+                m.IsLotNoChkProc = ArmsApi.Model.MachineInfo.IsLotNoChkProc(m.PlantCd);
+            }
+            //20220627 ADD END
+
             Session["model"] = m;
 
             if (m.Mac.ClassName.Contains("オーブン") || m.Mac.ClassName.Contains("ｵｰﾌﾞﾝ"))
@@ -64,15 +84,15 @@ namespace ArmsWeb.Controllers
             {
                 //if (m.Mac.ClassName.Contains("ｶｯﾄ") || m.Mac.ClassName.Contains("カット"))
                 //{
-                if (MachineInfo.IsCutMachine(m.Mac.ClassName))
-                {
+                //if (MachineInfo.IsCutMachine(m.Mac.ClassName))
+                //{
                     m.CutBlendList = ArmsApi.Model.CutBlend.GetCurrentBlendItems(m.Mac.MacNo).ToList();
                     if (m.CutBlendList.Count >= 1)
                     {
                         ArmsApi.Model.Magazine mag = ArmsApi.Model.Magazine.GetCurrent(m.CutBlendList[0].MagNo);
                         searchRecommend(mag, m);
                     }                
-                }
+                //}
                 //}
 
                 return View(m);
@@ -147,7 +167,10 @@ namespace ArmsWeb.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
+        //20220627 MOD START
         public ActionResult Index(string txtMagNo, FormCollection fc)
+        //public ActionResult Index(string txtMagNo, string txtLotNo, FormCollection fc)
+        //20220627 MOD END
         {
             WorkStartAltModel m = Session["model"] as WorkStartAltModel;
 
@@ -221,6 +244,11 @@ namespace ArmsWeb.Controllers
 
                 if (mag == null)
                 {
+                    //富士情報 追加　start
+                    //合理化はロット管理表のロット番号読めるように対応
+                    seqNo = 1;
+                    //富士情報 追加　end
+
                     if (seqNo >= 1)
                     {
                         seqNo = 0;
@@ -303,11 +331,80 @@ namespace ArmsWeb.Controllers
                     return View(m);
                 }
 
+                //20220627 ADD START
+                //既に開始済の場合はエラーとする
+                isOk = m.CheckInputDuplication(mag, out msg);
+                if (!isOk)
+                {
+                    TempData["AlertMsg"] = msg;
+                    return View(m);
+                }
+
+                ////ロット番号照合工程の場合
+                if (m.IsLotNoChkProc)
+                {
+                    //    //ロット番号未入力はエラー
+                    //    if (string.IsNullOrEmpty(txtLotNo))
+                    //    {
+                    //        TempData["AlertMsg"] = "計画ロット番号を入力してください";
+                    //        return View(m);
+                    //    }
+                    //    //マガジン番号とロット番号チェック
+                    //    if (!ArmsApi.Model.Magazine.IsLotnoChkToMag(magno, txtLotNo))
+                    //    {
+                    //        TempData["AlertMsg"] = "入力した計画ロット番号が正しくありません";
+                    //        return View(m);
+                    //    }
+                    m.magazineno = magno;
+                    Session["mag"] = mag;
+                    Session["model"] = m;
+                    Session["redirectController"] = "WorkStartAlt";
+                    Session["redirectAction"] = "Compare";
+                    return RedirectToAction("InputLotNo", "Home");
+                }
+                //20220627 ADD END
+
                 m.MagList.Add(mag);
             }
             Session["model"] = m;
             return View(m);
         }
+
+        //20220627 ADD START
+        public ActionResult Compare(string lotno)
+        {
+            WorkStartAltModel m = Session["model"] as WorkStartAltModel;
+            ArmsApi.Model.Magazine mag = Session["mag"] as ArmsApi.Model.Magazine;
+
+            if (string.IsNullOrEmpty(lotno) == false)
+            {
+                Session["lotno"] = lotno;
+            }
+            string code = (string)Session["lotno"];
+            if (string.IsNullOrEmpty(code))
+            {
+                TempData["AlertMsg"] = "計画ロット番号を入力してください";
+                Session["redirectController"] = "WorkStartAlt";
+                Session["redirectAction"] = "Compare";
+                return RedirectToAction("InputLotNo", "Home");
+            }
+
+            m.lotno = (string)Session["lotno"];
+
+            //マガジン番号とロット番号チェック
+            if (!ArmsApi.Model.Magazine.IsLotnoChkToMag(m.magazineno, m.lotno))
+            {
+                TempData["AlertMsg"] = "計画ロット番号照合エラー";
+                Session["redirectController"] = "WorkStartAlt";
+                Session["redirectAction"] = "Compare";
+                return RedirectToAction("InputLotNo", "Home");
+            }
+
+            m.MagList.Add(mag);
+            Session["model"] = m;
+            return RedirectToAction("Index");
+        }
+        //20220627 ADD END
 
         public ActionResult Confirm()
         {
@@ -330,6 +427,10 @@ namespace ArmsWeb.Controllers
                 return RedirectToAction("Message", "Home", new { msg = "WorkStartModelが見つかりません" });
             }
 
+            //20220627 ADD START
+            Session["workunitid"] = null;
+            //20220627 ADD END
+
             try
             {
                 string msg;
@@ -344,6 +445,14 @@ namespace ArmsWeb.Controllers
             {
                 return RedirectToAction("Message", "Home", new { msg = "開始登録で予期せぬエラー：" + ex.Message });
             }
+
+            //20220627 ADD START
+            Session["workunitid"] = m.WorkUnitId;
+            if (m.WorkUnitId != null)
+            {
+                Session["URL"] = m.URL; 
+            }
+            //20220627 ADD END
 
             //状態検査とダイシェアのメッセージが両立するように修正。　2015.9.23 湯浅
             string messageStr = "作業開始しました。";
@@ -367,6 +476,19 @@ namespace ArmsWeb.Controllers
                     messageStr += string.Format("{0}\r\n", targetLot);
                 }
             }
+
+            //富士情報　追加　start
+            //20220413 ADD START
+            if (!string.IsNullOrEmpty(m.Comment2))
+            {
+                messageStr += string.Format("\r\n{0}", m.Comment2);
+            }
+            //20220413 ADD END
+            if (!string.IsNullOrEmpty(m.Comment))
+            {
+                messageStr += string.Format("\r\n{0}", m.Comment);
+            }
+            //富士情報　追加　end
 
             Session["empcd"] = "";
             return RedirectToAction("Message", "Home", new { msg = messageStr });

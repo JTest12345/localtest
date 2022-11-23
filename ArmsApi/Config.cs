@@ -18,8 +18,7 @@ namespace ArmsApi
         public static Config Settings;
 
         private const string SETTING_FILE_NM = "ArmsConfig.xml";
-        public const string SETTING_FILE_FULLPATH = @"C:\ARMS\Config\ArmsConfig.xml";
-        //public const string SETTING_FILE_FULLPATH = @"C:\inetpub\wwwroot\arms\bin\ArmsConfig.xml";
+        public const string SETTING_FILE_FULLPATH = @"C:\ARMS_VSP\Config\ArmsConfig.xml";
 
         /// <summary>
         /// 作業者バーコード先頭文字
@@ -213,8 +212,9 @@ namespace ArmsApi
                     //}
 
                     Settings = JsonConvert.DeserializeObject<Config>(raw);
+
                 }
-			}
+            }
 			catch (Exception err)
 			{
 				Settings = new Config();
@@ -1130,7 +1130,52 @@ namespace ArmsApi
         /// 基板用不良識別
         /// </summary>
         public const string SUBST_DEFECT_CLASSCD = "2001";
-        //富士情報　　ADD　
+
+        /// <summary>
+        /// 実績収集DB接続文字列
+        /// </summary>
+        public string POPConSTR { get; set; }
+
+        /// <summary>
+        /// 実績収集ダイシング工程略号
+        /// </summary>
+        public string POPDCKutiRykgu { get; set; }
+
+        /// <summary>
+        /// SCMローカルDB接続文字列
+        /// </summary>
+        public string SCMLocalConSTR { get; set; }
+
+        /// <summary>
+        /// 製造部門作業区
+        /// </summary>
+        public string MANU_SGYUK_CD { get; set; }
+        
+        //20220516 ADD START
+        /// <summary>
+        /// 硬化後確認工程
+        /// </summary>
+        public int AFTER_CURING_CONFIRM { get; set; }
+        //20220516 ADD END
+
+        /// <summary>
+        /// ラベル照合設備
+        /// </summary>
+        public string PlantCDLabelCompare { get; set; }
+
+        /// <summary>
+        /// ダイシングラベル照合設備
+        /// </summary>
+        public string PlantCDLabelCompareDC { get; set; }
+
+        //20220627 ADD START
+        public string UrlUnitID_Ari { get; set; }
+        public string UrlUnitID_Nas { get; set; }
+        //20220627 ADD END
+
+        //20220907 ADD START M2022-296 20
+        public const string TrialProc_CD = "TR_";  //一旦暫定
+        //20220907 ADD END
 
     }
 }

@@ -683,7 +683,11 @@ namespace ARMS3.Model
         }
 
         #region HasMoveTo
-
+        //*J ***************************************
+        //*J 重要コード
+        //*J 設備に搬送先があるかを検索する
+        //*J 運ばない原因をつかむに時はここをみる
+        //*J ***************************************
         public static bool HasMoveTo(Location from, out Location to, ICarrier carrier, Location qrStage)
         {
             to = null;
@@ -749,6 +753,7 @@ namespace ARMS3.Model
                 //}
 
                 // 到達可能な装置順に並び変える
+                //*J 排出要求があった装置から搬送可能な装置リスト？
                 mag.NextMachines = Route.GetSortReachableMachine(carrier.CarNo, mag.NextMachines);
 
                 // 次装置の内、供給要求が立っている最優先を選択

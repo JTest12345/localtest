@@ -10,21 +10,23 @@
 {
     if (Model.WaferList.Count() >= 1)
     {
-        <select size="5" id="matindex" name="selectedWaferList" multiple>
+        <ul>
             @foreach (KeyValuePair<int, ArmsApi.Model.Material> kv in Model.WaferList)
             {
-                <option value="@kv.Key" >@kv.Value.LongName</option>
+                <li>
+                    <input type="checkbox" id ="matindex" name="selectedWaferList" value="@kv.Key" />@kv.Value.LongName
+                </li>
             }
-        </select>
-    <br />
+        </ul>
+        <br />
         <button type="submit">全取り外し</button>
         <input type="submit" name="btnSubmit" value="装置振替">
-    <br />
+        <br />
     }
     else
     {
         <h5>現在投入中のカセットはありません</h5>
     }
-       
+
     <button onclick="location.href='@Url.Action("InsertNew")';return false;">新規割付</button>
 }

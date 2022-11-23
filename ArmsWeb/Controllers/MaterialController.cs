@@ -182,6 +182,18 @@ namespace ArmsWeb.Controllers
                 // 「リングID」のチェックIDを引継ぎ
                 m.isCheckedRingID = isRingID;
 
+                //富士情報　start
+                //登録する部材ロットががバックアップ工程対象の半完成品のロットかチェックする
+                //部材ロットから枝番を排除する
+                string lotno = mat.LotNo.Substring(0, mat.LotNo.LastIndexOf("-"));
+                lotno = lotno.Substring(0, lotno.LastIndexOf("-"));
+                ArmsApi.Model.VLot vl = ArmsApi.Model.VLot.GetVLotFrom4MLot(lotno);
+                if (vl.IsBackUp)
+                {
+                    TempData["AlertMsg"] += $"\r\n{lotno}:V溝無しLDバックアップ工程対象ロットです。";
+                }
+                //富士情報　end
+
                 return View(m);
             }
             catch (ApplicationException ex)

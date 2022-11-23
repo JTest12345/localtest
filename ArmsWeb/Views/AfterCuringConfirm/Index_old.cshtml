@@ -1,0 +1,35 @@
+﻿@model ArmsWeb.Models.AfterCuringConfirmModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>樹脂キュア硬化後確認実施ロット</h3>
+<h5></h5>
+
+@using (Html.BeginForm("Remove", "AfterCuringConfirm"))
+{
+
+    if (Model.LotList.Count() >= 1)
+    {
+        <select size="5" name="lotindex">
+            @foreach (KeyValuePair<int, ArmsApi.Model.AsmLot> kv in Model.LotList)
+            {
+            <option value="@kv.Key">@kv.Value.TypeCd : @kv.Value.NascaLotNo</option>
+            }
+        </select>
+        
+        <p>
+        <input type="checkbox" name="RemoveAll" value="1" />全取消 
+        </p>
+
+        <button type="submit">取消</button>
+        <br />
+	}
+	else
+	{
+        <h5>現在、硬化後確認工程を実施する仕掛中のロットはありません</h5>
+    }
+       
+    <button onclick="location.href='@Url.Action("InsertNew")';return false;">新規登録</button>
+}

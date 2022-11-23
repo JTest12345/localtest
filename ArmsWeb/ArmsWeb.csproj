@@ -49,16 +49,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ArmsApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ArmsApi\bin\Release\ArmsApi.dll</HintPath>
-    </Reference>
     <Reference Include="LENS2_Api">
       <HintPath>Component\LENS2_Api.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ArmsApi\json\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -151,6 +148,9 @@
     <Compile Include="Controllers\DefectController.cs" />
     <Compile Include="Controllers\DefectSubStController.cs" />
     <Compile Include="Controllers\GrinderRingController.cs" />
+    <Compile Include="Controllers\AfterCuringConfirmController.cs" />
+    <Compile Include="Controllers\LotLabelCompareController.cs" />
+    <Compile Include="Controllers\MaterialThawingController.cs" />
     <Compile Include="Controllers\ResinMeasurementTrayCompareController.cs" />
     <Compile Include="Controllers\WaferEachSheetController.cs" />
     <Compile Include="Controllers\ResinMixOrderController.cs" />
@@ -185,6 +185,9 @@
     <Compile Include="Models\CassetteTransferModel.cs" />
     <Compile Include="Models\DefectSubStEditModel.cs" />
     <Compile Include="Models\GrinderRingModel.cs" />
+    <Compile Include="Models\AfterCuringConfirmModel.cs" />
+    <Compile Include="Models\LotLabelCompareModel.cs" />
+    <Compile Include="Models\MaterialThawingModel.cs" />
     <Compile Include="Models\ResinMeasurementTrayCompareModel.cs" />
     <Compile Include="Models\WaferEachSheetEditModel.cs" />
     <Compile Include="Models\ResinMixOrderModel.cs" />
@@ -440,6 +443,15 @@
     <Content Include="Views\DefectSubSt\Select.cshtml" />
     <Content Include="Views\WorkEndAlt\InputDef.cshtml" />
     <Content Include="Views\WorkEndAlt\Select.cshtml" />
+    <Content Include="Views\AfterCuringConfirm\Index.cshtml" />
+    <Content Include="Views\AfterCuringConfirm\InsertConfirm.cshtml" />
+    <Content Include="Views\AfterCuringConfirm\InsertNew.cshtml" />
+    <Content Include="Views\AfterCuringConfirm\Remove.cshtml" />
+    <Content Include="Views\LotLabelCompare\Finish.cshtml" />
+    <Content Include="Views\LotLabelCompare\Index.cshtml" />
+    <Content Include="Views\BlendLabelCompare\InputLotNo.cshtml" />
+    <Content Include="Views\MaterialThawing\Confirm.cshtml" />
+    <Content Include="Views\MaterialThawing\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -452,6 +464,12 @@
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\ArmsApi\bin\Debug\ArmsApi.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArmsApi\ArmsApi.csproj">
+      <Project>{a47c8eae-cf1f-4cd0-8a5d-a193d974354b}</Project>
+      <Name>ArmsApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

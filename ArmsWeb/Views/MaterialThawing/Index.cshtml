@@ -1,0 +1,17 @@
+﻿@model ArmsWeb.Models.MaterialThawingModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>解凍処理</h3>
+<h3>作業者：@Model.EmpCd</h3>
+
+@using (Html.BeginForm())
+{
+    <h3>原材料コード読み込み</h3>
+
+    <input type="text" id="txtQRCode" name="txtQRCode" />
+    <input type="submit" value="解凍" />
+
+}

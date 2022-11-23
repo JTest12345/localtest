@@ -116,7 +116,7 @@ namespace ArmsApi.Model.NJDB
 
 			foreach (MixMaterial target in targetList)
 			{
-                if(insertTargetList.Where(l => l.mixresultid == target.MixResultID && l.materialcd == target.MaterialCD.Trim() && l.lotno.ToUpper() == target.MateLotNO.Trim().ToUpper())
+                if(insertTargetList.Where(l => l.mixresultid == target.MixResultID.ToString() && l.materialcd == target.MaterialCD.Trim() && l.lotno.ToUpper() == target.MateLotNO.Trim().ToUpper())
                     .Any() == true)
                 {
                     continue;
@@ -125,18 +125,18 @@ namespace ArmsApi.Model.NJDB
                 if (target.ExcludeFG.HasValue && target.ExcludeFG.Value || target.BefResinFG.HasValue && target.BefResinFG.Value)
                     continue;
 
-                if (insertTargetList.Exists(i => i.mixresultid == target.MixResultID
+                if (insertTargetList.Exists(i => i.mixresultid == target.MixResultID.ToString()
                         && i.materialcd == target.MaterialCD.Trim() && i.lotno == target.MateLotNO.Trim()))
                     continue;
 
                 var e = armsDB.TnResinMixMat
-                    .SingleOrDefault(r => r.mixresultid == target.MixResultID && r.materialcd == target.MaterialCD.Trim() && r.lotno == target.MateLotNO.Trim());
+                    .SingleOrDefault(r => r.mixresultid == target.MixResultID.ToString() && r.materialcd == target.MaterialCD.Trim() && r.lotno == target.MateLotNO.Trim());
 
                 if (e == null)
                 {
                     DataContext.TnResinMixMat insertTarget = new DataContext.TnResinMixMat();
 
-                    insertTarget.mixresultid = target.MixResultID;
+                    insertTarget.mixresultid = target.MixResultID.ToString();
                     insertTarget.materialcd = target.MaterialCD.Trim();
                     insertTarget.lotno = target.MateLotNO.Trim();
 

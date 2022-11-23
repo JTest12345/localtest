@@ -8,7 +8,7 @@
 <h3>基板不良枚数入力</h3>
 
 <h3>ロット：@Model.MagList[0].NascaLotNO</h3>
-<h3>装置名：@Model.VirtualMags.ElementAt(0).Value.LastMagazineNo</h3>
+<h3>装置名：@Model.Mac.LongName</h3>
 <h3>検査者：@Model.EmpCd</h3>
 
 
@@ -68,7 +68,11 @@ else
 
     <hr />
 
-    <p>@Html.ActionLink("作業完了へ", "Confirm")</p>
+    <p>
+        @Html.ActionLink("作業完了へ", "Confirm")
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+    </p>
 
 }
 }

@@ -201,7 +201,7 @@ namespace ArmsApi.Model.DataContext
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private long _mixresultid;
+		private string _mixresultid;
 		
 		private string _materialcd;
 		
@@ -211,7 +211,7 @@ namespace ArmsApi.Model.DataContext
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnmixresultidChanging(long value);
+    partial void OnmixresultidChanging(string value);
     partial void OnmixresultidChanged();
     partial void OnmaterialcdChanging(string value);
     partial void OnmaterialcdChanged();
@@ -224,8 +224,8 @@ namespace ArmsApi.Model.DataContext
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_mixresultid", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
-		public long mixresultid
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_mixresultid", DbType= "NVarChar(50) NOT NULL", IsPrimaryKey=true)]
+		public string mixresultid
 		{
 			get
 			{

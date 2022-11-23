@@ -1,0 +1,12 @@
+﻿@model ArmsWeb.Models.BlendLabelCompareModel
+@{
+    ViewBag.Title = "InputLotNo";
+}
+
+@using (Html.BeginForm())
+{
+    <h3>ダイシング後ラベルの計画ロット読み込み</h3>
+    @Html.TextBox("lotno");
+    <input type="submit" name="GO" value="GO" />
+}
+

@@ -4,19 +4,19 @@
     ViewBag.Title = "Index";
 }
 
-<h3>親ロットラベルと構成ロット（子ロット）ラベルの照合</h3>
+<h3>ダイシング後ラベルとロット管理表のロット照合</h3>
 <h3>設備：@Model.PlantCd</h3>
 <h3>作業者：@Model.EmpCd</h3>
-<h3>親ロット：@Model.BlendLotNo</h3>
+<h3>ダイシング後ラベルロット：@Model.BlendLotNo</h3>
 <br />
 
 @using (Html.BeginForm())
 {
-    <h3>構成ロット（子ロット全て）のラベル読み込み</h3>
+    <h3>ロット管理表ロット読み込み</h3>
     <input type="text" id="txtAsmLotNo" name="txtAsmLotNo" />
     <input type="submit" value="Go" />
 
-    <h5>読み込み済み構成ロット（子ロット） @Model.AsmLotList.Count().ToString() </h5>
+    <h5>読み込み済みロット @Model.AsmLotList.Count().ToString() </h5>
     <ul>
         @foreach (string asmlotno in Model.AsmLotList)
         {

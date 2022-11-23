@@ -259,9 +259,13 @@ namespace ARMS3.Model.Carriers
                 foreach (var cp in priorityList)
                 {
                     //最終の移動先装置がある場合、同一優先度のリストに先立って要求処理
+                    
+                    //*J 最終の移動先装置⇒多分今いる装置に物があったら優先して処理するってこと？かな？
                     if (lastMoveTo != null && cp == LineKeeper.GetMachine(lastMoveTo.MacNo).Priority)
                     {
                         var lastMac = machines.Where(m => m.MacNo == lastMoveTo.MacNo);
+                        //*J 与えられた同優先度装置の内、装置の実空マガジン処理排出要求がある装置を見つけた場合、
+                        //*J 再優先のものを返す
                         canMove = LineKeeper.SelectMoveFrom(lastMac, out moveFrom, out moveTo, this);
                         if (canMove)
                         {
@@ -270,6 +274,11 @@ namespace ARMS3.Model.Carriers
                         }
                         else
                         {
+                            //*J 与えられた同優先度装置の内、空マガジン処理要求がある装置を見つけた場合、
+                            //*J 1つだけ処理してTrueを返す。処理=MoveFromTo
+                            //*J 各装置のResponseEmptyMagazineRequestをForeachで呼ぶ
+                            //*J ここからLineKeeper経由でMoveFromToが呼ばれる
+                            //*J 基本的には空マガジン供給用だが設備(特殊)によってオーバーライドされている
                             bool canEmpMagMove = LineKeeper.SelectAndMoveEmptyMagazineRequest(lastMac);
                             if (canEmpMagMove) break;
                         }
@@ -277,6 +286,7 @@ namespace ARMS3.Model.Carriers
 
                     //同一優先度装置リスト作成
                     var currentMacList = machines.Where(m => m.Priority == cp);
+                    //*J 同上
                     canMove = LineKeeper.SelectMoveFrom(currentMacList, out moveFrom, out moveTo, this);
                     if (canMove)
                     {
@@ -286,6 +296,7 @@ namespace ARMS3.Model.Carriers
                     else
                     {
                         //MoveToで空マガジン移動要求あれば処理
+                        //*J 同上
                         bool canEmpMagMove = LineKeeper.SelectAndMoveEmptyMagazineRequest(currentMacList);
                         if (canEmpMagMove) break;
                     }
@@ -316,7 +327,9 @@ namespace ARMS3.Model.Carriers
         public override Location MoveFromTo(Location moveFrom, Location moveTo, bool dequeueMoveFrom, bool isEmptyMagazine, bool resetNextProcessIdToCurrentProfileFirstProcNo, bool isCheckQR)
         {
             lock (this.robotMoveLock)
+            //*J 排他処理
             {
+                //*J acceptQR：照合結果、下でマガジン取り関数の戻り値として使う
                 bool acceptQR = false;
                 bool isAoiMagazine = false;
 
@@ -324,8 +337,11 @@ namespace ARMS3.Model.Carriers
 
                 VirtualMag mag = null;
 
+                //*J dequeueMoveFrom?
+                //
                 if (dequeueMoveFrom == false)
                 {
+                    //*J VirtualMagがない特殊ケースの対応っぽい？
                     mag = new VirtualMag();
                     mag.CurrentLocation = moveFrom;
                 }
@@ -333,12 +349,16 @@ namespace ARMS3.Model.Carriers
                 {
                     //この時点では仮想マガジンを削除しない
                     //要求フラグが消えないので次の作業完了が発生することを防止
+
+                    //*J concreteThreadWorkからはここにしか入らない
                     mag = LineKeeper.GetMachine(moveFrom.MacNo).Peek(moveFrom.Station);
                 }
 
                 //アオイマガジン判定
                 if (mag.MagazineNo == VirtualMag.MAP_AOI_MAGAZINE) isAoiMagazine = true;
 
+
+                //*J concreteThreadWorkの直接呼び出しからはfalseしか入らない
                 if (resetNextProcessIdToCurrentProfileFirstProcNo == true)
                 {
                     //先頭工程向けの移動時には次工程IDをCurrentにセット。
@@ -362,6 +382,9 @@ namespace ARMS3.Model.Carriers
                 }
 
                 //QR読込
+                //*J ****************************************
+                //*J マガジン取り動作～マガジン照合結果取得
+                //*J ****************************************
                 string readedQR;
                 acceptQR = MoveOrgToQR(moveFrom, moveTo, ref mag, out readedQR);
 
@@ -369,9 +392,12 @@ namespace ARMS3.Model.Carriers
                 //MoveOrgToQR内でExceptionが出た場合はキュー変更せず
                 if (dequeueMoveFrom == true)
                 {
+                    //*J マガジン取り設備（LineConfig内設備）からマガジンをデキューする
                     LineKeeper.GetMachine(moveFrom.MacNo).Dequeue(moveFrom.Station);
                 }
+                //*J 手持ちマガジンリストに加える
 				AddHoldingMagazine(mag);
+
 
                 //移動元の最終排出日時更新
                 if (isEmptyMagazine == false)
@@ -379,6 +405,7 @@ namespace ARMS3.Model.Carriers
                     LineKeeper.GetMachine(moveFrom.MacNo).LastOutputTime = DateTime.Now;
                 }
 
+                //*J concreteThreadWorkの直接呼び出しからはfalseしか入らない
                 if (isCheckQR)
                 {
                     //  QRが一致していた場合は移動先装置へ移動
@@ -487,6 +514,9 @@ namespace ARMS3.Model.Carriers
                     {
                         if (LineKeeper.GetMachine(moveTo.MacNo) is MAPBoardDischargeConveyor)
                         {
+                            //*J ****************************************
+                            //*J マガジン置く動作
+                            //*J ****************************************
                             moveTo = MoveQRToDst(moveFrom, moveTo, isEmptyMagazine, ref mag);
                         }
                         else
@@ -500,7 +530,12 @@ namespace ARMS3.Model.Carriers
                 }
                 else
                 {
+                    //*J ****************************************
+                    //*J マガジン置く動作
+                    //*J ****************************************
+
                     //MoveFromTo内部で移動先変更の可能性があるので行き先を取り直す
+                    //*J ↑MoveQRToDst内部の間違いじゃないかな。。。
                     moveTo = MoveQRToDst(moveFrom, moveTo, isEmptyMagazine, ref mag);
                 }
 

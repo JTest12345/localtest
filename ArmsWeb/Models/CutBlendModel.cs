@@ -52,8 +52,20 @@ namespace ArmsWeb.Models
 
         public int ProcNo { get; set; }
 
+        #region FJH ADD
+        public string Comment { get; set; }     //富士情報追加
+        //20220627 ADD START
+        public string WorkUnitId { get; set; }
+        public string URL { get; set; }
+        //20220627 ADD END
+        #endregion
+
         public void FinishBlend()
         {
+            //20220627 ADD START
+            WorkUnitId = null;
+            //20220627 ADD START
+
             CarrierInfo carrier = Route.GetReachable(new Location(Mac.MacNo, Station.Loader));
             if (carrier == null) 
             {
@@ -92,6 +104,42 @@ namespace ArmsWeb.Models
             }
 
             this.ProcNo = final.ProcNo;
+
+            //富士情報　start
+            //帳票システムで工程がクローズしているか
+            //20220627 ADD START
+            URL = null;
+            //20220627 ADD END
+            foreach (CutBlend blend in CurrentBlend)
+            {
+                //20220627 ADD START
+                if (URL == null)
+                {
+                    WorkUnitId = ArmsApi.Model.FORMS.ProccessForms.GetWorkUnitID(lot.TypeCd, blend.LotNo, final.ProcNo);
+                    if (WorkUnitId != null)
+                    {
+                        if (WorkUnitId == string.Empty)
+                        {
+                            URL = ArmsApi.Config.Settings.UrlUnitID_Nas + "/" + EmpCd + "::" + lot.TypeCd + "::" + lot.NascaLotNo + "::" + final.ProcNo;
+                        }
+                        else
+                        {
+                            URL = ArmsApi.Config.Settings.UrlUnitID_Ari;
+                        }
+                    }
+                }
+                else
+                {
+                    URL = ArmsApi.Config.Settings.UrlUnitID_Ari;
+                }
+                //20220627 ADD END
+                if (!ArmsApi.Model.FORMS.ProccessForms.IsClosedProcess(lot.TypeCd, blend.LotNo, final.ProcNo, out string omsg, ArmsApi.Model.FORMS.ProccessForms.WorkOrder.Current))
+                {
+                    Comment = omsg.Replace("\r\n", "<br/>");
+                    break;
+                }
+            }
+            //富士情報　end
         }
 
         public void ApplyPreDefect(List<CutBlend> blendlist, int procno, string blendlotno)

@@ -112,9 +112,17 @@ namespace ArmsWeb.Models
         public string Comment { get; set; }
 
         #region FJH ADD 
+        public string Comment2 { get; set; }     //富士情報追加
         public DefItem CurrentDefItem { get; set; }
         public string Filter { get; set; }
         public bool HasFilter { get { return !string.IsNullOrEmpty(Filter); } }
+        //20220627 ADD START
+        public string WorkUnitId { get; set; }
+        public string URL { get; set; }
+        //20220627 ADD END
+        //20220822 ADD START
+        public int iCnt { get; set; }
+        //20220822 ADD END
         #endregion
 
         /// <summary>
@@ -127,6 +135,11 @@ namespace ArmsWeb.Models
             bool isSuccess = true;
             errMsg = new List<string>();
             Comment = "";
+            Comment2 = "";      //富士情報追加
+
+            //20220627 ADD START
+            WorkUnitId = null;
+            //20220627 ADD START
 
             foreach (Magazine mag in this.MagList)
             {
@@ -160,11 +173,12 @@ namespace ArmsWeb.Models
                     isSuccess = false;
                     errMsg.Add(lotlog);
                     //富士情報　start
-                    return false;
+                    return false;       
                     //富士情報　end
                 }
 
                 if (string.IsNullOrWhiteSpace(Comment) == false) Comment += "\r\n";
+                if (string.IsNullOrWhiteSpace(Comment2) == false) Comment += Comment2 + "\r\n";      //富士情報追加
                 string outMagNo;
                 if (this.IsNeedMagazineChange)
                 {
@@ -294,6 +308,9 @@ namespace ArmsWeb.Models
 
                 retv.Add(svrmag);
             }
+            //20220822 ADD START
+            iCnt = retv.Count();
+            //20220822 ADD END
 
             return retv;
         }
@@ -427,7 +444,10 @@ namespace ArmsWeb.Models
                 #endregion
 
                 //完了時チェック前に資材割付を更新
-                if (vmag != null && vmag.RelatedMaterials != null)
+                //富士情報　変更　あらかじめ登録したデータを消したくないため条件追加　start
+                if (vmag != null && vmag.RelatedMaterials != null && vmag.RelatedMaterials.Count() > 0)
+                //if (vmag != null && vmag.RelatedMaterials != null)
+                //富士情報　変更　end
                 {
                     order.UpdateMaterialRelation(vmag.RelatedMaterials.ToArray());
                 }
@@ -435,11 +455,37 @@ namespace ArmsWeb.Models
                 string errMsg;
                 bool isError = WorkChecker.IsErrorWorkComplete(order, Mac, lot, out errMsg);
 
+                //20220627 ADD START
+                WorkUnitId = ArmsApi.Model.FORMS.ProccessForms.GetWorkUnitID(lot.TypeCd, order.NascaLotNo, order.ProcNo);
+                if (WorkUnitId == null)
+                {
+                    URL = string.Empty;
+                }
+                else if (WorkUnitId == string.Empty)
+                {
+                    if (MagList.Count > 1)
+                    {
+                        URL = ArmsApi.Config.Settings.UrlUnitID_Ari;
+                    }
+                    else
+                    {
+                        URL = ArmsApi.Config.Settings.UrlUnitID_Nas + "/" + EmpCd + "::" + TypeCd + "::" + lot.NascaLotNo + "::" + order.ProcNo;
+                    }
+                }
+                else
+                {
+                    URL = ArmsApi.Config.Settings.UrlUnitID_Ari;
+                }
+                //20220627 ADD END
 
                 //富士情報　start
+                //帳票システムで工程がクローズしているか
+                ArmsApi.Model.FORMS.ProccessForms.IsClosedProcess(lot.TypeCd, order.LotNo, order.ProcNo, out string omsg, ArmsApi.Model.FORMS.ProccessForms.WorkOrder.Current);
+                if (string.IsNullOrWhiteSpace(Comment2)) Comment2 = omsg;
+
                 //次の工程の帳票情報取得
-               ArmsApi.Model.FORMS.ProccessForms.forminfo pf = ArmsApi.Model.FORMS.ProccessForms.GetWorkFlow(lot.TypeCd, order.ProcNo, ArmsApi.Model.FORMS.ProccessForms.WorkOrder.Next);
-               if (!string.IsNullOrEmpty(pf.FormNo))
+                ArmsApi.Model.FORMS.ProccessForms.forminfo pf = ArmsApi.Model.FORMS.ProccessForms.GetWorkFlow(lot.TypeCd, order.ProcNo, ArmsApi.Model.FORMS.ProccessForms.WorkOrder.Next);
+               if (!string.IsNullOrWhiteSpace(pf.FormNo))
                 //次の工程に帳票情報がある場合帳票情報設定
                 {
                     order.IsUpdateForm = true;
@@ -580,7 +626,7 @@ namespace ArmsWeb.Models
                                 //富士情報　start
                                 //次の工程の帳票情報取得
                                 ArmsApi.Model.FORMS.ProccessForms.forminfo pfd = ArmsApi.Model.FORMS.ProccessForms.GetWorkFlow(lot.TypeCd, order.ProcNo, ArmsApi.Model.FORMS.ProccessForms.WorkOrder.Next);
-                                if (!string.IsNullOrEmpty(pf.FormNo))
+                                if (!string.IsNullOrWhiteSpace(pf.FormNo))
                                 //次の工程に帳票情報がある場合帳票データ登録
                                 {
                                     doubleOrder.IsUpdateForm = true;
@@ -703,6 +749,18 @@ namespace ArmsWeb.Models
                             }
                         }
                     }
+                    
+                    //20220516 ADD START
+                    //次工程が硬化後確認工程で、実施FLGが 0:しない の場合、次工程を強制的に完了させる
+                    if (nextproc.ProcNo == ArmsApi.Config.Settings.AFTER_CURING_CONFIRM)
+                    {
+                        if (lot.AfterCuringConfirmfg == 0)
+                        {
+                            //
+                            order.AfterCuringConfirm(lot.NascaLotNo, order.ProcNo, nextproc.ProcNo, SQLite.ConStr);
+                        }
+                    }
+                    //20220516 ADD END
 
                     return true;
                 }
@@ -768,6 +826,40 @@ namespace ArmsWeb.Models
             //Defect.UpdateEICSWireBondAddress(this.EditTarget.InMagazineNo, lot, def, address, unit, this.EmpCd);
             ArmsApi.Model.LENS.MacDefect.InsertUpdate(VirtualMags.ElementAt(0).Value.LastMagazineNo, lot, def, address, unit, this.EmpCd);
         }
+
+        //20220831 ADD START
+        /// <summary>
+        /// マガジンコードチェック（形式：a99999であること）
+        /// </summary>
+        /// <param name="magno"></param>
+        /// <returns></returns>
+        public bool CheckMagno(string magno)
+        {
+            //未設定はエラー
+            if (string.IsNullOrEmpty(magno))
+            {
+                return false;
+            }
+            //マガジンコードが6桁であること
+            if (magno.Length != 6)
+            {
+                return false;
+            }
+            //先頭文字列がアルファベットであること
+            if (!char.IsLetter(magno, 0))
+            {
+                return false;
+            }
+            //２桁目～６桁目が数字であること
+            int numValue;
+            if (!int.TryParse(magno.Substring(1, 5), out numValue))
+            {
+                return false;
+            }
+            return true;
+        }
+        //20220831 ADD END
+
         #endregion
     }
 }

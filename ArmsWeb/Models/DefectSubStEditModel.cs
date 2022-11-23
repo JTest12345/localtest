@@ -27,18 +27,21 @@ namespace ArmsWeb.Models
 
                     //次の工程のデータが存在するか確認する
                     ArmsApi.Model.AsmLot lot = ArmsApi.Model.AsmLot.GetAsmLot(o.LotNo);
-                    Process next = Process.GetNextProcess(o.ProcNo, lot);
-                    try
+                    if (lot != null)
                     {
-                        Order tmpOrder = Order.GetOrder(o.LotNo, next.ProcNo).Single();
-                        if (tmpOrder.WorkEndDt == null)
+                        Process next = Process.GetNextProcess(o.ProcNo, lot);
+                        try
+                        {
+                            Order tmpOrder = Order.GetOrder(o.LotNo, next.ProcNo).Single();
+                            if (tmpOrder.WorkEndDt == null)
+                            {
+                                newOrders.Add(o);
+                            }
+                        }
+                        catch
                         {
                             newOrders.Add(o);
                         }
-                    }
-                    catch
-                    {
-                        newOrders.Add(o);
                     }
                 }
             }

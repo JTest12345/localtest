@@ -13,6 +13,7 @@ using Oskas;
 using FluentFTP;
 using Newtonsoft.Json;
 using YamlDotNet.RepresentationModel;
+using System.Threading;
 
 
 namespace FileIf
@@ -22,6 +23,8 @@ namespace FileIf
         Magcupini mcini;
         Mcfilesys fs;
         macconfjson mconf;
+
+        object autofetchlock = new object();
 
         string crlf = "\r\n";
  
@@ -54,6 +57,9 @@ namespace FileIf
 
             InitializeComponent();
 
+            //autofetch timer
+            cbx_autofetchInterval.SelectedIndex = 0;
+
             // form要素の初期化(イネーブル)
             cmb_fetchfile.Enabled = false;
             cmb_macname.Enabled = false;
@@ -66,7 +72,7 @@ namespace FileIf
             if (mcini.FFetchPcat[0] == "NA")
             {
                 // iniがNAならMagCupFolderを読込
-                mcini.FFetchPcat = GetPcatDirName(mcini.MCDir);
+                mcini.FFetchPcat = Tasks_Common.GetPcatDirName(mcini.MCDir);
             }
             else
             {
@@ -78,7 +84,15 @@ namespace FileIf
                 cmb_pcat.Enabled = true;
                 cmb_pcat.Items.AddRange(mcini.FFetchPcat);
                 // 初期表示の設定
-                cmb_pcat.Text = "選択してください";
+                if (cmb_pcat.Items.Count > 1)
+                {
+                    cmb_pcat.Text = "選択してください";
+                }
+                else
+                {
+                    cmb_pcat.SelectedIndex = 0;
+                }
+                
             }
             else
             {
@@ -89,10 +103,13 @@ namespace FileIf
             // 設備名
             if (mcini.FFetchMacName[0] != "NA")
             {
-                if (mcini.FFetchPcat.Length != 0)
+                if (mcini.FFetchMacName.Length != 0)
                 {
                     cmb_macname.Enabled = true;
-                    cmb_macname.Items.AddRange(mcini.FFetchMacName);
+                    cmb_macname.Text = mcini.FFetchMacName[0];
+                    btn_fetchfile.Enabled = true;
+                    SelectGetFileConditions();
+                    getPlcInfo("default");
                 }
                 else
                 {
@@ -119,6 +136,8 @@ namespace FileIf
                 }
 
             }
+
+
         }
 
         delegate void FetchConsoleDelegate(string text, int level);
@@ -187,48 +206,49 @@ namespace FileIf
 
         public async void DownloadFile()
         {
-            ipaddress = macplcConf.ipa;
-            ftpuser = macplcConf.ftps[0].id;
-            ftpupassword = macplcConf.ftps[0].password;
-            ftpport = int.Parse(macplcConf.ftps[0].port);
-            ftphomefolder = macplcConf.ftps[0].homedir;
-            maccat = cmb_pcat.Text;
-            macname = cmb_macname.Text;
-            msg = string.Empty;
-            magcupdir = mcini.MCDir;
-            workingDir = magcupdir + @"\" + maccat + @"\" + macname;
-            scrspath = workingDir + @"\conf\scripts";
-            wippath = workingDir + @"\wip";
-            tmppath = workingDir + @"\temp";
-            donepath = workingDir + @"\done";
-            fileconfpath = workingDir + @"\conf\fileconf.yaml";
-            fileconf = CommonFuncs.YamlFileReader(fileconfpath, ref msg);
-
-            try
+            lock (this.autofetchlock)
             {
-                if (macplcConf.ipa == null)
-                {
-                    FetchConsoleShow("PLCの設定が正しく行われていないようです", 5);
-                    return;
-                }
+                ipaddress = macplcConf.ipa;
+                ftpuser = macplcConf.ftps[0].id;
+                ftpupassword = macplcConf.ftps[0].password;
+                ftpport = int.Parse(macplcConf.ftps[0].port);
+                ftphomefolder = macplcConf.ftps[0].homedir;
+                maccat = cmb_pcat.Text;
+                macname = cmb_macname.Text;
+                msg = string.Empty;
+                magcupdir = mcini.MCDir;
+                workingDir = magcupdir + @"\" + maccat + @"\" + macname;
+                scrspath = workingDir + @"\conf\scripts";
+                wippath = workingDir + @"\wip";
+                tmppath = workingDir + @"\temp";
+                donepath = workingDir + @"\done";
+                fileconfpath = workingDir + @"\conf\fileconf.yaml";
+                fileconf = CommonFuncs.YamlFileReader(fileconfpath, ref msg);
 
-                if (!bbx_usebat.Checked)
+                try
                 {
-                       downloadWithFluentFTP(macplcConf);
-                }
-                else
-                {
-                    downloadWithVbScript(macplcConf);
-                    
-                }
+                    if (macplcConf.ipa == null)
+                    {
+                        FetchConsoleShow("PLCの設定が正しく行われていないようです", 5);
+                        return;
+                    }
 
+                    if (!cbx_usebat.Checked)
+                    {
+                        downloadWithFluentFTP(macplcConf);
+                    }
+                    else
+                    {
+                        downloadWithVbScript(macplcConf);
+
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    FetchConsoleShow(e.Message, 5);
+                }
             }
-            catch (Exception e)
-            {
-                FetchConsoleShow(e.Message, 5);
-            }
-
-            
         }
 
         public async void downloadWithVbScript(PLCconf macplcConf)
@@ -339,11 +359,7 @@ namespace FileIf
                 scriptProc.Close();
                 // Log.txt読込
                 var loglst = new List<string>();
-                var enc = "UTF-8";
-                if (scr.ToString().Contains(".bat"))
-                {
-                    enc = "shift-jis";
-                }
+                var enc = "shift-jis";
                 if (!CommonFuncs.ReadTextFileLine(wippath + @"\log.txt", ref loglst, enc)){
                     FetchConsoleShow("ログの読込が失敗しています", 5);
                     break;
@@ -793,6 +809,50 @@ namespace FileIf
 
         }
 
+        private void AutoFecthTimer_Tick(object sender, EventArgs e)
+        {
+            //DownloadFile();
+            longtask();
+            FetchConsoleShow("自動取得タイマー稼働中", 1);
+        }
+
+        private void longtask()
+        {
+            lock (this.autofetchlock)
+            {
+                Thread.Sleep(2000);
+            }
+            
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AutoFecthTimer.Interval = int.Parse(cbx_autofetchInterval.Text) * 60000;
+        }
+
+        private void cbx_autofetch_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbx_autofetch.Checked)
+            {
+                DialogResult dr = MessageBox.Show("ファイル自動取得を開始します", "確認", MessageBoxButtons.YesNo);
+
+                if (dr == System.Windows.Forms.DialogResult.Yes)
+                {
+                    AutoFecthTimer.Enabled = true;
+                    toolStripStatusLabel1.Text = "ファイル自動取得実行中";
+                }
+            }
+            else
+            {
+                DialogResult dr = MessageBox.Show("ファイル自動取得を中止します", "確認", MessageBoxButtons.YesNo);
+
+                if (dr == System.Windows.Forms.DialogResult.Yes)
+                {
+                    AutoFecthTimer.Enabled = false;
+                    toolStripStatusLabel1.Text = "ファイル自動取得停止中";
+                }
+            }
+        }
     }
 
 }

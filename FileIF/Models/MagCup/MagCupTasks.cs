@@ -506,6 +506,7 @@ namespace FileIf
         }
     }
 
+
     //
     // CUPファイル：樹脂配合材料配合完了
     //
@@ -568,6 +569,9 @@ namespace FileIf
 
     //
     // CUPファイル：樹脂配合撹拌完了
+    // ********************************
+    // 2022.11.16 cokに移行の為、廃止
+    // ********************************
     //
     class TaskFile_cot2 // cot2ファイル
     {
@@ -595,6 +599,69 @@ namespace FileIf
                 string[] cupdata = Cupdataline[0].Split(',');
 
                 product_out = cupdata[0];
+
+                return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
+            }
+            catch (Exception ex)
+            {
+                msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
+                return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
+            }
+        }
+    }
+
+
+    //
+    // CUPファイル：樹脂配合撹拌開始
+    //
+    class TaskFile_cok1 // cok1ファイル
+    {
+        public string fileId { get; set; } = "_cok1.csv";
+
+    }
+
+
+
+    //
+    // CUPファイル：樹脂配合撹拌完了
+    //
+    class TaskFile_cok2 // cot2ファイル
+    {
+        public string fileId { get; set; } = "_cok2.csv";
+
+        public string Result { get; set; }
+        public string ErrorCode { get; set; }
+
+        public Task_Ret ReadCok2FileTask(int taskid, Mcfilesys fs, ref Dictionary<string, string> Dict, ref string Dbgmsg)
+        {
+            string msg = "";
+            //CommonFuncs commons = new CommonFuncs();
+            Tasks_Common tcommons = new Tasks_Common();
+
+            try
+            {
+                string[] contents;
+                string content = "";
+                if (!CommonFuncs.ReadTextFile(fs.filepath, ref content))
+                {
+                    string mes = content;
+                    msg = tcommons.ErrorMessage(taskid, fs, mes);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
+                }
+                contents = content.Split(',');
+
+                Result = contents[0];
+                if (contents.Length == 2)
+                    ErrorCode = contents[1];
+
+                if (Result == "ERROR")
+                {
+                    string mes = $"エラー通知(No.{ErrorCode}受信、全タスクを中止します";
+                    msg = tcommons.ErrorMessage(taskid, fs, mes);
+                    Dbgmsg += "STA処理で設備側からタスクのキャンセル要求がありました";
+                    //return new string[] { retkey.cancel, msg, Dbgmsg, taskid.ToString() };
+                    return tcommons.MakeRet(retkey.cancel, msg, Dbgmsg, (int)retcode.Cancel);
+                }
 
                 return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
             }

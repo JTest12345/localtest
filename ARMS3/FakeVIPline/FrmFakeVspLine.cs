@@ -435,6 +435,29 @@ namespace ARMS3.FakeVSPline
             currentProfileWordAddress = "W0012A6",
             ovenProcessStatusWordAddress = "W00126F"
         };
+        // ダイボンド1号機
+        DieBonder DB_01 = new DieBonder()
+        {
+            macname = "ダイボンド1号機(ZE用)",
+            macno = "104331",
+            macLogOriginFolder = "C:\\QCIL\\MacLogOrigin\\DBZ\\",
+            //Bit Props
+            machineReadyBitAddress = "B000101",
+            loaderReqBitAddress = "B000103",
+            unloaderReqBitAddress = "B000106",
+            clearMagazinesBitAddress = "B0000C0",
+            waferBitAddressStart = "B000108",
+            startWorkTableSensorAddress = "B000107",
+            waferChangerChangeBitAddress = "B00011B",
+            empMagUnloaderReqBitAddress = "B000104",
+            empMagLoaderReqBitAddress = "B000105",
+            inputForbiddenBitAddress = "B000080",
+            dischargeModeBitAddress = "B0000A0",
+            secondLoaderReqBitAddress = "B00011D",
+            secondEmpMagLoaderReqBitAddress = "B00011F",
+            //Word Props
+            prioritySettingAddress = "W000080",
+        };
         // ダイボンド4号機
         DieBonder DB_04 = new DieBonder()
         {
@@ -616,7 +639,7 @@ namespace ARMS3.FakeVSPline
         public Dictionary<string, IDebugMac> DebugMacs;
         public Dictionary<string, string> ProcessName;
         string workheader = string.Empty;
-        string EicsParam_TypeCode = "CL-A160-1W9-S4";
+        string EicsParam_TypeCode = "CU0409-1212E1W11-00E-6212";
 
         public FrmFakeNline()
         {
@@ -661,22 +684,28 @@ namespace ARMS3.FakeVSPline
             // プロセス定義
             ProcessName = new Dictionary<string, string>
             {
-                { "1", "Zeダイボンド@tb_M1DB" },
-                { "2", "Zeオーブン@tb_DBOVEN" },
-                { "4", "LEDダイボンド@tb_LEDDB" },
-                { "5", "硬化前プラズマ@tb_DBPL" },
-                { "7", "DBオーブン@tb_DBOVEN" },
-                { "8", "WB前プラズマ@tb_WBPL" },
-                { "9", "ワイヤーボンド@tb_WB" },
-                { "10", "検査機@tb_AVI" },
-                { "22", "WBオーブン@tb_WBOVN" },
-                { "23", "スパッタ@tb_SUP" },
-                { "12", "MD作業@tb_MD" },
-                { "13", "遠心沈降作業@tb_ECK" },
-                { "18", "マガジン交換前待機_@tb_GBMEX" },
-                { "14", "MD硬化作業@tb_MDOVN" },
-                { "15", "ダイシング作業@tb_DC" },
-                { "24", "ダム/ダム潰し/ﾌﾟﾗｽﾞﾏ@tb_DAM" },
+                { "3", "LEDダイボンド@tb_LEDDB" },
+                { "4", "Zeダイボンド@tb_M1DB" },
+                { "5", "Zeオーブン@tb_DBOVEN" },
+                { "6", "DBキュア@tb_DBOVEN" },
+                { "7", "WB前プラズマ@tb_DBPL" },
+                { "8", "ワイヤーボンド@tb_WB" }
+                //{ "1", "Zeダイボンド@tb_M1DB" },
+                //{ "2", "Zeオーブン@tb_DBOVEN" },
+                //{ "4", "LEDダイボンド@tb_LEDDB" },
+                //{ "5", "硬化前プラズマ@tb_DBPL" },
+                //{ "7", "DBオーブン@tb_DBOVEN" },
+                //{ "8", "WB前プラズマ@tb_WBPL" },
+                //{ "9", "ワイヤーボンド@tb_WB" },
+                //{ "10", "検査機@tb_AVI" },
+                //{ "22", "WBオーブン@tb_WBOVN" },
+                //{ "23", "スパッタ@tb_SUP" },
+                //{ "12", "MD作業@tb_MD" },
+                //{ "13", "遠心沈降作業@tb_ECK" },
+                //{ "18", "マガジン交換前待機_@tb_GBMEX" },
+                //{ "14", "MD硬化作業@tb_MDOVN" },
+                //{ "15", "ダイシング作業@tb_DC" },
+                //{ "24", "ダム/ダム潰し/ﾌﾟﾗｽﾞﾏ@tb_DAM" },
             };
 
             // コンボボックスcb_naacnameに装置名称追加
@@ -691,40 +720,41 @@ namespace ARMS3.FakeVSPline
 
             // Tab内オブジェクト初期化
             //Ze
-            cb_zedbno.SelectedIndex = 1;
+            cb_zedbno.SelectedIndex = 0;
             cmb_zdbpram.SelectedIndex = 0;
             //ovn
-            cb_dbovnno.SelectedIndex = 1;
+            cb_dbovnno.SelectedIndex = 0;
             cb_dbovn_procno.SelectedIndex = 0;
             cb_dbovnProfile.SelectedIndex = 0;
             //led
             cb_leddbno.SelectedIndex = 0;
-            cb_leddb_fromDBOVNno.SelectedIndex = 1;
-            cb_leddb_fromDBOVNSlot.SelectedIndex = 0;
-            cmb_leddbparam.SelectedIndex = 0;
+            //cb_leddb_fromDBOVNno.SelectedIndex = 1;
+            //cb_leddb_fromDBOVNSlot.SelectedIndex = 0;
+            //cmb_leddbparam.SelectedIndex = 0;
+
             //dbpl
-            //wbpl
-            cb_wbpl_fromDBOVNno.SelectedIndex = 1;
-            cb_wbpl_fromDBOVNSlot.SelectedIndex = 0;
-            //wb
-            cb_wbno.SelectedIndex = 1;
-            cmb_eicslog.SelectedIndex = 0;
-            //avi
-            cb_avi_fromwb.SelectedIndex = 1;
-            //md
-            cb_mb_macno.SelectedIndex = 0;
-            //eck
-            cb_eck_frommdno.SelectedIndex = 0;
-            cb_eck_lrba.SelectedIndex = 0;
-            cb_eck_ulrba.SelectedIndex = 0;
-            //gb,mex
-            cb_gb_lrba_bfno.SelectedIndex = 0;
-            cb_gb_ulrba_bfno.SelectedIndex = 0;
-            //mdovn
-            cb_mdovn_macno.SelectedIndex = 0;
-            cb_mdovnProfile.SelectedIndex = 0;
-            //dam
-            cb_dam_procno.SelectedIndex = 0;
+            ////wbpl
+            //cb_wbpl_fromDBOVNno.SelectedIndex = 1;
+            //cb_wbpl_fromDBOVNSlot.SelectedIndex = 0;
+            ////wb
+            //cb_wbno.SelectedIndex = 1;
+            //cmb_eicslog.SelectedIndex = 0;
+            ////avi
+            //cb_avi_fromwb.SelectedIndex = 1;
+            ////md
+            //cb_mb_macno.SelectedIndex = 0;
+            ////eck
+            //cb_eck_frommdno.SelectedIndex = 0;
+            //cb_eck_lrba.SelectedIndex = 0;
+            //cb_eck_ulrba.SelectedIndex = 0;
+            ////gb,mex
+            //cb_gb_lrba_bfno.SelectedIndex = 0;
+            //cb_gb_ulrba_bfno.SelectedIndex = 0;
+            ////mdovn
+            //cb_mdovn_macno.SelectedIndex = 0;
+            //cb_mdovnProfile.SelectedIndex = 0;
+            ////dam
+            //cb_dam_procno.SelectedIndex = 0;
         }
 
         // Combobox router
@@ -770,6 +800,16 @@ namespace ARMS3.FakeVSPline
             {
                 case "04":
                     return DB_04;
+            }
+            return new DieBonder();
+        }
+
+        private DieBonder ZDDBComboRouter(string macno)
+        {
+            switch (macno)
+            {
+                case "01":
+                    return DB_01;
             }
             return new DieBonder();
         }
@@ -2093,824 +2133,823 @@ namespace ARMS3.FakeVSPline
             }
         }
 
-        // WBプラズマ
-        private void btn_llkey1_on_Click(object sender, EventArgs e)
-        {
-            SetBit(WBPL_01.loader_lane_key1, "1");
-            btn_wbpl_llkey1_on.Enabled = false;
-            btn_wbpl_llkey1_off.Enabled = true;
-            ConsoleShow("ローダー1実マガジン供給要求ON");
-        }
-
-        private void btn_llkey1_off_Click(object sender, EventArgs e)
-        {
-            SetBit(WBPL_01.loader_lane_key1, "0");
-            btn_wbpl_llkey1_on.Enabled = true;
-            btn_wbpl_llkey1_off.Enabled = false;
-            ConsoleShow("ローダー1実マガジン供給要求OFF");
-        }
-
-        private void btn_emlkey1_on_Click(object sender, EventArgs e)
-        {
-            SetBit(WBPL_01.empMagLoader_lane_key1, "1");
-            btn_wbpl_emlkey1_on.Enabled = false;
-            btn_wbpl_emlkey1_off.Enabled = true;
-            ConsoleShow("空マガジン供給-1要求ON");
-        }
-
-        private void btn_emlkey1_off_Click(object sender, EventArgs e)
-        {
-            SetBit(WBPL_01.empMagLoader_lane_key1, "0");
-            btn_wbpl_emlkey1_on.Enabled = true;
-            btn_wbpl_emlkey1_off.Enabled = false;
-            ConsoleShow("空マガジン供給-1要求OFF");
-        }
-
-        private void btn_wbpl__ulkey1_on_Click(object sender, EventArgs e)
-        {
-            SetBit(WBPL_01.unloader_lane_key1, "1");
-            btn_wbpl_ulkey1_on.Enabled = false;
-            btn_wbpl_ulkey1_off.Enabled = true;
-            ConsoleShow("実マガジン排出-1要求ON");
-        }
-
-        private void btn_wbpl__ulkey1_off_Click(object sender, EventArgs e)
-        {
-            SetBit(WBPL_01.unloader_lane_key1, "0");
-            btn_wbpl_ulkey1_on.Enabled = true;
-            btn_wbpl_ulkey1_off.Enabled = false;
-            ConsoleShow("実マガジン排出-1要求OFF");
-        }
-
-        private void lb_wbpl_llkey1_Click(object sender, EventArgs e)
-        {
-            ConsoleShow(WBPL_01.loader_lane_key1);
-        }
-
-        private void lb_wbpl_emllkey1_Click(object sender, EventArgs e)
-        {
-            ConsoleShow(WBPL_01.empMagLoader_lane_key1);
-        }
-
-        private void lb_wbpl_ullkey1_Click(object sender, EventArgs e)
-        {
-            ConsoleShow(WBPL_01.unloader_lane_key1);
-        }
-
-        // WB
-
-
-        // AVI
-        private void btn_avi_readQr_Click(object sender, EventArgs e)
-        {
-            ReadAviQrCode(txt_avi_qrcode.Text);
-        }
-
-        public bool ReadAviQrCode(string qrword)
-        {
-            if (SetString(AVI_01.ulMagazineAddress, qrword))
-            {
-                ConsoleShow("排出Magno(AVI)に[" + qrword + "]を書き込みました");
-                return true;
-            }
-            else
-            {
-                ConsoleShow("QRのデータ書き込みが失敗しました");
-            }
-
-            return false;
-        }
-
-        //WBOVN
-        private void btn_wbovn_get_lastLotno_Click(object sender, EventArgs e)
-        {
-            txt_wbovn_lotno.Text = getLastLotNo();
-        }
-
-        private void btn_wbovn_appendTntran_Click(object sender, EventArgs e)
-        {
-            var lotno = txt_wbovn_lotno.Text;
-            var magno = txt_wbovn_m_auto.Text.Replace("C30 ", "");
-            appendWBOVNTran(lotno, magno);
-        }
-
-        private void btn_wbovn_updateTnMag_Click(object sender, EventArgs e)
-        {
-            var lotno = txt_wbovn_lotno.Text;
-            var magno = txt_wbovn_m_auto.Text.Replace("C30 ", "");
-            updateTnMag(22, lotno, magno);
-        }
-
-        public bool appendWBOVNTran(string lotno, string magno)
-        {
-            try
-            {
-                DateTime dt = DateTime.Now;
-
-                using (SqlConnection con = new SqlConnection(Config.Settings.LocalConnString))
-                using (SqlCommand cmd = con.CreateCommand())
-                {
-                    con.Open();
-                    cmd.CommandText = $"INSERT INTO[dbo].[TnTran] ";
-                    cmd.CommandText += "([lotno]";
-                    cmd.CommandText += ",[procno]";
-                    cmd.CommandText += ",[macno]";
-                    cmd.CommandText += ",[inmag]";
-                    cmd.CommandText += ",[outmag]";
-                    cmd.CommandText += ",[startdt]";
-                    cmd.CommandText += ",[enddt]";
-                    cmd.CommandText += ",[iscomplt]";
-                    cmd.CommandText += ",[stocker1]";
-                    cmd.CommandText += ",[stocker2]";
-                    cmd.CommandText += ",[comment]";
-                    cmd.CommandText += ",[transtartempcd]";
-                    cmd.CommandText += ",[trancompempcd]";
-                    cmd.CommandText += ",[inspectempcd]";
-                    cmd.CommandText += ",[inspectct]";
-                    cmd.CommandText += ",[isnascastart]";
-                    cmd.CommandText += ",[isnascaend]";
-                    cmd.CommandText += ",[isnascadefectend]";
-                    cmd.CommandText += ",[isnascacommentend]";
-                    cmd.CommandText += ",[delfg]";
-                    cmd.CommandText += ",[isdefectend]";
-                    cmd.CommandText += ",[isdefectautoimportend]";
-                    cmd.CommandText += ",[isnascarunning]";
-                    cmd.CommandText += ",[isautoimport]";
-                    cmd.CommandText += ",[isresinmixordered])";
-                    cmd.CommandText += " VALUES";
-                    cmd.CommandText += $"(('{lotno} ')";
-                    cmd.CommandText += ",(22)";
-                    cmd.CommandText += ",(122301)";
-                    cmd.CommandText += $",('{magno}')";
-                    cmd.CommandText += $",('{magno}')";
-                    cmd.CommandText += $",('{dt.ToString()} ')";
-                    cmd.CommandText += $",('{dt.ToString()}')";
-                    cmd.CommandText += ",(1)";
-                    cmd.CommandText += ",(null)";
-                    cmd.CommandText += ",(null)";
-                    cmd.CommandText += ",''";
-                    cmd.CommandText += ",(211105)";
-                    cmd.CommandText += ",(211105)";
-                    cmd.CommandText += ",''";
-                    cmd.CommandText += ",(0)";
-                    cmd.CommandText += ",(0)";
-                    cmd.CommandText += ",(0)";
-                    cmd.CommandText += ",(null)";
-                    cmd.CommandText += ",(null)";
-                    cmd.CommandText += ",(0)";
-                    cmd.CommandText += ",(1)";
-                    cmd.CommandText += ",(0)";
-                    cmd.CommandText += ",(0)";
-                    cmd.CommandText += " ,(0)";
-                    cmd.CommandText += " ,(0))";
-
-                    string Result = (cmd.ExecuteScalar() ?? string.Empty).ToString().Trim();
-
-                    con.Close();
-
-                    return true;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                ConsoleShow(ex.ToString());
-                return false;
-            }
-        }
-
-        // Suputter
-        private void btn_sup_Ldcmpl_off_Click(object sender, EventArgs e)
-        {
-            bsup_Ldcmpl_offk();
-        }
-        public void bsup_Ldcmpl_offk()
-        {
-            if (!SetBit(SUP_01.loaderMachineSelectCompleteBitAddress, "0"))
-            {
-                ConsoleShow("スパッタ(loaderMachineSelectCompleteBit)が書き込めませんでした");
-            }
-        }
-
-        private void btn_sup_Ulcmpl_on_Click(object sender, EventArgs e)
-        {
-            var macno = txt_sup_ulno.Text;
-            sup_Ulcmpl_on(macno);
-        }
-        public void sup_Ulcmpl_on(string macno)
-        {
-            if (!SetString(SUP_01.unloaderMachineNoAddress, macno))
-            {
-                ConsoleShow("スパッタ(UL)設備Noが書き込めませんでした");
-            }
-        }
-
-        private void btn_sup_Ldcmpl_on_Click(object sender, EventArgs e)
-        {
-            var macno = txt_sup_ldno.Text;
-            sup_Ldcmpl_on(macno);
-        }
-        public void sup_Ldcmpl_on(string macno)
-        {
-            if (!SetString(SUP_01.loaderMachineNoAddress, macno))
-            {
-                ConsoleShow("スパッタ(LD)設備Noが書き込めませんでした");
-            }
-        }
-
-        private void btn_sup_Inmag_on_Click(object sender, EventArgs e)
-        {
-            var magno = txt_sup_inmagno.Text;
-            sup_Inmag_on(magno);
-        }
-        public void sup_Inmag_on(string magno)
-        {
-            if (!SetString(SUP_01.loaderMagazineAddress, magno))
-            {
-                ConsoleShow("スパッタのINMAG番号が書き込めませんでした");
-            }
-            if (!SetBit(SUP_01.loaderQRReadCompleteBitAddress, "1"))
-            {
-                ConsoleShow("スパッタ(loaderQRReadCompleteBitAddress)が書き込めませんでした");
-            }
-        }
-
-        private void btn_sup_Outmag_on_Click(object sender, EventArgs e)
-        {
-            var magno = txt_sup_outmagno.Text;
-            sup_Outmag_on(magno);
-        }
-        public void sup_Outmag_on(string magno)
-        {
-            if (!SetString(SUP_01.unloaderMagazineAddress, magno))
-            {
-                ConsoleShow("スパッタのOUTMAG番号が書き込めませんでした");
-            }
-            if (!SetBit(SUP_01.unloaderQRReadCompleteBitAddress, "1"))
-            {
-                ConsoleShow("スパッタ(unloaderQRReadCompleteBitAddress)が書き込めませんでした");
-            }
-        }
-
-        private void btn_sup_Inmag_off_Click(object sender, EventArgs e)
-        {
-            sup_Inmag_off();
-        }
-        public void sup_Inmag_off()
-        {
-            if (!SetBit(SUP_01.loaderQRReadCompleteBitAddress, "0"))
-            {
-                ConsoleShow("スパッタ(loaderQRReadCompleteBitAddress)が書き込めませんでした");
-            }
-        }
-
-        private void btn_sup_Outmag_off_Click(object sender, EventArgs e)
-        {
-            sup_Outmag_off();
-        }
-        public void sup_Outmag_off()
-        {
-            if (!SetBit(SUP_01.unloaderQRReadCompleteBitAddress, "0"))
-            {
-                ConsoleShow("スパッタ(unloaderQRReadCompleteBitAddress)が書き込めませんでした");
-            }
-        }
-
-        private void btn_sup_lmscba_on_Click(object sender, EventArgs e)
-        {
-            sup_lmscba_on();
-        }
-        public void sup_lmscba_on()
-        {
-            if (!SetBit(SUP_01.loaderMachineSelectCompleteBitAddress, "1"))
-            {
-                ConsoleShow("スパッタ(loaderMachineSelectCompleteBit)が書き込めませんでした");
-            }
-        }
-
-        private void btn_sup_lmscba_off_Click(object sender, EventArgs e)
-        {
-            sup_lmscba_off();
-        }
-        public void sup_lmscba_off()
-        {
-            if (!SetBit(SUP_01.loaderMachineSelectCompleteBitAddress, "0"))
-            {
-                ConsoleShow("スパッタ(loaderMachineSelectCompleteBit)が書き込めませんでした");
-            }
-        }
-
-        private void lb_sup_ldno_Click(object sender, EventArgs e)
-        {
-            ConsoleShow(SUP_01.loaderMachineNoAddress);
-        }
-
-        private void lb_sup_ulno_Click(object sender, EventArgs e)
-        {
-            ConsoleShow(SUP_01.unloaderMachineNoAddress);
-        }
-
-        private void lb_sup_inmag_Click(object sender, EventArgs e)
-        {
-            ConsoleShow(SUP_01.loaderMagazineAddress + " " + SUP_01.loaderQRReadCompleteBitAddress);
-        }
-
-        private void lb_sup_outmag_Click(object sender, EventArgs e)
-        {
-            ConsoleShow(SUP_01.unloaderMagazineAddress + " " + SUP_01.unloaderQRReadCompleteBitAddress);
-        }
-
-        private void ib_sup_lmscba_Click(object sender, EventArgs e)
-        {
-            ConsoleShow(SUP_01.loaderMachineSelectCompleteBitAddress);
-        }
-
-        private void btn_sup_starttime_Click(object sender, EventArgs e)
-        {
-            var dt = DateTime.Now;
-            SetDateTime2Word(SUP_01.workStartTimeAddress, dt);
-        }
-
-        private void btn_sup_comptime_Click(object sender, EventArgs e)
-        {
-            var dt = DateTime.Now;
-            SetDateTime2Word(SUP_01.workCompleteTimeAddress, dt);
-        }
-
-        private void lb_sup_stacomptime_Click(object sender, EventArgs e)
-        {
-            ConsoleShow(SUP_01.workStartTimeAddress + " " + SUP_01.workCompleteTimeAddress);
-        }
-
-        private void btn_sup_logout_Click(object sender, EventArgs e)
-        {
-            var macInstance = SUP_01;
-            //
-            // log file words
-            //
-            var MLfolderpath = "";
-            if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
-            {
-                ConsoleShow(MLfolderpath);
-                return;
-            }
-            var logfiledict = new Dictionary<string, string>
-            {
-                { "@magno", txt_sup_m_auto.Text },
-                { "@kishumei", $"{EicsParam_TypeCode}" }
-            };
-            var msg = "";
-            var dt = DateTime.Now;
-            var MLSriname = dt.ToString("ddHHmmss");
-            var Targetfld = MLfolderpath + $"03_auto\\{MLSriname}";
-
-            if (!Directory.Exists(Targetfld))
-            {
-                Directory.CreateDirectory(Targetfld);
-            }
-
-            if (!CreateMLog(macInstance.macLogOriginFolder + "_03_auto_\\_03_auto_A.CSV", Targetfld + "\\_03_auto_" + MLSriname + "A.CSV", logfiledict, ref msg))
-            {
-                ConsoleShow(msg);
-                return;
-            }
-            if (!CreateMLog(macInstance.macLogOriginFolder + "_03_auto_\\_03_auto_B.CSV", Targetfld + "\\_03_auto_" + MLSriname + "B.CSV", logfiledict, ref msg))
-            {
-                ConsoleShow(msg);
-                return;
-            }
-            if (!CreateMLog(macInstance.macLogOriginFolder + "_03_auto_\\_03_auto_C.CSV", Targetfld + "\\_03_auto_" + MLSriname + "C.CSV", logfiledict, ref msg))
-            {
-                ConsoleShow(msg);
-                return;
-            }
-
-            // +++ Wait +++
-            Thread.Sleep(2000);
-
-            ConsoleShow("■■■マガジン別データ・自動出力データを出力開始■■■");
-
-        }
-
-        // MD
-
-        private void btn_md_readBuff_Click(object sender, EventArgs e)
-        {
-            var ldvol = int.Parse(txt_md_ldvol.Text);
-            var eldvol = int.Parse(txt_md_empldvol.Text);
-            var uldvol = int.Parse(txt_md_uldvol.Text);
-            var euldvol = int.Parse(txt_md_empuldvol.Text);
-            md_readBuff(ldvol, eldvol, uldvol, euldvol);
-            ConsoleShow("バッファ数登録をしました");
-        }
-        public void md_readBuff(int ldvol, int empldvol, int uldvol, int empuldvol)
-        {
-            SetWordAsDecimalData(MD_01.lMagazineCountAddress, ldvol);
-            SetWordAsDecimalData(MD_01.elMagazineCountAddress, empldvol);
-            SetWordAsDecimalData(MD_01.ulMagazineCountAddress, uldvol);
-            SetWordAsDecimalData(MD_01.eulMagazineCountAddress, empuldvol);
-        }
-
-        private void btn_md_magno_Click(object sender, EventArgs e)
-        {
-            var inmagno = txt_md_inmagno.Text;
-            md_inmagno(inmagno);
-            ConsoleShow("INマガジンNoを登録しました");
-            //開始完了時間メモリ(PLC)に書き込み
-            var dt = DateTime.Now;
-            SetDateTime2Word(MD_01.workStartTimeAddress, dt);
-            ConsoleShow("PLCに開始時間を登録しました");
-        }
-
-        private void btn_md_outmagno1_Click(object sender, EventArgs e)
-        {
-            var outmagno_1 = txt_md_outmagno1.Text;
-            md_outmagno(outmagno_1);
-            ConsoleShow("OUTマガジンNoを登録しました");
-            //開始完了時間メモリ(PLC)に書き込み
-            var dt = DateTime.Now;
-            SetDateTime2Word(MD_01.workCompleteTimeAddress, dt);
-            ConsoleShow("PLCに完了時間を登録しました");
-        }
-
-        private void btn_md_outmagno2_Click(object sender, EventArgs e)
-        {
-            var outmagno_2 = txt_md_outmagno2.Text;
-            md_outmagno(outmagno_2);
-            ConsoleShow("OUTマガジンNoを登録しました");
-            //開始完了時間メモリ(PLC)に書き込み
-            var dt = DateTime.Now;
-            SetDateTime2Word(MD_01.workCompleteTimeAddress, dt);
-            ConsoleShow("PLCに完了時間を登録しました");
-        }
-
-        public void md_inmagno(string inmagno)
-        {
-            SetString(MD_01.lMagazineAddress, inmagno);
-        }
-
-        public void md_outmagno(string outmagno)
-        {
-            SetString(MD_01.ulMagazineAddress, outmagno);
-        }
-
-        //ECK
-        private void btn_eck_lrba_on_Click(object sender, EventArgs e)
-        {
-            var slotno = int.Parse(cb_eck_lrba.Text);
-            SetEckLrba(slotno, "1");
-            ConsoleShow($"供給({slotno})要求をONしました");
-        }
-
-        private void btn_eck_lrba_off_Click(object sender, EventArgs e)
-        {
-            var slotno = int.Parse(cb_eck_lrba.Text);
-            SetEckLrba(slotno, "0");
-            ConsoleShow($"供給({slotno})要求をOFFしました");
-        }
-
-        private void btn_eck_ulrba_on_Click(object sender, EventArgs e)
-        {
-            var slotno = int.Parse(cb_eck_lrba.Text);
-            SetEckUlrba(slotno, "1");
-            ConsoleShow($"排出({slotno})要求要求をONしました");
-            var outmagno = txt_eck_outmagno.Text;
-            SetString(ECK_01.ulMagazineAddress, outmagno);
-            ConsoleShow("OUTマガジンNoを登録しました");
-            //開始完了時間メモリ(PLC)に書き込み
-            var dt = DateTime.Now;
-            SetDateTime2Word(ECK_01.workStartTimeAddress, dt);
-            SetDateTime2Word(ECK_01.workCompleteTimeAddress, dt);
-            ConsoleShow("PLCに完了時間を登録しました");
-        }
-
-        private void btn_eck_ulrba_off_Click(object sender, EventArgs e)
-        {
-            var slotno = int.Parse(cb_eck_lrba.Text);
-            SetEckUlrba(slotno, "0");
-            ConsoleShow($"排出({slotno})要求要求をOFFしました");
-        }
-
-        public void SetEckLrba(int slotno, string onoff)
-        {
-            switch (slotno)
-            {
-                case 1:
-                    SetBit(ECK_01.loaderReqBitAddress1, onoff);
-                    break;
-                case 2:
-                    SetBit(ECK_01.loaderReqBitAddress2, onoff);
-                    break;
-                case 3:
-                    SetBit(ECK_01.loaderReqBitAddress3, onoff);
-                    break;
-                case 4:
-                    SetBit(ECK_01.loaderReqBitAddress4, onoff);
-                    break;
-                case 5:
-                    SetBit(ECK_01.loaderReqBitAddress5, onoff);
-                    break;
-                case 6:
-                    SetBit(ECK_01.loaderReqBitAddress6, onoff);
-                    break;
-            }
-        }
-        public void SetEckUlrba(int slotno, string onoff)
-        {
-            switch (slotno)
-            {
-                case 1:
-                    SetBit(ECK_01.unloaderReqBitAddress1, onoff);
-                    break;
-                case 2:
-                    SetBit(ECK_01.unloaderReqBitAddress2, onoff);
-                    break;
-                case 3:
-                    SetBit(ECK_01.unloaderReqBitAddress3, onoff);
-                    break;
-                case 4:
-                    SetBit(ECK_01.unloaderReqBitAddress4, onoff);
-                    break;
-                case 5:
-                    SetBit(ECK_01.unloaderReqBitAddress5, onoff);
-                    break;
-                case 6:
-                    SetBit(ECK_01.unloaderReqBitAddress6, onoff);
-                    break;
-            }
-        }
-
-        //GB/MEX
-        private void btn_gb_lrba_on_Click(object sender, EventArgs e)
-        {
-            var slotno = int.Parse(cb_gb_lrba_bfno.Text);
-            SetGBLrba(slotno, "1");
-            ConsoleShow($"供給({slotno})要求をONしました");
-        }
-
-        private void btn_gb_lrba_off_Click(object sender, EventArgs e)
-        {
-            var slotno = int.Parse(cb_gb_lrba_bfno.Text);
-            SetGBLrba(slotno, "0");
-            ConsoleShow($"供給({slotno})要求をOFFしました");
-        }
-
-        private void btn_gb_ulrba_on_Click(object sender, EventArgs e)
-        {
-            var slotno = int.Parse(cb_gb_ulrba_bfno.Text);
-            SetGBUlrba(slotno, "1");
-            ConsoleShow($"排出({slotno})要求をONしました");
-        }
-
-        private void btn_gb_ulrba_off_Click(object sender, EventArgs e)
-        {
-            var slotno = int.Parse(cb_gb_ulrba_bfno.Text);
-            SetGBUlrba(slotno, "0");
-            ConsoleShow($"排出({slotno})要求をOFFしました");
-        }
-
-        public void SetGBLrba(int slotno, string onoff)
-        {
-            switch (slotno)
-            {
-                case 1:
-                    SetBit(GB_01.loaderReqBitAddress, onoff);
-                    break;
-                case 2:
-                    SetBit(GB_02.loaderReqBitAddress, onoff);
-                    break;
-                case 3:
-                    SetBit(GB_03.loaderReqBitAddress, onoff);
-                    break;
-            }
-        }
-        public void SetGBUlrba(int slotno, string onoff)
-        {
-            switch (slotno)
-            {
-                case 1:
-                    SetBit(GB_01.unloaderReqBitAddress, onoff);
-                    break;
-                case 2:
-                    SetBit(GB_02.unloaderReqBitAddress, onoff);
-                    break;
-                case 3:
-                    SetBit(GB_03.unloaderReqBitAddress, onoff);
-                    break;
-            }
-        }
-
-        private void btn_gb_getmag_Click(object sender, EventArgs e)
-        {
-            Rb_GetMag();
-            SetBit(NicConv_01.magazineArriveBitAddress, "0");
-            bt_conv_nichiaMag_on.Enabled = true;
-
-            Thread.Sleep(2000);
-
-            var slotno = int.Parse(cb_gb_lrba_bfno.Text);
-            SetGBLrba(slotno, "0");
-            ConsoleShow($"供給({slotno})要求をOFFしました");
-            SetGBUlrba(slotno, "1");
-            ConsoleShow($"排出({slotno})要求をONしました");
-        }
-
-        private void btn_gb_getmag2_Click(object sender, EventArgs e)
-        {
-            Rb_GetMag();
-
-            Thread.Sleep(2000);
-
-            var slotno = int.Parse(cb_gb_lrba_bfno.Text);
-            SetGBUlrba(slotno, "0");
-            ConsoleShow($"排出({slotno})要求をOFFしました");
-        }
-
-        // MD-OVN
-        private void btn_mdovn_lrba_s1_on_Click(object sender, EventArgs e)
-        {
-            SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).loaderReqBitAddressList_addKey1, "1");
-            btn_mdovn_lrba_s1_on.Enabled = false;
-            btn_mdovn_lrba_s1_off.Enabled = true;
-            ConsoleShow("スロット1供給要求ON");
-        }
-
-        private void btn_mdovn_lrba_s1_off_Click(object sender, EventArgs e)
-        {
-            SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).loaderReqBitAddressList_addKey1, "0");
-            btn_mdovn_lrba_s1_on.Enabled = true;
-            btn_mdovn_lrba_s1_off.Enabled = false;
-            ConsoleShow("スロット1供給要求OFF");
-        }
-
-        private void btn_mdovn_lrba_s2_on_Click(object sender, EventArgs e)
-        {
-            SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).loaderReqBitAddressList_addKey2, "1");
-            btn_mdovn_lrba_s2_on.Enabled = false;
-            btn_mdovn_lrba_s2_off.Enabled = true;
-            ConsoleShow("スロット2供給要求ON");
-        }
-
-        private void btn_mdovn_lrba_s2_off_Click(object sender, EventArgs e)
-        {
-            SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).loaderReqBitAddressList_addKey2, "0");
-            btn_mdovn_lrba_s2_on.Enabled = true;
-            btn_mdovn_lrba_s2_off.Enabled = false;
-            ConsoleShow("スロット2供給要求OFF");
-        }
-
-        private void btn_mdovn_ulrba_s1_on_Click(object sender, EventArgs e)
-        {
-            SetDataTimeToOvenPlc(MDOVNComboRouter(cb_mdovn_macno.Text));
-            ConsoleShow("開始完了時刻を書き込んでいます:Wait1秒");
-            Thread.Sleep(1000);
-            SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).unloaderReqBitAddressList_addKey1, "1");
-            btn_ulrba_s1_on.Enabled = false;
-            btn_ulrba_s1_off.Enabled = true;
-            ConsoleShow("スロット1排出要求ON");
-        }
-
-        private void btn_mdovn_ulrba_s1_off_Click(object sender, EventArgs e)
-        {
-            SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).unloaderReqBitAddressList_addKey1, "0");
-            btn_ulrba_s1_on.Enabled = true;
-            btn_ulrba_s1_off.Enabled = false;
-            ConsoleShow("スロット1排出要求OFF");
-        }
-
-        private void btn_mdovn_ulrba_s2_on_Click(object sender, EventArgs e)
-        {
-            SetDataTimeToOvenPlc(MDOVNComboRouter(cb_mdovn_macno.Text));
-            ConsoleShow("開始完了時刻を書き込んでいます:Wait1秒");
-            Thread.Sleep(1000);
-            SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).unloaderReqBitAddressList_addKey2, "1");
-            btn_ulrba_s1_on.Enabled = false;
-            btn_ulrba_s1_off.Enabled = true;
-            ConsoleShow("スロット2排出要求ON");
-        }
-
-        private void btn_mdovn_ulrba_s2_off_Click(object sender, EventArgs e)
-        {
-            SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).unloaderReqBitAddressList_addKey2, "0");
-            btn_ulrba_s1_on.Enabled = true;
-            btn_ulrba_s1_off.Enabled = false;
-            ConsoleShow("スロット2排出要求OFF");
-        }
-
-        //DAM
-
-        private void bt_dam_get_lastLotno_Click(object sender, EventArgs e)
-        {
-            txt_dam_lotno.Text = getLastLotNo();
-        }
-
-        private void btn_dam_appendTntran_Click(object sender, EventArgs e)
-        {
-            var lotno = txt_dam_lotno.Text;
-            var magno = txt_dam_m_auto.Text.Replace("C30 ", "");
-            var procno = int.Parse(cb_dam_procno.Text);
-            var macno = 0;
-            if (procno == 24)
-            {
-                macno = 424001;
-            }
-            else if (procno == 25)
-            {
-                macno = 425001;
-            }
-            else
-            {
-                macno = 426001;
-            }
-            appendDAMTran(lotno, magno, procno, macno);
-        }
-
-        private void btn_dam_updateTnMag_Click(object sender, EventArgs e)
-        {
-            var lotno = txt_dam_lotno.Text;
-            var magno = txt_dam_m_auto.Text.Replace("C30 ", "");
-            var procno = int.Parse(cb_dam_procno.Text);
-            updateTnMag(procno, lotno, magno);
-        }
-
-        public bool appendDAMTran(string lotno, string magno, int procno, int macno)
-        {
-            try
-            {
-                DateTime dt = DateTime.Now;
-                //var procno = int.Parse(cb_dam_procno.Text);
-
-                using (SqlConnection con = new SqlConnection(Config.Settings.LocalConnString))
-                using (SqlCommand cmd = con.CreateCommand())
-                {
-                    con.Open();
-                    cmd.CommandText = $"INSERT INTO[dbo].[TnTran] ";
-                    cmd.CommandText += "([lotno]";
-                    cmd.CommandText += ",[procno]";
-                    cmd.CommandText += ",[macno]";
-                    cmd.CommandText += ",[inmag]";
-                    cmd.CommandText += ",[outmag]";
-                    cmd.CommandText += ",[startdt]";
-                    cmd.CommandText += ",[enddt]";
-                    cmd.CommandText += ",[iscomplt]";
-                    cmd.CommandText += ",[stocker1]";
-                    cmd.CommandText += ",[stocker2]";
-                    cmd.CommandText += ",[comment]";
-                    cmd.CommandText += ",[transtartempcd]";
-                    cmd.CommandText += ",[trancompempcd]";
-                    cmd.CommandText += ",[inspectempcd]";
-                    cmd.CommandText += ",[inspectct]";
-                    cmd.CommandText += ",[isnascastart]";
-                    cmd.CommandText += ",[isnascaend]";
-                    cmd.CommandText += ",[isnascadefectend]";
-                    cmd.CommandText += ",[isnascacommentend]";
-                    cmd.CommandText += ",[delfg]";
-                    cmd.CommandText += ",[isdefectend]";
-                    cmd.CommandText += ",[isdefectautoimportend]";
-                    cmd.CommandText += ",[isnascarunning]";
-                    cmd.CommandText += ",[isautoimport]";
-                    cmd.CommandText += ",[isresinmixordered])";
-                    cmd.CommandText += " VALUES";
-                    cmd.CommandText += $"(('{lotno} ')";
-                    cmd.CommandText += $",('{procno}')";
-                    cmd.CommandText += $",('{macno}')";
-                    cmd.CommandText += $",('{magno}')";
-                    cmd.CommandText += $",('{magno}')";
-                    cmd.CommandText += $",('{dt.ToString()} ')";
-                    cmd.CommandText += $",('{dt.ToString()}')";
-                    cmd.CommandText += ",(1)";
-                    cmd.CommandText += ",(null)";
-                    cmd.CommandText += ",(null)";
-                    cmd.CommandText += ",''";
-                    cmd.CommandText += ",(211105)";
-                    cmd.CommandText += ",(211105)";
-                    cmd.CommandText += ",''";
-                    cmd.CommandText += ",(0)";
-                    cmd.CommandText += ",(0)";
-                    cmd.CommandText += ",(0)";
-                    cmd.CommandText += ",(null)";
-                    cmd.CommandText += ",(null)";
-                    cmd.CommandText += ",(0)";
-                    cmd.CommandText += ",(1)";
-                    cmd.CommandText += ",(0)";
-                    cmd.CommandText += ",(0)";
-                    cmd.CommandText += " ,(0)";
-                    cmd.CommandText += " ,(0))";
-
-                    string Result = (cmd.ExecuteScalar() ?? string.Empty).ToString().Trim();
-
-                    con.Close();
-
-                    return true;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                ConsoleShow(ex.ToString());
-                return false;
-            }
-        }
+        //// WBプラズマ
+        //private void btn_llkey1_on_Click(object sender, EventArgs e)
+        //{
+        //    SetBit(WBPL_01.loader_lane_key1, "1");
+        //    btn_wbpl_llkey1_on.Enabled = false;
+        //    btn_wbpl_llkey1_off.Enabled = true;
+        //    ConsoleShow("ローダー1実マガジン供給要求ON");
+        //}
+
+        //private void btn_llkey1_off_Click(object sender, EventArgs e)
+        //{
+        //    SetBit(WBPL_01.loader_lane_key1, "0");
+        //    btn_wbpl_llkey1_on.Enabled = true;
+        //    btn_wbpl_llkey1_off.Enabled = false;
+        //    ConsoleShow("ローダー1実マガジン供給要求OFF");
+        //}
+
+        //private void btn_emlkey1_on_Click(object sender, EventArgs e)
+        //{
+        //    SetBit(WBPL_01.empMagLoader_lane_key1, "1");
+        //    btn_wbpl_emlkey1_on.Enabled = false;
+        //    btn_wbpl_emlkey1_off.Enabled = true;
+        //    ConsoleShow("空マガジン供給-1要求ON");
+        //}
+
+        //private void btn_emlkey1_off_Click(object sender, EventArgs e)
+        //{
+        //    SetBit(WBPL_01.empMagLoader_lane_key1, "0");
+        //    btn_wbpl_emlkey1_on.Enabled = true;
+        //    btn_wbpl_emlkey1_off.Enabled = false;
+        //    ConsoleShow("空マガジン供給-1要求OFF");
+        //}
+
+        //private void btn_wbpl__ulkey1_on_Click(object sender, EventArgs e)
+        //{
+        //    SetBit(WBPL_01.unloader_lane_key1, "1");
+        //    btn_wbpl_ulkey1_on.Enabled = false;
+        //    btn_wbpl_ulkey1_off.Enabled = true;
+        //    ConsoleShow("実マガジン排出-1要求ON");
+        //}
+
+        //private void btn_wbpl__ulkey1_off_Click(object sender, EventArgs e)
+        //{
+        //    SetBit(WBPL_01.unloader_lane_key1, "0");
+        //    btn_wbpl_ulkey1_on.Enabled = true;
+        //    btn_wbpl_ulkey1_off.Enabled = false;
+        //    ConsoleShow("実マガジン排出-1要求OFF");
+        //}
+
+        //private void lb_wbpl_llkey1_Click(object sender, EventArgs e)
+        //{
+        //    ConsoleShow(WBPL_01.loader_lane_key1);
+        //}
+
+        //private void lb_wbpl_emllkey1_Click(object sender, EventArgs e)
+        //{
+        //    ConsoleShow(WBPL_01.empMagLoader_lane_key1);
+        //}
+
+        //private void lb_wbpl_ullkey1_Click(object sender, EventArgs e)
+        //{
+        //    ConsoleShow(WBPL_01.unloader_lane_key1);
+        //}
+
+
+
+        //// AVI
+        //private void btn_avi_readQr_Click(object sender, EventArgs e)
+        //{
+        //    ReadAviQrCode(txt_avi_qrcode.Text);
+        //}
+
+        //public bool ReadAviQrCode(string qrword)
+        //{
+        //    if (SetString(AVI_01.ulMagazineAddress, qrword))
+        //    {
+        //        ConsoleShow("排出Magno(AVI)に[" + qrword + "]を書き込みました");
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        ConsoleShow("QRのデータ書き込みが失敗しました");
+        //    }
+
+        //    return false;
+        //}
+
+        ////WBOVN
+        //private void btn_wbovn_get_lastLotno_Click(object sender, EventArgs e)
+        //{
+        //    txt_wbovn_lotno.Text = getLastLotNo();
+        //}
+
+        //private void btn_wbovn_appendTntran_Click(object sender, EventArgs e)
+        //{
+        //    var lotno = txt_wbovn_lotno.Text;
+        //    var magno = txt_wbovn_m_auto.Text.Replace("C30 ", "");
+        //    appendWBOVNTran(lotno, magno);
+        //}
+
+        //private void btn_wbovn_updateTnMag_Click(object sender, EventArgs e)
+        //{
+        //    var lotno = txt_wbovn_lotno.Text;
+        //    var magno = txt_wbovn_m_auto.Text.Replace("C30 ", "");
+        //    updateTnMag(22, lotno, magno);
+        //}
+
+        //public bool appendWBOVNTran(string lotno, string magno)
+        //{
+        //    try
+        //    {
+        //        DateTime dt = DateTime.Now;
+
+        //        using (SqlConnection con = new SqlConnection(Config.Settings.LocalConnString))
+        //        using (SqlCommand cmd = con.CreateCommand())
+        //        {
+        //            con.Open();
+        //            cmd.CommandText = $"INSERT INTO[dbo].[TnTran] ";
+        //            cmd.CommandText += "([lotno]";
+        //            cmd.CommandText += ",[procno]";
+        //            cmd.CommandText += ",[macno]";
+        //            cmd.CommandText += ",[inmag]";
+        //            cmd.CommandText += ",[outmag]";
+        //            cmd.CommandText += ",[startdt]";
+        //            cmd.CommandText += ",[enddt]";
+        //            cmd.CommandText += ",[iscomplt]";
+        //            cmd.CommandText += ",[stocker1]";
+        //            cmd.CommandText += ",[stocker2]";
+        //            cmd.CommandText += ",[comment]";
+        //            cmd.CommandText += ",[transtartempcd]";
+        //            cmd.CommandText += ",[trancompempcd]";
+        //            cmd.CommandText += ",[inspectempcd]";
+        //            cmd.CommandText += ",[inspectct]";
+        //            cmd.CommandText += ",[isnascastart]";
+        //            cmd.CommandText += ",[isnascaend]";
+        //            cmd.CommandText += ",[isnascadefectend]";
+        //            cmd.CommandText += ",[isnascacommentend]";
+        //            cmd.CommandText += ",[delfg]";
+        //            cmd.CommandText += ",[isdefectend]";
+        //            cmd.CommandText += ",[isdefectautoimportend]";
+        //            cmd.CommandText += ",[isnascarunning]";
+        //            cmd.CommandText += ",[isautoimport]";
+        //            cmd.CommandText += ",[isresinmixordered])";
+        //            cmd.CommandText += " VALUES";
+        //            cmd.CommandText += $"(('{lotno} ')";
+        //            cmd.CommandText += ",(22)";
+        //            cmd.CommandText += ",(122301)";
+        //            cmd.CommandText += $",('{magno}')";
+        //            cmd.CommandText += $",('{magno}')";
+        //            cmd.CommandText += $",('{dt.ToString()} ')";
+        //            cmd.CommandText += $",('{dt.ToString()}')";
+        //            cmd.CommandText += ",(1)";
+        //            cmd.CommandText += ",(null)";
+        //            cmd.CommandText += ",(null)";
+        //            cmd.CommandText += ",''";
+        //            cmd.CommandText += ",(211105)";
+        //            cmd.CommandText += ",(211105)";
+        //            cmd.CommandText += ",''";
+        //            cmd.CommandText += ",(0)";
+        //            cmd.CommandText += ",(0)";
+        //            cmd.CommandText += ",(0)";
+        //            cmd.CommandText += ",(null)";
+        //            cmd.CommandText += ",(null)";
+        //            cmd.CommandText += ",(0)";
+        //            cmd.CommandText += ",(1)";
+        //            cmd.CommandText += ",(0)";
+        //            cmd.CommandText += ",(0)";
+        //            cmd.CommandText += " ,(0)";
+        //            cmd.CommandText += " ,(0))";
+
+        //            string Result = (cmd.ExecuteScalar() ?? string.Empty).ToString().Trim();
+
+        //            con.Close();
+
+        //            return true;
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ConsoleShow(ex.ToString());
+        //        return false;
+        //    }
+        //}
+
+        //// Suputter
+        //private void btn_sup_Ldcmpl_off_Click(object sender, EventArgs e)
+        //{
+        //    bsup_Ldcmpl_offk();
+        //}
+        //public void bsup_Ldcmpl_offk()
+        //{
+        //    if (!SetBit(SUP_01.loaderMachineSelectCompleteBitAddress, "0"))
+        //    {
+        //        ConsoleShow("スパッタ(loaderMachineSelectCompleteBit)が書き込めませんでした");
+        //    }
+        //}
+
+        //private void btn_sup_Ulcmpl_on_Click(object sender, EventArgs e)
+        //{
+        //    var macno = txt_sup_ulno.Text;
+        //    sup_Ulcmpl_on(macno);
+        //}
+        //public void sup_Ulcmpl_on(string macno)
+        //{
+        //    if (!SetString(SUP_01.unloaderMachineNoAddress, macno))
+        //    {
+        //        ConsoleShow("スパッタ(UL)設備Noが書き込めませんでした");
+        //    }
+        //}
+
+        //private void btn_sup_Ldcmpl_on_Click(object sender, EventArgs e)
+        //{
+        //    var macno = txt_sup_ldno.Text;
+        //    sup_Ldcmpl_on(macno);
+        //}
+        //public void sup_Ldcmpl_on(string macno)
+        //{
+        //    if (!SetString(SUP_01.loaderMachineNoAddress, macno))
+        //    {
+        //        ConsoleShow("スパッタ(LD)設備Noが書き込めませんでした");
+        //    }
+        //}
+
+        //private void btn_sup_Inmag_on_Click(object sender, EventArgs e)
+        //{
+        //    var magno = txt_sup_inmagno.Text;
+        //    sup_Inmag_on(magno);
+        //}
+        //public void sup_Inmag_on(string magno)
+        //{
+        //    if (!SetString(SUP_01.loaderMagazineAddress, magno))
+        //    {
+        //        ConsoleShow("スパッタのINMAG番号が書き込めませんでした");
+        //    }
+        //    if (!SetBit(SUP_01.loaderQRReadCompleteBitAddress, "1"))
+        //    {
+        //        ConsoleShow("スパッタ(loaderQRReadCompleteBitAddress)が書き込めませんでした");
+        //    }
+        //}
+
+        //private void btn_sup_Outmag_on_Click(object sender, EventArgs e)
+        //{
+        //    var magno = txt_sup_outmagno.Text;
+        //    sup_Outmag_on(magno);
+        //}
+        //public void sup_Outmag_on(string magno)
+        //{
+        //    if (!SetString(SUP_01.unloaderMagazineAddress, magno))
+        //    {
+        //        ConsoleShow("スパッタのOUTMAG番号が書き込めませんでした");
+        //    }
+        //    if (!SetBit(SUP_01.unloaderQRReadCompleteBitAddress, "1"))
+        //    {
+        //        ConsoleShow("スパッタ(unloaderQRReadCompleteBitAddress)が書き込めませんでした");
+        //    }
+        //}
+
+        //private void btn_sup_Inmag_off_Click(object sender, EventArgs e)
+        //{
+        //    sup_Inmag_off();
+        //}
+        //public void sup_Inmag_off()
+        //{
+        //    if (!SetBit(SUP_01.loaderQRReadCompleteBitAddress, "0"))
+        //    {
+        //        ConsoleShow("スパッタ(loaderQRReadCompleteBitAddress)が書き込めませんでした");
+        //    }
+        //}
+
+        //private void btn_sup_Outmag_off_Click(object sender, EventArgs e)
+        //{
+        //    sup_Outmag_off();
+        //}
+        //public void sup_Outmag_off()
+        //{
+        //    if (!SetBit(SUP_01.unloaderQRReadCompleteBitAddress, "0"))
+        //    {
+        //        ConsoleShow("スパッタ(unloaderQRReadCompleteBitAddress)が書き込めませんでした");
+        //    }
+        //}
+
+        //private void btn_sup_lmscba_on_Click(object sender, EventArgs e)
+        //{
+        //    sup_lmscba_on();
+        //}
+        //public void sup_lmscba_on()
+        //{
+        //    if (!SetBit(SUP_01.loaderMachineSelectCompleteBitAddress, "1"))
+        //    {
+        //        ConsoleShow("スパッタ(loaderMachineSelectCompleteBit)が書き込めませんでした");
+        //    }
+        //}
+
+        //private void btn_sup_lmscba_off_Click(object sender, EventArgs e)
+        //{
+        //    sup_lmscba_off();
+        //}
+        //public void sup_lmscba_off()
+        //{
+        //    if (!SetBit(SUP_01.loaderMachineSelectCompleteBitAddress, "0"))
+        //    {
+        //        ConsoleShow("スパッタ(loaderMachineSelectCompleteBit)が書き込めませんでした");
+        //    }
+        //}
+
+        //private void lb_sup_ldno_Click(object sender, EventArgs e)
+        //{
+        //    ConsoleShow(SUP_01.loaderMachineNoAddress);
+        //}
+
+        //private void lb_sup_ulno_Click(object sender, EventArgs e)
+        //{
+        //    ConsoleShow(SUP_01.unloaderMachineNoAddress);
+        //}
+
+        //private void lb_sup_inmag_Click(object sender, EventArgs e)
+        //{
+        //    ConsoleShow(SUP_01.loaderMagazineAddress + " " + SUP_01.loaderQRReadCompleteBitAddress);
+        //}
+
+        //private void lb_sup_outmag_Click(object sender, EventArgs e)
+        //{
+        //    ConsoleShow(SUP_01.unloaderMagazineAddress + " " + SUP_01.unloaderQRReadCompleteBitAddress);
+        //}
+
+        //private void ib_sup_lmscba_Click(object sender, EventArgs e)
+        //{
+        //    ConsoleShow(SUP_01.loaderMachineSelectCompleteBitAddress);
+        //}
+
+        //private void btn_sup_starttime_Click(object sender, EventArgs e)
+        //{
+        //    var dt = DateTime.Now;
+        //    SetDateTime2Word(SUP_01.workStartTimeAddress, dt);
+        //}
+
+        //private void btn_sup_comptime_Click(object sender, EventArgs e)
+        //{
+        //    var dt = DateTime.Now;
+        //    SetDateTime2Word(SUP_01.workCompleteTimeAddress, dt);
+        //}
+
+        //private void lb_sup_stacomptime_Click(object sender, EventArgs e)
+        //{
+        //    ConsoleShow(SUP_01.workStartTimeAddress + " " + SUP_01.workCompleteTimeAddress);
+        //}
+
+        //private void btn_sup_logout_Click(object sender, EventArgs e)
+        //{
+        //    var macInstance = SUP_01;
+        //    //
+        //    // log file words
+        //    //
+        //    var MLfolderpath = "";
+        //    if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
+        //    {
+        //        ConsoleShow(MLfolderpath);
+        //        return;
+        //    }
+        //    var logfiledict = new Dictionary<string, string>
+        //    {
+        //        { "@magno", txt_sup_m_auto.Text },
+        //        { "@kishumei", $"{EicsParam_TypeCode}" }
+        //    };
+        //    var msg = "";
+        //    var dt = DateTime.Now;
+        //    var MLSriname = dt.ToString("ddHHmmss");
+        //    var Targetfld = MLfolderpath + $"03_auto\\{MLSriname}";
+
+        //    if (!Directory.Exists(Targetfld))
+        //    {
+        //        Directory.CreateDirectory(Targetfld);
+        //    }
+
+        //    if (!CreateMLog(macInstance.macLogOriginFolder + "_03_auto_\\_03_auto_A.CSV", Targetfld + "\\_03_auto_" + MLSriname + "A.CSV", logfiledict, ref msg))
+        //    {
+        //        ConsoleShow(msg);
+        //        return;
+        //    }
+        //    if (!CreateMLog(macInstance.macLogOriginFolder + "_03_auto_\\_03_auto_B.CSV", Targetfld + "\\_03_auto_" + MLSriname + "B.CSV", logfiledict, ref msg))
+        //    {
+        //        ConsoleShow(msg);
+        //        return;
+        //    }
+        //    if (!CreateMLog(macInstance.macLogOriginFolder + "_03_auto_\\_03_auto_C.CSV", Targetfld + "\\_03_auto_" + MLSriname + "C.CSV", logfiledict, ref msg))
+        //    {
+        //        ConsoleShow(msg);
+        //        return;
+        //    }
+
+        //    // +++ Wait +++
+        //    Thread.Sleep(2000);
+
+        //    ConsoleShow("■■■マガジン別データ・自動出力データを出力開始■■■");
+
+        //}
+
+        //// MD
+
+        //private void btn_md_readBuff_Click(object sender, EventArgs e)
+        //{
+        //    var ldvol = int.Parse(txt_md_ldvol.Text);
+        //    var eldvol = int.Parse(txt_md_empldvol.Text);
+        //    var uldvol = int.Parse(txt_md_uldvol.Text);
+        //    var euldvol = int.Parse(txt_md_empuldvol.Text);
+        //    md_readBuff(ldvol, eldvol, uldvol, euldvol);
+        //    ConsoleShow("バッファ数登録をしました");
+        //}
+        //public void md_readBuff(int ldvol, int empldvol, int uldvol, int empuldvol)
+        //{
+        //    SetWordAsDecimalData(MD_01.lMagazineCountAddress, ldvol);
+        //    SetWordAsDecimalData(MD_01.elMagazineCountAddress, empldvol);
+        //    SetWordAsDecimalData(MD_01.ulMagazineCountAddress, uldvol);
+        //    SetWordAsDecimalData(MD_01.eulMagazineCountAddress, empuldvol);
+        //}
+
+        //private void btn_md_magno_Click(object sender, EventArgs e)
+        //{
+        //    var inmagno = txt_md_inmagno.Text;
+        //    md_inmagno(inmagno);
+        //    ConsoleShow("INマガジンNoを登録しました");
+        //    //開始完了時間メモリ(PLC)に書き込み
+        //    var dt = DateTime.Now;
+        //    SetDateTime2Word(MD_01.workStartTimeAddress, dt);
+        //    ConsoleShow("PLCに開始時間を登録しました");
+        //}
+
+        //private void btn_md_outmagno1_Click(object sender, EventArgs e)
+        //{
+        //    var outmagno_1 = txt_md_outmagno1.Text;
+        //    md_outmagno(outmagno_1);
+        //    ConsoleShow("OUTマガジンNoを登録しました");
+        //    //開始完了時間メモリ(PLC)に書き込み
+        //    var dt = DateTime.Now;
+        //    SetDateTime2Word(MD_01.workCompleteTimeAddress, dt);
+        //    ConsoleShow("PLCに完了時間を登録しました");
+        //}
+
+        //private void btn_md_outmagno2_Click(object sender, EventArgs e)
+        //{
+        //    var outmagno_2 = txt_md_outmagno2.Text;
+        //    md_outmagno(outmagno_2);
+        //    ConsoleShow("OUTマガジンNoを登録しました");
+        //    //開始完了時間メモリ(PLC)に書き込み
+        //    var dt = DateTime.Now;
+        //    SetDateTime2Word(MD_01.workCompleteTimeAddress, dt);
+        //    ConsoleShow("PLCに完了時間を登録しました");
+        //}
+
+        //public void md_inmagno(string inmagno)
+        //{
+        //    SetString(MD_01.lMagazineAddress, inmagno);
+        //}
+
+        //public void md_outmagno(string outmagno)
+        //{
+        //    SetString(MD_01.ulMagazineAddress, outmagno);
+        //}
+
+        ////ECK
+        //private void btn_eck_lrba_on_Click(object sender, EventArgs e)
+        //{
+        //    var slotno = int.Parse(cb_eck_lrba.Text);
+        //    SetEckLrba(slotno, "1");
+        //    ConsoleShow($"供給({slotno})要求をONしました");
+        //}
+
+        //private void btn_eck_lrba_off_Click(object sender, EventArgs e)
+        //{
+        //    var slotno = int.Parse(cb_eck_lrba.Text);
+        //    SetEckLrba(slotno, "0");
+        //    ConsoleShow($"供給({slotno})要求をOFFしました");
+        //}
+
+        //private void btn_eck_ulrba_on_Click(object sender, EventArgs e)
+        //{
+        //    var slotno = int.Parse(cb_eck_lrba.Text);
+        //    SetEckUlrba(slotno, "1");
+        //    ConsoleShow($"排出({slotno})要求要求をONしました");
+        //    var outmagno = txt_eck_outmagno.Text;
+        //    SetString(ECK_01.ulMagazineAddress, outmagno);
+        //    ConsoleShow("OUTマガジンNoを登録しました");
+        //    //開始完了時間メモリ(PLC)に書き込み
+        //    var dt = DateTime.Now;
+        //    SetDateTime2Word(ECK_01.workStartTimeAddress, dt);
+        //    SetDateTime2Word(ECK_01.workCompleteTimeAddress, dt);
+        //    ConsoleShow("PLCに完了時間を登録しました");
+        //}
+
+        //private void btn_eck_ulrba_off_Click(object sender, EventArgs e)
+        //{
+        //    var slotno = int.Parse(cb_eck_lrba.Text);
+        //    SetEckUlrba(slotno, "0");
+        //    ConsoleShow($"排出({slotno})要求要求をOFFしました");
+        //}
+
+        //public void SetEckLrba(int slotno, string onoff)
+        //{
+        //    switch (slotno)
+        //    {
+        //        case 1:
+        //            SetBit(ECK_01.loaderReqBitAddress1, onoff);
+        //            break;
+        //        case 2:
+        //            SetBit(ECK_01.loaderReqBitAddress2, onoff);
+        //            break;
+        //        case 3:
+        //            SetBit(ECK_01.loaderReqBitAddress3, onoff);
+        //            break;
+        //        case 4:
+        //            SetBit(ECK_01.loaderReqBitAddress4, onoff);
+        //            break;
+        //        case 5:
+        //            SetBit(ECK_01.loaderReqBitAddress5, onoff);
+        //            break;
+        //        case 6:
+        //            SetBit(ECK_01.loaderReqBitAddress6, onoff);
+        //            break;
+        //    }
+        //}
+        //public void SetEckUlrba(int slotno, string onoff)
+        //{
+        //    switch (slotno)
+        //    {
+        //        case 1:
+        //            SetBit(ECK_01.unloaderReqBitAddress1, onoff);
+        //            break;
+        //        case 2:
+        //            SetBit(ECK_01.unloaderReqBitAddress2, onoff);
+        //            break;
+        //        case 3:
+        //            SetBit(ECK_01.unloaderReqBitAddress3, onoff);
+        //            break;
+        //        case 4:
+        //            SetBit(ECK_01.unloaderReqBitAddress4, onoff);
+        //            break;
+        //        case 5:
+        //            SetBit(ECK_01.unloaderReqBitAddress5, onoff);
+        //            break;
+        //        case 6:
+        //            SetBit(ECK_01.unloaderReqBitAddress6, onoff);
+        //            break;
+        //    }
+        //}
+
+        ////GB/MEX
+        //private void btn_gb_lrba_on_Click(object sender, EventArgs e)
+        //{
+        //    var slotno = int.Parse(cb_gb_lrba_bfno.Text);
+        //    SetGBLrba(slotno, "1");
+        //    ConsoleShow($"供給({slotno})要求をONしました");
+        //}
+
+        //private void btn_gb_lrba_off_Click(object sender, EventArgs e)
+        //{
+        //    var slotno = int.Parse(cb_gb_lrba_bfno.Text);
+        //    SetGBLrba(slotno, "0");
+        //    ConsoleShow($"供給({slotno})要求をOFFしました");
+        //}
+
+        //private void btn_gb_ulrba_on_Click(object sender, EventArgs e)
+        //{
+        //    var slotno = int.Parse(cb_gb_ulrba_bfno.Text);
+        //    SetGBUlrba(slotno, "1");
+        //    ConsoleShow($"排出({slotno})要求をONしました");
+        //}
+
+        //private void btn_gb_ulrba_off_Click(object sender, EventArgs e)
+        //{
+        //    var slotno = int.Parse(cb_gb_ulrba_bfno.Text);
+        //    SetGBUlrba(slotno, "0");
+        //    ConsoleShow($"排出({slotno})要求をOFFしました");
+        //}
+
+        //public void SetGBLrba(int slotno, string onoff)
+        //{
+        //    switch (slotno)
+        //    {
+        //        case 1:
+        //            SetBit(GB_01.loaderReqBitAddress, onoff);
+        //            break;
+        //        case 2:
+        //            SetBit(GB_02.loaderReqBitAddress, onoff);
+        //            break;
+        //        case 3:
+        //            SetBit(GB_03.loaderReqBitAddress, onoff);
+        //            break;
+        //    }
+        //}
+        //public void SetGBUlrba(int slotno, string onoff)
+        //{
+        //    switch (slotno)
+        //    {
+        //        case 1:
+        //            SetBit(GB_01.unloaderReqBitAddress, onoff);
+        //            break;
+        //        case 2:
+        //            SetBit(GB_02.unloaderReqBitAddress, onoff);
+        //            break;
+        //        case 3:
+        //            SetBit(GB_03.unloaderReqBitAddress, onoff);
+        //            break;
+        //    }
+        //}
+
+        //private void btn_gb_getmag_Click(object sender, EventArgs e)
+        //{
+        //    Rb_GetMag();
+        //    SetBit(NicConv_01.magazineArriveBitAddress, "0");
+        //    bt_conv_nichiaMag_on.Enabled = true;
+
+        //    Thread.Sleep(2000);
+
+        //    var slotno = int.Parse(cb_gb_lrba_bfno.Text);
+        //    SetGBLrba(slotno, "0");
+        //    ConsoleShow($"供給({slotno})要求をOFFしました");
+        //    SetGBUlrba(slotno, "1");
+        //    ConsoleShow($"排出({slotno})要求をONしました");
+        //}
+
+        //private void btn_gb_getmag2_Click(object sender, EventArgs e)
+        //{
+        //    Rb_GetMag();
+
+        //    Thread.Sleep(2000);
+
+        //    var slotno = int.Parse(cb_gb_lrba_bfno.Text);
+        //    SetGBUlrba(slotno, "0");
+        //    ConsoleShow($"排出({slotno})要求をOFFしました");
+        //}
+
+        //// MD-OVN
+        //private void btn_mdovn_lrba_s1_on_Click(object sender, EventArgs e)
+        //{
+        //    SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).loaderReqBitAddressList_addKey1, "1");
+        //    btn_mdovn_lrba_s1_on.Enabled = false;
+        //    btn_mdovn_lrba_s1_off.Enabled = true;
+        //    ConsoleShow("スロット1供給要求ON");
+        //}
+
+        //private void btn_mdovn_lrba_s1_off_Click(object sender, EventArgs e)
+        //{
+        //    SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).loaderReqBitAddressList_addKey1, "0");
+        //    btn_mdovn_lrba_s1_on.Enabled = true;
+        //    btn_mdovn_lrba_s1_off.Enabled = false;
+        //    ConsoleShow("スロット1供給要求OFF");
+        //}
+
+        //private void btn_mdovn_lrba_s2_on_Click(object sender, EventArgs e)
+        //{
+        //    SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).loaderReqBitAddressList_addKey2, "1");
+        //    btn_mdovn_lrba_s2_on.Enabled = false;
+        //    btn_mdovn_lrba_s2_off.Enabled = true;
+        //    ConsoleShow("スロット2供給要求ON");
+        //}
+
+        //private void btn_mdovn_lrba_s2_off_Click(object sender, EventArgs e)
+        //{
+        //    SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).loaderReqBitAddressList_addKey2, "0");
+        //    btn_mdovn_lrba_s2_on.Enabled = true;
+        //    btn_mdovn_lrba_s2_off.Enabled = false;
+        //    ConsoleShow("スロット2供給要求OFF");
+        //}
+
+        //private void btn_mdovn_ulrba_s1_on_Click(object sender, EventArgs e)
+        //{
+        //    SetDataTimeToOvenPlc(MDOVNComboRouter(cb_mdovn_macno.Text));
+        //    ConsoleShow("開始完了時刻を書き込んでいます:Wait1秒");
+        //    Thread.Sleep(1000);
+        //    SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).unloaderReqBitAddressList_addKey1, "1");
+        //    btn_ulrba_s1_on.Enabled = false;
+        //    btn_ulrba_s1_off.Enabled = true;
+        //    ConsoleShow("スロット1排出要求ON");
+        //}
+
+        //private void btn_mdovn_ulrba_s1_off_Click(object sender, EventArgs e)
+        //{
+        //    SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).unloaderReqBitAddressList_addKey1, "0");
+        //    btn_ulrba_s1_on.Enabled = true;
+        //    btn_ulrba_s1_off.Enabled = false;
+        //    ConsoleShow("スロット1排出要求OFF");
+        //}
+
+        //private void btn_mdovn_ulrba_s2_on_Click(object sender, EventArgs e)
+        //{
+        //    SetDataTimeToOvenPlc(MDOVNComboRouter(cb_mdovn_macno.Text));
+        //    ConsoleShow("開始完了時刻を書き込んでいます:Wait1秒");
+        //    Thread.Sleep(1000);
+        //    SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).unloaderReqBitAddressList_addKey2, "1");
+        //    btn_ulrba_s1_on.Enabled = false;
+        //    btn_ulrba_s1_off.Enabled = true;
+        //    ConsoleShow("スロット2排出要求ON");
+        //}
+
+        //private void btn_mdovn_ulrba_s2_off_Click(object sender, EventArgs e)
+        //{
+        //    SetBit(MDOVNComboRouter(cb_mdovn_macno.Text).unloaderReqBitAddressList_addKey2, "0");
+        //    btn_ulrba_s1_on.Enabled = true;
+        //    btn_ulrba_s1_off.Enabled = false;
+        //    ConsoleShow("スロット2排出要求OFF");
+        //}
+
+        ////DAM
+
+        //private void bt_dam_get_lastLotno_Click(object sender, EventArgs e)
+        //{
+        //    txt_dam_lotno.Text = getLastLotNo();
+        //}
+
+        //private void btn_dam_appendTntran_Click(object sender, EventArgs e)
+        //{
+        //    var lotno = txt_dam_lotno.Text;
+        //    var magno = txt_dam_m_auto.Text.Replace("C30 ", "");
+        //    var procno = int.Parse(cb_dam_procno.Text);
+        //    var macno = 0;
+        //    if (procno == 24)
+        //    {
+        //        macno = 424001;
+        //    }
+        //    else if (procno == 25)
+        //    {
+        //        macno = 425001;
+        //    }
+        //    else
+        //    {
+        //        macno = 426001;
+        //    }
+        //    appendDAMTran(lotno, magno, procno, macno);
+        //}
+
+        //private void btn_dam_updateTnMag_Click(object sender, EventArgs e)
+        //{
+        //    var lotno = txt_dam_lotno.Text;
+        //    var magno = txt_dam_m_auto.Text.Replace("C30 ", "");
+        //    var procno = int.Parse(cb_dam_procno.Text);
+        //    updateTnMag(procno, lotno, magno);
+        //}
+
+        //public bool appendDAMTran(string lotno, string magno, int procno, int macno)
+        //{
+        //    try
+        //    {
+        //        DateTime dt = DateTime.Now;
+        //        //var procno = int.Parse(cb_dam_procno.Text);
+
+        //        using (SqlConnection con = new SqlConnection(Config.Settings.LocalConnString))
+        //        using (SqlCommand cmd = con.CreateCommand())
+        //        {
+        //            con.Open();
+        //            cmd.CommandText = $"INSERT INTO[dbo].[TnTran] ";
+        //            cmd.CommandText += "([lotno]";
+        //            cmd.CommandText += ",[procno]";
+        //            cmd.CommandText += ",[macno]";
+        //            cmd.CommandText += ",[inmag]";
+        //            cmd.CommandText += ",[outmag]";
+        //            cmd.CommandText += ",[startdt]";
+        //            cmd.CommandText += ",[enddt]";
+        //            cmd.CommandText += ",[iscomplt]";
+        //            cmd.CommandText += ",[stocker1]";
+        //            cmd.CommandText += ",[stocker2]";
+        //            cmd.CommandText += ",[comment]";
+        //            cmd.CommandText += ",[transtartempcd]";
+        //            cmd.CommandText += ",[trancompempcd]";
+        //            cmd.CommandText += ",[inspectempcd]";
+        //            cmd.CommandText += ",[inspectct]";
+        //            cmd.CommandText += ",[isnascastart]";
+        //            cmd.CommandText += ",[isnascaend]";
+        //            cmd.CommandText += ",[isnascadefectend]";
+        //            cmd.CommandText += ",[isnascacommentend]";
+        //            cmd.CommandText += ",[delfg]";
+        //            cmd.CommandText += ",[isdefectend]";
+        //            cmd.CommandText += ",[isdefectautoimportend]";
+        //            cmd.CommandText += ",[isnascarunning]";
+        //            cmd.CommandText += ",[isautoimport]";
+        //            cmd.CommandText += ",[isresinmixordered])";
+        //            cmd.CommandText += " VALUES";
+        //            cmd.CommandText += $"(('{lotno} ')";
+        //            cmd.CommandText += $",('{procno}')";
+        //            cmd.CommandText += $",('{macno}')";
+        //            cmd.CommandText += $",('{magno}')";
+        //            cmd.CommandText += $",('{magno}')";
+        //            cmd.CommandText += $",('{dt.ToString()} ')";
+        //            cmd.CommandText += $",('{dt.ToString()}')";
+        //            cmd.CommandText += ",(1)";
+        //            cmd.CommandText += ",(null)";
+        //            cmd.CommandText += ",(null)";
+        //            cmd.CommandText += ",''";
+        //            cmd.CommandText += ",(211105)";
+        //            cmd.CommandText += ",(211105)";
+        //            cmd.CommandText += ",''";
+        //            cmd.CommandText += ",(0)";
+        //            cmd.CommandText += ",(0)";
+        //            cmd.CommandText += ",(0)";
+        //            cmd.CommandText += ",(null)";
+        //            cmd.CommandText += ",(null)";
+        //            cmd.CommandText += ",(0)";
+        //            cmd.CommandText += ",(1)";
+        //            cmd.CommandText += ",(0)";
+        //            cmd.CommandText += ",(0)";
+        //            cmd.CommandText += " ,(0)";
+        //            cmd.CommandText += " ,(0))";
+
+        //            string Result = (cmd.ExecuteScalar() ?? string.Empty).ToString().Trim();
+
+        //            con.Close();
+
+        //            return true;
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ConsoleShow(ex.ToString());
+        //        return false;
+        //    }
+        //}
 
 
         //
@@ -3477,74 +3516,74 @@ namespace ARMS3.FakeVSPline
                 cb_dbovn_procno.Text = "7";
                 cb_dbovnProfile.Text = "5";
             }
-            else if (cb_procno.Text == "4")
-            {
-                cb_leddb_fromDBOVNno.Text = "01";
-            }
+            //else if (cb_procno.Text == "4")
+            //{
+            //    cb_leddb_fromDBOVNno.Text = "01";
+            //}
         }
 
         private void AutoRunFunctionRouter(string procno)
         {
-            if (procno == "1")
-            {
-                M1DB_AutoRun();
-            }
-            else if (procno == "2")
-            {
-                DVOVN_AutoRun();
-            }
-            else if (procno == "4")
+            if (procno == "3")
             {
                 LEDDB_AutoRun();
             }
-            else if (procno == "5")
+            else if (procno == "4")
             {
-                DBPL_AutoRun();
+                ZDDB_AutoRun();
             }
-            else if (procno == "7")
+            else if (procno == "5")
             {
                 DVOVN_AutoRun();
             }
-            else if (procno == "8")
+            else if (procno == "6")
             {
-                WBPL_AutoRun();
+                DVOVN_AutoRun();
             }
-            else if (procno == "9")
+            else if (procno == "7")
+            {
+                DBPL_AutoRun();
+            }
+            //else if (procno == "8")
+            //{
+            //    WBPL_AutoRun();
+            //}
+            else if (procno == "8")
             {
                 WB_AutoRun();
             }
-            else if (procno == "10")
-            {
-                AVI_AutoRun();
-            }
-            else if (procno == "22")
-            {
-                WBOVN_AutoRun();
-            }
-            else if (procno == "23")
-            {
-                SUP_AutoRun();
-            }
-            else if (procno == "24")
-            {
-                DAM_AutoRun();
-            }
-            else if (procno == "12")
-            {
-                MD_AutoRun();
-            }
-            else if (procno == "13")
-            {
-                ECK_AutoRun();
-            }
-            else if (procno == "18")
-            {
-                GBMEX_AutoRun();
-            }
-            else if (procno == "14")
-            {
-                MDOVN_AutoRun();
-            }
+            //else if (procno == "10")
+            //{
+            //    AVI_AutoRun();
+            //}
+            //else if (procno == "22")
+            //{
+            //    WBOVN_AutoRun();
+            //}
+            //else if (procno == "23")
+            //{
+            //    SUP_AutoRun();
+            //}
+            //else if (procno == "24")
+            //{
+            //    DAM_AutoRun();
+            //}
+            //else if (procno == "12")
+            //{
+            //    MD_AutoRun();
+            //}
+            //else if (procno == "13")
+            //{
+            //    ECK_AutoRun();
+            //}
+            //else if (procno == "18")
+            //{
+            //    GBMEX_AutoRun();
+            //}
+            //else if (procno == "14")
+            //{
+            //    MDOVN_AutoRun();
+            //}
         }
 
         //
@@ -3740,11 +3779,12 @@ namespace ARMS3.FakeVSPline
             {
                 ZeDBComboRouter(cb_zedbno.Text), 
                 LEDDBComboRouter(cb_leddbno.Text),
-                WBComboRouter(cb_wbno.Text),
-                AVI_01,
-                SUP_01,
-                MDComboRouter(cb_mb_macno.Text),
-                ECK_01
+                WBComboRouter(cb_wbno.Text)
+                //,
+                //AVI_01,
+                //SUP_01,
+                //MDComboRouter(cb_mb_macno.Text),
+                //ECK_01
             };
             var MLfolderpath = "";
             foreach (var mac in macList)
@@ -4132,73 +4172,73 @@ namespace ARMS3.FakeVSPline
                             return;
                         }
                     }
-                    if (int.Parse(curProcno) > 9)
-                    {
-                        //
-                        // log file words
-                        //
-                        var MLfolderpath = "";
-                        var macInstance = AVI_01;
-                        if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
-                        {
-                            ConsoleShow(MLfolderpath);
-                            return;
-                        }
+                    //if (int.Parse(curProcno) > 9)
+                    //{
+                    //    //
+                    //    // log file words
+                    //    //
+                    //    var MLfolderpath = "";
+                    //    var macInstance = AVI_01;
+                    //    if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
+                    //    {
+                    //        ConsoleShow(MLfolderpath);
+                    //        return;
+                    //    }
 
-                        //var logfiledict = new Dictionary<string, string>
-                        //{
-                        //    { "@magno", txt_avi_jitumag.Text.Replace("C30 ","") }
-                        //};
-                        //// MMファイル
-                        //var mmfilename = "log000_MM00000000_" + lotno + "_CL-A160-1W9-S4_" + txt_avi_jitumag.Text.Replace("C30 ","") + ".CSV";
-                        //if (!CreateMLog("C:\\QCIL\\MacLogOrigin\\mapping\\MM_avi.CSV", Targetfld + mmfilename, logfiledict, ref msg, "shift-jis"))
-                        //{
-                        //    ConsoleShow(msg);
-                        //    return;
-                        //}
-                        var Targetfld = "C:\\QCIL\\data\\AI\\Mapping\\" + dt.ToString("yyyyMM") + "\\";
-                        if (!Directory.Exists(Targetfld))
-                        {
-                            Directory.CreateDirectory(Targetfld);
-                        }
-                        // Mapファイル
-                        if (!CopyFile("C:\\QCIL\\MacLogOrigin\\mapping\\map_wb.wbm", Targetfld + lotno + ".wbm"))
-                        {
-                            ConsoleShow(msg);
-                            return;
-                        }
+                    //    //var logfiledict = new Dictionary<string, string>
+                    //    //{
+                    //    //    { "@magno", txt_avi_jitumag.Text.Replace("C30 ","") }
+                    //    //};
+                    //    //// MMファイル
+                    //    //var mmfilename = "log000_MM00000000_" + lotno + "_CL-A160-1W9-S4_" + txt_avi_jitumag.Text.Replace("C30 ","") + ".CSV";
+                    //    //if (!CreateMLog("C:\\QCIL\\MacLogOrigin\\mapping\\MM_avi.CSV", Targetfld + mmfilename, logfiledict, ref msg, "shift-jis"))
+                    //    //{
+                    //    //    ConsoleShow(msg);
+                    //    //    return;
+                    //    //}
+                    //    var Targetfld = "C:\\QCIL\\data\\AI\\Mapping\\" + dt.ToString("yyyyMM") + "\\";
+                    //    if (!Directory.Exists(Targetfld))
+                    //    {
+                    //        Directory.CreateDirectory(Targetfld);
+                    //    }
+                    //    // Mapファイル
+                    //    if (!CopyFile("C:\\QCIL\\MacLogOrigin\\mapping\\map_wb.wbm", Targetfld + lotno + ".wbm"))
+                    //    {
+                    //        ConsoleShow(msg);
+                    //        return;
+                    //    }
 
-                        Targetfld = "C:\\QCIL\\data\\AI\\MachineLog\\" + lotno + "\\";
-                        if (!Directory.Exists(Targetfld))
-                        {
-                            Directory.CreateDirectory(Targetfld);
-                        }
+                    //    Targetfld = "C:\\QCIL\\data\\AI\\MachineLog\\" + lotno + "\\";
+                    //    if (!Directory.Exists(Targetfld))
+                    //    {
+                    //        Directory.CreateDirectory(Targetfld);
+                    //    }
 
-                        var logfiledict = new Dictionary<string, string>
-                        {
-                            { "@magno", txt_avi_jitumag.Text}
-                        };
-                        //Targetfld = MLfolderpath + dt.ToString("yyyyMM") + "\\" + lotno + "\\";
-                        if (!Directory.Exists(Targetfld))
-                        {
-                            Directory.CreateDirectory(Targetfld);
-                        }
-                        // MMファイル
-                        dt = DateTime.Now;
-                        var mmfilename = "log000_MM" + dt.ToString("yyMMddhhmm") + "_" + lotno + "_CL-A160-1W9-S4_10_" + txt_avi_jitumag.Text.Replace("C30 ", "") + ".CSV";
-                        if (!CreateMLog("C:\\QCIL\\MacLogOrigin\\mapping\\MM_avi.CSV", Targetfld + mmfilename, logfiledict, ref msg, "shift-jis"))
-                        {
-                            ConsoleShow(msg);
-                            return;
-                        }
+                    //    var logfiledict = new Dictionary<string, string>
+                    //    {
+                    //        { "@magno", txt_avi_jitumag.Text}
+                    //    };
+                    //    //Targetfld = MLfolderpath + dt.ToString("yyyyMM") + "\\" + lotno + "\\";
+                    //    if (!Directory.Exists(Targetfld))
+                    //    {
+                    //        Directory.CreateDirectory(Targetfld);
+                    //    }
+                    //    // MMファイル
+                    //    dt = DateTime.Now;
+                    //    var mmfilename = "log000_MM" + dt.ToString("yyMMddhhmm") + "_" + lotno + "_CL-A160-1W9-S4_10_" + txt_avi_jitumag.Text.Replace("C30 ", "") + ".CSV";
+                    //    if (!CreateMLog("C:\\QCIL\\MacLogOrigin\\mapping\\MM_avi.CSV", Targetfld + mmfilename, logfiledict, ref msg, "shift-jis"))
+                    //    {
+                    //        ConsoleShow(msg);
+                    //        return;
+                    //    }
 
-                        // Mapファイル
-                        if (!CopyFile("C:\\QCIL\\MacLogOrigin\\mapping\\map_avi.mpd", "C:\\QCIL\\Mapping\\" + lotno + ".mpd"))
-                        {
-                            ConsoleShow(msg);
-                            return;
-                        }
-                    }
+                    //    // Mapファイル
+                    //    if (!CopyFile("C:\\QCIL\\MacLogOrigin\\mapping\\map_avi.mpd", "C:\\QCIL\\Mapping\\" + lotno + ".mpd"))
+                    //    {
+                    //        ConsoleShow(msg);
+                    //        return;
+                    //    }
+                    //}
                 }
             }
             else
@@ -4301,514 +4341,362 @@ namespace ARMS3.FakeVSPline
         //
         // Ze Die Bonder
         //
-        private void btn_M1DB_AutoRun_Click(object sender, EventArgs e)
-        {
-            if (!AutoRunLock)
-            {
-                AutoRunLock = true;
-                M1DB_AutoRun();
+        //private void btn_M1DB_AutoRun_Click(object sender, EventArgs e)
+        //{
+        //    if (!AutoRunLock)
+        //    {
+        //        AutoRunLock = true;
+        //        M1DB_AutoRun();
                 
-            }
-        }
-        private async void M1DB_AutoRun()
-        {
-            var procno = "1";
-            var procname = "ZE-DB";
-            var macname = cb_zedbno.Text;
-            string msg = "";
-            var karamagno = tx_m1db_empm_auto.Text;
-            var aoimagno = tx_m1db_aoim_auto.Text;
-            var macparam = cmb_zdbpram.Text;
+        //    }
+        //}
+        //private async void M1DB_AutoRun()
+        //{
+        //    var procno = "4";
+        //    var procname = "DBZ";
+        //    var macname = cb_zedbno.Text;
+        //    string msg = "";
+        //    var karamagno = tx_m1db_empm_auto.Text;
+        //    var aoimagno = tx_m1db_aoim_auto.Text;
+        //    var macparam = cmb_zdbpram.Text;
 
-            //
-            // log file words
-            //
-            var MLfolderpath = "";
-            var macInstance = ZeDBComboRouter(macname);
-            if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
-            {
-                ConsoleShow(MLfolderpath);
-                return;
-            }
-            var date = DateTime.Now.ToString("yyyy/MM/dd");
-            var time = DateTime.Now.ToString("HH:mm:ss");
-            var logfiledict = new Dictionary<string, string>
-            {
-                { "@kishumei", $"{EicsParam_TypeCode}" },
-                { "@date", $"{date}" },
-                { "@time", $"{time}" }
-            };
-            var MLSriname = "0000000.000";
-            var dtstr = DateTime.Now.ToString("yyyyMMddhhmmss");
+        //    //
+        //    // log file words
+        //    //
+        //    var MLfolderpath = "";
+        //    var macInstance = ZeDBComboRouter(macname);
+        //    if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
+        //    {
+        //        ConsoleShow(MLfolderpath);
+        //        return;
+        //    }
+        //    var date = DateTime.Now.ToString("yyyy/MM/dd");
+        //    var time = DateTime.Now.ToString("HH:mm:ss");
+        //    var logfiledict = new Dictionary<string, string>
+        //    {
+        //        { "@kishumei", $"{EicsParam_TypeCode}" },
+        //        { "@date", $"{date}" },
+        //        { "@time", $"{time}" }
+        //    };
+        //    var MLSriname = "0000000.000";
+        //    var dtstr = DateTime.Now.ToString("yyyyMMddhhmmss");
 
-            //
-            if (SelectYesNoMessage("各種トランザクションデータを初期化します") == DialogResult.Yes)
-            {
-                CleanTbls();
-            }
-            // DBhistoryフォルダクリーン
-            foreach (string f in Directory.GetFiles(@"C:\ARMS\DBhistory", "*.*"))
-            {
-                File.Delete(f);
-            }
-            // DBhistoryフォーマットコピー
-            foreach (string f in Directory.GetFiles(@"C:\ARMS\DBhistory\format", "*.*"))
-            {
-                CopyFile(f, @"C:\ARMS\DBhistory\" + Path.GetFileName(f));
-            }
-            // 装置フォルダクリーン
-            cleanMacLogFolders(); //全クリーン
+        //    //
+        //    if (SelectYesNoMessage("各種トランザクションデータを初期化します") == DialogResult.Yes)
+        //    {
+        //        CleanTbls();
+        //    }
+        //    // DBhistoryフォルダクリーン
+        //    foreach (string f in Directory.GetFiles(@"C:\ARMS\DBhistory", "*.*"))
+        //    {
+        //        File.Delete(f);
+        //    }
+        //    // DBhistoryフォーマットコピー
+        //    foreach (string f in Directory.GetFiles(@"C:\ARMS\DBhistory\format", "*.*"))
+        //    {
+        //        CopyFile(f, @"C:\ARMS\DBhistory\" + Path.GetFileName(f));
+        //    }
+        //    // 装置フォルダクリーン
+        //    cleanMacLogFolders(); //全クリーン
 
-            // EICSスタートタイミング開始確認
-            workheader = "procno." + procno + ":EICSスタートタイミング開始";
-            if (SelectYesNoMessage(workheader + "。EICSは稼働中ですか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow($"□□□macno={macname}: {macInstance.macname}□□□");
-                    // MLフォルダクリーン
-                    foreach (string f in Directory.GetFiles(MLfolderpath, "*.*"))
-                    {
-                        File.Delete(f);
-                    }
+        //    // EICSスタートタイミング開始確認
+        //    workheader = "procno." + procno + ":EICSスタートタイミング開始";
+        //    if (SelectYesNoMessage(workheader + "。EICSは稼働中ですか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow($"□□□macno={macname}: {macInstance.macname}□□□");
+        //            // MLフォルダクリーン
+        //            foreach (string f in Directory.GetFiles(MLfolderpath, "*.*"))
+        //            {
+        //                File.Delete(f);
+        //            }
 
-                    if (macparam != "全パラメータ")
-                    {
-                        ConsoleShow("■■■O,Pファイルを出力開始■■■");
-                        // 設備ログ(O,Pファイル)を吐き出し
-                        // Oファイル
-                        if (!CreateMLog(macInstance.macLogOriginFolder + "O.csv", MLfolderpath + "O" + MLSriname, logfiledict, ref msg))
-                        {
-                            ConsoleShow(msg);
-                            return;
-                        }
-                        // Pファイル
-                        if (!CreateMLog(macInstance.macLogOriginFolder + "P.csv", MLfolderpath + "P" + MLSriname, logfiledict, ref msg))
-                        {
-                            ConsoleShow(msg);
-                            return;
-                        }
-                        ConsoleShow("■■■O,Pファイルを出力完了■■■");
-                    }
-                    else
-                    {
-                        ConsoleShow("■■■全パラファイルを出力開始■■■");
-                        if (!CreateMLog(macInstance.macLogOriginFolder + "ViP-ZD-test_.txt", MLfolderpath + "ViP-ZD-test_" + dtstr + ".txt", logfiledict, ref msg))
-                        {
-                            ConsoleShow(msg);
-                            return;
-                        }
-                        ConsoleShow("■■■全パラファイルを出力完了■■■");
-                    }
+        //            if (macparam != "全パラメータ")
+        //            {
+        //                ConsoleShow("■■■O,Pファイルを出力開始■■■");
+        //                // 設備ログ(O,Pファイル)を吐き出し
+        //                // Oファイル
+        //                if (!CreateMLog(macInstance.macLogOriginFolder + "O.csv", MLfolderpath + "O" + MLSriname, logfiledict, ref msg))
+        //                {
+        //                    ConsoleShow(msg);
+        //                    return;
+        //                }
+        //                // Pファイル
+        //                if (!CreateMLog(macInstance.macLogOriginFolder + "P.csv", MLfolderpath + "P" + MLSriname, logfiledict, ref msg))
+        //                {
+        //                    ConsoleShow(msg);
+        //                    return;
+        //                }
+        //                ConsoleShow("■■■O,Pファイルを出力完了■■■");
+        //            }
+        //            else
+        //            {
+        //                ConsoleShow("■■■全パラファイルを出力開始■■■");
+        //                if (!CreateMLog(macInstance.macLogOriginFolder + "ViP-ZD-test_.txt", MLfolderpath + "ViP-ZD-test_" + dtstr + ".txt", logfiledict, ref msg))
+        //                {
+        //                    ConsoleShow(msg);
+        //                    return;
+        //                }
+        //                ConsoleShow("■■■全パラファイルを出力完了■■■");
+        //            }
 
-                    Thread.Sleep(2000);
-                });
+        //            Thread.Sleep(2000);
+        //        });
 
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
 
-            // マガジン投入開始確認
-            workheader = "procno." + procno + ":マガジン投入開始";
-            if (SelectYesNoMessage(workheader + "。ARMSは稼働中ですか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    // ビットメモリ初期化
-                    if (cb_m1db_exclnbitmem.Checked)
-                    {
-                        if (!TestMemAndIni())
-                        {
-                            return;
-                        }
-                    }
-                    Thread.Sleep(1000);
+        //    // マガジン投入開始確認
+        //    workheader = "procno." + procno + ":マガジン投入開始";
+        //    if (SelectYesNoMessage(workheader + "。ARMSは稼働中ですか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            // ビットメモリ初期化
+        //            if (cb_m1db_exclnbitmem.Checked)
+        //            {
+        //                if (!TestMemAndIni())
+        //                {
+        //                    return;
+        //                }
+        //            }
+        //            Thread.Sleep(1000);
 
-                    ConsoleShow($"□□□procno={procno}: {procname}□□□");
+        //            ConsoleShow($"□□□procno={procno}: {procname}□□□");
 
-                    // 空マガ書き込み
-                    ConsoleShow("■■■空マガジン投入■■■");
-                    if (!readRbMagQr(karamagno))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
+        //            // 空マガ書き込み
+        //            ConsoleShow("■■■空マガジン投入■■■");
+        //            if (!readRbMagQr(karamagno))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
 
-                    // EmpMagLoaderReq
-                    SetBit(ZeDBComboRouter(macname).empMagLoaderReqBitAddress, "1");
-                    ConsoleShow("空マガジン供給を要求しました");
+        //            // EmpMagLoaderReq
+        //            SetBit(ZeDBComboRouter(macname).empMagLoaderReqBitAddress, "1");
+        //            ConsoleShow("空マガジン供給を要求しました");
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:2秒 +++");
-                    Thread.Sleep(2000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:2秒 +++");
+        //            Thread.Sleep(2000);
 
-                    // 空マガジン投入
-                    EntConvMagazine("kara_on");
-                    ConsoleShow("ローダー空マガジン排出を要求しました");
+        //            // 空マガジン投入
+        //            EntConvMagazine("kara_on");
+        //            ConsoleShow("ローダー空マガジン排出を要求しました");
 
-                    // +++ ロボット動作 +++
-                    if (!RBGetPutMagAuto())
-                    {
-                        ConsoleShow("■■■自動投入停止しました■■■");
-                        return;
-                    }
+        //            // +++ ロボット動作 +++
+        //            if (!RBGetPutMagAuto())
+        //            {
+        //                ConsoleShow("■■■自動投入停止しました■■■");
+        //                return;
+        //            }
 
-                    // EmpMagLoaderReq
-                    SetBit(ZeDBComboRouter(macname).empMagLoaderReqBitAddress, "0");
-                    ConsoleShow("空マガジン供給OFFしました");
+        //            // EmpMagLoaderReq
+        //            SetBit(ZeDBComboRouter(macname).empMagLoaderReqBitAddress, "0");
+        //            ConsoleShow("空マガジン供給OFFしました");
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:10秒 +++");
-                    Thread.Sleep(10000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:10秒 +++");
+        //            Thread.Sleep(10000);
 
-                    ConsoleShow("停止中");
-                });
+        //            ConsoleShow("停止中");
+        //        });
 
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-
-
-            // 実マガジン～
-            workheader = "procno." + procno + ":実マガジンを投入";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    // 実マガ書き込み
-                    ConsoleShow("■■■実マガジン投入■■■");
-                    if (!readRbMagQr(aoimagno))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
-
-                    // MagLoaderReq ON
-                    SetBit(ZeDBComboRouter(macname).loaderReqBitAddress, "1");
-                    ConsoleShow("実マガジン供給要求ONしました");
-                    Thread.Sleep(1000);
-
-                    // aoiマガジン投入
-                    EntConvMagazine("aoi_on");
-                    ConsoleShow("ローダー実(aoi)マガジン排出を要求しました");
-
-                    // +++ ロボット動作 +++
-                    if (!RBGetPutMagAuto())
-                    {
-                        ConsoleShow("■■■自動投入停止しました■■■");
-                        return;
-                    }
-
-                    //// waferBitAddressStart
-                    //SetBit(ZeDBComboRouter(macname).waferBitAddressStart, "1");
-                    //ConsoleShow("waferBitAddressStartをONしました");
-
-                    //// startWorkTableSensorAddress
-                    //SetBit(ZeDBComboRouter(macname).startWorkTableSensorAddress, "1");
-                    //ConsoleShow("startWorkTableSensorAddressをONしました");
-
-                    // MagLoaderReq OFF
-                    SetBit(ZeDBComboRouter(macname).loaderReqBitAddress, "0");
-                    ConsoleShow("実マガジン供給要求OFFしました");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:10秒 +++");
-                    Thread.Sleep(10000);
-
-                    ConsoleShow("停止中");
-                });
-
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-
-            // 工程完了登録：EICSマガジンタイミング
-            workheader = "procno." + procno + ":EICSマガジンタイミングを開始";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                ConsoleShow("■■■B,E,H,I,K,L,N,Wファイルを出力開始■■■");
-
-                await Task.Run(() =>
-                {
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "B.csv", MLfolderpath + "B" + MLSriname, logfiledict, ref msg))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "E.csv", MLfolderpath + "E" + MLSriname, logfiledict, ref msg))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "H.csv", MLfolderpath + "H" + MLSriname, logfiledict, ref msg))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "I.csv", MLfolderpath + "I" + MLSriname, logfiledict, ref msg))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "K.csv", MLfolderpath + "K" + MLSriname, logfiledict, ref msg))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "N.csv", MLfolderpath + "N" + MLSriname, logfiledict, ref msg))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "W.csv", MLfolderpath + "W" + MLSriname, logfiledict, ref msg))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "L.csv", MLfolderpath + "L" + MLSriname, logfiledict, ref msg))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
-
-                    // +++ Wait +++
-                    Thread.Sleep(2000);
-
-                    ConsoleShow("■■■B,E,H,I,K,L,N,Wファイルを出力完了■■■");
-                });
-
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-
-            // 工程完了登録
-            workheader = "procno." + procno + ":工程完了開始";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow("■■■実マガジン排出開始■■■");
-
-                    // 空マガNoを再度書き込み（ロボットがなぜか持ちだすことがあるっぽい）
-                    if (!readRbMagQr(karamagno))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
-                    ConsoleShow("マガジンNoを再度書き込みました。");
-
-                    //実マガジン排出要求ON
-                    SetBit(ZeDBComboRouter(macname).unloaderReqBitAddress, "1");
-                    ConsoleShow("実マガジン排出要求ON");
-
-                    //// +++ Wait +++
-                    //ConsoleShow("+++ Wait:10秒 +++");
-                    //Thread.Sleep(10000);
-
-                    //// waferBitAddressStart
-                    //SetBit(ZeDBComboRouter(macname).waferBitAddressStart, "0");
-                    //ConsoleShow("waferBitAddressStartをOFFしました");
-
-                    //// startWorkTableSensorAddress
-                    //SetBit(ZeDBComboRouter(macname).startWorkTableSensorAddress, "0");
-                    //ConsoleShow("startWorkTableSensorAddressをOFFしました");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:20秒 +++");
-                    Thread.Sleep(20000);
-
-                    ConsoleShow("■■■DB装置アンローダー上で停止■■■");
-                });
-
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-            AutoRunLock = false;
-            MessageBox.Show("完了しました");
-        }
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
 
 
-        //
-        // DB OVEN
-        //
-        private void btn_DVOVN_AutoRun_Click(object sender, EventArgs e)
-        {
-            if (!AutoRunLock)
-            {
-                AutoRunLock = true;
-                DVOVN_AutoRun();
-                
-            }
-        }
-        private async void DVOVN_AutoRun()
-        {
-            var procno = cb_dbovn_procno.Text;
-            var procname = "DB-OVN";
-            var DBOvnNo = cb_dbovnno.Text;
-            var leddbmacname = cb_leddbno.Text;
-            var ZeDBNo = cb_zedbno.Text;
-            var jitumag = tx_dvovn_m_auto.Text;
-            var profileno = int.Parse(cb_dbovnProfile.Text);
+        //    // 実マガジン～
+        //    workheader = "procno." + procno + ":実マガジンを投入";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            // 実マガ書き込み
+        //            ConsoleShow("■■■実マガジン投入■■■");
+        //            if (!readRbMagQr(aoimagno))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
 
-            // 実マガジン～
-            workheader = "procno." + procno + ":DBOVN投入開始";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow($"□□□procno={procno}: {procname}□□□");
+        //            // MagLoaderReq ON
+        //            SetBit(ZeDBComboRouter(macname).loaderReqBitAddress, "1");
+        //            ConsoleShow("実マガジン供給要求ONしました");
+        //            Thread.Sleep(1000);
 
-                    if (procno == "2")
-                    {
-                        ConsoleShow("■■■DB装置から実マガジン投入■■■");
+        //            // aoiマガジン投入
+        //            EntConvMagazine("aoi_on");
+        //            ConsoleShow("ローダー実(aoi)マガジン排出を要求しました");
 
-                        ConsoleShow("排出要求ON");
-                        if (string.IsNullOrEmpty(ZeDBComboRouter(ZeDBNo).unloaderReqBitAddress))
-                        {
-                            ConsoleShow("Zeダイボンダーではありません");
-                            return;
-                        }
-                        SetBit(ZeDBComboRouter(ZeDBNo).unloaderReqBitAddress, "1");
+        //            // +++ ロボット動作 +++
+        //            if (!RBGetPutMagAuto())
+        //            {
+        //                ConsoleShow("■■■自動投入停止しました■■■");
+        //                return;
+        //            }
 
-                        // プロファイル設定
-                        ConsoleShow("オーブンプロファイルを2に設定");
-                        SetWordAsDecimalData(DBOvnComboRouter(DBOvnNo).currentProfileWordAddress, 2);
-                    }
-                    else if (procno == "7")
-                    {
-                        // 実マガ書き込み
-                        ConsoleShow("■■■CV実マガジン投入■■■");
-                        if (!readRbMagQr(jitumag))
-                        {
-                            return;
-                        }
-                        Thread.Sleep(1000);
+        //            //// waferBitAddressStart
+        //            //SetBit(ZeDBComboRouter(macname).waferBitAddressStart, "1");
+        //            //ConsoleShow("waferBitAddressStartをONしました");
 
-                        // 途中投入？
-                        if (cb_dbovn_useniccv.Checked)
-                        {
-                            if (!NicConvQR(jitumag))
-                            {
-                                return;
-                            }
-                            Thread.Sleep(1000);
-                            // 途中投入排出要求ON
-                            SetBit(NicConv_01.unloaderReqBitAddress, "1");
-                            SetBit(NicConv_01.magazineArriveBitAddress, "1");
-                            ConsoleShow("途中マガジン投入を要求しました");
-                        }
-                        else
-                        {
-                            // OVN排出要求ON
-                            Thread.Sleep(1000);
-                            SetBit(LEDDBComboRouter(leddbmacname).unloaderReqBitAddress, "1");
-                            ConsoleShow("DB(LED)の実マガジン排出を要求しました");
-                        }
+        //            //// startWorkTableSensorAddress
+        //            //SetBit(ZeDBComboRouter(macname).startWorkTableSensorAddress, "1");
+        //            //ConsoleShow("startWorkTableSensorAddressをONしました");
 
-                        // プロファイル設定
-                        ConsoleShow("オーブンプロファイルを5に設定");
-                        SetWordAsDecimalData(DBOvnComboRouter(DBOvnNo).currentProfileWordAddress, 5);
-                    }
-                    else
-                    {
-                        return;
-                    }
+        //            // MagLoaderReq OFF
+        //            SetBit(ZeDBComboRouter(macname).loaderReqBitAddress, "0");
+        //            ConsoleShow("実マガジン供給要求OFFしました");
 
-                    ConsoleShow("供給要求ON");
-                    SetBit(DBOvnComboRouter(DBOvnNo).loaderReqBitAddressList_addKey1, "1");
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:10秒 +++");
+        //            Thread.Sleep(10000);
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
+        //            ConsoleShow("停止中");
+        //        });
 
-                    // ブリッジ搬送
-                    if (cb_dbovn_moveToBridge.Checked)
-                    {
-                        ConsoleShow("ブリッジ搬送します");
-                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
 
-                        // +++ ロボット動作 +++
-                        if (!RBGetPutMagAuto())
-                        {
-                            ConsoleShow("■■■自動投入停止しました■■■");
-                            return;
-                        }
+        //    // 工程完了登録：EICSマガジンタイミング
+        //    workheader = "procno." + procno + ":EICSマガジンタイミングを開始";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        ConsoleShow("■■■B,E,H,I,K,L,N,Wファイルを出力開始■■■");
 
-                    }
+        //        await Task.Run(() =>
+        //        {
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "B.csv", MLfolderpath + "B" + MLSriname, logfiledict, ref msg))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "E.csv", MLfolderpath + "E" + MLSriname, logfiledict, ref msg))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "H.csv", MLfolderpath + "H" + MLSriname, logfiledict, ref msg))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "I.csv", MLfolderpath + "I" + MLSriname, logfiledict, ref msg))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "K.csv", MLfolderpath + "K" + MLSriname, logfiledict, ref msg))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "N.csv", MLfolderpath + "N" + MLSriname, logfiledict, ref msg))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "W.csv", MLfolderpath + "W" + MLSriname, logfiledict, ref msg))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "L.csv", MLfolderpath + "L" + MLSriname, logfiledict, ref msg))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
 
-                    // +++ ロボット動作 +++
-                    if (!RBGetPutMagAuto())
-                    {
-                        ConsoleShow("■■■自動投入停止しました■■■");
-                        return;
-                    }
+        //            // +++ Wait +++
+        //            Thread.Sleep(2000);
 
-                    if (procno == "2")
-                    {
-                        // 排出要求OFF
-                        ConsoleShow("排出要求OFF");
-                        SetBit(ZeDBComboRouter(ZeDBNo).unloaderReqBitAddress, "0");
-                    }
-                    else
-                    {
-                        if (cb_dbovn_useniccv.Checked)
-                        {
-                            SetBit(LEDDBComboRouter(leddbmacname).unloaderReqBitAddress, "0");
-                            ConsoleShow("DB(LED)の実マガジン排出をOFFしました");
-                        }
-                    }
+        //            ConsoleShow("■■■B,E,H,I,K,L,N,Wファイルを出力完了■■■");
+        //        });
 
-                    // 供給要求OFF
-                    SetBit(DBOvnComboRouter(DBOvnNo).loaderReqBitAddressList_addKey1, "0");
-                    ConsoleShow("供給要求OFF");
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
+        //    // 工程完了登録
+        //    workheader = "procno." + procno + ":工程完了開始";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow("■■■実マガジン排出開始■■■");
 
-                    ConsoleShow("■■■OVN装置上で停止（完了処理前）■■■");
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-            AutoRunLock = false;
-            MessageBox.Show("完了しました");
-        }
+        //            // 空マガNoを再度書き込み（ロボットがなぜか持ちだすことがあるっぽい）
+        //            if (!readRbMagQr(karamagno))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
+        //            ConsoleShow("マガジンNoを再度書き込みました。");
+
+        //            //実マガジン排出要求ON
+        //            SetBit(ZeDBComboRouter(macname).unloaderReqBitAddress, "1");
+        //            ConsoleShow("実マガジン排出要求ON");
+
+        //            //// +++ Wait +++
+        //            //ConsoleShow("+++ Wait:10秒 +++");
+        //            //Thread.Sleep(10000);
+
+        //            //// waferBitAddressStart
+        //            //SetBit(ZeDBComboRouter(macname).waferBitAddressStart, "0");
+        //            //ConsoleShow("waferBitAddressStartをOFFしました");
+
+        //            //// startWorkTableSensorAddress
+        //            //SetBit(ZeDBComboRouter(macname).startWorkTableSensorAddress, "0");
+        //            //ConsoleShow("startWorkTableSensorAddressをOFFしました");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:20秒 +++");
+        //            Thread.Sleep(20000);
+
+        //            ConsoleShow("■■■DB装置アンローダー上で停止■■■");
+        //        });
+
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+        //    AutoRunLock = false;
+        //    MessageBox.Show("完了しました");
+        //}
+
+
 
         //
         // LED DB
@@ -4824,13 +4712,12 @@ namespace ARMS3.FakeVSPline
         }
         private async void LEDDB_AutoRun()
         {
-            var procno = "4";
-            var procname = "LED-DB";
+            var procno = "3";
+            var procname = "DBL";
             var macname = cb_leddbno.Text;
             string msg = "";
             var karamagno = tx_leddb_empm_auto.Text;
             var jitumagno = tx_leddb_m_auto.Text;
-            var ovnmacno = cb_leddb_fromDBOVNno.Text;
             var macparam = cmb_zdbpram.Text;
 
             //
@@ -5014,12 +4901,12 @@ namespace ARMS3.FakeVSPline
                     }
                     else
                     {
-                        // OVN排出要求ON
-                        SetDataTimeToOvenPlc(DBOvnComboRouter(ovnmacno));
-                        ConsoleShow("開始完了時刻を書き込んでいます:Wait1秒");
-                        Thread.Sleep(1000);
-                        SetBit(DBOvnComboRouter(ovnmacno).unloaderReqBitAddressList_addKey1, "1");
-                        ConsoleShow("オーブンの実マガジン排出を要求しました");
+                        //// OVN排出要求ON
+                        //SetDataTimeToOvenPlc(DBOvnComboRouter(ovnmacno));
+                        //ConsoleShow("開始完了時刻を書き込んでいます:Wait1秒");
+                        //Thread.Sleep(1000);
+                        //SetBit(DBOvnComboRouter(ovnmacno).unloaderReqBitAddressList_addKey1, "1");
+                        //ConsoleShow("オーブンの実マガジン排出を要求しました");
                     }
 
                     // +++ Wait +++
@@ -5072,9 +4959,9 @@ namespace ARMS3.FakeVSPline
                     }
                     else
                     {
-                        // OVN排出要求OFF
-                        SetBit(DBOvnComboRouter(ovnmacno).unloaderReqBitAddressList_addKey1, "0");
-                        ConsoleShow("オーブンの実マガジン排出をOFFしました");
+                        //// OVN排出要求OFF
+                        //SetBit(DBOvnComboRouter(ovnmacno).unloaderReqBitAddressList_addKey1, "0");
+                        //ConsoleShow("オーブンの実マガジン排出をOFFしました");
                     }
 
                     // +++ Wait +++
@@ -5209,7 +5096,541 @@ namespace ARMS3.FakeVSPline
         }
 
         //
-        // DBPL
+        // ZD DB
+        //
+        private void btn_ZDDB_AutoRun_Click(object sender, EventArgs e)
+        {
+            if (!AutoRunLock)
+            {
+                AutoRunLock = true;
+                ZDDB_AutoRun();
+
+            }
+        }
+        private async void ZDDB_AutoRun()
+        {
+            var procno = "4";
+            var procname = "DBZ";
+            var macname = cb_zedbno.Text;
+            string msg = "";
+            var karamagno = tx_m1db_empm_auto.Text;
+            var jitumagno = tx_m1db_m_auto.Text;
+            var macparam = cmb_zdbpram.Text;
+            var ledmacno = cb_leddbno.Text;
+
+            //
+            // log file words
+            //
+            var MLfolderpath = "";
+            var macInstance = ZDDBComboRouter(macname);
+            if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
+            {
+                ConsoleShow(MLfolderpath);
+                return;
+            }
+            var date = DateTime.Now.ToString("yyyy/MM/dd");
+            var time = DateTime.Now.ToString("HH:mm:ss");
+            var logfiledict = new Dictionary<string, string>
+            {
+                { "@kishumei", $"{EicsParam_TypeCode}" },
+                { "@date", $"{date}" },
+                { "@time", $"{time}" }
+            };
+            var MLSriname = "0000000.000";
+            var dtstr = DateTime.Now.ToString("yyyyMMddhhmmss");
+            //
+
+            // EICSスタートタイミング開始確認
+            workheader = "procno." + procno + ":EICSスタートタイミング開始";
+            if (SelectYesNoMessage(workheader + "。EICSは稼働中ですか？") == DialogResult.Yes)
+            {
+                await Task.Run(() =>
+                {
+                    ConsoleShow($"□□□macno={macname}: {macInstance.macname}□□□");
+                    // MLフォルダクリーン
+                    foreach (string f in Directory.GetFiles(MLfolderpath, "*.*"))
+                    {
+                        File.Delete(f);
+                    }
+
+                    if (macparam != "全パラメータ")
+                    {
+                        ConsoleShow("■■■O,Pファイルを出力開始■■■");
+                        // 設備ログ(O,Pファイル)を吐き出し
+                        // Oファイル
+                        if (!CreateMLog(macInstance.macLogOriginFolder + "O.csv", MLfolderpath + "O" + MLSriname, logfiledict, ref msg))
+                        {
+                            ConsoleShow(msg);
+                            return;
+                        }
+                        // Pファイル
+                        if (!CreateMLog(macInstance.macLogOriginFolder + "P.csv", MLfolderpath + "P" + MLSriname, logfiledict, ref msg))
+                        {
+                            ConsoleShow(msg);
+                            return;
+                        }
+                        ConsoleShow("■■■O,Pファイルを出力完了■■■");
+                    }
+                    else
+                    {
+                        ConsoleShow("■■■全パラファイルを出力開始■■■");
+                        if (!CreateMLog(macInstance.macLogOriginFolder + "ViP-LED-test-2_.txt", MLfolderpath + "ViP-LED-test_" + dtstr + ".txt", logfiledict, ref msg))
+                        {
+                            ConsoleShow(msg);
+                            return;
+                        }
+                        ConsoleShow("■■■全パラファイルを出力完了■■■");
+                    }
+
+                    Thread.Sleep(2000);
+                });
+
+                RecordTn(workheader);
+            }
+            else
+            {
+                updateCommonFunctionSignalBtns();
+                AutoRunLock = false;
+                return;
+            }
+            // 空マガジン～
+            workheader = "procno." + procno + ":空マガジンを投入";
+            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+            {
+                await Task.Run(() =>
+                {
+                    ConsoleShow($"□□□procno={procno}: {procname}□□□");
+
+                    // 空マガ書き込み
+                    ConsoleShow("■■■空マガジン投入■■■");
+                    if (!readRbMagQr(karamagno))
+                    {
+                        return;
+                    }
+                    Thread.Sleep(1000);
+
+                    // EmpMagLoaderReq
+                    SetBit(ZDDBComboRouter(macname).empMagLoaderReqBitAddress, "1");
+                    ConsoleShow("空マガジン供給を要求しました");
+
+                    // +++ Wait +++
+                    ConsoleShow("+++ Wait:2秒 +++");
+                    Thread.Sleep(2000);
+
+                    // 空マガジン投入
+                    EntConvMagazine("kara_on");
+                    ConsoleShow("ローダー空マガジン排出を要求しました");
+
+                    // +++ Wait +++
+                    ConsoleShow("+++ Wait:3秒 +++");
+                    Thread.Sleep(3000);
+
+                    // ブリッジ搬送
+                    if (cb_zddb_emmoveToBridge.Checked)
+                    {
+                        ConsoleShow("ブリッジ搬送します");
+                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
+                        SetBit(LineBridge_01.empMagUnloaderReqBitAddress, "1");
+
+                        // +++ ロボット動作 +++
+                        if (!RBGetPutMagAuto())
+                        {
+                            ConsoleShow("■■■自動投入停止しました■■■");
+                            return;
+                        }
+
+                        // 空排出OFF
+                        SetBit(LineBridge_01.empMagUnloaderReqBitAddress, "0");
+                    }
+
+                    // +++ ロボット動作 +++
+                    if (!RBGetPutMagAuto())
+                    {
+                        ConsoleShow("■■■自動投入停止しました■■■");
+                        return;
+                    }
+
+                    // EmpMagLoaderReq
+                    SetBit(ZDDBComboRouter(macname).empMagLoaderReqBitAddress, "0");
+                    ConsoleShow("空マガジン供給OFFしました");
+
+                    ConsoleShow("停止中");
+                });
+                updateCommonFunctionSignalBtns();
+                RecordTn(workheader);
+            }
+            else
+            {
+                updateCommonFunctionSignalBtns();
+                AutoRunLock = false;
+                return;
+            }
+            // 実マガジン～
+            workheader = "procno." + procno + ":実マガジンを投入";
+            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+            {
+                await Task.Run(() =>
+                {
+                    // 実マガ書き込み
+                    ConsoleShow("■■■実マガジン投入■■■");
+                    if (!readRbMagQr(jitumagno))
+                    {
+                        return;
+                    }
+                    Thread.Sleep(1000);
+
+                    // MagLoaderReq ON
+                    SetBit(ZDDBComboRouter(macname).loaderReqBitAddress, "1");
+                    ConsoleShow("実マガジン供給要求ONしました");
+                    Thread.Sleep(1000);
+
+                    // 途中投入？
+                    if (cb_zddb_useniccv.Checked)
+                    {
+                        if (!NicConvQR(jitumagno))
+                        {
+                            return;
+                        }
+                        Thread.Sleep(1000);
+                        // 途中投入排出要求ON
+                        SetBit(NicConv_01.unloaderReqBitAddress, "1");
+                        SetBit(NicConv_01.magazineArriveBitAddress, "1");
+                        ConsoleShow("途中マガジン投入を要求しました");
+                    }
+                    else
+                    {
+                        // 排出要求ON
+                        Thread.Sleep(1000);
+                        SetBit(LEDDBComboRouter(ledmacno).unloaderReqBitAddress, "1");
+                        ConsoleShow("DB(LED)の実マガジン排出を要求しました");
+                    }
+
+                    // +++ Wait +++
+                    ConsoleShow("+++ Wait:5秒 +++");
+                    Thread.Sleep(5000);
+
+                    // ブリッジ搬送
+                    if (cb_zddb_moveToBridge.Checked)
+                    {
+                        ConsoleShow("ブリッジ搬送します");
+                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
+
+                        // +++ ロボット動作 +++
+                        if (!RBGetPutMagAuto())
+                        {
+                            ConsoleShow("■■■自動投入停止しました■■■");
+                            return;
+                        }
+                    }
+
+                    // +++ ロボット動作 +++
+                    if (!RBGetPutMagAuto())
+                    {
+                        ConsoleShow("■■■自動投入停止しました■■■");
+                        return;
+                    }
+
+                    //// waferBitAddressStart
+                    //SetBit(ZDDBComboRouter(macname).waferBitAddressStart, "1");
+                    //ConsoleShow("waferBitAddressStartをONしました");
+
+                    //// startWorkTableSensorAddress
+                    //SetBit(ZDDBComboRouter(macname).startWorkTableSensorAddress, "1");
+                    //ConsoleShow("startWorkTableSensorAddressをONしました");
+
+                    // +++ Wait +++
+                    ConsoleShow("+++ Wait:5秒 +++");
+                    Thread.Sleep(5000);
+
+                    // MagLoaderReq OFF
+                    SetBit(ZDDBComboRouter(macname).loaderReqBitAddress, "0");
+                    ConsoleShow("実マガジン供給要求OFFしました");
+
+
+                    // 途中投入？
+                    if (cb_zddb_useniccv.Checked)
+                    {
+                        SetBit(NicConv_01.unloaderReqBitAddress, "0");
+                        ConsoleShow("途中投入をOFFしました");
+                    }
+                    else
+                    {
+                        // 排出要求OFF
+                        Thread.Sleep(1000);
+                        SetBit(LEDDBComboRouter(ledmacno).unloaderReqBitAddress, "0");
+                        ConsoleShow("DB(LED)の実マガジン排出をOFFしました");
+                    }
+
+                    // +++ Wait +++
+                    ConsoleShow("+++ Wait:10秒 +++");
+                    Thread.Sleep(10000);
+
+                    ConsoleShow("停止中");
+                });
+                updateCommonFunctionSignalBtns();
+                RecordTn(workheader);
+            }
+            else
+            {
+                updateCommonFunctionSignalBtns();
+                AutoRunLock = false;
+                return;
+            }
+
+            // 工程完了登録：EICSマガジンタイミング
+            workheader = "procno." + procno + ":EICSマガジンタイミング開始";
+            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+            {
+                ConsoleShow("■■■B,E,H,I,K,L,N,Wファイルを出力開始■■■");
+
+                await Task.Run(() =>
+                {
+                    if (!CreateMLog(macInstance.macLogOriginFolder + "B.csv", MLfolderpath + "B" + MLSriname, logfiledict, ref msg))
+                    {
+                        ConsoleShow(msg);
+                        return;
+                    }
+                    if (!CreateMLog(macInstance.macLogOriginFolder + "E.csv", MLfolderpath + "E" + MLSriname, logfiledict, ref msg))
+                    {
+                        ConsoleShow(msg);
+                        return;
+                    }
+                    if (!CreateMLog(macInstance.macLogOriginFolder + "H.csv", MLfolderpath + "H" + MLSriname, logfiledict, ref msg))
+                    {
+                        ConsoleShow(msg);
+                        return;
+                    }
+                    if (!CreateMLog(macInstance.macLogOriginFolder + "I.csv", MLfolderpath + "I" + MLSriname, logfiledict, ref msg))
+                    {
+                        ConsoleShow(msg);
+                        return;
+                    }
+                    if (!CreateMLog(macInstance.macLogOriginFolder + "K.csv", MLfolderpath + "K" + MLSriname, logfiledict, ref msg))
+                    {
+                        ConsoleShow(msg);
+                        return;
+                    }
+                    if (!CreateMLog(macInstance.macLogOriginFolder + "N.csv", MLfolderpath + "N" + MLSriname, logfiledict, ref msg))
+                    {
+                        ConsoleShow(msg);
+                        return;
+                    }
+                    if (!CreateMLog(macInstance.macLogOriginFolder + "W.csv", MLfolderpath + "W" + MLSriname, logfiledict, ref msg))
+                    {
+                        ConsoleShow(msg);
+                        return;
+                    }
+                    if (!CreateMLog(macInstance.macLogOriginFolder + "L.csv", MLfolderpath + "L" + MLSriname, logfiledict, ref msg))
+                    {
+                        ConsoleShow(msg);
+                        return;
+                    }
+
+                    // +++ Wait +++
+                    Thread.Sleep(2000);
+
+                    ConsoleShow("■■■B,E,H,I,K,L,N,Wファイルを出力完了■■■");
+                });
+                updateCommonFunctionSignalBtns();
+                RecordTn(workheader);
+            }
+            else
+            {
+                updateCommonFunctionSignalBtns();
+                AutoRunLock = false;
+                return;
+            }
+
+            // 工程完了登録
+            workheader = "procno." + procno + ":工程完了登録開始";
+            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+            {
+                await Task.Run(() =>
+                {
+                    ConsoleShow("■■■実マガジン排出開始■■■");
+
+                    // 空マガNoを再度書き込み（ロボットがなぜか持ちだすことがあるっぽい）
+                    if (!readRbMagQr(karamagno))
+                    {
+                        return;
+                    }
+                    Thread.Sleep(1000);
+                    ConsoleShow("マガジンNoを再度書き込みました。");
+
+                    //実マガジン排出要求ON
+                    SetBit(ZDDBComboRouter(macname).unloaderReqBitAddress, "1");
+                    ConsoleShow("実マガジン排出要求ON");
+
+                    //// +++ Wait +++
+                    //ConsoleShow("+++ Wait:10秒 +++");
+                    //Thread.Sleep(10000);
+
+                    //// waferBitAddressStart
+                    //SetBit(ZDDBComboRouter(macname).waferBitAddressStart, "0");
+                    //ConsoleShow("waferBitAddressStartをOFFしました");
+
+                    //// startWorkTableSensorAddress
+                    //SetBit(ZDDBComboRouter(macname).startWorkTableSensorAddress, "0");
+                    //ConsoleShow("startWorkTableSensorAddressをOFFしました");
+
+                    // +++ Wait +++
+                    ConsoleShow("+++ Wait:20秒 +++");
+                    Thread.Sleep(20000);
+
+                    ConsoleShow("■■■DB装置アンローダー上で停止■■■");
+                });
+                updateCommonFunctionSignalBtns();
+                RecordTn(workheader);
+            }
+            else
+            {
+                updateCommonFunctionSignalBtns();
+                AutoRunLock = false;
+                return;
+            }
+            AutoRunLock = false;
+            MessageBox.Show("完了しました");
+        }
+
+        //
+        // DB OVEN
+        //
+        private void btn_DVOVN_AutoRun_Click(object sender, EventArgs e)
+        {
+            if (!AutoRunLock)
+            {
+                AutoRunLock = true;
+                DVOVN_AutoRun();
+
+            }
+        }
+        private async void DVOVN_AutoRun()
+        {
+            var procno = cb_dbovn_procno.Text;
+            var procname = "DBC";
+            var DBOvnNo = cb_dbovnno.Text;
+            var leddbmacname = cb_leddbno.Text;
+            var ZeDBNo = cb_zedbno.Text;
+            var jitumag = tx_dvovn_m_auto.Text;
+            var profileno = int.Parse(cb_dbovnProfile.Text);
+
+            // 実マガジン～
+            workheader = "procno." + procno + ":DBC投入開始";
+            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+            {
+                await Task.Run(() =>
+                {
+                    ConsoleShow($"□□□procno={procno}: {procname}□□□");
+
+                    if (procno == "5")
+                    {
+                        // 実マガ書き込み
+                        ConsoleShow("■■■実マガジンQR書込み■■■");
+                        if (!readRbMagQr(jitumag))
+                        {
+                            return;
+                        }
+                        Thread.Sleep(1000);
+
+                        // 途中投入？
+                        if (cb_dbovn_useniccv.Checked)
+                        {
+                            if (!NicConvQR(jitumag))
+                            {
+                                return;
+                            }
+                            Thread.Sleep(1000);
+                            // 途中投入排出要求ON
+                            SetBit(NicConv_01.unloaderReqBitAddress, "1");
+                            SetBit(NicConv_01.magazineArriveBitAddress, "1");
+                            ConsoleShow("途中マガジン投入を要求しました");
+                        }
+                        else
+                        {
+                            // DB実マガジン排出要求ON
+                            Thread.Sleep(1000);
+                            SetBit(ZDDBComboRouter(ZeDBNo).unloaderReqBitAddress, "1");
+                            ConsoleShow("DB(ZD)の実マガジン排出を要求しました");
+                        }
+
+                        // プロファイル設定
+                        ConsoleShow("オーブンプロファイルを5に設定");
+                        SetWordAsDecimalData(DBOvnComboRouter(DBOvnNo).currentProfileWordAddress, 5);
+                    }
+                    else
+                    {
+                        ConsoleShow("procno異常");
+                        return;
+                    }
+
+                    ConsoleShow("供給要求ON");
+                    SetBit(DBOvnComboRouter(DBOvnNo).loaderReqBitAddressList_addKey1, "1");
+
+                    // +++ Wait +++
+                    ConsoleShow("+++ Wait:5秒 +++");
+                    Thread.Sleep(5000);
+
+                    // ブリッジ搬送
+                    if (cb_dbovn_moveToBridge.Checked)
+                    {
+                        ConsoleShow("ブリッジ搬送します");
+                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
+
+                        // +++ ロボット動作 +++
+                        if (!RBGetPutMagAuto())
+                        {
+                            ConsoleShow("■■■自動投入停止しました■■■");
+                            return;
+                        }
+                    }
+
+                    // +++ ロボット動作 +++
+                    if (!RBGetPutMagAuto())
+                    {
+                        ConsoleShow("■■■自動投入停止しました■■■");
+                        return;
+                    }
+
+                    if (procno == "2")
+                    {
+                        // 排出要求OFF
+                        ConsoleShow("排出要求OFF");
+                        SetBit(ZeDBComboRouter(ZeDBNo).unloaderReqBitAddress, "0");
+                    }
+                    else
+                    {
+                        if (cb_dbovn_useniccv.Checked)
+                        {
+                            SetBit(LEDDBComboRouter(leddbmacname).unloaderReqBitAddress, "0");
+                            ConsoleShow("DB(LED)の実マガジン排出をOFFしました");
+                        }
+                    }
+
+                    // 供給要求OFF
+                    SetBit(DBOvnComboRouter(DBOvnNo).loaderReqBitAddressList_addKey1, "0");
+                    ConsoleShow("供給要求OFF");
+
+                    // +++ Wait +++
+                    ConsoleShow("+++ Wait:5秒 +++");
+                    Thread.Sleep(5000);
+
+                    ConsoleShow("■■■OVN装置上で停止（完了処理前）■■■");
+                });
+                updateCommonFunctionSignalBtns();
+                RecordTn(workheader);
+            }
+            else
+            {
+                updateCommonFunctionSignalBtns();
+                AutoRunLock = false;
+                return;
+            }
+            AutoRunLock = false;
+            MessageBox.Show("完了しました");
+        }
+
+        //
+        // WBP
         //
         private void btn_DBPL_AutoRun_Click(object sender, EventArgs e)
         {
@@ -5222,8 +5643,8 @@ namespace ARMS3.FakeVSPline
         }
         private async void DBPL_AutoRun()
         {
-            var procno = "5";
-            var procname = "DB-PL";
+            var procno = "6";
+            var procname = "WBP";
             string lotno = tx_dbpl_lotno.Text;
             var magno = tx_dbpl_m_auto.Text.Replace("C30 ", "");
             // 実マガジン～
@@ -5253,12 +5674,12 @@ namespace ARMS3.FakeVSPline
                     }
 
                     ConsoleShow("排出要求ON");
-                    if (string.IsNullOrEmpty(LEDDBComboRouter(DBNo).unloaderReqBitAddress))
+                    if (string.IsNullOrEmpty(ZDDBComboRouter(DBNo).unloaderReqBitAddress))
                     {
                         ConsoleShow("Ledダイボンダーではありません");
                         return;
                     }
-                    SetBit(LEDDBComboRouter(DBNo).unloaderReqBitAddress, "1");
+                    SetBit(ZDDBComboRouter(DBNo).unloaderReqBitAddress, "1");
 
                     ConsoleShow("供給要求ON");
                     SetBit(DCConv_01.loaderReqBitAddress, "1");
@@ -5319,202 +5740,202 @@ namespace ARMS3.FakeVSPline
         }
 
 
-        //
-        // WBPL
-        //
-        private void btn_WBPL_AutoRun_Click(object sender, EventArgs e)
-        {
-            if (!AutoRunLock)
-            {
-                AutoRunLock = true;
-                WBPL_AutoRun();
+        ////
+        //// WBPL
+        ////
+        //private void btn_WBPL_AutoRun_Click(object sender, EventArgs e)
+        //{
+        //    if (!AutoRunLock)
+        //    {
+        //        AutoRunLock = true;
+        //        WBPL_AutoRun();
                 
-            }
-        }
-        private async void WBPL_AutoRun()
-        {
-            var procno = "8";
-            var procname = "WB-PL";
-            string msg = "";
-            var karamagno = tx_wbpl_empm_auto.Text;
-            var jitumagno = tx_wbpl_m_auto.Text;
-            var ovnmacno = cb_wbpl_fromDBOVNno.Text; ;
+        //    }
+        //}
+        //private async void WBPL_AutoRun()
+        //{
+        //    var procno = "8";
+        //    var procname = "WB-PL";
+        //    string msg = "";
+        //    var karamagno = tx_wbpl_empm_auto.Text;
+        //    var jitumagno = tx_wbpl_m_auto.Text;
+        //    var ovnmacno = cb_wbpl_fromDBOVNno.Text; ;
 
-            // 空マガジン～
-            workheader = "procno." + procno + ":空マガジン投入";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow($"□□□procno={procno}: {procname}□□□");
+        //    // 空マガジン～
+        //    workheader = "procno." + procno + ":空マガジン投入";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow($"□□□procno={procno}: {procname}□□□");
 
-                    // 空マガ書き込み
-                    ConsoleShow("■■■空マガジン投入■■■");
-                    if (!readRbMagQr(karamagno))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
+        //            // 空マガ書き込み
+        //            ConsoleShow("■■■空マガジン投入■■■");
+        //            if (!readRbMagQr(karamagno))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
 
-                    // EmpMagLoaderReq
-                    SetBit(WBPL_01.empMagLoader_lane_key1, "1");
-                    ConsoleShow("空マガジン供給を要求しました");
+        //            // EmpMagLoaderReq
+        //            SetBit(WBPL_01.empMagLoader_lane_key1, "1");
+        //            ConsoleShow("空マガジン供給を要求しました");
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:2秒 +++");
-                    Thread.Sleep(2000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:2秒 +++");
+        //            Thread.Sleep(2000);
 
-                    // 空マガジン投入
-                    EntConvMagazine("kara_on");
-                    ConsoleShow("ローダー空マガジン排出を要求しました");
+        //            // 空マガジン投入
+        //            EntConvMagazine("kara_on");
+        //            ConsoleShow("ローダー空マガジン排出を要求しました");
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:3秒 +++");
-                    Thread.Sleep(3000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:3秒 +++");
+        //            Thread.Sleep(3000);
 
-                    // ブリッジ搬送
-                    if (cb_wbpl_emmoveToBridge.Checked)
-                    {
-                        ConsoleShow("ブリッジ搬送します");
-                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
-                        // 空排出ON
-                        SetBit(LineBridge_01.empMagUnloaderReqBitAddress, "1");
+        //            // ブリッジ搬送
+        //            if (cb_wbpl_emmoveToBridge.Checked)
+        //            {
+        //                ConsoleShow("ブリッジ搬送します");
+        //                SetBit(LineBridge_01.loaderReqBitAddress, "1");
+        //                // 空排出ON
+        //                SetBit(LineBridge_01.empMagUnloaderReqBitAddress, "1");
 
-                        // +++ ロボット動作 +++
-                        if (!RBGetPutMagAuto())
-                        {
-                            ConsoleShow("■■■自動投入停止しました■■■");
-                            return;
-                        }
+        //                // +++ ロボット動作 +++
+        //                if (!RBGetPutMagAuto())
+        //                {
+        //                    ConsoleShow("■■■自動投入停止しました■■■");
+        //                    return;
+        //                }
 
-                        // 空排出OFF
-                        SetBit(LineBridge_01.empMagUnloaderReqBitAddress, "0");
-                    }
+        //                // 空排出OFF
+        //                SetBit(LineBridge_01.empMagUnloaderReqBitAddress, "0");
+        //            }
 
-                    // +++ ロボット動作 +++
-                    if (!RBGetPutMagAuto())
-                    {
-                        ConsoleShow("■■■自動投入停止しました■■■");
-                        return;
-                    }
+        //            // +++ ロボット動作 +++
+        //            if (!RBGetPutMagAuto())
+        //            {
+        //                ConsoleShow("■■■自動投入停止しました■■■");
+        //                return;
+        //            }
 
-                    // EmpMagLoaderReq
-                    SetBit(WBPL_01.empMagLoader_lane_key1, "0");
-                    ConsoleShow("空マガジン供給OFFしました");
+        //            // EmpMagLoaderReq
+        //            SetBit(WBPL_01.empMagLoader_lane_key1, "0");
+        //            ConsoleShow("空マガジン供給OFFしました");
 
-                    ConsoleShow("停止中");
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-            // 実マガジン～
-            workheader = "procno." + procno + ":実マガジン投入";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    // 実マガ書き込み
-                    ConsoleShow("■■■実マガジン投入■■■");
-                    if (!readRbMagQr(jitumagno))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
+        //            ConsoleShow("停止中");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+        //    // 実マガジン～
+        //    workheader = "procno." + procno + ":実マガジン投入";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            // 実マガ書き込み
+        //            ConsoleShow("■■■実マガジン投入■■■");
+        //            if (!readRbMagQr(jitumagno))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
 
-                    // MagLoaderReq ON
-                    SetBit(WBPL_01.loader_lane_key1, "1");
-                    ConsoleShow("実マガジン供給要求ONしました");
-                    Thread.Sleep(1000);
+        //            // MagLoaderReq ON
+        //            SetBit(WBPL_01.loader_lane_key1, "1");
+        //            ConsoleShow("実マガジン供給要求ONしました");
+        //            Thread.Sleep(1000);
 
-                    // 途中投入？
-                    if (cb_wbpl_useniccv.Checked)
-                    {
-                        if (!NicConvQR(jitumagno))
-                        {
-                            return;
-                        }
-                        Thread.Sleep(1000);
-                        // 途中投入排出要求ON
-                        SetBit(NicConv_01.unloaderReqBitAddress, "1");
-                        SetBit(NicConv_01.magazineArriveBitAddress, "1");
-                        ConsoleShow("途中マガジン投入を要求しました");
-                    }
-                    else
-                    {
-                        // OVN排出要求ON
-                        SetDataTimeToOvenPlc(DBOvnComboRouter(ovnmacno));
-                        ConsoleShow("開始完了時刻を書き込んでいます:Wait1秒");
-                        Thread.Sleep(1000);
-                        SetBit(DBOvnComboRouter(ovnmacno).unloaderReqBitAddressList_addKey1, "1");
-                        ConsoleShow("オーブンの実マガジン排出を要求しました");
-                    }
+        //            // 途中投入？
+        //            if (cb_wbpl_useniccv.Checked)
+        //            {
+        //                if (!NicConvQR(jitumagno))
+        //                {
+        //                    return;
+        //                }
+        //                Thread.Sleep(1000);
+        //                // 途中投入排出要求ON
+        //                SetBit(NicConv_01.unloaderReqBitAddress, "1");
+        //                SetBit(NicConv_01.magazineArriveBitAddress, "1");
+        //                ConsoleShow("途中マガジン投入を要求しました");
+        //            }
+        //            else
+        //            {
+        //                // OVN排出要求ON
+        //                SetDataTimeToOvenPlc(DBOvnComboRouter(ovnmacno));
+        //                ConsoleShow("開始完了時刻を書き込んでいます:Wait1秒");
+        //                Thread.Sleep(1000);
+        //                SetBit(DBOvnComboRouter(ovnmacno).unloaderReqBitAddressList_addKey1, "1");
+        //                ConsoleShow("オーブンの実マガジン排出を要求しました");
+        //            }
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:5秒 +++");
+        //            Thread.Sleep(5000);
 
-                    // ブリッジ搬送
-                    if (cb_wbpl_moveToBridge.Checked)
-                    {
-                        ConsoleShow("ブリッジ搬送します");
-                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
+        //            // ブリッジ搬送
+        //            if (cb_wbpl_moveToBridge.Checked)
+        //            {
+        //                ConsoleShow("ブリッジ搬送します");
+        //                SetBit(LineBridge_01.loaderReqBitAddress, "1");
 
-                        // +++ ロボット動作 +++
-                        if (!RBGetPutMagAuto())
-                        {
-                            ConsoleShow("■■■自動投入停止しました■■■");
-                            return;
-                        }
-                    }
+        //                // +++ ロボット動作 +++
+        //                if (!RBGetPutMagAuto())
+        //                {
+        //                    ConsoleShow("■■■自動投入停止しました■■■");
+        //                    return;
+        //                }
+        //            }
 
-                    // +++ ロボット動作 +++
-                    if (!RBGetPutMagAuto())
-                    {
-                        ConsoleShow("■■■自動投入停止しました■■■");
-                        return;
-                    }
+        //            // +++ ロボット動作 +++
+        //            if (!RBGetPutMagAuto())
+        //            {
+        //                ConsoleShow("■■■自動投入停止しました■■■");
+        //                return;
+        //            }
 
-                    // MagLoaderReq OFF
-                    SetBit(WBPL_01.loader_lane_key1, "0");
-                    ConsoleShow("実マガジン供給要求OFFしました");
+        //            // MagLoaderReq OFF
+        //            SetBit(WBPL_01.loader_lane_key1, "0");
+        //            ConsoleShow("実マガジン供給要求OFFしました");
 
-                    // 途中投入？
-                    if (cb_wbpl_useniccv.Checked)
-                    {
-                        SetBit(NicConv_01.unloaderReqBitAddress, "0");
-                        ConsoleShow("途中投入をOFFしました");
-                    }
-                    else
-                    {
-                        // OVN排出要求OFF
-                        SetBit(DBOvnComboRouter(ovnmacno).unloaderReqBitAddressList_addKey1, "0");
-                        ConsoleShow("オーブンの実マガジン排出をOFFしました");
-                    }
+        //            // 途中投入？
+        //            if (cb_wbpl_useniccv.Checked)
+        //            {
+        //                SetBit(NicConv_01.unloaderReqBitAddress, "0");
+        //                ConsoleShow("途中投入をOFFしました");
+        //            }
+        //            else
+        //            {
+        //                // OVN排出要求OFF
+        //                SetBit(DBOvnComboRouter(ovnmacno).unloaderReqBitAddressList_addKey1, "0");
+        //                ConsoleShow("オーブンの実マガジン排出をOFFしました");
+        //            }
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:10秒 +++");
-                    Thread.Sleep(10000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:10秒 +++");
+        //            Thread.Sleep(10000);
 
-                    ConsoleShow("■■■WBプラズマ装置上で停止(完了処理前)■■■");
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-            AutoRunLock = false;
-            MessageBox.Show("完了しました");
-        }
+        //            ConsoleShow("■■■WBプラズマ装置上で停止(完了処理前)■■■");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+        //    AutoRunLock = false;
+        //    MessageBox.Show("完了しました");
+        //}
 
         //
         // WB
@@ -5865,2082 +6286,2082 @@ namespace ARMS3.FakeVSPline
             MessageBox.Show("完了しました");
         }
 
-        //
-        // AVI
-        //
-        private void btn_avi_AUTORun_Click(object sender, EventArgs e)
-        {
-            if (!AutoRunLock)
-            {
-                AutoRunLock = true;
-                AVI_AutoRun();
+        ////
+        //// AVI
+        ////
+        //private void btn_avi_AUTORun_Click(object sender, EventArgs e)
+        //{
+        //    if (!AutoRunLock)
+        //    {
+        //        AutoRunLock = true;
+        //        AVI_AutoRun();
                 
-            }
-        }
+        //    }
+        //}
 
-        private async void AVI_AutoRun()
-        {
-            var procno = "10";
-            var procname = "AVI";
-            string wbmacno = cb_avi_fromwb.Text;
-            string jitumagno = txt_avi_jitumag.Text;
-            string maccode = txt_avi_maccode.Text;
-            string msg = "";
-            //
-            // log file words
-            //
-            var MLfolderpath = "";
-            var macInstance = AVI_01;
-            if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
-            {
-                ConsoleShow(MLfolderpath);
-                return;
-            }
-            var date = DateTime.Now.ToString("yyyy/MM/dd");
-            var logfiledict = new Dictionary<string, string>
-            {
-                { "@magno", jitumagno},
-                { "@date", $"{date}" }
-            };
-            var maclogprefix = new string[] { "OA", "MM", "SM1", "SM2", "SM3"};
-            var maclogprefixAdDict = new Dictionary<string, string> { { "OA", "DM20051" }, { "MM", "DM20052" } , { "SM1", "DM20050" }, {"SM2", "DM20053" }, {"SM3", "DM20054" } };
+        //private async void AVI_AutoRun()
+        //{
+        //    var procno = "10";
+        //    var procname = "AVI";
+        //    string wbmacno = cb_avi_fromwb.Text;
+        //    string jitumagno = txt_avi_jitumag.Text;
+        //    string maccode = txt_avi_maccode.Text;
+        //    string msg = "";
+        //    //
+        //    // log file words
+        //    //
+        //    var MLfolderpath = "";
+        //    var macInstance = AVI_01;
+        //    if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
+        //    {
+        //        ConsoleShow(MLfolderpath);
+        //        return;
+        //    }
+        //    var date = DateTime.Now.ToString("yyyy/MM/dd");
+        //    var logfiledict = new Dictionary<string, string>
+        //    {
+        //        { "@magno", jitumagno},
+        //        { "@date", $"{date}" }
+        //    };
+        //    var maclogprefix = new string[] { "OA", "MM", "SM1", "SM2", "SM3"};
+        //    var maclogprefixAdDict = new Dictionary<string, string> { { "OA", "DM20051" }, { "MM", "DM20052" } , { "SM1", "DM20050" }, {"SM2", "DM20053" }, {"SM3", "DM20054" } };
 
-            workheader = "procno." + procno + ":実マガジン投入";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow($"□□□procno={procno}: {procname}□□□");
+        //    workheader = "procno." + procno + ":実マガジン投入";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow($"□□□procno={procno}: {procname}□□□");
 
-                    // 実マガ書き込み
-                    ConsoleShow("■■■WB完了／実マガジン投入■■■");
-                    if (!readRbMagQr(jitumagno))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
+        //            // 実マガ書き込み
+        //            ConsoleShow("■■■WB完了／実マガジン投入■■■");
+        //            if (!readRbMagQr(jitumagno))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
 
-                    // MagLoaderReq ON
-                    SetBit(AVI_01.loaderReqBitAddress, "1");
-                    ConsoleShow("実マガジン供給要求ONしました");
-                    Thread.Sleep(1000);
+        //            // MagLoaderReq ON
+        //            SetBit(AVI_01.loaderReqBitAddress, "1");
+        //            ConsoleShow("実マガジン供給要求ONしました");
+        //            Thread.Sleep(1000);
 
-                    // 途中投入？
-                    if (cb_avi_useniccv.Checked)
-                    {
-                        if (!NicConvQR(jitumagno))
-                        {
-                            return;
-                        }
-                        Thread.Sleep(1000);
-                        // 途中投入排出要求ON
-                        SetBit(NicConv_01.unloaderReqBitAddress, "1");
-                        SetBit(NicConv_01.magazineArriveBitAddress, "1");
-                        ConsoleShow("途中マガジン投入を要求しました");
-                    }
-                    else
-                    {
-                        // WB排出要求ON
-                        SetBit(WBComboRouter(wbmacno).unloaderReqBitAddress, "1");
-                        ConsoleShow("WBの実マガジン排出を要求しました");
-                    }
+        //            // 途中投入？
+        //            if (cb_avi_useniccv.Checked)
+        //            {
+        //                if (!NicConvQR(jitumagno))
+        //                {
+        //                    return;
+        //                }
+        //                Thread.Sleep(1000);
+        //                // 途中投入排出要求ON
+        //                SetBit(NicConv_01.unloaderReqBitAddress, "1");
+        //                SetBit(NicConv_01.magazineArriveBitAddress, "1");
+        //                ConsoleShow("途中マガジン投入を要求しました");
+        //            }
+        //            else
+        //            {
+        //                // WB排出要求ON
+        //                SetBit(WBComboRouter(wbmacno).unloaderReqBitAddress, "1");
+        //                ConsoleShow("WBの実マガジン排出を要求しました");
+        //            }
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:5秒 +++");
+        //            Thread.Sleep(5000);
 
-                    // ブリッジ搬送
-                    if (cb_avi_moveToBridge.Checked)
-                    {
-                        ConsoleShow("ブリッジ搬送します");
-                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
+        //            // ブリッジ搬送
+        //            if (cb_avi_moveToBridge.Checked)
+        //            {
+        //                ConsoleShow("ブリッジ搬送します");
+        //                SetBit(LineBridge_01.loaderReqBitAddress, "1");
 
-                        // +++ ロボット動作 +++
-                        if (!RBGetPutMagAuto())
-                        {
-                            ConsoleShow("■■■自動投入停止しました■■■");
-                            return;
-                        }
-                    }
+        //                // +++ ロボット動作 +++
+        //                if (!RBGetPutMagAuto())
+        //                {
+        //                    ConsoleShow("■■■自動投入停止しました■■■");
+        //                    return;
+        //                }
+        //            }
 
-                    // +++ ロボット動作 +++
-                    if (!RBGetPutMagAuto())
-                    {
-                        ConsoleShow("■■■自動投入停止しました■■■");
-                        return;
-                    }
+        //            // +++ ロボット動作 +++
+        //            if (!RBGetPutMagAuto())
+        //            {
+        //                ConsoleShow("■■■自動投入停止しました■■■");
+        //                return;
+        //            }
 
-                    // MagLoaderReq ON
-                    SetBit(AVI_01.loaderReqBitAddress, "0");
-                    ConsoleShow("実マガジン供給要求OFFしました");
+        //            // MagLoaderReq ON
+        //            SetBit(AVI_01.loaderReqBitAddress, "0");
+        //            ConsoleShow("実マガジン供給要求OFFしました");
 
-                    // 途中投入／WBPL排出要求ON
-                    if (cb_wb_useniccv.Checked)
-                    {
-                        SetBit(NicConv_01.unloaderReqBitAddress, "0");
-                        ConsoleShow("途中投入をOFFしました");
-                    }
-                    else
-                    {
-                        SetBit(WBComboRouter(wbmacno).loaderReqBitAddress, "0");
-                        ConsoleShow("WBの実マガジン排出をOFFしました");
-                    }
+        //            // 途中投入／WBPL排出要求ON
+        //            if (cb_wb_useniccv.Checked)
+        //            {
+        //                SetBit(NicConv_01.unloaderReqBitAddress, "0");
+        //                ConsoleShow("途中投入をOFFしました");
+        //            }
+        //            else
+        //            {
+        //                SetBit(WBComboRouter(wbmacno).loaderReqBitAddress, "0");
+        //                ConsoleShow("WBの実マガジン排出をOFFしました");
+        //            }
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait5秒 +++");
-                    Thread.Sleep(5000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait5秒 +++");
+        //            Thread.Sleep(5000);
 
-                    ConsoleShow("停止中");
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
+        //            ConsoleShow("停止中");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
 
-            // 設備マップ転送・機種名転送～
-            workheader = "procno." + procno + ":マップ／機種名転送開始";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow("■■■MAP転送要求・機種名転送要求開始■■■");
-                    ConsoleShow("MAP転送要求しています");
-                    Keylc.SetString(macInstance.LoaderQrdataAddress, jitumagno);
-                    Keylc.SetBit(macInstance.OperationalStatusAddress, 1, "1");
-                    Keylc.SetBit(macInstance.RequestTypeCdAddress, 1, "1");
-                    ConsoleShow("+++ Wait:2秒 +++");
-                    Thread.Sleep(2000);
+        //    // 設備マップ転送・機種名転送～
+        //    workheader = "procno." + procno + ":マップ／機種名転送開始";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow("■■■MAP転送要求・機種名転送要求開始■■■");
+        //            ConsoleShow("MAP転送要求しています");
+        //            Keylc.SetString(macInstance.LoaderQrdataAddress, jitumagno);
+        //            Keylc.SetBit(macInstance.OperationalStatusAddress, 1, "1");
+        //            Keylc.SetBit(macInstance.RequestTypeCdAddress, 1, "1");
+        //            ConsoleShow("+++ Wait:2秒 +++");
+        //            Thread.Sleep(2000);
 
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                return;
-            }
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        return;
+        //    }
 
-            // 工程完了・排出：MLogファイル書き込み～
-            workheader = "procno." + procno + ":開始完了時間・設備ログファイル処理";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow("■■■開始完了登録・ログ処理開始■■■");
-                    //開始完了時間登録
-                    //開始時間登録
-                    var dt = DateTime.Now;
-                    ConsoleShow("開始時間登録しています");
-                    SetDateTime2Word(AVI_01.workStartTimeAddress, dt);
-                    ConsoleShow("+++ Wait1秒 +++");
-                    Thread.Sleep(1000);
-                    ConsoleShow("完了時間登録しています");
-                    dt = DateTime.Now;
-                    SetDateTime2Word(AVI_01.workCompleteTimeAddress, dt);
+        //    // 工程完了・排出：MLogファイル書き込み～
+        //    workheader = "procno." + procno + ":開始完了時間・設備ログファイル処理";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow("■■■開始完了登録・ログ処理開始■■■");
+        //            //開始完了時間登録
+        //            //開始時間登録
+        //            var dt = DateTime.Now;
+        //            ConsoleShow("開始時間登録しています");
+        //            SetDateTime2Word(AVI_01.workStartTimeAddress, dt);
+        //            ConsoleShow("+++ Wait1秒 +++");
+        //            Thread.Sleep(1000);
+        //            ConsoleShow("完了時間登録しています");
+        //            dt = DateTime.Now;
+        //            SetDateTime2Word(AVI_01.workCompleteTimeAddress, dt);
 
-                    // ログファイルクリーン、作成
-                    ConsoleShow("ログファイル作成しています");
-                    foreach (string f in Directory.GetFiles(MLfolderpath, "*.*"))
-                    {
-                        File.Delete(f);
-                    }
+        //            // ログファイルクリーン、作成
+        //            ConsoleShow("ログファイル作成しています");
+        //            foreach (string f in Directory.GetFiles(MLfolderpath, "*.*"))
+        //            {
+        //                File.Delete(f);
+        //            }
 
-                    foreach (var item in maclogprefix)
-                    {
-                        var MLfilename = "Log000_" + item + dt.ToString("yyMMddHHmm") + ".csv";
-                        if (!CreateMLog(macInstance.macLogOriginFolder + item + ".csv", MLfolderpath + "\\" + MLfilename, logfiledict, ref msg, "shift-jis"))
-                        {
-                            ConsoleShow(msg);
-                            return;
-                        }
-                        ConsoleShow(item + "ファイルを出力しました");
-                        ConsoleShow("+++ Wait:2秒 +++");
-                        Thread.Sleep(2000);
-                        Keylc.SetBit(maclogprefixAdDict[item], 1, "1");
-                        ConsoleShow(item + "ファイル取得要求を立てました");
-                        while (Keylc.GetBit(maclogprefixAdDict[item]) == "1") 
-                        {
-                            var cnt = 0;
-                            Thread.Sleep(1000);
-                            cnt++;
-                            if (cnt > 10) break;
-                        }
-                    }
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
+        //            foreach (var item in maclogprefix)
+        //            {
+        //                var MLfilename = "Log000_" + item + dt.ToString("yyMMddHHmm") + ".csv";
+        //                if (!CreateMLog(macInstance.macLogOriginFolder + item + ".csv", MLfolderpath + "\\" + MLfilename, logfiledict, ref msg, "shift-jis"))
+        //                {
+        //                    ConsoleShow(msg);
+        //                    return;
+        //                }
+        //                ConsoleShow(item + "ファイルを出力しました");
+        //                ConsoleShow("+++ Wait:2秒 +++");
+        //                Thread.Sleep(2000);
+        //                Keylc.SetBit(maclogprefixAdDict[item], 1, "1");
+        //                ConsoleShow(item + "ファイル取得要求を立てました");
+        //                while (Keylc.GetBit(maclogprefixAdDict[item]) == "1") 
+        //                {
+        //                    var cnt = 0;
+        //                    Thread.Sleep(1000);
+        //                    cnt++;
+        //                    if (cnt > 10) break;
+        //                }
+        //            }
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
 
-            // 工程完了・排出
-            workheader = "procno." + procno + ":工程完了・排出";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow("■■■実マガジン排出開始■■■");
+        //    // 工程完了・排出
+        //    workheader = "procno." + procno + ":工程完了・排出";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow("■■■実マガジン排出開始■■■");
 
-                    // avi装置へのMagno問い合わせ
-                    ReadAviQrCode(jitumagno);
-                    ConsoleShow("avi上マガジンNoを書き込みました");
+        //            // avi装置へのMagno問い合わせ
+        //            ReadAviQrCode(jitumagno);
+        //            ConsoleShow("avi上マガジンNoを書き込みました");
 
-                    // nasファイルクリーン、作成
-                    //foreach (string f in Directory.GetFiles(nasfolderpath, "*.nas"))
-                    //{
-                    //    File.Delete(f);
-                    //}
-                    //var nasfilename = $"L0000000000_{jitumagno.Replace("C30 ", "")}_{maccode}.nas";
-                    //var nasfilepath = txt_avi_nasfilefoder.Text + "\\" + nasfilename;
-                    //CreateFile(nasfilepath, nasfilecontents, ref msg);
+        //            // nasファイルクリーン、作成
+        //            //foreach (string f in Directory.GetFiles(nasfolderpath, "*.nas"))
+        //            //{
+        //            //    File.Delete(f);
+        //            //}
+        //            //var nasfilename = $"L0000000000_{jitumagno.Replace("C30 ", "")}_{maccode}.nas";
+        //            //var nasfilepath = txt_avi_nasfilefoder.Text + "\\" + nasfilename;
+        //            //CreateFile(nasfilepath, nasfilecontents, ref msg);
 
-                    //実マガジン排出要求ON
-                    SetBit(AVI_01.unloaderReqBitAddress, "1");
-                    ConsoleShow("実マガジン排出要求ON");
+        //            //実マガジン排出要求ON
+        //            SetBit(AVI_01.unloaderReqBitAddress, "1");
+        //            ConsoleShow("実マガジン排出要求ON");
 
-                    //途中排出CVをON
-                    SetBit(DCConv_01.loaderReqBitAddress, "1");
-                    ConsoleShow("途中排出コンベア供給要求ON");
+        //            //途中排出CVをON
+        //            SetBit(DCConv_01.loaderReqBitAddress, "1");
+        //            ConsoleShow("途中排出コンベア供給要求ON");
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:5秒 +++");
+        //            Thread.Sleep(5000);
 
-                    // +++ ロボット動作 +++
-                    if (!RBGetPutMagAuto())
-                    {
-                        ConsoleShow("■■■自動投入停止しました■■■");
-                        return;
-                    }
+        //            // +++ ロボット動作 +++
+        //            if (!RBGetPutMagAuto())
+        //            {
+        //                ConsoleShow("■■■自動投入停止しました■■■");
+        //                return;
+        //            }
 
-                    //実マガジン排出要求OFF
-                    SetBit(AVI_01.unloaderReqBitAddress, "0");
-                    ConsoleShow("実マガジン排出要求OFF");
+        //            //実マガジン排出要求OFF
+        //            SetBit(AVI_01.unloaderReqBitAddress, "0");
+        //            ConsoleShow("実マガジン排出要求OFF");
 
-                    //途中排出CVをOFF
-                    SetBit(DCConv_01.loaderReqBitAddress, "0");
-                    ConsoleShow("途中排出コンベア供給要求OFF");
+        //            //途中排出CVをOFF
+        //            SetBit(DCConv_01.loaderReqBitAddress, "0");
+        //            ConsoleShow("途中排出コンベア供給要求OFF");
 
-                    ConsoleShow("■■■ライン外排出で停止■■■");
+        //            ConsoleShow("■■■ライン外排出で停止■■■");
 
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-            AutoRunLock = false;
-            MessageBox.Show("完了しました");
-        }
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+        //    AutoRunLock = false;
+        //    MessageBox.Show("完了しました");
+        //}
 
-        //
-        // WBOVN
-        //
-        private void btn_WBOVN_AutoRun_Click(object sender, EventArgs e)
-        {
-            if (!AutoRunLock)
-            {
-                AutoRunLock = true;
-                WBOVN_AutoRun();
+        ////
+        //// WBOVN
+        ////
+        //private void btn_WBOVN_AutoRun_Click(object sender, EventArgs e)
+        //{
+        //    if (!AutoRunLock)
+        //    {
+        //        AutoRunLock = true;
+        //        WBOVN_AutoRun();
                 
-            }
-        }
-        private async void WBOVN_AutoRun()
-        {
-            var procno = "22";
-            var procname = "WB-OVN";
-            string lotno = txt_wbovn_lotno.Text;
-            string magno = txt_wbovn_m_auto.Text.Replace("C30 ", "");
-            // 実マガジン～
-            workheader = "procno." + procno + ":開始完了登録";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow($"□□□procno={procno}: {procname}□□□");
+        //    }
+        //}
+        //private async void WBOVN_AutoRun()
+        //{
+        //    var procno = "22";
+        //    var procname = "WB-OVN";
+        //    string lotno = txt_wbovn_lotno.Text;
+        //    string magno = txt_wbovn_m_auto.Text.Replace("C30 ", "");
+        //    // 実マガジン～
+        //    workheader = "procno." + procno + ":開始完了登録";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow($"□□□procno={procno}: {procname}□□□");
 
-                    ConsoleShow("■■■TnTran/TnMag操作■■■");
+        //            ConsoleShow("■■■TnTran/TnMag操作■■■");
 
-                    // Lotno自動取得
-                    if (cb_dbpl_getLotno.Checked)
-                    {
-                        if (!getLastLotNofromTnTran(ref lotno))
-                        {
-                            ConsoleShow("ロットNoの自動取得が失敗しました");
-                            return;
-                        }
-                        else
-                        {
+        //            // Lotno自動取得
+        //            if (cb_dbpl_getLotno.Checked)
+        //            {
+        //                if (!getLastLotNofromTnTran(ref lotno))
+        //                {
+        //                    ConsoleShow("ロットNoの自動取得が失敗しました");
+        //                    return;
+        //                }
+        //                else
+        //                {
 
-                        }
-                    }
+        //                }
+        //            }
 
-                    // TnTranに開始完了登録
-                    if (cb_dbpl_appendTntran.Checked)
-                    {
-                        if (!appendWBOVNTran(lotno, magno))
-                        {
-                            ConsoleShow("TnTranテーブルへの書き込み時に問題発生しました");
-                            return;
-                        }
-                        if (!updateTnMag(22, lotno, magno))
-                        {
-                            ConsoleShow("TnMagテーブルへの書き込み時に問題発生しました");
-                            return;
-                        }
-                    }
+        //            // TnTranに開始完了登録
+        //            if (cb_dbpl_appendTntran.Checked)
+        //            {
+        //                if (!appendWBOVNTran(lotno, magno))
+        //                {
+        //                    ConsoleShow("TnTranテーブルへの書き込み時に問題発生しました");
+        //                    return;
+        //                }
+        //                if (!updateTnMag(22, lotno, magno))
+        //                {
+        //                    ConsoleShow("TnMagテーブルへの書き込み時に問題発生しました");
+        //                    return;
+        //                }
+        //            }
 
-                    ConsoleShow("■■■完了■■■");
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-            AutoRunLock = false;
-            MessageBox.Show("完了しました");
-        }
+        //            ConsoleShow("■■■完了■■■");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+        //    AutoRunLock = false;
+        //    MessageBox.Show("完了しました");
+        //}
 
-        //
-        // SUP
-        //
-        private void btn_SUP_AutoRun_Click(object sender, EventArgs e)
-        {
-            if (!AutoRunLock)
-            {
-                AutoRunLock = true;
-                SUP_AutoRun();
+        ////
+        //// SUP
+        ////
+        //private void btn_SUP_AutoRun_Click(object sender, EventArgs e)
+        //{
+        //    if (!AutoRunLock)
+        //    {
+        //        AutoRunLock = true;
+        //        SUP_AutoRun();
                 
-            }
-        }
-        private async void SUP_AutoRun()
-        {
-            var procno = "23";
-            var procname = "SUP";
-            string msg = "";
-            var magno = txt_sup_m_auto.Text;
-            var ldmacno = txt_sup_ldno.Text;
-            var ulmacno = txt_sup_ulno.Text;
-            var macInstance = SUP_01;
-            //
-            // log file words
-            //
-            var MLfolderpath = "";
-            if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
-            {
-                ConsoleShow(MLfolderpath);
-                return;
-            }
-            var date = DateTime.Now.ToString("yyyy/MM/dd");
-            var logfiledict = new Dictionary<string, string>
-            {
-                { "@magno", magno},
-                { "@kishumei", $"{EicsParam_TypeCode}" },
-                { "@date", $"{date}" }
-            };
+        //    }
+        //}
+        //private async void SUP_AutoRun()
+        //{
+        //    var procno = "23";
+        //    var procname = "SUP";
+        //    string msg = "";
+        //    var magno = txt_sup_m_auto.Text;
+        //    var ldmacno = txt_sup_ldno.Text;
+        //    var ulmacno = txt_sup_ulno.Text;
+        //    var macInstance = SUP_01;
+        //    //
+        //    // log file words
+        //    //
+        //    var MLfolderpath = "";
+        //    if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
+        //    {
+        //        ConsoleShow(MLfolderpath);
+        //        return;
+        //    }
+        //    var date = DateTime.Now.ToString("yyyy/MM/dd");
+        //    var logfiledict = new Dictionary<string, string>
+        //    {
+        //        { "@magno", magno},
+        //        { "@kishumei", $"{EicsParam_TypeCode}" },
+        //        { "@date", $"{date}" }
+        //    };
 
-            // 実マガジン～
-            workheader = "procno." + procno + ":実マガジン投入";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow($"□□□procno={procno}: {procname}□□□");
+        //    // 実マガジン～
+        //    workheader = "procno." + procno + ":実マガジン投入";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow($"□□□procno={procno}: {procname}□□□");
 
-                    ConsoleShow("■■■実マガジン投入開始■■■");
-                    //設備NoをPLCに書き込み
-                    ConsoleShow("PLCに設備番号を登録しました");
-                    sup_Ldcmpl_on(ldmacno);
-                    Thread.Sleep(1000);
-                    sup_Ulcmpl_on(ulmacno);
-                    Thread.Sleep(1000);
+        //            ConsoleShow("■■■実マガジン投入開始■■■");
+        //            //設備NoをPLCに書き込み
+        //            ConsoleShow("PLCに設備番号を登録しました");
+        //            sup_Ldcmpl_on(ldmacno);
+        //            Thread.Sleep(1000);
+        //            sup_Ulcmpl_on(ulmacno);
+        //            Thread.Sleep(1000);
 
-                    //開始完了時間メモリ(PLC)に書き込み
-                    ConsoleShow("PLCに開始完了時間を登録しました");
-                    var dt = DateTime.Now;
-                    SetDateTime2Word(SUP_01.workStartTimeAddress, dt);
-                    Thread.Sleep(1000);
-                    SetDateTime2Word(SUP_01.workCompleteTimeAddress, dt);
-                    Thread.Sleep(1000);
+        //            //開始完了時間メモリ(PLC)に書き込み
+        //            ConsoleShow("PLCに開始完了時間を登録しました");
+        //            var dt = DateTime.Now;
+        //            SetDateTime2Word(SUP_01.workStartTimeAddress, dt);
+        //            Thread.Sleep(1000);
+        //            SetDateTime2Word(SUP_01.workCompleteTimeAddress, dt);
+        //            Thread.Sleep(1000);
 
-                    // ローダーにマガジンをセット
-                    sup_Inmag_on(magno);
-                    ConsoleShow("ローダーに実マガジンをセットしました");
-                    Thread.Sleep(1000);
+        //            // ローダーにマガジンをセット
+        //            sup_Inmag_on(magno);
+        //            ConsoleShow("ローダーに実マガジンをセットしました");
+        //            Thread.Sleep(1000);
 
-                    // ローダー作業完了
-                    sup_lmscba_on();
-                    ConsoleShow("作業完了信号を立てました");
-                    Thread.Sleep(1000);
+        //            // ローダー作業完了
+        //            sup_lmscba_on();
+        //            ConsoleShow("作業完了信号を立てました");
+        //            Thread.Sleep(1000);
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait15秒 +++");
-                    Thread.Sleep(15000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait15秒 +++");
+        //            Thread.Sleep(15000);
 
-                    // ローダー関連信号を初期化
-                    sup_Inmag_off();
-                    sup_lmscba_off();
+        //            // ローダー関連信号を初期化
+        //            sup_Inmag_off();
+        //            sup_lmscba_off();
 
-                    ConsoleShow("停止中");
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
+        //            ConsoleShow("停止中");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
 
-            // マガジン別データ・自動出力データを出力
-            workheader = "procno." + procno + ":マガジン別データ・自動出力データ出力";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                ConsoleShow("■■■マガジン別データ・自動出力データを出力開始■■■");
+        //    // マガジン別データ・自動出力データを出力
+        //    workheader = "procno." + procno + ":マガジン別データ・自動出力データ出力";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        ConsoleShow("■■■マガジン別データ・自動出力データを出力開始■■■");
 
-                var dt = DateTime.Now;
-                var MLSriname = dt.ToString("ddHHmmss");
+        //        var dt = DateTime.Now;
+        //        var MLSriname = dt.ToString("ddHHmmss");
                 
 
-                await Task.Run(() =>
-                {
-                    // 自動出力データ(03)
-                    var Targetfld = MLfolderpath + $"03_auto\\{MLSriname}";
-                    if (!Directory.Exists(Targetfld))
-                    {
-                        Directory.CreateDirectory(Targetfld);
-                    }
+        //        await Task.Run(() =>
+        //        {
+        //            // 自動出力データ(03)
+        //            var Targetfld = MLfolderpath + $"03_auto\\{MLSriname}";
+        //            if (!Directory.Exists(Targetfld))
+        //            {
+        //                Directory.CreateDirectory(Targetfld);
+        //            }
 
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "_03_auto_\\_03_auto_A.CSV", Targetfld + "\\_03_auto_" + MLSriname + "A.CSV", logfiledict, ref msg, "shift-jis"))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "_03_auto_\\_03_auto_B.CSV", Targetfld + "\\_03_auto_" + MLSriname + "B.CSV", logfiledict, ref msg, "shift-jis"))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "_03_auto_\\_03_auto_C.CSV", Targetfld + "\\_03_auto_" + MLSriname + "C.CSV", logfiledict, ref msg, "shift-jis"))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
-                    // マガジン別データ(13)
-                    Targetfld = MLfolderpath + $"13_Vdc_kanri\\{MLSriname}";
-                    if (!Directory.Exists(Targetfld))
-                    {
-                        Directory.CreateDirectory(Targetfld);
-                    }
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "_03_auto_\\_03_auto_A.CSV", Targetfld + "\\_03_auto_" + MLSriname + "A.CSV", logfiledict, ref msg, "shift-jis"))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "_03_auto_\\_03_auto_B.CSV", Targetfld + "\\_03_auto_" + MLSriname + "B.CSV", logfiledict, ref msg, "shift-jis"))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "_03_auto_\\_03_auto_C.CSV", Targetfld + "\\_03_auto_" + MLSriname + "C.CSV", logfiledict, ref msg, "shift-jis"))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
+        //            // マガジン別データ(13)
+        //            Targetfld = MLfolderpath + $"13_Vdc_kanri\\{MLSriname}";
+        //            if (!Directory.Exists(Targetfld))
+        //            {
+        //                Directory.CreateDirectory(Targetfld);
+        //            }
 
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "_13_Vdc_kanri_\\_13_Vdc_kanri_D.CSV", Targetfld + "\\_13_Vdc_kanri_" + MLSriname + "D.CSV", logfiledict, ref msg, "shift-jis"))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "_13_Vdc_kanri_\\_13_Vdc_kanri_E.CSV", Targetfld + "\\_13_Vdc_kanri_" + MLSriname + "E.CSV", logfiledict, ref msg, "shift-jis"))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
-                    if (!CreateMLog(macInstance.macLogOriginFolder + "_13_Vdc_kanri_\\_13_Vdc_kanri_F.CSV", Targetfld + "\\_13_Vdc_kanri_" + MLSriname + "F.CSV", logfiledict, ref msg, "shift-jis"))
-                    {
-                        ConsoleShow(msg);
-                        return;
-                    }
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "_13_Vdc_kanri_\\_13_Vdc_kanri_D.CSV", Targetfld + "\\_13_Vdc_kanri_" + MLSriname + "D.CSV", logfiledict, ref msg, "shift-jis"))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "_13_Vdc_kanri_\\_13_Vdc_kanri_E.CSV", Targetfld + "\\_13_Vdc_kanri_" + MLSriname + "E.CSV", logfiledict, ref msg, "shift-jis"))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
+        //            if (!CreateMLog(macInstance.macLogOriginFolder + "_13_Vdc_kanri_\\_13_Vdc_kanri_F.CSV", Targetfld + "\\_13_Vdc_kanri_" + MLSriname + "F.CSV", logfiledict, ref msg, "shift-jis"))
+        //            {
+        //                ConsoleShow(msg);
+        //                return;
+        //            }
 
-                    // +++ Wait +++
-                    Thread.Sleep(2000);
+        //            // +++ Wait +++
+        //            Thread.Sleep(2000);
 
-                    ConsoleShow("■■■マガジン別データ・自動出力データを出力完了■■■");
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
+        //            ConsoleShow("■■■マガジン別データ・自動出力データを出力完了■■■");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
 
 
-            // 工程完了登録：MMファイル書き込み～
-            workheader = "procno." + procno + ":工程完了登録";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow("■■■実マガジン排出開始■■■");
+        //    // 工程完了登録：MMファイル書き込み～
+        //    workheader = "procno." + procno + ":工程完了登録";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow("■■■実マガジン排出開始■■■");
 
-                    //開始完了時間メモリ(PLC)に書き込み
-                    ConsoleShow("PLCに開始完了時間を登録しました");
-                    var dt = DateTime.Now;
-                    SetDateTime2Word(SUP_01.workStartTimeAddress, dt);
-                    Thread.Sleep(1000);
-                    SetDateTime2Word(SUP_01.workCompleteTimeAddress, dt);
-                    Thread.Sleep(1000);
+        //            //開始完了時間メモリ(PLC)に書き込み
+        //            ConsoleShow("PLCに開始完了時間を登録しました");
+        //            var dt = DateTime.Now;
+        //            SetDateTime2Word(SUP_01.workStartTimeAddress, dt);
+        //            Thread.Sleep(1000);
+        //            SetDateTime2Word(SUP_01.workCompleteTimeAddress, dt);
+        //            Thread.Sleep(1000);
 
-                    // アンローダーにマガジンをセット
-                    sup_Outmag_on(magno);
-                    ConsoleShow("アンローダーに実マガジンをセットしました");
-                    Thread.Sleep(1000);
+        //            // アンローダーにマガジンをセット
+        //            sup_Outmag_on(magno);
+        //            ConsoleShow("アンローダーに実マガジンをセットしました");
+        //            Thread.Sleep(1000);
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait15秒 +++");
-                    Thread.Sleep(15000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait15秒 +++");
+        //            Thread.Sleep(15000);
 
-                    // ローダー関連信号を初期化
-                    sup_Outmag_off();
-                    ConsoleShow("■■■完了■■■");
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-            AutoRunLock = false;
-            MessageBox.Show("完了しました");
-        }
+        //            // ローダー関連信号を初期化
+        //            sup_Outmag_off();
+        //            ConsoleShow("■■■完了■■■");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+        //    AutoRunLock = false;
+        //    MessageBox.Show("完了しました");
+        //}
 
-        //
-        // ﾓｰﾙﾄﾞ
-        //
-        private void btn_md_autoRun_Click(object sender, EventArgs e)
-        {
-            if (!AutoRunLock)
-            {
-                AutoRunLock = true;
-                MD_AutoRun();
+        ////
+        //// ﾓｰﾙﾄﾞ
+        ////
+        //private void btn_md_autoRun_Click(object sender, EventArgs e)
+        //{
+        //    if (!AutoRunLock)
+        //    {
+        //        AutoRunLock = true;
+        //        MD_AutoRun();
                 
-            }
-        }
-        private async void MD_AutoRun()
-        {
-            var procno = "12";
-            var procname = "MD";
-            string msg = "";
-            var inmagno = txt_md_inmagno.Text;
-            var macno = cb_mb_macno.Text;
-            //
-            // log file words
-            //
-            var MLfolderpath = "";
-            var macInstance = MDComboRouter(macno);
-            if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
-            {
-                ConsoleShow(MLfolderpath);
-                return;
-            }
-            var date = DateTime.Now.ToString("yyyy/MM/dd");
-            var time = DateTime.Now.ToString("HH:mm:ss");
-            var logfiledict = new Dictionary<string, string>
-            {
-                { "@magno", inmagno},
-                { "@kishumei", $"CL-A160" },
-                { "@date", $"{date}" },
-                { "@time", $"{time}" }
-            };
-            var maclogprefix_st = new string[] { "PR", "OR", "EF", "SF" };
-            var maclogprefixAdDict_st = new Dictionary<string, string> { { "PR", "DM30052" }, { "OR", "DM30053" }, { "EF", "DM30055" }, { "SF", "DM30050" } };
-            var maclogprefix_mg = new string[] { "SM", "AM", "EM", "SD" };
-            var maclogprefixAdDict_mg = new Dictionary<string, string> { { "SM", "DM30051" }, { "AM", "DM30054" }, { "EM", "DM30056" }, { "SD", "DM30057" } };
-            //
-            // plcStrings
-            //
-            Keylc.SetBit(macInstance.MoldDirectionInfoAddress, 1, "1");
-            Keylc.SetBit(macInstance.SyringeNumberInfoAddress, 2, "3");
-            Keylc.SetBit(macInstance.MemoryTypeInfoAddress, 1, "1");
-            Keylc.SetBit(macInstance.NO_DIVISION_MAPPING_MODE_ENABLE, 1, "1");
-            Keylc.SetString(macInstance.LoaderQrdataAddress, inmagno);
+        //    }
+        //}
+        //private async void MD_AutoRun()
+        //{
+        //    var procno = "12";
+        //    var procname = "MD";
+        //    string msg = "";
+        //    var inmagno = txt_md_inmagno.Text;
+        //    var macno = cb_mb_macno.Text;
+        //    //
+        //    // log file words
+        //    //
+        //    var MLfolderpath = "";
+        //    var macInstance = MDComboRouter(macno);
+        //    if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
+        //    {
+        //        ConsoleShow(MLfolderpath);
+        //        return;
+        //    }
+        //    var date = DateTime.Now.ToString("yyyy/MM/dd");
+        //    var time = DateTime.Now.ToString("HH:mm:ss");
+        //    var logfiledict = new Dictionary<string, string>
+        //    {
+        //        { "@magno", inmagno},
+        //        { "@kishumei", $"CL-A160" },
+        //        { "@date", $"{date}" },
+        //        { "@time", $"{time}" }
+        //    };
+        //    var maclogprefix_st = new string[] { "PR", "OR", "EF", "SF" };
+        //    var maclogprefixAdDict_st = new Dictionary<string, string> { { "PR", "DM30052" }, { "OR", "DM30053" }, { "EF", "DM30055" }, { "SF", "DM30050" } };
+        //    var maclogprefix_mg = new string[] { "SM", "AM", "EM", "SD" };
+        //    var maclogprefixAdDict_mg = new Dictionary<string, string> { { "SM", "DM30051" }, { "AM", "DM30054" }, { "EM", "DM30056" }, { "SD", "DM30057" } };
+        //    //
+        //    // plcStrings
+        //    //
+        //    Keylc.SetBit(macInstance.MoldDirectionInfoAddress, 1, "1");
+        //    Keylc.SetBit(macInstance.SyringeNumberInfoAddress, 2, "3");
+        //    Keylc.SetBit(macInstance.MemoryTypeInfoAddress, 1, "1");
+        //    Keylc.SetBit(macInstance.NO_DIVISION_MAPPING_MODE_ENABLE, 1, "1");
+        //    Keylc.SetString(macInstance.LoaderQrdataAddress, inmagno);
 
-            // 実マガジン～
-            workheader = "procno." + procno + ":実マガジン投入";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow($"□□□procno={procno}: {procname}□□□");
+        //    // 実マガジン～
+        //    workheader = "procno." + procno + ":実マガジン投入";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow($"□□□procno={procno}: {procname}□□□");
 
-                    ConsoleShow("■■■実マガジン投入開始■■■");
-                    if (!readRbMagQr(inmagno))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
+        //            ConsoleShow("■■■実マガジン投入開始■■■");
+        //            if (!readRbMagQr(inmagno))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
 
-                    // MagLoaderReq ON
-                    SetBit(MDComboRouter(macno).loaderReqBitAddress, "1");
-                    ConsoleShow("実マガジン供給要求ONしました");
-                    Thread.Sleep(1000);
+        //            // MagLoaderReq ON
+        //            SetBit(MDComboRouter(macno).loaderReqBitAddress, "1");
+        //            ConsoleShow("実マガジン供給要求ONしました");
+        //            Thread.Sleep(1000);
 
-                    // 途中投入
-                    if (!NicConvQR(inmagno))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
-                    // 途中投入排出要求ON
-                    SetBit(NicConv_01.unloaderReqBitAddress, "1");
-                    SetBit(NicConv_01.magazineArriveBitAddress, "1" +
-                        "");
-                    ConsoleShow("途中マガジン投入を要求しました");
+        //            // 途中投入
+        //            if (!NicConvQR(inmagno))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
+        //            // 途中投入排出要求ON
+        //            SetBit(NicConv_01.unloaderReqBitAddress, "1");
+        //            SetBit(NicConv_01.magazineArriveBitAddress, "1" +
+        //                "");
+        //            ConsoleShow("途中マガジン投入を要求しました");
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:5秒 +++");
+        //            Thread.Sleep(5000);
 
-                    // ブリッジ搬送
-                    if (cb_md_moveToBridge.Checked)
-                    {
-                        ConsoleShow("ブリッジ搬送します");
-                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
+        //            // ブリッジ搬送
+        //            if (cb_md_moveToBridge.Checked)
+        //            {
+        //                ConsoleShow("ブリッジ搬送します");
+        //                SetBit(LineBridge_01.loaderReqBitAddress, "1");
 
-                        // +++ ロボット動作 +++
-                        if (!RBGetPutMagAuto())
-                        {
-                            ConsoleShow("■■■自動投入停止しました■■■");
-                            return;
-                        }
-                    }
+        //                // +++ ロボット動作 +++
+        //                if (!RBGetPutMagAuto())
+        //                {
+        //                    ConsoleShow("■■■自動投入停止しました■■■");
+        //                    return;
+        //                }
+        //            }
 
-                    // +++ ロボット動作 +++
-                    if (!RBGetPutMagAuto())
-                    {
-                        ConsoleShow("■■■自動投入停止しました■■■");
-                        return;
-                    }
+        //            // +++ ロボット動作 +++
+        //            if (!RBGetPutMagAuto())
+        //            {
+        //                ConsoleShow("■■■自動投入停止しました■■■");
+        //                return;
+        //            }
 
-                    //開始完了時間メモリ(PLC)に書き込み
-                    ConsoleShow("PLCに開始時間を登録しました");
-                    var dt = DateTime.Now;
-                    SetDateTime2Word(MDComboRouter(macno).workStartTimeAddress, dt);
-                    Thread.Sleep(1000);
+        //            //開始完了時間メモリ(PLC)に書き込み
+        //            ConsoleShow("PLCに開始時間を登録しました");
+        //            var dt = DateTime.Now;
+        //            SetDateTime2Word(MDComboRouter(macno).workStartTimeAddress, dt);
+        //            Thread.Sleep(1000);
 
-                    //MD設備にINマガジンを登録
-                    md_inmagno(inmagno);
-                    ConsoleShow("設備に実マガジンを登録しました");
-                    Thread.Sleep(1000);
+        //            //MD設備にINマガジンを登録
+        //            md_inmagno(inmagno);
+        //            ConsoleShow("設備に実マガジンを登録しました");
+        //            Thread.Sleep(1000);
 
-                    // MagLoaderReq ON
-                    SetBit(MDComboRouter(macno).loaderReqBitAddress, "0");
-                    ConsoleShow("実マガジン供給要求OFFしました");
+        //            // MagLoaderReq ON
+        //            SetBit(MDComboRouter(macno).loaderReqBitAddress, "0");
+        //            ConsoleShow("実マガジン供給要求OFFしました");
 
-                    // 途中投入排出要求OFF
-                    SetBit(NicConv_01.unloaderReqBitAddress, "0");
-                    ConsoleShow("途中投入をOFFしました");                 
+        //            // 途中投入排出要求OFF
+        //            SetBit(NicConv_01.unloaderReqBitAddress, "0");
+        //            ConsoleShow("途中投入をOFFしました");                 
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait5秒 +++");
-                    Thread.Sleep(5000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait5秒 +++");
+        //            Thread.Sleep(5000);
 
-                    ConsoleShow("■■■MD投入済で停止■■■");
-                });
+        //            ConsoleShow("■■■MD投入済で停止■■■");
+        //        });
 
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
 
-            // EICSスタートタイミング
-            workheader = "procno." + procno + ":EICSスタートTiming";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow("■■■PR,OR,EF,SFログ処理開始■■■");
+        //    // EICSスタートタイミング
+        //    workheader = "procno." + procno + ":EICSスタートTiming";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow("■■■PR,OR,EF,SFログ処理開始■■■");
 
-                    var dt = DateTime.Now;
+        //            var dt = DateTime.Now;
 
-                    // 設備稼働スタート
-                    ConsoleShow("機種設定");
-                    Keylc.SetString("W0FF0", "CL-A160             ");
-                    ConsoleShow("設備稼働ON");
-                    Keylc.SetBit("B0FF1", 1, "0");
-                    Keylc.SetBit("B0FF2", 1, "0");
-                    Keylc.SetBit("B0FF0", 1, "1");
+        //            // 設備稼働スタート
+        //            ConsoleShow("機種設定");
+        //            Keylc.SetString("W0FF0", "CL-A160             ");
+        //            ConsoleShow("設備稼働ON");
+        //            Keylc.SetBit("B0FF1", 1, "0");
+        //            Keylc.SetBit("B0FF2", 1, "0");
+        //            Keylc.SetBit("B0FF0", 1, "1");
 
-                    // ログファイルクリーン、作成
-                    ConsoleShow("ログファイル作成しています");
-                    foreach (string f in Directory.GetFiles(MLfolderpath, "*.*"))
-                    {
-                        File.Delete(f);
-                    }
+        //            // ログファイルクリーン、作成
+        //            ConsoleShow("ログファイル作成しています");
+        //            foreach (string f in Directory.GetFiles(MLfolderpath, "*.*"))
+        //            {
+        //                File.Delete(f);
+        //            }
 
-                    foreach (var item in maclogprefix_st)
-                    {
+        //            foreach (var item in maclogprefix_st)
+        //            {
 
-                        var MLfilename = "Log000_" + item + dt.ToString("yyMMddHHmm") + ".csv";
-                        if (!CreateMLog(macInstance.macLogOriginFolder + item + ".csv", MLfolderpath + "\\" + MLfilename, logfiledict, ref msg, "shift-jis"))
-                        {
-                            ConsoleShow(msg);
-                            return;
-                        }
-                        ConsoleShow(item + "ファイルを出力しました");
-                        ConsoleShow("+++ Wait:2秒 +++");
-                        Thread.Sleep(2000);
-                        Keylc.SetBit(maclogprefixAdDict_st[item], 1, "1");
-                        ConsoleShow(item + "ファイル取得要求を立てました");
-                    }
+        //                var MLfilename = "Log000_" + item + dt.ToString("yyMMddHHmm") + ".csv";
+        //                if (!CreateMLog(macInstance.macLogOriginFolder + item + ".csv", MLfolderpath + "\\" + MLfilename, logfiledict, ref msg, "shift-jis"))
+        //                {
+        //                    ConsoleShow(msg);
+        //                    return;
+        //                }
+        //                ConsoleShow(item + "ファイルを出力しました");
+        //                ConsoleShow("+++ Wait:2秒 +++");
+        //                Thread.Sleep(2000);
+        //                Keylc.SetBit(maclogprefixAdDict_st[item], 1, "1");
+        //                ConsoleShow(item + "ファイル取得要求を立てました");
+        //            }
 
-                    ConsoleShow("+++ Wait5秒 +++");
-                    Thread.Sleep(5000);
+        //            ConsoleShow("+++ Wait5秒 +++");
+        //            Thread.Sleep(5000);
 
-                    //稼働許可確認
-                    if (Keylc.GetBit("B0FF1")!="1")
-                    {
-                        ConsoleShow("設備稼働許可が出ませんでした");
-                        return;
-                    }
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
+        //            //稼働許可確認
+        //            if (Keylc.GetBit("B0FF1")!="1")
+        //            {
+        //                ConsoleShow("設備稼働許可が出ませんでした");
+        //                return;
+        //            }
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
 
-            // LENSマッピングデータ転送
-            workheader = "procno." + procno + ":LENSマッピングデータ転送";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow("■■■LENSマッピングデータ転送処理開始■■■");
+        //    // LENSマッピングデータ転送
+        //    workheader = "procno." + procno + ":LENSマッピングデータ転送";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow("■■■LENSマッピングデータ転送処理開始■■■");
 
-                    var dt = DateTime.Now;
+        //            var dt = DateTime.Now;
 
-                    // マップ要求発行
-                    ConsoleShow("マッピングデータ要求ON");
-                    Keylc.SetBit(macInstance.MappingRequestAddress, 1, "1");
-                    ConsoleShow("+++ Wait5秒 +++");
-                    Thread.Sleep(5000);
+        //            // マップ要求発行
+        //            ConsoleShow("マッピングデータ要求ON");
+        //            Keylc.SetBit(macInstance.MappingRequestAddress, 1, "1");
+        //            ConsoleShow("+++ Wait5秒 +++");
+        //            Thread.Sleep(5000);
 
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
 
-            // EICSマガジンタイミング
-            workheader = "procno." + procno + ":EICSマガジンTiming";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow("■■■SM, AM, EM, SDログ処理開始■■■");
+        //    // EICSマガジンタイミング
+        //    workheader = "procno." + procno + ":EICSマガジンTiming";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow("■■■SM, AM, EM, SDログ処理開始■■■");
 
-                    var dt = DateTime.Now;
+        //            var dt = DateTime.Now;
 
-                    // ログファイルクリーン、作成
-                    ConsoleShow("ログファイル作成しています");
-                    foreach (string f in Directory.GetFiles(MLfolderpath, "*.*"))
-                    {
-                        File.Delete(f);
-                    }
+        //            // ログファイルクリーン、作成
+        //            ConsoleShow("ログファイル作成しています");
+        //            foreach (string f in Directory.GetFiles(MLfolderpath, "*.*"))
+        //            {
+        //                File.Delete(f);
+        //            }
 
-                    foreach (var item in maclogprefix_mg)
-                    {
+        //            foreach (var item in maclogprefix_mg)
+        //            {
 
-                        var MLfilename = "Log000_" + item + dt.ToString("yyMMddHHmm") + ".csv";
-                        if (!CreateMLog(macInstance.macLogOriginFolder + item + ".csv", MLfolderpath + "\\" + MLfilename, logfiledict, ref msg, "shift-jis"))
-                        {
-                            ConsoleShow(msg);
-                            return;
-                        }
-                        ConsoleShow(item + "ファイルを出力しました");
-                        ConsoleShow("+++ Wait:2秒 +++");
-                        Thread.Sleep(2000);
-                        Keylc.SetBit(maclogprefixAdDict_mg[item], 1, "1");
-                        ConsoleShow(item + "ファイル取得要求を立てました");
-                    }
+        //                var MLfilename = "Log000_" + item + dt.ToString("yyMMddHHmm") + ".csv";
+        //                if (!CreateMLog(macInstance.macLogOriginFolder + item + ".csv", MLfolderpath + "\\" + MLfilename, logfiledict, ref msg, "shift-jis"))
+        //                {
+        //                    ConsoleShow(msg);
+        //                    return;
+        //                }
+        //                ConsoleShow(item + "ファイルを出力しました");
+        //                ConsoleShow("+++ Wait:2秒 +++");
+        //                Thread.Sleep(2000);
+        //                Keylc.SetBit(maclogprefixAdDict_mg[item], 1, "1");
+        //                ConsoleShow(item + "ファイル取得要求を立てました");
+        //            }
 
-                    ConsoleShow("+++ Wait5秒 +++");
-                    Thread.Sleep(5000);
-                    ConsoleShow("■■■MD装置上で停止(完了処理前)■■■");
+        //            ConsoleShow("+++ Wait5秒 +++");
+        //            Thread.Sleep(5000);
+        //            ConsoleShow("■■■MD装置上で停止(完了処理前)■■■");
 
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-            AutoRunLock = false;
-            MessageBox.Show("完了しました");
-        }
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+        //    AutoRunLock = false;
+        //    MessageBox.Show("完了しました");
+        //}
 
-        //
-        // 遠沈
-        //
-        private void btn_eck_autoRun_Click(object sender, EventArgs e)
-        {
-            if (!AutoRunLock)
-            {
-                AutoRunLock = true;
-                ECK_AutoRun();
+        ////
+        //// 遠沈
+        ////
+        //private void btn_eck_autoRun_Click(object sender, EventArgs e)
+        //{
+        //    if (!AutoRunLock)
+        //    {
+        //        AutoRunLock = true;
+        //        ECK_AutoRun();
                 
-            }
-        }
-        private async void ECK_AutoRun()
-        {
-            var procno = "13";
-            var procname = "ECK";
-            var mdinmagno = txt_eck_mdinmagno.Text;
-            var magno = new string[]{ txt_eck_magno1.Text, txt_eck_magno2.Text };
-            var mdmacno = cb_eck_frommdno.Text;
-            var macInstance = ECK_01;
-            var msg = "";
-            //
-            // log file words
-            //
-            var MLfolderpath = "";
-            var maclogprefix_st = new string[] { "PR", "OR" };
-            var maclogprefixAdDict_st = new Dictionary<string, string> { { "PR", "DM32050" }, { "OR", "DM32051" } };
-            var date = DateTime.Now.ToString("yyyy/MM/dd");
-            var time = DateTime.Now.ToString("HH:mm:ss");
-            var logfiledict = new Dictionary<string, string>
-            {
-                { "@magno", "" },
-                { "@typecd", $"{EicsParam_TypeCode}" },
-                { "@date", $"{date}" },
-                { "@time", $"{time}" }
-            };
-            if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
-            {
-                ConsoleShow(MLfolderpath);
-                return;
-            }
+        //    }
+        //}
+        //private async void ECK_AutoRun()
+        //{
+        //    var procno = "13";
+        //    var procname = "ECK";
+        //    var mdinmagno = txt_eck_mdinmagno.Text;
+        //    var magno = new string[]{ txt_eck_magno1.Text, txt_eck_magno2.Text };
+        //    var mdmacno = cb_eck_frommdno.Text;
+        //    var macInstance = ECK_01;
+        //    var msg = "";
+        //    //
+        //    // log file words
+        //    //
+        //    var MLfolderpath = "";
+        //    var maclogprefix_st = new string[] { "PR", "OR" };
+        //    var maclogprefixAdDict_st = new Dictionary<string, string> { { "PR", "DM32050" }, { "OR", "DM32051" } };
+        //    var date = DateTime.Now.ToString("yyyy/MM/dd");
+        //    var time = DateTime.Now.ToString("HH:mm:ss");
+        //    var logfiledict = new Dictionary<string, string>
+        //    {
+        //        { "@magno", "" },
+        //        { "@typecd", $"{EicsParam_TypeCode}" },
+        //        { "@date", $"{date}" },
+        //        { "@time", $"{time}" }
+        //    };
+        //    if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
+        //    {
+        //        ConsoleShow(MLfolderpath);
+        //        return;
+        //    }
 
-            // 実マガジン～
-            workheader = "procno." + procno + ":遠沈マガジン#1を投入します";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow($"□□□procno={procno}: {procname}□□□");
+        //    // 実マガジン～
+        //    workheader = "procno." + procno + ":遠沈マガジン#1を投入します";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow($"□□□procno={procno}: {procname}□□□");
 
-                    ConsoleShow("■■■遠沈マガジン#1排出開始■■■");
-                    if (!readRbMagQr(magno[0]))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
+        //            ConsoleShow("■■■遠沈マガジン#1排出開始■■■");
+        //            if (!readRbMagQr(magno[0]))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
 
-                    //遠沈実マガジン供給要求をON
-                    SetBit(ECK_01.loaderReqBitAddress1, "1");
-                    ConsoleShow("遠沈実マガジン供給要求ON");
+        //            //遠沈実マガジン供給要求をON
+        //            SetBit(ECK_01.loaderReqBitAddress1, "1");
+        //            ConsoleShow("遠沈実マガジン供給要求ON");
 
-                    // 途中投入？
-                    if (cb_eck_useniccv.Checked)
-                    {
-                        if (!NicConvQR(magno[0]))
-                        {
-                            return;
-                        }
-                        Thread.Sleep(1000);
-                        // 途中投入排出要求ON
-                        SetBit(NicConv_01.unloaderReqBitAddress, "1");
-                        SetBit(NicConv_01.magazineArriveBitAddress, "1");
-                        ConsoleShow("途中マガジン投入を要求しました");
-                    }
-                    else
-                    {
+        //            // 途中投入？
+        //            if (cb_eck_useniccv.Checked)
+        //            {
+        //                if (!NicConvQR(magno[0]))
+        //                {
+        //                    return;
+        //                }
+        //                Thread.Sleep(1000);
+        //                // 途中投入排出要求ON
+        //                SetBit(NicConv_01.unloaderReqBitAddress, "1");
+        //                SetBit(NicConv_01.magazineArriveBitAddress, "1");
+        //                ConsoleShow("途中マガジン投入を要求しました");
+        //            }
+        //            else
+        //            {
 
-                        //MD設備開始時間メモリ(PLC)に書き込み
-                        ConsoleShow("PLCに開始時間を登録しました");
-                        var dt = DateTime.Now;
-                        SetDateTime2Word(MDComboRouter(mdmacno).workStartTimeAddress, dt);
-                        Thread.Sleep(1000);
+        //                //MD設備開始時間メモリ(PLC)に書き込み
+        //                ConsoleShow("PLCに開始時間を登録しました");
+        //                var dt = DateTime.Now;
+        //                SetDateTime2Word(MDComboRouter(mdmacno).workStartTimeAddress, dt);
+        //                Thread.Sleep(1000);
 
-                        //MD設備にINマガジンを登録
-                        md_inmagno(mdinmagno);
-                        ConsoleShow("設備に実マガジンを登録しました");
-                        Thread.Sleep(1000);
+        //                //MD設備にINマガジンを登録
+        //                md_inmagno(mdinmagno);
+        //                ConsoleShow("設備に実マガジンを登録しました");
+        //                Thread.Sleep(1000);
 
-                        //開始完了時間メモリ(PLC)に書き込み
-                        ConsoleShow("PLCに完了時間を登録しました");
-                        dt = DateTime.Now;
-                        SetDateTime2Word(MDComboRouter(mdmacno).workCompleteTimeAddress, dt);
-                        Thread.Sleep(1000);
+        //                //開始完了時間メモリ(PLC)に書き込み
+        //                ConsoleShow("PLCに完了時間を登録しました");
+        //                dt = DateTime.Now;
+        //                SetDateTime2Word(MDComboRouter(mdmacno).workCompleteTimeAddress, dt);
+        //                Thread.Sleep(1000);
 
-                        //MD設備にOUTマガジン(1)を登録
-                        md_outmagno(magno[0]);
-                        ConsoleShow("設備に実マガジンを登録しました");
-                        Thread.Sleep(1000);
+        //                //MD設備にOUTマガジン(1)を登録
+        //                md_outmagno(magno[0]);
+        //                ConsoleShow("設備に実マガジンを登録しました");
+        //                Thread.Sleep(1000);
 
-                        //実マガジン排出要求ON
-                        SetBit(MDComboRouter(mdmacno).unloaderReqBitAddress, "1");
-                        ConsoleShow("実マガジン排出要求ON");
-                    }
+        //                //実マガジン排出要求ON
+        //                SetBit(MDComboRouter(mdmacno).unloaderReqBitAddress, "1");
+        //                ConsoleShow("実マガジン排出要求ON");
+        //            }
 
-                    // ブリッジ搬送
-                    if (cb_eck_moveToBridge.Checked)
-                    {
-                        ConsoleShow("ブリッジ搬送します");
-                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
+        //            // ブリッジ搬送
+        //            if (cb_eck_moveToBridge.Checked)
+        //            {
+        //                ConsoleShow("ブリッジ搬送します");
+        //                SetBit(LineBridge_01.loaderReqBitAddress, "1");
 
-                        // +++ ロボット動作 +++
-                        if (!RBGetPutMagAuto())
-                        {
-                            ConsoleShow("■■■自動投入停止しました■■■");
-                            return;
-                        }
-                    }
+        //                // +++ ロボット動作 +++
+        //                if (!RBGetPutMagAuto())
+        //                {
+        //                    ConsoleShow("■■■自動投入停止しました■■■");
+        //                    return;
+        //                }
+        //            }
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:5秒 +++");
+        //            Thread.Sleep(5000);
 
-                    // +++ ロボット動作 +++
-                    // +++ RB Polling +++
-                    ConsoleShow("+++ ロボット移動要求確認 +++");
-                    if (!RBMoveEnableToGetMag())
-                    {
-                        ConsoleShow("■■■自動投入停止■■■");
-                        return;
-                    }
+        //            // +++ ロボット動作 +++
+        //            // +++ RB Polling +++
+        //            ConsoleShow("+++ ロボット移動要求確認 +++");
+        //            if (!RBMoveEnableToGetMag())
+        //            {
+        //                ConsoleShow("■■■自動投入停止■■■");
+        //                return;
+        //            }
 
-                    // ロボット動作（Mag取る）
-                    Rb_GetMag();
-                    ConsoleShow("Mag取り動作");
-                    SetBit(NicConv_01.unloaderReqBitAddress, "0");
-                    SetBit(NicConv_01.magazineArriveBitAddress, "0");
+        //            // ロボット動作（Mag取る）
+        //            Rb_GetMag();
+        //            ConsoleShow("Mag取り動作");
+        //            SetBit(NicConv_01.unloaderReqBitAddress, "0");
+        //            SetBit(NicConv_01.magazineArriveBitAddress, "0");
 
-                    // 排出OFF
-                    if (cb_eck_useniccv.Checked)
-                    {
-                        SetBit(NicConv_01.unloaderReqBitAddress, "0");
-                        ConsoleShow("途中投入をOFFしました");
-                    }
-                    else
-                    {
-                        //実マガジン排出要求OFF
-                        SetBit(MDComboRouter(mdmacno).unloaderReqBitAddress, "0");
-                        ConsoleShow("実マガジン排出要求OFF");
-                    }
+        //            // 排出OFF
+        //            if (cb_eck_useniccv.Checked)
+        //            {
+        //                SetBit(NicConv_01.unloaderReqBitAddress, "0");
+        //                ConsoleShow("途中投入をOFFしました");
+        //            }
+        //            else
+        //            {
+        //                //実マガジン排出要求OFF
+        //                SetBit(MDComboRouter(mdmacno).unloaderReqBitAddress, "0");
+        //                ConsoleShow("実マガジン排出要求OFF");
+        //            }
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:3秒 +++");
-                    Thread.Sleep(3000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:3秒 +++");
+        //            Thread.Sleep(3000);
 
-                    // ロボット動作（Mag置く）
-                    Rb_PutMag();
-                    ConsoleShow("Mag置く動作");
+        //            // ロボット動作（Mag置く）
+        //            Rb_PutMag();
+        //            ConsoleShow("Mag置く動作");
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:3秒 +++");
-                    Thread.Sleep(3000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:3秒 +++");
+        //            Thread.Sleep(3000);
 
-                    //実マガジン供給要求OFF
-                    SetBit(ECK_01.loaderReqBitAddress1, "0");
-                    ConsoleShow("実マガジン供給要求OFF");
+        //            //実マガジン供給要求OFF
+        //            SetBit(ECK_01.loaderReqBitAddress1, "0");
+        //            ConsoleShow("実マガジン供給要求OFF");
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait5秒 +++");
-                    Thread.Sleep(5000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait5秒 +++");
+        //            Thread.Sleep(5000);
 
-                    ConsoleShow("■■■遠沈マガジン#1で投入完了■■■");
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
+        //            ConsoleShow("■■■遠沈マガジン#1で投入完了■■■");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
 
-            workheader = "procno." + procno + ":遠沈マガジン#2を投入します";
-            if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow("■■■遠沈マガジン#2排出開始■■■");
-                    if (!readRbMagQr(magno[1]))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
+        //    workheader = "procno." + procno + ":遠沈マガジン#2を投入します";
+        //    if (SelectYesNoMessage(workheader + "。続行しますか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow("■■■遠沈マガジン#2排出開始■■■");
+        //            if (!readRbMagQr(magno[1]))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
 
-                    //遠沈実マガジン供給要求をON
-                    SetBit(ECK_01.loaderReqBitAddress4, "1");
-                    ConsoleShow("遠沈実マガジン供給要求ON");
+        //            //遠沈実マガジン供給要求をON
+        //            SetBit(ECK_01.loaderReqBitAddress4, "1");
+        //            ConsoleShow("遠沈実マガジン供給要求ON");
 
-                    // 途中投入？
-                    if (cb_eck_useniccv.Checked)
-                    {
-                        if (!NicConvQR(magno[1]))
-                        {
-                            return;
-                        }
-                        Thread.Sleep(1000);
-                        // 途中投入排出要求ON
-                        SetBit(NicConv_01.unloaderReqBitAddress, "1");
-                        SetBit(NicConv_01.magazineArriveBitAddress, "1");
-                        ConsoleShow("途中マガジン投入を要求しました");
-                    }
-                    else
-                    {
-                        //開始完了時間メモリ(PLC)に書き込み
-                        ConsoleShow("PLCに完了時間を登録しました");
-                        var dt = DateTime.Now;
-                        SetDateTime2Word(MDComboRouter(mdmacno).workCompleteTimeAddress, dt);
-                        Thread.Sleep(1000);
+        //            // 途中投入？
+        //            if (cb_eck_useniccv.Checked)
+        //            {
+        //                if (!NicConvQR(magno[1]))
+        //                {
+        //                    return;
+        //                }
+        //                Thread.Sleep(1000);
+        //                // 途中投入排出要求ON
+        //                SetBit(NicConv_01.unloaderReqBitAddress, "1");
+        //                SetBit(NicConv_01.magazineArriveBitAddress, "1");
+        //                ConsoleShow("途中マガジン投入を要求しました");
+        //            }
+        //            else
+        //            {
+        //                //開始完了時間メモリ(PLC)に書き込み
+        //                ConsoleShow("PLCに完了時間を登録しました");
+        //                var dt = DateTime.Now;
+        //                SetDateTime2Word(MDComboRouter(mdmacno).workCompleteTimeAddress, dt);
+        //                Thread.Sleep(1000);
 
-                        //MD設備にOUTマガジン(2)を登録
-                        md_outmagno(magno[1]);
-                        ConsoleShow("設備に実マガジンを登録しました");
-                        Thread.Sleep(1000);
+        //                //MD設備にOUTマガジン(2)を登録
+        //                md_outmagno(magno[1]);
+        //                ConsoleShow("設備に実マガジンを登録しました");
+        //                Thread.Sleep(1000);
 
-                        //実マガジン排出要求ON
-                        SetBit(MDComboRouter(mdmacno).unloaderReqBitAddress, "1");
-                        ConsoleShow("実マガジン排出要求ON");
-                    }
+        //                //実マガジン排出要求ON
+        //                SetBit(MDComboRouter(mdmacno).unloaderReqBitAddress, "1");
+        //                ConsoleShow("実マガジン排出要求ON");
+        //            }
 
-                    // ブリッジ搬送
-                    if (cb_eck_moveToBridge.Checked)
-                    {
-                        ConsoleShow("ブリッジ搬送します");
-                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
+        //            // ブリッジ搬送
+        //            if (cb_eck_moveToBridge.Checked)
+        //            {
+        //                ConsoleShow("ブリッジ搬送します");
+        //                SetBit(LineBridge_01.loaderReqBitAddress, "1");
 
-                        // +++ ロボット動作 +++
-                        if (!RBGetPutMagAuto())
-                        {
-                            ConsoleShow("■■■自動投入停止しました■■■");
-                            return;
-                        }
-                    }
+        //                // +++ ロボット動作 +++
+        //                if (!RBGetPutMagAuto())
+        //                {
+        //                    ConsoleShow("■■■自動投入停止しました■■■");
+        //                    return;
+        //                }
+        //            }
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:5秒 +++");
+        //            Thread.Sleep(5000);
 
-                    // +++ ロボット動作 +++
-                    // +++ RB Polling +++
-                    ConsoleShow("+++ ロボット移動要求確認 +++");
-                    if (!RBMoveEnableToGetMag())
-                    {
-                        ConsoleShow("■■■自動投入停止■■■");
-                        return;
-                    }
+        //            // +++ ロボット動作 +++
+        //            // +++ RB Polling +++
+        //            ConsoleShow("+++ ロボット移動要求確認 +++");
+        //            if (!RBMoveEnableToGetMag())
+        //            {
+        //                ConsoleShow("■■■自動投入停止■■■");
+        //                return;
+        //            }
 
-                    // ロボット動作（Mag取る）
-                    Rb_GetMag();
-                    ConsoleShow("Mag取り動作");
-                    SetBit(NicConv_01.unloaderReqBitAddress, "0");
-                    SetBit(NicConv_01.magazineArriveBitAddress, "0");
+        //            // ロボット動作（Mag取る）
+        //            Rb_GetMag();
+        //            ConsoleShow("Mag取り動作");
+        //            SetBit(NicConv_01.unloaderReqBitAddress, "0");
+        //            SetBit(NicConv_01.magazineArriveBitAddress, "0");
 
-                    // 排出OFF
-                    if (cb_avi_useniccv.Checked)
-                    {
-                        SetBit(NicConv_01.unloaderReqBitAddress, "0");
-                        ConsoleShow("途中投入をOFFしました");
-                    }
-                    else
-                    {
-                        //実マガジン排出要求OFF
-                        SetBit(MDComboRouter(mdmacno).unloaderReqBitAddress, "0");
-                        ConsoleShow("実マガジン排出要求OFF");
-                    }
+        //            // 排出OFF
+        //            if (cb_avi_useniccv.Checked)
+        //            {
+        //                SetBit(NicConv_01.unloaderReqBitAddress, "0");
+        //                ConsoleShow("途中投入をOFFしました");
+        //            }
+        //            else
+        //            {
+        //                //実マガジン排出要求OFF
+        //                SetBit(MDComboRouter(mdmacno).unloaderReqBitAddress, "0");
+        //                ConsoleShow("実マガジン排出要求OFF");
+        //            }
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:3秒 +++");
-                    Thread.Sleep(3000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:3秒 +++");
+        //            Thread.Sleep(3000);
 
-                    // ロボット動作（Mag置く）
-                    Rb_PutMag();
-                    ConsoleShow("Mag置く動作");
+        //            // ロボット動作（Mag置く）
+        //            Rb_PutMag();
+        //            ConsoleShow("Mag置く動作");
 
-                    //実マガジン供給要求OFF
-                    SetBit(ECK_01.loaderReqBitAddress4, "0");
-                    ConsoleShow("実マガジン供給要求OFF");
+        //            //実マガジン供給要求OFF
+        //            SetBit(ECK_01.loaderReqBitAddress4, "0");
+        //            ConsoleShow("実マガジン供給要求OFF");
 
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait5秒 +++");
-                    Thread.Sleep(5000);
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait5秒 +++");
+        //            Thread.Sleep(5000);
 
-                    ConsoleShow("■■■遠沈マガジン#2で投入完了■■■");
-                });
-                updateCommonFunctionSignalBtns();
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
+        //            ConsoleShow("■■■遠沈マガジン#2で投入完了■■■");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
 
-            // EICSスタートタイミング開始確認
-            workheader = "procno." + procno + ":EICSスタートタイミング開始";
-            if (SelectYesNoMessage(workheader + "。EICSは稼働中ですか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow($"□□□macno={macInstance.macno}: {macInstance.macname}□□□");
-                    ConsoleShow("■■■OR,PRファイルを出力開始■■■");
-                    // MLフォルダクリーン
-                    foreach (string f in Directory.GetFiles(MLfolderpath, "*.*"))
-                    {
-                        File.Delete(f);
-                    }
+        //    // EICSスタートタイミング開始確認
+        //    workheader = "procno." + procno + ":EICSスタートタイミング開始";
+        //    if (SelectYesNoMessage(workheader + "。EICSは稼働中ですか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow($"□□□macno={macInstance.macno}: {macInstance.macname}□□□");
+        //            ConsoleShow("■■■OR,PRファイルを出力開始■■■");
+        //            // MLフォルダクリーン
+        //            foreach (string f in Directory.GetFiles(MLfolderpath, "*.*"))
+        //            {
+        //                File.Delete(f);
+        //            }
 
-                    // 設備ログ(OR,PRファイル)を吐き出し
-                    var dt = DateTime.Now;
-                    var logno = 1;
-                    foreach (var mag in magno)
-                    {
-                        foreach (var item in maclogprefix_st)
-                        {
-                            logfiledict["@magno"] = mag;
-                            var MLfilename = $"Log00{logno}_" + item + dt.ToString("yyMMddHHmm") + ".csv";
-                            if (!CreateMLog(macInstance.macLogOriginFolder + item + ".csv", MLfolderpath + "\\" + MLfilename, logfiledict, ref msg, "shift-jis"))
-                            {
-                                ConsoleShow(msg);
-                                return;
-                            }
-                            ConsoleShow(item + "ファイルを出力しました");
-                            ConsoleShow("+++ Wait:2秒 +++");
-                            Thread.Sleep(2000);
-                            Keylc.SetBit(maclogprefixAdDict_st[item], 1, "1");
-                            ConsoleShow(item + "ファイル取得要求を立てました");
-                            ConsoleShow("+++ Wait:2秒 +++");
-                            Thread.Sleep(2000);
-                        }
-                        logno += 1;
-                    }
+        //            // 設備ログ(OR,PRファイル)を吐き出し
+        //            var dt = DateTime.Now;
+        //            var logno = 1;
+        //            foreach (var mag in magno)
+        //            {
+        //                foreach (var item in maclogprefix_st)
+        //                {
+        //                    logfiledict["@magno"] = mag;
+        //                    var MLfilename = $"Log00{logno}_" + item + dt.ToString("yyMMddHHmm") + ".csv";
+        //                    if (!CreateMLog(macInstance.macLogOriginFolder + item + ".csv", MLfolderpath + "\\" + MLfilename, logfiledict, ref msg, "shift-jis"))
+        //                    {
+        //                        ConsoleShow(msg);
+        //                        return;
+        //                    }
+        //                    ConsoleShow(item + "ファイルを出力しました");
+        //                    ConsoleShow("+++ Wait:2秒 +++");
+        //                    Thread.Sleep(2000);
+        //                    Keylc.SetBit(maclogprefixAdDict_st[item], 1, "1");
+        //                    ConsoleShow(item + "ファイル取得要求を立てました");
+        //                    ConsoleShow("+++ Wait:2秒 +++");
+        //                    Thread.Sleep(2000);
+        //                }
+        //                logno += 1;
+        //            }
 
-                    ConsoleShow("■■■OR,PRファイルを出力完了■■■");
+        //            ConsoleShow("■■■OR,PRファイルを出力完了■■■");
 
-                    Thread.Sleep(2000);
-                });
+        //            Thread.Sleep(2000);
+        //        });
 
-                RecordTn(workheader);
-                ConsoleShow("■■■ECK装置上で停止(完了処理前)■■■");
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-            AutoRunLock = false;
-            MessageBox.Show("完了しました");
-        }
+        //        RecordTn(workheader);
+        //        ConsoleShow("■■■ECK装置上で停止(完了処理前)■■■");
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+        //    AutoRunLock = false;
+        //    MessageBox.Show("完了しました");
+        //}
 
-        //
-        // 移載
-        //
-        private void btn_gbmex_autoRun_Click(object sender, EventArgs e)
-        {
-            if (!AutoRunLock)
-            {
-                AutoRunLock = true;
-                GBMEX_AutoRun();
+        ////
+        //// 移載
+        ////
+        //private void btn_gbmex_autoRun_Click(object sender, EventArgs e)
+        //{
+        //    if (!AutoRunLock)
+        //    {
+        //        AutoRunLock = true;
+        //        GBMEX_AutoRun();
                 
-            }
-        }
-        private async void GBMEX_AutoRun()
-        {
-            var procno = "18,16";
-            var procname = "GB/MEX";
-            var magno = new string[] { txt_eck_magno1.Text, txt_eck_magno2.Text };
-            var magno1 = txt_gbmex_magno1.Text;
-            var magno2 = txt_gbmex_magno2.Text;
-            var karamagno = txt_gbmex_km_auto.Text;
-            var macInstance = ECK_01;
-            var msg = "";
-            //
-            // log file words
-            //
-            var MLfolderpath = "";
-            var maclogprefix_mg = new string[] { "AM", "EM" };
-            var maclogprefixAdDict_mg = new Dictionary<string, string> { { "AM", "DM32052" }, { "EM", "DM32053" } };
-            var date = DateTime.Now.ToString("yyyy/MM/dd");
-            var time = DateTime.Now.ToString("HH:mm:ss");
-            var logfiledict = new Dictionary<string, string>
-            {
-                { "@magno", "" },
-                { "@typecd", $"{EicsParam_TypeCode}" },
-                { "@date", $"{date}" },
-                { "@time", $"{time}" }
-            };
-            if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
-            {
-                ConsoleShow(MLfolderpath);
-                return;
-            }
-
-            // EICSマガジンタイミング開始確認
-            workheader = "procno." + procno + ":EICSマガジンタイミング開始";
-            if (SelectYesNoMessage(workheader + "。EICSは稼働中ですか？") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow($"□□□macno={macInstance.macno}: {macInstance.macname}□□□");
-                    ConsoleShow("■■■ECK完了処理開始:EM,AMファイル出力■■■");
-                    // MLフォルダクリーン
-                    foreach (string f in Directory.GetFiles(MLfolderpath, "*.*"))
-                    {
-                        File.Delete(f);
-                    }
-
-                    //EM,AMファイルを吐き出し
-                    var dt = DateTime.Now;
-                    var logno = 1;
-                    foreach (var mag in magno)
-                    {
-                        foreach (var item in maclogprefix_mg)
-                        {
-                            logfiledict["@magno"] = mag;
-                            var MLfilename = $"Log00{logno}_" + item + dt.ToString("yyMMddHHmm") + ".csv";
-                            if (!CreateMLog(macInstance.macLogOriginFolder + item + ".csv", MLfolderpath + "\\" + MLfilename, logfiledict, ref msg, "shift-jis"))
-                            {
-                                ConsoleShow(msg);
-                                return;
-                            }
-                            ConsoleShow(item + "ファイルを出力しました");
-                            ConsoleShow("+++ Wait:2秒 +++");
-                            Thread.Sleep(2000);
-                            Keylc.SetBit(maclogprefixAdDict_mg[item], 1, "1");
-                            ConsoleShow(item + "ファイル取得要求を立てました");
-                            ConsoleShow("+++ Wait:2秒 +++");
-                            Thread.Sleep(2000);
-                        }
-                        logno += 1;
-                    }
-
-                    ConsoleShow("■■■EM,AMファイルを出力完了■■■");
-
-                    Thread.Sleep(2000);
-                });
-
-                RecordTn(workheader);
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-
-            // 実マガジン～
-            if (SelectYesNoMessage("遠沈マガジン#1をバッファ1に投入します。") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow($"□□□procno={procno}: {procname}□□□");
-
-                    ConsoleShow("■■■遠沈マガジン#1排出開始■■■");
-                    if (!readRbMagQr(magno1))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
-
-                    //バッファ実マガジン供給要求をON
-                    SetBit(GB_01.loaderReqBitAddress, "1");
-                    ConsoleShow("バッファ1実マガジン供給要求ON");
-
-                    // 途中投入？
-                    if (cb_gbmex_useniccv.Checked)
-                    {
-                        if (!NicConvQR(magno1))
-                        {
-                            return;
-                        }
-                        Thread.Sleep(1000);
-                        // 途中投入排出要求ON
-                        SetBit(NicConv_01.unloaderReqBitAddress, "1");
-                        SetBit(NicConv_01.magazineArriveBitAddress, "1");
-                        ConsoleShow("途中マガジン投入を要求しました");
-                    }
-                    else
-                    {
-                        //ECK設備開始時間メモリ(PLC)に書き込み
-                        ConsoleShow("PLCに開始時間を登録しました");
-                        var dt = DateTime.Now;
-                        SetDateTime2Word(ECK_01.workStartTimeAddress, dt);
-                        Thread.Sleep(1000);
-
-                        //ECK設備完了時間メモリ(PLC)に書き込み
-                        ConsoleShow("PLCに完了時間を登録しました");
-                        dt = DateTime.Now;
-                        SetDateTime2Word(ECK_01.workCompleteTimeAddress, dt);
-                        Thread.Sleep(1000);
-
-                        //ECKアンロードマガジン登録
-                        SetString(ECK_01.ulMagazineAddress, magno1);
-                        ConsoleShow("OUTマガジンNoを登録しました");
-
-                        //実マガジン排出要求ON
-                        SetBit(ECK_01.unloaderReqBitAddress1, "1");
-                        ConsoleShow("実マガジン排出要求ON");
-                    }
-
-                    // ブリッジ搬送
-                    if (cb_gbmex_moveToBridge.Checked)
-                    {
-                        ConsoleShow("ブリッジ搬送します");
-                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
-
-                        // +++ ロボット動作 +++
-                        if (!RBGetPutMagAuto())
-                        {
-                            ConsoleShow("■■■自動投入停止しました■■■");
-                            return;
-                        }
-                    }
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
-
-                    // +++ ロボット動作 +++
-                    // +++ RB Polling +++
-                    ConsoleShow("+++ ロボット移動要求確認 +++");
-                    if (!RBMoveEnableToGetMag())
-                    {
-                        ConsoleShow("■■■自動投入停止■■■");
-                        return;
-                    }
-
-                    // ロボット動作（Mag取る）
-                    Rb_GetMag();
-                    ConsoleShow("Mag取り動作");
-                    SetBit(NicConv_01.unloaderReqBitAddress, "0");
-                    SetBit(NicConv_01.magazineArriveBitAddress, "0");
-
-                    // 排出OFF
-                    if (cb_gbmex_useniccv.Checked)
-                    {
-                        SetBit(NicConv_01.unloaderReqBitAddress, "0");
-                        ConsoleShow("途中投入をOFFしました");
-                    }
-                    else
-                    {
-                        //実マガジン排出要求OFF
-                        SetBit(ECK_01.unloaderReqBitAddress1, "0");
-                        ConsoleShow("実マガジン排出要求OFF");
-                    }
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:3秒 +++");
-                    Thread.Sleep(3000);
-
-                    //実マガジン供給要求OFF
-                    SetBit(GB_01.loaderReqBitAddress, "0");
-                    ConsoleShow("バッファ実マガジン供給要求OFF");
-
-                    //実マガジン排出要求ON
-                    SetBit(GB_01.unloaderReqBitAddress, "1");
-                    ConsoleShow("バッファ実マガジン排出要求ON");
-
-                    // ロボット動作（Mag置く）
-                    Rb_PutMag();
-                    ConsoleShow("Mag置く動作");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait5秒 +++");
-                    Thread.Sleep(5000);
-
-                    ConsoleShow("■■■バッファ1・マガジン#1投入完了■■■");
-                });
-                updateCommonFunctionSignalBtns();
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-
-            if (SelectYesNoMessage("遠沈マガジン#2をバッファ2に移載投入します。") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow("■■■遠沈マガジン#2排出開始■■■");
-                    if (!readRbMagQr(magno2))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
-
-                    //バッファ実マガジン供給要求をON
-                    SetBit(GB_02.loaderReqBitAddress, "1");
-                    ConsoleShow("バッファ2実マガジン供給要求ON");
-
-                    // 途中投入？
-                    if (cb_gbmex_useniccv.Checked)
-                    {
-                        if (!NicConvQR(magno2))
-                        {
-                            return;
-                        }
-                        Thread.Sleep(1000);
-                        // 途中投入排出要求ON
-                        SetBit(NicConv_01.unloaderReqBitAddress, "1");
-                        SetBit(NicConv_01.magazineArriveBitAddress, "1");
-                        ConsoleShow("途中マガジン投入を要求しました");
-                    }
-                    else
-                    {
-                        //ECK設備開始時間メモリ(PLC)に書き込み
-                        ConsoleShow("PLCに開始時間を登録しました");
-                        var dt = DateTime.Now;
-                        SetDateTime2Word(ECK_01.workStartTimeAddress, dt);
-                        Thread.Sleep(1000);
-
-                        //ECK設備完了時間メモリ(PLC)に書き込み
-                        ConsoleShow("PLCに完了時間を登録しました");
-                        dt = DateTime.Now;
-                        SetDateTime2Word(ECK_01.workCompleteTimeAddress, dt);
-                        Thread.Sleep(1000);
-
-                        //ECKアンロードマガジン登録
-                        SetString(ECK_01.ulMagazineAddress, magno2);
-                        ConsoleShow("OUTマガジンNoを登録しました");
-
-                        //実マガジン排出要求ON
-                        SetBit(ECK_01.unloaderReqBitAddress4, "1");
-                        ConsoleShow("実マガジン排出要求ON");
-                    }
-
-                    // ブリッジ搬送
-                    if (cb_gbmex_moveToBridge.Checked)
-                    {
-                        ConsoleShow("ブリッジ搬送します");
-                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
-
-                        // +++ ロボット動作 +++
-                        if (!RBGetPutMagAuto())
-                        {
-                            ConsoleShow("■■■自動投入停止しました■■■");
-                            return;
-                        }
-                    }
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
-
-                    // +++ ロボット動作 +++
-                    // +++ RB Polling +++
-                    ConsoleShow("+++ ロボット移動要求確認 +++");
-                    if (!RBMoveEnableToGetMag())
-                    {
-                        ConsoleShow("■■■自動投入停止■■■");
-                        return;
-                    }
-
-                    // ロボット動作（Mag取る）
-                    Rb_GetMag();
-                    ConsoleShow("Mag取り動作");
-                    SetBit(NicConv_01.unloaderReqBitAddress, "0");
-                    SetBit(NicConv_01.magazineArriveBitAddress, "0");
-
-                    // 排出OFF
-                    if (cb_gbmex_useniccv.Checked)
-                    {
-                        SetBit(NicConv_01.unloaderReqBitAddress, "0");
-                        ConsoleShow("途中投入をOFFしました");
-                    }
-                    else
-                    {
-                        //実マガジン排出要求OFF
-                        SetBit(ECK_01.unloaderReqBitAddress4, "0");
-                        ConsoleShow("実マガジン排出要求OFF");
-                    }
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:3秒 +++");
-                    Thread.Sleep(3000);
-
-                    //実マガジン供給要求OFF
-                    SetBit(GB_02.loaderReqBitAddress, "0");
-                    ConsoleShow("バッファ実マガジン供給要求OFF");
-
-                    //実マガジン排出要求ON
-                    SetBit(GB_02.unloaderReqBitAddress, "1");
-                    ConsoleShow("バッファ実マガジン排出要求ON");
-
-                    // ロボット動作（Mag置く）
-                    Rb_PutMag();
-                    ConsoleShow("Mag置く動作");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait5秒 +++");
-                    Thread.Sleep(5000);
-
-                    ConsoleShow("■■■バッファ2・マガジン#2投入完了■■■");
-                });
-                updateCommonFunctionSignalBtns();
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-
-            // 空マガジン～
-            if (SelectYesNoMessage("空マガジンを移載機に投入します。") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    // 空マガ書き込み
-                    ConsoleShow("■■■空マガジン投入■■■");
-                    if (!readRbMagQr(karamagno))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
-
-                    // EmpMagLoaderReq
-                    SetBit(MEX_01.empMagLoaderReqBitAddress, "1");
-                    ConsoleShow("空マガジン供給を要求しました");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:2秒 +++");
-                    Thread.Sleep(2000);
-
-                    // 空マガジン投入
-                    EntConvMagazine("kara_on");
-                    ConsoleShow("ローダー空マガジン排出を要求しました");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:3秒 +++");
-                    Thread.Sleep(3000);
-
-                    // ブリッジ搬送
-                    if (cb_gbmex_emmoveToBridge.Checked)
-                    {
-                        ConsoleShow("ブリッジ搬送します");
-                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
-                        SetBit(LineBridge_01.empMagUnloaderReqBitAddress, "1");
-
-                        // +++ ロボット動作 +++
-                        if (!RBGetPutMagAuto())
-                        {
-                            ConsoleShow("■■■自動投入停止しました■■■");
-                            return;
-                        }
-
-                        // 空排出OFF
-                        SetBit(LineBridge_01.empMagUnloaderReqBitAddress, "0");
-                    }
-
-                    // +++ ロボット動作 +++
-                    if (!RBGetPutMagAuto())
-                    {
-                        ConsoleShow("■■■自動投入停止しました■■■");
-                        return;
-                    }
-
-                    // EmpMagLoaderReq
-                    SetBit(MEX_01.empMagLoaderReqBitAddress, "0");
-                    ConsoleShow("空マガジン供給OFFしました");
-
-                    ConsoleShow("停止中");
-                });
-                updateCommonFunctionSignalBtns();
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-
-            // Mag#2移載
-            if (SelectYesNoMessage("遠沈マガジン#2を移載機に投入します。") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    //遠沈マガジン#2読込
-                    ConsoleShow("■■■遠沈マガジン#2を移載機に投入■■■");
-                    if (!readRbMagQr(magno2))
-                    {
-                        return;
-                    }
-
-                    // 移載機MagLoaderReq
-                    SetBit(MEX_01.loaderReqBitAddress, "1");
-                    ConsoleShow("実マガジン供給を要求しました");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:1秒 +++");
-                    Thread.Sleep(1000);
-
-                    // バッファunLoaderReq
-                    SetBit(GB_02.unloaderReqBitAddress, "1");
-                    ConsoleShow("実マガジン排出を要求しました");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:3秒 +++");
-                    Thread.Sleep(3000);
-
-                    // +++ ロボット動作 +++
-                    // +++ RB Polling +++
-                    ConsoleShow("+++ ロボット移動要求確認 +++");
-                    if (!RBMoveEnableToGetMag())
-                    {
-                        ConsoleShow("■■■自動投入停止■■■");
-                        return;
-                    }
-
-                    // ロボット動作（Mag取る）
-                    Rb_GetMag();
-                    ConsoleShow("Mag取り動作");
-                    SetBit(NicConv_01.unloaderReqBitAddress, "0");
-                    SetBit(NicConv_01.magazineArriveBitAddress, "0");
-
-                    // 排出OFF
-                    SetBit(GB_02.unloaderReqBitAddress, "0");
-                    ConsoleShow("実マガジン排出をOFFしました");
-
-                    // 移載機MagLoaderReq
-                    SetBit(MEX_01.loaderReqBitAddress, "0");
-                    ConsoleShow("実マガジン供給をOFFしました");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:3秒 +++");
-                    Thread.Sleep(3000);
-
-                    // ロボット動作（Mag置く）
-                    Rb_PutMag();
-                    ConsoleShow("Mag置く動作");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:3秒 +++");
-                    Thread.Sleep(3000);
-
-                    // 完了処理EmpUnLoaderReq
-                    SetBit(MEX_01.empMagUnloaderReqBitAddress, "1");
-                    ConsoleShow("空マガジン排出をONしました");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:10秒 +++");
-                    Thread.Sleep(10000);
-
-                    // 完了処理EmpUnLoaderReq
-                    SetBit(MEX_01.empMagUnloaderReqBitAddress, "0");
-                    ConsoleShow("空マガジン排出をOFFしました");
-
-                    ConsoleShow("停止中");
-                });
-                updateCommonFunctionSignalBtns();
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-
-            // Mag#1移載
-            if (SelectYesNoMessage("遠沈マガジン#1を移載機に投入します。") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    //遠沈マガジン#1読込
-                    ConsoleShow("■■■遠沈マガジン#1を移載機に投入■■■");
-                    if (!readRbMagQr(magno1))
-                    {
-                        return;
-                    }
-
-                    // 移載機MagLoaderReq
-                    SetBit(MEX_01.loaderReqBitAddress, "1");
-                    ConsoleShow("実マガジン供給を要求しました");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:1秒 +++");
-                    Thread.Sleep(1000);
-
-                    // バッファunLoaderReq
-                    SetBit(GB_01.unloaderReqBitAddress, "1");
-                    ConsoleShow("実マガジン排出を要求しました");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:3秒 +++");
-                    Thread.Sleep(3000);
-
-                    // +++ ロボット動作 +++
-                    // +++ RB Polling +++
-                    ConsoleShow("+++ ロボット移動要求確認 +++");
-                    if (!RBMoveEnableToGetMag())
-                    {
-                        ConsoleShow("■■■自動投入停止■■■");
-                        return;
-                    }
-
-                    // ロボット動作（Mag取る）
-                    Rb_GetMag();
-                    ConsoleShow("Mag取り動作");
-                    SetBit(NicConv_01.unloaderReqBitAddress, "0");
-                    SetBit(NicConv_01.magazineArriveBitAddress, "0");
-
-                    // 排出OFF
-                    SetBit(GB_01.unloaderReqBitAddress, "0");
-                    ConsoleShow("実マガジン排出をOFFしました");
-
-                    // 移載機MagLoaderReq
-                    SetBit(MEX_01.loaderReqBitAddress, "0");
-                    ConsoleShow("実マガジン供給をOFFしました");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:3秒 +++");
-                    Thread.Sleep(3000);
-
-                    // ロボット動作（Mag置く）
-                    Rb_PutMag();
-                    ConsoleShow("Mag置く動作");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:3秒 +++");
-                    Thread.Sleep(3000);
-
-                    // 完了処理EmpUnLoaderReq
-                    SetBit(MEX_01.empMagUnloaderReqBitAddress, "1");
-                    ConsoleShow("空マガジン排出をONしました");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:10秒 +++");
-                    Thread.Sleep(10000);
-
-                    // 完了処理EmpUnLoaderReq
-                    SetBit(MEX_01.empMagUnloaderReqBitAddress, "0");
-                    ConsoleShow("空マガジン排出をOFFしました");
-
-                    ConsoleShow("停止中");
-                });
-                updateCommonFunctionSignalBtns();
-                ConsoleShow("マガジン移載作業完了");
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-
-            AutoRunLock = false;
-            MessageBox.Show("完了しました");
-        }
-
-        //
-        // MDオーブン
-        //
-        private void btn_mdovn_autoRun_Click(object sender, EventArgs e)
-        {
-            if (!AutoRunLock)
-            {
-                AutoRunLock = true;
-                MDOVN_AutoRun();
-            }
-        }
-        private async void MDOVN_AutoRun()
-        {
-            var procno = "14";
-            var procname = "MD-OVN";
-            var MDOvnNo = cb_mdovn_macno.Text;
-            var jitumag = txt_mdovn_m_auto.Text;
-            var profileno = int.Parse(cb_mdovnProfile.Text);
-            // 実マガジン～
-            if (SelectYesNoMessage("実マガジンを投入します。") == DialogResult.Yes)
-            {
-                await Task.Run(() =>
-                {
-                    ConsoleShow($"□□□procno={procno}: {procname}□□□");
-
-                    ConsoleShow("■■■実マガジン投入■■■");
-
-                    if (!readRbMagQr(jitumag))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
-
-                    //MD-OVEN Slot1の供給をON
-                    SetBit(MDOVNComboRouter(MDOvnNo).loaderReqBitAddressList_addKey1, "1");
-                    ConsoleShow("スロット１実マガジン供給要求ON");
-
-                    // 途中投入？
-                    if (cb_mdovn_useniccv.Checked)
-                    {
-                        if (!NicConvQR(jitumag))
-                        {
-                            return;
-                        }
-                        Thread.Sleep(1000);
-                        // 途中投入排出要求ON
-                        SetBit(NicConv_01.unloaderReqBitAddress, "1");
-                        SetBit(NicConv_01.magazineArriveBitAddress, "1");
-                        ConsoleShow("途中マガジン投入を要求しました");
-                    }
-                    else
-                    {
-                        //実マガジン排出要求ON
-                        SetBit(MEX_01.unloaderReqBitAddress, "1");
-                        ConsoleShow("実マガジン排出要求ON");
-                    }
-
-                    // プロファイル設定
-                    ConsoleShow("オーブンプロファイルを設定");
-                    SetWordAsDecimalData(MDOVNComboRouter(MDOvnNo).currentProfileWordAddress, profileno);
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
-
-                    // ブリッジ搬送
-                    if (cb_mdovn_moveToBridge.Checked)
-                    {
-                        ConsoleShow("ブリッジ搬送します");
-                        SetBit(LineBridge_01.loaderReqBitAddress, "1");
-
-                        // +++ ロボット動作 +++
-                        if (!RBGetPutMagAuto())
-                        {
-                            ConsoleShow("■■■自動投入停止しました■■■");
-                            return;
-                        }
-
-                    }
-
-                    // +++ ロボット動作 +++
-                    if (!RBGetPutMagAuto())
-                    {
-                        ConsoleShow("■■■自動投入停止しました■■■");
-                        return;
-                    }
-
-                    // 排出要求OFF
-                    ConsoleShow("排出要求OFF");
-                    SetBit(MEX_01.unloaderReqBitAddress, "0");
-
-                    // 供給要求OFF
-                    SetBit(MDOVNComboRouter(MDOvnNo).loaderReqBitAddressList_addKey1, "0");
-                    ConsoleShow("供給要求OFF");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
-
-                    ConsoleShow("■■■OVN装置上で停止（完了処理前）■■■");
-                });
-                updateCommonFunctionSignalBtns();
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-
-            // 完成品排出処理
-            if (SelectYesNoMessage("完成品マガジンを排出します。") == DialogResult.Yes)
-            {
-
-                await Task.Run(() =>
-                {
-
-                    ConsoleShow("■■■完成品マガジン排出■■■");
-
-                    if (!readRbMagQr(jitumag))
-                    {
-                        return;
-                    }
-                    Thread.Sleep(1000);
-
-                    //MDOVN設備開始時間メモリ(PLC)に書き込み
-                    ConsoleShow("PLCに開始時間を登録しました");
-                    var dt = DateTime.Now;
-                    SetDateTime2Word(MDOVN_01.workStartTimeAddress, dt);
-                    Thread.Sleep(1000);
-
-                    //MDOVN設備完了時間メモリ(PLC)に書き込み
-                    ConsoleShow("PLCに完了時間を登録しました");
-                    dt = DateTime.Now;
-                    SetDateTime2Word(MDOVN_01.workCompleteTimeAddress, dt);
-                    Thread.Sleep(1000);
-
-                    //MD-OVEN Slot1の供給をON
-                    SetBit(MDOVNComboRouter(MDOvnNo).unloaderReqBitAddressList_addKey1, "1");
-                    ConsoleShow("スロット１実マガジン排出要求ON");
-
-                    //完成品コンベア供給要求ON
-                    SetBit(MCDCConv_01.loaderReqBitAddress, "1");
-                    ConsoleShow("完成品コンベア供給要求ON");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
-
-                    // ブリッジ搬送
-                    //if (cb_mdovn_moveToBridge.Checked)
-                    //{
-                    //    ConsoleShow("ブリッジ搬送します");
-                    //    SetBit(LineBridge_01.loaderReqBitAddress, "1");
-
-                    //    // +++ ロボット動作 +++
-                    //    if (!RBGetPutMagAuto())
-                    //    {
-                    //        ConsoleShow("■■■自動投入停止しました■■■");
-                    //        return;
-                    //    }
-                    //}
-
-                    // +++ ロボット動作 +++
-                    if (!RBGetPutMagAuto())
-                    {
-                        ConsoleShow("■■■自動投入停止しました■■■");
-                        return;
-                    }
-
-                    // 排出要求OFF
-                    ConsoleShow("排出要求OFF");
-                    SetBit(MDOVNComboRouter(MDOvnNo).unloaderReqBitAddressList_addKey1, "0");
-
-                    // 供給要求OFF
-                    SetBit(MCDCConv_01.loaderReqBitAddress, "0");
-                    ConsoleShow("供給要求OFF");
-
-                    // +++ Wait +++
-                    ConsoleShow("+++ Wait:5秒 +++");
-                    Thread.Sleep(5000);
-
-                    ConsoleShow("■■■完成品払出完了■■■");
-                });
-                updateCommonFunctionSignalBtns();
-            }
-            else
-            {
-                updateCommonFunctionSignalBtns();
-                AutoRunLock = false;
-                return;
-            }
-            AutoRunLock = false;
-            MessageBox.Show("完了しました");
-        }
-
-        //
-        // ダム
-        //
-        private void btn_dam_autoRun_Click(object sender, EventArgs e)
-        {
-            if (!AutoRunLock)
-            {
-                DAM_AutoRun();
-            }
-        }
-        private async void DAM_AutoRun()
-        {
-            var dam1 = new string[] { "24", "DAM-1", "424001" };
-            var dam2 = new string[] { "25", "DAM-2", "425001" };
-            var dam3 = new string[] { "26", "DAM-3", "426001" };
-            var dam = new List<string[]> { dam1, dam2, dam3 };
-            string lotno = txt_wbovn_lotno.Text;
-            string magno = txt_wbovn_m_auto.Text.Replace("C30 ", "");
-            // 開始完了登録のみ
-            foreach (var proc in dam)
-            {
-                if (SelectYesNoMessage($"{proc[1]}始完了登録をします") == DialogResult.Yes)
-                {
-                    await Task.Run(() =>
-                    {
-                        ConsoleShow($"□□□procno={proc[0]}: {proc[1]}□□□");
-
-                        ConsoleShow("■■■TnTran/TnMag操作■■■");
-
-                        // Lotno自動取得
-                        if (cb_dbpl_getLotno.Checked)
-                        {
-                            if (!getLastLotNofromTnTran(ref lotno))
-                            {
-                                ConsoleShow("ロットNoの自動取得が失敗しました");
-                                return;
-                            }
-                            else
-                            {
-
-                            }
-                        }
-
-                        // TnTranに開始完了登録
-                        var macno = int.Parse(proc[2]);
-                        if (cb_dam_appendTntran.Checked)
-                        {
-                            var procno = int.Parse(proc[0]);
-                            if (!appendDAMTran(lotno, magno, procno, macno))
-                            {
-                                ConsoleShow("TnTranテーブルへの書き込み時に問題発生しました");
-                                return;
-                            }
-                            if (!updateTnMag(procno, lotno, magno))
-                            {
-                                ConsoleShow("TnMagテーブルへの書き込み時に問題発生しました");
-                                return;
-                            }
-                        }
-
-                        ConsoleShow("■■■完了■■■");
-                    });
-                    updateCommonFunctionSignalBtns();
-                }
-                else
-                {
-                    updateCommonFunctionSignalBtns();
-                    AutoRunLock = false;
-                    return;
-                }
-            }
-
-            AutoRunLock = false;
-            MessageBox.Show("完了しました");
-        }
+        //    }
+        //}
+        //private async void GBMEX_AutoRun()
+        //{
+        //    var procno = "18,16";
+        //    var procname = "GB/MEX";
+        //    var magno = new string[] { txt_eck_magno1.Text, txt_eck_magno2.Text };
+        //    var magno1 = txt_gbmex_magno1.Text;
+        //    var magno2 = txt_gbmex_magno2.Text;
+        //    var karamagno = txt_gbmex_km_auto.Text;
+        //    var macInstance = ECK_01;
+        //    var msg = "";
+        //    //
+        //    // log file words
+        //    //
+        //    var MLfolderpath = "";
+        //    var maclogprefix_mg = new string[] { "AM", "EM" };
+        //    var maclogprefixAdDict_mg = new Dictionary<string, string> { { "AM", "DM32052" }, { "EM", "DM32053" } };
+        //    var date = DateTime.Now.ToString("yyyy/MM/dd");
+        //    var time = DateTime.Now.ToString("HH:mm:ss");
+        //    var logfiledict = new Dictionary<string, string>
+        //    {
+        //        { "@magno", "" },
+        //        { "@typecd", $"{EicsParam_TypeCode}" },
+        //        { "@date", $"{date}" },
+        //        { "@time", $"{time}" }
+        //    };
+        //    if (!macInstance.getMacFolderPath("in", ref MLfolderpath))
+        //    {
+        //        ConsoleShow(MLfolderpath);
+        //        return;
+        //    }
+
+        //    // EICSマガジンタイミング開始確認
+        //    workheader = "procno." + procno + ":EICSマガジンタイミング開始";
+        //    if (SelectYesNoMessage(workheader + "。EICSは稼働中ですか？") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow($"□□□macno={macInstance.macno}: {macInstance.macname}□□□");
+        //            ConsoleShow("■■■ECK完了処理開始:EM,AMファイル出力■■■");
+        //            // MLフォルダクリーン
+        //            foreach (string f in Directory.GetFiles(MLfolderpath, "*.*"))
+        //            {
+        //                File.Delete(f);
+        //            }
+
+        //            //EM,AMファイルを吐き出し
+        //            var dt = DateTime.Now;
+        //            var logno = 1;
+        //            foreach (var mag in magno)
+        //            {
+        //                foreach (var item in maclogprefix_mg)
+        //                {
+        //                    logfiledict["@magno"] = mag;
+        //                    var MLfilename = $"Log00{logno}_" + item + dt.ToString("yyMMddHHmm") + ".csv";
+        //                    if (!CreateMLog(macInstance.macLogOriginFolder + item + ".csv", MLfolderpath + "\\" + MLfilename, logfiledict, ref msg, "shift-jis"))
+        //                    {
+        //                        ConsoleShow(msg);
+        //                        return;
+        //                    }
+        //                    ConsoleShow(item + "ファイルを出力しました");
+        //                    ConsoleShow("+++ Wait:2秒 +++");
+        //                    Thread.Sleep(2000);
+        //                    Keylc.SetBit(maclogprefixAdDict_mg[item], 1, "1");
+        //                    ConsoleShow(item + "ファイル取得要求を立てました");
+        //                    ConsoleShow("+++ Wait:2秒 +++");
+        //                    Thread.Sleep(2000);
+        //                }
+        //                logno += 1;
+        //            }
+
+        //            ConsoleShow("■■■EM,AMファイルを出力完了■■■");
+
+        //            Thread.Sleep(2000);
+        //        });
+
+        //        RecordTn(workheader);
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+
+        //    // 実マガジン～
+        //    if (SelectYesNoMessage("遠沈マガジン#1をバッファ1に投入します。") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow($"□□□procno={procno}: {procname}□□□");
+
+        //            ConsoleShow("■■■遠沈マガジン#1排出開始■■■");
+        //            if (!readRbMagQr(magno1))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
+
+        //            //バッファ実マガジン供給要求をON
+        //            SetBit(GB_01.loaderReqBitAddress, "1");
+        //            ConsoleShow("バッファ1実マガジン供給要求ON");
+
+        //            // 途中投入？
+        //            if (cb_gbmex_useniccv.Checked)
+        //            {
+        //                if (!NicConvQR(magno1))
+        //                {
+        //                    return;
+        //                }
+        //                Thread.Sleep(1000);
+        //                // 途中投入排出要求ON
+        //                SetBit(NicConv_01.unloaderReqBitAddress, "1");
+        //                SetBit(NicConv_01.magazineArriveBitAddress, "1");
+        //                ConsoleShow("途中マガジン投入を要求しました");
+        //            }
+        //            else
+        //            {
+        //                //ECK設備開始時間メモリ(PLC)に書き込み
+        //                ConsoleShow("PLCに開始時間を登録しました");
+        //                var dt = DateTime.Now;
+        //                SetDateTime2Word(ECK_01.workStartTimeAddress, dt);
+        //                Thread.Sleep(1000);
+
+        //                //ECK設備完了時間メモリ(PLC)に書き込み
+        //                ConsoleShow("PLCに完了時間を登録しました");
+        //                dt = DateTime.Now;
+        //                SetDateTime2Word(ECK_01.workCompleteTimeAddress, dt);
+        //                Thread.Sleep(1000);
+
+        //                //ECKアンロードマガジン登録
+        //                SetString(ECK_01.ulMagazineAddress, magno1);
+        //                ConsoleShow("OUTマガジンNoを登録しました");
+
+        //                //実マガジン排出要求ON
+        //                SetBit(ECK_01.unloaderReqBitAddress1, "1");
+        //                ConsoleShow("実マガジン排出要求ON");
+        //            }
+
+        //            // ブリッジ搬送
+        //            if (cb_gbmex_moveToBridge.Checked)
+        //            {
+        //                ConsoleShow("ブリッジ搬送します");
+        //                SetBit(LineBridge_01.loaderReqBitAddress, "1");
+
+        //                // +++ ロボット動作 +++
+        //                if (!RBGetPutMagAuto())
+        //                {
+        //                    ConsoleShow("■■■自動投入停止しました■■■");
+        //                    return;
+        //                }
+        //            }
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:5秒 +++");
+        //            Thread.Sleep(5000);
+
+        //            // +++ ロボット動作 +++
+        //            // +++ RB Polling +++
+        //            ConsoleShow("+++ ロボット移動要求確認 +++");
+        //            if (!RBMoveEnableToGetMag())
+        //            {
+        //                ConsoleShow("■■■自動投入停止■■■");
+        //                return;
+        //            }
+
+        //            // ロボット動作（Mag取る）
+        //            Rb_GetMag();
+        //            ConsoleShow("Mag取り動作");
+        //            SetBit(NicConv_01.unloaderReqBitAddress, "0");
+        //            SetBit(NicConv_01.magazineArriveBitAddress, "0");
+
+        //            // 排出OFF
+        //            if (cb_gbmex_useniccv.Checked)
+        //            {
+        //                SetBit(NicConv_01.unloaderReqBitAddress, "0");
+        //                ConsoleShow("途中投入をOFFしました");
+        //            }
+        //            else
+        //            {
+        //                //実マガジン排出要求OFF
+        //                SetBit(ECK_01.unloaderReqBitAddress1, "0");
+        //                ConsoleShow("実マガジン排出要求OFF");
+        //            }
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:3秒 +++");
+        //            Thread.Sleep(3000);
+
+        //            //実マガジン供給要求OFF
+        //            SetBit(GB_01.loaderReqBitAddress, "0");
+        //            ConsoleShow("バッファ実マガジン供給要求OFF");
+
+        //            //実マガジン排出要求ON
+        //            SetBit(GB_01.unloaderReqBitAddress, "1");
+        //            ConsoleShow("バッファ実マガジン排出要求ON");
+
+        //            // ロボット動作（Mag置く）
+        //            Rb_PutMag();
+        //            ConsoleShow("Mag置く動作");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait5秒 +++");
+        //            Thread.Sleep(5000);
+
+        //            ConsoleShow("■■■バッファ1・マガジン#1投入完了■■■");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+
+        //    if (SelectYesNoMessage("遠沈マガジン#2をバッファ2に移載投入します。") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow("■■■遠沈マガジン#2排出開始■■■");
+        //            if (!readRbMagQr(magno2))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
+
+        //            //バッファ実マガジン供給要求をON
+        //            SetBit(GB_02.loaderReqBitAddress, "1");
+        //            ConsoleShow("バッファ2実マガジン供給要求ON");
+
+        //            // 途中投入？
+        //            if (cb_gbmex_useniccv.Checked)
+        //            {
+        //                if (!NicConvQR(magno2))
+        //                {
+        //                    return;
+        //                }
+        //                Thread.Sleep(1000);
+        //                // 途中投入排出要求ON
+        //                SetBit(NicConv_01.unloaderReqBitAddress, "1");
+        //                SetBit(NicConv_01.magazineArriveBitAddress, "1");
+        //                ConsoleShow("途中マガジン投入を要求しました");
+        //            }
+        //            else
+        //            {
+        //                //ECK設備開始時間メモリ(PLC)に書き込み
+        //                ConsoleShow("PLCに開始時間を登録しました");
+        //                var dt = DateTime.Now;
+        //                SetDateTime2Word(ECK_01.workStartTimeAddress, dt);
+        //                Thread.Sleep(1000);
+
+        //                //ECK設備完了時間メモリ(PLC)に書き込み
+        //                ConsoleShow("PLCに完了時間を登録しました");
+        //                dt = DateTime.Now;
+        //                SetDateTime2Word(ECK_01.workCompleteTimeAddress, dt);
+        //                Thread.Sleep(1000);
+
+        //                //ECKアンロードマガジン登録
+        //                SetString(ECK_01.ulMagazineAddress, magno2);
+        //                ConsoleShow("OUTマガジンNoを登録しました");
+
+        //                //実マガジン排出要求ON
+        //                SetBit(ECK_01.unloaderReqBitAddress4, "1");
+        //                ConsoleShow("実マガジン排出要求ON");
+        //            }
+
+        //            // ブリッジ搬送
+        //            if (cb_gbmex_moveToBridge.Checked)
+        //            {
+        //                ConsoleShow("ブリッジ搬送します");
+        //                SetBit(LineBridge_01.loaderReqBitAddress, "1");
+
+        //                // +++ ロボット動作 +++
+        //                if (!RBGetPutMagAuto())
+        //                {
+        //                    ConsoleShow("■■■自動投入停止しました■■■");
+        //                    return;
+        //                }
+        //            }
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:5秒 +++");
+        //            Thread.Sleep(5000);
+
+        //            // +++ ロボット動作 +++
+        //            // +++ RB Polling +++
+        //            ConsoleShow("+++ ロボット移動要求確認 +++");
+        //            if (!RBMoveEnableToGetMag())
+        //            {
+        //                ConsoleShow("■■■自動投入停止■■■");
+        //                return;
+        //            }
+
+        //            // ロボット動作（Mag取る）
+        //            Rb_GetMag();
+        //            ConsoleShow("Mag取り動作");
+        //            SetBit(NicConv_01.unloaderReqBitAddress, "0");
+        //            SetBit(NicConv_01.magazineArriveBitAddress, "0");
+
+        //            // 排出OFF
+        //            if (cb_gbmex_useniccv.Checked)
+        //            {
+        //                SetBit(NicConv_01.unloaderReqBitAddress, "0");
+        //                ConsoleShow("途中投入をOFFしました");
+        //            }
+        //            else
+        //            {
+        //                //実マガジン排出要求OFF
+        //                SetBit(ECK_01.unloaderReqBitAddress4, "0");
+        //                ConsoleShow("実マガジン排出要求OFF");
+        //            }
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:3秒 +++");
+        //            Thread.Sleep(3000);
+
+        //            //実マガジン供給要求OFF
+        //            SetBit(GB_02.loaderReqBitAddress, "0");
+        //            ConsoleShow("バッファ実マガジン供給要求OFF");
+
+        //            //実マガジン排出要求ON
+        //            SetBit(GB_02.unloaderReqBitAddress, "1");
+        //            ConsoleShow("バッファ実マガジン排出要求ON");
+
+        //            // ロボット動作（Mag置く）
+        //            Rb_PutMag();
+        //            ConsoleShow("Mag置く動作");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait5秒 +++");
+        //            Thread.Sleep(5000);
+
+        //            ConsoleShow("■■■バッファ2・マガジン#2投入完了■■■");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+
+        //    // 空マガジン～
+        //    if (SelectYesNoMessage("空マガジンを移載機に投入します。") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            // 空マガ書き込み
+        //            ConsoleShow("■■■空マガジン投入■■■");
+        //            if (!readRbMagQr(karamagno))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
+
+        //            // EmpMagLoaderReq
+        //            SetBit(MEX_01.empMagLoaderReqBitAddress, "1");
+        //            ConsoleShow("空マガジン供給を要求しました");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:2秒 +++");
+        //            Thread.Sleep(2000);
+
+        //            // 空マガジン投入
+        //            EntConvMagazine("kara_on");
+        //            ConsoleShow("ローダー空マガジン排出を要求しました");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:3秒 +++");
+        //            Thread.Sleep(3000);
+
+        //            // ブリッジ搬送
+        //            if (cb_gbmex_emmoveToBridge.Checked)
+        //            {
+        //                ConsoleShow("ブリッジ搬送します");
+        //                SetBit(LineBridge_01.loaderReqBitAddress, "1");
+        //                SetBit(LineBridge_01.empMagUnloaderReqBitAddress, "1");
+
+        //                // +++ ロボット動作 +++
+        //                if (!RBGetPutMagAuto())
+        //                {
+        //                    ConsoleShow("■■■自動投入停止しました■■■");
+        //                    return;
+        //                }
+
+        //                // 空排出OFF
+        //                SetBit(LineBridge_01.empMagUnloaderReqBitAddress, "0");
+        //            }
+
+        //            // +++ ロボット動作 +++
+        //            if (!RBGetPutMagAuto())
+        //            {
+        //                ConsoleShow("■■■自動投入停止しました■■■");
+        //                return;
+        //            }
+
+        //            // EmpMagLoaderReq
+        //            SetBit(MEX_01.empMagLoaderReqBitAddress, "0");
+        //            ConsoleShow("空マガジン供給OFFしました");
+
+        //            ConsoleShow("停止中");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+
+        //    // Mag#2移載
+        //    if (SelectYesNoMessage("遠沈マガジン#2を移載機に投入します。") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            //遠沈マガジン#2読込
+        //            ConsoleShow("■■■遠沈マガジン#2を移載機に投入■■■");
+        //            if (!readRbMagQr(magno2))
+        //            {
+        //                return;
+        //            }
+
+        //            // 移載機MagLoaderReq
+        //            SetBit(MEX_01.loaderReqBitAddress, "1");
+        //            ConsoleShow("実マガジン供給を要求しました");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:1秒 +++");
+        //            Thread.Sleep(1000);
+
+        //            // バッファunLoaderReq
+        //            SetBit(GB_02.unloaderReqBitAddress, "1");
+        //            ConsoleShow("実マガジン排出を要求しました");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:3秒 +++");
+        //            Thread.Sleep(3000);
+
+        //            // +++ ロボット動作 +++
+        //            // +++ RB Polling +++
+        //            ConsoleShow("+++ ロボット移動要求確認 +++");
+        //            if (!RBMoveEnableToGetMag())
+        //            {
+        //                ConsoleShow("■■■自動投入停止■■■");
+        //                return;
+        //            }
+
+        //            // ロボット動作（Mag取る）
+        //            Rb_GetMag();
+        //            ConsoleShow("Mag取り動作");
+        //            SetBit(NicConv_01.unloaderReqBitAddress, "0");
+        //            SetBit(NicConv_01.magazineArriveBitAddress, "0");
+
+        //            // 排出OFF
+        //            SetBit(GB_02.unloaderReqBitAddress, "0");
+        //            ConsoleShow("実マガジン排出をOFFしました");
+
+        //            // 移載機MagLoaderReq
+        //            SetBit(MEX_01.loaderReqBitAddress, "0");
+        //            ConsoleShow("実マガジン供給をOFFしました");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:3秒 +++");
+        //            Thread.Sleep(3000);
+
+        //            // ロボット動作（Mag置く）
+        //            Rb_PutMag();
+        //            ConsoleShow("Mag置く動作");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:3秒 +++");
+        //            Thread.Sleep(3000);
+
+        //            // 完了処理EmpUnLoaderReq
+        //            SetBit(MEX_01.empMagUnloaderReqBitAddress, "1");
+        //            ConsoleShow("空マガジン排出をONしました");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:10秒 +++");
+        //            Thread.Sleep(10000);
+
+        //            // 完了処理EmpUnLoaderReq
+        //            SetBit(MEX_01.empMagUnloaderReqBitAddress, "0");
+        //            ConsoleShow("空マガジン排出をOFFしました");
+
+        //            ConsoleShow("停止中");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+
+        //    // Mag#1移載
+        //    if (SelectYesNoMessage("遠沈マガジン#1を移載機に投入します。") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            //遠沈マガジン#1読込
+        //            ConsoleShow("■■■遠沈マガジン#1を移載機に投入■■■");
+        //            if (!readRbMagQr(magno1))
+        //            {
+        //                return;
+        //            }
+
+        //            // 移載機MagLoaderReq
+        //            SetBit(MEX_01.loaderReqBitAddress, "1");
+        //            ConsoleShow("実マガジン供給を要求しました");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:1秒 +++");
+        //            Thread.Sleep(1000);
+
+        //            // バッファunLoaderReq
+        //            SetBit(GB_01.unloaderReqBitAddress, "1");
+        //            ConsoleShow("実マガジン排出を要求しました");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:3秒 +++");
+        //            Thread.Sleep(3000);
+
+        //            // +++ ロボット動作 +++
+        //            // +++ RB Polling +++
+        //            ConsoleShow("+++ ロボット移動要求確認 +++");
+        //            if (!RBMoveEnableToGetMag())
+        //            {
+        //                ConsoleShow("■■■自動投入停止■■■");
+        //                return;
+        //            }
+
+        //            // ロボット動作（Mag取る）
+        //            Rb_GetMag();
+        //            ConsoleShow("Mag取り動作");
+        //            SetBit(NicConv_01.unloaderReqBitAddress, "0");
+        //            SetBit(NicConv_01.magazineArriveBitAddress, "0");
+
+        //            // 排出OFF
+        //            SetBit(GB_01.unloaderReqBitAddress, "0");
+        //            ConsoleShow("実マガジン排出をOFFしました");
+
+        //            // 移載機MagLoaderReq
+        //            SetBit(MEX_01.loaderReqBitAddress, "0");
+        //            ConsoleShow("実マガジン供給をOFFしました");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:3秒 +++");
+        //            Thread.Sleep(3000);
+
+        //            // ロボット動作（Mag置く）
+        //            Rb_PutMag();
+        //            ConsoleShow("Mag置く動作");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:3秒 +++");
+        //            Thread.Sleep(3000);
+
+        //            // 完了処理EmpUnLoaderReq
+        //            SetBit(MEX_01.empMagUnloaderReqBitAddress, "1");
+        //            ConsoleShow("空マガジン排出をONしました");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:10秒 +++");
+        //            Thread.Sleep(10000);
+
+        //            // 完了処理EmpUnLoaderReq
+        //            SetBit(MEX_01.empMagUnloaderReqBitAddress, "0");
+        //            ConsoleShow("空マガジン排出をOFFしました");
+
+        //            ConsoleShow("停止中");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //        ConsoleShow("マガジン移載作業完了");
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+
+        //    AutoRunLock = false;
+        //    MessageBox.Show("完了しました");
+        //}
+
+        ////
+        //// MDオーブン
+        ////
+        //private void btn_mdovn_autoRun_Click(object sender, EventArgs e)
+        //{
+        //    if (!AutoRunLock)
+        //    {
+        //        AutoRunLock = true;
+        //        MDOVN_AutoRun();
+        //    }
+        //}
+        //private async void MDOVN_AutoRun()
+        //{
+        //    var procno = "14";
+        //    var procname = "MD-OVN";
+        //    var MDOvnNo = cb_mdovn_macno.Text;
+        //    var jitumag = txt_mdovn_m_auto.Text;
+        //    var profileno = int.Parse(cb_mdovnProfile.Text);
+        //    // 実マガジン～
+        //    if (SelectYesNoMessage("実マガジンを投入します。") == DialogResult.Yes)
+        //    {
+        //        await Task.Run(() =>
+        //        {
+        //            ConsoleShow($"□□□procno={procno}: {procname}□□□");
+
+        //            ConsoleShow("■■■実マガジン投入■■■");
+
+        //            if (!readRbMagQr(jitumag))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
+
+        //            //MD-OVEN Slot1の供給をON
+        //            SetBit(MDOVNComboRouter(MDOvnNo).loaderReqBitAddressList_addKey1, "1");
+        //            ConsoleShow("スロット１実マガジン供給要求ON");
+
+        //            // 途中投入？
+        //            if (cb_mdovn_useniccv.Checked)
+        //            {
+        //                if (!NicConvQR(jitumag))
+        //                {
+        //                    return;
+        //                }
+        //                Thread.Sleep(1000);
+        //                // 途中投入排出要求ON
+        //                SetBit(NicConv_01.unloaderReqBitAddress, "1");
+        //                SetBit(NicConv_01.magazineArriveBitAddress, "1");
+        //                ConsoleShow("途中マガジン投入を要求しました");
+        //            }
+        //            else
+        //            {
+        //                //実マガジン排出要求ON
+        //                SetBit(MEX_01.unloaderReqBitAddress, "1");
+        //                ConsoleShow("実マガジン排出要求ON");
+        //            }
+
+        //            // プロファイル設定
+        //            ConsoleShow("オーブンプロファイルを設定");
+        //            SetWordAsDecimalData(MDOVNComboRouter(MDOvnNo).currentProfileWordAddress, profileno);
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:5秒 +++");
+        //            Thread.Sleep(5000);
+
+        //            // ブリッジ搬送
+        //            if (cb_mdovn_moveToBridge.Checked)
+        //            {
+        //                ConsoleShow("ブリッジ搬送します");
+        //                SetBit(LineBridge_01.loaderReqBitAddress, "1");
+
+        //                // +++ ロボット動作 +++
+        //                if (!RBGetPutMagAuto())
+        //                {
+        //                    ConsoleShow("■■■自動投入停止しました■■■");
+        //                    return;
+        //                }
+
+        //            }
+
+        //            // +++ ロボット動作 +++
+        //            if (!RBGetPutMagAuto())
+        //            {
+        //                ConsoleShow("■■■自動投入停止しました■■■");
+        //                return;
+        //            }
+
+        //            // 排出要求OFF
+        //            ConsoleShow("排出要求OFF");
+        //            SetBit(MEX_01.unloaderReqBitAddress, "0");
+
+        //            // 供給要求OFF
+        //            SetBit(MDOVNComboRouter(MDOvnNo).loaderReqBitAddressList_addKey1, "0");
+        //            ConsoleShow("供給要求OFF");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:5秒 +++");
+        //            Thread.Sleep(5000);
+
+        //            ConsoleShow("■■■OVN装置上で停止（完了処理前）■■■");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+
+        //    // 完成品排出処理
+        //    if (SelectYesNoMessage("完成品マガジンを排出します。") == DialogResult.Yes)
+        //    {
+
+        //        await Task.Run(() =>
+        //        {
+
+        //            ConsoleShow("■■■完成品マガジン排出■■■");
+
+        //            if (!readRbMagQr(jitumag))
+        //            {
+        //                return;
+        //            }
+        //            Thread.Sleep(1000);
+
+        //            //MDOVN設備開始時間メモリ(PLC)に書き込み
+        //            ConsoleShow("PLCに開始時間を登録しました");
+        //            var dt = DateTime.Now;
+        //            SetDateTime2Word(MDOVN_01.workStartTimeAddress, dt);
+        //            Thread.Sleep(1000);
+
+        //            //MDOVN設備完了時間メモリ(PLC)に書き込み
+        //            ConsoleShow("PLCに完了時間を登録しました");
+        //            dt = DateTime.Now;
+        //            SetDateTime2Word(MDOVN_01.workCompleteTimeAddress, dt);
+        //            Thread.Sleep(1000);
+
+        //            //MD-OVEN Slot1の供給をON
+        //            SetBit(MDOVNComboRouter(MDOvnNo).unloaderReqBitAddressList_addKey1, "1");
+        //            ConsoleShow("スロット１実マガジン排出要求ON");
+
+        //            //完成品コンベア供給要求ON
+        //            SetBit(MCDCConv_01.loaderReqBitAddress, "1");
+        //            ConsoleShow("完成品コンベア供給要求ON");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:5秒 +++");
+        //            Thread.Sleep(5000);
+
+        //            // ブリッジ搬送
+        //            //if (cb_mdovn_moveToBridge.Checked)
+        //            //{
+        //            //    ConsoleShow("ブリッジ搬送します");
+        //            //    SetBit(LineBridge_01.loaderReqBitAddress, "1");
+
+        //            //    // +++ ロボット動作 +++
+        //            //    if (!RBGetPutMagAuto())
+        //            //    {
+        //            //        ConsoleShow("■■■自動投入停止しました■■■");
+        //            //        return;
+        //            //    }
+        //            //}
+
+        //            // +++ ロボット動作 +++
+        //            if (!RBGetPutMagAuto())
+        //            {
+        //                ConsoleShow("■■■自動投入停止しました■■■");
+        //                return;
+        //            }
+
+        //            // 排出要求OFF
+        //            ConsoleShow("排出要求OFF");
+        //            SetBit(MDOVNComboRouter(MDOvnNo).unloaderReqBitAddressList_addKey1, "0");
+
+        //            // 供給要求OFF
+        //            SetBit(MCDCConv_01.loaderReqBitAddress, "0");
+        //            ConsoleShow("供給要求OFF");
+
+        //            // +++ Wait +++
+        //            ConsoleShow("+++ Wait:5秒 +++");
+        //            Thread.Sleep(5000);
+
+        //            ConsoleShow("■■■完成品払出完了■■■");
+        //        });
+        //        updateCommonFunctionSignalBtns();
+        //    }
+        //    else
+        //    {
+        //        updateCommonFunctionSignalBtns();
+        //        AutoRunLock = false;
+        //        return;
+        //    }
+        //    AutoRunLock = false;
+        //    MessageBox.Show("完了しました");
+        //}
+
+        ////
+        //// ダム
+        ////
+        //private void btn_dam_autoRun_Click(object sender, EventArgs e)
+        //{
+        //    if (!AutoRunLock)
+        //    {
+        //        DAM_AutoRun();
+        //    }
+        //}
+        //private async void DAM_AutoRun()
+        //{
+        //    var dam1 = new string[] { "24", "DAM-1", "424001" };
+        //    var dam2 = new string[] { "25", "DAM-2", "425001" };
+        //    var dam3 = new string[] { "26", "DAM-3", "426001" };
+        //    var dam = new List<string[]> { dam1, dam2, dam3 };
+        //    string lotno = txt_wbovn_lotno.Text;
+        //    string magno = txt_wbovn_m_auto.Text.Replace("C30 ", "");
+        //    // 開始完了登録のみ
+        //    foreach (var proc in dam)
+        //    {
+        //        if (SelectYesNoMessage($"{proc[1]}始完了登録をします") == DialogResult.Yes)
+        //        {
+        //            await Task.Run(() =>
+        //            {
+        //                ConsoleShow($"□□□procno={proc[0]}: {proc[1]}□□□");
+
+        //                ConsoleShow("■■■TnTran/TnMag操作■■■");
+
+        //                // Lotno自動取得
+        //                if (cb_dbpl_getLotno.Checked)
+        //                {
+        //                    if (!getLastLotNofromTnTran(ref lotno))
+        //                    {
+        //                        ConsoleShow("ロットNoの自動取得が失敗しました");
+        //                        return;
+        //                    }
+        //                    else
+        //                    {
+
+        //                    }
+        //                }
+
+        //                // TnTranに開始完了登録
+        //                var macno = int.Parse(proc[2]);
+        //                if (cb_dam_appendTntran.Checked)
+        //                {
+        //                    var procno = int.Parse(proc[0]);
+        //                    if (!appendDAMTran(lotno, magno, procno, macno))
+        //                    {
+        //                        ConsoleShow("TnTranテーブルへの書き込み時に問題発生しました");
+        //                        return;
+        //                    }
+        //                    if (!updateTnMag(procno, lotno, magno))
+        //                    {
+        //                        ConsoleShow("TnMagテーブルへの書き込み時に問題発生しました");
+        //                        return;
+        //                    }
+        //                }
+
+        //                ConsoleShow("■■■完了■■■");
+        //            });
+        //            updateCommonFunctionSignalBtns();
+        //        }
+        //        else
+        //        {
+        //            updateCommonFunctionSignalBtns();
+        //            AutoRunLock = false;
+        //            return;
+        //        }
+        //    }
+
+        //    AutoRunLock = false;
+        //    MessageBox.Show("完了しました");
+        //}
 
         private void TestBtn_Click(object sender, EventArgs e)
         {
@@ -7959,30 +8380,31 @@ namespace ARMS3.FakeVSPline
             cmb_zdbpram.SelectedIndex = cmb_leddbparam.SelectedIndex;
         }
 
-        private void btn_eics_st_Click(object sender, EventArgs e)
-        {
-            var inmagno = txt_md_inmagno.Text;
-            var macno = cb_mb_macno.Text;
-            //
-            // log file words
-            //
-            var macInstance = MDComboRouter(macno);
-            //
-            // plcStrings
-            //
-            Keylc.SetBit(macInstance.MoldDirectionInfoAddress, 1, "1");
-            Keylc.SetBit(macInstance.SyringeNumberInfoAddress, 2, "3");
-            Keylc.SetBit(macInstance.MemoryTypeInfoAddress, 1, "1");
-            Keylc.SetBit(macInstance.NO_DIVISION_MAPPING_MODE_ENABLE, 1, "1");
-            Keylc.SetString(macInstance.LoaderQrdataAddress, inmagno);
+        //private void btn_eics_st_Click(object sender, EventArgs e)
+        //{
+        //    var inmagno = txt_md_inmagno.Text;
+        //    var macno = cb_mb_macno.Text;
+        //    //
+        //    // log file words
+        //    //
+        //    var macInstance = MDComboRouter(macno);
+        //    //
+        //    // plcStrings
+        //    //
+        //    Keylc.SetBit(macInstance.MoldDirectionInfoAddress, 1, "1");
+        //    Keylc.SetBit(macInstance.SyringeNumberInfoAddress, 2, "3");
+        //    Keylc.SetBit(macInstance.MemoryTypeInfoAddress, 1, "1");
+        //    Keylc.SetBit(macInstance.NO_DIVISION_MAPPING_MODE_ENABLE, 1, "1");
+        //    Keylc.SetString(macInstance.LoaderQrdataAddress, inmagno);
 
-            // 設備稼働スタート
-            ConsoleShow("機種設定");
-            Keylc.SetString("W0FF0", "CL-A160             ");
-            ConsoleShow("設備稼働ON");
-            Keylc.SetBit("B0FF1", 1, "0");
-            Keylc.SetBit("B0FF2", 1, "0");
-            Keylc.SetBit("B0FF0", 1, "1");
-        }
+        //    // 設備稼働スタート
+        //    ConsoleShow("機種設定");
+        //    Keylc.SetString("W0FF0", "CL-A160             ");
+        //    ConsoleShow("設備稼働ON");
+        //    Keylc.SetBit("B0FF1", 1, "0");
+        //    Keylc.SetBit("B0FF2", 1, "0");
+        //    Keylc.SetBit("B0FF0", 1, "1");
+        //}
+
     }
 }

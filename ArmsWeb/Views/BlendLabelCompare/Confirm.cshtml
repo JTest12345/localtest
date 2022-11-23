@@ -6,10 +6,10 @@
 
 @using (Html.BeginForm("Confirmed", "BlendLabelCompare"))
 {
-<h3>親ロットラベルと構成ロット（子ロット）ラベルの照合</h3>
-<h3>親ロット：@Model.BlendLotNo</h3>
+    <h3>ダイシング後ラベルとロット管理表のロット照合</h3>
+    <h3>ダイシング後ラベルロット：@Model.BlendLotNo</h3>
 
-    <h3>構成ロット（子ロット）：@Model.AsmLotList.Count().ToString() </h3>
+    <h3>ロット管理表ロット：@Model.AsmLotList.Count().ToString() </h3>
     <ul>
         @foreach (string asmlotno in Model.AsmLotList)
         {

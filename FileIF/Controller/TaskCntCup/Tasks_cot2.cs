@@ -32,7 +32,7 @@ namespace FileIf
         public Task_Ret InFileTasks(Mcfilesys fs) //(string pcat, string macno, string cupno, string fpath, string[] lbl)
         {
             string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
-            fs.mclbl = "Cup";
+            fs.mclbl = "Cot2処理";
             fs.lbl = new string[] { fs.mclbl, fs.keylbl };
             fs.ConnectionString = fs.mci.ConnectionStrings[1]; // iniファイルのDatabase2を選択
 

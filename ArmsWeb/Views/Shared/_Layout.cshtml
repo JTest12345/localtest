@@ -8,7 +8,8 @@
 
 </head>
 <body>
-    <div><span class="title" runat="server" id="spanTitle">VSP版 ARMS Web ◆◆◆照明合理化評価中◆◆◆</span> @Html.ActionLink("戻る", "Index", "Home") </div>
+    <!--<div><span class="title" runat="server" id="spanTitle">VSP版 ARMS Web ◆◆◆照明合理化評価中◆◆◆</span> @Html.ActionLink("戻る", "Index", "Home") </div>-->
+    <div><span class="title" runat="server" id="spanTitle">VSP版 ARMS Web Version @ViewContext.Controller.GetType().Assembly.GetName().Version</span> @Html.ActionLink("戻る", "Index", "Home") </div>
     <hr />
 
     @RenderBody()
@@ -40,21 +41,10 @@
     {
         <script type='text/javascript'><!--
             window.onload = function() {
-                alert("@TempData["AlertMsg"].ToString().Replace('\r', ' ').Replace('\n', ' ')");
+                alert("@TempData["AlertMsg"].ToString().Replace('\r', '\\').Replace('\n', 'n')");
             }
             //-->
         </script>
-    }
-    <!--富士情報-->
-    @if (TempData["BackUpMsg"] != null)
-    {
-<script type='text/javascript'>
-            <!--
-            document.addEventListener('DOMContentLoaded', function () {
-                alert("@TempData["BackUpMsg"].ToString().Replace("\n", "\\n")");
-            });
-//-->
-</script>
     }
 
 </body>

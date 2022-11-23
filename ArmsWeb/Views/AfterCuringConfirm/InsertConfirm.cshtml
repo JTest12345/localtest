@@ -1,0 +1,22 @@
+﻿@model ArmsWeb.Models.AfterCuringConfirmModel
+@{
+    ViewBag.Title = "InsertConfirm";
+}
+
+@using (Html.BeginForm("InsertConfirmed", "AfterCuringConfirm"))
+{
+　  <h3>樹脂キュア硬化後確認実施ロット登録</h3>
+    
+    <ul>
+        @foreach (ArmsApi.Model.AsmLot m in Model.EditTarget)
+        {
+        <li>@m.NascaLotNo : @m.TypeCd</li>
+        }
+    </ul> 
+
+    <p>登録します</p>
+    <div>
+    <input type="submit" value="OK" />
+    <button onclick="location.href='@Url.Action("Index")';return false;">キャンセル</button>    
+        </div>
+}

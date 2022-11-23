@@ -49,13 +49,37 @@ namespace ArmsWeb.Controllers
 
         public ActionResult CancelEdit()
         {
-            Session["model"] = null;
-            return RedirectToAction("Index");
+            //20220822 ADD START
+            WorkEndAltModel m = Session["model"] as WorkEndAltModel;
+
+            //マガジン入替ありでもキャンセルで一覧が出たほうがいいのでマガジン入替なしを削除する。
+            //if (!m.IsNeedMagazineChange)
+            //{
+            m.VirtualMags.Clear();
+            //キャンセル後、一覧 → 決定ボタン押下で確認画面へ遷移するのを防止するためクリア
+            m.UnloaderMagNo = null;    
+            Session["model"] = m;
+            return RedirectToAction("UnloaderMag");
+            //}
+            //20220822 ADD END
+
+            //20220822 DEL START
+            //遷移する画面を UnloaderMag としたため削除（通常処理では Index.cshtml には遷移していない？）
+            //Session["model"] = null;
+            //return RedirectToAction("Index");
+            //20220822 DEL END
         }
 
         public ActionResult CancelUnloaderMagEdit()
         {
             //Session["model"] = null;
+
+            //20220822 ADD START
+            WorkEndAltModel m = Session["model"] as WorkEndAltModel;
+            m.VirtualMags.Clear();
+            Session["model"] = m;
+            //20220822 ADD END
+
             return RedirectToAction("UnloaderMag");
         }
 
@@ -186,6 +210,15 @@ namespace ArmsWeb.Controllers
                 // 2022.03.03 Junichi Watanabe
                 if (elms.Length == 1)
                 {
+                    //20220831 ADD START
+                    //マガジンコードチェック
+                    if (!m.CheckMagno(raw))
+                    {
+                        TempData["AlertMsg"] = "マガジンコードではありません";
+                        return View(m);
+                    }
+                    //20220831 ADD END
+
                     elms = new string[] { "C30", txtMagNo };
                     raw = "C30 " + txtMagNo;
                 }
@@ -313,6 +346,14 @@ namespace ArmsWeb.Controllers
                 return RedirectToAction("Message", "Home", new { msg = "引き継ぎデータが見つかりません" });
             }
 
+            //20220822 FJH ADD START
+            //未選択で「決定」ボタンを押下するとシステムエラーになるので回避
+            if (ulmagazine == null)
+            {
+                TempData["AlertMsg"] = "完了するロットを選択してください";
+                return View(m);
+            }
+            //20220822 FJH ADD END
 
             m.MagList = new List<ArmsApi.Model.Magazine>();
             m.NeedInspectionWhenCompleteLotList = new List<string>();
@@ -358,6 +399,7 @@ namespace ArmsWeb.Controllers
 
             if (m.IsNeedMagazineChange && m.MagList.Count >= 2)
             {
+
                 return RedirectToAction("Message", "Home", new { msg = "UL側プレート読み込み必要なマガジンがあります 1マガジンずつ完了してください" });
             }
 
@@ -367,6 +409,17 @@ namespace ArmsWeb.Controllers
             {
                 return RedirectToAction("InputUnloaderMag");
             }
+            //20220822 FJH ADD START
+            //マガジン入替なしで、単一選択の場合は、基板不良枚数入力へ遷移させる
+            else
+            {
+                if (m.MagList.Count == 1)
+                {
+                    m.TypeCd = ArmsApi.Model.AsmLot.GetAsmLot(m.MagList[0].NascaLotNO).TypeCd;
+                    return RedirectToAction("InputDef");
+                }
+            }
+            //20220822 FJH ADD END
 
             //return RedirectToAction("Submit");
             return RedirectToAction("UnloaderMagConfirm");
@@ -403,13 +456,21 @@ namespace ArmsWeb.Controllers
             return View(m);
         }
 
-        public ActionResult Submit()
+        //20220822 FJH MOD START
+        //引数追加
+        //public ActionResult Submit()
+        public ActionResult Submit(string kbn)
+        //20220822 FJH MOD END
         {
             WorkEndAltModel m = Session["model"] as WorkEndAltModel;
             if (m == null)
             {
                 return RedirectToAction("Message", "Home", new { msg = "引き継ぎデータが見つかりません" });
             }
+
+            //20220627 ADD START
+            Session["workunitid"] = null;
+            //20220627 ADD END
 
             try
             {
@@ -450,9 +511,29 @@ namespace ArmsWeb.Controllers
                 return RedirectToAction("Message", "Home", new { msg = "検査機への投入が必要です", displayPrintLabelButtonFg = displayPrintLabelButtonFg });
             }
 
+            //20220627 ADD START
+            Session["workunitid"] = m.WorkUnitId;
+            if (m.WorkUnitId != null)
+            {
+                Session["URL"] = m.URL;
+            }
+            //20220627 ADD END
+
             Session["empcd"] = "";
             Session["completemsg"] = m.Comment;
-            return RedirectToAction("Message", "Home", new { msg = "作業を完了しました\r\n", displayPrintLabelButtonFg = displayPrintLabelButtonFg });
+
+            //20220822 FJH MOD START
+            //引数の内容で、画面遷移を変更する
+            //return RedirectToAction("Message", "Home", new { msg = "作業を完了しました\r\n", displayPrintLabelButtonFg = displayPrintLabelButtonFg });
+            if (string.IsNullOrEmpty(kbn))
+            {
+                return RedirectToAction("Message", "Home", new { msg = "作業を完了しました\r\n", displayPrintLabelButtonFg = displayPrintLabelButtonFg });
+            }
+            else
+            {
+                return RedirectToAction("Message", new { msg = "作業を完了しました\r\n", displayPrintLabelButtonFg = displayPrintLabelButtonFg });
+            }
+            //20220822 FJH MOD END
         }
 
         public ActionResult FormInfo() //Submit()
@@ -556,11 +637,7 @@ namespace ArmsWeb.Controllers
 
             //TnTranを使用して「ProcNo」を取得する
             //m.ProcNo = ArmsApi.Model.Order.GetLastProcNoFromLotNo(m.MagList[0].NascaLotNO);
-
-            if (m.TypeCd == null)
-            {
-                m.TypeCd = ArmsApi.Model.AsmLot.GetAsmLot(m.MagList[0].NascaLotNO).TypeCd;
-            }
+            m.TypeCd = ArmsApi.Model.AsmLot.GetAsmLot(m.MagList[0].NascaLotNO).TypeCd;
 
             Session["model"] = m;
             return View(m);
@@ -640,9 +717,46 @@ namespace ArmsWeb.Controllers
             //Defect更新
             defect.DeleteInsertSubSt(null);
 
-            Session["empcd"] = "";
+            //20220822 DEL START
+            //キャンセルで社員コード入力画面に遷移するので削除する。
+            //Session["empcd"] = "";
+            //20220822 DEL END
             return View("Select", m);
         }
+
+        //20220822 FJH ADD START
+        //WorkEndAlt専用Message表示用
+        public ActionResult Message(string msg, string displayPrintLabelButtonFg)
+        {
+            if (msg == null) msg = "";
+
+            if (Session["completemsg"] != null)
+            {
+                msg += Session["completemsg"];
+            }
+
+            if (msg.Contains("\r\n"))
+            {
+                msg = msg.Replace("\r\n", "<br/>");
+            }
+
+            ViewData["msg"] = msg;
+
+            if (string.IsNullOrWhiteSpace(displayPrintLabelButtonFg) == false &&
+                Convert.ToBoolean(displayPrintLabelButtonFg) == true)
+            {
+                ViewData["displayPrintLabelButton"] = "true";
+            }
+
+            if (Session["workunitid"] != null)
+            {
+                ViewData["workunitid"] = Session["workunitid"];
+                ViewData["URL"] = Session["URL"];
+            }
+            return View();
+        }
+        //20220822 FJH ADD END
+
         //FJH ADD END
         #endregion 
     }

@@ -378,7 +378,11 @@ namespace ArmsWeb.Controllers
             }
 
             Session["empcd"] = "";
-            return RedirectToAction("Message", "Home", new { msg = "作業を完了しました" });
+
+            //富士情報　start
+            //return RedirectToAction("Message", "Home", new { msg = "作業を完了しました" });
+            return RedirectToAction("Message", "Home", new { msg = "作業を完了しました。\r\n" + m.Comment});
+            //富士情報　end
         }
 
 

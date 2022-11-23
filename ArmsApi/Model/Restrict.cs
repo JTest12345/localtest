@@ -96,6 +96,10 @@ namespace ArmsApi.Model
         /// </summary>
         public bool RestrictReleaseFg { get; set; }
 
+        //20220519 FJH ADD START
+        public string HoryuKbn { get; set; }
+        //20220519 FJH ADD END
+
         #region SearchRestrict
 
         /// <summary>
@@ -204,7 +208,10 @@ namespace ArmsApi.Model
             //ライン受渡しに使われるため呼び出し先全てにconstrの受け渡し必要
             if (string.IsNullOrEmpty(LotNo)) return;
 
-            Restrict[] exists = SearchRestrict(LotNo, ProcNo, false, constr, null, null);
+            //20220519 FJH MOD START
+            //Restrict[] exists = SearchRestrict(LotNo, ProcNo, false, constr, null, null);
+            Restrict[] exists = SearchRestrict(LotNo, ProcNo, false, constr, null, null, 0);
+            //20220519 FJH MOD END
             foreach (Restrict r in exists)
             {
                 //規制済みデータに対して同じ条件の規制をしないようにdelfgチェック
@@ -231,7 +238,6 @@ namespace ArmsApi.Model
             this.insertDB(constr);
         }
 
-
         #region Insert/Update
 
 
@@ -244,10 +250,16 @@ namespace ArmsApi.Model
             using (SqlCommand cmd = con.CreateCommand())
             {
                 con.Open();
+                //20220519 FJH MOD START
+                //cmd.CommandText = @"
+                //        UPDATE TnRestrict SET lastupddt=@UPDDT, delfg=@DELFG, reasonkb=@REASONKB, updusercd=@UPDUSERCD,
+                //                              restrictreleasefg=@RESTRICTRELEASEFG, representativelotno=@REPRESENTATIVELOTNO
+                //        WHERE lotno=@LOTNO AND procno=@PROCNO AND reason=@REASON";
                 cmd.CommandText = @"
                         UPDATE TnRestrict SET lastupddt=@UPDDT, delfg=@DELFG, reasonkb=@REASONKB, updusercd=@UPDUSERCD,
                                               restrictreleasefg=@RESTRICTRELEASEFG, representativelotno=@REPRESENTATIVELOTNO
-                        WHERE lotno=@LOTNO AND procno=@PROCNO AND reason=@REASON";
+                        WHERE lotno=@LOTNO AND procno=@PROCNO AND reason=@REASON AND horyufg = 0";
+                //20220519 FJH MOD END
 
                 cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = this.LotNo;
                 cmd.Parameters.Add("@PROCNO", SqlDbType.BigInt).Value = this.ProcNo;
@@ -263,7 +275,6 @@ namespace ArmsApi.Model
             }
         }
 
-
         /// <summary>
         /// Insert
         /// </summary>
@@ -273,9 +284,14 @@ namespace ArmsApi.Model
             using (SqlCommand cmd = con.CreateCommand())
             {
                 con.Open();
+                //20220519 FJH MOD START
+                //cmd.CommandText = @"
+                //        INSERT TnRestrict(lotno, procno, reason, delfg, lastupddt, reasonkb, updusercd, restrictreleasefg, representativelotno)
+                //        VALUES (@LOTNO, @PROCNO, @REASON, @DELFG, @UPDDT, @REASONKB, @UPDUSERCD, @RESTRICTRELEASEFG, @REPRESENTATIVELOTNO)";
                 cmd.CommandText = @"
-                        INSERT TnRestrict(lotno, procno, reason, delfg, lastupddt, reasonkb, updusercd, restrictreleasefg, representativelotno)
-                        VALUES (@LOTNO, @PROCNO, @REASON, @DELFG, @UPDDT, @REASONKB, @UPDUSERCD, @RESTRICTRELEASEFG, @REPRESENTATIVELOTNO)";
+                        INSERT TnRestrict(lotno, procno, reason, delfg, lastupddt, reasonkb, updusercd, restrictreleasefg, representativelotno, horyufg)
+                        VALUES (@LOTNO, @PROCNO, @REASON, @DELFG, @UPDDT, @REASONKB, @UPDUSERCD, @RESTRICTRELEASEFG, @REPRESENTATIVELOTNO, 0)";
+                //20220519 FJH MOD END
 
                 cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = this.LotNo;
                 cmd.Parameters.Add("@PROCNO", SqlDbType.BigInt).Value = this.ProcNo;
@@ -310,7 +326,12 @@ namespace ArmsApi.Model
                 return;
             }
 
-            string sql = " UPDATE TnRestrict SET delfg = 1 WHERE lotno Like @LOTNO ";
+            //20220519 FJH MOD START
+            //string sql = " UPDATE TnRestrict SET delfg = 1 WHERE lotno Like @LOTNO ";
+            string sql = " UPDATE TnRestrict SET delfg = 1 WHERE lotno Like @LOTNO AND horyufg = 0";
+            //20220519 FJH MOD END
+
+
             cmd.CommandText = sql;
 
             cmd.Parameters.Clear();
@@ -455,6 +476,10 @@ namespace ArmsApi.Model
                         sql += " AND reason = @REASON";
                     }
 
+                    //20220519 FJH ADD START
+                    sql += " AND horyufg = 0";
+                    //20220519 FJH ADD END
+
                     cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = lotno + "%";
                     cmd.CommandText = sql;
 
@@ -527,9 +552,15 @@ namespace ArmsApi.Model
             return list.Single();
         }
 
-        public static List<Restrict> GetRestrictFromRepresentativeLotNo(string representativelotno)
+        //20220519 FJH MOD START
+        //public static List<Restrict> GetRestrictFromRepresentativeLotNo(string representativelotno)
+        public static List<Restrict> GetRestrictFromRepresentativeLotNo(string representativelotno, int? horyufg)
+        //20220519 FJH MOD END
         {
-            return Restrict.SearchRestrict(null, null, true, SQLite.ConStr, representativelotno, null).ToList();
+            //20220519 FJH START
+            //return Restrict.SearchRestrict(null, null, true, SQLite.ConStr, representativelotno, null).ToList();
+            return Restrict.SearchRestrict(null, null, true, SQLite.ConStr, representativelotno, null, horyufg).ToList();
+            //20220519 FJH END
         }
 
         public static void CancelRestrictionPSTester(string magazineNo)
@@ -566,7 +597,10 @@ namespace ArmsApi.Model
 
 
                         //波及ロットも解除
-                        List<Restrict> spreadList = Restrict.GetRestrictFromRepresentativeLotNo(svrmag.NascaLotNO);
+                        //20220519 FJH MOD START
+                        //List<Restrict> spreadList = Restrict.GetRestrictFromRepresentativeLotNo(svrmag.NascaLotNO);
+                        List<Restrict> spreadList = Restrict.GetRestrictFromRepresentativeLotNo(svrmag.NascaLotNO, 0);
+                        //20220519 FJH MOD END
                         foreach (Restrict spread in spreadList)
                         {
                             if (svrmag.NascaLotNO != spread.LotNo)
@@ -583,5 +617,319 @@ namespace ArmsApi.Model
                 }
             }
         }
+
+        #region "FJH ADD"
+        //20220519 ADD START
+        /// <summary>
+        /// TnRestrict検索（horyufg考慮）
+        /// </summary>
+        /// <param name="lotno"></param>
+        /// <param name="procno"></param>
+        /// <param name="onlyActive"></param>
+        /// <param name="HoryuFg"></param>
+        /// <returns></returns>
+        public static Restrict[] SearchRestrict(string lotno, int? procno, bool onlyActive, int? HoryuFg)
+        {
+            return SearchRestrict(lotno, procno, onlyActive, SQLite.ConStr, null, null, HoryuFg);
+        }
+
+        /// <summary>
+        /// TnRestrict検索（horyufg考慮）
+        /// </summary>
+        /// <param name="lotno"></param>
+        /// <param name="procno"></param>
+        /// <param name="onlyActive"></param>
+        /// <param name="constr"></param>
+        /// <param name="representativelotno"></param>
+        /// <param name="reason"></param>
+        /// <param name="horyufg"></param>
+        /// <returns></returns>
+        public static Restrict[] SearchRestrict(string lotno, int? procno, bool onlyActive,
+                                                string constr, string representativelotno, string reason, int? horyufg)
+        {
+            //マガジン分割対応
+            lotno = Order.MagLotToNascaLot(lotno);
+
+            //ライン受渡しに使われるため呼び出し先全てにconstrの受け渡し必要
+            List<Restrict> retv = new List<Restrict>();
+
+            using (SqlConnection con = new SqlConnection(constr))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                con.Open();
+
+                cmd.CommandText = @"SELECT lotno
+                                         , procno
+                                         , reason
+                                         , delfg
+                                         , lastupddt
+                                         , reasonkb
+                                         , updusercd
+                                         , restrictreleasefg
+                                         , representativelotno
+                                      FROM TnRestrict WHERE 1=1 ";
+
+                if (onlyActive)
+                {
+                    cmd.CommandText += " AND delfg=0";
+                }
+
+                if (lotno != null)
+                {
+                    cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = lotno;
+                    cmd.CommandText += " AND lotno = @LOTNO";
+                }
+
+                if (procno.HasValue)
+                {
+                    cmd.Parameters.Add("@PROCNO", SqlDbType.BigInt).Value = procno;
+                    cmd.CommandText += " AND procno=@PROCNO";
+                }
+
+                if (representativelotno != null)
+                {
+                    cmd.Parameters.Add("@RLOTNO", SqlDbType.NVarChar).Value = representativelotno;
+                    cmd.CommandText += " AND representativelotno = @RLOTNO";
+                }
+
+                if (string.IsNullOrEmpty(reason) == false)
+                {
+                    cmd.Parameters.Add("@REASON", SqlDbType.NVarChar).Value = reason;
+                    cmd.CommandText += " AND reason = @REASON";
+                }
+
+                //保留登録データ
+                if (horyufg.HasValue)
+                {
+                    cmd.Parameters.Add("@HORYUFG", SqlDbType.Int).Value = horyufg;
+                    cmd.CommandText += " AND horyufg = @HORYUFG";
+                }
+
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        Restrict r = new Restrict();
+                        r.LotNo = SQLite.ParseString(rd["lotno"]);
+                        r.ProcNo = SQLite.ParseInt(rd["procno"]);
+                        r.Reason = SQLite.ParseString(rd["reason"]);
+                        r.DelFg = SQLite.ParseBool(rd["delfg"]);
+                        r.LastUpdDt = SQLite.ParseDate(rd["lastupddt"]) ?? DateTime.MinValue;
+                        r.ReasonKb = SQLite.ParseString(rd["reasonkb"]);
+                        r.UpdUserCd = SQLite.ParseString(rd["updusercd"]);
+                        r.RestrictReleaseFg = SQLite.ParseBool(rd["restrictreleasefg"]);
+                        r.RepresentativeLotNo = SQLite.ParseString(rd["representativelotno"]);
+
+                        retv.Add(r);
+                    }
+                }
+            }
+            return retv.ToArray();
+        }
+
+        /// <summary>
+        /// TnRestrict検索（流動規制中のデータが存在するか）
+        /// </summary>
+        /// <param name="lotno"></param>
+        /// <param name="procno"></param>
+        /// <returns></returns>
+        public static int ExistsRestrict_1(string lotno, int procno)
+        {
+            int cnt = 0;
+
+            using (SqlConnection con = new SqlConnection(SQLite.ConStr))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                con.Open();
+                cmd.CommandText = @"SELECT COUNT(1) AS cnt
+                                      FROM TnRestrict
+                                     WHERE lotno   = @LOTNO
+                                       AND procno  = @PROCNO
+                                       AND delfg   = 0
+                                       AND horyufg = 0
+                                  ";
+
+                cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = lotno;
+                cmd.Parameters.Add("@PROCNO", SqlDbType.Int).Value = procno;
+
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        cnt = SQLite.ParseInt(rd["cnt"]);
+                    }
+                }
+            }
+            return cnt;
+        }
+
+        /// <summary>
+        /// TnRestrict検索（保留中のデータが存在するか）
+        /// </summary>
+        /// <param name="lotno"></param>
+        /// <param name="procno"></param>
+        /// <returns></returns>
+        public static int ExistsRestrict_2(string lotno, int procno)
+        {
+            int cnt = 0;
+
+            using (SqlConnection con = new SqlConnection(SQLite.ConStr))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                con.Open();
+                cmd.CommandText = @"SELECT COUNT(1) AS cnt
+                                      FROM TnRestrict
+                                     WHERE lotno   = @LOTNO
+                                       AND procno  = @PROCNO
+                                       AND delfg   = 0
+                                       AND horyufg = 1
+                                  ";
+
+                cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = lotno;
+                cmd.Parameters.Add("@PROCNO", SqlDbType.Int).Value = procno;
+
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        cnt = SQLite.ParseInt(rd["cnt"]);
+                    }
+                }
+            }
+            return cnt;
+        }
+
+        /// <summary>
+        /// 保留登録
+        /// </summary>
+        /// <param name="constr"></param>
+        public void HoryuSave(string constr)
+        {
+            using (SqlConnection con = new SqlConnection(constr))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                try
+                {
+                    con.Open();
+                    cmd.Transaction = con.BeginTransaction();
+
+                    //TnRestrict 更新
+                    cmd.CommandText = @"
+                        MERGE INTO TnRestrict AS t
+                        USING (SELECT @LOTNO  AS lotno
+                                    , @PROCNO AS procno
+                                    , 1       AS horyufg) o ON
+                              t.lotno   = o.lotno
+                          AND t.procno  = o.procno
+                          AND t.horyufg = o.horyufg
+                         WHEN MATCHED THEN
+                              UPDATE SET reason              = @REASON
+                                       , lastupddt           = @UPDDT
+                                       , delfg               = @DELFG
+                                       , reasonkb            = @REASONKB
+                                       , updusercd           = @UPDUSERCD
+                                       , restrictreleasefg   = @RESTRICTRELEASEFG
+                                       , representativelotno = @REPRESENTATIVELOTNO
+                         WHEN NOT MATCHED THEN
+                              INSERT (lotno
+                                    , procno
+                                    , reason
+                                    , delfg
+                                    , lastupddt
+                                    , reasonkb
+                                    , updusercd
+                                    , restrictreleasefg
+                                    , representativelotno
+                                    , horyufg
+                                     ) VALUES (
+                                      @LOTNO
+                                    , @PROCNO
+                                    , @REASON
+                                    , @DELFG
+                                    , @UPDDT
+                                    , @REASONKB
+                                    , @UPDUSERCD
+                                    , @RESTRICTRELEASEFG
+                                    , @REPRESENTATIVELOTNO
+                                    , 1
+                                     );";
+                    cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = this.LotNo;
+                    cmd.Parameters.Add("@PROCNO", SqlDbType.BigInt).Value = this.ProcNo;
+                    cmd.Parameters.Add("@REASON", SqlDbType.NVarChar).Value = this.Reason;
+                    cmd.Parameters.Add("@DELFG", SqlDbType.Int).Value = SQLite.SerializeBool(this.DelFg);
+                    cmd.Parameters.Add("@UPDDT", SqlDbType.DateTime).Value = DateTime.Now;
+                    cmd.Parameters.Add("@REASONKB", SqlDbType.NVarChar).Value = (object)this.ReasonKb ?? DBNull.Value;
+                    cmd.Parameters.Add("@UPDUSERCD", SqlDbType.NVarChar).Value = (object)this.UpdUserCd ?? DBNull.Value;
+                    cmd.Parameters.Add("@RESTRICTRELEASEFG", SqlDbType.Int).Value = SQLite.SerializeBool(this.RestrictReleaseFg);
+                    cmd.Parameters.Add("@REPRESENTATIVELOTNO", SqlDbType.NVarChar).Value = (object)this.RepresentativeLotNo ?? DBNull.Value;
+
+                    cmd.ExecuteNonQuery();
+
+                    //TnLot 更新
+                    cmd.Parameters.Clear();
+                    cmd.CommandText = @"
+                        UPDATE TnLot 
+                           SET horyukbn = @HORYUKBN
+                         WHERE lotno    = @LOTNO
+                                       ";
+                    cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = this.LotNo;
+                    cmd.Parameters.Add("@HORYUKBN", SqlDbType.NVarChar).Value = this.HoryuKbn;
+
+                    cmd.ExecuteNonQuery();
+
+                    //TnHoryu4M 登録
+                    using (SqlConnection if4mcon = new SqlConnection(ArmsApi.Config.Settings.IF4MConSTR))
+                    using (SqlCommand if4mcmd = if4mcon.CreateCommand())
+                    {
+                        try
+                        {
+                            if4mcon.Open();
+                            if4mcmd.Transaction = if4mcon.BeginTransaction();
+
+                            if4mcmd.Parameters.Clear();
+                            if4mcmd.Parameters.Add("@PROCNO", SqlDbType.BigInt).Value = this.ProcNo;
+                            if4mcmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = this.LotNo;
+                            if4mcmd.Parameters.Add("@HORYUKBN", SqlDbType.NVarChar).Value = this.HoryuKbn;
+                            if4mcmd.Parameters.Add("@BKU", SqlDbType.NVarChar).Value = this.Reason;
+                            if4mcmd.Parameters.Add("@UPDDT", SqlDbType.DateTime).Value = DateTime.Now;
+
+                            if4mcmd.CommandText = @"
+                            INSERT INTO TnHoryu4M(
+                                        procno
+	                                  , lotno
+	                                  , horyukbn
+	                                  , bku
+	                                  , lastupddt
+                                      , ifflg
+                                   ) VALUES (
+                                        @PROCNO
+                                      , @LOTNO
+                                      , @HORYUKBN
+                                      , @BKU
+                                      , @UPDDT
+                                      , 0
+                                   )";
+
+                            if4mcmd.ExecuteNonQuery();
+
+                            if4mcmd.Transaction.Commit();
+                        }
+                        catch
+                        {
+                            if4mcmd.Transaction.Rollback();
+                            throw;
+                        }
+                    }
+                    cmd.Transaction.Commit();
+                }
+                catch
+                {
+                    cmd.Transaction.Rollback();
+                    throw;
+                }
+            }
+        }
+        //20220519 ADD END
+        #endregion
     }
 }

@@ -15,6 +15,13 @@ namespace ArmsWeb.Controllers
             BlendLabelCompareModel m = Session["model"] as BlendLabelCompareModel;
             if (m == null)
             {
+                //20220701 ADD START
+                if (!string.IsNullOrEmpty(ArmsApi.Config.Settings.PlantCDLabelCompareDC))
+                {
+                    Session["plantcd"] = ArmsApi.Config.Settings.PlantCDLabelCompareDC;
+                }
+                //20220701 ADD END
+
                 string plantcd = (string)Session["plantcd"];
                 if (string.IsNullOrEmpty(plantcd))
                 {
@@ -44,7 +51,7 @@ namespace ArmsWeb.Controllers
                 //親ロット読み込み
                 Session["redirectController"] = "BlendLabelCompare";
                 Session["redirectAction"] = "Index";
-                return RedirectToAction("InputLotNo", "Home");
+                return RedirectToAction("InputLotNo", "BlendLabelCompare");
             }
             m.BlendLotNo = blendlotno;
 
@@ -77,7 +84,10 @@ namespace ArmsWeb.Controllers
                 //重複読込チェック
                 if (m.AsmLotList.Where(dm => dm == asmlotno).Count() >= 1)
                 {
-                    TempData["AlertMsg"] = "既に読み込み済みの構成ロット（子ロット）です";
+                    //富士情報　変更　start
+                    TempData["AlertMsg"] = "既に読み込み済みのロット管理表ロットです";
+                    //TempData["AlertMsg"] = "既に読み込み済みの構成ロット（子ロット）です";
+                    //富士情報　変更　end
                     return View(m);
                 }
 
@@ -85,7 +95,10 @@ namespace ArmsWeb.Controllers
             }
             else
             {
-                TempData["AlertMsg"] = "構成ロット（子ロット）を読み込んでください";
+                //富士情報　変更　start
+                TempData["AlertMsg"] = "ロット管理表ロットを読み込んでください";
+                //TempData["AlertMsg"] = "構成ロット（子ロット）を読み込んでください";
+                //富士情報　変更　end
                 return View(m);
             }
 
@@ -95,15 +108,31 @@ namespace ArmsWeb.Controllers
 
         public ActionResult CancelEdit()
         {
-            //キャンセル時は設備番号読み込み画面へ遷移
+            //キャンセル時は設備番号読み込み画面へ遷移 -> 社員入力画面へ遷移
             Session["model"] = null;
-            Session["plantcd"] = null;
+            //20220701 MOD START
+            //Session["plantcd"] = null;
+            if (string.IsNullOrEmpty(ArmsApi.Config.Settings.PlantCDLabelCompareDC))
+            {
+                Session["plantcd"] = null;
+            }
+            //20220701 MOD END
             Session["empcd"] = null;
             Session["lotno"] = null;
 
             Session["redirectController"] = "BlendLabelCompare";
             Session["redirectAction"] = "Index";
-            return RedirectToAction("InputPlantCd", "Home");
+            //20220701 MOD START
+            //return RedirectToAction("InputPlantCd", "Home");
+            if (string.IsNullOrEmpty(ArmsApi.Config.Settings.PlantCDLabelCompareDC))
+            {
+                return RedirectToAction("InputPlantCd", "Home");
+            }
+            else
+            {
+                return RedirectToAction("InputEmpCd", "Home");
+            }
+            //20220701 MOD END
         }
 
         public ActionResult Confirm()
@@ -155,6 +184,43 @@ namespace ArmsWeb.Controllers
 
             Session["model"] = m;
             return View("Finish", m);
+        }
+        public ActionResult InputLotNo()
+        {
+            return View();
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult InputLotNo(string lotno)
+        {
+            //string originallotno = lotno;
+
+            //string[] elms = lotno.Split(' ');
+            //if (elms.Length >= 2)
+            //{
+            //    lotno = elms[1];
+            //}
+            //elms = originallotno.Split(',');
+            //if (elms.Length == 5)
+            //{
+            //    //ライフラベルを想定
+            //    //ロットNo,型番,数量,日時,
+            //    lotno = elms[0];
+            //}
+
+            Session["lotno"] = lotno;
+
+            //string action = (string)Session["redirectAction"];
+            //string controller = (string)Session["redirectController"];
+
+            //if (!string.IsNullOrEmpty(action) && !string.IsNullOrEmpty(controller))
+            //{
+            //    return RedirectToAction(action, controller);
+            //}
+            //else
+            //{
+                return RedirectToAction("Index");
+            //}
         }
     }
 }

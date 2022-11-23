@@ -16,16 +16,15 @@
     <p>
         @Html.CheckBox("isRingID", Model.isCheckedRingID) リングID
     </p>
-    <br /> <br />
     if (Model.EditTarget.Count() >= 1)
     {
-        <select size="5" name="matindex">
+        <ul>
             @foreach (ArmsApi.Model.Material m in Model.EditTarget)
             {
-                <option value="@m.LotNo" >@m.LongName</option>
+                <li>@m.LongName</li>
             }
-        </select>
+        </ul>
     }
-
+    <br />
     <button onclick="location.href='@Url.Action("InsertConfirm")';return false;">決定</button>
 }

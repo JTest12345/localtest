@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "LotView";
 }
+<h5>マガジン または ロット番号</h5>
 @using (Html.BeginForm())
 {
     @Html.TextBox("magno");
@@ -28,19 +29,23 @@
             <h5>狙いランク:プロファイルが紐づいていません。</h5>
         }
 
-        <p>@Html.ActionLink("不良入力", "DefInput", new { isInspection = false}) </p>
-        <p>@Html.ActionLink("状態検査入力", "DefInput", new { isInspection = true}) </p>
+        <p>@Html.ActionLink("不良入力", "DefInput", new { isInspection = false }) </p>
+        <p>@Html.ActionLink("状態検査入力", "DefInput", new { isInspection = true }) </p>
         <p>@Html.ActionLink("強度試験データ出力", "PsTesterLink") </p>
-    
+
         if (Model.LastMachine != null)
         {
             <h5>最終完了装置:@Model.LastMachine.LongName</h5>
         }
-        <h5>次装置グループ:@Model.NextGroupString</h5>
-        <h5>次ライン：@Model.NextLine </h5>
+        <!--<h5>次装置グループ:@Model.NextGroupString</h5>-->
+        <!--<h5>次ライン：@Model.NextLine </h5>-->
         if (string.IsNullOrWhiteSpace(Model.NextLineComment) == false)
         {
             <h5>     @Model.NextLineComment </h5>
+        }
+        if (string.IsNullOrEmpty(Model.NextLine) == false)
+        {
+            <h5>次工程：@Model.NextLine </h5>
         }
 
         <table>
@@ -80,13 +85,13 @@
                             mycolor = "#ffff00";  // 黄色
                             break;
                     }
-                    <tr bgcolor = @mycolor align="center" valign="top">
+                    <tr bgcolor=@mycolor align="center" valign="top">
                         <td>@cr.ChkProcNm</td>
                         <td>@cr.ChkKb</td>
                         <td>@cr.LimitDt.ToString("MM/dd HH:mm")</td>
                         <td>@cr.Remains</td>
                     </tr>
- 
+
                 }
             </table>
         }

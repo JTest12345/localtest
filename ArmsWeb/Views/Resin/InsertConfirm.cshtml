@@ -8,10 +8,13 @@
 {
     <h3>樹脂割り付け確認</h3>
     <h5>装置：@Model.PlantCd</h5>
-    <h5>樹脂:@Model.EditTarget.MixResultId</h5>
+    <h5>樹脂：@Model.EditTarget.MixResultId</h5>
 
     <br />
     <div>割り付けます</div>
+    <p>@Model.message</p>
+    <br />
     <input type="submit" value="OK" />
-    <button onclick="location.href='@Url.Action("Index")';return false;">キャンセル</button>    
+    <button onclick="location.href='@Url.Action("Index")';return false;">キャンセル</button>
+
 }

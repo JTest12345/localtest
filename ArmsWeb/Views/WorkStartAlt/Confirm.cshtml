@@ -15,7 +15,14 @@
     <ul>
         @foreach (ArmsApi.Model.Magazine mag in Model.MagList)
         {
-        <li>@mag.MagazineNo : @mag.NascaLotNO : @mag.FrameQty [枚]</li>
+            if (mag.FrameQty != 0)
+            {
+                <li>@mag.MagazineNo : @mag.NascaLotNO : @mag.FrameQty [枚]</li>
+            }
+            else
+            {
+                <li>@mag.MagazineNo : @mag.NascaLotNO</li>
+            }
         }
     </ul>        
 

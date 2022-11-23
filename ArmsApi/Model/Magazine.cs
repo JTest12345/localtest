@@ -98,6 +98,17 @@ namespace ArmsApi.Model
             }
         }
 
+        //20220711 ADD START
+        public int NextProcess { get; set; }
+        public string NextProcessNm
+        {
+            get
+            {
+                return Process.GetProcess(NextProcess).InlineProNM;
+            }
+        }
+        //20220711 ADD END
+
         /// <summary>
         /// 現在稼働中フラグ
         /// </summary>
@@ -183,6 +194,21 @@ namespace ArmsApi.Model
             }
         }
 
+        //20220822 ADD START M2022-295-10
+        public static Magazine GetMagazine(string magno, string lotno)
+        {
+            Magazine[] list = GetMagazine(magno, lotno, false, null, SQLite.ConStr, null, null);
+            if (list.Count() == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return list.Single();
+            }
+        }
+        //20220822 ADD END
+
         public static Magazine[] GetMagazine(bool newfg, string typeCd)
         {
             return GetMagazine(null, null, newfg, null, SQLite.ConStr, null, typeCd);
@@ -208,6 +234,7 @@ namespace ArmsApi.Model
                 {
                     con.Open();
 
+                    //20220822 MOD t.frameqty -> ISNULL(t.frameqty, 0) AS frameqty M2022-295-10
                     cmd.CommandText = @"
                         SELECT 
                           t.lotno , 
@@ -215,7 +242,7 @@ namespace ArmsApi.Model
                           t.inlineprocno , 
                           t.newfg,
                           t.lastupddt,
-                          t.frameqty
+                          ISNULL(t.frameqty, 0) AS frameqty
                         FROM
                           tnmag t";
 
@@ -869,5 +896,122 @@ namespace ArmsApi.Model
                 Log.SysLog.Info($"[強度試験対象ロット手動] ロット：{this.NascaLotNO}");
             }
         }
+
+        #region "FJH START"
+        //20220531 ADD 
+        public static Magazine GetLastMagazine(string lotno)
+        {
+            Magazine[] list = GetLastMagazine(lotno, SQLite.ConStr);
+            if (list.Count() == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return list[0];
+            }
+        }
+
+        public static Magazine[] GetLastMagazine(string lotno, string constr)
+        {
+            List<Magazine> retv = new List<Magazine>();
+
+            using (SqlConnection con = new SqlConnection(constr))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                try
+                {
+                    con.Open();
+                    cmd.CommandText = @"SELECT t.lotno
+                                             , t.magno
+                                             , t.inlineprocno
+                                             , t.newfg
+                                             , t.lastupddt
+                                             , t.frameqty
+                                          FROM tnmag t INNER JOIN tnlot l ON
+                                               t.lotno        = l.lotno INNER JOIN tmworkflow w ON
+                                               l.typecd       = w.typecd
+                                           AND t.inlineprocno = w.procno
+                                         WHERE t.lotno = @LOTNO
+                                         ORDER BY w.workorder
+                                       ";
+                    cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = lotno;
+                    cmd.CommandText = cmd.CommandText.Replace("\r\n", "");
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Magazine mag = new Magazine();
+                            mag.MagazineNo = SQLite.ParseString(reader["magno"]);
+                            mag.NascaLotNO = SQLite.ParseString(reader["lotno"]);
+                            mag.NowCompProcess = SQLite.ParseInt(reader["inlineprocno"]);
+                            mag.NewFg = SQLite.ParseBool(reader["newfg"]);
+                            mag.LastUpdDt = Convert.ToDateTime(reader["lastupddt"]);
+                            mag.FrameQty = SQLite.ParseInt(reader["frameqty"]);
+
+                            retv.Add(mag);
+                        }
+                    }
+
+                    return retv.ToArray();
+                }
+                catch (Exception ex)
+                {
+                    Log.SysLog.Info(ex.ToString());
+                    throw ex;
+                }
+            }
+        }
+        //20220531 ADD END
+
+        //20220627 ADD START
+        public static bool IsLotnoChkToMag(string magno, string lotno)
+        {
+            int RecCnt = 0;
+
+            using (SqlConnection con = new SqlConnection(SQLite.ConStr))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                try
+                {
+                    con.Open();
+                    cmd.CommandText = @"SELECT COUNT(1) AS cnt
+                                          FROM tnmag
+                                         WHERE lotno = @LOTNO
+                                           AND magno = @MAGNO
+                                           AND newfg = 1
+                                       ";
+                    cmd.Parameters.Add("@LOTNO", SqlDbType.NVarChar).Value = lotno;
+                    cmd.Parameters.Add("@MAGNO", SqlDbType.NVarChar).Value = magno;
+                    cmd.CommandText = cmd.CommandText.Replace("\r\n", "");
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            RecCnt = SQLite.ParseInt(reader["cnt"]);
+                        }
+                    }
+
+                    if (RecCnt > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.SysLog.Info(ex.ToString());
+                    throw ex;
+                }
+            }
+        }
+        //20220627 ADD END
+
+        #endregion
     }
 }

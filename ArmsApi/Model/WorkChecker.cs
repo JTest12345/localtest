@@ -11,6 +11,11 @@ namespace ArmsApi.Model
 {
     public class WorkChecker
     {
+
+        #region 20220413 FJH ADD
+        public static string ResinMessage { get; set; }
+        #endregion
+
         #region 作業完了時データ登録後の事後チェック
         /// <summary>
         /// 作業完了時データ登録後の事後チェック
@@ -86,16 +91,19 @@ namespace ArmsApi.Model
                     }
                 }
 
-                //ウェハー引き当てチェック(ArmsMaintenanceからの呼び出しは無効)
-                if (!isManualInputout)
-                {
-                    if (machine.WaferCheckFg == true)
-                    {
-                        Material[] wafers = machine.GetWafers(order.WorkStartDt, order.WorkEndDt.Value);
-                        isError = IsWaferChangeError(wafers, order, out errMsg);
-                        if (isError == true) { return true; }
-                    }
-                }
+                //富士情報コメント　開始　2022/8/30
+                //合理化の場合は設備からの更新が無いのでチェックできない
+                ////ウェハー引き当てチェック(ArmsMaintenanceからの呼び出しは無効)
+                //if (!isManualInputout)
+                //{
+                //    if (machine.WaferCheckFg == true)
+                //    {
+                //        Material[] wafers = machine.GetWafers(order.WorkStartDt, order.WorkEndDt.Value);
+                //        isError = IsWaferChangeError(wafers, order, out errMsg);
+                //        if (isError == true) { return true; }
+                //    }
+                //}
+                //富士情報コメント　終了
             }
             catch (Exception ex)
             {
@@ -278,9 +286,14 @@ namespace ArmsApi.Model
                 {
                     string magno = string.Empty;
                     if (order != null && string.IsNullOrWhiteSpace(order.InMagazineNo) == false) magno = order.InMagazineNo;
-                    errMsg = $"この装置は現在の工程で作業できません。作業設備マスタ(TmProMac)に登録されていません。[ロットNo:『{lot.NascaLotNo}』,"
-                           + $"マガジンNo:『{magno}』,型番:『{lot.TypeCd}』,作業:『{process.ProcNo}/{process.InlineProNM}』"
-                           + $"装置:『{machine.MacNo}/{machine.LongName}』]";
+                    //富士情報　変更
+                    errMsg = $"この装置『{machine.MacNo}/{machine.LongName}』は\r\n現在の工程『{process.ProcNo}/{process.InlineProNM}』で作業できません。"
+                           + $"\r\n作業設備マスタ(TmProMac)に登録されていません。"
+                           + $"\r\n・ロットNo:『{lot.NascaLotNo}』\r\n・マガジンNo:『{magno}』\r\n・型番:『{lot.TypeCd}』";
+                    //errMsg = $"この装置は現在の工程で作業できません。作業設備マスタ(TmProMac)に登録されていません。[ロットNo:『{lot.NascaLotNo}』,"
+                    //       + $"マガジンNo:『{magno}』,型番:『{lot.TypeCd}』,作業:『{process.ProcNo}/{process.InlineProNM}』"
+                    //       + $"装置:『{machine.MacNo}/{machine.LongName}』]";
+                    //富士情報　変更
                     return true;
                 }
 
@@ -313,10 +326,27 @@ namespace ArmsApi.Model
                 }
 
                 //モールド樹脂照合 (調合有効期限、樹脂グループ)
+                //20220413 ADD START
+                ResinMessage = "";
+                //20220413 ADD END
                 if (machine.ResinCheckFg == true)
                 {
                     isError = WorkChecker.IsResinError(machine, order, lot, out errMsg);
-                    if (isError == true) return true;
+                    //20220413 MOD START
+                    //if (isError == true) return true;
+                    if (isError == true)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrWhiteSpace(errMsg))
+                        {
+                            ResinMessage = errMsg;
+                            errMsg = "";
+                        }
+                    }
+                    //20220413 MOD END
                 }
 
                 //投入樹脂グループ判定
@@ -407,26 +437,26 @@ namespace ArmsApi.Model
 
                     //富士情報 mod start
                     //製品、素子のコードから波長ランクのリストを取得する
-                    string[] okrnks = SosiCheck.GetHchRnkLstFronShn(lot.TypeCd, wafers[0].MaterialCd);
+                    List<string> okrnks = SosiCheck.GetHchRnkLstFromShn(lot.TypeCd, wafers[0].MaterialCd).ToList();
 
-                    if (okrnks.Length == 0)
+                    if (okrnks.Count() == 0)
                     {
-                        errMsg = string.Format("製品素子波長ランクマスタが未登録です 機種:{0} 素子:{1}", lot.TypeCd, wafers[0].MaterialCd);
+                        errMsg = string.Format("製品素子波長ランクマスタが未登録です\r\n機種:{0} 素子:{1}", lot.TypeCd, wafers[0].MaterialCd);
                         return true;
                     }
                     if (okrnks[0] != "")
                     //波長ランクチェック対象の素子の場合はチェックする
                     {
                         //投入素子のリストからCEJ機種CDリスト取得
-                        IEnumerable<string> cejkshcds = wafers.Select(o => o.BlendCd.ToUpper()).Distinct();
+                        List <string> cejkshcds = wafers.Select(o => o.IrCd).ToList();
                         //投入素子のCEJ機種CDリストから波長ランクCEJ機種CDリスト取得
-                        SosiCheck.HchRnkCejKsh[] rnkkshs = SosiCheck.GetHchRnkCejKshList(cejkshcds.ToList());
+                        List<SosiCheck.HchRnkCejKsh> rnkkshs = SosiCheck.GetHchRnkCejKshList(cejkshcds);
 
                         //投入素子のCEJ機種CDリストから波長ランクCEJ機種CDリスト取得できなかったリスト作成
-                        IEnumerable<string> exrnk = cejkshcds.Except<string>(rnkkshs.Select(o => o.CejKshCd));
+                        List<string> exrnk = cejkshcds.Except<string>(rnkkshs.Select(o => o.CejKshCd)).ToList();
                         if (exrnk.Count() > 0)
                         {
-                            errMsg = string.Format("CEJ機種波長ランクマスタが未登録です CEJ機種:{0}", string.Join(",", exrnk));
+                            errMsg = string.Format("CEJ機種波長ランクマスタが未登録です\r\n色コード:{0}", string.Join(",", exrnk));
                             return true;
                         }
 
@@ -439,8 +469,42 @@ namespace ArmsApi.Model
                          //製品素子の波長ランクと一致するか
                         if (!okrnks.Contains(rnkkshs[0].CejHchRnk))
                         {
-                            errMsg = string.Format("製品に投入可能な波長ランクではありません 製品:{0} 素子波長ランク:{1}", lot.TypeCd, rnkkshs[0].CejKshCd);
+                            errMsg = string.Format("製品に投入可能な波長ランクではありません\r\n製品:{0} 素子波長ランク:{1}", lot.TypeCd, rnkkshs[0].CejHchRnk);
                             return true;
+                        }
+
+                        //製品ロット指定の波長ランクと一致するか
+                        if (!string.IsNullOrEmpty(lot.CejHchRnk) && rnkkshs[0].CejHchRnk != lot.CejHchRnk)
+                        {
+                            errMsg = string.Format("ロット指定の波長ランクではありません\r\nロット指定ランク:{0} 素子波長ランク:{1}", lot.CejHchRnk, rnkkshs[0].CejHchRnk);
+                            return true;
+                        }
+
+                        //製品、素子のコードからソーティングランクのリストを取得する
+                        List<string> oksortingrnks = SosiCheck.GetSortingRnkLstFromShn(lot.TypeCd, wafers[0].MaterialCd);
+
+                        if (oksortingrnks.Count() == 0)
+                        {
+                            errMsg = string.Format("製品素子ソーティングランクマスタが未登録です\r\n機種:{0} 素子:{1}", lot.TypeCd, wafers[0].MaterialCd);
+                            return true;
+                        }
+                        if (oksortingrnks[0] != "")
+                        //ソーティングランクチェック対象の素子の場合はチェックする
+                        {
+                            //製品素子のソーティングランクと一致するか
+                            foreach (Material waf in wafers)
+                            {
+                                if (waf.SortingRnk == "NK")
+                                {
+                                    errMsg = string.Format("ソーティング前の素子が投入されています\r\nロット:{0}", waf.LotNo);
+                                    return true;
+                                }
+                                if (!oksortingrnks.Contains(waf.SortingRnk))
+                                {
+                                    errMsg = string.Format("製品に投入可能なソーティングランクではありません\r\nソーティングランク:{0} ロット:{1}", waf.SortingRnk, waf.LotNo);
+                                    return true;
+                                }
+                            }
                         }
                     }
 
@@ -497,8 +561,15 @@ namespace ArmsApi.Model
                 }
 
                 //富士情報　start
-                //帳票システムで前の工程がクローズしていること
-                    if (!ArmsApi.Model.FORMS.ProccessForms.isClosedPrevProcess(lot.TypeCd, order.LotNo, order.ProcNo, out errMsg))
+                //前工程がクローズしているかチェック
+                //工程スキップするロットの場合、前工程をスキップする
+                FORMS.ProccessForms.WorkOrder workorder;
+                if (lot.AfterCuringConfirmfg == 0)
+                    workorder = FORMS.ProccessForms.WorkOrder.SkipPrevious;
+                else
+                    workorder = FORMS.ProccessForms.WorkOrder.Previous;
+
+                if (!FORMS.ProccessForms.IsClosedProcess(lot.TypeCd, order.LotNo, order.ProcNo, out errMsg, workorder))
                     {
                         return true;
                     }
@@ -571,6 +642,10 @@ namespace ArmsApi.Model
 
         public static bool IsErrorBeforeInputResin(Resin r, MachineInfo machine, out string msg, bool removeFg)
         {
+            //20220413 ADD START
+            msg = "";
+            //20220413 ADD ENDT
+
             try
             {
                 if (machine.ResinCheckFg == false)
@@ -622,18 +697,41 @@ namespace ArmsApi.Model
 						msg = string.Format("投入樹脂の調合タイプが一致しません");
 						return true;
 					}
+
+                    //富士情報　追加　開始
+                    if (!string.IsNullOrEmpty(r.TypeCd) && r.TypeCd != lot.TypeCd)
+                    {
+                        msg = string.Format("投入樹脂の対象機種が仕掛中のロットと一致しません");
+                        return true;
+                    }
+                    if (r.SeiLotNoList.Count > 0 && r.SeiLotNoList.Contains(order.LotNo) == false)
+                    {
+                        msg = string.Format("投入樹脂の割付計画ロットNoが仕掛中のロットと一致しません");
+                        return true;
+                    }
+                    if (!string.IsNullOrEmpty(lot.CejHchRnk) && !string.IsNullOrEmpty(r.CejHchRnk) && r.CejHchRnk != lot.CejHchRnk)
+                    {
+                        msg = string.Format("投入樹脂の波長ランクが仕掛中のロットと一致しません");
+                        return true;
+                    }
+                    //富士情報　追加　終了
                 }
 
-				//割り付け済み樹脂取得
-				Resin[] registeredResinArray = machine.GetResins();
+                //割り付け済み樹脂取得
+                Resin[] registeredResinArray = machine.GetResins();
 
-				long targetResinResultID;
-				if (long.TryParse(r.MixResultId, out targetResinResultID) == false)
-				{
-					throw new ApplicationException($"数値変換出来ない調合結果IDです。調合結果ID：『{r.MixResultId}』");
-				}
+                //富士情報　変更　start
+                string targetResinResultID = r.MixResultId;
 
-				if (IsMixMaterialMatchError(targetResinResultID, registeredResinArray, out msg) == true)
+                //long targetResinResultID;
+
+                //            if (long.TryParse(r.MixResultId, out targetResinResultID) == false)
+                //{
+                //	throw new ApplicationException($"数値変換出来ない調合結果IDです。調合結果ID：『{r.MixResultId}』");
+                //}
+                //富士情報　変更　end
+
+                if (IsMixMaterialMatchError(targetResinResultID, registeredResinArray, out msg) == true)
 				{
 					return true;
 				}
@@ -654,6 +752,20 @@ namespace ArmsApi.Model
                         return true;
                     }
                 }
+                //20220413 ADD START
+                if (removeFg == false && r.WorkStartDt.HasValue)
+                {
+                    //
+                    if (DateTime.Now < r.WorkStartDt.Value)
+                    {
+                        msg = $"対象樹脂の割付は行えますが、作業開始は {r.WorkStartDt.Value} まで行えません。";
+                    }
+                    else if (DateTime.Now <= r.StirringLimitDt.Value)
+                    {
+                        msg = $"対象樹脂は {r.StirringLimitDt.Value} までに作業完了する必要があります。";
+                    }
+                }
+                //20220413 ADD END
             }
             catch (Exception ex)
             {
@@ -661,7 +773,9 @@ namespace ArmsApi.Model
                 return true;
             }
 
-            msg = "";
+            //20220413 DEL START
+            //msg = "";
+            //20220413 DEL END
             return false;
 
         }
@@ -781,114 +895,154 @@ namespace ArmsApi.Model
                 if (mat.IsWafer)
                 {
                     //富士情報　更新　start
+                    //投入素子のCEJ機種CDから波長ランク取得
+                    string matrnk = SosiCheck.GetHchRnkFromCejkscd(mat.IrCd);
+                    if (matrnk != "")
+                    {
+                        //設備に投入済みの素子情報を取得
+                        List<Material> macmats = new List<Material>();
+                        if (macno.HasValue)
+                        {
+                            DateTime startdt = (DateTime)mat.InputDt;
+                            foreach (AsmLot lot in lotlist)
+                            {
+                                Order[] ord = Order.SearchOrder(lot.NascaLotNo, null, macno, true, false);
+                                if (ord.Length > 0 && startdt > ord[0].WorkStartDt)
+                                    startdt = ord[0].WorkStartDt;
+                            }
+                            macmats = SosiCheck.GetMatCejKshLst(macno, null, startdt, null, false);
+                        }
+
+                        //投入済みの素子と素子ランクが一致しているか
+                        if (macmats.Count() > 0)
+                        {
+                            //投入済み素子の波長ランク取得
+                            string macrnk = SosiCheck.GetHchRnkFromCejkscd(macmats[0].IrCd);
+
+                            if (matrnk != macrnk)
+                            {
+                                errMsg = string.Format("投入済みの素子の波長ランクと一致しません\r\n投入済み波長ランク:{0} 投入波長ランク:{1} 投入色コード:{2}", macrnk, matrnk, mat.BlendCd);
+                                return true;
+                            }
+                        }
+                    }
+
                     if (lotlist.Length > 0)
                     //設備で開始しているロットがある場合、製品が確定しているので波長ランクのチェックをする
                     {
                         //製品、素子のコードから波長ランクのリストを取得する
-                        string[] okrnks = SosiCheck.GetHchRnkLstFronShn(lotlist[0].TypeCd, mat.MaterialCd);
+                        List<string> okrnks = SosiCheck.GetHchRnkLstFromShn(lotlist[0].TypeCd, mat.MaterialCd);
 
                         //波長ランクチェック用のマスタが存在するか
-                        if (okrnks.Length == 0)
+                        if (okrnks.Count() == 0)
                         {
-                            errMsg = string.Format("製品素子波長ランクマスタが未登録です 機種:{0} 素子:{1}", lotlist[0].TypeCd, mat.MaterialCd);
+                            errMsg = string.Format("製品素子波長ランクマスタが未登録です\r\n機種:{0} 素子:{1}", lotlist[0].TypeCd, mat.MaterialCd);
                             return true;
                         }
+
                         if (okrnks[0] != "")
+
                         //波長ランクチェック対象の素子の場合はチェックする
                         {
                             //投入素子のCEJ機種CDから波長ランク取得
-                            string matrnk = SosiCheck.GetHchRnkFromCejkscd(mat.BlendCd);
                             if (matrnk == "")
                             {
-                                errMsg = string.Format("CEJ機種波長ランクマスタが未登録です CEJ機種:{0}", mat.BlendCd);
+                                errMsg = string.Format("CEJ機種波長ランクマスタが未登録です\r\n色コード:{0}", mat.IrCd);
                                 return true;
                             }
                             //投入素子波長ランクがマスタで許可する波長ランクに含まれているか
                             if (!okrnks.Contains(matrnk))
                             {
-                                errMsg = string.Format("製品に投入可能な波長ランクではありません 投入波長ランク:{0} 投入CEJ機種:{1}", matrnk, mat.BlendCd);
+                                errMsg = string.Format("製品に投入可能な波長ランクではありません 投入波長ランク:{0} 投入色コード:{1}", matrnk, mat.IrCd);
                                 return true;
                             }
 
-                            //投入済みの素子と素子ランクが一致しているか
-                            if (macno.HasValue)
+                            //投入素子波長ランクがロットに指定している波長ランクと一致するか
+                            if (!string.IsNullOrEmpty(lotlist[0].CejHchRnk) && matrnk == lotlist[0].CejHchRnk)
                             {
-                                //設備に投入済みの素子情報を取得
-                                Material[] macmats = SosiCheck.GetMatCejKshLst(macno, mat.MaterialCd, mat.InputDt, mat.InputDt, false);
+                                errMsg = string.Format("ロット指定の波長ランクではありません 投入波長ランク:{0} 投入色コード:{1}", matrnk, mat.IrCd);
+                                return true;
+                            }
 
-                                if (macmats.Length > 0)
+                            //製品、素子のコードからソーティングランクのリストを取得する
+                            List<string> oksortingrnks = SosiCheck.GetSortingRnkLstFromShn(lotlist[0].TypeCd, mat.MaterialCd);
+
+                            if (oksortingrnks[0] != "")
+                            //ソーティングランクチェック対象の素子の場合はチェックする
+                            {
+                                if (mat.SortingRnk == "NK")
                                 {
-                                    //投入済み素子の波長ランク取得
-                                    string macrnk = SosiCheck.GetHchRnkFromCejkscd(macmats[0].BlendCd);
+                                    errMsg = string.Format("ソーティング前の素子です");
+                                    return true;
+                                }
 
-                                   if (matrnk != macrnk)
-                                    {
-                                        errMsg = string.Format("投入済みの素子の波長ランクと一致しません　投入済み波長ランク:{0} 投入波長ランク:{1} 投入CEJ機種:{2}", macrnk, matrnk, mat.BlendCd);
-                                        return true;
-                                    }
+                                //製品素子のソーティングランクと一致するか
+                                if (!oksortingrnks.Contains(mat.SortingRnk))
+                                {
+                                    errMsg = string.Format("製品に投入可能なソーティングランクではありません\r\n製品:{0} 素子ソーティングランク:{1}", lotlist[0].TypeCd, mat.SortingRnk);
+                                    return true;
                                 }
                             }
                         }
                     }
 
+                    //              foreach (AsmLot lot in lotlist)
+                    //              {
+                    //                  string workCd = string.Empty;
+                    //                  if (macno.HasValue)
+                    //                  {
+                    //	workCd = Process.GetProcess(Order.GetLastProcNoFromLot(macno.Value, lot.NascaLotNo)).WorkCd;
+                    //                  }
+                    //                  else if (macno.HasValue == false && selectWorkCd == string.Empty)
+                    //                  {
+                    //                      workCd = Process.GetNowProcess(lot).WorkCd;
+                    //                  }
+                    //                  else
+                    //                  {
+                    //                      workCd = selectWorkCd;
+                    //                  }
 
-      //              foreach (AsmLot lot in lotlist)
-      //              {
-      //                  string workCd = string.Empty;
-      //                  if (macno.HasValue)
-      //                  {
-						//	workCd = Process.GetProcess(Order.GetLastProcNoFromLot(macno.Value, lot.NascaLotNo)).WorkCd;
-      //                  }
-      //                  else if (macno.HasValue == false && selectWorkCd == string.Empty)
-      //                  {
-      //                      workCd = Process.GetNowProcess(lot).WorkCd;
-      //                  }
-      //                  else
-      //                  {
-      //                      workCd = selectWorkCd;
-      //                  }
+                    //if (Material.IsInHouseDice(mat.DiceWaferKb))
+                    //{
+                    //	// 社内チップはブレンドコードチェック
+                    //	isError = IsDbWaferBlendCodeError(mat, lot, workCd, out errMsg);
+                    //	if (isError) return true;
+                    //}
+                    //else
+                    //{
+                    //	// 社外チップは供給ID、品目チェック
+                    //	isError = IsDBWaferSupplyIdError(mat, lot, workCd, out errMsg);
+                    //	if (isError) return true;
+                    //}
 
-						//if (Material.IsInHouseDice(mat.DiceWaferKb))
-						//{
-						//	// 社内チップはブレンドコードチェック
-						//	isError = IsDbWaferBlendCodeError(mat, lot, workCd, out errMsg);
-						//	if (isError) return true;
-						//}
-						//else
-						//{
-						//	// 社外チップは供給ID、品目チェック
-						//	isError = IsDBWaferSupplyIdError(mat, lot, workCd, out errMsg);
-						//	if (isError) return true;
-						//}
+                    ////// 2015.5.13 [変更]ブレンド詳細マスタ複数作業CD取り込み
+                    //////if (string.IsNullOrEmpty(mat.WorkCd))
+                    ////if (mat.WorkCd.Count == 0)
+                    ////{
+                    ////	if (lot.BlendCd != mat.BlendCd)
+                    ////	{
+                    ////		errMsg = string.Format("ブレンドマスタと一致していません TnLot.blendcd:{0} = TnMaterials.blendcd:{1}"
+                    ////			, lot.BlendCd, mat.BlendCd);
+                    ////		return true;
+                    ////	}
+                    ////}
+                    ////else
+                    ////{
+                    ////	// 2015.5.13 [変更]ブレンド詳細マスタ複数作業CD取り込み
+                    ////	//if (lot.BlendCd != mat.BlendCd || workcd != mat.WorkCd)
+                    ////	if (lot.BlendCd != mat.BlendCd || mat.WorkCd.Exists(w => w == workCd) == false)
+                    ////	{
+                    ////		errMsg = string.Format("ブレンドマスタと一致していません TnLot.blendcd:{0} = TnMaterials.blendcd:{1}, TnLot.workcd:{2} = TnMaterials.workcd:{3}"
+                    ////			, lot.BlendCd, mat.BlendCd, workCd, mat.WorkCd);
+                    ////		return true;
+                    ////	}
+                    ////}
 
-						////// 2015.5.13 [変更]ブレンド詳細マスタ複数作業CD取り込み
-						//////if (string.IsNullOrEmpty(mat.WorkCd))
-						////if (mat.WorkCd.Count == 0)
-						////{
-						////	if (lot.BlendCd != mat.BlendCd)
-						////	{
-						////		errMsg = string.Format("ブレンドマスタと一致していません TnLot.blendcd:{0} = TnMaterials.blendcd:{1}"
-						////			, lot.BlendCd, mat.BlendCd);
-						////		return true;
-						////	}
-						////}
-						////else
-						////{
-						////	// 2015.5.13 [変更]ブレンド詳細マスタ複数作業CD取り込み
-						////	//if (lot.BlendCd != mat.BlendCd || workcd != mat.WorkCd)
-						////	if (lot.BlendCd != mat.BlendCd || mat.WorkCd.Exists(w => w == workCd) == false)
-						////	{
-						////		errMsg = string.Format("ブレンドマスタと一致していません TnLot.blendcd:{0} = TnMaterials.blendcd:{1}, TnLot.workcd:{2} = TnMaterials.workcd:{3}"
-						////			, lot.BlendCd, mat.BlendCd, workCd, mat.WorkCd);
-						////		return true;
-						////	}
-						////}
-
-						//// DBウェハーの水洗浄後、有効期限チェック
-						//// 2015.5.14 3in1高効率ラインのシステム変更依頼1(水洗浄)
-						//isError = IsDbWaferWashedLimitError(mat, lot.TypeCd, out errMsg);
-						//if (isError) return true;
-      //              }
+                    //// DBウェハーの水洗浄後、有効期限チェック
+                    //// 2015.5.14 3in1高効率ラインのシステム変更依頼1(水洗浄)
+                    //isError = IsDbWaferWashedLimitError(mat, lot.TypeCd, out errMsg);
+                    //if (isError) return true;
+                    //              }
                     //富士情報　更新　end
                 }
 
@@ -1193,7 +1347,7 @@ namespace ArmsApi.Model
         }
         #endregion
 
-		public static bool IsMixMaterialMatchError(long targetResinResultID, Resin[] registeredResinArray, out string msg)
+		public static bool IsMixMaterialMatchError(string targetResinResultID, Resin[] registeredResinArray, out string msg)
 		{
 			msg = string.Empty;
 			using (var armsDB = new DataContext.ARMSDataContext(ArmsApi.Config.Settings.LocalConnString))
@@ -1202,12 +1356,16 @@ namespace ArmsApi.Model
 
 				foreach (Resin registeredResin in registeredResinArray)
 				{
-					long registeredResinResultID;
+                    //富士情報　変更　start
+                    string registeredResinResultID = registeredResin.MixResultId;
 
-					if (long.TryParse(registeredResin.MixResultId, out registeredResinResultID) == false)
-					{
-						throw new ApplicationException($"数値変換出来ない調合結果IDです。調合結果ID：『{registeredResin.MixResultId}』");
-					}
+     
+                    //long registeredResinResultID;
+
+					//if (long.TryParse(registeredResin.MixResultId, out registeredResinResultID) == false)
+					//{
+					//	throw new ApplicationException($"数値変換出来ない調合結果IDです。調合結果ID：『{registeredResin.MixResultId}』");
+					//}
 
 					var registeredResinMixMat = armsDB.TnResinMixMat.Where(t => t.mixresultid == registeredResinResultID);
 
@@ -1242,6 +1400,10 @@ namespace ArmsApi.Model
 
         public static bool IsResinError(MachineInfo m, Order order, AsmLot lot, out string msg)
         {
+            //20220413 ADD START
+            msg = "";
+            //20220413 ADD END
+
             Resin[] resins = m.GetResins(order.WorkStartDt, order.WorkEndDt);　//Order.GetResinではなく装置割り付け分のみ
 
             if (resins == null || resins.Count() == 0)
@@ -1274,36 +1436,56 @@ namespace ArmsApi.Model
                     return true;
 				}
 
-
-                // 20220112 Juniwatanabe
-                // 複数樹脂対応実験
-                // OriginalCode
-                //if (p.MixTypeCd.Contains(r.MixTypeCd) == false)
-                //{
-                //    msg = $"[{m.MacNo}/{m.LongName}] 投入樹脂の調合タイプが一致しません "
-                //    + $"投入調合タイプ:『{r.MixTypeCd}/{Resin.GetMixTypeNm(r.MixTypeCd)}』 "
-                //    + $"投入樹脂:[樹脂ID『{r.MixResultId}』/樹脂グループコード『{r.ResinGroupCd}』]";
-                //
-                //    return true;
-                //}
-
-                var mixTypeCdArr = r.MixTypeCd.Split(',');
-
-                foreach (var mixtypeCode in mixTypeCdArr)
-                {
-                    if (p.MixTypeCd.Contains(mixtypeCode) == false)
-                    {
-                        msg = $"[{m.MacNo}/{m.LongName}] 投入樹脂の調合タイプが一致しません "
-
+				if (p.MixTypeCd.Contains(r.MixTypeCd) == false) 
+				{                    
+					msg = $"[{m.MacNo}/{m.LongName}] 投入樹脂の調合タイプが一致しません "
                         + $"投入調合タイプ:『{r.MixTypeCd}/{Resin.GetMixTypeNm(r.MixTypeCd)}』 "
                         + $"投入樹脂:[樹脂ID『{r.MixResultId}』/樹脂グループコード『{r.ResinGroupCd}』]";
 
+                    return true;
+                }
+
+                //富士情報　追加　開始
+                if (!string.IsNullOrEmpty(r.TypeCd) && r.TypeCd != lot.TypeCd)
+                {
+                    msg = $"投入樹脂の対象機種が一致しません　"
+                    + $"\r\n対象機種:『{r.TypeCd}』]";
+                    return true;
+                }
+                if (r.SeiLotNoList.Count < 0 && r.SeiLotNoList.Contains(order.LotNo) == false)
+                {
+                    msg = $"投入樹脂の割付計画ロットNoが一致しません　"
+                    +$"\r\n割付製品ロットNo:『{string.Join(",",r.SeiLotNoList.ToArray())}』]";
+                    return true;
+                }
+                if (!string.IsNullOrEmpty(lot.CejHchRnk) && !string.IsNullOrEmpty(r.CejHchRnk) && r.CejHchRnk != lot.CejHchRnk)
+                {
+                    msg = $"投入樹脂の波長ランクが一致しません　"
+                    + $"\r\n波長ランク:『{r.CejHchRnk}』]";
+                    return true;
+                }
+                //富士情報　追加　終了
+                //20220413 ADD START
+                if (r.WorkStartDt.HasValue)
+                {
+                    if (DateTime.Now < r.WorkStartDt.Value)
+                    {
+                        msg = $"[{m.MacNo}/{m.LongName}] "
+                            + $"CUPNO. {r.MixResultId} は、{r.WorkStartDt.Value} まで作業開始は行えません。";
+
                         return true;
                     }
+                    else if (DateTime.Now <= r.StirringLimitDt.Value)
+                    {
+                        msg += $"CUPNO. {r.MixResultId} は、{r.StirringLimitDt} までに作業完了する必要があります。\r\n ";
+                    }
                 }
+                //20220413 ADD END
             }
 
-            msg = "";
+            //20220413 DEL START
+            //msg = "";
+            //20220413 DEL END
             return false;
         }
 
@@ -1784,19 +1966,30 @@ namespace ArmsApi.Model
                     if (macno.HasValue)
                     {
                         MachineInfo machine = MachineInfo.GetMachine(macno.Value, true);
-                        errMsg = $"[{machine.MacNo}/{machine.LongName}]  ロット特性に含まれていない資材が割り当てられています。割当済み資材=";
+                        //富士情報　変更　start
+                        errMsg = $"[{machine.MacNo}/{machine.LongName}]  誤った資材が割り当てられています\r\n割当済み資材=";
+                        //errMsg = $"[{machine.MacNo}/{machine.LongName}]  ロット特性に含まれていない資材が割り当てられています。割当済み資材=";
+                        //富士情報　変更　end
                     }
                     else
                     {
-                        errMsg = "ロット特性に含まれていない資材を割り当てようとしています。割当て資材=";
+                        //富士情報　変更　start
+                        errMsg = "誤った資材を割り当てようとしています。";
+                        errMsg += "\r\n割当て資材=";
+                        //errMsg = "ロット特性に含まれていない資材を割り当てようとしています。割当て資材=";
+                        //富士情報　変更　end
                     }
                     errMsg += $"[ロットNo{mat.LotNo}/品目CD{mat.MaterialCd}/品目名{mat.MaterialNm}] ";                    
                     if (lot != null)
                     {
-                        errMsg += $"ロット特性情報=ロットNo:{lot.NascaLotNo}/プロファイルNo:{lot.ProfileId}/";
+                        //富士情報　変更　start
+                        //errMsg += $"ロット特性情報=ロットNo:{lot.NascaLotNo}/プロファイルNo:{lot.ProfileId}/";
+                        //富士情報　変更　end
                     }
-                    errMsg += $"投入可能資材:[{string.Join(",", bom.Select(b => $"品目CD:{b.MaterialCd}/品目名:{b.MaterialName})"))}]";
-                    
+                    //富士情報　変更　start
+                    //errMsg += $"投入可能資材:[{string.Join(",", bom.Select(b => $"品目CD:{b.MaterialCd}/品目名:{b.MaterialName})"))}]";
+                    //富士情報　変更　end
+
                     return true;
                 }				
             }
@@ -1865,7 +2058,10 @@ namespace ArmsApi.Model
 
             if (notFoundList.Any() == true)
             {
-                errMsg = "ロット特性に登録されている資材が使用されていません\r\n";
+                //富士情報　変更　start
+                errMsg = "正しい資材が投入されていません\r\n";
+                //errMsg = "ロット特性に登録されている資材が使用されていません\r\n";
+                //富士情報　変更　end
                 for (int i = 0; i < notFoundList.Count(); i++)
                 {
                     List<string> matNmList = new List<string>();
@@ -1873,17 +2069,26 @@ namespace ArmsApi.Model
                     {
                         try
                         {
-                            matNmList.Add($"[{(new BOM(string.Empty, s)).MaterialName}]");
+                            //富士情報　変更　start
+                            matNmList.Add($"[{s},{(new BOM(string.Empty, s)).MaterialName}]");
+                            //matNmList.Add($"[{(new BOM(string.Empty, s)).MaterialName}]");
+                            //富士情報　変更　end
                         }
-                        catch(Exception)
+                        catch (Exception)
                         {
                             // 資材品目名取得時にエラーが発生した場合は、資材品目CDを格納
                             matNmList.Add($"[{s}]");
                         }
                     }
-                    errMsg += $"  要求資材({i + 1}):{string.Join(" or ", matNmList)}\r\n";
+                    //富士情報　変更　start
+                    errMsg += $"正しい資材({i + 1}):{string.Join("\r\n", matNmList)}\r\n";
+                    //errMsg += $"  要求資材({i + 1}):{string.Join(" or ", matNmList)}\r\n";
+                    //富士情報　変更　end
                 }
-                errMsg += $"  投入資材:[資材品目名,ロットNo] = {string.Join(",", matlist.Select(l => "[" + l.MaterialNm + "," + l.LotNo + "]"))}";
+                //富士情報　変更　start
+                errMsg += $" 割付済資材:[資材品目CD,名称]\r\n{string.Join("\r\n", matlist.Select(l => "[" + l.MaterialCd + "," + l.MaterialNm + "]"))}";
+                //errMsg += $"  投入資材:[資材品目名,ロットNo] = {string.Join(",", matlist.Select(l => "[" + l.MaterialNm + "," + l.LotNo + "]"))}";
+                //富士情報　変更　end
                 return true;
             }
 
