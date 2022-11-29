@@ -13,17 +13,19 @@ namespace FileIf
         //本タスクにて使用するDB
         resincup_info rcinfo;
 
-        Dictionary<string, string> Dict;
+        //Dictionary<string, string> Dict;
 
         // 初期化
         public Tasks_cot1()
         {
-            //commons = new CommonFuncs();
             tcommons = new Tasks_Common();
             minfo = new Macconinfo();
             cot1 = new TaskFile_cot1();
+            // 返信ファイル名変更
+            endfilenm = "end1";
             // 返信ファイル用辞書の初期化
             Dict = tcommons.InitRetFileDict();
+            //retDict = new Dictionary<string, string>(Dict);
         }
 
         // データベース操作タスク関数
@@ -172,21 +174,24 @@ namespace FileIf
 
 
 
-        // outのEND出力タスク関数
-        public Task_Ret OutFileTasks(Mcfilesys fs, Task_Ret taskret)
-        {
-            string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
+        //// outのEND出力タスク関数
+        //public Task_Ret OutFileTasks(Mcfilesys fs, Task_Ret taskret)
+        //{
+        //    string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
+        //    //返信用result,message,retcode追加
+        //    tcommons.AddItems2DictOutputData(taskret, ref Dict);
 
-            //<taskid=cot1901>【ファイル生成】ENDファイルの発行
-            taskid = 901;
-            Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end1", ref msg, ref Dbgmsg);
-            if (oef.Result == retkey.ng)
-            {
-                return oef;
-            }
 
-            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
-        }
+        //    //<taskid=cot1901>【ファイル生成】ENDファイルの発行
+        //    taskid = 901;
+        //    Task_Ret oef = tcommons.OutputEndFile(taskid, fs, Dict, "end1", ref msg, ref Dbgmsg);
+        //    if (oef.Result == retkey.ng)
+        //    {
+        //        return oef;
+        //    }
+
+        //    return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
+        //}
 
     }
 }

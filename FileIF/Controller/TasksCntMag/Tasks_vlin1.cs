@@ -11,7 +11,7 @@ namespace FileIf
         TaskFile_vlin1 vlin1;
 
         // Endファイル用変数格納用辞書
-        Dictionary<string, string> Dict;
+        //Dictionary<string, string> Dict;
 
         // 初期化
         public Tasks_vlin1()
@@ -19,10 +19,13 @@ namespace FileIf
             tcommons = new Tasks_Common();
             minfo = new Macconinfo();
             vlin1 = new TaskFile_vlin1();
+            // 返信ファイル名変更
+            endfilenm = "end1";
             // 返信ファイル用辞書の初期化
             Dict = tcommons.InitRetFileDict();
             //Dict.Add("{retcode_list}", "9");
             //Dict.Add("{bdqty_list}", "0");
+            //retDict = new Dictionary<string, string>(Dict);
         }
 
         // vlin1のデータベース操作タスク関数
@@ -270,33 +273,36 @@ namespace FileIf
 
 
 
-        // vlin1のEND出力タスク関数
-        public Task_Ret OutFileTasks(Mcfilesys fs, Task_Ret taskret)
-        {
-            string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
+        //// vlin1のEND出力タスク関数
+        //public Task_Ret OutFileTasks(Mcfilesys fs, Task_Ret taskret)
+        //{
+        //    string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
+        //    //返信用result,message,retcode追加
+        //    tcommons.AddItems2DictOutputData(taskret, ref Dict);
 
-            //<taskid=vlin1901>【ファイル生成】ENDファイルの発行
-            taskid = 901;
-            Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end1", ref msg, ref Dbgmsg);
-            if (oef.Result == retkey.ng)
-            {
-                return oef;
-            }
+
+        //    //<taskid=vlin1901>【ファイル生成】ENDファイルの発行
+        //    taskid = 901;
+        //    Task_Ret oef = tcommons.OutputEndFile(taskid, fs, Dict, "end1", ref msg, ref Dbgmsg);
+        //    if (oef.Result == retkey.ng)
+        //    {
+        //        return oef;
+        //    }
 
             
-            //<taskid=vlin1902>【PLC】設備にOUTファイル取得要求（PLCの内部リレー操作）
-            taskid += 1;
-            if (fs.mci.UsePlcTrig)
-            {
-                Task_Ret fgr = tcommons.FileGetRequest_Plc(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-                if (fgr.Result == retkey.ng)
-                {
-                    return fgr;
-                }
-            }
+        //    //<taskid=vlin1902>【PLC】設備にOUTファイル取得要求（PLCの内部リレー操作）
+        //    taskid += 1;
+        //    if (fs.mci.UsePlcTrig)
+        //    {
+        //        Task_Ret fgr = tcommons.FileGetRequest_Plc(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
+        //        if (fgr.Result == retkey.ng)
+        //        {
+        //            return fgr;
+        //        }
+        //    }
 
-            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
-        }
+        //    return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
+        //}
 
     }
 }

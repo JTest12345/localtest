@@ -11,7 +11,7 @@ namespace FileIf
         TaskFile_cok1 cok1;
 
         // Endファイル用変数格納用辞書
-        Dictionary<string, string> Dict;
+        //Dictionary<string, string> Dict;
 
         // 初期化
         public Tasks_cok1()
@@ -19,8 +19,13 @@ namespace FileIf
             tcommons = new Tasks_Common();
             minfo = new Macconinfo();
             cok1 = new TaskFile_cok1();
+            // 返信ファイル名変更
+            endfilenm = "end1";
             // 返信ファイル用辞書の初期化
             Dict = tcommons.InitRetFileDict();
+            Dict.Add("{allowmix}", "0");
+            Dict.Add("{productnm}", "");
+            //retDict = new Dictionary<string, string>(Dict);
         }
 
         // cok1のデータベース操作タスク関数
@@ -67,32 +72,50 @@ namespace FileIf
                 taskid += 1;
                 bool allowmix = false;
 
-                // JunkiSys.Dll
+                // ResinPrg.Dll(PMMS)
+                // Cupnoから対象製品名を取得
+                var productnm = string.Empty;
+                if (!ResinPrg.WorkResin.Cupno2Productnm(fs.MagCupNo, ref productnm, ref msg))
+                {
+                    msg = tcommons.ErrorMessage(taskid, fs, msg);
+                    return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
+                }
+
+                Dbgmsg += "PMMS製品名問合せが完了しました" + crlf;
+                Dbgmsg += "Productnm: " + productnm + crlf;
+
+                Dict["{productnm}"] = productnm;
+
+                // Cupnoから作業の整合性を確認
                 if (!ResinPrg.WorkResin.CheckBeforeStartResinMix(fs.MagCupNo, minfo.Macno, ref allowmix, ref msg))
                 {
                     msg = tcommons.ErrorMessage(taskid, fs, msg);
                     Dbgmsg += "PMMSからエラー返信がありました" + crlf;
-                    Dbgmsg += "AllowMix: 0 で登録します" + crlf;
-                    Dict.Add("{allowmix}", "0");
                     return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
                 }
 
-                Dbgmsg += "PMMS問合せが完了しました" + crlf;
+                Dbgmsg += "PMMS作業整合問合せが完了しました" + crlf;
                 Dbgmsg += "AllowMix: " + allowmix.ToString() + crlf;
                 if (allowmix)
                 {
-                    Dict.Add("{allowmix}", "1");
+                    Dict["{allowmix}"] = "1";
                 }
                 else
                 {
-                    Dict.Add("{allowmix}", "0");
+                    Dict["{allowmix}"] = "0";
                 }
+
+                ////for Debug
+                //Dict["{allowmix}"] = "1";
+                //Dict["{productnm}"] = "test-product-001";
+
             }
             catch (Exception ex)
             {
                 msg = tcommons.ErrorMessage(taskid, fs, ex.Message);
                 return tcommons.MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
             }
+
 
             //<taskid=cok1105> inフォルダからtempフォルダにINファイルを移動
             taskid += 1;
@@ -109,32 +132,51 @@ namespace FileIf
 
 
         // cok1のEND出力タスク関数
-        public Task_Ret OutFileTasks(Mcfilesys fs, Task_Ret taskret)
-        {
-            string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
+        //public Task_Ret OutFileTasks(Mcfilesys fs, Task_Ret taskret)
+        //{
+        //    string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
+        //    //返信用result,message,retcode追加
+        //    tcommons.AddItems2DictOutputData(taskret, ref Dict);
 
-            //<taskid=cok1901>【ファイル生成】ENDファイルの発行
-            taskid = 901;
-            Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end1", ref msg, ref Dbgmsg);
-            if (oef.Result == retkey.ng)
-            {
-                return oef;
-            }
 
-            
-            //<taskid=cok1902>【PLC】設備にOUTファイル取得要求（PLCの内部リレー操作）
-            taskid += 1;
-            if (fs.mci.UsePlcTrig)
-            {
-                Task_Ret fgr = tcommons.FileGetRequest_Plc(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
-                if (fgr.Result == retkey.ng)
-                {
-                    return fgr;
-                }
-            }
+        //    //<taskid=cok1901>【ファイル生成】ENDファイルの発行
+        //    taskid = 901;
+        //    if (!fs.mcfc.disableEndfile)
+        //    {
+        //        Task_Ret oef = tcommons.OutputEndFile(taskid, fs, Dict, "end1", ref msg, ref Dbgmsg);
+        //        if (oef.Result == retkey.ng)
+        //        {
+        //            return oef;
+        //        }
+        //    }
 
-            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
-        }
+
+        //    //<taskid=cok1902> PLCデバイスに直接データを書込みます
+        //    //【デバッグ中コードです】 
+        //    taskid += 1;
+        //    if (fs.mcfc.useplcdevret)
+        //    {
+        //        Task_Ret dspd = tcommons.DataSet2PlcDevs(taskid, fs, minfo, Dict, ref msg, ref Dbgmsg);
+        //        if (dspd.Result == retkey.ng)
+        //        {
+        //            return dspd;
+        //        }
+        //    }
+
+
+        //    //<taskid=cok1903>【PLC】設備にOUTファイル取得要求（PLCの内部リレー操作）
+        //    taskid += 1;
+        //    if (fs.mci.UsePlcTrig)
+        //    {
+        //        Task_Ret fgr = tcommons.FileGetRequest_Plc(taskid, fs, minfo, ref Dict, ref msg, ref Dbgmsg);
+        //        if (fgr.Result == retkey.ng)
+        //        {
+        //            return fgr;
+        //        }
+        //    }
+
+        //    return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
+        //}
 
     }
 }

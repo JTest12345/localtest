@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using Oskas;
+using Oskas.Functions.Plcs;
 
 
 namespace FileIf
@@ -273,7 +274,7 @@ namespace FileIf
         }
 
 
-        public Task_Ret FileGetRequest_Plc(int taskid, Mcfilesys fs, Macconinfo minfo, ref Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
+        public Task_Ret FileGetRequest_Plc(int taskid, Mcfilesys fs, Macconinfo minfo, Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
         {
             try
             {
@@ -317,6 +318,100 @@ namespace FileIf
         }
 
 
+        public Task_Ret DataSet2PlcDevs(int taskid, Mcfilesys fs, Macconinfo minfo, Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
+        {
+            try
+            {
+                if (fs.mcfc.foi.useplcdev)
+                {
+                    var plc = new KeyenceTcp(minfo.Ipaddress, int.Parse(minfo.Port));
+
+                    if (plc.Ping(minfo.Ipaddress, 500, 3))
+                    {
+                        // デバイスリターンの文字列を辞書化する
+                        var devretlist = new Dictionary<string, string>();
+                        var plcdevrets = fs.mcfc.plcdevrets.Replace("\r", "").Replace("\n", "").Split(',');
+                        foreach (var devret in plcdevrets)
+                        {
+                            var deretarr = devret.Replace(" ", "").Split(':');
+                            devretlist[deretarr[0]] = deretarr[1];
+                        }
+
+                        // デバイスリターン辞書に沿ってPLCデバイスに値を書込む
+                        foreach (var devret in devretlist)
+                        {
+                            var finddev = false;
+                            foreach (var devconfs in fs.plcc.devs.devconfs)
+                            {
+                                if (devret.Key == devconfs.devid)
+                                {
+                                    switch (devconfs.devdataformat)
+                                    {
+                                        case "int":
+                                            //初期化：0を書込み
+                                            plc.SetWordAsDecimalData(devconfs.devtype + devconfs.devno, 0);
+                                            //辞書内指定データ書込み
+                                            plc.SetWordAsDecimalData(devconfs.devtype + devconfs.devno, int.Parse(Dict[devret.Value]));
+                                            if (plc.GetWordAsDecimalData(devconfs.devtype + devconfs.devno) != int.Parse(Dict[devret.Value]))
+                                            {
+                                                string mes = "PLCへのデータ書込みが失敗しています";
+                                                msg = ErrorMessage(taskid, fs, mes);
+                                                return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
+                                            }
+                                            break;
+
+                                        case "string":
+                                            //初期化：devconfsのバイト数指定分スペース埋め
+                                            plc.SetString(devconfs.devtype + devconfs.devno, new String(' ', int.Parse(devconfs.devbyte)));
+                                            //辞書内指定データ書込み
+                                            if (!plc.SetString(devconfs.devtype + devconfs.devno, Dict[devret.Value]))
+                                            {
+                                                string mes = "PLCへのデータ書込みが失敗しています";
+                                                msg = ErrorMessage(taskid, fs, mes);
+                                                return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
+                                            }
+
+                                            break;
+
+                                    }
+                                    Dbgmsg += $"設備:{fs.Pcat}({fs.Macno})/{fs.lbl[0]}:{fs.MagCupNo} " + devret.Key +  $"に[{Dict[devret.Value]}]を書き込みました: taskid={fs.lbl[1]}{taskid.ToString()}";
+                                    finddev = true;
+                                    break;
+                                }
+                            }
+
+                            if(!finddev)
+                            {
+                                string mes = "指定のデバイスリターンに対応するPLCデバイスが見つかりませんでした";
+                                msg = ErrorMessage(taskid, fs, mes);
+                                return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        string mes = Dbgmsg;
+                        msg = ErrorMessage(taskid, fs, mes);
+                        return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
+                    }
+
+                    // 成功
+                    return MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
+                }
+                else
+                {
+                    return MakeRet(retkey.ok, "", "PLCデバイストリガはmacconfにて使用しない設定になっています", (int)retcode.Success);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                msg = ErrorMessage(taskid, fs, ex.Message);
+                return MakeRet(retkey.ng, msg, Dbgmsg, (int)retcode.Failure);
+            }
+        }
+
         public Task_Ret MoveIn2TempFolder(int taskid, Mcfilesys fs, ref Dictionary<string, string> Dict, ref string msg, ref string Dbgmsg)
         {
             try
@@ -335,19 +430,13 @@ namespace FileIf
         }
 
 
-        public Task_Ret OutputEndFile(int taskid, Mcfilesys fs, Task_Ret taskret, Dictionary<string,string> Dict, string endkey, ref string msg, ref string Dbgmsg)
+        public Task_Ret OutputEndFile(int taskid, Mcfilesys fs, Dictionary<string,string> Dict, string endkey, ref string msg, ref string Dbgmsg)
         {
             try
             {
                 var edcf = new Endfileconf();
                 edcf.endfcontents = new List<string>(); // endファイル内容格納配列
                 string contents = "";
-
-                //返信用のresult,message,retcodeをここで追加
-                Dict.Add("{result}", taskret.Result);
-                Dict.Add("{message}", taskret.Msg);
-                Dict.Add("{retcode}", taskret.RetCode.ToString());
-                Dict.Add("{debugmsg}", taskret.DebugMsg.Replace("\r", "").Replace("\n", ""));
 
                 //string MacFilePath = fs.fpath + @"\conf\macconf.ini";
 
@@ -577,6 +666,7 @@ namespace FileIf
                 return false;
             }
         }
+
 
 
         public bool CleanMagCupDir(Mcfilesys fs, List<string> fldn)

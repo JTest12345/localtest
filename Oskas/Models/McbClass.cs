@@ -63,12 +63,14 @@ namespace Oskas
                 string[] devid = new string[] { "IO-1", "IO-2", "IO-3" };
                 string[] devtype = new string[] { "MR", "MR", "MR" };
                 string[] devno = new string[] { "500" + (num), "500" + (num + 1), "500" + (num + 2) };
+                string[] devdataformat = new string[] { "int", "int", "int" };
                 for (int i = 0; i < devtype.Length; i++)
                 {
                     Plcs[num].devs.devconfs.Add(new devconf());
                     Plcs[num].devs[i].devid = devid[i];
                     Plcs[num].devs[i].devtype = devtype[i];
                     Plcs[num].devs[i].devno = devno[i];
+                    Plcs[num].devs[i].devdataformat = devdataformat[i];
                 }
 
                 bool[] useftpsv = new bool[] { true };
@@ -216,9 +218,11 @@ namespace Oskas
         public string mcfilekey { get; set; }
         public string encoding { get; set; }
         public string returns { get; set; }
+        public string plcdevrets { get; set; }
         public bool disableEndfile { get; set; }
         public bool verifiparam { get; set; }
         public bool spfnc1 { get; set; }
+        public bool useplcdevret { get; set; }
         public fileOwnerinfo foi = new fileOwnerinfo();
     }
 
@@ -314,6 +318,8 @@ namespace Oskas
         public string devid { get; set; }
         public string devtype { get; set; }
         public string devno { get; set; }
+        public string devdataformat { get; set; }
+        public string devbyte { get; set; }
     }
 
 

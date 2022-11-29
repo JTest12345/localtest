@@ -16,7 +16,7 @@ namespace FileIf
         string coj = string.Empty;
 
         //Endファイル用変数格納用辞書
-        Dictionary<string, string> Dict;
+        //Dictionary<string, string> Dict;
 
         // 初期化
         public Tasks_vip1()
@@ -207,23 +207,26 @@ namespace FileIf
         }
 
 
-        // outのEND出力タスク関数
-        public Task_Ret OutFileTasks(Mcfilesys fs, Task_Ret taskret)
-        {
-            string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
+        //// outのEND出力タスク関数
+        //public Task_Ret OutFileTasks(Mcfilesys fs, Task_Ret taskret)
+        //{
+        //    string msg = "", Dbgmsg = ""; // メッセージ（通常, デバック）
+        //    //返信用result,message,retcode追加
+        //    tcommons.AddItems2DictOutputData(taskret, ref Dict);
 
-            //<taskid=vip901>【ファイル生成】ENDファイルの発行
-            taskid = 901;
-            if (!fs.mcfc.disableEndfile)
-            {
-                Task_Ret oef = tcommons.OutputEndFile(taskid, fs, taskret, Dict, "end", ref msg, ref Dbgmsg);
-                if (oef.Result == retkey.ng)
-                {
-                    return oef;
-                }
-            }
 
-            return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
-        }
+        //    //<taskid=vip901>【ファイル生成】ENDファイルの発行
+        //    taskid = 901;
+        //    if (!fs.mcfc.disableEndfile)
+        //    {
+        //        Task_Ret oef = tcommons.OutputEndFile(taskid, fs, Dict, "end", ref msg, ref Dbgmsg);
+        //        if (oef.Result == retkey.ng)
+        //        {
+        //            return oef;
+        //        }
+        //    }
+
+        //    return tcommons.MakeRet(retkey.ok, "", Dbgmsg, (int)retcode.Success);
+        //}
     }
 }

@@ -63,7 +63,7 @@
     </Reference>
     <Reference Include="ResinPrg, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>\\SVFILE2\fileserver\136商品企画\22_CEJ Project\03_ViP\13_システム\02_情シス資料\開発関連\【VSP照明合理化】\配合SYS_DLL\ResinPrg.dll</HintPath>
+      <HintPath>..\libcej\ResinPrg.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -105,9 +105,9 @@
     <Compile Include="Models\MagCup\MagCupTasks.cs" />
     <Compile Include="Models\OldSchool\OldSchool.cs" />
     <Compile Include="Models\Systemfile.cs" />
-    <Compile Include="Functions\Tasks_Common.cs" />
+    <Compile Include="Controller\Functions\Tasks_Common.cs" />
     <Compile Include="Controller\TaskControlHandler.cs" />
-    <Compile Include="Models\TaskInterface.cs" />
+    <Compile Include="Controller\TaskInterface.cs" />
     <Compile Include="Controller\TaskCnt4mJ\Tasks_avi01.cs" />
     <Compile Include="Controller\TaskCntCsv\Tasks_csvtest.cs" />
     <Compile Include="Controller\TaskCntCup\Tasks_cot1.cs" />
@@ -121,7 +121,7 @@
     <Compile Include="Controller\TasksCntMag\Tasks_min2.cs" />
     <Compile Include="Controller\TasksCntMag\Tasks_mio.cs" />
     <Compile Include="Controller\TasksCntMag\Tasks_mot.cs" />
-    <Compile Include="Functions\WipFuncs.cs" />
+    <Compile Include="Controller\Functions\WipFuncs.cs" />
     <Compile Include="Models\Vip\Fetch.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

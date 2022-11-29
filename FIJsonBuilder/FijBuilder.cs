@@ -122,6 +122,8 @@ namespace FIFJsonBuilder
             tb_plc_devid.TextChanged += new EventHandler(savedata2mcconf);
             cb_plc_devtype.TextChanged += new EventHandler(savedata2mcconf);
             tb_plc_devno.TextChanged += new EventHandler(savedata2mcconf);
+            tb_plc_devbyte.TextChanged += new EventHandler(savedata2mcconf);
+            cb_plc_devdtfmt.TextChanged += new EventHandler(savedata2mcconf);
             tb_plc_sharefdname.TextChanged += new EventHandler(savedata2mcconf);
             tb_plc_sharefdpath.TextChanged += new EventHandler(savedata2mcconf);
 
@@ -142,10 +144,12 @@ namespace FIFJsonBuilder
             tb_mcfilekey.TextChanged += new EventHandler(savedata2mcconf);
             cb_mcfile_enc.TextChanged += new EventHandler(savedata2mcconf);
             tb_mcfile_return.TextChanged += new EventHandler(savedata2mcconf);
+            tb_plcdev_return.TextChanged += new EventHandler(savedata2mcconf);
             chk_mcfile_disableEndfile.CheckedChanged += new EventHandler(savedata2mcconf);
             chk_mcfile_verifiparam.CheckedChanged += new EventHandler(savedata2mcconf);
             chk_mcfile_sp1.CheckedChanged += new EventHandler(savedata2mcconf);
             chk_mcfile_useplcdev.CheckedChanged += new EventHandler(mcfedited);
+            chk_useplcdev_return.CheckedChanged += new EventHandler(savedata2mcconf);
             cb_mcf_plcdev.TextChanged += new EventHandler(savedata2mcconf);
             chk_mcf_serverpull.CheckedChanged += new EventHandler(mcfedited);
             cb_mcf_cnttype.TextChanged += new EventHandler(mcfedited);
@@ -296,7 +300,9 @@ namespace FIFJsonBuilder
                         {
                             devid = words[1],
                             devno = "",
-                            devtype = ""
+                            devtype = "",
+                            devdataformat = "",
+                            devbyte = ""
                         });
                         lb_plc_dev.Items.Add(words[1]);
                         lb_plc_dev.SelectedIndex = lb_plc_dev.Items.Count - 1;
@@ -343,6 +349,7 @@ namespace FIFJsonBuilder
                             mcfilekey = words[1],
                             encoding = "",
                             returns = "",
+                            plcdevrets = "",
                             spfnc1 = false,
                             verifiparam = false,
                             foi = new Oskas.fileOwnerinfo
@@ -600,7 +607,8 @@ namespace FIFJsonBuilder
             tb_plc_devid.Text = dvconf.devid;
             tb_plc_devno.Text = dvconf.devno;
             cb_plc_devtype.Text = dvconf.devtype;
-            
+            cb_plc_devdtfmt.Text = dvconf.devdataformat;
+            tb_plc_devbyte.Text = dvconf.devbyte;
         }
 
         /// <summary>
@@ -611,6 +619,8 @@ namespace FIFJsonBuilder
             tb_plc_devid.Text = "";
             tb_plc_devno.Text = "";
             cb_plc_devtype.Text = "";
+            cb_plc_devdtfmt.Text = "";
+            tb_plc_devbyte.Text = "";
         }
 
         /// <summary>
@@ -905,12 +915,14 @@ namespace FIFJsonBuilder
         {
             tb_mcfilekey.Text = mcfconf.mcfilekey;
             tb_mcfile_return.Text = mcfconf.returns;
+            tb_plcdev_return.Text = mcfconf.plcdevrets;
             cb_mcfile_enc.Text = mcfconf.encoding;
             chk_mcfile_useplcdev.Checked = mcfconf.foi.useplcdev;
             cb_mcf_plcdev.Text = mcfconf.foi.devid;
             chk_mcfile_sp1.Checked = mcfconf.spfnc1;
             chk_mcfile_disableEndfile.Checked = mcfconf.disableEndfile;
             chk_mcfile_verifiparam.Checked = mcfconf.verifiparam;
+            chk_useplcdev_return.Checked = mcfconf.useplcdevret;
             cb_mcf_inttimfetch.Text = mcfconf.foi.inttimefetch;
             cb_mcf_cnttype.Text = mcfconf.foi.cnttype;
             update_mcf_cbcntid();
@@ -932,6 +944,7 @@ namespace FIFJsonBuilder
         {
             tb_mcfilekey.Text = "";
             tb_mcfile_return.Text = "";
+            tb_plcdev_return.Text = "";
             cb_mcfile_enc.Text = "";
             chk_mcfile_sp1.Checked = false;
             chk_mcfile_useplcdev.Checked = false;
@@ -1023,6 +1036,15 @@ namespace FIFJsonBuilder
                     tb_mcfile_return.Enabled = false;
                     chk_mcfile_verifiparam.Enabled = false;
                     chk_mcfile_sp1.Enabled = false;
+                }
+                //chk_useplcdev_return
+                if (chk_useplcdev_return.Checked)
+                {
+                    tb_plcdev_return.Enabled = true;
+                }
+                else
+                {
+                    tb_plcdev_return.Enabled = false;
                 }
                 //chk_mcfile_useplcdev
                 if (chk_mcfile_useplcdev.Checked)
@@ -1392,6 +1414,8 @@ namespace FIFJsonBuilder
                         mcconf.Plcs[lb_plc.SelectedIndex].devs[lb_plc_dev.SelectedIndex].devid = tb_plc_devid.Text;
                         mcconf.Plcs[lb_plc.SelectedIndex].devs[lb_plc_dev.SelectedIndex].devtype = cb_plc_devtype.Text;
                         mcconf.Plcs[lb_plc.SelectedIndex].devs[lb_plc_dev.SelectedIndex].devno = tb_plc_devno.Text;
+                        mcconf.Plcs[lb_plc.SelectedIndex].devs[lb_plc_dev.SelectedIndex].devdataformat = cb_plc_devdtfmt.Text;
+                        mcconf.Plcs[lb_plc.SelectedIndex].devs[lb_plc_dev.SelectedIndex].devbyte = tb_plc_devbyte.Text;
                     }
                     if (lb_plc_sharefd.SelectedIndex > -1)
                     {
@@ -1422,6 +1446,7 @@ namespace FIFJsonBuilder
                 {
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].mcfilekey = tb_mcfilekey.Text;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].returns = tb_mcfile_return.Text;
+                    mcconf.Mcfs[lb_mcfilekey.SelectedIndex].plcdevrets = tb_plcdev_return.Text;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].encoding = cb_mcfile_enc.Text;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].disableEndfile = chk_mcfile_disableEndfile.Checked;
                     if (!chk_mcfile_disableEndfile.Checked)
@@ -1440,6 +1465,17 @@ namespace FIFJsonBuilder
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].spfnc1 = chk_mcfile_sp1.Checked;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.useplcdev = chk_mcfile_useplcdev.Checked;
                     mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.devid = cb_mcf_plcdev.Text;
+
+                    mcconf.Mcfs[lb_mcfilekey.SelectedIndex].useplcdevret = chk_useplcdev_return.Checked;
+                    if (chk_useplcdev_return.Checked)
+                    {
+                        tb_plcdev_return.Enabled = true;
+                    }
+                    else
+                    {
+                        tb_plcdev_return.Enabled = false;
+                    }
+
                     if (mcconf.Mcfs[lb_mcfilekey.SelectedIndex].foi.useplcdev)
                     {
                         cb_mcf_plcdev.Enabled = true;
@@ -1478,7 +1514,7 @@ namespace FIFJsonBuilder
         /////////////////////////////
         private bool chkints()
         {
-            var NumTxtBoxlst = new TextBox[] { tb_plc_devport, tb_plc_ftpport, tb_plc_devno, tb_pc_ftpport };
+            var NumTxtBoxlst = new TextBox[] { tb_plc_devport, tb_plc_ftpport, tb_plc_devno, tb_pc_ftpport, tb_plc_devbyte };
             for (int i = 0; i < NumTxtBoxlst.Length; i++)
             {
                 if (NumTxtBoxlst[i].Text!="" && !IntValueChk(NumTxtBoxlst[i].Text))

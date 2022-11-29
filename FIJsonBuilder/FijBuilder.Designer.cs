@@ -38,6 +38,9 @@
             this.tb_plc = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tb_plc_devno = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.cb_plc_devdtfmt = new System.Windows.Forms.ComboBox();
             this.cb_plc_devtype = new System.Windows.Forms.ComboBox();
             this.bt_rm_plcdev = new System.Windows.Forms.Button();
             this.bt_add_plcdev = new System.Windows.Forms.Button();
@@ -45,7 +48,6 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.lb_plc_dev = new System.Windows.Forms.ListBox();
-            this.tb_plc_devno = new System.Windows.Forms.TextBox();
             this.tb_plc_devid = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label34 = new System.Windows.Forms.Label();
@@ -103,8 +105,15 @@
             this.lb_pc = new System.Windows.Forms.ListBox();
             this.label7 = new System.Windows.Forms.Label();
             this.tb_mcfile = new System.Windows.Forms.TabPage();
-            this.chk_mcfile_sp1 = new System.Windows.Forms.CheckBox();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tab_endfile = new System.Windows.Forms.TabPage();
             this.tb_mcfile_return = new System.Windows.Forms.TextBox();
+            this.chk_mcfile_sp1 = new System.Windows.Forms.CheckBox();
+            this.chk_mcfile_verifiparam = new System.Windows.Forms.CheckBox();
+            this.chk_mcfile_disableEndfile = new System.Windows.Forms.CheckBox();
+            this.tab_plcdevice = new System.Windows.Forms.TabPage();
+            this.tb_plcdev_return = new System.Windows.Forms.TextBox();
+            this.chk_useplcdev_return = new System.Windows.Forms.CheckBox();
             this.tb_mcfilekey = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.cmb_infilekey = new System.Windows.Forms.ComboBox();
@@ -125,14 +134,11 @@
             this.label39 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.cb_mcfile_enc = new System.Windows.Forms.ComboBox();
-            this.chk_mcfile_verifiparam = new System.Windows.Forms.CheckBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.bt_rm_mcfilekey = new System.Windows.Forms.Button();
             this.bt_add_mcfilekey = new System.Windows.Forms.Button();
             this.lb_mcfilekey = new System.Windows.Forms.ListBox();
-            this.chk_mcfile_disableEndfile = new System.Windows.Forms.CheckBox();
             this.tab_mstsf = new System.Windows.Forms.TabPage();
             this.tb_mstsfkey = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -155,6 +161,8 @@
             this.lb_mstsfkey = new System.Windows.Forms.ListBox();
             this.bt_svmcj = new System.Windows.Forms.Button();
             this.bt_closefm = new System.Windows.Forms.Button();
+            this.tb_plc_devbyte = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.tb_main.SuspendLayout();
             this.tb_common.SuspendLayout();
             this.tb_plc.SuspendLayout();
@@ -168,6 +176,9 @@
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tb_mcfile.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tab_endfile.SuspendLayout();
+            this.tab_plcdevice.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.tab_mstsf.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -277,6 +288,11 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.tb_plc_devbyte);
+            this.tabPage1.Controls.Add(this.tb_plc_devno);
+            this.tabPage1.Controls.Add(this.label10);
+            this.tabPage1.Controls.Add(this.label40);
+            this.tabPage1.Controls.Add(this.cb_plc_devdtfmt);
             this.tabPage1.Controls.Add(this.cb_plc_devtype);
             this.tabPage1.Controls.Add(this.bt_rm_plcdev);
             this.tabPage1.Controls.Add(this.bt_add_plcdev);
@@ -284,7 +300,6 @@
             this.tabPage1.Controls.Add(this.label22);
             this.tabPage1.Controls.Add(this.label21);
             this.tabPage1.Controls.Add(this.lb_plc_dev);
-            this.tabPage1.Controls.Add(this.tb_plc_devno);
             this.tabPage1.Controls.Add(this.tb_plc_devid);
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
@@ -293,6 +308,36 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "PLCデバイス設定";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tb_plc_devno
+            // 
+            this.tb_plc_devno.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.tb_plc_devno.Location = new System.Drawing.Point(215, 82);
+            this.tb_plc_devno.Name = "tb_plc_devno";
+            this.tb_plc_devno.Size = new System.Drawing.Size(115, 24);
+            this.tb_plc_devno.TabIndex = 18;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(141, 115);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(74, 17);
+            this.label40.TabIndex = 25;
+            this.label40.Text = "データ形式：";
+            // 
+            // cb_plc_devdtfmt
+            // 
+            this.cb_plc_devdtfmt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_plc_devdtfmt.FormattingEnabled = true;
+            this.cb_plc_devdtfmt.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.cb_plc_devdtfmt.Items.AddRange(new object[] {
+            "int",
+            "string"});
+            this.cb_plc_devdtfmt.Location = new System.Drawing.Point(215, 112);
+            this.cb_plc_devdtfmt.Name = "cb_plc_devdtfmt";
+            this.cb_plc_devdtfmt.Size = new System.Drawing.Size(115, 25);
+            this.cb_plc_devdtfmt.TabIndex = 24;
             // 
             // cb_plc_devtype
             // 
@@ -303,14 +348,14 @@
             "B",
             "MR",
             "DM"});
-            this.cb_plc_devtype.Location = new System.Drawing.Point(128, 79);
+            this.cb_plc_devtype.Location = new System.Drawing.Point(215, 51);
             this.cb_plc_devtype.Name = "cb_plc_devtype";
-            this.cb_plc_devtype.Size = new System.Drawing.Size(185, 25);
+            this.cb_plc_devtype.Size = new System.Drawing.Size(113, 25);
             this.cb_plc_devtype.TabIndex = 23;
             // 
             // bt_rm_plcdev
             // 
-            this.bt_rm_plcdev.Location = new System.Drawing.Point(91, 175);
+            this.bt_rm_plcdev.Location = new System.Drawing.Point(111, 175);
             this.bt_rm_plcdev.Name = "bt_rm_plcdev";
             this.bt_rm_plcdev.Size = new System.Drawing.Size(24, 24);
             this.bt_rm_plcdev.TabIndex = 17;
@@ -333,7 +378,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(125, 107);
+            this.label23.Location = new System.Drawing.Point(141, 85);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(58, 17);
             this.label23.TabIndex = 20;
@@ -342,7 +387,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(124, 59);
+            this.label22.Location = new System.Drawing.Point(141, 55);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(68, 17);
             this.label22.TabIndex = 21;
@@ -351,7 +396,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(124, 12);
+            this.label21.Location = new System.Drawing.Point(141, 4);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(96, 17);
             this.label21.TabIndex = 22;
@@ -364,24 +409,16 @@
             this.lb_plc_dev.ItemHeight = 17;
             this.lb_plc_dev.Location = new System.Drawing.Point(17, 12);
             this.lb_plc_dev.Name = "lb_plc_dev";
-            this.lb_plc_dev.Size = new System.Drawing.Size(98, 157);
+            this.lb_plc_dev.Size = new System.Drawing.Size(118, 157);
             this.lb_plc_dev.TabIndex = 15;
-            // 
-            // tb_plc_devno
-            // 
-            this.tb_plc_devno.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.tb_plc_devno.Location = new System.Drawing.Point(127, 126);
-            this.tb_plc_devno.Name = "tb_plc_devno";
-            this.tb_plc_devno.Size = new System.Drawing.Size(186, 24);
-            this.tb_plc_devno.TabIndex = 18;
             // 
             // tb_plc_devid
             // 
             this.tb_plc_devid.Enabled = false;
             this.tb_plc_devid.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.tb_plc_devid.Location = new System.Drawing.Point(127, 32);
+            this.tb_plc_devid.Location = new System.Drawing.Point(144, 21);
             this.tb_plc_devid.Name = "tb_plc_devid";
-            this.tb_plc_devid.Size = new System.Drawing.Size(186, 24);
+            this.tb_plc_devid.Size = new System.Drawing.Size(184, 24);
             this.tb_plc_devid.TabIndex = 19;
             // 
             // tabPage2
@@ -945,19 +982,15 @@
             // 
             // tb_mcfile
             // 
-            this.tb_mcfile.Controls.Add(this.chk_mcfile_sp1);
-            this.tb_mcfile.Controls.Add(this.tb_mcfile_return);
+            this.tb_mcfile.Controls.Add(this.tabControl2);
             this.tb_mcfile.Controls.Add(this.tb_mcfilekey);
             this.tb_mcfile.Controls.Add(this.groupBox8);
             this.tb_mcfile.Controls.Add(this.cb_mcfile_enc);
-            this.tb_mcfile.Controls.Add(this.chk_mcfile_verifiparam);
-            this.tb_mcfile.Controls.Add(this.label10);
             this.tb_mcfile.Controls.Add(this.label9);
             this.tb_mcfile.Controls.Add(this.label8);
             this.tb_mcfile.Controls.Add(this.bt_rm_mcfilekey);
             this.tb_mcfile.Controls.Add(this.bt_add_mcfilekey);
             this.tb_mcfile.Controls.Add(this.lb_mcfilekey);
-            this.tb_mcfile.Controls.Add(this.chk_mcfile_disableEndfile);
             this.tb_mcfile.Location = new System.Drawing.Point(4, 26);
             this.tb_mcfile.Name = "tb_mcfile";
             this.tb_mcfile.Padding = new System.Windows.Forms.Padding(3);
@@ -966,29 +999,105 @@
             this.tb_mcfile.Text = "FILEIF IOファイル設定";
             this.tb_mcfile.UseVisualStyleBackColor = true;
             // 
-            // chk_mcfile_sp1
+            // tabControl2
             // 
-            this.chk_mcfile_sp1.AutoSize = true;
-            this.chk_mcfile_sp1.Location = new System.Drawing.Point(274, 85);
-            this.chk_mcfile_sp1.Name = "chk_mcfile_sp1";
-            this.chk_mcfile_sp1.Size = new System.Drawing.Size(140, 21);
-            this.chk_mcfile_sp1.TabIndex = 14;
-            this.chk_mcfile_sp1.Text = "電文最後に改行(\\r\\n)";
-            this.chk_mcfile_sp1.UseVisualStyleBackColor = true;
+            this.tabControl2.Controls.Add(this.tab_endfile);
+            this.tabControl2.Controls.Add(this.tab_plcdevice);
+            this.tabControl2.ItemSize = new System.Drawing.Size(78, 15);
+            this.tabControl2.Location = new System.Drawing.Point(139, 58);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(405, 105);
+            this.tabControl2.TabIndex = 33;
+            // 
+            // tab_endfile
+            // 
+            this.tab_endfile.Controls.Add(this.tb_mcfile_return);
+            this.tab_endfile.Controls.Add(this.chk_mcfile_sp1);
+            this.tab_endfile.Controls.Add(this.chk_mcfile_verifiparam);
+            this.tab_endfile.Controls.Add(this.chk_mcfile_disableEndfile);
+            this.tab_endfile.Location = new System.Drawing.Point(4, 19);
+            this.tab_endfile.Name = "tab_endfile";
+            this.tab_endfile.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_endfile.Size = new System.Drawing.Size(397, 82);
+            this.tab_endfile.TabIndex = 0;
+            this.tab_endfile.Text = "END FILE";
+            this.tab_endfile.UseVisualStyleBackColor = true;
             // 
             // tb_mcfile_return
             // 
-            this.tb_mcfile_return.Location = new System.Drawing.Point(154, 106);
+            this.tb_mcfile_return.Location = new System.Drawing.Point(142, 6);
             this.tb_mcfile_return.Multiline = true;
             this.tb_mcfile_return.Name = "tb_mcfile_return";
-            this.tb_mcfile_return.Size = new System.Drawing.Size(384, 52);
-            this.tb_mcfile_return.TabIndex = 12;
+            this.tb_mcfile_return.Size = new System.Drawing.Size(245, 69);
+            this.tb_mcfile_return.TabIndex = 33;
+            // 
+            // chk_mcfile_sp1
+            // 
+            this.chk_mcfile_sp1.AutoSize = true;
+            this.chk_mcfile_sp1.Location = new System.Drawing.Point(7, 43);
+            this.chk_mcfile_sp1.Name = "chk_mcfile_sp1";
+            this.chk_mcfile_sp1.Size = new System.Drawing.Size(129, 21);
+            this.chk_mcfile_sp1.TabIndex = 34;
+            this.chk_mcfile_sp1.Text = "電文末尾改行(\\r\\n)";
+            this.chk_mcfile_sp1.UseVisualStyleBackColor = true;
+            // 
+            // chk_mcfile_verifiparam
+            // 
+            this.chk_mcfile_verifiparam.AutoSize = true;
+            this.chk_mcfile_verifiparam.Location = new System.Drawing.Point(7, 24);
+            this.chk_mcfile_verifiparam.Name = "chk_mcfile_verifiparam";
+            this.chk_mcfile_verifiparam.Size = new System.Drawing.Size(115, 21);
+            this.chk_mcfile_verifiparam.TabIndex = 35;
+            this.chk_mcfile_verifiparam.Text = "パラメータ検査有";
+            this.chk_mcfile_verifiparam.UseVisualStyleBackColor = true;
+            // 
+            // chk_mcfile_disableEndfile
+            // 
+            this.chk_mcfile_disableEndfile.AutoSize = true;
+            this.chk_mcfile_disableEndfile.Location = new System.Drawing.Point(7, 4);
+            this.chk_mcfile_disableEndfile.Name = "chk_mcfile_disableEndfile";
+            this.chk_mcfile_disableEndfile.Size = new System.Drawing.Size(115, 21);
+            this.chk_mcfile_disableEndfile.TabIndex = 36;
+            this.chk_mcfile_disableEndfile.Text = "ファイル返信不要";
+            this.chk_mcfile_disableEndfile.UseVisualStyleBackColor = true;
+            // 
+            // tab_plcdevice
+            // 
+            this.tab_plcdevice.Controls.Add(this.tb_plcdev_return);
+            this.tab_plcdevice.Controls.Add(this.chk_useplcdev_return);
+            this.tab_plcdevice.Location = new System.Drawing.Point(4, 19);
+            this.tab_plcdevice.Name = "tab_plcdevice";
+            this.tab_plcdevice.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_plcdevice.Size = new System.Drawing.Size(397, 82);
+            this.tab_plcdevice.TabIndex = 1;
+            this.tab_plcdevice.Text = "PLC Device";
+            this.tab_plcdevice.UseVisualStyleBackColor = true;
+            // 
+            // tb_plcdev_return
+            // 
+            this.tb_plcdev_return.Location = new System.Drawing.Point(147, 6);
+            this.tb_plcdev_return.Multiline = true;
+            this.tb_plcdev_return.Name = "tb_plcdev_return";
+            this.tb_plcdev_return.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tb_plcdev_return.Size = new System.Drawing.Size(244, 70);
+            this.tb_plcdev_return.TabIndex = 34;
+            // 
+            // chk_useplcdev_return
+            // 
+            this.chk_useplcdev_return.AutoSize = true;
+            this.chk_useplcdev_return.Location = new System.Drawing.Point(7, 5);
+            this.chk_useplcdev_return.Name = "chk_useplcdev_return";
+            this.chk_useplcdev_return.Size = new System.Drawing.Size(126, 21);
+            this.chk_useplcdev_return.TabIndex = 37;
+            this.chk_useplcdev_return.Text = "返信にデバイス使用";
+            this.chk_useplcdev_return.UseVisualStyleBackColor = true;
             // 
             // tb_mcfilekey
             // 
             this.tb_mcfilekey.Enabled = false;
             this.tb_mcfilekey.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.tb_mcfilekey.Location = new System.Drawing.Point(153, 28);
+            this.tb_mcfilekey.Location = new System.Drawing.Point(145, 28);
             this.tb_mcfilekey.Name = "tb_mcfilekey";
             this.tb_mcfilekey.Size = new System.Drawing.Size(159, 24);
             this.tb_mcfilekey.TabIndex = 31;
@@ -1012,9 +1121,9 @@
             this.groupBox8.Controls.Add(this.cb_mcf_pulltype);
             this.groupBox8.Controls.Add(this.label39);
             this.groupBox8.Controls.Add(this.label32);
-            this.groupBox8.Location = new System.Drawing.Point(154, 164);
+            this.groupBox8.Location = new System.Drawing.Point(139, 164);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(390, 242);
+            this.groupBox8.Size = new System.Drawing.Size(405, 242);
             this.groupBox8.TabIndex = 30;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "ファイル取得設定";
@@ -1223,25 +1332,6 @@
             this.cb_mcfile_enc.Size = new System.Drawing.Size(173, 25);
             this.cb_mcfile_enc.TabIndex = 15;
             // 
-            // chk_mcfile_verifiparam
-            // 
-            this.chk_mcfile_verifiparam.AutoSize = true;
-            this.chk_mcfile_verifiparam.Location = new System.Drawing.Point(354, 66);
-            this.chk_mcfile_verifiparam.Name = "chk_mcfile_verifiparam";
-            this.chk_mcfile_verifiparam.Size = new System.Drawing.Size(137, 21);
-            this.chk_mcfile_verifiparam.TabIndex = 14;
-            this.chk_mcfile_verifiparam.Text = "パラメータ検査を行う";
-            this.chk_mcfile_verifiparam.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(150, 66);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(118, 17);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "FILEIF返信内容設定：";
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -1254,7 +1344,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(150, 11);
+            this.label8.Location = new System.Drawing.Point(142, 11);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(97, 17);
             this.label8.TabIndex = 13;
@@ -1290,16 +1380,6 @@
             this.lb_mcfilekey.Name = "lb_mcfilekey";
             this.lb_mcfilekey.Size = new System.Drawing.Size(116, 344);
             this.lb_mcfilekey.TabIndex = 9;
-            // 
-            // chk_mcfile_disableEndfile
-            // 
-            this.chk_mcfile_disableEndfile.AutoSize = true;
-            this.chk_mcfile_disableEndfile.Location = new System.Drawing.Point(274, 66);
-            this.chk_mcfile_disableEndfile.Name = "chk_mcfile_disableEndfile";
-            this.chk_mcfile_disableEndfile.Size = new System.Drawing.Size(71, 21);
-            this.chk_mcfile_disableEndfile.TabIndex = 32;
-            this.chk_mcfile_disableEndfile.Text = "返信不要";
-            this.chk_mcfile_disableEndfile.UseVisualStyleBackColor = true;
             // 
             // tab_mstsf
             // 
@@ -1559,6 +1639,23 @@
             this.bt_closefm.UseVisualStyleBackColor = true;
             this.bt_closefm.Click += new System.EventHandler(this.bt_closefm_Click);
             // 
+            // tb_plc_devbyte
+            // 
+            this.tb_plc_devbyte.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.tb_plc_devbyte.Location = new System.Drawing.Point(215, 143);
+            this.tb_plc_devbyte.Name = "tb_plc_devbyte";
+            this.tb_plc_devbyte.Size = new System.Drawing.Size(115, 24);
+            this.tb_plc_devbyte.TabIndex = 27;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(141, 146);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(63, 17);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "バイト数：";
+            // 
             // fm_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -1595,6 +1692,11 @@
             this.groupBox6.PerformLayout();
             this.tb_mcfile.ResumeLayout(false);
             this.tb_mcfile.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.tab_endfile.ResumeLayout(false);
+            this.tab_endfile.PerformLayout();
+            this.tab_plcdevice.ResumeLayout(false);
+            this.tab_plcdevice.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.tab_mstsf.ResumeLayout(false);
@@ -1634,10 +1736,7 @@
         private System.Windows.Forms.Button bt_rm_mcfilekey;
         private System.Windows.Forms.Button bt_add_mcfilekey;
         private System.Windows.Forms.ListBox lb_mcfilekey;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox tb_mcfile_return;
-        private System.Windows.Forms.CheckBox chk_mcfile_sp1;
         private System.Windows.Forms.ComboBox cb_macno;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
@@ -1668,7 +1767,6 @@
         private System.Windows.Forms.TextBox tb_pc_name;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cb_mcfile_enc;
-        private System.Windows.Forms.CheckBox chk_mcfile_verifiparam;
         private System.Windows.Forms.ComboBox cb_mcf_plcdev;
         private System.Windows.Forms.CheckBox chk_mcfile_useplcdev;
         private System.Windows.Forms.TabPage tab_mstsf;
@@ -1731,9 +1829,21 @@
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.TextBox tb_pc_ftphomedir;
-        private System.Windows.Forms.CheckBox chk_mcfile_disableEndfile;
         private System.Windows.Forms.ComboBox cmb_infilekey;
         private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.ComboBox cb_plc_devdtfmt;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tab_endfile;
+        private System.Windows.Forms.TabPage tab_plcdevice;
+        private System.Windows.Forms.TextBox tb_mcfile_return;
+        private System.Windows.Forms.CheckBox chk_mcfile_sp1;
+        private System.Windows.Forms.CheckBox chk_mcfile_verifiparam;
+        private System.Windows.Forms.CheckBox chk_mcfile_disableEndfile;
+        private System.Windows.Forms.TextBox tb_plcdev_return;
+        private System.Windows.Forms.CheckBox chk_useplcdev_return;
+        private System.Windows.Forms.TextBox tb_plc_devbyte;
+        private System.Windows.Forms.Label label10;
     }
 }
 
