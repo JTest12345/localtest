@@ -408,7 +408,7 @@ namespace FileIf
 
                             var fldn = new List<string> { "wip", "temp", "in", "out" };
                             cleanfiles(fs, fldn);
-                            OskNLog.Log(InFileTaskRslt.Result, Cnslcnf.msg_debug);
+
                             if (InFileTaskRslt.Msg != "") OskNLog.Log(InFileTaskRslt.Msg, Cnslcnf.msg_info);
 
                             if (OutFileTask.Result == retkey.ok) OutFileTask.Result = retkey.cancel;
@@ -416,7 +416,6 @@ namespace FileIf
                         }
                         else
                         {
-                            OskNLog.Log(InFileTaskRslt.DebugMsg, Cnslcnf.msg_debug);
                             OskNLog.Log(InFileTaskRslt.Msg, Cnslcnf.msg_error);
 
                             string ErrorPath = $"{fs.fpath}\\error\\{fs.MagCupNo}_{fs.keylbl}_{fs.Pcat}_{fs.Macno}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.err";

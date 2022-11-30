@@ -93,6 +93,13 @@ namespace Oskas.Functions.Plcs
 			return true;
 		}
 
+        public bool SetString(string hexAddressWithDeviceNm, string data, string encoding)
+        {
+            Plc.SetString(hexAddressWithDeviceNm, data, this.IPAddress, this.Port, encoding);
+
+            return true;
+        }
+
         public int GetWordAsDecimalData(string hexAddressWithDeviceNM)
         {
 			return GetWordAsDecimalData(hexAddressWithDeviceNM, 1);

@@ -756,6 +756,40 @@ namespace Oskas.Functions.Plcs
             executeCommand(byteCmd, host, port);
         }
 
+        public void SetString(string hexAddressWithDeviceNm, string setdata, string host, int port, string encoding)
+        {
+            Encoding sjisEnc = Encoding.GetEncoding(encoding);
+            byte[] byteStr = sjisEnc.GetBytes(setdata);
+
+            List<byte> byteList = byteStr.ToList();
+
+            if (Math.IEEERemainder(byteStr.Length, 2) != 0)
+            {
+                byteList.Add(0x00);
+                byteStr = byteList.ToArray();
+            }
+
+            byte[] bs = new byte[2];
+            string cmdWrite = null;
+            for (int i = 0; i < byteStr.Length; i += 2)
+            {
+                if (i > 0)
+                {
+                    cmdWrite += " ";
+                }
+
+                Array.Copy(byteStr, i, bs, 0, 2);
+                //cmdWrite += string.Join("", bs.Select(b => b.ToString("X").PadLeft(2, '0')).Reverse().ToArray());
+                cmdWrite += string.Join("", bs.Select(b => b.ToString("X").PadLeft(2, '0')).ToArray());
+            }
+
+            string command = CommandType.WRS.ToString() + " " + hexAddressWithDeviceNm + ".H " + (byteStr.Length / 2).ToString() + " " + cmdWrite + "\r";
+
+            byte[] byteCmd = System.Text.Encoding.UTF8.GetBytes(command);
+
+            executeCommand(byteCmd, host, port);
+        }
+
 
         #endregion
 

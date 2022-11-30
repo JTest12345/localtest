@@ -364,7 +364,7 @@ namespace FileIf
                                             //初期化：devconfsのバイト数指定分スペース埋め
                                             plc.SetString(devconfs.devtype + devconfs.devno, new String(' ', int.Parse(devconfs.devbyte)));
                                             //辞書内指定データ書込み
-                                            if (!plc.SetString(devconfs.devtype + devconfs.devno, Dict[devret.Value]))
+                                            if (!plc.SetString(devconfs.devtype + devconfs.devno, Dict[devret.Value], fs.mcfc.encoding))
                                             {
                                                 string mes = "PLCへのデータ書込みが失敗しています";
                                                 msg = ErrorMessage(taskid, fs, mes);
