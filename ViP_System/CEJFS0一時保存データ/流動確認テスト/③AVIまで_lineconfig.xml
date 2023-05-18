@@ -1,0 +1,797 @@
+﻿<settings>
+
+  <!--サンプル
+  <machine>
+    <flow></flow>
+    <machineNo></machineNo>
+    <priority></priority>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+   
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+  </machine>-->
+
+  <!--共通設定-->
+  <lineKeeper>
+    <emptyMagDischargeModeBitAddress>B0000B8</emptyMagDischargeModeBitAddress> <!--空マガジン払出モード-->
+  </lineKeeper>
+
+  <!-- #02-A ロボット -->
+  <carrier>
+    <flow>Robot</flow>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <carrierNo>18102</carrierNo>
+    <carrierName>ロボット#A</carrierName>
+    <plcAddress>192.168.4.141</plcAddress>
+    <plcPort>1026</plcPort>
+    <robotQRWordAddressStart>W0000B0</robotQRWordAddressStart> <!--マガジンNo.ASCⅡ1,2(ロボット位置決部)-->
+    <robotQRWordAddressLength>28</robotQRWordAddressLength>
+    <robotQRReaderPoint>301</robotQRReaderPoint>
+  </carrier>
+
+  <!-- #02-B ロボット -->
+  <carrier>
+    <flow>Robot</flow>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <carrierNo>18202</carrierNo>
+    <carrierName>ロボット#B</carrierName>
+    <plcAddress>192.168.4.142</plcAddress>
+    <plcPort>1026</plcPort>
+    <robotQRWordAddressStart>W0000B0</robotQRWordAddressStart> <!--マガジンNo.ASCⅡ1,2(ロボット位置決部)-->
+    <robotQRWordAddressLength>28</robotQRWordAddressLength>
+    <robotQRReaderPoint>301</robotQRReaderPoint>
+  </carrier>
+
+  <!-- #A-B橋 ロボット -->
+  <carrier>
+    <flow>Bridge</flow>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <carrierNo>18902</carrierNo>
+    <carrierName>#02A-B橋</carrierName>
+    <robotQRWordAddressStart>W0000B0</robotQRWordAddressStart>
+    <robotQRWordAddressLength>6</robotQRWordAddressLength>
+  </carrier>
+
+  <!--オーブンプロファイル自動変更--> <!--現在の仕様ではMAP/車載使用不可-->
+  <ovenProfile>
+    <dbOvenNumbers>6</dbOvenNumbers>
+    <moldOvenNumbers>14</moldOvenNumbers>
+    <profileChangerReadyBitAddress>B0000FE</profileChangerReadyBitAddress>
+    <dbOvenChangeInterlockStartAddress>B000060</dbOvenChangeInterlockStartAddress>
+    <moldOvenChangeInterlockStartAddress>B00006E</moldOvenChangeInterlockStartAddress>
+    <dbOvenCurrentProfileStartAddress>W000040</dbOvenCurrentProfileStartAddress>
+    <moldOvenCurrentProfileStartAddress>W00004E</moldOvenCurrentProfileStartAddress>
+    <dbOvenReserveProfileStartAddress>W000060</dbOvenReserveProfileStartAddress>
+    <moldOvenReserveProfileStartAddress>W00006E</moldOvenReserveProfileStartAddress>
+    <dbOvenAutoModeBitStartAddress>B001140</dbOvenAutoModeBitStartAddress>
+    <moldOvenAutoModeBitStartAddress>B00114E</moldOvenAutoModeBitStartAddress>
+    <dbOvenProfileChangeCompleteBitStartAddress>B001160</dbOvenProfileChangeCompleteBitStartAddress>
+    <moldOvenProfileChangeCompleteBitStartAddress>B00116E</moldOvenProfileChangeCompleteBitStartAddress>
+    <dbOvenProfileChangeRequestBitStartAddress>B001180</dbOvenProfileChangeRequestBitStartAddress>
+    <moldOvenProfileChangeRequestBitStartAddress>B00118E</moldOvenProfileChangeRequestBitStartAddress>
+
+    <!--プロファイル予約工程 空白の場合は予約動作無し-->
+    <dbProfileReserveProcNo>6</dbProfileReserveProcNo>
+    <moldProfileReserveProcNo>14</moldProfileReserveProcNo>
+  </ovenProfile>
+
+<!-- #02-B マガジン交換機 -->
+  <machine>
+    <flow>MagExchanger</flow>
+    <machineName>マガジン交換機</machineName>
+    <machineNo>116302</machineNo>
+    <priority>3</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.142</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>            <!--有りません。要確認-->
+    <machineReadyBitAddress>B0002D8</machineReadyBitAddress>
+    <loaderReqBitAddress>B0002DC</loaderReqBitAddress>
+    <unloaderReqBitAddress>B0002DB</unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress>B0002DA</empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress>B0002DD</empMagUnloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress>B0000DF</clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint>262</loaderPoint>
+    <unloaderPoint>261</unloaderPoint>
+    <empMagLoaderPoint>260</empMagLoaderPoint>
+    <empMagUnloaderPoint>263</empMagUnloaderPoint>
+    <!--追加設定-->
+    <magShiftEnableBitAddress>B0000FD</magShiftEnableBitAddress>
+    <unloaderMagReverseBitAddress>B0000FC</unloaderMagReverseBitAddress>
+    <dischargeModeProcBitAddressList>
+      <address key="16">B0000BA</address>
+      <address key="20">B0000BB</address>
+    </dischargeModeProcBitAddressList>
+  </machine>
+
+
+  <!--#02-B途中投入コンベヤ-->
+  <machine>
+    <flow>LoadConveyor</flow>
+    <machineName>途中投入CV</machineName>
+    <machineNo>202302</machineNo>
+    <priority>8</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.142</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress>W0000A0</prioritySettingAddress>
+    <machineReadyBitAddress>B0002D0</machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress>B0002D2</unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint>5</loaderPoint>
+    <unloaderPoint>5</unloaderPoint>
+    <empMagLoaderPoint>5</empMagLoaderPoint>
+    <empMagUnloaderPoint>5</empMagUnloaderPoint>
+    <magazineArriveBitAddress>B0000E8</magazineArriveBitAddress>  <!--ロボット　投入C/V ＱＲ読取り部マガジン有-->
+    <missingReservedMagazineBitAddress>B0000EB</missingReservedMagazineBitAddress> <!--ロボット　投入C/V  取出部マガジン取除き-->
+    <outputReserveBitAddress>B0000F2</outputReserveBitAddress>  <!--PC→投入C/Vマガジン排出許可-->
+    <qrReaderWordAddress>W0000D0</qrReaderWordAddress> <!--マガジンＮｏ．ＡＳＣⅡ１，２(投入C/V)-->
+  </machine>
+
+  <!--#02-A 途中払出コンベヤ-->
+  <machine>
+    <flow>DischargeConveyor</flow>
+    <machineName>排出CV</machineName>
+    <machineNo>201302</machineNo>
+    <priority>32</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.141</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress>W00009F</prioritySettingAddress>
+    <machineReadyBitAddress>B0002C8</machineReadyBitAddress>
+    <loaderReqBitAddress>B0002CA</loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint>4</loaderPoint>
+    <unloaderPoint>4</unloaderPoint>
+    <empMagLoaderPoint>4</empMagLoaderPoint>
+    <empMagUnloaderPoint>4</empMagUnloaderPoint>
+  </machine>
+
+  <!--#02-A ラインアウト払出コンベヤ（MACHINENO以外は排出CVと同じ)-->
+  <machine>
+    <flow>DischargeConveyor</flow>
+    <machineName>排出CV</machineName>
+    <machineNo>206302</machineNo>
+    <priority>32</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.141</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress>W00009F</prioritySettingAddress>
+    <machineReadyBitAddress>B0002C8</machineReadyBitAddress>
+    <loaderReqBitAddress>B0002CA</loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint>4</loaderPoint>
+    <unloaderPoint>4</unloaderPoint>
+    <empMagLoaderPoint>4</empMagLoaderPoint>
+    <empMagUnloaderPoint>4</empMagUnloaderPoint>
+  </machine>
+
+
+
+  <!--#02-B 完成品払出コンベヤ-->
+  <machine>
+    <flow>MAPCompltDischargeConveyor</flow>
+    <machineName>完成品排出CV</machineName>
+    <machineNo>207302</machineNo>
+    <priority>32</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.142</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress>W0000A9</prioritySettingAddress>
+    <machineReadyBitAddress>B0002E8</machineReadyBitAddress>
+    <loaderReqBitAddress>B0002EA</loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint>6</loaderPoint>
+    <unloaderPoint>6</unloaderPoint>
+    <empMagLoaderPoint>6</empMagLoaderPoint>
+    <empMagUnloaderPoint>6</empMagUnloaderPoint>
+  </machine>
+
+
+  <!--#02-B 空マガジン投入コンベヤ-->
+  <machine>
+    <flow>EmptyMagazineLoadConveyor</flow>
+    <machineName>空マガジン投入CV</machineName>
+    <machineNo>200322</machineNo>
+    <priority>31</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.142</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress>W00009E</prioritySettingAddress>
+    <machineReadyBitAddress>B0002C0</machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress>B0002C2</empMagUnloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint>3</loaderPoint>
+    <unloaderPoint>3</unloaderPoint>
+    <empMagLoaderPoint>3</empMagLoaderPoint>
+    <empMagUnloaderPoint>3</empMagUnloaderPoint>
+  </machine>
+
+  <!--#02-B MAP基板マガジン投入コンベヤ-->
+  <machine>
+    <flow>MAPBoardMagazineLoadConveyor</flow>
+    <machineName>MAP基板マガジン投入CV</machineName>
+    <machineNo>203322</machineNo>
+    <priority>31</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.142</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress>W00009C</prioritySettingAddress>
+    <machineReadyBitAddress>B0002B0</machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress>B0002B2</unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint>1</loaderPoint>
+    <unloaderPoint>1</unloaderPoint>
+    <empMagLoaderPoint>1</empMagLoaderPoint>
+    <empMagUnloaderPoint>1</empMagUnloaderPoint>
+  </machine>
+
+  <!--#02-B MAP基盤マガジン排出コンベヤ-->
+  <machine>
+    <flow>MAPBoardDischargeConveyor</flow>
+    <machineName>MAP基盤排出CV</machineName>
+    <machineNo>204322</machineNo>
+    <priority>31</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.142</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress>W00009D</prioritySettingAddress>
+    <machineReadyBitAddress>B0002B8</machineReadyBitAddress>
+    <loaderReqBitAddress>B0002BA</loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint>2</loaderPoint>
+    <unloaderPoint>2</unloaderPoint>
+    <empMagLoaderPoint>2</empMagLoaderPoint>
+    <empMagUnloaderPoint>2</empMagUnloaderPoint>
+  </machine>
+
+  <!--ライン間ブリッジ(上流#02-A)-->
+  <machine>
+    <flow>LineBridge</flow>
+    <machineName>ライン間ブリッジ(上流#02-A)</machineName>
+    <machineNo>300302</machineNo>
+    <priority>8</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.141</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress>W0000A8</prioritySettingAddress>
+    <machineReadyBitAddress>B000340</machineReadyBitAddress>
+    <loaderReqBitAddress>B000342</loaderReqBitAddress>
+    <unloaderReqBitAddress>B000343</unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress>B000344</empMagUnloaderReqBitAddress>
+    <empMagInputBitAddress>B0000FA</empMagInputBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress>B00001F</clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint>331</loaderPoint>
+    <unloaderPoint>332</unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+  </machine>
+
+  <!--ライン間ブリッジ(下流#02-B)-->
+  <machine>
+    <flow>LineBridge</flow>
+    <machineName>ライン間ブリッジ(下流#02-B)</machineName>
+    <machineNo>301302</machineNo>
+    <priority>8</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.142</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress>W0000A8</prioritySettingAddress>
+    <machineReadyBitAddress>B000340</machineReadyBitAddress>
+    <loaderReqBitAddress>B000342</loaderReqBitAddress>
+    <unloaderReqBitAddress>B000343</unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress>B000344</empMagUnloaderReqBitAddress>
+    <empMagInputBitAddress>B0000FA</empMagInputBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress>B00001F</clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint>331</loaderPoint>
+    <unloaderPoint>332</unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+  </machine>
+
+<!--#02-B_ライン内バッファ1ー-->
+  <machine>
+    <flow>GeneralBuffer</flow>
+    <machineName>ライン内バッファー 1</machineName>
+    <machineNo>118321</machineNo>
+    <priority>2</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.142</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress>W000012</prioritySettingAddress>
+    <machineReadyBitAddress>B0002D8</machineReadyBitAddress>
+    <loaderReqBitAddress>B000350</loaderReqBitAddress>
+    <unloaderReqBitAddress>B000351</unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress>B000020</clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint>264</loaderPoint>
+    <unloaderPoint>265</unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+  </machine>
+
+<!--#02-B_ライン内バッファ2ー-->
+  <machine>
+    <flow>GeneralBuffer</flow>
+    <machineName>ライン内バッファー 2</machineName>
+    <machineNo>118322</machineNo>
+    <priority>2</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.142</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress>W000012</prioritySettingAddress>
+    <machineReadyBitAddress>B0002D8</machineReadyBitAddress>
+    <loaderReqBitAddress>B000352</loaderReqBitAddress>
+    <unloaderReqBitAddress>B000353</unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress>B000020</clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint>266</loaderPoint>
+    <unloaderPoint>267</unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+  </machine>
+
+<!--#02-B_ライン内バッファ3ー-->
+  <machine>
+    <flow>GeneralBuffer</flow>
+    <machineName>ライン内バッファー 3</machineName>
+    <machineNo>118323</machineNo>
+    <priority>2</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.142</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress>W000012</prioritySettingAddress>
+    <machineReadyBitAddress>B0002D8</machineReadyBitAddress>
+    <loaderReqBitAddress>B000354</loaderReqBitAddress>
+    <unloaderReqBitAddress>B000355</unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress>B000020</clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint>268</loaderPoint>
+    <unloaderPoint>269</unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+  </machine>
+
+  <!--以下通常装置-->
+
+<!-- #02-B ZDダイボンド3号機 -->
+  <machine>
+    <flow>MAP1stDieBonder</flow>
+    <machineName>D/B 1081</machineName>
+    <machineNo>101333</machineNo>
+    <plcAddress>192.168.4.142</plcAddress>
+    <plcPort>1026</plcPort>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <machineReadyBitAddress>B000141</machineReadyBitAddress>
+    <loaderReqBitAddress>B000143</loaderReqBitAddress>
+    <unloaderReqBitAddress>B000146</unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress>B0000C2</clearMagazinesBitAddress>
+    <qcilFileDestDir></qcilFileDestDir>
+    <waferLogPath></waferLogPath>
+    <magazineTakeoutBitAddress></magazineTakeoutBitAddress>
+    <waferBitAddressStart>B000148</waferBitAddressStart>
+    <startWorkTableSensorAddress>B000147</startWorkTableSensorAddress>
+    <waferChangerChangeBitAddress>B00015B</waferChangerChangeBitAddress>
+    <unloaderMoveCompleteBitAddress></unloaderMoveCompleteBitAddress>
+    <defectFileBasePath></defectFileBasePath>
+    <badMarkClassCd></badMarkClassCd>
+    <badMarkCauseCd></badMarkCauseCd>
+    <badMarkDefetCd></badMarkDefetCd>
+    <priority>2</priority>
+    <prioritySettingAddress>W000082</prioritySettingAddress>
+    <empMagUnloaderReqBitAddress>B000144</empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress>B000145</empMagLoaderReqBitAddress>
+    <inputForbiddenBitAddress>B000082</inputForbiddenBitAddress>
+    <dischargeModeBitAddress>B0000A0</dischargeModeBitAddress>
+    <loaderPoint>19</loaderPoint>
+    <empMagUnloaderPoint>20</empMagUnloaderPoint>
+    <empMagLoaderPoint>21</empMagLoaderPoint>
+    <unloaderPoint>22</unloaderPoint>
+    <secondLoaderReqBitAddress>B00015D</secondLoaderReqBitAddress>
+    <secondEmpMagLoaderReqBitAddress>B00015F</secondEmpMagLoaderReqBitAddress>
+    <logOutputDirectoryPath></logOutputDirectoryPath>
+  </machine>
+
+
+<!-- #02-A ZDダイボンドオーブン7号機 -->
+  <machine>
+    <flow>Oven</flow>
+    <machineName>ZD D/B オーブン80</machineName>
+    <machineNo>102317</machineNo>
+    <plcAddress>192.168.4.141</plcAddress>
+    <plcPort>1026</plcPort>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <machineReadyBitAddress>B001240</machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress>W001267</workCompleteTimeAddress>
+    <workStartTimeAddress>W001261</workStartTimeAddress>
+    <clearMagazinesBitAddress>B000017</clearMagazinesBitAddress>
+    <qcilFileDestDir></qcilFileDestDir>
+    <waferLogPath></waferLogPath>
+    <magazineTakeoutBitAddress></magazineTakeoutBitAddress>
+    <waferBitAddressStart></waferBitAddressStart>
+    <startWorkTableSensorAddress></startWorkTableSensorAddress>
+    <waferChangerChangeBitAddress></waferChangerChangeBitAddress>
+    <unloaderMoveCompleteBitAddress></unloaderMoveCompleteBitAddress>
+    <defectFileBasePath></defectFileBasePath>
+    <badMarkClassCd></badMarkClassCd>
+    <badMarkCauseCd></badMarkCauseCd>
+    <badMarkDefetCd></badMarkDefetCd>
+    <priority>9</priority>
+    <prioritySettingAddress>W000004</prioritySettingAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <inputForbiddenBitAddress>B00008A</inputForbiddenBitAddress>
+    <dischargeModeBitAddress>B0000AA</dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <secondLoaderReqBitAddress></secondLoaderReqBitAddress>
+    <secondEmpMagLoaderReqBitAddress></secondEmpMagLoaderReqBitAddress>
+    <profileStatusAddress>W001260</profileStatusAddress>
+    <loaderReqBitAddressList>
+      <address key="1">B001242</address>
+      <address key="2">B001243</address>
+    </loaderReqBitAddressList>
+    <unloaderReqBitAddressList>
+      <address key="1">B001245</address>
+      <address key="2">B001246</address>
+    </unloaderReqBitAddressList>
+    <loaderPointList>
+      <point key="1">359</point>
+      <point key="2">360</point>
+    </loaderPointList>
+    <unloaderPointList>
+      <point key="1">362</point>
+      <point key="2">363</point>
+    </unloaderPointList>
+    <currentProfileWordAddress>W0012A6</currentProfileWordAddress>
+    <changeProfileInterlockBitAddress>B000636</changeProfileInterlockBitAddress>
+    <ovenProcessStatusWordAddress>W00126F</ovenProcessStatusWordAddress>
+    <isUseOvenProcessStatus>true</isUseOvenProcessStatus>
+  </machine>
+
+
+<!-- #02-B LED2ndダイボンド4号機 -->
+  <machine>
+    <flow>DieBonder</flow>
+    <machineName>LED D/B 1131</machineName>
+    <machineNo>104334</machineNo>
+    <plcAddress>192.168.4.142</plcAddress>
+    <plcPort>1026</plcPort>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <machineReadyBitAddress>B000161</machineReadyBitAddress>
+    <loaderReqBitAddress>B000163</loaderReqBitAddress>
+    <unloaderReqBitAddress>B000166</unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress>B0000C3</clearMagazinesBitAddress>
+    <qcilFileDestDir></qcilFileDestDir>
+    <waferLogPath></waferLogPath>
+    <magazineTakeoutBitAddress></magazineTakeoutBitAddress>
+    <waferBitAddressStart>B000168</waferBitAddressStart>
+    <startWorkTableSensorAddress>B000167</startWorkTableSensorAddress>
+    <waferChangerChangeBitAddress>B00017B</waferChangerChangeBitAddress>
+    <unloaderMoveCompleteBitAddress></unloaderMoveCompleteBitAddress>
+    <defectFileBasePath></defectFileBasePath>
+    <badMarkClassCd></badMarkClassCd>
+    <badMarkCauseCd></badMarkCauseCd>
+    <badMarkDefetCd></badMarkDefetCd>
+    <priority>2</priority>
+    <prioritySettingAddress>W000083</prioritySettingAddress>
+    <empMagUnloaderReqBitAddress>B000164</empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress>B000165</empMagLoaderReqBitAddress>
+    <inputForbiddenBitAddress>B000083</inputForbiddenBitAddress>
+    <dischargeModeBitAddress>B0000A4</dischargeModeBitAddress>
+    <loaderPoint>23</loaderPoint>
+    <empMagUnloaderPoint>24</empMagUnloaderPoint>
+    <empMagLoaderPoint>25</empMagLoaderPoint>
+    <unloaderPoint>26</unloaderPoint>
+    <secondLoaderReqBitAddress>B00017D</secondLoaderReqBitAddress>
+    <secondEmpMagLoaderReqBitAddress>B00017F</secondEmpMagLoaderReqBitAddress>
+    <logOutputDirectoryPath></logOutputDirectoryPath>
+  </machine>
+
+
+<!-- #02-A LEDダイボンドオーブン7号機 -->
+  <machine>
+    <flow>Oven</flow>
+    <machineName>LED D/B オーブン80</machineName>
+    <machineNo>106317</machineNo>
+    <plcAddress>192.168.4.141</plcAddress>
+    <plcPort>1026</plcPort>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <machineReadyBitAddress>B001240</machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress>W001267</workCompleteTimeAddress>
+    <workStartTimeAddress>W001261</workStartTimeAddress>
+    <clearMagazinesBitAddress>B000017</clearMagazinesBitAddress>
+    <qcilFileDestDir></qcilFileDestDir>
+    <waferLogPath></waferLogPath>
+    <magazineTakeoutBitAddress></magazineTakeoutBitAddress>
+    <waferBitAddressStart></waferBitAddressStart>
+    <startWorkTableSensorAddress></startWorkTableSensorAddress>
+    <waferChangerChangeBitAddress></waferChangerChangeBitAddress>
+    <unloaderMoveCompleteBitAddress></unloaderMoveCompleteBitAddress>
+    <defectFileBasePath></defectFileBasePath>
+    <badMarkClassCd></badMarkClassCd>
+    <badMarkCauseCd></badMarkCauseCd>
+    <badMarkDefetCd></badMarkDefetCd>
+    <priority>9</priority>
+    <prioritySettingAddress>W000004</prioritySettingAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <inputForbiddenBitAddress>B00008B</inputForbiddenBitAddress>
+    <dischargeModeBitAddress>B0000AB</dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <secondLoaderReqBitAddress></secondLoaderReqBitAddress>
+    <secondEmpMagLoaderReqBitAddress></secondEmpMagLoaderReqBitAddress>
+    <profileStatusAddress>W001260</profileStatusAddress>
+    <loaderReqBitAddressList>
+      <address key="1">B001242</address>
+      <address key="2">B001243</address>
+    </loaderReqBitAddressList>
+    <unloaderReqBitAddressList>
+      <address key="1">B001245</address>
+      <address key="2">B001246</address>
+    </unloaderReqBitAddressList>
+    <loaderPointList>
+      <point key="1">359</point>
+      <point key="2">360</point>
+    </loaderPointList>
+    <unloaderPointList>
+      <point key="1">362</point>
+      <point key="2">363</point>
+    </unloaderPointList>
+    <currentProfileWordAddress>W0012A6</currentProfileWordAddress>
+    <changeProfileInterlockBitAddress>B000636</changeProfileInterlockBitAddress>
+    <ovenProcessStatusWordAddress>W00126F</ovenProcessStatusWordAddress>
+    <isUseOvenProcessStatus>true</isUseOvenProcessStatus>
+  </machine>
+
+
+<!-- #02-B WBプラズマ洗浄機 -->
+  <machine>
+  <flow>MultiLoadPlasma</flow>
+    <machineName>プラズマ機</machineName>
+    <machineNo>108302</machineNo>
+    <priority>8</priority>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <plcAddress>192.168.4.141</plcAddress>
+    <plcPort>1026</plcPort>
+    <prioritySettingAddress>W00008D</prioritySettingAddress>
+    <machineReadyBitAddress>B000321</machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress>B0000DB</clearMagazinesBitAddress>
+    <inputForbiddenBitAddress>B00008D</inputForbiddenBitAddress>
+    <dischargeModeBitAddress>B0000AD</dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <!--追加設定-->
+    <loader>
+      <lane key="1" reqBit="B000323" point="311" station="Loader1" />
+      <lane key="2" reqBit="B000324" point="312" station="Loader2" />
+      <lane key="3" reqBit="B000325" point="313" station="Loader3" />
+    </loader>
+    <empMagUnloader>
+      <lane key="1" reqBit="B000326" point="314" station="EmptyMagazineUnloader1" />
+      <lane key="2" reqBit="B000327" point="315" station="EmptyMagazineUnloader2" />
+      <lane key="3" reqBit="B000328" point="316" station="EmptyMagazineUnloader3" />
+    </empMagUnloader>
+    <empMagLoader>
+      <lane key="1" reqBit="B000329" point="317" station="EmptyMagazineLoader1" />
+      <lane key="2" reqBit="B00032A" point="318" station="EmptyMagazineLoader2" />
+      <lane key="3" reqBit="B00032B" point="319" station="EmptyMagazineLoader3" />
+    </empMagLoader>
+    <unloader>
+      <lane key="1" reqBit="B00032C" point="320" station="Unloader1" />
+      <lane key="2" reqBit="B00032D" point="321" station="Unloader2" />
+      <lane key="3" reqBit="B00032E" point="322" station="Unloader3" />
+    </unloader>
+</machine>
+
+<!-- #02-A ワイヤーボンド7号機 -->
+  <machine>
+    <flow>WireBonder</flow>
+    <machineName>W/B 663</machineName>
+    <machineNo>109327</machineNo>
+    <plcAddress>192.168.4.141</plcAddress>
+    <plcPort>1026</plcPort>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <machineReadyBitAddress>B000301</machineReadyBitAddress>
+    <loaderReqBitAddress>B000303</loaderReqBitAddress>
+    <unloaderReqBitAddress>B000306</unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <clearMagazinesBitAddress>B000011</clearMagazinesBitAddress>
+    <qcilFileDestDir></qcilFileDestDir>
+    <magazineTakeoutBitAddress></magazineTakeoutBitAddress>
+    <unloaderMoveCompleteBitAddress></unloaderMoveCompleteBitAddress>
+    <priority>13</priority>
+    <prioritySettingAddress>W0000A5</prioritySettingAddress>
+    <empMagUnloaderReqBitAddress>B000304</empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress>B000305</empMagLoaderReqBitAddress>
+    <inputForbiddenBitAddress>B00009C</inputForbiddenBitAddress>
+    <dischargeModeBitAddress>B000001</dischargeModeBitAddress>
+    <loaderPoint>135</loaderPoint>
+    <empMagUnloaderPoint>136</empMagUnloaderPoint>
+    <empMagLoaderPoint>137</empMagLoaderPoint>
+    <unloaderPoint>138</unloaderPoint>
+    <secondLoaderReqBitAddress>B00030D</secondLoaderReqBitAddress>
+    <secondEmpMagLoaderReqBitAddress>B00030F</secondEmpMagLoaderReqBitAddress>
+    <!--WBマッピング運用時追加-->
+    <inspectProcNo>10</inspectProcNo>
+    <mmFilePath>\\192.168.3.1\QCIL\data\WB\S09431\Magazine\</mmFilePath>
+    <logOutputDirectoryPath></logOutputDirectoryPath>
+  </machine>
+
+<!-- #02-A 外観検査1号機 -->
+  <machine>
+    <flow>Inspector</flow>
+    <machineName>外観検査機</machineName>
+    <machineNo>110302</machineNo>
+    <plcAddress>192.168.4.141</plcAddress>
+    <plcPort>1026</plcPort>
+    <lineGroupNo>0</lineGroupNo>
+    <lineNo>02</lineNo>     <plcMaker>Mitsubishi</plcMaker>     <plcSocket>Udp</plcSocket>
+    <machineReadyBitAddress>B001601</machineReadyBitAddress>
+    <loaderReqBitAddress>B001603</loaderReqBitAddress>
+    <unloaderReqBitAddress>B001604</unloaderReqBitAddress>
+    <workCompleteTimeAddress>W001607</workCompleteTimeAddress>
+    <workStartTimeAddress>W001601</workStartTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <qcilFileDestDir></qcilFileDestDir>
+    <waferLogPath></waferLogPath>
+    <magazineTakeoutBitAddress></magazineTakeoutBitAddress>
+    <waferBitAddressStart></waferBitAddressStart>
+    <startWorkTableSensorAddress></startWorkTableSensorAddress>
+    <waferChangerChangeBitAddress></waferChangerChangeBitAddress>
+    <unloaderMoveCompleteBitAddress></unloaderMoveCompleteBitAddress>
+    <defectFileBasePath></defectFileBasePath>
+    <badMarkClassCd></badMarkClassCd>
+    <badMarkCauseCd></badMarkCauseCd>
+    <badMarkDefetCd></badMarkDefetCd>
+    <priority>20</priority>
+    <prioritySettingAddress>W000093</prioritySettingAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <inputForbiddenBitAddress>B000093</inputForbiddenBitAddress>
+    <dischargeModeBitAddress>B0000B3</dischargeModeBitAddress>
+    <loaderPoint>141</loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint>142</unloaderPoint>
+    <secondLoaderReqBitAddress></secondLoaderReqBitAddress>
+    <secondEmpMagLoaderReqBitAddress></secondEmpMagLoaderReqBitAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <ulMagazineAddress>W001610</ulMagazineAddress>
+    <openingCheckMagazineInputWordAddress></openingCheckMagazineInputWordAddress>
+    <openingCheckMagazineOutputWordAddress></openingCheckMagazineOutputWordAddress>
+    <logOutputDirectoryPath></logOutputDirectoryPath>
+    <mmFilePath>\\192.168.3.1\QCIL\Data\AI\S09697(31号機)\</mmFilePath>
+  </machine>
+
+  
+</settings>

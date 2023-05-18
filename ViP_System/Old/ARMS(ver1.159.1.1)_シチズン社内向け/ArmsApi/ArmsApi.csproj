@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A47C8EAE-CF1F-4CD0-8A5D-A193D974354B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ArmsApi</RootNamespace>
+    <AssemblyName>ArmsApi</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommonApi.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="InlineAPI.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Model\AGVPSTester.cs" />
+    <Compile Include="Model\ArmsApiResponse.cs" />
+    <Compile Include="Model\ArmsException.cs" />
+    <Compile Include="Model\ArmsSvrReturnInfo.cs" />
+    <Compile Include="Model\AsmLot.cs" />
+    <Compile Include="Model\CarrierInfo.cs" />
+    <Compile Include="Model\Cassette.cs" />
+    <Compile Include="Model\CutBlend.cs" />
+    <Compile Include="Model\CutLabelFile.cs" />
+    <Compile Include="Model\DataContext\ARMS.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ARMS.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DataContext\EICS.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EICS.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DataContext\LAMS.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LAMS.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DataContext\NASCA.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NASCA.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DataContext\NJDB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NJDB.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DataContext\SQDB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SQDB.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DBWaferLog.cs" />
+    <Compile Include="Model\CarrierWorkData.cs" />
+    <Compile Include="Model\Defect.cs" />
+    <Compile Include="Model\DieShearSampling.cs" />
+    <Compile Include="Model\DirectoryHelper.cs" />
+    <Compile Include="Model\EachUnitLotmark.cs" />
+    <Compile Include="Model\EICS\Bonding.cs" />
+    <Compile Include="Model\EICS\LimitManagement.cs" />
+    <Compile Include="Model\EICS\MachineLog.cs" />
+    <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\ErrTrace.cs" />
+    <Compile Include="Model\FixedPhrase.cs" />
+    <Compile Include="Model\GnlMaster.cs" />
+    <Compile Include="Model\History.cs" />
+    <Compile Include="Model\Inspection.cs" />
+    <Compile Include="Model\LAMS\HeartBeat.cs" />
+    <Compile Include="Model\LAMS\MachineRequire.cs" />
+    <Compile Include="Model\LAMS\Work.cs" />
+    <Compile Include="Model\LENS\Lot.cs" />
+    <Compile Include="Model\LENS\MacDefect.cs" />
+    <Compile Include="Model\LENS\Mag.cs" />
+    <Compile Include="Model\LENS\MapResult.cs" />
+    <Compile Include="Model\LENS\WorkResult.cs" />
+    <Compile Include="Model\LineconfigSignalDisplay.cs" />
+    <Compile Include="Model\LotCarrier.cs" />
+    <Compile Include="Model\LotMarkData.cs" />
+    <Compile Include="Model\LotMarkingType.cs" />
+    <Compile Include="Model\LotTrayDataMatrix.cs" />
+    <Compile Include="Model\Magazine.cs" />
+    <Compile Include="Model\Map1stDBLoader.cs" />
+    <Compile Include="Model\MapData.cs" />
+    <Compile Include="Model\MapFrameBaking.cs" />
+    <Compile Include="Model\MoldDischargePressure.cs" />
+    <Compile Include="Model\NASCA\Exporter.cs" />
+    <Compile Include="Model\NASCA\Importer.cs" />
+    <Compile Include="Model\NASCA\NASCAJob.cs" />
+    <Compile Include="Model\NASCA\NascaPubApi.cs" />
+    <Compile Include="Model\NASCA\NASCAResponse.cs" />
+    <Compile Include="Model\NASCA\Spider.cs" />
+    <Compile Include="Model\NJDB\MixReqestInfo.cs" />
+    <Compile Include="Model\NJDB\Material.cs" />
+    <Compile Include="Model\PastePosition.cs" />
+    <Compile Include="Model\PSTeserMaster.cs" />
+    <Compile Include="Model\PSTESTER\WorkResult.cs" />
+    <Compile Include="Model\SkillMap.cs" />
+    <Compile Include="Model\Software.cs" />
+    <Compile Include="Model\SQDB\ExamsMngInfo.cs" />
+    <Compile Include="Model\SQLite.cs" />
+    <Compile Include="Model\SubstrateInfo.cs" />
+    <Compile Include="Model\SubstrateThicknessRank.cs" />
+    <Compile Include="Model\TimeLimit.cs" />
+    <Compile Include="Model\MachineInfo.cs" />
+    <Compile Include="Model\MacMatHistory.cs" />
+    <Compile Include="Model\Material.cs" />
+    <Compile Include="Model\Numbering.cs" />
+    <Compile Include="Model\Order.cs" />
+    <Compile Include="Model\OvenProfile.cs" />
+    <Compile Include="Model\Process.cs" />
+    <Compile Include="Model\Profile.cs" />
+    <Compile Include="Model\ReservedOrder.cs" />
+    <Compile Include="Model\Resin.cs" />
+    <Compile Include="Model\Restrict.cs" />
+    <Compile Include="Model\Route.cs" />
+    <Compile Include="Model\Location.cs" />
+    <Compile Include="Model\UseHistory.cs" />
+    <Compile Include="Model\VirtualMag.cs" />
+    <Compile Include="Model\WorkChecker.cs" />
+    <Compile Include="Model\WorkCondition.cs" />
+    <Compile Include="Model\WorkEngagementPeriod.cs" />
+    <Compile Include="Model\WorkGroup.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\local.nichia.naweb\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\local.nichia.naweb-dev\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="json\Newtonsoft.Json.dll" />
+    <Content Include="json\Newtonsoft.Json.xml" />
+    <Content Include="log4net\log4net.dll" />
+    <Content Include="log4net\log4net.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Model\DataContext\ARMS.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ARMS.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Model\DataContext\EICS.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>EICS.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Model\DataContext\LAMS.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>LAMS.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Model\DataContext\NASCA.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>NASCA.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Model\DataContext\NJDB.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>NJDB.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Model\DataContext\SQDB.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>SQDB.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppBinInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppBlendResinRelationInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppBlendResinResultInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppCarrierLotInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppDefectPotRegInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppInfoMaterialOrder1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppInfoMaterialResults1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppInlineMagazineLotInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppLoginInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppLotCharInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppLotCharInfox.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppLotCharProcessScheduleInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppLotInfo31.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppLotInfox.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppMeasureRstInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppMpsBlendInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppNascaLotInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppNFormGroupInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppOutsideOrderInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppPdaConditionInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppPublicWebService.disco" />
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppResultsFacilityInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppReturnInfo1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppBinInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppBlendResinRelationInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppBlendResinResultInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppCarrierLotInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppDefectPotRegInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppInfoMaterialOrder.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppInfoMaterialResults.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppInlineMagazineLotInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppLoginInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppLotCharInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppLotCharInfox.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppLotCharProcessScheduleInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppLotInfo3.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppLotInfox.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppMeasureRstInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppMpsBlendInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppNascaLotInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppNFormGroupInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppOutsideOrderInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppPdaConditionInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppPublicWebService.disco" />
+    <None Include="Web References\local.nichia.naweb\NppResultsFacilityInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\NppReturnInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\local.nichia.naweb\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\local.nichia.naweb-dev\NppPublicWebService.wsdl" />
+    <None Include="Web References\local.nichia.naweb-dev\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://naweb-dev64/NPPPublic/NppPublicWebService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\local.nichia.naweb-dev\</RelPath>
+      <UpdateFromURL>http://naweb-dev64/NPPPublic/NppPublicWebService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ArmsApi_test_NppPublicWebServiceSoap</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://naweb.nichia.local/NPPPUBLIC/NppPublicWebService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\local.nichia.naweb\</RelPath>
+      <UpdateFromURL>http://naweb.nichia.local/NPPPUBLIC/NppPublicWebService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ArmsApi_local_nichia_naweb_NppPublicWebServiceSoap</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\local.nichia.naweb\NppPublicWebService.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\DataContext\SQDB.dbml.layout">
+      <DependentUpon>SQDB.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\DataContext\NASCA.dbml.layout">
+      <DependentUpon>NASCA.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\DataContext\ARMS.dbml.layout">
+      <DependentUpon>ARMS.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\DataContext\NJDB.dbml.layout">
+      <DependentUpon>NJDB.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\DataContext\EICS.dbml.layout">
+      <DependentUpon>EICS.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\DataContext\LAMS.dbml.layout">
+      <DependentUpon>LAMS.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

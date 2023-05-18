@@ -1,0 +1,29 @@
+﻿@model ArmsWeb.Models.CassetteTransferModel
+@{
+    ViewBag.Title = "InputProcInfo";
+}
+
+@using (Html.BeginForm())
+{
+    <h3>工程選択</h3>
+    
+    <select size="15" name="procindex">
+        @foreach (ArmsApi.Model.Cassette.procinfo procinfo in Model.listProcinfo)
+        {
+            <option value="@procinfo.procno">@procinfo.procnm</option>
+        }
+    </select>
+
+    <input type="submit" value="選択" />
+
+    <div>
+        @if (Model.selectedprocno > 0){
+            @Html.ActionLink("次へ", "InputCassette")
+        }
+        &nbsp
+        @Html.ActionLink("キャンセル", "Index", "Home")
+    </div>
+    
+    <hr />
+
+}

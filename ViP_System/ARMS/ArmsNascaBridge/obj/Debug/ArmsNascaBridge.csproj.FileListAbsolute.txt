@@ -1,0 +1,17 @@
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\bin\Debug\ArmsNascaBridge.exe.config
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\bin\Debug\ArmsNascaBridge.exe
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\bin\Debug\ArmsNascaBridge.pdb
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\bin\Debug\ArmsApi.dll
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\bin\Debug\log4net.dll
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\bin\Debug\Newtonsoft.Json.dll
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\bin\Debug\ArmsApi.pdb
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\bin\Debug\ArmsApi.dll.config
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\bin\Debug\log4net.xml
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\bin\Debug\Newtonsoft.Json.xml
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\obj\Debug\ArmsNascaBridge.csprojAssemblyReference.cache
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\obj\Debug\ArmsNascaBridge.FrmBridgeMain.resources
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\obj\Debug\ArmsNascaBridge.csproj.GenerateResource.cache
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\obj\Debug\ArmsNascaBridge.csproj.CoreCompileInputs.cache
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\obj\Debug\ArmsNascaBridge.csproj.CopyComplete
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\obj\Debug\ArmsNascaBridge.exe
+C:\Users\jn-wtnb\Desktop\5M-A\ArmsNascaBridge\obj\Debug\ArmsNascaBridge.pdb

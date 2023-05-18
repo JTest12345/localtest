@@ -1,0 +1,6 @@
+﻿  pch.cpp
+  GlobalHookDll.cpp
+D:\MAP_sys\GlobalHookDll\GlobalHookDll\GlobalHookDll.cpp(102,100): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+D:\MAP_sys\GlobalHookDll\GlobalHookDll\GlobalHookDll.cpp(104,100): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+     ライブラリ D:\MAP_sys\GlobalHookDll\x64\Debug\GlobalHookDll.lib とオブジェクト D:\MAP_sys\GlobalHookDll\x64\Debug\GlobalHookDll.exp を作成中
+  GlobalHookDll.vcxproj -> D:\MAP_sys\GlobalHookDll\x64\Debug\GlobalHookDll.dll

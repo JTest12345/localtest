@@ -1,0 +1,363 @@
+/************************
+ECK
+*************************/
+//ECK: TmFILEFMT(EM, AM) 5件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Class_NM, TmPRM.Parameter_NM, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM 
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE (TmFILEFMT.Model_NM = 'ECK') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999) 
+AND (TmFILEFMT.Prefix_NM = 'EM' OR  TmFILEFMT.Prefix_NM = 'AM')
+
+//ECK: TmFILEFMT(PR, OR) 5件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Class_NM, TmPRM.Parameter_NM, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM 
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE (TmFILEFMT.Model_NM = 'ECK') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999) 
+AND (TmFILEFMT.Prefix_NM = 'PR' OR  TmFILEFMT.Prefix_NM = 'OR')
+
+
+
+/************************
+MD-Syringe8
+*************************/
+//MD-Syringe8: NASCA不良 4件
+SELECT TmPLM.QcParam_NO, TmPRM.Class_NM, TmPRM.Chip_NM, TmPLM.*
+FROM TmPLM WITH(nolock) 
+INNER JOIN TmPRM WITH(nolock) ON TmPLM.QcParam_NO = TmPRM.QcParam_NO 
+where TmPLM.Model_NM = 'MD-Syringe8' AND TmPRM.Class_NM like 'NASCA%'
+
+//MD-Syringe8: TmPlcFileConv 1255件
+SELECT TmPlcFileConv.Model_NM, TmPlcFileConv.QcParam_NO, TmPlcFileConv.Prefix_NM, TmPlcFileConv.Header_NM, TmPlcFileConv.Order_NO, TmPlcFileConv.Plc_ADDR,
+TmPlcFileConv.Data_LEN, TmPlcFileConv.DataType_CD, TmPlcFileConv.Identify_CD, TmPlcFileConv.Del_FG, TmPlcFileConv.LastUpd_DT
+FROM TmPlcFileConv WITH(nolock) 
+WHERE (TmPlcFileConv.Model_NM = 'MD-Syringe8') 
+AND (TmPlcFileConv.Del_FG = 0) 
+
+//MD-Syringe8: TmFILEFMT(SM, AM, EM, SD) 600件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Class_NM, TmPRM.Parameter_NM, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM 
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE (TmFILEFMT.Model_NM = 'MD-Syringe8') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999) 
+AND (TmFILEFMT.Prefix_NM = 'SM' OR  TmFILEFMT.Prefix_NM = 'AM' OR  TmFILEFMT.Prefix_NM = 'EM' OR  TmFILEFMT.Prefix_NM = 'SD')
+
+//⇒(Parameter_MAX < 9999) 279件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Class_NM, TmPRM.Parameter_NM, TmPLM.Parameter_MIN, TmPLM.Parameter_MAX, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM 
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+INNER JOIN TmPLM WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE (TmFILEFMT.Model_NM = 'MD-Syringe8') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999) 
+AND (TmFILEFMT.Prefix_NM = 'SM' OR  TmFILEFMT.Prefix_NM = 'AM' OR  TmFILEFMT.Prefix_NM = 'EM' OR  TmFILEFMT.Prefix_NM = 'SD')
+AND TmPLM.Parameter_MAX < 9999
+
+//⇒さらに装置実行パラメータを除く 63件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Class_NM, TmPRM.Parameter_NM, TmPRM.Total_KB, TmPLM.Parameter_MIN, TmPLM.Parameter_MAX, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM 
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+INNER JOIN TmPLM WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE NOT TmPRM.Class_NM = '装置実行ﾊﾟﾗﾒｰﾀｰ'
+AND (TmFILEFMT.Model_NM = 'MD-Syringe8') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999) 
+AND (TmFILEFMT.Prefix_NM = 'SM' OR  TmFILEFMT.Prefix_NM = 'AM' OR  TmFILEFMT.Prefix_NM = 'EM' OR  TmFILEFMT.Prefix_NM = 'SD')
+AND TmPLM.Parameter_MAX < 9999
+
+//MD-Syringe8: TmFILEFMT(PR, OR, EF, SF) 80件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Class_NM, TmPRM.Parameter_NM, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM 
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE (TmFILEFMT.Model_NM = 'MD-Syringe8') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999) 
+AND (TmFILEFMT.Prefix_NM = 'PR' OR  TmFILEFMT.Prefix_NM = 'OR' OR  TmFILEFMT.Prefix_NM = 'EF' OR  TmFILEFMT.Prefix_NM = 'SF')
+
+
+
+/************************
+SUP
+*************************/
+//SUP: PLM(QCILのコンフィグ内にQcParam指定あり)
+SELECT TmPLM.QcParam_NO, TmPRM.Class_NM, TmPRM.Chip_NM, TmPLM.*
+FROM TmPLM WITH(nolock) 
+INNER JOIN TmPRM WITH(nolock) ON TmPLM.QcParam_NO = TmPRM.QcParam_NO 
+where TmPLM.Model_NM = 'SUP'
+
+
+
+/************************
+AVI
+*************************/
+//AVI:TmFILEFMT 244件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Class_NM, TmPRM.Parameter_NM, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM 
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE (TmFILEFMT.Model_NM = 'AI') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999)
+
+//⇒(Parameter_MAX < 999999) 60件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Class_NM, TmPRM.Parameter_NM, TmPRM.Total_KB, TmPLM.Parameter_MIN, TmPLM.Parameter_MAX, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+INNER JOIN TmPLM WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE (TmFILEFMT.Model_NM = 'AI') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999)
+AND TmPLM.Parameter_MAX < 999999
+
+
+
+/************************
+WB
+*************************/
+//
+//FB-910
+//
+//FB-910:NASCA不良 37件
+SELECT TmPLM.QcParam_NO, TmPRM.Class_NM, TmPRM.Chip_NM, TmPLM.*
+FROM TmPLM WITH(nolock) 
+INNER JOIN TmPRM WITH(nolock) ON TmPLM.QcParam_NO = TmPRM.QcParam_NO 
+where TmPLM.Model_NM = 'FB-910' AND TmPRM.Class_NM like 'NASCA%'
+
+//FB-910:FILEFMT_WB(SP以外) 12件
+SELECT TmFILEFMT_WB.Model_NM, TmFILEFMT_WB.Prefix_NM, TmFILEFMT_WB.QcParam_NO, TmFILEFMT_WB.Function_NO, 
+TmFILEFMT_WB.Search_NM, TmFILEFMT_WB.Search_NO, TmFILEFMT_WB.Comma_NO, TmPRM.Parameter_NM
+FROM TmFILEFMT_WB WITH (nolock) 
+INNER JOIN TmPRM WITH (nolock) ON TmPRM.QcParam_NO = TmFILEFMT_WB.QcParam_NO
+WHERE NOT TmFILEFMT_WB.Prefix_NM = 'SP'
+AND (TmFILEFMT_WB.Del_FG = 0) AND (TmPRM.Del_FG = 0) AND (TmFILEFMT_WB.Model_NM = 'FB-910') AND (TmFILEFMT_WB.FileFmt_NO = 40)
+
+//⇒(TmPLM.Parameter_MAX < 999999) 4件
+SELECT TmFILEFMT_WB.Model_NM, TmFILEFMT_WB.Prefix_NM, TmFILEFMT_WB.QcParam_NO, TmFILEFMT_WB.Function_NO, 
+TmFILEFMT_WB.Search_NM, TmFILEFMT_WB.Search_NO, TmPRM.Total_KB, TmPLM.Parameter_MIN, TmPLM.Parameter_MAX, TmFILEFMT_WB.Comma_NO, TmPRM.Parameter_NM
+FROM TmFILEFMT_WB WITH (nolock) 
+INNER JOIN TmPRM WITH (nolock) ON TmPRM.QcParam_NO = TmFILEFMT_WB.QcParam_NO
+INNER JOIN TmPLM WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT_WB.QcParam_NO AND TmPLM.Model_NM = TmFILEFMT_WB.Model_NM
+WHERE NOT TmFILEFMT_WB.Prefix_NM = 'SP'
+AND (TmFILEFMT_WB.Del_FG = 0) AND (TmPRM.Del_FG = 0) AND (TmFILEFMT_WB.Model_NM = 'FB-910') AND (TmFILEFMT_WB.FileFmt_NO = 40)
+AND TmPLM.Parameter_MAX < 999999
+
+//FB-910:FILEFMT_WB(SP) 159件
+SELECT TmFILEFMT_WB.Model_NM, TmFILEFMT_WB.Prefix_NM, TmFILEFMT_WB.QcParam_NO, TmFILEFMT_WB.Function_NO, 
+TmFILEFMT_WB.Search_NM, TmFILEFMT_WB.Search_NO, TmFILEFMT_WB.Comma_NO, TmPRM.Parameter_NM
+FROM TmFILEFMT_WB WITH (nolock) 
+INNER JOIN TmPRM WITH (nolock) ON TmPRM.QcParam_NO = TmFILEFMT_WB.QcParam_NO
+WHERE TmFILEFMT_WB.Prefix_NM = 'SP'
+AND (TmFILEFMT_WB.Del_FG = 0) AND (TmPRM.Del_FG = 0) AND (TmFILEFMT_WB.Model_NM = 'FB-910') AND (TmFILEFMT_WB.FileFmt_NO = 40)
+
+
+
+//
+//FB-900
+//
+//FB-900:NASCA不良 37件
+SELECT TmPLM.QcParam_NO, TmPRM.Class_NM, TmPRM.Chip_NM, TmPLM.*
+FROM TmPLM WITH(nolock) 
+INNER JOIN TmPRM WITH(nolock) ON TmPLM.QcParam_NO = TmPRM.QcParam_NO 
+where TmPLM.Model_NM = 'FB-900' AND TmPRM.Class_NM like 'NASCA%'
+
+//FB-900:FILEFMT_WB(SP以外) 12件
+SELECT TmFILEFMT_WB.Model_NM, TmFILEFMT_WB.Prefix_NM, TmFILEFMT_WB.QcParam_NO, TmFILEFMT_WB.Function_NO, 
+TmFILEFMT_WB.Search_NM, TmFILEFMT_WB.Search_NO, TmFILEFMT_WB.Comma_NO, TmPRM.Parameter_NM
+FROM TmFILEFMT_WB WITH (nolock) 
+INNER JOIN TmPRM WITH (nolock) ON TmPRM.QcParam_NO = TmFILEFMT_WB.QcParam_NO
+WHERE NOT TmFILEFMT_WB.Prefix_NM = 'SP'
+AND (TmFILEFMT_WB.Del_FG = 0) AND (TmPRM.Del_FG = 0) AND (TmFILEFMT_WB.Model_NM = 'FB-900') AND (TmFILEFMT_WB.FileFmt_NO = 40)
+
+//⇒(TmPLM.Parameter_MAX < 999999) 4件
+SELECT TmFILEFMT_WB.Model_NM, TmFILEFMT_WB.Prefix_NM, TmFILEFMT_WB.QcParam_NO, TmFILEFMT_WB.Function_NO, 
+TmFILEFMT_WB.Search_NM, TmFILEFMT_WB.Search_NO, TmPRM.Total_KB, TmPLM.Parameter_MIN, TmPLM.Parameter_MAX, TmFILEFMT_WB.Comma_NO, TmPRM.Parameter_NM
+FROM TmFILEFMT_WB WITH (nolock) 
+INNER JOIN TmPRM WITH (nolock) ON TmPRM.QcParam_NO = TmFILEFMT_WB.QcParam_NO
+INNER JOIN TmPLM WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT_WB.QcParam_NO AND TmPLM.Model_NM = TmFILEFMT_WB.Model_NM
+WHERE NOT TmFILEFMT_WB.Prefix_NM = 'SP'
+AND (TmFILEFMT_WB.Del_FG = 0) AND (TmPRM.Del_FG = 0) AND (TmFILEFMT_WB.Model_NM = 'FB-900') AND (TmFILEFMT_WB.FileFmt_NO = 40)
+AND TmPLM.Parameter_MAX < 999999
+
+//FB-900:FILEFMT_WB(SP) 156件
+SELECT TmFILEFMT_WB.Model_NM, TmFILEFMT_WB.Prefix_NM, TmFILEFMT_WB.QcParam_NO, TmFILEFMT_WB.Function_NO, 
+TmFILEFMT_WB.Search_NM, TmFILEFMT_WB.Search_NO, TmFILEFMT_WB.Comma_NO, TmPRM.Parameter_NM
+FROM TmFILEFMT_WB WITH (nolock) 
+INNER JOIN TmPRM WITH (nolock) ON TmPRM.QcParam_NO = TmFILEFMT_WB.QcParam_NO
+WHERE TmFILEFMT_WB.Prefix_NM = 'SP'
+AND (TmFILEFMT_WB.Del_FG = 0) AND (TmPRM.Del_FG = 0) AND (TmFILEFMT_WB.Model_NM = 'FB-900') AND (TmFILEFMT_WB.FileFmt_NO = 40)
+
+
+
+//
+//FB-880
+//
+//FB-880:NASCA不良 37件
+SELECT TmPLM.QcParam_NO, TmPRM.Class_NM, TmPRM.Chip_NM, TmPLM.*
+FROM TmPLM WITH(nolock) 
+INNER JOIN TmPRM WITH(nolock) ON TmPLM.QcParam_NO = TmPRM.QcParam_NO 
+where TmPLM.Model_NM = 'FB-880' AND TmPRM.Class_NM like 'NASCA%'
+
+//FB-880:FILEFMT_WB(SP以外) 12件
+SELECT TmFILEFMT_WB.Model_NM, TmFILEFMT_WB.Prefix_NM, TmFILEFMT_WB.QcParam_NO, TmFILEFMT_WB.Function_NO, 
+TmFILEFMT_WB.Search_NM, TmFILEFMT_WB.Search_NO, TmFILEFMT_WB.Comma_NO, TmPRM.Parameter_NM
+FROM TmFILEFMT_WB WITH (nolock) 
+INNER JOIN TmPRM WITH (nolock) ON TmPRM.QcParam_NO = TmFILEFMT_WB.QcParam_NO
+WHERE NOT TmFILEFMT_WB.Prefix_NM = 'SP'
+AND (TmFILEFMT_WB.Del_FG = 0) AND (TmPRM.Del_FG = 0) AND (TmFILEFMT_WB.Model_NM = 'FB-880') AND (TmFILEFMT_WB.FileFmt_NO = 40)
+
+//⇒(TmPLM.Parameter_MAX < 999999) 4件
+SELECT TmFILEFMT_WB.Model_NM, TmFILEFMT_WB.Prefix_NM, TmFILEFMT_WB.QcParam_NO, TmFILEFMT_WB.Function_NO, 
+TmFILEFMT_WB.Search_NM, TmFILEFMT_WB.Search_NO, TmPRM.Total_KB, TmPLM.Parameter_MIN, TmPLM.Parameter_MAX, TmFILEFMT_WB.Comma_NO, TmPRM.Parameter_NM
+FROM TmFILEFMT_WB WITH (nolock) 
+INNER JOIN TmPRM WITH (nolock) ON TmPRM.QcParam_NO = TmFILEFMT_WB.QcParam_NO
+INNER JOIN TmPLM WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT_WB.QcParam_NO AND TmPLM.Model_NM = TmFILEFMT_WB.Model_NM
+WHERE NOT TmFILEFMT_WB.Prefix_NM = 'SP'
+AND (TmFILEFMT_WB.Del_FG = 0) AND (TmPRM.Del_FG = 0) AND (TmFILEFMT_WB.Model_NM = 'FB-880') AND (TmFILEFMT_WB.FileFmt_NO = 40)
+AND TmPLM.Parameter_MAX < 999999
+
+//FB-880:FILEFMT_WB(SP) 153件
+SELECT TmFILEFMT_WB.Model_NM, TmFILEFMT_WB.Prefix_NM, TmFILEFMT_WB.QcParam_NO, TmFILEFMT_WB.Function_NO, 
+TmFILEFMT_WB.Search_NM, TmFILEFMT_WB.Search_NO, TmFILEFMT_WB.Comma_NO, TmPRM.Parameter_NM
+FROM TmFILEFMT_WB WITH (nolock) 
+INNER JOIN TmPRM WITH (nolock) ON TmPRM.QcParam_NO = TmFILEFMT_WB.QcParam_NO
+WHERE TmFILEFMT_WB.Prefix_NM = 'SP'
+AND (TmFILEFMT_WB.Del_FG = 0) AND (TmPRM.Del_FG = 0) AND (TmFILEFMT_WB.Model_NM = 'FB-880') AND (TmFILEFMT_WB.FileFmt_NO = 40)
+
+
+
+/************************
+DB
+*************************/
+//
+//素子共通
+//
+//DB:NASCA不良 34件
+SELECT TmPLM.QcParam_NO, TmPRM.Class_NM, TmPRM.Chip_NM, TmPLM.*
+FROM TmPLM WITH(nolock) 
+INNER JOIN TmPRM WITH(nolock) ON TmPLM.QcParam_NO = TmPRM.QcParam_NO 
+where TmPLM.Model_NM = 'DB' AND TmPRM.Class_NM like 'NASCA%'
+
+//DB:FILEFMT
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Parameter_NM, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM, TmPRM.Chip_NM
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE (TmFILEFMT.Model_NM = 'DB') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999)
+
+//
+//LED
+//
+//DB-2(LED):FILEFMT 817件
+SELECT TmFILEFMT.QcParam_NO, TmPRM.Parameter_NM, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM,
+TmFILEFMT.Prefix_NM, TmPRM.Chip_NM, TmFILEFMT.Header_NM, TmFILEFMT.StartUp_FG, TmFILEFMT.XPath, TmFILEFMT.XPath_SearchNO
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE (TmFILEFMT.Model_NM = 'DB-2') AND (TmPRM.Del_FG = 0) AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.StartUp_FG = 1) AND Chip_NM = 'LED'
+
+//DB:FILEFMT(LED:P,O以外) 8件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Parameter_NM, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM, TmPRM.Chip_NM
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE (TmFILEFMT.Prefix_NM = 'P' or TmFILEFMT.Prefix_NM = 'O') 
+AND (TmFILEFMT.Model_NM = 'DB') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999)
+AND TmPRM.Chip_NM = 'LED'
+
+//DB:FILEFMT(LED:P,O以外) 70件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Parameter_NM, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM, TmPRM.Chip_NM
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE NOT (TmFILEFMT.Prefix_NM = 'P' or TmFILEFMT.Prefix_NM = 'O') 
+AND (TmFILEFMT.Model_NM = 'DB') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999)
+AND TmPRM.Chip_NM = 'LED'
+
+//⇒(Parameter_MAX < 999999) 24件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Class_NM, TmPRM.Parameter_NM, TmPRM.Total_KB, TmPLM.Parameter_MIN, TmPLM.Parameter_MAX, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+INNER JOIN TmPLM WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE NOT (TmFILEFMT.Prefix_NM = 'P' or TmFILEFMT.Prefix_NM = 'O') 
+AND (TmFILEFMT.Model_NM = 'DB') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999)
+AND TmPRM.Chip_NM = 'LED'
+AND TmPLM.Parameter_MAX < 999999
+
+//
+//ZD
+//
+//DB-2(ZD):FILEFMT 817件
+SELECT TmFILEFMT.QcParam_NO, TmPRM.Parameter_NM, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM,
+TmFILEFMT.Prefix_NM, TmPRM.Chip_NM, TmFILEFMT.Header_NM, TmFILEFMT.StartUp_FG, TmFILEFMT.XPath, TmFILEFMT.XPath_SearchNO
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE (TmFILEFMT.Model_NM = 'DB-2') AND (TmPRM.Del_FG = 0) AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.StartUp_FG = 1) AND Chip_NM = 'ZD'
+
+//DB:FILEFMT(ZD:P,O以外) 8件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Parameter_NM, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM, TmPRM.Chip_NM
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE (TmFILEFMT.Prefix_NM = 'P' or TmFILEFMT.Prefix_NM = 'O') 
+AND (TmFILEFMT.Model_NM = 'DB') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999)
+AND TmPRM.Chip_NM = 'ZD'
+
+//DB:FILEFMT(ZD:P,O以外) 28件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Parameter_NM, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM, TmPRM.Chip_NM
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE NOT (TmFILEFMT.Prefix_NM = 'P' or TmFILEFMT.Prefix_NM = 'O') 
+AND (TmFILEFMT.Model_NM = 'DB') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999)
+AND TmPRM.Chip_NM = 'ZD'
+
+//⇒(Parameter_MAX < 999999) 24件
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT.Header_NM, TmPRM.Class_NM, TmPRM.Parameter_NM, TmPRM.Total_KB, TmPLM.Parameter_MIN, TmPLM.Parameter_MAX, TmFILEFMT.Column_NO, TmFILEFMT.Search_NM, TmFILEFMT.MachinePrefix_NM, TmFILEFMT.Prefix_NM
+FROM TmFILEFMT WITH(nolock)              
+INNER JOIN TmPRM WITH(nolock) ON TmPRM.QcParam_NO = TmFILEFMT.QcParam_NO
+INNER JOIN TmPLM WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT.QcParam_NO
+WHERE NOT (TmFILEFMT.Prefix_NM = 'P' or TmFILEFMT.Prefix_NM = 'O') 
+AND (TmFILEFMT.Model_NM = 'DB') AND (TmFILEFMT.Del_FG = 0) AND (TmFILEFMT.QcParam_NO <> 999999999)
+AND TmPRM.Chip_NM = 'ZD'
+AND TmPLM.Parameter_MAX < 999999
+
+/************************
+etc.
+*************************/
+//機種全PLM抽出SQL
+SELECT TmPRM.QcParam_NO, TmPLM.Model_NM, TmPRM.Chip_NM, TmPRM.Class_NM, TmPRM.Manage_NM, TmPRM.Parameter_NM, TmPRM.Total_KB, TmPRM.Die_KB, TmPLM.Parameter_MAX, 
+TmPLM.Parameter_MIN, TmPLM.Parameter_VAL, TmPLM.DS_FG, TmPRM.RefQcParam_NO, TmPLM.Equipment_NO, TmPRM.EquipManage_FG, 
+TmPLM.InnerUpperLimit, TmPLM.InnerLowerLimit, TmPLM.Material_CD, TmPRM.UnManageTrend_FG, TmPRM.WithoutFileFmt_FG, TmPRM.ProgramNm_FG, 
+TmPRM.ResinGroupManage_FG, TmPLM.ResinGroup_CD
+FROM TmPLM WITH(nolock) 
+INNER JOIN TmPRM WITH(nolock) ON TmPLM.QcParam_NO = TmPRM.QcParam_NO 
+WHERE (TmPLM.Material_CD = 'CL-A160-1W9-S4') 
+AND (TmPLM.Del_FG = 0) AND (TmPRM.Del_FG = 0)
+
+//PLM inner join FILEFMTs
+//TmFILEFMT(2862)
+SELECT *
+FROM TmPLM WITH(nolock) 
+INNER JOIN TmFILEFMT WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT.QcParam_NO 
+
+//TmFILEFMT_WB(498)
+SELECT *
+FROM TmPLM WITH(nolock) 
+INNER JOIN TmFILEFMT_WB WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT_WB.QcParam_NO AND TmPLM.Model_NM = TmFILEFMT_WB.Model_NM AND TmFILEFMT_WB.FileFmt_NO = 40
+
+//TmPlcFileConv(1255)
+SELECT *
+FROM TmPLM WITH(nolock) 
+INNER JOIN TmPlcFileConv WITH(nolock) ON TmPLM.QcParam_NO = TmPlcFileConv.QcParam_NO 
+
+//TnFILEFMTとTmFILEFMT_WBのQcParamが被ってるリスト（FileFmt_NO = 40 で絞ったらヒットしなかった）
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT_WB.QcParam_NO, TmPlcFileConv.QcParam_NO, TmPLM.QcParam_NO, TmPRM.Class_NM, TmPLM.*
+FROM TmPLM WITH(nolock)
+INNER JOIN TmPRM WITH(nolock) ON TmPLM.QcParam_NO = TmPRM.QcParam_NO 
+left outer join TmFILEFMT WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT.QcParam_NO
+left outer join TmFILEFMT_WB WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT_WB.QcParam_NO	and FileFmt_NO = 40 
+left outer join TmPlcFileConv WITH(nolock) ON TmPLM.QcParam_NO = TmPlcFileConv.QcParam_NO
+where TmFILEFMT.QcParam_NO is not NULL and TmFILEFMT_WB.QcParam_NO is not NULL and TmPlcFileConv.QcParam_NO is NULL
+⇒FileFmtはすべて40なの？いずれにしてもマスタを絞って整理したほうがいいと思われる。
+
+
+//NASCAデータ含めFILE,PLCにないパラメータ
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT_WB.QcParam_NO, TmPlcFileConv.QcParam_NO, TmPLM.QcParam_NO, TmPRM.Class_NM, TmPLM.*
+FROM TmPLM WITH(nolock) 
+INNER JOIN TmPRM WITH(nolock) ON TmPLM.QcParam_NO = TmPRM.QcParam_NO 
+left outer join TmFILEFMT WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT.QcParam_NO
+left outer join TmFILEFMT_WB WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT_WB.QcParam_NO
+left outer join TmPlcFileConv WITH(nolock) ON TmPLM.QcParam_NO = TmPlcFileConv.QcParam_NO
+where TmFILEFMT.QcParam_NO is NULL and TmFILEFMT_WB.QcParam_NO is NULL and TmPlcFileConv.QcParam_NO is NULL
+ 
+  
+//未定義（NAS, SUP除く）
+SELECT TmFILEFMT.QcParam_NO, TmFILEFMT_WB.QcParam_NO, TmPlcFileConv.QcParam_NO, TmPLM.QcParam_NO, TmPRM.Class_NM, TmPLM.*
+FROM TmPLM WITH(nolock) 
+INNER JOIN TmPRM WITH(nolock) ON TmPLM.QcParam_NO = TmPRM.QcParam_NO 
+left outer join TmFILEFMT WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT.QcParam_NO
+left outer join TmFILEFMT_WB WITH(nolock) ON TmPLM.QcParam_NO = TmFILEFMT_WB.QcParam_NO and FileFmt_NO = 40
+left outer join TmPlcFileConv WITH(nolock) ON TmPLM.QcParam_NO = TmPlcFileConv.QcParam_NO
+where NOT (TmPRM.Class_NM like 'NASCA%' or TmPLM.Model_NM = 'SUP') and TmFILEFMT.QcParam_NO is NULL and TmFILEFMT_WB.QcParam_NO is NULL and TmPlcFileConv.QcParam_NO is NULL
+  

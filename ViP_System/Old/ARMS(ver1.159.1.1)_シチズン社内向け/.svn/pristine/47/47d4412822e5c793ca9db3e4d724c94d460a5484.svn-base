@@ -1,0 +1,26 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.BlendLabelCompareModel
+@{
+    ViewBag.Title = "Confirm";
+}
+
+@using (Html.BeginForm("Confirmed", "BlendLabelCompare"))
+{
+<h3>親ロットラベルと構成ロット（子ロット）ラベルの照合</h3>
+<h3>親ロット：@Model.BlendLotNo</h3>
+
+    <h3>構成ロット（子ロット）：@Model.AsmLotList.Count().ToString() </h3>
+    <ul>
+        @foreach (string asmlotno in Model.AsmLotList)
+        {
+            <li>@asmlotno</li>
+        }
+    </ul>
+    <br />
+
+    <div>
+        <input type="submit" value="Go" />
+        &nbsp
+        <button onclick="location.href='@Url.Action("CancelEdit")';return false;">キャンセル</button>
+    </div>
+}

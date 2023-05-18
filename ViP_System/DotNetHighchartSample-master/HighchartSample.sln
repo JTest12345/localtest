@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31229.75
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighchartSample", "HighchartSample\HighchartSample.csproj", "{7EC056CA-C2C1-4D9A-8282-5C42BBED3E1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7EC056CA-C2C1-4D9A-8282-5C42BBED3E1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EC056CA-C2C1-4D9A-8282-5C42BBED3E1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EC056CA-C2C1-4D9A-8282-5C42BBED3E1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EC056CA-C2C1-4D9A-8282-5C42BBED3E1B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D0FA8433-3ED4-4098-84BB-7049E548A859}
+	EndGlobalSection
+EndGlobal

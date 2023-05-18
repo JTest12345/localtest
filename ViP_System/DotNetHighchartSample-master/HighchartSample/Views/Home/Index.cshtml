@@ -1,0 +1,26 @@
+﻿@model IEnumerable<HighchartSample.Model.MachineName>
+
+@{
+    ViewBag.Title = "Highchartsのサンプル";
+}
+
+
+<div align="left" style="border: 3px double; width: 140px;">
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("設備絞込み", "Single", "Single")</li>
+        </ul>
+    </div>
+</div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>#1Line</h2>
+            @Html.Raw(ViewData["lineChart"])
+        </div>
+
+        <div class="col-md-12">
+            <h2>#2Line</h2>
+            @Html.Raw(ViewData["lineChart2"])
+        </div>
+    </div>

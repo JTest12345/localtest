@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QCIL" Class="EICSDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=172.21.208.221\SQLEXPRESS;Initial Catalog=QCIL;Integrated Security=True" SettingsObjectName="EICS.Properties.Settings" SettingsPropertyName="QCILConnectionString2" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.TmTypeGroup" Member="TmTypeGroup">
+    <Type Name="TmTypeGroup">
+      <Column Name="Model_NM" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TypeGroup_CD" Type="System.String" DbType="NVarChar(64) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Type_CD" Type="System.String" DbType="NVarChar(64) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Chip_NM" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Del_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UpdUser_CD" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TmLSET" Member="TmLSET">
+    <Type Name="TmLSET">
+      <Column Name="Inline_CD" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Equipment_NO" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Equipment_CD" Type="System.String" DbType="Char(12) NOT NULL" CanBeNull="false" />
+      <Column Name="Process_CD" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Seq_NO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IPAddress_NO" Type="System.String" DbType="Char(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Port_NO" Type="System.String" DbType="Char(8)" CanBeNull="true" />
+      <Column Name="InputFolder_NM" Type="System.String" DbType="Char(128)" CanBeNull="true" />
+      <Column Name="LoaderAddress_NO" Type="System.String" DbType="Char(15)" CanBeNull="true" />
+      <Column Name="LoaderPlcNode_NO" Type="System.String" DbType="Char(15)" CanBeNull="true" />
+      <Column Name="Del_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UpdUser_CD" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ThreadGrp_CD" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MainThread_FG" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EquipPart_ID" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="WorkingType_CD" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ArmsTypeNoCheck_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ReferMultiServer_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="EnableResultPriorityJudge_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="WorkingTypeGroup_CD" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TmEQUI" Member="TmEQUI">
+    <Type Name="TmEQUI">
+      <Column Name="Equipment_NO" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Model_NM" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Assets_NM" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MachinSeq_NO" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Del_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TmBonding" Member="TmBonding">
+    <Type Name="TmBonding">
+      <Column Name="Type_CD" Type="System.String" DbType="NVarChar(24) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Proc_NO" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ChipBond_CT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DbDispense_CT" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Del_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TnSortingTrayLot" Member="TnSortingTrayLot">
+    <Type Name="TnSortingTrayLot">
+      <Column Name="Tray_ID" Type="System.String" DbType="NVarChar(24) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Register_DT" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NascaLot_NO" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Pot_NO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Effect_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TmPlcFileConv" Member="TmPlcFileConv">
+    <Type Name="TmPlcFileConv">
+      <Column Name="Model_NM" Type="System.String" DbType="VarChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Prefix_NM" Type="System.String" DbType="VarChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Header_NM" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Order_NO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Plc_ADDR" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Data_LEN" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DataType_CD" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Del_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Identify_CD" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="QcParam_NO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TnPsMeasureResult" Member="TnPsMeasureResult">
+    <Type Name="TnPsMeasureResult">
+      <Column Name="Tray_NO" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Sheet_NO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QcParam_NO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Plant_CD" Type="System.String" DbType="NVarChar(24) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Measure_DT" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Type_CD" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="Lot_NO" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="MeasureAve_VAL" Type="System.Decimal" DbType="Decimal(18,7) NOT NULL" CanBeNull="false" />
+      <Column Name="New_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TmPRM" Member="TmPRM">
+    <Type Name="TmPRM">
+      <Column Name="QcParam_NO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Model_NM" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Chip_NM" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Die_KB" Type="System.String" DbType="Char(8)" CanBeNull="true" />
+      <Column Name="Class_NM" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Parameter_NM" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Manage_NM" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Timing_NO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChangeUnit_VAL" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Total_KB" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="Del_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UpdUser_CD" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RefQcParam_NO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CauseAssets_NM" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="EquipManage_FG" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnManageTrend_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="WithoutFileFmt_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ProgramNm_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ResinGroupManage_FG" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PsMeasureResultSave_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TnPsPastedResult" Member="TnPsPastedResult">
+    <Type Name="TnPsPastedResult">
+      <Column Name="Combi1Lot_NO" Type="System.String" DbType="NVarChar(64) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Combi1Tray_NO" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Combi1Sheet_NO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Combi2Lot_NO" Type="System.String" DbType="NVarChar(64) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Combi2Tray_NO" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Combi2Sheet_NO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PastedLot_NO" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TmFILEFMT" Member="TmFILEFMT">
+    <Type Name="TmFILEFMT">
+      <Column Name="Model_NM" Type="System.String" DbType="VarChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QcParam_NO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Prefix_NM" Type="System.String" DbType="VarChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Column_NO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Search_NM" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="MachinePrefix_NM" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Del_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UpdUser_CD" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Header_NM" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="StartUp_FG" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EquipPart_ID" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="XPath" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="XPath_SearchNO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AdditionEndProcess_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TnLOG" Member="TnLOG">
+    <Type Name="TnLOG">
+      <Column Name="Inline_CD" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Equipment_NO" Type="System.String" DbType="Char(12) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Measure_DT" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Seq_NO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QcParam_NO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Material_CD" Type="System.String" DbType="Char(24)" CanBeNull="true" />
+      <Column Name="Magazine_NO" Type="System.String" DbType="Char(16)" CanBeNull="true" />
+      <Column Name="NascaLot_NO" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="DParameter_VAL" Type="System.Decimal" DbType="Decimal(15,4)" CanBeNull="true" />
+      <Column Name="SParameter_VAL" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Message_NM" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Error_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Check_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Del_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UpdUser_CD" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TnLogWaitingQueue" Member="TnLogWaitingQueue">
+    <Type Name="TnLogWaitingQueue">
+      <Column Name="Inline_CD" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Equipment_NO" Type="System.String" DbType="Char(12) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Measure_DT" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Seq_NO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QcParam_NO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Material_CD" Type="System.String" DbType="Char(24)" CanBeNull="true" />
+      <Column Name="Magazine_NO" Type="System.String" DbType="Char(16)" CanBeNull="true" />
+      <Column Name="NascaLot_NO" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="DParameter_VAL" Type="System.Decimal" DbType="Decimal(15,4)" CanBeNull="true" />
+      <Column Name="SParameter_VAL" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Message_NM" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Error_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Check_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Del_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UpdUser_CD" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

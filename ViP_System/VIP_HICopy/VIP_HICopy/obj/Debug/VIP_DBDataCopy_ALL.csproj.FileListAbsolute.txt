@@ -1,0 +1,6 @@
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy_ALL\VIP_DBDataCopy_ALL\bin\Debug\VIP_DBDataCopy_ALL.exe.config
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy_ALL\VIP_DBDataCopy_ALL\bin\Debug\VIP_DBDataCopy_ALL.exe
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy_ALL\VIP_DBDataCopy_ALL\bin\Debug\VIP_DBDataCopy_ALL.pdb
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy_ALL\VIP_DBDataCopy_ALL\obj\Debug\VIP_DBDataCopy_ALL.csproj.CoreCompileInputs.cache
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy_ALL\VIP_DBDataCopy_ALL\obj\Debug\VIP_DBDataCopy_ALL.exe
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy_ALL\VIP_DBDataCopy_ALL\obj\Debug\VIP_DBDataCopy_ALL.pdb

@@ -1,0 +1,27 @@
+﻿@model ArmsWeb.Models.WorkStartModel
+
+@{
+    ViewBag.Title = "Clear";
+}
+
+<h3>作業予約解除</h3>
+<h3>設備：@Model.PlantCd</h3>
+
+@using (Html.BeginForm())
+{
+    <h3>予約登録を全て解除します</h3>
+
+    <br />
+    <h5>予約済みロット @Model.MagList.Count().ToString() </h5>
+    <ul>
+        @foreach (ArmsApi.Model.ReservedOrder ro in Model.GetReserveList())
+        {
+            <li>@ro.InMagazineNo : @ro.LotNo</li>
+        }
+    </ul>
+    <br />
+    
+    <div>
+        @Html.ActionLink("全予約解除", "ClearConfirm")
+    </div>
+}

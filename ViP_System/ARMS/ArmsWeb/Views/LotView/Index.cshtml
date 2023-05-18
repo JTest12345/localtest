@@ -1,0 +1,126 @@
+﻿@model ArmsWeb.Models.LotViewModel
+@{
+    ViewBag.Title = "LotView";
+}
+@using (Html.BeginForm())
+{
+    @Html.TextBox("magno");
+    <input type="submit" value="GO" />
+}
+
+@if (Model != null)
+{
+    if (!string.IsNullOrEmpty(Model.LotNo))
+    {
+
+        <h5>マガジン:@Model.MagNo</h5>
+        <h5>ロット番号：@Model.LotNo</h5>
+        <h5>タイプ：@Model.Lot.TypeCd</h5>
+        <h5>完了工程:@Model.Magazine.NowCompProcessNm</h5>
+        <h5>樹脂グループ:@string.Join(",", Model.Lot.ResinGpCd)</h5>
+        <h5>DB投入日:@Model.Lot.DBThrowDT</h5>
+        if (Model.Profile != null)
+        {
+            <h5>狙いランク:@Model.Profile.AimRank</h5>
+        }
+        else
+        {
+            <h5>狙いランク:プロファイルが紐づいていません。</h5>
+        }
+
+        <p>@Html.ActionLink("不良入力", "DefInput", new { isInspection = false}) </p>
+        <p>@Html.ActionLink("状態検査入力", "DefInput", new { isInspection = true}) </p>
+        <p>@Html.ActionLink("強度試験データ出力", "PsTesterLink") </p>
+    
+        if (Model.LastMachine != null)
+        {
+            <h5>最終完了装置:@Model.LastMachine.LongName</h5>
+        }
+        <h5>次装置グループ:@Model.NextGroupString</h5>
+        <h5>次ライン：@Model.NextLine </h5>
+        if (string.IsNullOrWhiteSpace(Model.NextLineComment) == false)
+        {
+            <h5>     @Model.NextLineComment </h5>
+        }
+
+        <table>
+            @foreach (var log in Model.LotLog.OrderBy(o => o.Key))
+            {
+                <tr>
+                    <td>@log.Key.ToString("MM/dd HH:mm")</td>
+                    <td>@log.Value</td>
+                </tr>
+            }
+        </table>
+
+        if (Model.LcrList != null && Model.LcrList.Length > 0)
+        {
+            <h5>作業時間監視リスト:</h5>
+            <table>
+                <tr align="center" valign="top">
+                    <td>完了工程</td>
+                    <td>完了区分</td>
+                    <td>有効期限</td>
+                    <td>残り時間(分)</td>
+                </tr>
+                @foreach (var cr in Model.LcrList.OrderBy(l => l.Remains))
+                {
+                    string mycolor = "#ffffff";  // 白色 (デフォルト)
+                    switch (cr.Result)
+                    {
+                        case ArmsApi.Model.LimitCheckResult.ResultKb.Expired:
+                            mycolor = "#ff0000";  // 赤色
+                            break;
+
+                        case ArmsApi.Model.LimitCheckResult.ResultKb.Warning:
+                            mycolor = "#ffc0cb";  // ピンク
+                            break;
+
+                        case ArmsApi.Model.LimitCheckResult.ResultKb.Attension:
+                            mycolor = "#ffff00";  // 黄色
+                            break;
+                    }
+                    <tr bgcolor = @mycolor align="center" valign="top">
+                        <td>@cr.ChkProcNm</td>
+                        <td>@cr.ChkKb</td>
+                        <td>@cr.LimitDt.ToString("MM/dd HH:mm")</td>
+                        <td>@cr.Remains</td>
+                    </tr>
+ 
+                }
+            </table>
+        }
+
+        if (Model.LcrList_FI != null && Model.LcrList_FI.Count() > 0)
+        {
+            <h5>作業投入可能待ちリスト:</h5>
+            <table>
+                <tr align="center" valign="top">
+                    <td>工程</td>
+                    <td>区分</td>
+                    <td>投入可能時刻</td>
+                    <td>残り時間(分)</td>
+                </tr>
+                @foreach (var cr in Model.LcrList_FI.OrderBy(l => l.Remains))
+                {
+                    string sRemain = cr.Remains.ToString();
+                    if (cr.Remains < 0)
+                    {
+                        sRemain = "投入可能";
+                    }
+
+                    <tr align="center" valign="top">
+                        <td>@cr.ChkProcNm</td>
+                        <td>@cr.ChkKb</td>
+                        <td>@cr.LimitDt.ToString("MM/dd HH:mm")</td>
+                        <td>@sRemain</td>
+                    </tr>
+                }
+            </table>
+        }
+    }
+    else if (Model.isNotFound)
+    {
+        <p>ロット情報が存在しません: @Model.MagNo</p>
+    }
+}

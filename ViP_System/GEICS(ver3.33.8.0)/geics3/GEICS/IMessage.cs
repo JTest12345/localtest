@@ -1,0 +1,119 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace GEICS
+{
+    public interface IMessage
+    {
+        string Message_1 { get; }
+        string Message_2 { get; }
+        string Message_3 { get; }
+        string Message_4 { get; }
+        string Message_5 { get; }
+        string Message_6 { get; }
+        string Message_7 { get; }
+        string Message_8 { get; }
+        string Message_9 { get; }
+        string Message_10 { get; }
+        string Message_11 { get; }
+        string Message_12 { get; }
+        string Message_13 { get; }
+        string Message_14 { get; }
+        string Message_15 { get; }
+        string Message_16 { get; }
+        string Message_17 { get; }
+        string Message_18 { get; }
+        string Message_19 { get; }
+        string Message_20 { get; }
+        string Message_21 { get; }
+        string Message_22 { get; }
+        string Message_23 { get; }
+        string Message_24 { get; }
+        string Message_25 { get; }
+        string Message_26 { get; }
+        string Message_27 { get; }
+        string Message_28 { get; }
+        string Message_29 { get; }
+        string Message_30 { get; }
+        string Message_31 { get; }
+        string Message_32 { get; }
+        string Message_33 { get; }
+        string Message_34 { get; }
+        string Message_35 { get; }
+        string Message_36 { get; }
+        string Message_37 { get; }
+        string Message_38 { get; }
+        string Message_39 { get; }
+        string Message_40 { get; }
+        string Message_41 { get; }
+        string Message_42 { get; }
+        string Message_43 { get; }
+        string Message_44 { get; }
+        string Message_45 { get; }
+        string Message_46 { get; }
+        string Message_47 { get; }
+        string Message_48 { get; }
+        string Message_49 { get; }
+        string Message_50 { get; }
+        string Message_51 { get; }
+        string Message_52 { get; }
+        string Message_53 { get; }
+        string Message_54 { get; }
+        string Message_55 { get; }
+        string Message_56 { get; }
+        string Message_57 { get; }
+        string Message_58 { get; }
+        string Message_59 { get; }
+        string Message_60 { get; }
+        string Message_61 { get; }
+        string Message_62 { get; }
+        string Message_63 { get; }
+        string Message_64 { get; }
+        string Message_65 { get; }
+        string Message_66 { get; }
+        string Message_67 { get; }
+        string Message_68 { get; }
+        string Message_69 { get; }
+        string Message_70 { get; }
+        string Message_71 { get; }
+        string Message_72 { get; }
+        string Message_73 { get; }
+        string Message_74 { get; }
+        string Message_75 { get; }
+        string Message_76 { get; }
+        string Message_77 { get; }
+        string Message_78 { get; }
+        string Message_79 { get; }
+        string Message_80 { get; }
+        string Message_81 { get; }
+        string Message_82 { get; }
+        string Message_83 { get; }
+        string Message_84 { get; }
+        string Message_85 { get; }
+        string Message_86 { get; }
+        string Message_87 { get; }
+        string Message_88 { get; }
+        string Message_89 { get; }
+        string Message_90 { get; }
+        string Message_91 { get; }
+        string Message_92 { get; }
+        string Message_93 { get; }
+        string Message_94 { get; }
+        string Message_95 { get; }
+        string Message_96 { get; }
+		string Message_97 { get; }
+		string Message_98 { get; }
+		string Message_99 { get; }
+		string Message_100 { get; }
+		string Message_101 { get; }
+        string Message_102 { get; }
+        string Message_103 { get; }
+        string Message_104 { get; }
+        string Message_105 { get; }
+        string Message_106 { get; }
+        string Message_107 { get; }
+        string Message_108 { get; }
+
+    }
+}

@@ -1,0 +1,1296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="gbEquipment.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="clbMachineList.HorizontalScrollbar" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="clbMachineList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 64</value>
+  </data>
+  <data name="clbMachineList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 270</value>
+  </data>
+  <data name="clbMachineList.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="&gt;&gt;clbMachineList.Name" xml:space="preserve">
+    <value>clbMachineList</value>
+  </data>
+  <data name="&gt;&gt;clbMachineList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckedListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clbMachineList.Parent" xml:space="preserve">
+    <value>gbEquipment</value>
+  </data>
+  <data name="&gt;&gt;clbMachineList.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cmbbAssetsNM.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 38</value>
+  </data>
+  <data name="cmbbAssetsNM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 20</value>
+  </data>
+  <data name="cmbbAssetsNM.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="cmbbAssetsNM.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;cmbbAssetsNM.Name" xml:space="preserve">
+    <value>cmbbAssetsNM</value>
+  </data>
+  <data name="&gt;&gt;cmbbAssetsNM.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbbAssetsNM.Parent" xml:space="preserve">
+    <value>gbEquipment</value>
+  </data>
+  <data name="&gt;&gt;cmbbAssetsNM.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btnMachineAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 313</value>
+  </data>
+  <data name="btnMachineAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 21</value>
+  </data>
+  <data name="btnMachineAll.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="btnMachineAll.Text" xml:space="preserve">
+    <value>全選択</value>
+  </data>
+  <data name="&gt;&gt;btnMachineAll.Name" xml:space="preserve">
+    <value>btnMachineAll</value>
+  </data>
+  <data name="&gt;&gt;btnMachineAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnMachineAll.Parent" xml:space="preserve">
+    <value>gbEquipment</value>
+  </data>
+  <data name="&gt;&gt;btnMachineAll.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 41</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 12</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>設備名</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>gbEquipment</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label23.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label23.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label23.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 15</value>
+  </data>
+  <data name="label23.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 12</value>
+  </data>
+  <data name="label23.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="label23.Text" xml:space="preserve">
+    <value>LineNo</value>
+  </data>
+  <data name="&gt;&gt;label23.Name" xml:space="preserve">
+    <value>label23</value>
+  </data>
+  <data name="&gt;&gt;label23.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label23.Parent" xml:space="preserve">
+    <value>gbEquipment</value>
+  </data>
+  <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="cmbbLineNo.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="cmbbLineNo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 12</value>
+  </data>
+  <data name="cmbbLineNo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 20</value>
+  </data>
+  <data name="cmbbLineNo.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="cmbbLineNo.Text" xml:space="preserve">
+    <value>9001</value>
+  </data>
+  <data name="&gt;&gt;cmbbLineNo.Name" xml:space="preserve">
+    <value>cmbbLineNo</value>
+  </data>
+  <data name="&gt;&gt;cmbbLineNo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbbLineNo.Parent" xml:space="preserve">
+    <value>gbEquipment</value>
+  </data>
+  <data name="&gt;&gt;cmbbLineNo.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 64</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 12</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>設備No</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>gbEquipment</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="gbEquipment.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 12</value>
+  </data>
+  <data name="gbEquipment.Size" type="System.Drawing.Size, System.Drawing">
+    <value>279, 341</value>
+  </data>
+  <data name="gbEquipment.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="gbEquipment.Text" xml:space="preserve">
+    <value>装置情報</value>
+  </data>
+  <data name="&gt;&gt;gbEquipment.Name" xml:space="preserve">
+    <value>gbEquipment</value>
+  </data>
+  <data name="&gt;&gt;gbEquipment.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gbEquipment.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gbEquipment.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="gbGraph.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="rbMonthly.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbMonthly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>170, 12</value>
+  </data>
+  <data name="rbMonthly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 16</value>
+  </data>
+  <data name="rbMonthly.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="rbMonthly.Text" xml:space="preserve">
+    <value>月次</value>
+  </data>
+  <data name="&gt;&gt;rbMonthly.Name" xml:space="preserve">
+    <value>rbMonthly</value>
+  </data>
+  <data name="&gt;&gt;rbMonthly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbMonthly.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;rbMonthly.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="rbDayly.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbDayly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>45, 11</value>
+  </data>
+  <data name="rbDayly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 16</value>
+  </data>
+  <data name="rbDayly.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="rbDayly.Text" xml:space="preserve">
+    <value>日次</value>
+  </data>
+  <data name="&gt;&gt;rbDayly.Name" xml:space="preserve">
+    <value>rbDayly</value>
+  </data>
+  <data name="&gt;&gt;rbDayly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbDayly.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;rbDayly.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btnMonthInc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>250, 10</value>
+  </data>
+  <data name="btnMonthInc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 18</value>
+  </data>
+  <data name="btnMonthInc.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="btnMonthInc.Text" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="&gt;&gt;btnMonthInc.Name" xml:space="preserve">
+    <value>btnMonthInc</value>
+  </data>
+  <data name="&gt;&gt;btnMonthInc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnMonthInc.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;btnMonthInc.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="btnMonthDec.Location" type="System.Drawing.Point, System.Drawing">
+    <value>226, 10</value>
+  </data>
+  <data name="btnMonthDec.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 18</value>
+  </data>
+  <data name="btnMonthDec.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="btnMonthDec.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;btnMonthDec.Name" xml:space="preserve">
+    <value>btnMonthDec</value>
+  </data>
+  <data name="&gt;&gt;btnMonthDec.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnMonthDec.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;btnMonthDec.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="btnDayDec.Location" type="System.Drawing.Point, System.Drawing">
+    <value>98, 9</value>
+  </data>
+  <data name="btnDayDec.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 18</value>
+  </data>
+  <data name="btnDayDec.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="btnDayDec.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;btnDayDec.Name" xml:space="preserve">
+    <value>btnDayDec</value>
+  </data>
+  <data name="&gt;&gt;btnDayDec.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnDayDec.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;btnDayDec.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="btnDayInc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>123, 9</value>
+  </data>
+  <data name="btnDayInc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 18</value>
+  </data>
+  <data name="btnDayInc.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="btnDayInc.Text" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="&gt;&gt;btnDayInc.Name" xml:space="preserve">
+    <value>btnDayInc</value>
+  </data>
+  <data name="&gt;&gt;btnDayInc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnDayInc.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;btnDayInc.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="label22.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label22.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
+    <value>250, 65</value>
+  </data>
+  <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
+    <value>17, 12</value>
+  </data>
+  <data name="label22.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>分</value>
+  </data>
+  <data name="&gt;&gt;label22.Name" xml:space="preserve">
+    <value>label22</value>
+  </data>
+  <data name="&gt;&gt;label22.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label22.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="txtbEndMinute.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="txtbEndMinute.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 62</value>
+  </data>
+  <data name="txtbEndMinute.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 19</value>
+  </data>
+  <data name="txtbEndMinute.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="txtbEndMinute.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;txtbEndMinute.Name" xml:space="preserve">
+    <value>txtbEndMinute</value>
+  </data>
+  <data name="&gt;&gt;txtbEndMinute.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtbEndMinute.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;txtbEndMinute.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="label21.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label21.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
+    <value>250, 37</value>
+  </data>
+  <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
+    <value>17, 12</value>
+  </data>
+  <data name="label21.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>分</value>
+  </data>
+  <data name="&gt;&gt;label21.Name" xml:space="preserve">
+    <value>label21</value>
+  </data>
+  <data name="&gt;&gt;label21.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label21.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="txtbStartMinute.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="txtbStartMinute.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 34</value>
+  </data>
+  <data name="txtbStartMinute.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 19</value>
+  </data>
+  <data name="txtbStartMinute.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="txtbStartMinute.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;txtbStartMinute.Name" xml:space="preserve">
+    <value>txtbStartMinute</value>
+  </data>
+  <data name="&gt;&gt;txtbStartMinute.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtbStartMinute.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;txtbStartMinute.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="label20.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label20.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label20.Location" type="System.Drawing.Point, System.Drawing">
+    <value>201, 65</value>
+  </data>
+  <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
+    <value>17, 12</value>
+  </data>
+  <data name="label20.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>時</value>
+  </data>
+  <data name="&gt;&gt;label20.Name" xml:space="preserve">
+    <value>label20</value>
+  </data>
+  <data name="&gt;&gt;label20.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label20.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;label20.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="txtbEndHour.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="txtbEndHour.Location" type="System.Drawing.Point, System.Drawing">
+    <value>174, 62</value>
+  </data>
+  <data name="txtbEndHour.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 19</value>
+  </data>
+  <data name="txtbEndHour.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="txtbEndHour.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;txtbEndHour.Name" xml:space="preserve">
+    <value>txtbEndHour</value>
+  </data>
+  <data name="&gt;&gt;txtbEndHour.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtbEndHour.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;txtbEndHour.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="label19.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label19.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
+    <value>202, 37</value>
+  </data>
+  <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
+    <value>17, 12</value>
+  </data>
+  <data name="label19.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>時</value>
+  </data>
+  <data name="&gt;&gt;label19.Name" xml:space="preserve">
+    <value>label19</value>
+  </data>
+  <data name="&gt;&gt;label19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label19.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="txtbStartHour.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="txtbStartHour.Location" type="System.Drawing.Point, System.Drawing">
+    <value>175, 34</value>
+  </data>
+  <data name="txtbStartHour.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 19</value>
+  </data>
+  <data name="txtbStartHour.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="txtbStartHour.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;txtbStartHour.Name" xml:space="preserve">
+    <value>txtbStartHour</value>
+  </data>
+  <data name="&gt;&gt;txtbStartHour.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtbStartHour.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;txtbStartHour.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="label15.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label15.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 65</value>
+  </data>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 12</value>
+  </data>
+  <data name="label15.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>終了</value>
+  </data>
+  <data name="&gt;&gt;label15.Name" xml:space="preserve">
+    <value>label15</value>
+  </data>
+  <data name="&gt;&gt;label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="label14.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label14.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 37</value>
+  </data>
+  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 12</value>
+  </data>
+  <data name="label14.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="&gt;&gt;label14.Name" xml:space="preserve">
+    <value>label14</value>
+  </data>
+  <data name="&gt;&gt;label14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label14.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="txtbEndDay.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="txtbEndDay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>137, 62</value>
+  </data>
+  <data name="txtbEndDay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 19</value>
+  </data>
+  <data name="txtbEndDay.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="txtbEndDay.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;txtbEndDay.Name" xml:space="preserve">
+    <value>txtbEndDay</value>
+  </data>
+  <data name="&gt;&gt;txtbEndDay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtbEndDay.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;txtbEndDay.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label11.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>84, 65</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>17, 12</value>
+  </data>
+  <data name="label11.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="txtbStartDay.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="txtbStartDay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>137, 34</value>
+  </data>
+  <data name="txtbStartDay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 19</value>
+  </data>
+  <data name="txtbStartDay.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="txtbStartDay.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;txtbStartDay.Name" xml:space="preserve">
+    <value>txtbStartDay</value>
+  </data>
+  <data name="&gt;&gt;txtbStartDay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtbStartDay.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;txtbStartDay.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label12.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
+    <value>156, 65</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>17, 12</value>
+  </data>
+  <data name="label12.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="&gt;&gt;label12.Name" xml:space="preserve">
+    <value>label12</value>
+  </data>
+  <data name="&gt;&gt;label12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>84, 37</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>17, 12</value>
+  </data>
+  <data name="label8.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="txtbEndYear.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="txtbEndYear.Location" type="System.Drawing.Point, System.Drawing">
+    <value>44, 62</value>
+  </data>
+  <data name="txtbEndYear.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 19</value>
+  </data>
+  <data name="txtbEndYear.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="txtbEndYear.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;txtbEndYear.Name" xml:space="preserve">
+    <value>txtbEndYear</value>
+  </data>
+  <data name="&gt;&gt;txtbEndYear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtbEndYear.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;txtbEndYear.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="label10.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label10.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>156, 37</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>17, 12</value>
+  </data>
+  <data name="label10.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
+  </data>
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="txtbEndMonth.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="txtbEndMonth.Location" type="System.Drawing.Point, System.Drawing">
+    <value>101, 62</value>
+  </data>
+  <data name="txtbEndMonth.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 19</value>
+  </data>
+  <data name="txtbEndMonth.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="txtbEndMonth.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;txtbEndMonth.Name" xml:space="preserve">
+    <value>txtbEndMonth</value>
+  </data>
+  <data name="&gt;&gt;txtbEndMonth.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtbEndMonth.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;txtbEndMonth.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="txtbStartYear.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="txtbStartYear.Location" type="System.Drawing.Point, System.Drawing">
+    <value>44, 34</value>
+  </data>
+  <data name="txtbStartYear.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 19</value>
+  </data>
+  <data name="txtbStartYear.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="txtbStartYear.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;txtbStartYear.Name" xml:space="preserve">
+    <value>txtbStartYear</value>
+  </data>
+  <data name="&gt;&gt;txtbStartYear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtbStartYear.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;txtbStartYear.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label13.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
+    <value>121, 65</value>
+  </data>
+  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>17, 12</value>
+  </data>
+  <data name="label13.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
+  </data>
+  <data name="&gt;&gt;label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="txtbStartMonth.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="txtbStartMonth.Location" type="System.Drawing.Point, System.Drawing">
+    <value>101, 34</value>
+  </data>
+  <data name="txtbStartMonth.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 19</value>
+  </data>
+  <data name="txtbStartMonth.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="txtbStartMonth.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;txtbStartMonth.Name" xml:space="preserve">
+    <value>txtbStartMonth</value>
+  </data>
+  <data name="&gt;&gt;txtbStartMonth.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtbStartMonth.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;txtbStartMonth.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label9.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>121, 37</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>17, 12</value>
+  </data>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="gbGraph.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 576</value>
+  </data>
+  <data name="gbGraph.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 83</value>
+  </data>
+  <data name="gbGraph.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="gbGraph.Text" xml:space="preserve">
+    <value>期間</value>
+  </data>
+  <data name="&gt;&gt;gbGraph.Name" xml:space="preserve">
+    <value>gbGraph</value>
+  </data>
+  <data name="&gt;&gt;gbGraph.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gbGraph.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gbGraph.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="gbCompornent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="clbType.HorizontalScrollbar" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="clbType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 8</value>
+  </data>
+  <data name="clbType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 200</value>
+  </data>
+  <data name="clbType.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="&gt;&gt;clbType.Name" xml:space="preserve">
+    <value>clbType</value>
+  </data>
+  <data name="&gt;&gt;clbType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckedListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clbType.Parent" xml:space="preserve">
+    <value>gbCompornent</value>
+  </data>
+  <data name="&gt;&gt;clbType.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label17.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label17.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 16</value>
+  </data>
+  <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 12</value>
+  </data>
+  <data name="label17.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="label17.Text" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="&gt;&gt;label17.Name" xml:space="preserve">
+    <value>label17</value>
+  </data>
+  <data name="&gt;&gt;label17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label17.Parent" xml:space="preserve">
+    <value>gbCompornent</value>
+  </data>
+  <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btnTypeAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 184</value>
+  </data>
+  <data name="btnTypeAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 21</value>
+  </data>
+  <data name="btnTypeAll.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="btnTypeAll.Text" xml:space="preserve">
+    <value>全選択</value>
+  </data>
+  <data name="&gt;&gt;btnTypeAll.Name" xml:space="preserve">
+    <value>btnTypeAll</value>
+  </data>
+  <data name="&gt;&gt;btnTypeAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnTypeAll.Parent" xml:space="preserve">
+    <value>gbCompornent</value>
+  </data>
+  <data name="&gt;&gt;btnTypeAll.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="gbCompornent.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 9pt</value>
+  </data>
+  <data name="gbCompornent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 359</value>
+  </data>
+  <data name="gbCompornent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>279, 211</value>
+  </data>
+  <data name="gbCompornent.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="gbCompornent.Text" xml:space="preserve">
+    <value>製品情報</value>
+  </data>
+  <data name="&gt;&gt;gbCompornent.Name" xml:space="preserve">
+    <value>gbCompornent</value>
+  </data>
+  <data name="&gt;&gt;gbCompornent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gbCompornent.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gbCompornent.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="btnOutput.Location" type="System.Drawing.Point, System.Drawing">
+    <value>77, 665</value>
+  </data>
+  <data name="btnOutput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 36</value>
+  </data>
+  <data name="btnOutput.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="btnOutput.Text" xml:space="preserve">
+    <value>抽出</value>
+  </data>
+  <data name="&gt;&gt;btnOutput.Name" xml:space="preserve">
+    <value>btnOutput</value>
+  </data>
+  <data name="&gt;&gt;btnOutput.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnOutput.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnOutput.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>279, 701</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>日次・月次レポート出力画面</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>F07_Report</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <PublishUrlHistory>\\Tecfs2.takatsuki.local\kyoforsysro%24\Software\ClickOnce\EICS3_3IN1\|\\Tecfs2.takatsuki.local\kyoforsysro%24\Software\ClickOnce\EICS3_SIDEVIEW_HIGH\|\\tecfs2.takatsuki.local\KYOForSYSRO%24\Software\ClickOnce\EICS_SIDEVIEW\|\\tecfs2.takatsuki.local\KYOForSYSRO%24\Software\ClickOnce_Dev\EICS_SIDEVIEW\|\\tecfs2.takatsuki.local\KYOForSYSRO%24\Software\ClickOnce\ClickOnce_Dev\EICS_SIDEVIEW\</PublishUrlHistory>
+    <InstallUrlHistory>
+    </InstallUrlHistory>
+    <SupportUrlHistory>
+    </SupportUrlHistory>
+    <UpdateUrlHistory>
+    </UpdateUrlHistory>
+    <BootstrapperUrlHistory>
+    </BootstrapperUrlHistory>
+    <ErrorReportUrlHistory>
+    </ErrorReportUrlHistory>
+    <FallbackCulture>ja-JP</FallbackCulture>
+    <VerifyUploadedFiles>true</VerifyUploadedFiles>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+    <ProjectView>ShowAllFiles</ProjectView>
+  </PropertyGroup>
+</Project>

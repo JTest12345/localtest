@@ -1,0 +1,13 @@
+﻿@model ArmsWeb.Models.ResinEditModel
+@{
+    ViewBag.Title = "InsertNew";
+}
+
+@using(Html.BeginForm("InsertConfirm", "Resin"))
+{
+    <h3>樹脂調合結果ID読み込み</h3>
+    <h5>装置：@Model.PlantCd</h5>
+
+    <input type="text" id="barcode" name="barcode"/>
+    <input type="submit" value="Go" />
+}

@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "InputMagazineNo";
+}
+
+@using (Html.BeginForm()){
+    <h3>マガジン番号読み込み</h3>
+    @Html.TextBox("magazineno");
+    <input type="submit" name="GO" value="GO"/>
+}
+
+

@@ -1,0 +1,9 @@
+D:\ViP_System\InputStringMonitor\InputStringMonitor\bin\Debug\InputStringMonitor.exe.config
+D:\ViP_System\InputStringMonitor\InputStringMonitor\bin\Debug\InputStringMonitor.exe
+D:\ViP_System\InputStringMonitor\InputStringMonitor\bin\Debug\InputStringMonitor.pdb
+D:\ViP_System\InputStringMonitor\InputStringMonitor\obj\Debug\InputStringMonitor.Form1.resources
+D:\ViP_System\InputStringMonitor\InputStringMonitor\obj\Debug\InputStringMonitor.Properties.Resources.resources
+D:\ViP_System\InputStringMonitor\InputStringMonitor\obj\Debug\InputStringMonitor.csproj.GenerateResource.cache
+D:\ViP_System\InputStringMonitor\InputStringMonitor\obj\Debug\InputStringMonitor.csproj.CoreCompileInputs.cache
+D:\ViP_System\InputStringMonitor\InputStringMonitor\obj\Debug\InputStringMonitor.exe
+D:\ViP_System\InputStringMonitor\InputStringMonitor\obj\Debug\InputStringMonitor.pdb

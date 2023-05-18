@@ -1,0 +1,37 @@
+﻿@model ArmsWeb.Models.DefectEditModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>不良登録</h3>
+<h3>装置：@Model.Mac.LongName</h3>
+
+@using (Html.BeginForm("InputQty", "Defect"))
+{
+    if (Model.Orders.Length >= 1)
+    {
+        
+        <select size="5" name="orderindex">
+            @for (int i = 0; i < Model.Orders.Length; i++)
+            {
+                ArmsApi.Model.Order ord = Model.Orders[i];
+                <option value="@i">@ord.InMagazineNo : @ord.NascaLotNo</option>
+            }
+        </select>
+    
+        <p>
+            @Html.CheckBox("isInspection") 状態検査入力
+        </p>
+
+        <p>
+            <button type="submit">不良入力</button>
+        </p>
+    }
+    else
+    {
+        <h5>現在投入中のロットはありません</h5>
+    }
+
+}
+
+

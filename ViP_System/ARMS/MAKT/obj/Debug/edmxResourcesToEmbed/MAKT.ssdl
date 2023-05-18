@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MAKTModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="MAKTModelStoreContainer">
+    <EntitySet Name="TmMarkingConv" EntityType="MAKTModel.Store.TmMarkingConv" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TnMarkingLog" EntityType="MAKTModel.Store.TnMarkingLog" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TnMaterial" EntityType="MAKTModel.Store.TnMaterial" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="TmMarkingConv">
+    <Key>
+      <PropertyRef Name="verno" />
+      <PropertyRef Name="decimalno" />
+    </Key>
+    <Property Name="verno" Type="int" Nullable="false" />
+    <Property Name="decimalno" Type="int" Nullable="false" />
+    <Property Name="marktext" Type="nvarchar" Nullable="false" MaxLength="8" />
+    <Property Name="updusercd" Type="nvarchar" MaxLength="50" />
+    <Property Name="lastupddt" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TnMarkingLog">
+    <Key>
+      <PropertyRef Name="lotno" />
+      <PropertyRef Name="row" />
+    </Key>
+    <Property Name="lotno" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="row" Type="int" Nullable="false" />
+    <Property Name="stockerno" Type="int" Nullable="false" />
+    <Property Name="markdata" Type="bigint" Nullable="false" />
+    <Property Name="workdt" Type="datetime" Nullable="false" />
+    <Property Name="manualfg" Type="int" Nullable="false" />
+    <Property Name="flamecollectfg" Type="int" Nullable="false" />
+    <Property Name="wafercollectfg" Type="int" Nullable="false" />
+    <Property Name="typecd" Type="nvarchar" Nullable="false" MaxLength="24" />
+    <Property Name="materialcd" Type="nvarchar" Nullable="false" MaxLength="24" />
+    <Property Name="matlotno" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="lastupddt" Type="datetime" Nullable="false" />
+    <Property Name="correctct" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TnMaterial">
+    <Key>
+      <PropertyRef Name="markdata" />
+      <PropertyRef Name="typecd" />
+      <PropertyRef Name="lotno" />
+      <PropertyRef Name="materialcd" />
+      <PropertyRef Name="matlotno" />
+      <PropertyRef Name="plantcd" />
+    </Key>
+    <Property Name="markdata" Type="bigint" Nullable="false" />
+    <Property Name="typecd" Type="nvarchar" Nullable="false" MaxLength="24" />
+    <Property Name="lotno" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="materialcd" Type="nvarchar" Nullable="false" MaxLength="24" />
+    <Property Name="matlotno" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="plantcd" Type="nvarchar" Nullable="false" MaxLength="24" />
+    <Property Name="lastupddt" Type="datetime" Nullable="false" />
+    <Property Name="importantfg" Type="int" Nullable="false" />
+  </EntityType>
+</Schema>

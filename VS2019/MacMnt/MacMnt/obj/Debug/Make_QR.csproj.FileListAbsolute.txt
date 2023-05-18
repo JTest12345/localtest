@@ -1,0 +1,16 @@
+D:\VS2019\Make_QR\Make_QR\obj\Debug\Make_QR.Form1.resources
+D:\VS2019\Make_QR\Make_QR\obj\Debug\Make_QR.Properties.Resources.resources
+D:\VS2019\Make_QR\Make_QR\obj\Debug\Make_QR.csproj.GenerateResource.cache
+D:\VS2019\Make_QR\Make_QR\obj\Debug\Make_QR.csproj.CoreCompileInputs.cache
+D:\VS2019\Make_QR\Make_QR\bin\Debug\Make_QR.exe.config
+D:\VS2019\Make_QR\Make_QR\bin\Debug\Make_QR.exe
+D:\VS2019\Make_QR\Make_QR\bin\Debug\Make_QR.pdb
+D:\VS2019\Make_QR\Make_QR\bin\Debug\zxing.dll
+D:\VS2019\Make_QR\Make_QR\bin\Debug\zxing.presentation.dll
+D:\VS2019\Make_QR\Make_QR\bin\Debug\zxing.xml
+D:\VS2019\Make_QR\Make_QR\bin\Debug\zxing.presentation.xml
+D:\VS2019\Make_QR\Make_QR\obj\Debug\Make_QR.csproj.CopyComplete
+D:\VS2019\Make_QR\Make_QR\obj\Debug\Make_QR.exe
+D:\VS2019\Make_QR\Make_QR\obj\Debug\Make_QR.pdb
+D:\VS2019\Make_QR\Make_QR\obj\Debug\Make_QR.Form2.resources
+D:\VS2019\Make_QR\Make_QR\obj\Debug\Make_QR.csprojAssemblyReference.cache

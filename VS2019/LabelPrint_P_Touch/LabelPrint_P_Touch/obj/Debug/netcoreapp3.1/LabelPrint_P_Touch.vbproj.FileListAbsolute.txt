@@ -1,0 +1,17 @@
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\obj\Debug\netcoreapp3.1\LabelPrint_P_Touch.Form1.resources
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\obj\Debug\netcoreapp3.1\LabelPrint_P_Touch.vbproj.GenerateResource.cache
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\obj\Debug\netcoreapp3.1\LabelPrint_P_Touch.AssemblyInfoInputs.cache
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\obj\Debug\netcoreapp3.1\LabelPrint_P_Touch.AssemblyInfo.vb
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\obj\Debug\netcoreapp3.1\LabelPrint_P_Touch.vbproj.CoreCompileInputs.cache
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\bin\Debug\netcoreapp3.1\LabelPrint_P_Touch.exe
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\bin\Debug\netcoreapp3.1\LabelPrint_P_Touch.deps.json
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\bin\Debug\netcoreapp3.1\LabelPrint_P_Touch.runtimeconfig.json
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\bin\Debug\netcoreapp3.1\LabelPrint_P_Touch.runtimeconfig.dev.json
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\bin\Debug\netcoreapp3.1\LabelPrint_P_Touch.dll
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\bin\Debug\netcoreapp3.1\LabelPrint_P_Touch.pdb
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\obj\Debug\netcoreapp3.1\LabelPrint_P_Touch.dll
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\obj\Debug\netcoreapp3.1\LabelPrint_P_Touch.pdb
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\obj\Debug\netcoreapp3.1\LabelPrint_P_Touch.genruntimeconfig.cache
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\obj\Debug\netcoreapp3.1\LabelPrint_P_Touch.vbprojAssemblyReference.cache
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\bin\Debug\netcoreapp3.1\Interop.bpac.dll
+D:\VS2019\LabelPrint_P_Touch\LabelPrint_P_Touch\obj\Debug\netcoreapp3.1\LabelPrint_P_Touch.vbproj.CopyComplete

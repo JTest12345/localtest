@@ -1,0 +1,46 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.EicsTypeChangeModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h3>EICS型番変更</h3>
+<h3>装置：@Model.Mac.LongName</h3>
+
+@using (Html.BeginForm())
+{
+
+    <h3>マガジン読込</h3>
+    <input type="text" id="barcode" name="barcode"/>
+    <input type="submit" name="btnMag" value="マガジン読込" />
+//    <button name="btnSubmit" value="btnMag" >マガジン読込</button>
+    <br />
+}
+
+@using (Html.BeginForm())
+{    
+    <h3>タイプ検索</h3>
+    <input type="text" id="searchStr" name="searchStr"/>    
+    <input type="submit" name="btnType" value="タイプ検索" />
+//    <button name="btnSubmit" value="btnType" >タイプ検索</button>
+    <br />
+    <br />
+    
+    if (Model.SearchResult != null)
+    {
+        <select size="5" name="typeList">
+            @foreach (string typeCd in Model.SearchResult)
+            {
+                <option value="@typeCd" >@typeCd</option>
+            }
+        </select>
+    
+//        <button name="btnSubmit" value="btnSelect" >選択</button>
+    <input type="submit" name="btnSelect" value="選択" />
+    }
+      
+    <h1>@ViewBag.msg</h1>
+       
+}
+

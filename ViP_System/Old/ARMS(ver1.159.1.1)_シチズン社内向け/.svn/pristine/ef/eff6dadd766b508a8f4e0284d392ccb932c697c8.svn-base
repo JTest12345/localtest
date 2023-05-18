@@ -1,0 +1,95 @@
+﻿<Window x:Class="ArmsWorkTransparency.V01_MachineMonitor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArmsWorkTransparency"
+        mc:Ignorable="d"
+        Title="LAMS V01_省人稼働画面" Height="1080" Width="1920" WindowState="Maximized" Loaded="Window_Loaded" Closed="Window_Closed">
+    <Window.Resources>
+        <Color x:Key="Color1">#FF6B0101</Color>
+    </Window.Resources>
+    <Grid>
+        <DataGrid x:Name="grdItems" Margin="0,50,0,0" FrozenColumnCount="4" ItemsSource="{Binding MachineList}" FontFamily="Meiryo" FontSize="20" IsReadOnly="True" AutoGenerateColumns="False" >
+            <DataGrid.Resources>
+                <!-- 選択中セルのテキスト色（フォーカスがあるとき） -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey }"
+                    Color="DarkGray" />
+            </DataGrid.Resources>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Style.Triggers>
+                        <!-- 警告は赤背景 -->
+                        <DataTrigger Binding="{Binding IsWarning}"  Value="True">
+                            <Setter Property="Background" Value="MistyRose" />
+                        </DataTrigger>
+                        <!-- 注意は黄色背景 -->
+                        <DataTrigger Binding="{Binding IsCaution}"  Value="True">
+                            <Setter Property="Background" Value="LightYellow" />
+                        </DataTrigger>
+                        <!-- 供給OFFは灰色 -->
+                        <DataTrigger Binding="{Binding IsRequreInput}"  Value="False">
+                            <Setter Property="Background" Value="Silver" />
+                        </DataTrigger>
+                        <!-- 運転OFFは黄色 -->
+                        <DataTrigger Binding="{Binding IsReady}"  Value="False">
+                            <Setter Property="Background" Value="Yellow" />
+                        </DataTrigger>
+                        <!-- 無人時間帯は黄色 -->
+                        <DataTrigger Binding="{Binding IsUnattendedTimeZone}"  Value="True">
+                            <Setter Property="Background" Value="LightGreen" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ライン" Binding="{Binding LineName}"/>
+                <DataGridTextColumn Header="種類" Binding="{Binding ClassName}"/>
+                <DataGridHyperlinkColumn Header="設備番号" Binding="{Binding PlantCd}">
+                    <DataGridHyperlinkColumn.ElementStyle>
+                        <Style>
+                            <EventSetter Event="Hyperlink.Click" Handler="Hyperlink_Click"/>
+                        </Style>
+                    </DataGridHyperlinkColumn.ElementStyle>
+                </DataGridHyperlinkColumn>
+                <DataGridTextColumn Header="号機" Binding="{Binding MachineName}"/>
+                <DataGridTextColumn Header="設定型番" Binding="{Binding TypeCode}"/>
+                <DataGridTextColumn Header="ﾁｯﾌﾟ" Binding="{Binding ChipName}"/>
+                <DataGridTextColumn Header="空数" Binding="{Binding LoaderMagazineFreeCount}"/>
+                <DataGridTextColumn Header="供給ID" Binding="{Binding SupplyId}"/>
+                <DataGridTextColumn Header="ﾌﾞﾚﾝﾄﾞCD" Binding="{Binding BlendCode}"/>
+                <DataGridTextColumn Header="樹脂ｸﾞﾙｰﾌﾟ" Binding="{Binding ResinGroupCode}"/>
+                <DataGridTextColumn Header="狙いﾗﾝｸ" Binding="{Binding AimRank}"/>
+                <DataGridTextColumn Header="資材有効期限" Binding="{Binding MaterialLimitTime, StringFormat=yyyy/MM/dd HH:mm}"/>
+                <DataGridTextColumn Header="ﾏｶﾞｼﾞﾝ投入予測" Binding="{Binding LoadMagazinePlanTime, StringFormat=MM/dd HH:mm}"/>
+                <DataGridTextColumn Header="ﾁｯﾌﾟ交換予測" Binding="{Binding ChipChangePlanTime, StringFormat=MM/dd HH:mm}"/>
+                <DataGridTextColumn Header="ﾁｯﾌﾟ数量" Binding="{Binding ChipCt}"/>
+                <DataGridTextColumn Header="DB樹脂交換予測" Binding="{Binding ResinChangePlanTime, StringFormat=MM/dd HH:mm}"/>
+                <DataGridTextColumn Header="左ｽﾀﾝﾌﾟﾋﾟﾝ交換予測" Binding="{Binding RightStampPinChangePlanTime, StringFormat=MM/dd HH:mm}"/>
+                <DataGridTextColumn Header="右ｽﾀﾝﾌﾟﾋﾟﾝ交換予測" Binding="{Binding LeftStampPinChangePlanTime, StringFormat=MM/dd HH:mm}"/>
+                <DataGridTextColumn Header="ｽﾀﾝﾌﾟﾋﾟﾝ交換予測" Binding="{Binding StampPinChangePlanTime, StringFormat=MM/dd HH:mm}"/>
+                <DataGridTextColumn Header="ｺﾚｯﾄ交換予測" Binding="{Binding ColletChangePlanTime, StringFormat=MM/dd HH:mm}"/>
+                <DataGridTextColumn Header="ｲｼﾞｪｸﾄﾋﾟﾝ交換予測" Binding="{Binding EjectPinChangePlanTime, StringFormat=MM/dd HH:mm}"/>
+                <DataGridTextColumn Header="蛍光体ﾌﾞﾛｯｸ" Binding="{Binding PhosphorSheetMatCd}"/>
+                <DataGridTextColumn Header="蛍光体ﾌﾞﾛｯｸ樹脂ｸﾞﾙｰﾌﾟ" Binding="{Binding PhosphorSheetResinGroupCd}"/>
+                <DataGridTextColumn Header="金線交換予測" Binding="{Binding GoldWireChangePlanTime, StringFormat=MM/dd HH:mm}"/>
+                <DataGridTextColumn Header="ｷｬﾋﾟﾗﾘ交換予測" Binding="{Binding CapillaryChangePlanTime, StringFormat=MM/dd HH:mm}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnCondition" Content="表示条件" Command="{Binding SettingCommand}" HorizontalAlignment="Left" Margin="3,6,0,0" VerticalAlignment="Top" Width="102" Height="34" FontFamily="Meiryo" FontSize="20" Click="btnCondition_Click"/>
+        <Button x:Name="btnUpdate" Content="リスト更新" Command="{Binding UpdateCommand}" HorizontalAlignment="Left" Margin="110,6,0,0" VerticalAlignment="Top" Width="113" Height="34" FontFamily="Meiryo" FontSize="20" Click="btnUpdate_Click"/>
+        <Label x:Name="label" Content="最終更新" Margin="0,20,458,0" VerticalAlignment="Top" HorizontalAlignment="Right"  FontFamily="Meiryo" FontSize="14"/>
+        <Label x:Name="label_Copy" Content="次回更新" HorizontalAlignment="Right" Margin="0,20,201,0" VerticalAlignment="Top"  FontFamily="Meiryo" FontSize="14"/>
+        <Label x:Name="lbLastUpdate" Content="{Binding LastUpdate, StringFormat=MM/dd HH:mm:ss}" HorizontalAlignment="Right" Margin="0,18,277,0" VerticalAlignment="Top" FontFamily="Meiryo" FontSize="16"/>
+        <Label x:Name="lbNextUpdate" Content="{Binding NextUpdate, StringFormat=MM/dd HH:mm:ss}" HorizontalAlignment="Right" Margin="0,18,18,0" VerticalAlignment="Top" FontFamily="Meiryo" FontSize="16"/>
+        <Rectangle x:Name="rtExclamation" HorizontalAlignment="Left" Height="25" Margin="251,15,0,0" Stroke="Black" VerticalAlignment="Top" Width="40" Fill="LightYellow"/>
+        <Rectangle x:Name="rtWarning" HorizontalAlignment="Left" Height="25" Margin="441,15,0,0" Stroke="Black" VerticalAlignment="Top" Width="40" Fill="MistyRose"/>
+        <Label x:Name="lbWarning" Content="空き数" HorizontalAlignment="Left" Margin="486,18,0,0" VerticalAlignment="Top"  FontFamily="Meiryo" FontSize="14" RenderTransformOrigin="0.489,1.237"/>
+        <Label x:Name="lbExclamation" Content="空き数" HorizontalAlignment="Left" Margin="296,18,0,0" VerticalAlignment="Top"  FontFamily="Meiryo" FontSize="14"/>
+        <Label x:Name="lbWarningMagazineFreeCt" Content="" HorizontalAlignment="Left" Margin="533,18,0,0" VerticalAlignment="Top" FontFamily="Meiryo" FontSize="14"/>
+        <Label x:Name="lbCautionMagazineFreeCt" Content="test" HorizontalAlignment="Left" Margin="343,18,0,0" VerticalAlignment="Top" FontFamily="Meiryo" FontSize="14"/>
+        <Rectangle x:Name="rtSavingPeople" HorizontalAlignment="Left" Height="25" Margin="633,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="40" Fill="LightGreen"/>
+        <Label x:Name="lbSavingPeople" Content="省人帯" HorizontalAlignment="Left" Margin="678,20,0,0" VerticalAlignment="Top" FontFamily="Meiryo" FontSize="14" RenderTransformOrigin="0.489,1.237"/>
+        <Label x:Name="lbStop" Content="停止中" HorizontalAlignment="Left" Margin="296,19,0,0" VerticalAlignment="Top" FontFamily="Meiryo" FontSize="14"/>
+    </Grid>
+</Window>

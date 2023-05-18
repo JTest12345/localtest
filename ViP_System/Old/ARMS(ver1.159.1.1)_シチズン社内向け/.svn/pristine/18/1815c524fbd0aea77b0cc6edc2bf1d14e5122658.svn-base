@@ -1,0 +1,491 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net.Sockets;
+
+namespace ArmsVCM.Model
+{
+    public class PLC
+    {
+        /// <summary>
+        /// PLCアドレスのヘッダー部
+        /// </summary>
+        public enum AddressHeader
+        {
+            EM,
+            DM,
+            W,
+            B,
+        }
+
+        public const int BIT_ON = 1;
+        public const int BIT_OFF = 0;
+
+        /// <summary>
+        /// GetBit関数で一度に取得できる最大点数
+        /// キーエンスPLCの仕様
+        /// </summary>
+        private const int MAX_BIT_READ_POINTS = 1000;
+
+        /// <summary>
+        /// キーエンスPLC初期設定UDPポート番号
+        /// </summary>
+        private const int PORT_NO = 8501;
+
+        /// <summary>
+        /// PLC接続用UDPクライアント
+        /// </summary>
+        private UdpClient udp;
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="host"></param>
+        public PLC(string host)
+        {
+            udp = new UdpClient(host, PORT_NO);
+            udp.Client.ReceiveTimeout = 1000;
+        }
+
+        #region ExecuteCommand
+        public byte[] executeCommand(byte[] bynaryCommand)
+        {
+            return executeCommand(bynaryCommand, true);
+        }
+
+        private int _retryCT = 0;
+        private byte[] executeCommand(byte[] bynaryCommand, bool canRetry)
+        {
+            byte[] sendBytes = bynaryCommand;
+            byte[] retV = null;
+
+            try
+            {
+                udp.Client.Blocking = true;
+                udp.Send(sendBytes, sendBytes.Length);
+
+                //データを受信する
+                System.Net.IPEndPoint remoteEP = null;
+                retV = udp.Receive(ref remoteEP);
+                _retryCT = 0;
+                return retV;
+            }
+            catch (Exception ex)
+            {
+                if (canRetry)
+                {
+                    System.Threading.Thread.Sleep(5000);
+                    _retryCT++;
+                    if (_retryCT > 100)
+                        return executeCommand(bynaryCommand, false);
+                    else
+                        return executeCommand(bynaryCommand, true);
+                }
+
+                throw new Exception(ex.Message + udp.Client.RemoteEndPoint, ex);
+            }
+        }
+        #endregion
+
+        #region isExitNormal
+
+        /// <summary>
+        /// PLC応答から終了コード取得
+        /// </summary>
+        /// <param name="responseData"></param>
+        /// <returns></returns>
+        private bool isExitNormal(byte[] plcResponseData)
+        {
+            string res = System.Text.Encoding.UTF8.GetString(plcResponseData).Trim();
+            {
+                if (res == "OK")
+                {
+                    return true;
+                }
+
+                if (res == "E0")
+                {
+                    return false;
+                }
+
+                if (res == "E1")
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        #endregion
+
+        private enum CommandType
+        {
+            RD,
+            RDS,
+            WR,
+            WRS,
+        }
+
+        #region SetBit
+
+        public bool SetDoubleByte(string hexAddressWithDeviceNM, string data)
+        {
+            string command = CommandType.WR.ToString() + " " + hexAddressWithDeviceNM + ".D " + data + "\r";
+
+
+            byte[] byteCmd = System.Text.Encoding.ASCII.GetBytes(command);
+
+            byte[] res = executeCommand(byteCmd);
+
+            if (isExitNormal(res) == true)
+            {
+                return true;
+            }
+            else
+            {
+                //異常終了
+                return false;
+            }
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hexAddressWithDeviceNM"></param>
+        /// <param name="points"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool SetBit(string hexAddressWithDeviceNM, string data)
+        {
+            return SetBit(hexAddressWithDeviceNM, data, false);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hexAddressWithDeviceNM"></param>
+        /// <param name="points"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool SetBit(string hexAddressWithDeviceNM, string data, bool isDoubleByte)
+        {
+            string command = CommandType.WR.ToString() + " " + hexAddressWithDeviceNM + " " + data + "\r";
+            if (isDoubleByte) command = CommandType.WR.ToString() + " " + hexAddressWithDeviceNM + ".D " + data + "\r";
+
+
+            byte[] byteCmd = System.Text.Encoding.ASCII.GetBytes(command);
+
+            byte[] res = executeCommand(byteCmd);
+
+            if (isExitNormal(res) == true)
+            {
+                return true;
+            }
+            else
+            {
+                //異常終了
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hexAddressWithDeviceNM"></param>
+        /// <param name="points"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool SetBit(string hexAddressWithDeviceNM, int points, string data)
+        {
+            string command = CommandType.WRS.ToString() + " " + hexAddressWithDeviceNM + " " + points.ToString() + " " + data + "\r";
+
+            byte[] byteCmd = System.Text.Encoding.ASCII.GetBytes(command);
+
+            byte[] res = executeCommand(byteCmd);
+
+            if (isExitNormal(res) == true)
+            {
+                return true;
+            }
+            else
+            {
+                //異常終了
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hexAddressWithDeviceNM"></param>
+        /// <param name="points"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool SetBit(string hexAddressWithDeviceNM, ushort data)
+        {
+            return SetBit(hexAddressWithDeviceNM, data.ToString());
+        }
+        #endregion
+
+        #region GetBit
+
+        public bool IsBitON(string hexAddressWithDeviceNM)
+        {
+            string ret = GetBit(hexAddressWithDeviceNM);
+
+            int i;
+
+            if (int.TryParse(ret, out i) == false)
+            {
+                return false;
+            }
+
+            if (i == BIT_ON) return true;
+            else return false;
+        }
+
+
+        public bool IsBitOFF(string hexAddressWithDeviceNM)
+        {
+            string ret = GetBit(hexAddressWithDeviceNM);
+
+            int i;
+
+            if (int.TryParse(ret, out i) == false)
+            {
+                return false;
+            }
+
+            if (i == BIT_OFF) return true;
+            else return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hexAddressWithDeviceNM"></param>
+        /// <param name="points"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public string GetBit(string hexAddressWithDeviceNM)
+        {
+            string command = CommandType.RD.ToString() + " " + hexAddressWithDeviceNM + "\r";
+
+            byte[] byteCmd = System.Text.Encoding.UTF8.GetBytes(command);
+
+            byte[] res = executeCommand(byteCmd);
+
+            if (isExitNormal(res) == true)
+            {
+                return System.Text.Encoding.UTF8.GetString(res).Replace("\0", "").Replace("\r\n", "").Trim();
+            }
+            else
+            {
+                //異常終了
+                throw new ApplicationException("PLCエラー応答");
+            }
+        }
+
+        public ushort GetBitAsUshort(string hexAddressWithDeviceNM)
+        {
+            string s = GetBit(hexAddressWithDeviceNM);
+
+            return ushort.Parse(s);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hexAddressWithDeviceNM"></param>
+        /// <param name="points"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public string[] GetBit(string hexAddressWithDeviceNM, int points)
+        {
+
+            #region 最大読取点数を超える場合はループ実行
+            if (points > MAX_BIT_READ_POINTS)
+            {
+                List<string> retv = new List<string>();
+
+                int address = 0;
+                string header = null;
+
+                #region ヘッダー部とアドレス部（10進変換）に分割
+                foreach (string h in Enum.GetNames(typeof(AddressHeader)))
+                {
+                    if (hexAddressWithDeviceNM.StartsWith(h))
+                    {
+                        header = h;
+                        address = Convert.ToInt32(hexAddressWithDeviceNM.Remove(0, h.Length), 16);
+                        break;
+                    }
+                }
+                if (header == null) throw new ApplicationException("読取アドレスのヘッダー部が認識できません" + hexAddressWithDeviceNM);
+                #endregion
+
+                //最大読取点数分だけループしてコマンド実行
+                for (int i = 0; i < points / MAX_BIT_READ_POINTS; i++)
+                {
+                    string hex = address.ToString("X4");
+                    retv.AddRange(GetBit(header + hex, MAX_BIT_READ_POINTS));
+                    address = address + MAX_BIT_READ_POINTS;
+                }
+
+                //余りがある場合は最後の読取点からあまり分だけ追加で読取
+                if (points % MAX_BIT_READ_POINTS > 0)
+                {
+                    string hex = address.ToString("X4");
+                    retv.AddRange(GetBit(header + hex, points % MAX_BIT_READ_POINTS));
+                }
+
+                return retv.ToArray();
+            }
+            #endregion
+
+            string command = CommandType.RDS.ToString() + " " + hexAddressWithDeviceNM + " " + points.ToString() + "\r";
+
+
+            byte[] byteCmd = System.Text.Encoding.UTF8.GetBytes(command);
+
+            byte[] res = executeCommand(byteCmd);
+
+
+            if (isExitNormal(res) == true)
+            {
+                return System.Text.Encoding.UTF8.GetString(res).Replace("\r\n", "").Split(' ');
+            }
+            else
+            {
+                //異常終了
+                throw new ApplicationException("PLCエラー応答");
+            }
+        }
+        #endregion
+
+        #region GetWordsAsDateTime
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hexAddressWithDeviceNM"></param>
+        /// <returns>不正応答時はNULL</returns>
+        public DateTime? GetWordsAsDateTime(string hexAddressWithDeviceNM)
+        {
+            string[] res = this.GetBit(hexAddressWithDeviceNM, 6);
+
+            return GetWordsAsDateTime(res);
+        }
+
+        public DateTime? GetWordsAsDateTime(string[] res)
+        {
+            DateTime? retv = null;
+            try
+            {
+                int year = int.Parse(res[0]);
+                int month = int.Parse(res[1]);
+                int day = int.Parse(res[2]);
+                int hour = int.Parse(res[3]);
+                int minute = int.Parse(res[4]);
+                int sec = int.Parse(res[5]);
+
+                retv = new DateTime(year, month, day, hour, minute, sec);
+
+            }
+            catch
+            {
+                return null;
+            }
+
+            return retv;
+        }
+        #endregion
+
+        #region WatchBit
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hexAddressWithDeviceNM"></param>
+        /// <param name="timeout">タイムアウトまでの秒数（sec) 0または負なら無限ループ</param>
+        /// <param name="exitValue">監視を抜ける条件</param>
+        /// <returns>タイムアウト時false</returns>
+        public bool WatchBit(string hexAddressWithDeviceNM, int timeout, string exitValue)
+        {
+            DateTime start = DateTime.Now;
+            while (true)
+            {
+                string retv = GetBit(hexAddressWithDeviceNM);
+
+                if (retv == exitValue)
+                {
+                    return true;
+                }
+
+                if (timeout > 0)
+                {
+                    if ((DateTime.Now - start).TotalSeconds >= timeout)
+                    {
+                        return false;
+                    }
+                }
+
+                System.Threading.Thread.Sleep(100);
+            }
+
+        }
+        #endregion
+
+        #region GetString
+        /// <summary>
+        /// 不正応答時は空白
+        /// </summary>
+        /// <param name="hexAddressWithDeviceNm"></param>
+        /// <param name="host"></param>
+        /// <returns></returns>
+        public string GetString(string hexAddressWithDeviceNm, int length)
+        {
+            string qr = string.Empty;
+            string[] plcResponseBitArray = this.GetBit(hexAddressWithDeviceNm, length);
+
+            foreach (string orgs in plcResponseBitArray)
+            {
+                qr += System.Text.Encoding.UTF8.GetString(BitConverter.GetBytes(int.Parse(orgs)));
+            }
+
+            //Null文字を置換
+            qr = qr.Replace("\0", "");
+            return qr.Trim();
+        }
+
+        /// <summary>
+        /// 連続したアドレスの情報を文字列として取得(ビット反転）
+        /// </summary>
+        /// <param name="hexAddressWithDeviceNm"></param>
+        /// <param name="wordLength"></param>
+        /// <param name="removePrefix">半角スペースより前を取り除く(半角スペース複数個は非対応)</param>
+        /// <param name="host"></param>
+        /// <returns></returns>
+        public string GetStringRev(string hexAddressWithDeviceNm, int wordLength)
+        {
+            string retv = string.Empty;
+
+            string[] org = this.GetBit(hexAddressWithDeviceNm, wordLength);
+
+            foreach (string s in org)
+            {
+                var c = System.Text.Encoding.UTF8.GetString(BitConverter.GetBytes(int.Parse(s))).Replace("\0", "").Trim().ToCharArray();
+                Array.Reverse(c);
+                retv += new string(c);
+            }
+
+            return retv;
+        }
+
+        #endregion
+    }
+}

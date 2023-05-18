@@ -1,0 +1,89 @@
+﻿<Window x:Class="ArmsWorkTransparency.Views.V03_MachineMonitorSetting"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArmsWorkTransparency.Views"
+        mc:Ignorable="d"
+        Title="LAMS V03_装置状態表示条件設定画面" Height="640" Width="1252" Loaded="Window_Loaded">
+    <Grid>
+        <ListBox x:Name="lbSearchMachine" Margin="0,55,0,49" ItemsSource="{Binding SearchMachineList}" SelectionMode="Multiple" HorizontalAlignment="Left" Width="410">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock><Run Text="{Binding No}"/><Run Text=":"/><Run Text="{Binding Name}"/></TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <Label x:Name="label" Content="選択号機" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="563,20,0,0"/>
+        <TextBox x:Name="tbUpdateInterval" HorizontalAlignment="Left" Height="36" Margin="1139,45,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="39" HorizontalContentAlignment="Right" FontSize="20" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_Copy1" Content="更新時間(分)" HorizontalAlignment="Left" Margin="1046,10,0,0" VerticalAlignment="Top" Height="30" FontSize="24" VerticalContentAlignment="Center"/>
+        <Button x:Name="btnSaveSetting" Content="設定" Margin="0,0,10,6" Height="38" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="76" Click="btnSaveSetting_Click"/>
+        <Label x:Name="label_Copy" Content="表示列設定" HorizontalAlignment="Left" Margin="842,57,0,0" VerticalAlignment="Top" Height="30" FontSize="24" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_Copy2" Content="ﾏｶﾞｼﾞﾝ空数" HorizontalAlignment="Left" Margin="1046,437,0,0" VerticalAlignment="Top" Height="30" FontSize="24" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="tbCautionMagazineFreeCt" HorizontalAlignment="Left" Height="36" Margin="1139,475,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="38" HorizontalContentAlignment="Right" FontSize="20" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="tbWarningMagazineFreeCt" HorizontalAlignment="Left" Height="36" Margin="1139,516,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="38" HorizontalContentAlignment="Right" FontSize="20" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_Copy3" Content="注意(個)" HorizontalAlignment="Left" Margin="1055,475,0,0" VerticalAlignment="Top" Height="30" FontSize="20" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_Copy4" Content="警告(個)" HorizontalAlignment="Left" Margin="1055,518,0,0" VerticalAlignment="Top" Height="30" FontSize="20" VerticalContentAlignment="Center"/>
+        <ListBox x:Name="listBox_Copy" HorizontalAlignment="Left" Height="139" Margin="611,241,0,0" VerticalAlignment="Top" Width="191" Visibility="Hidden" Grid.Row="1"/>
+        <Label x:Name="label_Copy5" Content="表示順" HorizontalAlignment="Left" Margin="616,206,0,0" VerticalAlignment="Top" Height="30" FontSize="24" VerticalContentAlignment="Center" Visibility="Hidden" Grid.Row="1"/>
+        <Button x:Name="btnSaveSetting_Copy" Content="∨" Margin="0,0,5,138" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="30" Click="btnSaveSetting_Click" Visibility="Hidden" Grid.Row="1"/>
+        <Button x:Name="btnSaveSetting_Copy1" Content="∧" Margin="0,0,5,172" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="30" Click="btnSaveSetting_Click" Visibility="Hidden" Grid.Row="1"/>
+        <Button x:Name="btnSaveSetting_Copy2" Content="＞" Margin="0,0,236,172" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="30" Click="btnSaveSetting_Click" Visibility="Hidden" Grid.Row="1"/>
+        <Button x:Name="btnSaveSetting_Copy3" Content="＜" Margin="0,0,236,138" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="30" Click="btnSaveSetting_Click" Visibility="Hidden" Grid.Row="1"/>
+        <ListBox x:Name="listBox_Copy1" HorizontalAlignment="Left" Height="139" Margin="380,241,0,0" VerticalAlignment="Top" Width="191" Visibility="Hidden" Grid.Row="1"/>
+        <ListBox x:Name="lbMachine" Margin="415,55,0,49" Selector.IsSelected="{Binding IsSelected}" SelectionMode="Multiple" HorizontalAlignment="Left" Width="416">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock><Run Text="{Binding No}"/><Run Text=":"/><Run Text="{Binding Name}"/></TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <TextBox x:Name="tbSearchMacGroup" HorizontalAlignment="Left" Height="38" Margin="57,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="301" FontSize="24" KeyDown="tbSearchType_KeyDown"/>
+        <Button x:Name="btnAdd" Content="追加" HorizontalAlignment="Left" Margin="415,10,0,0" VerticalAlignment="Top" Width="61" Click="btnAdd_Click" Height="38"/>
+        <Button x:Name="btnDelete" Content="削除" HorizontalAlignment="Left" Margin="481,11,0,0" VerticalAlignment="Top" Width="61" Click="btnDelete_Click" Height="38"/>
+        <Button x:Name="btnAllSelect" Content="全選択" HorizontalAlignment="Left" Margin="6,0,0,6" VerticalAlignment="Bottom" Width="68" Click="btnAllSelect_Click" Height="38" />
+        <Button x:Name="btnAllDeSelect" Content="全解除" HorizontalAlignment="Left" Margin="79,0,0,6" VerticalAlignment="Bottom" Width="68" Click="btnAllDeSelect_Click" Height="38" />
+        <Button x:Name="btnAllSelect2" Content="全選択" HorizontalAlignment="Left" Margin="416,0,0,6" VerticalAlignment="Bottom" Width="68" Height="38" Click="btnAllSelect2_Click" />
+        <Button x:Name="btnAllDeSelect2" Content="全解除" HorizontalAlignment="Left" Margin="489,0,0,6" VerticalAlignment="Bottom" Width="68" Height="38" Click="btnAllDeSelect2_Click" />
+        <Label x:Name="label_Copy6" Content="ライン" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0"/>
+        <GroupBox x:Name="groupBox" Header="ﾀﾞｲﾎﾞﾝﾀﾞｰ" HorizontalAlignment="Left" Margin="842,154,0,0" VerticalAlignment="Top" Height="260" Width="220">
+            <StackPanel HorizontalAlignment="Left" Height="225" Margin="10,10,-2,-19" VerticalAlignment="Top" Width="190">
+                <CheckBox x:Name="cbSupplyIdVisible" Content="供給ID" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="-0.602,0.828"/>
+                <CheckBox x:Name="cbBlendCdVisible" Content="ﾌﾞﾚﾝﾄﾞCD" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                <CheckBox x:Name="cbChipCtVisible" Content="ﾁｯﾌﾟ数" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                <CheckBox x:Name="cbChipChangePlanTimeVisible" Content="ﾁｯﾌﾟ交換予測" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                <CheckBox x:Name="cbStampPinChangePlanTimeVisible" Content="ｽﾀﾝﾌﾟﾋﾟﾝ(左右)交換予測" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="0,0,-40,0" Width="198"/>
+                <CheckBox x:Name="cbColletChangePlanTimeVisible" Content="ｺﾚｯﾄ交換予測" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                <CheckBox x:Name="cbEjectPinChangePlanTimeVisible" Content="ｲｼﾞｪｸﾄ交換予測" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                <CheckBox x:Name="cbDbResinChangePlanTimeVisible" Content="DB樹脂交換予測" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                <CheckBox x:Name="cbStampPinChangePlanTimeVisible2" Content="ｽﾀﾝﾌﾟﾋﾟﾝ交換予測" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                <CheckBox x:Name="cbPhosphorSheetMatCdVisible" Content="蛍光体ﾌﾞﾛｯｸ" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                <CheckBox x:Name="cbPhosphorSheetResinGroupCdVisible" Content="蛍光体ﾌﾞﾛｯｸ樹脂ｸﾞﾙｰﾌﾟ" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox x:Name="groupBox_Copy" Header="ﾜｲﾔｰﾎﾞﾝﾀﾞｰ" HorizontalAlignment="Left" Margin="1067,154,0,0" VerticalAlignment="Top" Height="260" Width="165">
+            <StackPanel HorizontalAlignment="Left" Height="187" Margin="10,10,-2,-19" VerticalAlignment="Top" Width="145">
+                <CheckBox x:Name="cbGoldWirePlanTimeVisible" Content="金線交換予測" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                <CheckBox x:Name="cbCapillaryPlanTimeVisible" Content="ｷｬﾋﾟﾗﾘ交換予測" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+            </StackPanel>
+        </GroupBox>
+        <CheckBox x:Name="cbLoadMagazinePlanTimeVisible" Content="ﾏｶﾞｼﾞﾝ投入予測" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="849,99,0,0"/>
+        <CheckBox x:Name="cbLoaderMagazineFreeCtVisible" Content="空数" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="1031,99,0,0"/>
+        <CheckBox x:Name="cbAimRankVisible" Content="狙いﾗﾝｸ" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="1139,99,0,0"/>
+        <CheckBox x:Name="cbMaterialLimit" Content="資材有効期限" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="849,127,0,0"/>
+        <CheckBox x:Name="cbResinGroupVisible" Content="樹脂ｸﾞﾙｰﾌﾟ" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="1031,127,0,0"/>
+        <Label x:Name="label_Copy7" Content="他設定" HorizontalAlignment="Left" Margin="842,437,0,0" VerticalAlignment="Top" Height="30" FontSize="24" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name="cbTabletMode" Content="タブレットモード" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="851,482,0,0"/>
+        <CheckBox x:Name="cbUseMachineReady" Content="装置運転状態" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="851,518,0,0"/>
+    </Grid>
+</Window>

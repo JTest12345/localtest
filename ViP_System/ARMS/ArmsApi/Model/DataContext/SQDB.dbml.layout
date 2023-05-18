@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="SQDB">
+  <DataContextMoniker Name="/SQDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="8a799e38-baff-4d54-a243-d4b94462f8bb" absoluteBounds="0.625, 0.5, 2, 4.685">
+      <DataClassMoniker Name="/SQDBDataContext/MttExamsMngInfo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a6929ba9-f373-4be1-9be3-0c3f020a9a88" absoluteBounds="0.63999999999999968, 0.96, 1.9700000000000002, 4.125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

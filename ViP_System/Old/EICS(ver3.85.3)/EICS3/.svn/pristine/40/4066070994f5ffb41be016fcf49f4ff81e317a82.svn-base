@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <PublishUrlHistory>\\hqfs101\forsysro%24\Software\ClickOnce\EICS3_DMC_HIGH\|\\hqfs101\forsysro%24\Software\ClickOnce\EICS3_NTSV_HIGH\|\\hqfs101\forsysro%24\Software\ClickOnce\EICS3_GA_HIGH\|\\hqfs101\forsysro%24\Software\ClickOnce\EICS3_GA_AUTO\|\\hqfs101\forsysro%24\Software\ClickOnce\</PublishUrlHistory>
+    <PublishUrlHistory>\\hqfs101\forsysro%24\Software\ClickOnce\EICS3_MAP\|\\aoifs4.aoi.local\forsysro%24\Software\ClickOnce\EICS3_NTSV\|\\hqfs101\forsysro%24\Software\ClickOnce\EICS3_NTSV_HIGH\|\\hqfs101\forsysro%24\Software\ClickOnce\EICS3_MAP_HIGH\|\\hqfs101\forsysro%24\Software\ClickOnce\EICS3_GA_HIGH\</PublishUrlHistory>
+    <InstallUrlHistory>
+    </InstallUrlHistory>
+    <SupportUrlHistory>
+    </SupportUrlHistory>
+    <UpdateUrlHistory>
+    </UpdateUrlHistory>
+    <BootstrapperUrlHistory>
+    </BootstrapperUrlHistory>
+    <ErrorReportUrlHistory>
+    </ErrorReportUrlHistory>
+    <FallbackCulture>ja-JP</FallbackCulture>
+    <VerifyUploadedFiles>true</VerifyUploadedFiles>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <StartArguments>
+    </StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <StartArguments>
+    </StartArguments>
+  </PropertyGroup>
+</Project>

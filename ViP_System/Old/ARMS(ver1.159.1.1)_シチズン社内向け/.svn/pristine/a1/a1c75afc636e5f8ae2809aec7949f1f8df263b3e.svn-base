@@ -1,0 +1,35 @@
+﻿@model ArmsWeb.Models.WorkStartModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>作業予約登録</h3>
+<h3>設備：@Model.PlantCd</h3>
+<h3>作業者：@Model.EmpCd</h3>
+
+@using (Html.BeginForm())
+{
+    ArmsApi.Model.ReservedOrder[] reserves = Model.GetReserveList();
+    
+    <h3>予約マガジン読み込み</h3>
+    <input type="text" id="txtMagNo" name="txtMagNo" />
+    <input type="submit" value="Go" />
+        
+    <br />
+    <h5>予約済みロット @reserves.Count().ToString() </h5>
+    <ul>
+        @foreach (ArmsApi.Model.ReservedOrder ro in reserves)
+        {
+            <li>@ro.InMagazineNo : @ro.LotNo</li>
+        }
+    </ul>
+    <br />
+    
+    <div>
+        @Html.ActionLink("運転開始", "Confirm")
+        &nbsp
+        @Html.ActionLink("全予約解除", "Clear")
+    </div>
+
+}

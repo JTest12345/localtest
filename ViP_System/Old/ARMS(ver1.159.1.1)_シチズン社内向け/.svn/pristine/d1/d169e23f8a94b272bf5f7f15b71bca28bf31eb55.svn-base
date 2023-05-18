@@ -1,0 +1,27 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.StartMagModel
+@{
+    Layout = null;
+}
+
+@if (Model.Insts != null)
+{
+    <root>
+    @foreach (ArmsWeb.Models.StartMag m in Model.Insts)
+    {
+        
+        <lot>
+            <proc>@m.Vmag.ProcNo </proc>
+            <lotno>@m.Vmag.MagazineNo</lotno>
+            <macname>@m.Mac.MachineName</macname>
+            <macno>@m.Mac.MacNo</macno>
+            <typecd>@m.Lot.TypeCd</typecd>
+            <resin>@string.Join(",", m.Lot.ResinGpCd)</resin>
+        </lot>
+    }
+    </root>        
+}
+else
+{
+    @Model.ErrMsg
+}

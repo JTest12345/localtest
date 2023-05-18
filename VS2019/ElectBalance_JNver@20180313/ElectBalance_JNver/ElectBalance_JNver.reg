@@ -1,0 +1,17 @@
+REGEDIT
+; この .REG ファイルは SETUP プログラムで使用される可能性があります。
+;   SETUP プログラムが使用できない場合、以下のエントリは CWinApp::RegisterShellFileTypes
+;   および COleObjectFactory::UpdateRegistryAll の呼び出しで自動的に InitInstance 中に
+;   登録されます。
+
+
+HKEY_CLASSES_ROOT\ElectBalance_JNver.Application = ElectBalance_JNver Application
+
+
+HKEY_CLASSES_ROOT\ElectBalance_JNver.Application\CLSID = {0EAEC3DF-6495-4E6B-8C8E-B8997E31D9D4}
+
+HKEY_CLASSES_ROOT\CLSID\{0EAEC3DF-6495-4E6B-8C8E-B8997E31D9D4} = ElectBalance_JNver Application
+HKEY_CLASSES_ROOT\CLSID\{0EAEC3DF-6495-4E6B-8C8E-B8997E31D9D4}\ProgId = ElectBalance_JNver.Application
+
+
+HKEY_CLASSES_ROOT\CLSID\{0EAEC3DF-6495-4E6B-8C8E-B8997E31D9D4}\LocalServer32 = ElectBalance_JNver.EXE

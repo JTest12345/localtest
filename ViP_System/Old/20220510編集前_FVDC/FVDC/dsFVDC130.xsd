@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsFVDC130" targetNamespace="http://tempuri.org/dsFVDC130.xsd" xmlns:mstns="http://tempuri.org/dsFVDC130.xsd" xmlns="http://tempuri.org/dsFVDC130.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsFVDC130" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsFVDC130" msprop:Generator_UserDSName="dsFVDC130">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="LotType" msprop:Generator_TableClassName="LotTypeDataTable" msprop:Generator_TableVarName="tableLotType" msprop:Generator_TablePropName="LotType" msprop:Generator_RowDeletingName="LotTypeRowDeleting" msprop:Generator_RowChangingName="LotTypeRowChanging" msprop:Generator_RowEvHandlerName="LotTypeRowChangeEventHandler" msprop:Generator_RowDeletedName="LotTypeRowDeleted" msprop:Generator_UserTableName="LotType" msprop:Generator_RowChangedName="LotTypeRowChanged" msprop:Generator_RowEvArgName="LotTypeRowChangeEvent" msprop:Generator_RowClassName="LotTypeRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Lot_No" msprop:Generator_ColumnVarNameInTable="columnLot_No" msprop:Generator_ColumnPropNameInRow="Lot_No" msprop:nullValue="" msprop:Generator_ColumnPropNameInTable="Lot_NoColumn" msprop:Generator_UserColumnName="Lot_No" type="xs:string" minOccurs="0" />
+              <xs:element name="Type_New" msprop:Generator_ColumnVarNameInTable="columnType_New" msprop:Generator_ColumnPropNameInRow="Type_New" msprop:nullValue="" msprop:Generator_ColumnPropNameInTable="Type_NewColumn" msprop:Generator_UserColumnName="Type_New" type="xs:string" minOccurs="0" />
+              <xs:element name="Type_Old" msprop:Generator_ColumnVarNameInTable="columnType_Old" msprop:Generator_ColumnPropNameInRow="Type_Old" msprop:nullValue="" msprop:Generator_ColumnPropNameInTable="Type_OldColumn" msprop:Generator_UserColumnName="Type_Old" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

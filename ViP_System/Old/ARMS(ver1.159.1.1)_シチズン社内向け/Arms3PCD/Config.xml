@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<url>http://172.21.193.116/arms/</url>
+	<timer>120000</timer>
+	<alermtimer>900000</alermtimer>
+	<BHT700>false</BHT700>
+	<process>
+		<watch status="1" procno="1" name="1ダイボンド" />
+		<watch status="1" procno="4" name="2ダイボンド" />
+		<watch status="1" procno="9" name="WB" />
+		<watch status="1" procno="10" name="WB外観検査" />
+		<watch status="1" procno="11" name="ベーキング" />
+		<watch status="1" procno="12" name="MD" />
+		<watch status="1" procno="14" name="MD オーブン" />
+		<watch status="1" procno="25" name="ロットマーキング" />
+	</process>
+</root>

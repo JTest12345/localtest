@@ -1,0 +1,250 @@
+﻿{
+  "SpiderInlineNo" : "18099",
+  "ErrorMailTo": [
+    null
+  ],
+  "ErroMailTitle": "ARMS3 Error Mail(シチズンMAP自動搬送#ライン外MD①:SL5-6619)",
+  "ErrorMailFrom": "automail@sl13.nichia.co.jp",
+  "ErrorMailBodyHeader" : "",
+  "MelWorkCompltBasePath": null,
+  "MelWorkStartBasePath": null,
+  "LocalConnString": "server=172.24.17.10\\SQLExpress;Connect Timeout=30;Application Name=ARMS;UID=inline;PWD=R28uHta;database=ARMS;Max Pool Size=300",
+  "WireMMFileSkipErrorCodeList": [
+    "0x0021",
+    "0x001e",
+    "0x0018",
+    "0x0019"
+  ],
+  "WireMMFileSkipErrorDefItem": {
+    "OrderNo": 0,
+    "CauseCd": "28022",
+    "CauseName": null,
+    "ClassCd": "1001",
+    "ClassName": null,
+    "DefectCd": "F1549",
+    "DefectName": null,
+    "DefectCt": 0
+  },
+  "LineType": "4",
+  "AsmLot1": "L",
+  "AsmLot6789": "EM{0}",
+  "CutBinCd": "28025",
+  "InlineNo": null,
+  "CutPreLabelDir": null,
+  "CutLabelDir": "\\\\cejfs0.citizen.local\\Share2\\LabelData\\LT_Receive\\MAP\\",
+  "CutBlend12": "YL",
+  "CutBlend789A": "E{0}M",
+  "CutBlendOut789": "E00",
+  "AsmMatCdSurfix": "A",
+  "MaterialCodeSurfix": "__A",
+  "MaterialsImportBinJaLike": "%A-%",
+  "MELFrameLoaders": [
+    null
+  ],
+  "NASCAConSTR": "Data Source=HQDB1.nichia.local\\INST1;Initial Catalog=SC10_NADB01;Persist Security Info=True;User ID=sla06;Password=DawQECT;Application Name=ArmsApi;Connection Timeout=10;",
+  "UseDBProfile": true,
+  "MagExchangerReverseWorkCd": "MGREV",
+  "PSTesterConSTR": "Data Source=CEJDB1\\INST1;Initial Catalog=PSTESTER_CE;Persist Security Info=True;User ID=slc_user;Password=20506f1;Application Name=ArmsApi;Connection Timeout=3;",
+  "QCILConSTR": "Data Source=172.24.18.36\\SQLEXPRESS;Initial Catalog=QCIL;Persist Security Info=True;User ID=inline;Password=R28uHta;Application Name=ArmsApi;Connection Timeout=3;",
+  "ResinDBConSTR": "Data Source=CEJDB1\\INST1;Initial Catalog=NJDB02;Persist Security Info=True;User ID=sla04;Password=uB9k36K;Application Name=ArmsNascaBridge",
+  "PSTesterLinkInfo": [
+   {
+    "Key": 9,
+    "Value": "\\\\cejfs1.citizen.local\\forsys$\\INLINE\\PSTester\\SLC2\\"
+   },
+    {
+      "Key": 1,
+      "Value": ""
+    }
+  ],
+  "BDTesterLinkInfo": [
+   {
+    "Key": 9,
+    "Value": "\\\\cejfs1.citizen.local\\forsys$\\INLINE\\BDTester\\SLC2\\"
+   },
+    {
+      "Key": 1,
+      "Value": ""
+    }
+  ],
+  "QCILXmlFilePath": [
+        "C:\\QCIL\\SettingFiles\\QCIL.xml"
+  ],
+  "CutBlendMagazineCt": 1,
+  "WaferFilePath": [
+    "\\\\cejfs1.citizen.local\\forsys$\\INLINE\\Wafer\\MAP#01\\",
+    "\\\\cejfs1.citizen.local\\forsys$\\INLINE\\Wafer\\MAP#02\\",
+    "\\\\cejfs1.citizen.local\\forsys$\\INLINE\\Wafer\\MAP#03\\"
+  ],
+  "SectionCd": "280",
+  "DBInspectionProcNo": 1,
+  "WBInspectionProcNo": 10,
+  "ResinBinCd": "28024",
+  "NASCACommandReceiveDir": null,
+  "NASCACommandSendDir": null,
+  "NASCACommandDoneDir": null,
+  "NASCACommandReceiveDir2nd": null,
+  "NASCACommandSendDir2nd": null,
+  "NASCACommandDoneDir2nd": null,
+  "NASCATimeoutMilliSecond": 180000,
+  "NascaPRFDItemLineNo": "4",
+  "NascaPRFDItemValLike": [
+    "8,%01",
+    "8,%02",
+    "8,%03"
+  ],
+  "MonitorTimerMilliSecond": 300000,
+  "NASCAWebService": "http://naceweb.nichia.local:8182/NPPPublic/NppPublicWebService.asmx",
+  "FrmDefInputMacNoList": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "MoldConveyorWaitStartWorkCd" : "MD0003",
+  "MoldConveyorWaitStartWorkKb" : 1,
+  "MoldConveyorWaitEndWorkCd" : "MD0004",
+  "MoldConveyorWaitEndWorkKb" : 0,
+  "NascaApiServerCd" : "CE_SERVER_SLC2",
+  "NascaLineGroupCd" : 700002,
+  "NascaOrderMoveInfo": [
+    {
+      "Key": 70001,
+      "Value": 1
+    },
+    {
+      "Key": 70002,
+      "Value": 2
+    },
+    {
+      "Key": 70003,
+      "Value": 2
+    }
+  ],
+  "NascaFGroupCd" : [
+   "70001", "70002", "70003"
+  ],
+  "DiceClassCheckWorkCd": [
+    "DB0003", "DB0007"
+  ],
+  "MastDoCompltDischargeWorkCd" : "MD0004",
+  "SystemLogKeepDay" : 30,
+  "NascaDefectFilePath" : "\\\\172.24.17.10\\QCIL\\Mapping\\Nasca\\",
+  "NascaDefectFileDonePath" : "\\\\172.24.17.10\\QCIL\\Mapping\\Nasca\\Done\\",
+  "ImportWorkFlow" : false,
+  "DBOneOfTwoInspectionProcNo": [
+    null
+  ],
+  "ImportNascaDefect" : true,
+  "UseOvenProfiler" : true,
+  "HasCutLabelCompare" : false,
+  "LENSConSTR" : "server=172.24.17.10\\SQLExpress;Connect Timeout=30;Application Name=ARMS3;UID=inline;PWD=R28uHta;database=LENS", 
+  "IsMappingMode" : true,
+  "DieShearSamplingCheckProcNo": 9,
+  "DieShearSamplingJudgeWorkCd" : "DB0004",
+  "LotDefaultSerialNumber": [
+    {
+      "Key": "1",
+      "Value": 1
+    }
+  ],
+  "IsDBProfileRequireMode" : false,
+  "IsBeforeDriveWorkStartCheckerMode" : false,
+  "NascaApiLoginUser" : "660",
+  "NascaApiLoginPassword" : "Rs6a60",
+  "MaterialChangeDefectCode": [
+    "F1166",
+    "F1939"
+  ],
+  "WireMMFileBadmarkErrorCodeList": [
+    "0x0018",
+    "0x0019",
+    "0x001e"
+  ],
+  "WireMMFileBadmarkErrorDefItem": {
+    "OrderNo": 0,
+    "CauseCd": "28006",
+    "CauseName": null,
+    "ClassCd": "1001",
+    "ClassName": null,
+    "DefectCd": "F1106",
+    "DefectName": null,
+    "DefectCt": 0
+  },
+  "IsDieShearSamplingFromPsTesterType" : true,
+  "IsFrameMoldedImport" : true,
+  "FrameMoldedImportClass" : [
+    "0",
+    "1",
+    "2"
+  ],
+  "FrameMoldedInspectionClass" : [
+    "1",
+    "2"
+  ],
+  "FinishedFileAccessRetryCt" : 300,
+  "LotImportOfTargetNascaProcess" : [
+   "5371", "5321", "28372", "28352", "28575", "23652", "236110"
+  ],
+  "MainQCILConSTR": "Data Source=172.24.18.36\\SQLEXPRESS;Initial Catalog=QCIL;Persist Security Info=True;User ID=inline;Password=R28uHta;Application Name=ArmsApi;Connection Timeout=3;",
+  "IsDieShearSamplingEachMachineDay" : false,
+  "UnificationTargetTypeList" : [
+    null
+  ],
+  "AutoInspectionSkipErrorDefItem": null,
+  "ImportLotLineState": "DBA",
+  "MaterialOpenFilePath" : "\\\\cejfs0\\Share\\CITIZEN_INLINE\\MatOpenFileOutputDirPath\\1.共通\\",
+  "IsInspectorNgMarking" : false,
+  "CompareResinMaterialGroup" : null,
+  "ImportSubstrateThicknessRankData" : false,
+  "CancelRestrictDieShearFunctionId" : null,
+  "EckWorkCdList" : [
+    "MD0081",
+    "MD0169"
+  ],
+  "CutLotDefaultSerialNumber": null,
+  "LAMSConSTR": "Data Source=172.24.18.36\\SQLEXPRESS;Initial Catalog=LAMS;Persist Security Info=True;User ID=inline;Password=R28uHta;Application Name=ArmsApi;Connection Timeout=3;",
+  "CompareGoldWireMaterialGroup" : "MATE016",
+  "StockImportBinCodeList" : [
+    28021
+  ],
+  "HistoryNoCheckProcList" : null,
+  "ImportMatRingId" : false,
+  "RelayOtherLineIfReachMachineIsBusy" : false,
+  "CreateAllOKMappingForMainte " : false,
+  "FilmTesterLinkInfo": [
+   {
+    "Key": 9,
+    "Value": "\\\\cejfs1.citizen.local\\forsys$\\INLINE\\BDTester_FW\\SLC2\\"
+   },
+   {
+    "Key": 1,
+    "Value": ""
+   }
+  ],
+  "OutLabelOutputDirectoryPath" : "C:\\Temp\\",
+  "OperationMachineGroupShowKey" : "MAP",
+  "ActiveMachineOperator" : true,
+  "ROOTSConSTR": "Data Source=HQDB1.nichia.local\\INST1;Initial Catalog=SC10_ROOTSDB;Persist Security Info=True;User ID=sla06;Password=DawQECT;Application Name=ArmsApi;Connection Timeout=10;",
+  "ThreadRoutineWorkMilliSecond": 10000,
+  "OriginalConfigFileStorageFolderPath" : "\\\\cejfs1.citizen.local\\forsys$\\AppSettings\\ARMS\\MAP\\AUTO\\中間サーバPC③",
+  "OriginalLineFileStorageFolderPath" : "\\\\cejfs1.citizen.local\\forsys$\\AppSettings\\ARMS\\MAP\\AUTO\\中間サーバPC③",
+  "ArmsSystemVersion" : "1.159.1.1",
+  "ArmsMaintenanceSystemVersion" : "1.159.1.1",
+  "ArmsMonitorSystemVersion" : "1.159.1.1",
+  "ArmsMonitorClickOnceFullPath" : "\\\\cejfs1.citizen.local\\forsysro$\\ClickOnce\\ArmsMonitor\\MAP\\AUTO\\ArmsMonitor.application",
+  "MarkingNoDirectoryPath": null,
+  "SetPSTesterProcNo" : null,
+  "CancelRestrictPSTesterFunctionIdList" : [
+    1,
+    2
+  ],
+  "MachineAccessDirectoryPath" : "C:\\ARMS\\MachineAccess"
+}

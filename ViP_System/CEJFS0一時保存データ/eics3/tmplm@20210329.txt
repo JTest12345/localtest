@@ -1,0 +1,2 @@
+Model_NM	QcParam_NO	Material_CD	Parameter_MAX	Parameter_MIN	Parameter_VAL	QcLine_MAX	QcLine_MIN	AimLine_VAL	AimRate_VAL	DS_FG	Del_FG	UpdUser_CD	LastUpd_DT	Equipment_NO	InnerUpperLimit	InnerLowerLimit	ParamGetUpperCond	ParamGetLowerCond	ResinGroup_CD
+MD-Syringe8	500100	NXXX757G-A4-8           	0.0000	0.0000	NULL	NULL	NULL	NULL	NULL	0	0	42940   	2020-01-07 11:44:06.470		NULL	NULL	NULL	NULL	

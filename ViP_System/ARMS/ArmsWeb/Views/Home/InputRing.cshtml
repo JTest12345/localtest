@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "InputRing";
+}
+
+@using (Html.BeginForm()){
+    <h3>リングデータ読み込み</h3>
+    @Html.TextBox("ringdata");
+    <input type="submit" name="GO" value="GO"/>
+}

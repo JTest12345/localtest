@@ -1,0 +1,12 @@
+D:\MAP_sys\NFileTotalization\DBFileTotalization\bin\Release\DBFileTotalization.exe.config
+D:\MAP_sys\NFileTotalization\DBFileTotalization\bin\Release\DBFileTotalization.exe
+D:\MAP_sys\NFileTotalization\DBFileTotalization\bin\Release\DBFileTotalization.pdb
+D:\MAP_sys\NFileTotalization\DBFileTotalization\bin\Release\MathNet.Numerics.dll
+D:\MAP_sys\NFileTotalization\DBFileTotalization\bin\Release\System.ValueTuple.dll
+D:\MAP_sys\NFileTotalization\DBFileTotalization\bin\Release\MathNet.Numerics.xml
+D:\MAP_sys\NFileTotalization\DBFileTotalization\bin\Release\System.ValueTuple.xml
+D:\MAP_sys\NFileTotalization\DBFileTotalization\obj\Release\DBFileTotalization.csprojAssemblyReference.cache
+D:\MAP_sys\NFileTotalization\DBFileTotalization\obj\Release\DBFileTotalization.csproj.CoreCompileInputs.cache
+D:\MAP_sys\NFileTotalization\DBFileTotalization\obj\Release\DBFileTotalization.csproj.CopyComplete
+D:\MAP_sys\NFileTotalization\DBFileTotalization\obj\Release\DBFileTotalization.exe
+D:\MAP_sys\NFileTotalization\DBFileTotalization\obj\Release\DBFileTotalization.pdb

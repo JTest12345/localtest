@@ -1,0 +1,10 @@
+D:\ViP_System\DatabaseView\DatabaseView\bin\Debug\DatabaseView.exe.config
+D:\ViP_System\DatabaseView\DatabaseView\bin\Debug\DatabaseView.exe
+D:\ViP_System\DatabaseView\DatabaseView\bin\Debug\DatabaseView.pdb
+D:\ViP_System\DatabaseView\DatabaseView\obj\Debug\DatabaseView.csprojAssemblyReference.cache
+D:\ViP_System\DatabaseView\DatabaseView\obj\Debug\DatabaseView.DBView.resources
+D:\ViP_System\DatabaseView\DatabaseView\obj\Debug\DatabaseView.Properties.Resources.resources
+D:\ViP_System\DatabaseView\DatabaseView\obj\Debug\DatabaseView.csproj.GenerateResource.cache
+D:\ViP_System\DatabaseView\DatabaseView\obj\Debug\DatabaseView.csproj.CoreCompileInputs.cache
+D:\ViP_System\DatabaseView\DatabaseView\obj\Debug\DatabaseView.exe
+D:\ViP_System\DatabaseView\DatabaseView\obj\Debug\DatabaseView.pdb

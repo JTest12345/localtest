@@ -1,0 +1,130 @@
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\LENS2.exe.config
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\ringin.wav
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\LENS2.exe
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\LENS2.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\LENS2_Api.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\log4net.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\Newtonsoft.Json.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\PLC.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\SLCommonLib.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\LENS2_Api.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\PLC.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\log4net.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\Newtonsoft.Json.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\bin\Debug\SLCommonLib.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\obj\Debug\LENS2.csprojResolveAssemblyReference.cache
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\obj\Debug\LENS2.F01_Watch.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\obj\Debug\LENS2.F02_Confirm.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\obj\Debug\LENS2.F03_MachineDefectMainte.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\obj\Debug\LENS2.F92_InputUserCD.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\obj\Debug\LENS2.F90_MachineAddrValMainte.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\obj\Debug\LENS2.F91_MachineLogOutputCompletionMainte.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\obj\Debug\LENS2.Properties.Resources.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\obj\Debug\LENS2.csproj.GenerateResource.Cache
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\obj\Debug\LENS2.exe
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2\obj\Debug\LENS2.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\LENS2.exe.config
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\obj\Debug\LENS2.exe
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\obj\Debug\LENS2.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\ringin.wav
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\LENS2.exe
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\LENS2.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\LENS2_Api.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\log4net.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\Newtonsoft.Json.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\PLC.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\SLCommonLib.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\LENS2_Api.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\PLC.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\log4net.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\Newtonsoft.Json.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\bin\Debug\SLCommonLib.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\obj\Debug\LENS2.csprojResolveAssemblyReference.cache
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\obj\Debug\LENS2.F01_Watch.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\obj\Debug\LENS2.F02_Confirm.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\obj\Debug\LENS2.F03_MachineDefectMainte.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\obj\Debug\LENS2.F92_InputUserCD.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\obj\Debug\LENS2.F90_MachineAddrValMainte.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\obj\Debug\LENS2.F91_MachineLogOutputCompletionMainte.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\obj\Debug\LENS2.Properties.Resources.resources
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2\obj\Debug\LENS2.csproj.GenerateResource.Cache
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\LENS2.exe.config
+C:\develop\LENS(2_11_7)\LENS2\obj\Debug\LENS2.exe
+C:\develop\LENS(2_11_7)\LENS2\obj\Debug\LENS2.pdb
+C:\develop\LENS(2_11_7)\LENS2\obj\Debug\LENS2.csprojResolveAssemblyReference.cache
+C:\develop\LENS(2_11_7)\LENS2\obj\Debug\LENS2.F01_Watch.resources
+C:\develop\LENS(2_11_7)\LENS2\obj\Debug\LENS2.F02_Confirm.resources
+C:\develop\LENS(2_11_7)\LENS2\obj\Debug\LENS2.F03_MachineDefectMainte.resources
+C:\develop\LENS(2_11_7)\LENS2\obj\Debug\LENS2.F92_InputUserCD.resources
+C:\develop\LENS(2_11_7)\LENS2\obj\Debug\LENS2.F90_MachineAddrValMainte.resources
+C:\develop\LENS(2_11_7)\LENS2\obj\Debug\LENS2.F91_MachineLogOutputCompletionMainte.resources
+C:\develop\LENS(2_11_7)\LENS2\obj\Debug\LENS2.Properties.Resources.resources
+C:\develop\LENS(2_11_7)\LENS2\obj\Debug\LENS2.csproj.GenerateResource.Cache
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\ringin.wav
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\LENS2.exe
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\LENS2.pdb
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\LENS2_Api.dll
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\log4net.dll
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\Newtonsoft.Json.dll
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\PLC.dll
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\SLCommonLib.dll
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\LENS2_Api.pdb
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\PLC.pdb
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\log4net.xml
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\Newtonsoft.Json.pdb
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\Newtonsoft.Json.xml
+C:\develop\LENS(2_11_7)\LENS2\bin\Debug\SLCommonLib.xml
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\LENS2.exe.config
+C:\develop\LENS(2_11_8_0)\LENS2\obj\Debug\LENS2.exe
+C:\develop\LENS(2_11_8_0)\LENS2\obj\Debug\LENS2.pdb
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\ringin.wav
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\LENS2.exe
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\LENS2.pdb
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\LENS2_Api.dll
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\log4net.dll
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\Newtonsoft.Json.dll
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\PLC.dll
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\SLCommonLib.dll
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\LENS2_Api.pdb
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\PLC.pdb
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\log4net.xml
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\Newtonsoft.Json.pdb
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\Newtonsoft.Json.xml
+C:\develop\LENS(2_11_8_0)\LENS2\bin\Debug\SLCommonLib.xml
+C:\develop\LENS(2_11_8_0)\LENS2\obj\Debug\LENS2.csprojResolveAssemblyReference.cache
+C:\develop\LENS(2_11_8_0)\LENS2\obj\Debug\LENS2.F01_Watch.resources
+C:\develop\LENS(2_11_8_0)\LENS2\obj\Debug\LENS2.F02_Confirm.resources
+C:\develop\LENS(2_11_8_0)\LENS2\obj\Debug\LENS2.F03_MachineDefectMainte.resources
+C:\develop\LENS(2_11_8_0)\LENS2\obj\Debug\LENS2.F92_InputUserCD.resources
+C:\develop\LENS(2_11_8_0)\LENS2\obj\Debug\LENS2.F90_MachineAddrValMainte.resources
+C:\develop\LENS(2_11_8_0)\LENS2\obj\Debug\LENS2.F91_MachineLogOutputCompletionMainte.resources
+C:\develop\LENS(2_11_8_0)\LENS2\obj\Debug\LENS2.Properties.Resources.resources
+C:\develop\LENS(2_11_8_0)\LENS2\obj\Debug\LENS2.csproj.GenerateResource.Cache
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\LENS2.exe.config
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\obj\Debug\LENS2.exe
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\obj\Debug\LENS2.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\ringin.wav
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\LENS2.exe
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\LENS2.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\LENS2_Api.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\log4net.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\Newtonsoft.Json.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\PLC.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\SLCommonLib.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\LENS2_Api.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\PLC.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\log4net.xml
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\Newtonsoft.Json.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\Newtonsoft.Json.xml
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\bin\Debug\SLCommonLib.xml
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\obj\Debug\LENS2.csprojResolveAssemblyReference.cache
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\obj\Debug\LENS2.F01_Watch.resources
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\obj\Debug\LENS2.F02_Confirm.resources
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\obj\Debug\LENS2.F03_MachineDefectMainte.resources
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\obj\Debug\LENS2.F92_InputUserCD.resources
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\obj\Debug\LENS2.F90_MachineAddrValMainte.resources
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\obj\Debug\LENS2.F91_MachineLogOutputCompletionMainte.resources
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\obj\Debug\LENS2.Properties.Resources.resources
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\LENS2\obj\Debug\LENS2.csproj.GenerateResource.Cache

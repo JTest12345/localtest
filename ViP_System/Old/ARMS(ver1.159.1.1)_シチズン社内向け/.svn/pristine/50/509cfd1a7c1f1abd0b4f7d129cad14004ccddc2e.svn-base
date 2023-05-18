@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ArmsVCM.Model
+{
+    public class RoutePath
+    {
+        public RouteNode From { get; set; }
+
+        public RouteNode To { get; set; }
+
+        //public Direction Direction { get; set; }
+
+        //public Speed Speed { get; set; }
+
+        public int Cost { get; set; }
+
+        /// <summary>
+        /// 経路情報
+        /// 一旦取得したら再起動まで記憶
+        /// </summary>
+        /// 
+        private static List<RoutePath> pathBuffer;
+
+        public static List<RoutePath> GetPaths()
+        {
+            if (pathBuffer != null)
+            {
+                return pathBuffer;
+            }
+
+
+            throw new ApplicationException();
+        }
+
+
+
+    }
+}

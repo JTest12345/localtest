@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsTmPLMEx" targetNamespace="http://tempuri.org/dsTmPLMEx.xsd" xmlns:mstns="http://tempuri.org/dsTmPLMEx.xsd" xmlns="http://tempuri.org/dsTmPLMEx.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsTmPLMEx" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsTmPLMEx" msprop:Generator_DataSetName="dsTmPLMEx" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="TvPLMEx" msprop:Generator_UserTableName="TvPLMEx" msprop:Generator_RowDeletedName="TvPLMExRowDeleted" msprop:Generator_RowChangedName="TvPLMExRowChanged" msprop:Generator_RowClassName="TvPLMExRow" msprop:Generator_RowChangingName="TvPLMExRowChanging" msprop:Generator_RowEvArgName="TvPLMExRowChangeEvent" msprop:Generator_RowEvHandlerName="TvPLMExRowChangeEventHandler" msprop:Generator_TableClassName="TvPLMExDataTable" msprop:Generator_TableVarName="tableTvPLMEx" msprop:Generator_RowDeletingName="TvPLMExRowDeleting" msprop:Generator_TablePropName="TvPLMEx">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Rev" msprop:Generator_UserColumnName="Rev" msprop:Generator_ColumnPropNameInRow="Rev" msprop:Generator_ColumnVarNameInTable="columnRev" msprop:Generator_ColumnPropNameInTable="RevColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="QcParam_NO" msprop:Generator_UserColumnName="QcParam_NO" msprop:Generator_ColumnPropNameInRow="QcParam_NO" msprop:Generator_ColumnVarNameInTable="columnQcParam_NO" msprop:Generator_ColumnPropNameInTable="QcParam_NOColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="Model_NM" msprop:Generator_UserColumnName="Model_NM" msprop:Generator_ColumnPropNameInRow="Model_NM" msprop:Generator_ColumnVarNameInTable="columnModel_NM" msprop:Generator_ColumnPropNameInTable="Model_NMColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Material_CD" msprop:Generator_UserColumnName="Material_CD" msprop:Generator_ColumnPropNameInRow="Material_CD" msprop:Generator_ColumnVarNameInTable="columnMaterial_CD" msprop:Generator_ColumnPropNameInTable="Material_CDColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Class_NM" msprop:Generator_UserColumnName="Class_NM" msprop:Generator_ColumnPropNameInRow="Class_NM" msprop:Generator_ColumnVarNameInTable="columnClass_NM" msprop:Generator_ColumnPropNameInTable="Class_NMColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Parameter_NM" msprop:Generator_UserColumnName="Parameter_NM" msprop:Generator_ColumnPropNameInRow="Parameter_NM" msprop:Generator_ColumnVarNameInTable="columnParameter_NM" msprop:Generator_ColumnPropNameInTable="Parameter_NMColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Manage_NM" msprop:Generator_UserColumnName="Manage_NM" msprop:Generator_ColumnPropNameInRow="Manage_NM" msprop:Generator_ColumnVarNameInTable="columnManage_NM" msprop:Generator_ColumnPropNameInTable="Manage_NMColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Info1_NM" msprop:Generator_UserColumnName="Info1_NM" msprop:Generator_ColumnVarNameInTable="columnInfo1_NM" msprop:Generator_ColumnPropNameInRow="Info1_NM" msprop:Generator_ColumnPropNameInTable="Info1_NMColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Info2_NM" msprop:Generator_UserColumnName="Info2_NM" msprop:Generator_ColumnVarNameInTable="columnInfo2_NM" msprop:Generator_ColumnPropNameInRow="Info2_NM" msprop:Generator_ColumnPropNameInTable="Info2_NMColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Info3_NM" msprop:Generator_UserColumnName="Info3_NM" msprop:Generator_ColumnPropNameInRow="Info3_NM" msprop:Generator_ColumnVarNameInTable="columnInfo3_NM" msprop:Generator_ColumnPropNameInTable="Info3_NMColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Timing_NM" msprop:Generator_UserColumnName="Timing_NM" msprop:Generator_ColumnPropNameInRow="Timing_NM" msprop:Generator_ColumnVarNameInTable="columnTiming_NM" msprop:Generator_ColumnPropNameInTable="Timing_NMColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Parameter_MAX" msprop:Generator_UserColumnName="Parameter_MAX" msprop:Generator_ColumnPropNameInRow="Parameter_MAX" msprop:Generator_ColumnVarNameInTable="columnParameter_MAX" msprop:Generator_ColumnPropNameInTable="Parameter_MAXColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="Parameter_MIN" msprop:Generator_UserColumnName="Parameter_MIN" msprop:Generator_ColumnPropNameInRow="Parameter_MIN" msprop:Generator_ColumnVarNameInTable="columnParameter_MIN" msprop:Generator_ColumnPropNameInTable="Parameter_MINColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="Parameter_VAL" msprop:Generator_UserColumnName="Parameter_VAL" msprop:Generator_ColumnPropNameInRow="Parameter_VAL" msprop:Generator_ColumnVarNameInTable="columnParameter_VAL" msprop:Generator_ColumnPropNameInTable="Parameter_VALColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="QcLine_PNT" msprop:Generator_UserColumnName="QcLine_PNT" msprop:Generator_ColumnPropNameInRow="QcLine_PNT" msprop:Generator_ColumnVarNameInTable="columnQcLine_PNT" msprop:Generator_ColumnPropNameInTable="QcLine_PNTColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="QcLine_MAX" msprop:Generator_UserColumnName="QcLine_MAX" msprop:Generator_ColumnPropNameInRow="QcLine_MAX" msprop:Generator_ColumnVarNameInTable="columnQcLine_MAX" msprop:Generator_ColumnPropNameInTable="QcLine_MAXColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="QcLine_MIN" msprop:Generator_UserColumnName="QcLine_MIN" msprop:Generator_ColumnPropNameInRow="QcLine_MIN" msprop:Generator_ColumnVarNameInTable="columnQcLine_MIN" msprop:Generator_ColumnPropNameInTable="QcLine_MINColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="Reason_NM" msprop:Generator_UserColumnName="Reason_NM" msprop:Generator_ColumnPropNameInRow="Reason_NM" msprop:Generator_ColumnVarNameInTable="columnReason_NM" msprop:Generator_ColumnPropNameInTable="Reason_NMColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="UpdUser_CD" msprop:Generator_UserColumnName="UpdUser_CD" msprop:Generator_ColumnPropNameInRow="UpdUser_CD" msprop:Generator_ColumnVarNameInTable="columnUpdUser_CD" msprop:Generator_ColumnPropNameInTable="UpdUser_CDColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="LastUpd_DT" msprop:Generator_UserColumnName="LastUpd_DT" msprop:Generator_ColumnPropNameInRow="LastUpd_DT" msprop:Generator_ColumnVarNameInTable="columnLastUpd_DT" msprop:Generator_ColumnPropNameInTable="LastUpd_DTColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Edit_FG" msprop:Generator_UserColumnName="Edit_FG" msprop:Generator_ColumnVarNameInTable="columnEdit_FG" msprop:Generator_ColumnPropNameInRow="Edit_FG" msprop:Generator_ColumnPropNameInTable="Edit_FGColumn" type="xs:boolean" minOccurs="0" />
+              <xs:element name="DS_FG" msprop:Generator_UserColumnName="DS_FG" msprop:Generator_ColumnVarNameInTable="columnDS_FG" msprop:Generator_ColumnPropNameInRow="DS_FG" msprop:Generator_ColumnPropNameInTable="DS_FGColumn" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,7 @@
+D:\ViP_System\VIP_HICopy\VIP_HICopy\obj\Release\VIP_HICopy.csproj.CoreCompileInputs.cache
+D:\ViP_System\VIP_HICopy\VIP_HICopy\bin\Release\VIP_HICopy.exe.config
+D:\ViP_System\VIP_HICopy\VIP_HICopy\bin\Release\VIP_HICopy.exe
+D:\ViP_System\VIP_HICopy\VIP_HICopy\bin\Release\VIP_HICopy.pdb
+D:\ViP_System\VIP_HICopy\VIP_HICopy\obj\Release\VIP_HICopy.csprojAssemblyReference.cache
+D:\ViP_System\VIP_HICopy\VIP_HICopy\obj\Release\VIP_HICopy.exe
+D:\ViP_System\VIP_HICopy\VIP_HICopy\obj\Release\VIP_HICopy.pdb

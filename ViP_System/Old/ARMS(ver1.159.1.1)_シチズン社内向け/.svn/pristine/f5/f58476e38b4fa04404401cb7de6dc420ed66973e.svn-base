@@ -1,0 +1,121 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ArmsVCM.Model
+{
+    /// <summary>
+    /// ダイクストラ法で最短ルートを探索する
+    /// </summary>
+    public class RouteNavi
+    {
+        /// <summary>
+        /// 最短ルートを探索する
+        /// 戻り値が長さ0のリストの場合は到達不能
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="goal"></param>
+        /// <param name="nodes"></param>
+        /// <param name="paths"></param>
+        /// <returns>最短ルート　長さ0の場合は到達不能</returns>
+        public static List<RoutePath> FindPath(int startNodeID, int goalNodeID, List<RouteNode> nodes, List<RoutePath> paths)
+        {
+            List<RoutePath> retv = new List<RoutePath>();
+
+            var currentNode = nodes.Where(n => n.ID == startNodeID).FirstOrDefault();
+            if (currentNode == null)
+            {
+                return retv;
+            }
+
+            currentNode.CurrentCost = 0;
+            currentNode.IsFixed = true;
+
+            while (true)
+            {
+                //現在ノードからのコスト情報更新
+                updateNodeCost(currentNode, nodes, paths);
+
+                //次点の最短ノード確定
+                currentNode = findAndFixMinimumNode(nodes);
+
+                if (currentNode == null)
+                {
+                    //goalが取れる前に全ノードが確定した場合は到達不能
+                    //長さ0のリストを返す
+                    return new List<RoutePath>();
+                }
+                else if (currentNode.ID == goalNodeID)
+                {
+                    //ゴールまでの最短経路確定
+                    while (true)
+                    {
+                        retv.Add(currentNode.FromPath);
+                        currentNode = currentNode.FromNode;
+
+                        if (currentNode.ID == startNodeID)
+                        {
+                            //スタートから順に並べなおし
+                            retv.Reverse();
+                            break;
+                        }
+                    }
+                    return retv;
+                }
+            }
+        }
+
+        #region updateNodeCost
+
+        /// <summary>
+        /// startから辿れる各nodeのコスト情報を更新
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="nodes"></param>
+        /// <param name="paths"></param>
+        private static void updateNodeCost(RouteNode start, List<RouteNode> nodes, List<RoutePath> paths)
+        {
+            //startから辿れる全pathを抽出
+            var currentPaths = paths.Where(p => p.From == start);
+
+            //現在のstartから辿るコストが既存のコストより小さいnodeはコスト情報を上書き
+            foreach (RoutePath p in currentPaths)
+            {
+                var to = nodes.Where(n => n == p.To).FirstOrDefault();
+                if (to == null) continue;
+
+                if (to.CurrentCost == null || to.CurrentCost >= (start.CurrentCost + p.Cost))
+                {
+                    to.CurrentCost = start.CurrentCost + p.Cost;
+                    to.FromPath = p;
+                    to.FromNode = start;
+                }
+            }
+        }
+        #endregion
+
+        #region findAndFixMinimumNode
+
+        /// <summary>
+        /// コスト情報未確定のnodeの内、コスト最小のnodeを抽出する
+        /// 抽出されたnodeは最短ルート確定とする
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <returns></returns>
+        private static RouteNode findAndFixMinimumNode(List<RouteNode> nodes)
+        {
+            var node = nodes.Where(n => n.IsFixed == false && n.CurrentCost != null).OrderBy(n => n.CurrentCost).FirstOrDefault();
+
+            if (node != null)
+            {
+                node.IsFixed = true;
+            }
+
+            return node;
+        }
+        #endregion
+
+    }
+}

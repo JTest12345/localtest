@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "InputEmpCd";
+}
+
+@using (Html.BeginForm()){
+    <h3>社員コード読み込み</h3>
+    @Html.TextBox("empcd");
+    <input type="submit" name="GO" value="GO"/>
+}
+
+

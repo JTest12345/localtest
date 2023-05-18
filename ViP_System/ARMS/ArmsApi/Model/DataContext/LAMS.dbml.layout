@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="LAMS">
+  <DataContextMoniker Name="/LAMSDataContext" />
+  <nestedChildShapes>
+    <classShape Id="cfd09174-b4a5-441b-9dc9-883f3ab8d9bd" absoluteBounds="1.25, 0.875, 2, 1.6954166666666666">
+      <DataClassMoniker Name="/LAMSDataContext/TnMachineRequire" />
+      <nestedChildShapes>
+        <elementListCompartment Id="798183ef-4a45-4baa-93ad-453b2751ff99" absoluteBounds="1.2649999999999997, 1.335, 1.9700000000000002, 1.1354166666666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

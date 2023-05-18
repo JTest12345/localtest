@@ -1,0 +1,208 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace ArmsVCM.Model
+{
+    /// <summary>
+    /// 単独でスレッド動作が可能なオブジェクトの基底クラス
+    /// </summary>
+    public abstract class ARMSThreadObject
+    {
+        /// <summary>
+        /// ルーチン動作停止イベント
+        /// </summary>
+        public event EventHandler<MachineThreadEventArgs> OnStopWork;
+
+        /// <summary>
+        /// ARMS設備No
+        /// </summary>
+        public int MacNo { get; set; }
+
+        /// <summary>
+        /// NASCA設備コード
+        /// </summary>
+        public string PlantCd { get; set; }
+
+        /// <summary>
+        /// 装置日本語名称
+        /// </summary>
+        public string Name { get; set; }
+
+        #region マルチスレッド制御関連
+
+        /// <summary>
+        /// 通常停止
+        /// </summary>
+        public bool StopRequested { get; set; }
+
+        /// <summary>
+        /// 実行中のスレッド
+        /// </summary>
+        private Thread runningThread;
+
+        /// <summary>
+        /// ルーチン動作中フラグ
+        /// </summary>
+        public bool IsRunning { get; private set; }
+
+        /// <summary>
+        /// スレッド二重起動防止用
+        /// </summary>
+        private object locker = new object();
+        #endregion
+
+        #region GetWorkStatus
+        /// <summary>
+        /// 動作要求状態取得
+        /// </summary>
+        /// <returns></returns>
+        public WorkStatus GetWorkStatus()
+        {
+            if (IsRunning && StopRequested == false)
+            {
+                return WorkStatus.Active;
+            }
+            else if (IsRunning && StopRequested == true)
+            {
+                return WorkStatus.WaitForStop;
+            }
+            else
+            {
+                return WorkStatus.Idle;
+            }
+        }
+        #endregion
+
+        #region RunWork
+        /// <summary>
+        /// スレッド処理開始
+        /// </summary>
+        /// <returns>開始成功時True</returns>
+        public async void RunWork()
+        {
+            try
+            {
+                MachineThreadEventArgs arg = await Task<MachineThreadEventArgs>.Run(() => ThreadRoutineWork());
+
+                if (OnStopWork != null)
+                {
+                    OnStopWork(this, arg);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (OnStopWork != null)
+                {
+                    OnStopWork(this, new MachineThreadEventArgs(this, MachineThreadEventArgs.ExitStatus.Exception, ex));
+                }
+            }
+        }
+        #endregion
+
+        #region AbortThread()
+
+        /// <summary>
+        /// スレッド強制終了処理
+        /// 予期しない状態に陥る可能性があるので、警告したうえで実行させること
+        /// </summary>
+        public void AbortThread()
+        {
+            if (runningThread != null)
+            {
+                IsRunning = false;
+
+                runningThread.Abort();
+                ArmsApi.Log.AGVLog.Debug("thread aborted:" + this.Name);
+            }
+        }
+        #endregion
+
+        #region ThreadRoutineWork
+        protected MachineThreadEventArgs ThreadRoutineWork()
+        {
+            try
+            {
+                //スレッド多重起動チェック
+                bool entered = false;
+                Monitor.TryEnter(locker, 0, ref entered);
+                if (entered == false) return new MachineThreadEventArgs(this, MachineThreadEventArgs.ExitStatus.ThreadAlreadyRun, null);
+
+                IsRunning = true;
+                StopRequested = false;
+
+                //実行スレッドの記録（Abort用）
+                runningThread = Thread.CurrentThread;
+
+                while (true)
+                {
+                    //スレッドの実処理 abstract
+                    concreteThreadWork();
+
+                    Thread.Sleep(3000);
+
+                    //通常停止要求応答
+                    if (StopRequested)
+                        return new MachineThreadEventArgs(this, MachineThreadEventArgs.ExitStatus.NormalExit, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                ArmsApi.Log.AGVLog.Error(ex.Message, ex);
+                return new MachineThreadEventArgs(this, MachineThreadEventArgs.ExitStatus.Exception, ex);
+            }
+            finally
+            {
+                if (Monitor.IsEntered(locker))
+                {
+                    Monitor.Exit(locker);
+                    IsRunning = false;
+                    runningThread = null;
+                }
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// 実際にスレッド内でループ実行される処理
+        /// </summary>
+        protected abstract void concreteThreadWork();
+    }
+
+    public enum WorkStatus
+    {
+        Idle,
+        Active,
+        WaitForStop,
+    }
+
+    public class MachineThreadEventArgs : EventArgs
+    {
+        public MachineThreadEventArgs(ARMSThreadObject sender, ExitStatus status, Exception ex)
+        {
+            this.Sender = sender;
+            this.Exception = ex;
+            this.Status = status;
+        }
+
+        public enum ExitStatus
+        {
+            //通常終了
+            NormalExit,
+            //強制終了
+            UserAbort,
+            //スレッド内例外による終了
+            Exception,
+            //他スレッド動作中
+            ThreadAlreadyRun,
+        }
+
+        public ARMSThreadObject Sender { get; set; }
+        public Exception Exception { get; set; }
+        public ExitStatus Status { get; set; }
+    }
+
+}

@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+using ArmsApi;
+
+namespace ArmsVCM
+{
+    /// <summary>
+    /// MainWindow.xaml の相互作用ロジック
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        private const int MAX_LOG_LINES = 5000;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            logAction = new Action<string>(WriteLog);
+            Log.SetupMemoryLogToAction(Log.AGVLog, "%date: %message", logAction);
+        }
+
+
+        #region ログ関係
+        Action<string> logAction;
+
+        /// <summary>
+        /// ログ表示用メソッド
+        /// </summary>
+        /// <param name="log"></param>
+        public void WriteLog(string log)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                if (txtLog.LineCount >= MAX_LOG_LINES)
+                {
+                    txtLog.Text = txtLog.Text.Remove(0, txtLog.Text.IndexOf('\n'));
+                }
+                txtLog.AppendText(log + "\r\n");
+            }));
+        }
+        #endregion
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            Log.AGVLog.Info("test");
+        }
+    }
+}

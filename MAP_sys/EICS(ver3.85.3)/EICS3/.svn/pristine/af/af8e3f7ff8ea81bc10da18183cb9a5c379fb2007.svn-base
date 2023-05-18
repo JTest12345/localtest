@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 16, 10.75" name="EICS">
+  <DataContextMoniker Name="/EICSDataContext" />
+  <nestedChildShapes>
+    <classShape Id="4363fd9b-cfc4-4491-9d3c-33e4eed68e4d" absoluteBounds="1.875, 1.5, 2, 2.3360416666666666">
+      <DataClassMoniker Name="/EICSDataContext/TmTypeGroup" />
+      <nestedChildShapes>
+        <elementListCompartment Id="182b62be-bdb7-429e-bfea-928016b0f14e" absoluteBounds="1.8900000000000001, 1.96, 1.9700000000000002, 1.7760416666666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0d96d10b-a9d6-4853-81b0-16a7f0d0d0f7" absoluteBounds="4.25, 1.5, 2, 5.325625">
+      <DataClassMoniker Name="/EICSDataContext/TmLSET" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7b089f67-ee6f-45a3-8ad5-df1e7db49dff" absoluteBounds="4.265, 1.96, 1.9700000000000002, 4.765625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="85256964-a047-4f9d-be0f-ef5f8d41f811" absoluteBounds="6.625, 1.5, 2, 1.9089583333333331">
+      <DataClassMoniker Name="/EICSDataContext/TmEQUI" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fc5a7066-ac91-433a-93bc-5a58d9763c0d" absoluteBounds="6.64, 1.96, 1.9700000000000002, 1.3489583333333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="dfb3d653-937a-4cfd-b1b2-52d93bf53b26" absoluteBounds="1.875, 4, 2, 2.1224999999999996">
+      <DataClassMoniker Name="/EICSDataContext/TmBonding" />
+      <nestedChildShapes>
+        <elementListCompartment Id="39465b96-60f6-44d6-9d2c-2f03efc61247" absoluteBounds="1.8900000000000001, 4.46, 1.9700000000000002, 1.5625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="928e8cd4-c22a-429d-ae67-a0358073e174" absoluteBounds="6.625, 3.625, 2, 2.1224999999999996">
+      <DataClassMoniker Name="/EICSDataContext/TnSortingTrayLot" />
+      <nestedChildShapes>
+        <elementListCompartment Id="181d6ce5-f76c-4562-8d4f-8d770fc3a4c5" absoluteBounds="6.64, 4.085, 1.9700000000000002, 1.5625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d7b5ff9e-ef6a-4563-b96e-d055d4c2f46c" absoluteBounds="6.625, 5.875, 2, 3.1902083333333326">
+      <DataClassMoniker Name="/EICSDataContext/TmPlcFileConv" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c27debbe-b6fa-49fb-9c89-20f3974b3f2e" absoluteBounds="6.64, 6.335, 1.9700000000000002, 2.630208333333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9a711a66-f368-4178-9d0c-8446fe5f9b53" absoluteBounds="9, 1.25, 2, 2.9766666666666666">
+      <DataClassMoniker Name="/EICSDataContext/TnPsMeasureResult" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6f7f2060-b29c-447d-8822-bb3c230aa1c1" absoluteBounds="9.015, 1.71, 1.9700000000000002, 2.4166666666666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c61d3e09-bdb0-4516-a772-87cc1da897cb" absoluteBounds="9, 4.25, 2, 5.3256250000000005">
+      <DataClassMoniker Name="/EICSDataContext/TmPRM" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bac1209d-4850-4f18-923b-d01dbad196c5" absoluteBounds="9.015, 4.71, 1.9700000000000002, 4.765625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cedb62cd-fdc2-42d9-b2c9-fdb4ed4433be" absoluteBounds="1.875, 6.375, 2, 2.5495833333333326">
+      <DataClassMoniker Name="/EICSDataContext/TnPsPastedResult" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0d5a06b7-8116-4dd7-8a64-87e50ea5585a" absoluteBounds="1.8900000000000001, 6.8350000000000009, 1.9700000000000002, 1.9895833333333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2bf04989-836d-4a7a-9a19-c8f48237a52e" absoluteBounds="4.25, 6.5, 2, 4.0443750000000005">
+      <DataClassMoniker Name="/EICSDataContext/TmFILEFMT" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8f5c2cc0-68f4-40ce-8d28-1bc7826ab271" absoluteBounds="4.265, 6.96, 1.9700000000000002, 3.484375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2c179336-41ab-4d82-81c4-36ce636587f2" absoluteBounds="13.75, 5, 2, 4.2579166666666666">
+      <DataClassMoniker Name="/EICSDataContext/TnLOG" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cb180ccb-0b78-4c3f-8189-38173ec31d4e" absoluteBounds="13.765, 5.46, 1.9700000000000002, 3.6979166666666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8dbd564c-46a2-42c6-af17-df6f685cb96e" absoluteBounds="0.5, 1.5, 2, 4.2579166666666666">
+      <DataClassMoniker Name="/EICSDataContext/TnLogWaitingQueue" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0d165d74-554b-4f9d-b745-d89d93f3118d" absoluteBounds="0.515, 1.96, 1.9700000000000002, 3.697916666666667" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

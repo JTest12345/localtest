@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "InputPlantCd";
+}
+
+@using (Html.BeginForm()){
+    <h3>装置番号読み込み</h3>
+    @Html.TextBox("plantcd");
+    <input type="submit" value="GO" />
+}
+
+

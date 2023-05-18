@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <section name="EICS.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false"/>
+    </sectionGroup>
+    <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <section name="EICS.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false"/>
+    </sectionGroup>
+  </configSections>
+  <connectionStrings>
+    <add name="EICS.Properties.Settings.QCILConnectionString" connectionString="Data Source=SLA-0040-2\SQLEXPRESS;Initial Catalog=QCIL;Integrated Security=True" />
+  </connectionStrings>
+  <appSettings>
+    <add key="PublicWebService.NppPublicWebService" value="http://nmcap1.nmc.local:8173/NPPPublic/NppPublicWebService.asmx"/>
+    <add key="PublicWebService.TimeOut" value="1200000"/>
+    <add key="KYO_SERVER" value="KYO-SERVER"/>
+    <add key="ClientSettingsProvider.ServiceUri" value=""/>
+  </appSettings>
+  <userSettings>
+    <EICS.Properties.Settings>
+      <setting name="ConnectionString_NCDB" serializeAs="String">
+        <value>Server=SLA-RADS1.nichia.local\INST4;Database=NCDB01;UID={0};PWD={1};Application Name=EICS[傾向管理システム];</value>
+      </setting>
+      <setting name="ConnectionString_QCILDB" serializeAs="String">
+        <value>Server={2}\SQLEXPRESS;Database=QCIL;Connect Timeout=60;UID={0};PWD={1};Application Name=EICS[傾向管理システム];</value>
+      </setting>
+      <setting name="ConnectionString_ARMSDB" serializeAs="String">
+        <value>Server={2}\SQLEXPRESS;Database=ARMS;Connect Timeout=60;UID={0};PWD={1};Application Name=EICS[傾向管理システム];</value>
+      </setting>
+      <setting name="ConnectionString_HONBAN_SIDE" serializeAs="String">
+        <value>Server=TECDB1.takatsuki.local\INST1;Database=QCIL_KYOTO;Connect Timeout=60;UID={0};PWD={1};Application Name=EICS[傾向管理システム];</value>
+      </setting>
+      <setting name="ConnectionString_NASCA" serializeAs="String">
+        <value>Server=HQDB1.nichia.local\INST1;Database=SC03_NADB01;Connect Timeout=60;UID={0};PWD={1};Application Name=EICS[傾向管理システム];</value>
+      </setting>
+      <setting name="ConnectionString_LENSDB" serializeAs="String">
+        <value>Server={2}\SQLEXPRESS;Database=LENS;Connect Timeout=60;UID={0};PWD={1};Application Name=EICS[傾向管理システム];</value>
+      </setting>
+    </EICS.Properties.Settings>
+  </userSettings>
+  <applicationSettings>
+    <EICS.Properties.Settings>
+      <setting name="EICS_AOI_NascaAPI_NppPublicWebServiceSoap" serializeAs="String">
+        <value>http://nmcap1.nmc.local:8173/NPPPublic/NppPublicWebService.asmx</value>
+      </setting>
+      <setting name="EICS_KYO_NascaAPI_NppPublicWebServiceSoap" serializeAs="String">
+        <value>http://nmcap1.nmc.local:8173/NPPPublic/NppPublicWebService.asmx</value>
+      </setting>
+    </EICS.Properties.Settings>
+  </applicationSettings>
+  <system.web>
+    <membership defaultProvider="ClientAuthenticationMembershipProvider">
+      <providers>
+        <add name="ClientAuthenticationMembershipProvider" type="System.Web.ClientServices.Providers.ClientFormsAuthenticationMembershipProvider, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" serviceUri=""/>
+      </providers>
+    </membership>
+    <roleManager defaultProvider="ClientRoleProvider" enabled="true">
+      <providers>
+        <add name="ClientRoleProvider" type="System.Web.ClientServices.Providers.ClientRoleProvider, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" serviceUri="" cacheTimeout="86400"/>
+      </providers>
+    </roleManager>
+  </system.web>
+<startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5"/></startup></configuration>

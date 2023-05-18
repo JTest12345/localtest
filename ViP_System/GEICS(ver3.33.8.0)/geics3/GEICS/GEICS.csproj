@@ -1,0 +1,1004 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{30092A09-FE72-4B7D-AB94-136F2C0358FE}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GEICS</RootNamespace>
+    <AssemblyName>GEICS3</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>Line20Chart.ico</ApplicationIcon>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ManifestCertificateThumbprint>2C81E499BC7E0D85DF349CF0D5CE30BDD48B9C8D</ManifestCertificateThumbprint>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>false</SignManifests>
+    <StartupObject>GEICS.Program</StartupObject>
+    <TargetZone>LocalIntranet</TargetZone>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>\\hqfs101\forsysro%24\Software\ClickOnce\GEICS3_Master\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>GEICS3%28装置情報傾向管理システム%29</ProductName>
+    <PublisherName>NICHIA Corporation</PublisherName>
+    <MinimumRequiredVersion>3.22.1.1</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>3.33.6.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NICHIA, TEST</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NICHIA</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BLCS_Library, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Interop.Excel, Version=1.3.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Microsoft.Office.Core, Version=2.2.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>Component\Interop.Microsoft.Office.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Office, Version=2.1.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dll\Interop.Office.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.VBIDE, Version=5.3.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>Component\Interop.VBIDE.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL" />
+    <Reference Include="NPlot, Version=0.9.9.2, Culture=neutral, PublicKeyToken=4eda430eb4395eb1">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Work_04_SMS\NPlot-0.9.9.2\NPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="SLCommonLib, Version=1.0.4637.24183, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Calc.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="ConnectNASCA.cs" />
+    <Compile Include="ConnectQCIL.cs" />
+    <Compile Include="Constant.cs" />
+    <Compile Include="Database\Equi.cs" />
+    <Compile Include="Database\ErrRecord.cs" />
+    <Compile Include="Database\FileFmtType.cs" />
+    <Compile Include="Database\Line.cs" />
+    <Compile Include="Database\Log.cs" />
+    <Compile Include="Database\Lott.cs" />
+    <Compile Include="Database\MachineLogFormat.cs" />
+    <Compile Include="Database\PlcFileConv.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Database\Plm.cs" />
+    <Compile Include="Database\Prm.cs" />
+    <Compile Include="Database\Qtim.cs" />
+    <Compile Include="dsMaterial.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsMaterial.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsQCIL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsQCIL.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsStandardText.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsStandardText.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsTmPLMEx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsTmPLMEx.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsTmQCST.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsTmQCST.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsTvQCNR.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsTvQCNR.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsUserFunction.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsUserFunction.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ExcelControl.cs" />
+    <Compile Include="F04_ErrorRecord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F04_ErrorRecord.Designer.cs">
+      <DependentUpon>F04_ErrorRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F08_ParameterReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F08_ParameterReport.Designer.cs">
+      <DependentUpon>F08_ParameterReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F100_MsgBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F100_MsgBox.Designer.cs">
+      <DependentUpon>F100_MsgBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F70_InputUserCD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F70_InputUserCD.Designer.cs">
+      <DependentUpon>F70_InputUserCD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F80_MultiSelectPlant.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F80_MultiSelectPlant.Designer.cs">
+      <DependentUpon>F80_MultiSelectPlant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F81_MultiSelectParam.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F81_MultiSelectParam.Designer.cs">
+      <DependentUpon>F81_MultiSelectParam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F82_SelectNascaWork.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F82_SelectNascaWork.Designer.cs">
+      <DependentUpon>F82_SelectNascaWork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Function\EICSFunction.cs" />
+    <Compile Include="Function\MasterChk.cs" />
+    <Compile Include="M06_LimitLineForward.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M06_LimitLineForward.Designer.cs">
+      <DependentUpon>M06_LimitLineForward.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBackground.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBackground.Designer.cs">
+      <DependentUpon>frmBackground.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F06_DefectRecord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F06_DefectRecord.Designer.cs">
+      <DependentUpon>F06_DefectRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDrawGraph.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDrawGraph.Designer.cs">
+      <DependentUpon>frmDrawGraph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDrawGraphCatalog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDrawGraphCatalog.Designer.cs">
+      <DependentUpon>frmDrawGraphCatalog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F01_Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F01_Login.Designer.cs">
+      <DependentUpon>F01_Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLotInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLotInfo.Designer.cs">
+      <DependentUpon>frmLotInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M01_Limit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M01_Limit.Designer.cs">
+      <DependentUpon>M01_Limit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M02_LimitRecord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M02_LimitRecord.Designer.cs">
+      <DependentUpon>M02_LimitRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M03_Parameter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M03_Parameter.Designer.cs">
+      <DependentUpon>M03_Parameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMasterSettingRev.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMasterSettingRev.Designer.cs">
+      <DependentUpon>frmMasterSettingRev.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F02_Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F02_Menu.Designer.cs">
+      <DependentUpon>F02_Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F07_Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F07_Report.Designer.cs">
+      <DependentUpon>F07_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M05_StandardText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M05_StandardText.Designer.cs">
+      <DependentUpon>M05_StandardText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M04_UserFunction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M04_UserFunction.Designer.cs">
+      <DependentUpon>M04_UserFunction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IConnection.cs" />
+    <Compile Include="IMessage.cs" />
+    <Compile Include="log4net\Log.cs" />
+    <Compile Include="M07_LimitReference.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M07_LimitReference.Designer.cs">
+      <DependentUpon>M07_LimitReference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M08_MultiSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M08_MultiSelect.Designer.cs">
+      <DependentUpon>M08_MultiSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M09_TypeCondition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M09_TypeCondition.Designer.cs">
+      <DependentUpon>M09_TypeCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M10_RemoteErrOut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M10_RemoteErrOut.Designer.cs">
+      <DependentUpon>M10_RemoteErrOut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M11_General.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M11_General.Designer.cs">
+      <DependentUpon>M11_General.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M12_FileFmtTypeWirebonder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M12_FileFmtTypeWirebonder.Designer.cs">
+      <DependentUpon>M12_FileFmtTypeWirebonder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M13_FileFmtWirebonder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M13_FileFmtWirebonder.Designer.cs">
+      <DependentUpon>M13_FileFmtWirebonder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M14_MsgFmtTypeWirebonder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M14_MsgFmtTypeWirebonder.Designer.cs">
+      <DependentUpon>M14_MsgFmtTypeWirebonder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M15_MsgFmtWirebonder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M15_MsgFmtWirebonder.Designer.cs">
+      <DependentUpon>M15_MsgFmtWirebonder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M16_ParameterSummary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M16_ParameterSummary.Designer.cs">
+      <DependentUpon>M16_ParameterSummary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M17_PlcFileConv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M17_PlcFileConv.Designer.cs">
+      <DependentUpon>M17_PlcFileConv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MachineFileInfo.cs" />
+    <Compile Include="Report\ParameterPerLotReport.cs" />
+    <Compile Include="Report\WBEquipVerReport.cs" />
+    <Compile Include="StructureInfo.cs" />
+    <Compile Include="MessageInfo.cs" />
+    <Compile Include="NascaConnection.cs" />
+    <Compile Include="Notifier.cs" />
+    <Compile Include="ConnectArms.cs" />
+    <Compile Include="Painter.cs" />
+    <Compile Include="Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Password.designer.cs">
+      <DependentUpon>Password.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prm.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="F04_ErrorRecord.en.resx">
+      <DependentUpon>F04_ErrorRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F04_ErrorRecord.resx">
+      <DependentUpon>F04_ErrorRecord.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F05_MachineErrorRecord.en.resx">
+      <DependentUpon>F05_MachineErrorRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F08_ParameterReport.resx">
+      <DependentUpon>F08_ParameterReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F100_MsgBox.resx">
+      <DependentUpon>F100_MsgBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F70_InputUserCD.resx">
+      <DependentUpon>F70_InputUserCD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F80_MultiSelectPlant.resx">
+      <DependentUpon>F80_MultiSelectPlant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F81_MultiSelectParam.resx">
+      <DependentUpon>F81_MultiSelectParam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F82_SelectNascaWork.resx">
+      <DependentUpon>F82_SelectNascaWork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M06_LimitLineForward.resx">
+      <DependentUpon>M06_LimitLineForward.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBackground.en.resx">
+      <DependentUpon>frmBackground.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBackground.resx">
+      <DependentUpon>frmBackground.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F06_DefectRecord.resx">
+      <DependentUpon>F06_DefectRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDrawGraph.resx">
+      <DependentUpon>frmDrawGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F03_TrendChart.en.resx">
+      <DependentUpon>F03_TrendChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDrawGraphCatalog.resx">
+      <DependentUpon>frmDrawGraphCatalog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F01_Login.en.resx">
+      <DependentUpon>F01_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F01_Login.resx">
+      <DependentUpon>F01_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLotInfo.resx">
+      <DependentUpon>frmLotInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M01_Limit.resx">
+      <DependentUpon>M01_Limit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M02_LimitRecord.resx">
+      <DependentUpon>M02_LimitRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M03_Parameter.resx">
+      <DependentUpon>M03_Parameter.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMasterSettingRev.en.resx">
+      <DependentUpon>frmMasterSettingRev.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMasterSettingRev.resx">
+      <DependentUpon>frmMasterSettingRev.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F02_Menu.en.resx">
+      <DependentUpon>F02_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F02_Menu.resx">
+      <DependentUpon>F02_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F07_Report.en.resx">
+      <DependentUpon>F07_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F07_Report.resx">
+      <DependentUpon>F07_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M05_StandardText.en.resx">
+      <DependentUpon>M05_StandardText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M05_StandardText.resx">
+      <DependentUpon>M05_StandardText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M04_UserFunction.en.resx">
+      <DependentUpon>M04_UserFunction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M04_UserFunction.resx">
+      <DependentUpon>M04_UserFunction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M07_LimitReference.resx">
+      <DependentUpon>M07_LimitReference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M08_MultiSelect.resx">
+      <DependentUpon>M08_MultiSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M09_TypeCondition.resx">
+      <DependentUpon>M09_TypeCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M10_RemoteErrOut.resx">
+      <DependentUpon>M10_RemoteErrOut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M11_General.resx">
+      <DependentUpon>M11_General.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M12_FileFmtTypeWirebonder.resx">
+      <DependentUpon>M12_FileFmtTypeWirebonder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M13_FileFmtWirebonder.resx">
+      <DependentUpon>M13_FileFmtWirebonder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M14_MsgFmtTypeWirebonder.resx">
+      <DependentUpon>M14_MsgFmtTypeWirebonder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M15_MsgFmtWirebonder.resx">
+      <DependentUpon>M15_MsgFmtWirebonder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M16_ParameterSummary.resx">
+      <DependentUpon>M16_ParameterSummary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M17_PlcFileConv.resx">
+      <DependentUpon>M17_PlcFileConv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Password.resx">
+      <DependentUpon>Password.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F05_MachineErrorRecord.resx">
+      <DependentUpon>F05_MachineErrorRecord.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmQCBackground.resx">
+      <DependentUpon>frmQCBackground.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F03_TrendChart.resx">
+      <DependentUpon>F03_TrendChart.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubDrawGraph.resx">
+      <DependentUpon>SubDrawGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="dsMaterial.xsc">
+      <DependentUpon>dsMaterial.xsd</DependentUpon>
+    </None>
+    <None Include="dsMaterial.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsMaterial.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsMaterial.xss">
+      <DependentUpon>dsMaterial.xsd</DependentUpon>
+    </None>
+    <None Include="dsQCIL.xsc">
+      <DependentUpon>dsQCIL.xsd</DependentUpon>
+    </None>
+    <None Include="dsQCIL.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsQCIL.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsQCIL.xss">
+      <DependentUpon>dsQCIL.xsd</DependentUpon>
+    </None>
+    <None Include="dsTvQCNR.xsc">
+      <DependentUpon>dsTvQCNR.xsd</DependentUpon>
+    </None>
+    <None Include="dsTvQCNR.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsTvQCNR.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsTvQCNR.xss">
+      <DependentUpon>dsTvQCNR.xsd</DependentUpon>
+    </None>
+    <None Include="GEICS_3_TemporaryKey.pfx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="VersionFile.xls" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="F05_MachineErrorRecord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F05_MachineErrorRecord.Designer.cs">
+      <DependentUpon>F05_MachineErrorRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmQCBackground.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmQCBackground.Designer.cs">
+      <DependentUpon>frmQCBackground.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F03_TrendChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F03_TrendChart.Designer.cs">
+      <DependentUpon>F03_TrendChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingInfo.cs" />
+    <Compile Include="SQLite.cs" />
+    <Compile Include="StructureARMS.cs" />
+    <Compile Include="Structure\General.cs" />
+    <Compile Include="SubDrawGraph.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubDrawGraph.Designer.cs">
+      <DependentUpon>SubDrawGraph.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Component\BLCS_Library.dll" />
+    <Content Include="Component\BLCS_Library.XML" />
+    <Content Include="Component\GEICS2.XmlSerializers.dll" />
+    <Content Include="Component\Interop.Excel.dll" />
+    <Content Include="Component\Interop.MSChart20Lib.dll" />
+    <Content Include="Component\Interop.Office.dll" />
+    <Content Include="Component\NPlot.dll" />
+    <Content Include="Component\SLCommonLib.dll" />
+    <Content Include="Component\SLCommonLib.xml" />
+    <Content Include="Component\System.Web.DataVisualization.Design.dll" />
+    <Content Include="Component\System.Web.DataVisualization.dll" />
+    <Content Include="Component\System.Web.DataVisualization.xml" />
+    <Content Include="Component\System.Windows.Forms.DataVisualization.Design.dll" />
+    <Content Include="Component\System.Windows.Forms.DataVisualization.dll" />
+    <Content Include="Component\System.Windows.Forms.DataVisualization.xml" />
+    <Content Include="Line20Chart.ico" />
+    <Content Include="log4net\log4net.dll" />
+    <Content Include="log4net\log4net.xml" />
+    <None Include="GEICS_1_TemporaryKey.pfx" />
+    <None Include="GEICS_2_TemporaryKey.pfx" />
+    <None Include="GEICS_6_TemporaryKey.pfx" />
+    <None Include="Resources\UPD_UPDATE-000.png" />
+    <None Include="Resources\ACT_MULTISELECT_EP.png" />
+    <None Include="Resources\ACT_MULTISELECT_IN.png" />
+    <Content Include="Resources\Check.png" />
+    <None Include="Resources\CHK_MASTER.bmp" />
+    <None Include="Resources\SEL_ALL_SELECT.png" />
+    <None Include="Resources\SEL_ALL_CANCEL.png" />
+    <None Include="Resources\LOGO_NICHIA.png" />
+    <Content Include="System.Web.DataVisualization.Design.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="System.Web.DataVisualization.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="System.Web.DataVisualization.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="System.Windows.Forms.DataVisualization.Design.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="System.Windows.Forms.DataVisualization.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="System.Windows.Forms.DataVisualization.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="dsStandardText.xsc">
+      <DependentUpon>dsStandardText.xsd</DependentUpon>
+    </None>
+    <None Include="dsStandardText.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsStandardText.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsStandardText.xss">
+      <DependentUpon>dsStandardText.xsd</DependentUpon>
+    </None>
+    <None Include="dsTmPLMEx.xsc">
+      <DependentUpon>dsTmPLMEx.xsd</DependentUpon>
+    </None>
+    <None Include="dsTmPLMEx.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsTmPLMEx.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsTmPLMEx.xss">
+      <DependentUpon>dsTmPLMEx.xsd</DependentUpon>
+    </None>
+    <None Include="dsTmQCST.xsc">
+      <DependentUpon>dsTmQCST.xsd</DependentUpon>
+    </None>
+    <None Include="dsTmQCST.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsTmQCST.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsTmQCST.xss">
+      <DependentUpon>dsTmQCST.xsd</DependentUpon>
+    </None>
+    <Content Include="template\Master.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="dsUserFunction.xsc">
+      <DependentUpon>dsUserFunction.xsd</DependentUpon>
+    </None>
+    <None Include="dsUserFunction.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsUserFunction.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsUserFunction.xss">
+      <DependentUpon>dsUserFunction.xsd</DependentUpon>
+    </None>
+    <None Include="GEICS_TemporaryKey.pfx" />
+    <Content Include="template\TPL_GRAPH.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="template\Master_MAP.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="template\Master_MAP_OUT.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="log4net\.svn\entries" />
+    <None Include="log4net\.svn\prop-base\log4net.dll.svn-base" />
+    <None Include="log4net\.svn\text-base\Log.cs.svn-base" />
+    <None Include="log4net\.svn\text-base\log4net.dll.svn-base" />
+    <None Include="log4net\.svn\text-base\log4net.xml.svn-base" />
+    <None Include="Properties\app.manifest" />
+    <None Include="template\TPL04_MasterPlcFileConv.xls" />
+    <Content Include="template\TPL02_ParameterPerLotReport.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="template\TPL03_WBEquipVerReport.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="template\TPL01_MasterLimit.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows インストーラ 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Component\GEICS2.XmlSerializers.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Component\Interop.Excel.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Component\Interop.MSChart20Lib.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Component\Interop.Office.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Component\NPlot.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Component\SLCommonLib.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Component\SLCommonLib.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Component\System.Web.DataVisualization.Design.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Component\System.Web.DataVisualization.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Component\System.Web.DataVisualization.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Component\System.Windows.Forms.DataVisualization.Design.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Component\System.Windows.Forms.DataVisualization.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Component\System.Windows.Forms.DataVisualization.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="GEICS2.XmlSerializers">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="log4net\log4net.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="MSDATASRC">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>False</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="stdole">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="System.Windows.Forms.DataVisualization">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GEICSChart\" />
+    <Folder Include="log4net\.svn\props\" />
+    <Folder Include="log4net\.svn\tmp\prop-base\" />
+    <Folder Include="log4net\.svn\tmp\props\" />
+    <Folder Include="log4net\.svn\tmp\text-base\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

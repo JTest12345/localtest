@@ -1,0 +1,22 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.LotCarrierModel
+@{
+    ViewBag.Title = "ConfirmMagazine";
+}
+
+@using (Html.BeginForm("ConfirmedMagazine", "LotCarrier"))
+{
+<h3>ロットと基板DM/キャリアQRの関連付け登録</h3>
+<h3>ロット番号：@Model.LotNo</h3>
+<h3>マガジン番号：@Model.MagazineNo</h3>
+<br />
+
+<h3>指定したマガジンは現在別のロット：@Model.CurrentMagazine.NascaLotNO で稼働中と登録されていますが、上書きしてもよろしいですか？ </h3>
+<br />
+    
+    <div>
+        <input type="submit" value="Go" />
+        &nbsp
+        <button onclick="location.href='@Url.Action("CancelEdit")';return false;">キャンセル</button>    
+    </div>
+}

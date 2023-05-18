@@ -1,0 +1,36 @@
+﻿@model ArmsWeb.Models.MaterialEditModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>MAPダイシングブレード登録情報</h3>
+<h5>装置:@Model.Mac.LongName</h5>
+<h5></h5>
+
+@using (Html.BeginForm("Remove", "Material"))
+{
+    if (Model.MatList.Count() >= 1)
+    {
+        <select size="5" name="matindex">
+            @foreach (KeyValuePair<int, ArmsApi.Model.Material> kv in Model.MatList)
+            {
+                <option value="@kv.Key" >@kv.Value.LongName</option>
+            }
+        </select>
+    <br />
+    <button type="submit">取り外し</button>
+    <br />
+    }
+        else
+    {
+        <h5>現在投入中の原材料はありません</h5>
+    }
+}
+
+@using (Html.BeginForm("InsertNew", "MapDicingBlade"))
+{
+   <div>取付位置コード:</div>
+   <input type="text" name="placecd"/>
+   <input type="submit" value="新規割付" />
+}

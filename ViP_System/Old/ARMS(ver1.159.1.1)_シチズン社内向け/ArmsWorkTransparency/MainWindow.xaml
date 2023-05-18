@@ -1,0 +1,14 @@
+﻿<Window x:Class="ArmsWorkTransparency.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArmsWorkTransparency"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="263.024">
+    <Grid>
+        <Button x:Name="btnNextMachineMonitor" Content="装置情報" HorizontalAlignment="Left" Margin="70,62,0,0" VerticalAlignment="Top" Width="119" Click="btnNextMachineMonitor_Click" Height="51" FontSize="20"/>
+        <Button x:Name="btnNextLotMonitor" Content="ロット情報" HorizontalAlignment="Left" Margin="70,144,0,0" VerticalAlignment="Top" Width="119" Click="btnNextLotMonitor_Click" Height="51" FontSize="20"/>
+
+    </Grid>
+</Window>

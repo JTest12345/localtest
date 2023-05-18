@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MAKTModelStoreContainer" CdmEntityContainer="MAKTEntities">
+    <EntitySetMapping Name="TnMarkingLog">
+      <EntityTypeMapping TypeName="MAKTModel.TnMarkingLog">
+        <MappingFragment StoreEntitySet="TnMarkingLog">
+          <ScalarProperty Name="lotno" ColumnName="lotno" />
+          <ScalarProperty Name="row" ColumnName="row" />
+          <ScalarProperty Name="stockerno" ColumnName="stockerno" />
+          <ScalarProperty Name="markdata" ColumnName="markdata" />
+          <ScalarProperty Name="workdt" ColumnName="workdt" />
+          <ScalarProperty Name="manualfg" ColumnName="manualfg" />
+          <ScalarProperty Name="flamecollectfg" ColumnName="flamecollectfg" />
+          <ScalarProperty Name="wafercollectfg" ColumnName="wafercollectfg" />
+          <ScalarProperty Name="typecd" ColumnName="typecd" />
+          <ScalarProperty Name="materialcd" ColumnName="materialcd" />
+          <ScalarProperty Name="matlotno" ColumnName="matlotno" />
+          <ScalarProperty Name="lastupddt" ColumnName="lastupddt" />
+          <ScalarProperty Name="correctct" ColumnName="correctct" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TmMarkingConv">
+      <EntityTypeMapping TypeName="MAKTModel.TmMarkingConv">
+        <MappingFragment StoreEntitySet="TmMarkingConv">
+          <ScalarProperty Name="lastupddt" ColumnName="lastupddt" />
+          <ScalarProperty Name="updusercd" ColumnName="updusercd" />
+          <ScalarProperty Name="marktext" ColumnName="marktext" />
+          <ScalarProperty Name="decimalno" ColumnName="decimalno" />
+          <ScalarProperty Name="verno" ColumnName="verno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TnMaterial">
+      <EntityTypeMapping TypeName="MAKTModel.TnMaterial">
+        <MappingFragment StoreEntitySet="TnMaterial">
+          <ScalarProperty Name="importantfg" ColumnName="importantfg" />
+          <ScalarProperty Name="lastupddt" ColumnName="lastupddt" />
+          <ScalarProperty Name="plantcd" ColumnName="plantcd" />
+          <ScalarProperty Name="matlotno" ColumnName="matlotno" />
+          <ScalarProperty Name="materialcd" ColumnName="materialcd" />
+          <ScalarProperty Name="lotno" ColumnName="lotno" />
+          <ScalarProperty Name="typecd" ColumnName="typecd" />
+          <ScalarProperty Name="markdata" ColumnName="markdata" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

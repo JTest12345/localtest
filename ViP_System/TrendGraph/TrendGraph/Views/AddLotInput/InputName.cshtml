@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "AddLotInput";
+}
+
+
+<div align="left" style="border: 3px double; width: 150px;">
+    <a href="@Url.Action("index", "Home")">ホーム画面へ戻る</a>
+</div>
+<form method="POST" action="Input">
+    <div align="left">
+        <table border="1">
+            <tr>
+                <th>計画ロットNo</th>
+                <!-- name属性「name="name_box"」を設定する事で、遷移先で受け取り可能になる -->
+                <td><input type="text" id="planlotno" name="planlotno" /></td>
+            </tr>
+        </table>
+    </div>
+    <div align="left">
+        <!-- 送信ボタンのtypeはsubmit指定するとEnterキーを押した場合送信されるので、buttonにしてEnterキー入力を受け付けなくする -->
+        <button type="button" onclick="submit();">計画ロット登録</button>
+    </div>
+</form>

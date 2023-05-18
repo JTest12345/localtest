@@ -1,0 +1,511 @@
+2020/11/30,	20:34:26,	[Task Button] Stop
+2020/11/30,	20:34:36,	[Task Button] Material
+2020/11/30,	20:34:37,	[Action] Open Epxander Function
+2020/11/30,	20:37:53,	[Menu item] Diagnostics
+2020/11/30,	20:37:53,	****** Screen	BOND	->	DIAGNOSTICS
+2020/11/30,	20:37:53,	****** Screen	DIAGNOSTICS	->	Wafer Loader
+2020/11/30,	20:37:53,	[Task Button] Wafer Loader
+2020/11/30,	20:37:56,	[Task Button] Wafer Loader Move To Slot
+2020/11/30,	20:40:03,	****** Screen	Wafer Loader	->	BOND
+2020/11/30,	20:40:03,	[Task Button] (5) Auto Bond
+2020/11/30,	20:40:04,	[Menu item] Setup
+2020/11/30,	20:40:04,	****** Screen	BOND	->	Setup Main
+2020/11/30,	20:40:05,	****** Screen	Setup Main	->	Performance setup
+2020/11/30,	20:40:05,	[Task Button] (4) Performance
+2020/11/30,	20:40:05,	****** Screen	Performance setup	->	IQC Screen
+2020/11/30,	20:40:05,	[Task Button] IQC Result
+2020/11/30,	20:40:06,	[Task Button] Clear Pre Bond
+2020/11/30,	20:40:08,	[Task Button] Clear Post Bond
+2020/11/30,	20:40:10,	****** Screen	IQC Screen	->	Performance setup
+2020/11/30,	20:40:10,	[Task Button] Back
+2020/11/30,	20:40:11,	****** Screen	Performance setup	->	BOND
+2020/11/30,	20:40:11,	[Menu item] Bond
+2020/11/30,	20:40:11,	[Menu item] Bond
+2020/11/30,	20:40:12,	[Task Button] Material
+2020/11/30,	20:40:12,	[Action] Change Epoxy Functin
+2020/11/30,	21:01:48,	System Message	[0] Setup	->	[1] Close
+2020/11/30,	21:07:49,	[Menu item] Setup
+2020/11/30,	21:07:49,	****** Screen	BOND	->	Setup Main
+2020/11/30,	21:07:50,	****** Screen	Setup Main	->	SETUP
+2020/11/30,	21:07:50,	[Task Button] (3) Process Setup
+2020/11/30,	21:07:50,	****** Screen	SETUP	->	Left Dispensor Process
+2020/11/30,	21:07:50,	[Task Button] Left Epoxy Process
+2020/11/30,	21:07:51,	[Task Button] Pos
+2020/11/30,	21:07:52,	[Menu item] JoySpeed
+2020/11/30,	21:07:52,	[Menu item] JoySpeed
+2020/11/30,	21:07:53,	[Menu item] JoySpeed
+2020/11/30,	21:07:53,	[Task Button] Learn ZD function
+2020/11/30,	21:08:06,	[Menu item] JoySpeed
+2020/11/30,	21:08:06,	[Menu item] JoySpeed
+2020/11/30,	21:08:12,	[Task Button] Confirm
+2020/11/30,	21:08:13,	[Menu item] JoySpeed
+2020/11/30,	21:08:13,	[Menu item] JoySpeed
+2020/11/30,	21:08:14,	[Task Button] Back
+2020/11/30,	21:08:14,	****** Screen	Left Dispensor Process	->	SETUP
+2020/11/30,	21:08:14,	****** Screen	SETUP	->	Dispensor Process
+2020/11/30,	21:08:14,	[Task Button]  Right Epoxy Process
+2020/11/30,	21:08:15,	[Task Button] Pos
+2020/11/30,	21:08:16,	[Task Button] learn ZD function
+2020/11/30,	21:08:27,	[Menu item] JoySpeed
+2020/11/30,	21:08:28,	[Menu item] JoySpeed
+2020/11/30,	21:08:36,	[Task Button] Confirm
+2020/12/01,	04:22:18,	[Task Button] (5) Auto Bond
+2020/12/01,	04:22:18,	****** Screen	Dispensor Process	->	BOND
+2020/12/01,	04:22:19,	[Task Button] Material
+2020/12/01,	04:22:20,	[Action] Close Expander Function
+2020/12/01,	04:22:39,	[Menu item] Diagnostics
+2020/12/01,	04:22:39,	****** Screen	BOND	->	DIAGNOSTICS
+2020/12/01,	04:22:39,	****** Screen	DIAGNOSTICS	->	WT_Diagnostics
+2020/12/01,	04:22:39,	[Task Button] Wafer Table
+2020/12/01,	04:22:40,	[Action] Reset Wafer Table
+2020/12/01,	04:22:41,	****** Screen	WT_Diagnostics	->	BOND
+2020/12/01,	04:22:41,	[Menu item] Bond
+2020/12/01,	04:27:42,	[Task Button] Setting
+2020/12/01,	04:27:51,	[Menu item] Setup
+2020/12/01,	04:27:51,	****** Screen	BOND	->	Setup Main
+2020/12/01,	04:27:52,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	04:27:52,	[Task Button] (3) Process Setup
+2020/12/01,	04:27:52,	****** Screen	SETUP	->	M_BondPRSetup
+2020/12/01,	04:27:52,	[Task Button] Work Holder PR
+2020/12/01,	04:27:56,	[Task Button] (5) Auto Bond
+2020/12/01,	04:27:56,	****** Screen	M_BondPRSetup	->	BOND
+2020/12/01,	04:27:57,	[Task Button] Option
+2020/12/01,	04:28:02,	[Menu item] Setup
+2020/12/01,	04:28:02,	****** Screen	BOND	->	Setup Main
+2020/12/01,	04:28:03,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	04:28:03,	[Task Button] (3) Process Setup
+2020/12/01,	04:28:03,	****** Screen	SETUP	->	Left Dispensor Process
+2020/12/01,	04:28:03,	[Task Button] Left Epoxy Process
+2020/12/01,	04:28:04,	[Task Button] Pos
+2020/12/01,	04:28:05,	[Task Button] Opt Align
+2020/12/01,	04:28:07,	[Task Button] Back
+2020/12/01,	04:28:07,	****** Screen	Left Dispensor Process	->	SETUP
+2020/12/01,	04:28:07,	****** Screen	SETUP	->	Dispensor Process
+2020/12/01,	04:28:07,	[Task Button]  Right Epoxy Process
+2020/12/01,	04:28:08,	[Task Button] Opt Align
+2020/12/01,	04:28:09,	[Task Button] Back
+2020/12/01,	04:28:09,	****** Screen	Dispensor Process	->	SETUP
+2020/12/01,	04:28:09,	****** Screen	SETUP	->	BH_BondingProcess
+2020/12/01,	04:28:09,	[Task Button] Bonding Process
+2020/12/01,	04:28:10,	[Task Button] Z Level
+2020/12/01,	04:28:11,	[Task Button] Ejector
+2020/12/01,	04:28:16,	[Task Button] Force
+2020/12/01,	04:28:30,	[Task Button] Bond Pos
+2020/12/01,	04:28:47,	[Task Button] Back
+2020/12/01,	04:28:47,	****** Screen	BH_BondingProcess	->	BOND
+2020/12/01,	04:28:48,	[Menu item] Setup
+2020/12/01,	04:28:48,	****** Screen	BOND	->	Setup Main
+2020/12/01,	04:28:49,	****** Screen	Setup Main	->	Security Setup
+2020/12/01,	04:28:49,	[Task Button] (5) Safety & System
+2020/12/01,	04:28:50,	****** Screen	Security Setup	->	DIAGNOSTICS
+2020/12/01,	04:28:50,	[Menu item] Diagnostics
+2020/12/01,	04:28:50,	****** Screen	DIAGNOSTICS	->	Work Holder
+2020/12/01,	04:28:50,	[Task Button] Work Holder
+2020/12/01,	04:28:52,	[Action] Input Pusher ON button
+2020/12/01,	04:28:53,	[Action] Input Pusher OFF button
+2020/12/01,	04:28:55,	[Action] Kicker Pusher On Button
+2020/12/01,	04:28:57,	[Action] Kicker Pusher Off button
+2020/12/01,	04:29:29,	[Menu item] Bond
+2020/12/01,	04:29:29,	****** Screen	Work Holder	->	BOND
+2020/12/01,	04:29:30,	[Task Button] Material
+2020/12/01,	04:29:31,	BH Collet Vacuum	OFF	->	ON
+2020/12/01,	04:29:42,	BH Collet Vacuum	ON	->	OFF
+2020/12/01,	04:29:43,	[Menu item] Setup
+2020/12/01,	04:29:43,	****** Screen	BOND	->	Setup Main
+2020/12/01,	04:29:43,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	04:29:43,	[Task Button] (3) Process Setup
+2020/12/01,	04:29:43,	****** Screen	SETUP	->	BH_BondingProcess
+2020/12/01,	04:29:43,	[Task Button] Bonding Process
+2020/12/01,	04:29:44,	Ejector Vacuum	OFF	->	ON
+2020/12/01,	04:29:45,	Ejector Vacuum	ON	->	OFF
+2020/12/01,	04:29:46,	[Task Button] Ejector
+2020/12/01,	04:29:51,	[Task Button] Adjust Ejector Center
+2020/12/01,	04:29:53,	[Task Button] Exp1.
+2020/12/01,	04:29:54,	[Task Button] Wafer General Coax + 10
+2020/12/01,	04:29:58,	[Menu item] JoySpeed
+2020/12/01,	04:29:58,	[Menu item] JoySpeed
+2020/12/01,	04:29:58,	[Menu item] JoySpeed
+2020/12/01,	04:30:00,	[Task Button] Confirm
+2020/12/01,	04:31:25,	[Task Button] Force
+2020/12/01,	04:31:26,	[Task Button] >> DAC
+2020/12/01,	04:31:27,	Bond Force Control	[0] Manual Test	->	[0] Manual Test
+2020/12/01,	04:31:38,	[Task Button] Back
+2020/12/01,	04:31:38,	****** Screen	BH_BondingProcess	->	BOND
+2020/12/01,	04:31:39,	[Menu item] Diagnostics
+2020/12/01,	04:31:39,	****** Screen	BOND	->	DIAGNOSTICS
+2020/12/01,	04:31:39,	****** Screen	DIAGNOSTICS	->	BH_Diagnostics
+2020/12/01,	04:31:39,	[Task Button] Bond Head
+2020/12/01,	04:31:41,	[Action] Reset Micro Z Encoder
+2020/12/01,	04:31:44,	[Menu item] Setup
+2020/12/01,	04:31:44,	****** Screen	BH_Diagnostics	->	Setup Main
+2020/12/01,	04:31:44,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	04:31:44,	[Task Button] (3) Process Setup
+2020/12/01,	04:31:44,	****** Screen	SETUP	->	BH_BondingProcess
+2020/12/01,	04:31:44,	[Task Button] Bonding Process
+2020/12/01,	04:31:45,	[Task Button] Force
+2020/12/01,	04:31:46,	[Task Button] >> DAC
+2020/12/01,	04:31:47,	Bond Force Control	[0] Manual Test	->	[0] Manual Test
+2020/12/01,	04:31:56,	[Task Button] >> DAC
+2020/12/01,	04:31:57,	Bond Force Control	[0] Manual Test	->	[0] Manual Test
+2020/12/01,	04:32:12,	[Task Button] Opt. Align
+2020/12/01,	04:32:20,	Ejector Vacuum	OFF	->	ON
+2020/12/01,	04:32:24,	[Task Button] Change Pick
+2020/12/01,	04:32:25,	[Task Button] Auto Search Contact
+2020/12/01,	04:32:40,	[Task Button] Z-
+2020/12/01,	04:32:40,	[Task Button] Z+
+2020/12/01,	04:32:41,	[Task Button] Z+
+2020/12/01,	04:32:41,	[Task Button] Z+
+2020/12/01,	04:32:42,	[Task Button] Z+
+2020/12/01,	04:32:42,	[Task Button] Z+
+2020/12/01,	04:32:44,	[Task Button] Wafer General coax +1
+2020/12/01,	04:32:44,	[Task Button] Wafer General coax +1
+2020/12/01,	04:32:45,	[Task Button] Wafer General Coax -1
+2020/12/01,	04:32:50,	[Task Button] Z+
+2020/12/01,	04:32:51,	Digital Zoom	1X	->	2X
+2020/12/01,	04:32:52,	[Task Button] Temp Comp
+2020/12/01,	04:32:57,	[Task Button] Step Move X -
+2020/12/01,	04:32:58,	Digital Zoom	2X	->	1X
+2020/12/01,	04:32:59,	[Task Button] Confirm
+2020/12/01,	04:33:01,	Ejector Vacuum	ON	->	OFF
+2020/12/01,	04:33:03,	[Task Button] Back
+2020/12/01,	04:33:03,	****** Screen	BH_BondingProcess	->	BOND
+2020/12/01,	04:33:04,	[Task Button] Material
+2020/12/01,	04:33:05,	[Action] Open Epxander Function
+2020/12/01,	04:33:05,	[Action] Close Expander Function
+2020/12/01,	04:33:07,	[Menu item] Diagnostics
+2020/12/01,	04:33:07,	****** Screen	BOND	->	DIAGNOSTICS
+2020/12/01,	04:33:08,	****** Screen	DIAGNOSTICS	->	BH_Diagnostics
+2020/12/01,	04:33:08,	[Task Button] Bond Head
+2020/12/01,	04:33:16,	[Menu item] Setup
+2020/12/01,	04:33:16,	****** Screen	BH_Diagnostics	->	Setup Main
+2020/12/01,	04:33:16,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	04:33:16,	[Task Button] (3) Process Setup
+2020/12/01,	04:33:17,	****** Screen	SETUP	->	BH_BondingProcess
+2020/12/01,	04:33:17,	[Task Button] Bonding Process
+2020/12/01,	04:33:17,	[Task Button] Z Level
+2020/12/01,	04:33:50,	[Menu item] SrchDie
+2020/12/01,	04:33:53,	BH Collet Vacuum	OFF	->	ON
+2020/12/01,	04:33:53,	BH Collet Vacuum	ON	->	OFF
+2020/12/01,	04:33:55,	[Task Button] Ejector
+2020/12/01,	04:33:55,	[Task Button] Change Cap
+2020/12/01,	04:34:11,	[Task Button] Confirm
+2020/12/01,	04:34:37,	BH Collet Vacuum	OFF	->	ON
+2020/12/01,	04:34:38,	BH Collet Vacuum	ON	->	OFF
+2020/12/01,	04:34:38,	StrongBlow	OFF	->	ON
+2020/12/01,	04:34:39,	StrongBlow	ON	->	OFF
+2020/12/01,	04:34:39,	BH Collet Vacuum	OFF	->	ON
+2020/12/01,	04:34:40,	BH Collet Vacuum	ON	->	OFF
+2020/12/01,	04:34:44,	[Menu item] SrchDie
+2020/12/01,	04:35:00,	BH Collet Vacuum	OFF	->	ON
+2020/12/01,	04:35:10,	BH Collet Vacuum	ON	->	OFF
+2020/12/01,	04:35:11,	BH Collet Vacuum	OFF	->	ON
+2020/12/01,	04:35:11,	BH Collet Vacuum	ON	->	OFF
+2020/12/01,	04:35:12,	BH Collet Vacuum	OFF	->	ON
+2020/12/01,	04:35:13,	BH Collet Vacuum	ON	->	OFF
+2020/12/01,	04:35:14,	[Task Button] Change Cap
+2020/12/01,	04:35:24,	[Task Button] Confirm
+2020/12/01,	04:35:35,	[Task Button] Back
+2020/12/01,	04:35:35,	****** Screen	BH_BondingProcess	->	BOND
+2020/12/01,	04:35:36,	[Task Button] Material
+2020/12/01,	04:35:37,	[Action] Open Epxander Function
+2020/12/01,	04:37:26,	[Action] Close Expander Function
+2020/12/01,	04:50:02,	[Menu item] Setup
+2020/12/01,	04:50:02,	****** Screen	BOND	->	Setup Main
+2020/12/01,	04:50:02,	[Menu item] Setup
+2020/12/01,	04:50:02,	****** Screen	Setup Main	->	Performance setup
+2020/12/01,	04:50:02,	[Task Button] (4) Performance
+2020/12/01,	04:50:03,	****** Screen	Performance setup	->	IQC Screen
+2020/12/01,	04:50:03,	[Task Button] IQC Result
+2020/12/01,	04:50:04,	[Task Button] Clear Pre Bond
+2020/12/01,	04:50:07,	[Task Button] Clear Post Bond
+2020/12/01,	04:50:09,	[Task Button] Redraw Graph
+2020/12/01,	04:50:11,	****** Screen	IQC Screen	->	BOND
+2020/12/01,	04:50:11,	[Task Button] (5) Auto Bond
+2020/12/01,	04:50:12,	[Task Button] Material
+2020/12/01,	04:50:12,	[Task Button] Counter
+2020/12/01,	04:50:13,	[Action] Reset Counter Function
+2020/12/01,	04:50:13,	[Action] Reset Counter Function
+2020/12/01,	04:50:14,	Check Total Die	0:Disable	->	1:Enable
+2020/12/01,	04:50:15,	[Action] BH Clogged Cnt Clear
+2020/12/01,	04:50:17,	[Menu item] Setup
+2020/12/01,	04:50:17,	****** Screen	BOND	->	Setup Main
+2020/12/01,	04:50:18,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	04:50:18,	[Task Button] (3) Process Setup
+2020/12/01,	04:50:18,	****** Screen	SETUP	->	Left Dispensor Process
+2020/12/01,	04:50:18,	[Task Button] Left Epoxy Process
+2020/12/01,	04:50:19,	[Task Button] Pos
+2020/12/01,	04:50:19,	[Action] Menu Move Fuction
+2020/12/01,	05:35:12,	[Task Button] (5) Auto Bond
+2020/12/01,	05:35:12,	****** Screen	Left Dispensor Process	->	BOND
+2020/12/01,	05:35:14,	[Task Button] AutoBond
+2020/12/01,	05:35:21,	[Task Button] Stop
+2020/12/01,	05:35:24,	[Menu item] Setup
+2020/12/01,	05:35:24,	****** Screen	BOND	->	Setup Main
+2020/12/01,	05:35:24,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	05:35:24,	[Task Button] (3) Process Setup
+2020/12/01,	05:35:24,	****** Screen	SETUP	->	Left Dispensor Process
+2020/12/01,	05:35:24,	[Task Button] Left Epoxy Process
+2020/12/01,	05:35:25,	[Task Button] Pos
+2020/12/01,	05:35:26,	[Task Button] Search Post Epoxy PR function
+2020/12/01,	05:35:28,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:35:29,	[Menu item] JoySpeed
+2020/12/01,	05:35:29,	[Task Button] Learn ZD function
+2020/12/01,	05:35:33,	[Task Button] Confirm
+2020/12/01,	05:35:34,	[Task Button] Back
+2020/12/01,	05:35:34,	****** Screen	Left Dispensor Process	->	SETUP
+2020/12/01,	05:35:35,	****** Screen	SETUP	->	Dispensor Process
+2020/12/01,	05:35:35,	[Task Button]  Right Epoxy Process
+2020/12/01,	05:35:35,	[Task Button] Pos
+2020/12/01,	05:35:36,	[Task Button] Search Post Epoxy function
+2020/12/01,	05:35:38,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:35:39,	[Task Button] (5) Auto Bond
+2020/12/01,	05:35:39,	****** Screen	Dispensor Process	->	BOND
+2020/12/01,	05:35:40,	[Task Button] AutoBond
+2020/12/01,	05:35:42,	last LF button	Yes	->	No
+2020/12/01,	05:36:00,	[Task Button] Line Pause
+2020/12/01,	05:36:04,	[Menu item] Setup
+2020/12/01,	05:36:04,	****** Screen	BOND	->	Setup Main
+2020/12/01,	05:36:05,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	05:36:05,	[Task Button] (3) Process Setup
+2020/12/01,	05:36:05,	****** Screen	SETUP	->	Left Dispensor Process
+2020/12/01,	05:36:05,	[Task Button] Left Epoxy Process
+2020/12/01,	05:36:06,	[Task Button] Pos
+2020/12/01,	05:36:07,	[Task Button] Search Post Epoxy PR function
+2020/12/01,	05:36:09,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:36:09,	[Task Button] Prev Functionm
+2020/12/01,	05:36:10,	[Task Button] Search Post Epoxy PR function
+2020/12/01,	05:36:12,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:36:13,	[Task Button] Learn ZD function
+2020/12/01,	05:36:16,	[Task Button] Confirm
+2020/12/01,	05:36:17,	[Task Button] Back
+2020/12/01,	05:36:17,	****** Screen	Left Dispensor Process	->	SETUP
+2020/12/01,	05:36:18,	****** Screen	SETUP	->	Dispensor Process
+2020/12/01,	05:36:18,	[Task Button]  Right Epoxy Process
+2020/12/01,	05:36:18,	[Task Button] Pos
+2020/12/01,	05:36:19,	[Task Button] Search Post Epoxy function
+2020/12/01,	05:36:22,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:36:24,	[Task Button] (5) Auto Bond
+2020/12/01,	05:36:24,	****** Screen	Dispensor Process	->	BOND
+2020/12/01,	05:36:26,	[Task Button] AutoBond
+2020/12/01,	05:36:40,	[Task Button] Stop
+2020/12/01,	05:36:40,	[Task Button] Line Pause
+2020/12/01,	05:36:42,	[Menu item] Setup
+2020/12/01,	05:36:42,	****** Screen	BOND	->	Setup Main
+2020/12/01,	05:36:42,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	05:36:42,	[Task Button] (3) Process Setup
+2020/12/01,	05:36:42,	****** Screen	SETUP	->	Left Dispensor Process
+2020/12/01,	05:36:42,	[Task Button] Left Epoxy Process
+2020/12/01,	05:36:43,	[Task Button] Pos
+2020/12/01,	05:36:44,	[Task Button] Search Post Epoxy PR function
+2020/12/01,	05:36:46,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:36:46,	[Task Button] Prev Functionm
+2020/12/01,	05:36:47,	[Task Button] Search Post Epoxy PR function
+2020/12/01,	05:36:48,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:36:49,	[Task Button] Prev Functionm
+2020/12/01,	05:36:50,	[Task Button] Search Post Epoxy PR function
+2020/12/01,	05:36:52,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:36:52,	[Task Button] Learn ZD function
+2020/12/01,	05:36:56,	[Task Button] Confirm
+2020/12/01,	05:36:56,	[Task Button] Back
+2020/12/01,	05:36:56,	****** Screen	Left Dispensor Process	->	SETUP
+2020/12/01,	05:36:57,	****** Screen	SETUP	->	Dispensor Process
+2020/12/01,	05:36:57,	[Task Button]  Right Epoxy Process
+2020/12/01,	05:36:58,	[Task Button] Pos
+2020/12/01,	05:36:59,	[Task Button] Search Post Epoxy function
+2020/12/01,	05:37:01,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:37:02,	[Task Button] Prev Functionm
+2020/12/01,	05:37:02,	[Task Button] Search Post Epoxy function
+2020/12/01,	05:37:04,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:37:05,	[Task Button] (5) Auto Bond
+2020/12/01,	05:37:05,	****** Screen	Dispensor Process	->	BOND
+2020/12/01,	05:37:06,	[Task Button] AutoBond
+2020/12/01,	05:37:18,	[Task Button] Stop
+2020/12/01,	05:37:20,	[Menu item] Setup
+2020/12/01,	05:37:20,	****** Screen	BOND	->	Setup Main
+2020/12/01,	05:37:21,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	05:37:21,	[Task Button] (3) Process Setup
+2020/12/01,	05:37:21,	****** Screen	SETUP	->	Left Dispensor Process
+2020/12/01,	05:37:21,	[Task Button] Left Epoxy Process
+2020/12/01,	05:37:22,	[Task Button] Pos
+2020/12/01,	05:37:22,	[Task Button] Search Post Epoxy PR function
+2020/12/01,	05:37:24,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:37:25,	[Task Button] Prev Functionm
+2020/12/01,	05:37:25,	[Task Button] Prev Functionm
+2020/12/01,	05:37:25,	[Task Button] Prev Functionm
+2020/12/01,	05:37:26,	[Task Button] Search Post Epoxy PR function
+2020/12/01,	05:37:28,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:37:29,	[Task Button] Back
+2020/12/01,	05:37:29,	****** Screen	Left Dispensor Process	->	SETUP
+2020/12/01,	05:37:29,	****** Screen	SETUP	->	Dispensor Process
+2020/12/01,	05:37:29,	[Task Button]  Right Epoxy Process
+2020/12/01,	05:37:30,	[Task Button] Pos
+2020/12/01,	05:37:31,	[Task Button] Prev Functionm
+2020/12/01,	05:37:32,	[Task Button] Search Post Epoxy function
+2020/12/01,	05:37:33,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:37:34,	[Task Button] Prev Functionm
+2020/12/01,	05:37:34,	[Task Button] Search Post Epoxy function
+2020/12/01,	05:37:36,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:37:37,	[Task Button] Prev Functionm
+2020/12/01,	05:37:38,	[Task Button] (5) Auto Bond
+2020/12/01,	05:37:38,	****** Screen	Dispensor Process	->	BOND
+2020/12/01,	05:37:38,	[Menu item] JoySpeed
+2020/12/01,	05:37:39,	[Menu item] JoySpeed
+2020/12/01,	05:37:39,	Camera
+2020/12/01,	05:37:39,	Camera
+2020/12/01,	05:37:39,	Camera
+2020/12/01,	05:37:40,	[Task Button] Stop
+2020/12/01,	05:37:41,	[Task Button] AutoBond
+2020/12/01,	05:37:41,	[Task Button] IQC
+2020/12/01,	05:37:43,	[Task Button] LR
+2020/12/01,	05:43:53,	[Menu item] Setup
+2020/12/01,	05:43:53,	****** Screen	BOND	->	Setup Main
+2020/12/01,	05:43:54,	****** Screen	Setup Main	->	Performance setup
+2020/12/01,	05:43:54,	[Task Button] (4) Performance
+2020/12/01,	05:43:54,	****** Screen	Performance setup	->	Inspection Counter
+2020/12/01,	05:43:54,	[Task Button] Inspection Counter
+2020/12/01,	05:43:55,	Toggle Pre Bond Count Skip	ENABLE	->	DISABLE
+2020/12/01,	05:43:56,	****** Screen	Inspection Counter	->	Performance setup
+2020/12/01,	05:43:56,	[Task Button] Back
+2020/12/01,	05:43:56,	****** Screen	Performance setup	->	Setup Main
+2020/12/01,	05:43:56,	[Task Button] Back
+2020/12/01,	05:43:56,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	05:43:56,	[Task Button] (3) Process Setup
+2020/12/01,	05:43:57,	****** Screen	SETUP	->	BH_BondingProcess
+2020/12/01,	05:43:57,	[Task Button] Bonding Process
+2020/12/01,	05:43:57,	[Task Button] Pre Bond
+2020/12/01,	05:44:00,	Pre Bond Max Skip Input	1	->	5
+2020/12/01,	05:44:01,	[Task Button] Back
+2020/12/01,	05:44:01,	****** Screen	BH_BondingProcess	->	BOND
+2020/12/01,	05:44:03,	[Task Button] AutoBond
+2020/12/01,	05:44:04,	[Task Button] IQC
+2020/12/01,	05:44:07,	[Task Button] LR
+2020/12/01,	05:44:15,	[Task Button] Counter
+2020/12/01,	05:44:17,	Check Total Die	1:Enable	->	0:Disable
+2020/12/01,	05:44:18,	[Menu item] Setup
+2020/12/01,	05:44:18,	****** Screen	BOND	->	Setup Main
+2020/12/01,	05:44:19,	****** Screen	Setup Main	->	Performance setup
+2020/12/01,	05:44:19,	[Task Button] (4) Performance
+2020/12/01,	05:44:19,	****** Screen	Performance setup	->	IQC Screen
+2020/12/01,	05:44:19,	[Task Button] IQC Result
+2020/12/01,	05:44:20,	[Task Button] Post Bond Auto Adjust (Die & Row)
+2020/12/01,	05:44:22,	****** Screen	IQC Screen	->	BOND
+2020/12/01,	05:44:22,	[Task Button] (5) Auto Bond
+2020/12/01,	05:44:24,	[Task Button] AutoBond
+2020/12/01,	05:44:25,	[Task Button] IQC
+2020/12/01,	05:44:38,	[Task Button] LR
+2020/12/01,	05:44:40,	[Task Button] Post Bond XY
+2020/12/01,	05:44:49,	[Task Button] Stop
+2020/12/01,	05:44:51,	[Menu item] Setup
+2020/12/01,	05:44:51,	****** Screen	BOND	->	Setup Main
+2020/12/01,	05:44:52,	****** Screen	Setup Main	->	Performance setup
+2020/12/01,	05:44:52,	[Task Button] (4) Performance
+2020/12/01,	05:44:52,	****** Screen	Performance setup	->	IQC Screen
+2020/12/01,	05:44:52,	[Task Button] IQC Result
+2020/12/01,	05:44:53,	[Task Button] Post Bond Auto Adjust (Die & Row)
+2020/12/01,	05:44:54,	****** Screen	IQC Screen	->	BOND
+2020/12/01,	05:44:54,	[Task Button] (5) Auto Bond
+2020/12/01,	05:44:57,	[Task Button] AutoBond
+2020/12/01,	05:44:57,	[Task Button] IQC
+2020/12/01,	05:44:58,	[Task Button] LR
+2020/12/01,	05:44:59,	[Task Button] Pre Bond XY
+2020/12/01,	05:45:00,	[Task Button] Post Bond XY
+2020/12/01,	05:45:23,	[Task Button] LR
+2020/12/01,	05:45:30,	[Task Button] Stop
+2020/12/01,	05:45:41,	[Task Button] AutoBond
+2020/12/01,	05:45:52,	[Task Button] Stop
+2020/12/01,	05:45:58,	[Menu item] Setup
+2020/12/01,	05:45:58,	****** Screen	BOND	->	Setup Main
+2020/12/01,	05:45:58,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	05:45:58,	[Task Button] (3) Process Setup
+2020/12/01,	05:45:59,	****** Screen	SETUP	->	Dispensor Process
+2020/12/01,	05:45:59,	[Task Button]  Right Epoxy Process
+2020/12/01,	05:46:00,	[Task Button] Pos
+2020/12/01,	05:46:01,	[Task Button] Prev Functionm
+2020/12/01,	05:46:02,	[Task Button] Search Post Epoxy function
+2020/12/01,	05:46:03,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:46:11,	[Task Button] (5) Auto Bond
+2020/12/01,	05:46:11,	****** Screen	Dispensor Process	->	BOND
+2020/12/01,	05:46:12,	[Task Button] AutoBond
+2020/12/01,	05:47:16,	[Menu item] Diagnostics
+2020/12/01,	05:47:16,	****** Screen	BOND	->	DIAGNOSTICS
+2020/12/01,	05:47:16,	****** Screen	DIAGNOSTICS	->	Wafer Loader
+2020/12/01,	05:47:16,	[Task Button] Wafer Loader
+2020/12/01,	05:47:17,	[Action] Wafer Loader Index Once
+2020/12/01,	05:47:21,	****** Screen	Wafer Loader	->	BOND
+2020/12/01,	05:47:21,	[Task Button] (5) Auto Bond
+2020/12/01,	05:47:22,	[Task Button] Material
+2020/12/01,	05:47:23,	[Action] Close Expander Function
+2020/12/01,	05:47:25,	[Menu item] Setup
+2020/12/01,	05:47:25,	****** Screen	BOND	->	Setup Main
+2020/12/01,	05:47:26,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	05:47:26,	[Task Button] (3) Process Setup
+2020/12/01,	05:47:26,	****** Screen	SETUP	->	Dispensor Process
+2020/12/01,	05:47:26,	[Task Button]  Right Epoxy Process
+2020/12/01,	05:47:27,	[Task Button] Pos
+2020/12/01,	05:47:27,	[Task Button] Pos
+2020/12/01,	05:47:28,	[Task Button] Learn Post Epoxy function
+2020/12/01,	05:47:30,	[Task Button] Search Post Epoxy function
+2020/12/01,	05:47:32,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:47:33,	[Task Button] Prev Functionm
+2020/12/01,	05:47:33,	[Task Button] Search Post Epoxy function
+2020/12/01,	05:47:35,	Reference Location Menu	[0] Do nothing...	->	Cancel
+2020/12/01,	05:47:36,	[Task Button] (5) Auto Bond
+2020/12/01,	05:47:36,	****** Screen	Dispensor Process	->	BOND
+2020/12/01,	05:47:45,	[Menu item] SrchDie
+2020/12/01,	05:47:47,	[Task Button] AutoBond
+2020/12/01,	05:47:48,	[Task Button] IQC
+2020/12/01,	05:47:48,	[Task Button] LR
+2020/12/01,	05:47:49,	Camera
+2020/12/01,	06:03:51,	[Task Button] Stop
+2020/12/01,	06:03:55,	[Menu item] Setup
+2020/12/01,	06:03:55,	****** Screen	BOND	->	Setup Main
+2020/12/01,	06:03:55,	****** Screen	Setup Main	->	Performance setup
+2020/12/01,	06:03:55,	[Task Button] (4) Performance
+2020/12/01,	06:03:56,	****** Screen	Performance setup	->	IQC Screen
+2020/12/01,	06:03:56,	[Task Button] IQC Result
+2020/12/01,	06:03:57,	Check Box	0:Both Dispenser	->	2:Left Dispenser
+2020/12/01,	06:03:58,	[Task Button] Redraw Graph
+2020/12/01,	06:03:59,	Check Box	2:Left Dispenser	->	1:Right Dispenser
+2020/12/01,	06:04:00,	[Task Button] Redraw Graph
+2020/12/01,	06:04:16,	[Task Button] Clear Pre Bond
+2020/12/01,	06:04:18,	****** Screen	IQC Screen	->	Performance setup
+2020/12/01,	06:04:18,	[Task Button] Back
+2020/12/01,	06:04:19,	****** Screen	Performance setup	->	Inspection Counter
+2020/12/01,	06:04:19,	[Task Button] Inspection Counter
+2020/12/01,	06:04:19,	Toggle Pre Bond Count Skip	DISABLE	->	ENABLE
+2020/12/01,	06:04:20,	****** Screen	Inspection Counter	->	Performance setup
+2020/12/01,	06:04:20,	[Task Button] Back
+2020/12/01,	06:04:21,	****** Screen	Performance setup	->	Setup Main
+2020/12/01,	06:04:21,	[Task Button] Back
+2020/12/01,	06:04:21,	****** Screen	Setup Main	->	SETUP
+2020/12/01,	06:04:21,	[Task Button] (3) Process Setup
+2020/12/01,	06:04:21,	****** Screen	SETUP	->	BH_BondingProcess
+2020/12/01,	06:04:21,	[Task Button] Bonding Process
+2020/12/01,	06:04:22,	[Task Button] Pre Bond
+2020/12/01,	06:04:25,	Pre Bond Max Skip Input	5	->	1
+2020/12/01,	06:04:25,	[Task Button] Back
+2020/12/01,	06:04:25,	****** Screen	BH_BondingProcess	->	BOND
+2020/12/01,	06:04:26,	[Task Button] AutoBond
+2020/12/01,	06:04:26,	[Task Button] IQC
+2020/12/01,	06:04:27,	[Task Button] LR
+2020/12/01,	06:14:23,	[Task Button] Post Bond XY
+2020/12/01,	06:14:24,	[Task Button] L
+2020/12/01,	06:14:26,	[Task Button] R
+2020/12/01,	06:14:27,	[Task Button] LR
+2020/12/01,	07:32:58,	[Task Button] Stop
+2020/12/01,	07:33:01,	[Menu item] Setup
+2020/12/01,	07:33:01,	****** Screen	BOND	->	Setup Main
+2020/12/01,	07:33:02,	****** Screen	Setup Main	->	Performance setup
+2020/12/01,	07:33:02,	[Task Button] (4) Performance
+2020/12/01,	07:33:02,	****** Screen	Performance setup	->	Inspection Counter
+2020/12/01,	07:33:02,	[Task Button] Inspection Counter
+2020/12/01,	07:33:03,	****** Screen	Inspection Counter	->	BOND
+2020/12/01,	07:33:03,	[Task Button] (5) Auto Bond
+2020/12/01,	07:33:04,	[Task Button] AutoBond
+2020/12/01,	07:33:05,	[Task Button] IQC
+2020/12/01,	07:33:05,	[Task Button] LR
+2020/12/01,	08:08:21,	[Task Button] Post Bond XY
+2020/12/01,	08:08:23,	[Task Button] L
+2020/12/01,	08:08:24,	[Task Button] R
+2020/12/01,	08:08:24,	[Task Button] LR
+

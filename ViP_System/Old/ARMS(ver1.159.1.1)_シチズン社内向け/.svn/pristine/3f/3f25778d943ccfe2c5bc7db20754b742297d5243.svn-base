@@ -1,0 +1,31 @@
+﻿@model ArmsWeb.Models.LotViewModel
+@{
+    ViewBag.Title = "FindOther";
+}
+
+<h5>分割マガジン調査</h5>
+@using (Html.BeginForm())
+{
+    <input type="text" id="magno" name="magno" />
+    <input type="submit" value="GO" />
+}
+
+@{
+    if (Model != null && Model.Magazine != null)
+    {
+        ArmsApi.Model.Magazine other = Model.FindOtherMag(Model.Magazine);
+
+        <h5>読み込みマガジン:@Model.MagNo</h5>
+        <h5>ロット番号:@Model.Magazine.NascaLotNO</h5>
+
+        if (other != null)
+        {
+            <h5>分割マガジン:@other.MagazineNo</h5>
+        }
+        
+        if (Model.IsMatched == true)
+        {
+            <h3 style="color:blue">一致しました</h3>
+        }
+    }
+}

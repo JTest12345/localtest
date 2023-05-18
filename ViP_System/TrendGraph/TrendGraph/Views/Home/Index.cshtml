@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "バックアップ工程管理システム";
+}
+
+<div class="text-left">
+    <h1 class="display-6">傾向グラフ閲覧</h1>
+    <p> </p>
+</div>
+
+<!--
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("作業登録", "WorkStart", "Home")</li>
+        <li>@Html.ActionLink("作業履歴", "WorkHistory", "Home")</li>
+    </ul>
+</div>
+    -->
+<!-- デザイン参考ページ https://photoshopvip.net/97481 -->
+<nav class="menu">
+    <!--checkedを最後に入れると、最初からメニューを開いた状態になる-->
+    <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" checked />
+    <label class="menu-open-button" for="menu-open">
+        <span class="lines line-1"></span>
+        <span class="lines line-2"></span>
+        <span class="lines line-3"></span>
+    </label>
+
+    <!--　花びらのようなポップアップ表示ナビメニュー　-->
+    <a href="@Url.Action("WorkStart", "Home")" class="menu-item blue"> <i class="fa fa-anchor"></i>登録</a>
+    <a href="@Url.Action("WorkHistory", "Home")" class="menu-item green"> <i class="fa fa-coffee"></i>傾向グラフ</a>
+    <!--
+    <a href="#" class="menu-item red"> <i class="fa fa-heart"></i></a>
+    <a href="#" class="menu-item purple"> <i class="fa fa-microphone"></i> </a>
+    <a href="#" class="menu-item orange"> <i class="fa fa-star"></i></a>
+        -->
+    <a href="@Url.Action("List", "MachineView")" class="menu-item lightblue"> <i class="fa fa-diamond"></i>設備一覧</a>
+
+</nav>

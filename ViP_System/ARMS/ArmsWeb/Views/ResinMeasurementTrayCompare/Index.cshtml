@@ -1,0 +1,26 @@
+﻿@model ArmsWeb.Models.ResinMeasurementTrayCompareModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>MD反射材3D測定機から返却されたトレイ照合</h3>
+<h3>設備：@Model.PlantCd</h3>
+<br />
+
+@using (Html.BeginForm())
+{
+    <h3>トレイのラベル読み込み</h3>
+    <input type="text" id="txtTrayNo" name="txtTrayNo" />
+
+    <h5>読み込み済みトレイ @Model.TrayNo </h5>
+
+    <div>
+        @Html.ActionLink("照合", "Compare")
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+    </div>
+
+    <br />
+
+}

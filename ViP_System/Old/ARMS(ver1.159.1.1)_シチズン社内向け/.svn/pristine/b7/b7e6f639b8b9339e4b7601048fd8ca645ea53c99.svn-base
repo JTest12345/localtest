@@ -1,0 +1,27 @@
+﻿@model ArmsWeb.Models.CutLabelCompareModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    <h3>カットラベル照合</h3>
+    <h3>装置：@Model.Mac.LongName</h3>
+    
+    <input type="text" id="txtLabel" name="txtLabel" />
+    <input type="submit" value="Go" />
+        
+    <br />
+
+    if (Model.IsOK)
+    { 
+        <H3 style="color:blue">@Model.Msg</H3>
+    }
+    else
+    {
+        <H3 style="color:red">@Model.Msg</H3>
+    }
+}

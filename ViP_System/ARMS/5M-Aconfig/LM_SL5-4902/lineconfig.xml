@@ -1,0 +1,87 @@
+﻿<settings>
+
+<!-- 汎用ロットマーキング4号機 -->
+ <machine>
+    <flow>GeneralLotMarking</flow>
+    <machineNo>125001</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>18099</lineNo>
+    <machineName>LM 4</machineName>
+    <priority></priority>
+    <plcMaker>Keyence</plcMaker>
+    <plcSocket>Tcp</plcSocket>
+    <plcAddress>172.24.18.18</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <startWorkTableSensorAddress></startWorkTableSensorAddress>
+    <waferBitAddressStart>B0006</waferBitAddressStart>
+    <workStartTimeAddress></workStartTimeAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <waferChangerChangeBitAddress>B000B</waferChangerChangeBitAddress>
+    <secondLoaderReqBitAddress></secondLoaderReqBitAddress>
+    <secondEmpMagLoaderReqBitAddress></secondEmpMagLoaderReqBitAddress>
+    <magazineTakeoutBitAddress>B0400</magazineTakeoutBitAddress>
+    <unloaderMoveCompleteBitAddress>B0430</unloaderMoveCompleteBitAddress>
+    <defectFileBasePath></defectFileBasePath>
+    <badMarkClassCd></badMarkClassCd>
+    <badMarkCauseCd></badMarkCauseCd>
+    <badMarkDefetCd></badMarkDefetCd>
+    <localPlcIPAddress>172.24.18.18</localPlcIPAddress>
+    <localPlcPort>8501</localPlcPort>
+  </machine>
+
+<!-- 汎用ロットマーキング2号機 -->
+ <machine>
+    <flow>GeneralLotMarking</flow>
+    <machineNo>125002</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>18099</lineNo>
+    <machineName>LM 2</machineName>
+    <priority></priority>
+    <plcMaker>Keyence</plcMaker>
+    <plcSocket>Tcp</plcSocket>
+    <plcAddress>172.24.18.199</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <startWorkTableSensorAddress></startWorkTableSensorAddress>
+    <waferBitAddressStart>B0006</waferBitAddressStart>
+    <workStartTimeAddress></workStartTimeAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <waferChangerChangeBitAddress>B000B</waferChangerChangeBitAddress>
+    <secondLoaderReqBitAddress></secondLoaderReqBitAddress>
+    <secondEmpMagLoaderReqBitAddress></secondEmpMagLoaderReqBitAddress>
+    <magazineTakeoutBitAddress>B0400</magazineTakeoutBitAddress>
+    <unloaderMoveCompleteBitAddress>B0430</unloaderMoveCompleteBitAddress>
+    <defectFileBasePath></defectFileBasePath>
+    <badMarkClassCd></badMarkClassCd>
+    <badMarkCauseCd></badMarkCauseCd>
+    <badMarkDefetCd></badMarkDefetCd>
+    <localPlcIPAddress>172.24.18.199</localPlcIPAddress>
+    <localPlcPort>8501</localPlcPort>
+  </machine>
+
+</settings>

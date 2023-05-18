@@ -1,0 +1,34 @@
+﻿@model ArmsWeb.Models.LotCarrierModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>ロットと基板DM/キャリアQRの関連付け登録</h3>
+<h3>ロット番号：@Model.LotNo</h3>
+<br />
+
+@using (Html.BeginForm())
+{
+    <h3>基板DM/キャリアQR読み込み</h3>
+    <input type="text" id="txtDataMatrix" name="txtDataMatrix" />
+    <input type="submit" value="Go" />
+
+    <h5>読み込み済み基板DM/キャリアQR @Model.DataMatirxList.Count().ToString() </h5>
+    <ul>
+        @foreach (string dm in Model.DataMatirxList)
+        {
+            <li>@dm</li>
+        }
+    </ul>
+    <br />
+    
+    <div>
+        @Html.ActionLink("登録", "Confirm")
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+    </div>
+    
+    <br />
+}
+

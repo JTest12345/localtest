@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "InputLotNo";
+}
+
+@using (Html.BeginForm()){
+    <h3>ロット番号読み込み</h3>
+    @Html.TextBox("lotno");
+    <input type="submit" name="GO" value="GO"/>
+}
+

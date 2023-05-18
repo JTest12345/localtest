@@ -1,0 +1,7 @@
+C:\Users\jnk-nkmr\source\repos\MAP_DBDataCopy\MAP_DBDataCopy\obj\Debug\MAP_DBDataCopy.csproj.CoreCompileInputs.cache
+C:\Users\jnk-nkmr\source\repos\MAP_DBDataCopy\MAP_DBDataCopy\bin\Debug\MAP_DBDataCopy.exe.config
+C:\Users\jnk-nkmr\source\repos\MAP_DBDataCopy\MAP_DBDataCopy\bin\Debug\MAP_DBDataCopy.exe
+C:\Users\jnk-nkmr\source\repos\MAP_DBDataCopy\MAP_DBDataCopy\bin\Debug\MAP_DBDataCopy.pdb
+C:\Users\jnk-nkmr\source\repos\MAP_DBDataCopy\MAP_DBDataCopy\obj\Debug\MAP_DBDataCopy.exe
+C:\Users\jnk-nkmr\source\repos\MAP_DBDataCopy\MAP_DBDataCopy\obj\Debug\MAP_DBDataCopy.pdb
+C:\Users\jnk-nkmr\source\repos\MAP_DBDataCopy\MAP_DBDataCopy\obj\Debug\MAP_DBDataCopy.csprojAssemblyReference.cache

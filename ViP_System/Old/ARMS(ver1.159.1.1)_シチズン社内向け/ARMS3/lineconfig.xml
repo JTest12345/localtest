@@ -1,0 +1,47 @@
+﻿<settings>
+
+  <!-- IPS 4号機 -->
+  <machine>
+    <flow>IPS</flow>
+    <machineNo>162002</machineNo>
+    <lineGroupNo>5</lineGroupNo>
+    <lineNo>201001</lineNo>
+    <plcMaker>Keyence</plcMaker>
+    <plcSocket>Udp</plcSocket>
+    <machineName>IPS 4</machineName>
+    <priority></priority>
+    <plcAddress>172.21.200.243</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <logOutputDirectoryPath></logOutputDirectoryPath>
+    <isQRReader>true</isQRReader>
+  </machine>
+</settings>

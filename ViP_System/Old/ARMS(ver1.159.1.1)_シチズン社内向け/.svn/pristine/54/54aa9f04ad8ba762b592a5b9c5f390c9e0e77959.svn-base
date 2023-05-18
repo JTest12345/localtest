@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NJDB02" Class="NJDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=HQDB101\INST1;Initial Catalog=NJDB02;Integrated Security=True" SettingsObjectName="ArmsApi.Properties.Settings" SettingsPropertyName="NJDB02ConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.JtmMIXRATEMAT" Member="JtmMIXRATEMAT">
+    <Type Name="JtmMIXRATEMAT">
+      <Column Name="MixRate_ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MateLin_NO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Material_CD" Type="System.String" DbType="Char(24)" CanBeNull="true" />
+      <Column Name="MixRate_VAL" Type="System.Decimal" DbType="Decimal(10,4)" CanBeNull="true" />
+      <Column Name="MixError_VAL" Type="System.Decimal" DbType="Decimal(10,4)" CanBeNull="true" />
+      <Column Name="MaxFreeze_VAL" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OpenValidity_DAY" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Identity_FG" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ChkMaterial_CD" Type="System.String" DbType="Char(24)" CanBeNull="true" />
+      <Column Name="ChkLot_NO" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="YagTranX_VAL" Type="System.Decimal" DbType="Decimal(10,4)" CanBeNull="true" />
+      <Column Name="YagWeightX_VAL" Type="System.Decimal" DbType="Decimal(10,4)" CanBeNull="true" />
+      <Column Name="YagTranY_VAL" Type="System.Decimal" DbType="Decimal(10,4)" CanBeNull="true" />
+      <Column Name="YagWeightY_VAL" Type="System.Decimal" DbType="Decimal(10,4)" CanBeNull="true" />
+      <Column Name="YagMix_FG" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Lock" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.JttMIXRESULTLOT" Member="JttMIXRESULTLOT">
+    <Type Name="JttMIXRESULTLOT">
+      <Column Name="MixResult_ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LotLin_NO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Lot_NO" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Preset_VAL" Type="System.Decimal" DbType="Decimal(10,4)" CanBeNull="true" />
+      <Column Name="Measure_VAL" Type="System.Decimal" DbType="Decimal(10,4)" CanBeNull="true" />
+      <Column Name="ParentMixResult_ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.JttMIXRESULT" Member="JttMIXRESULT">
+    <Type Name="JttMIXRESULT">
+      <Column Name="MixResult_ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MixRate_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Mixture_DT" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Lot_CT" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Machine_CT" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Start_DT" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="End_DT" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MixRate_VAL" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Alumina_VAL" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="Alumina_FG" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Npurge_FG" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Agitate_FG" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Container_NO" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="TotalWeight_VAL" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="Scrap_FG" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UpdUser_CD" Type="System.String" DbType="Char(8)" CanBeNull="true" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ParentsResultID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.JtmMAT" Member="JtmMAT">
+    <Type Name="JtmMAT">
+      <Column Name="Material_CD" Type="System.String" DbType="Char(24) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Material_JA" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Material_CH" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Material_EN" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="BefResin_FG" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Exclude_FG" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UpdUser_CD" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Del_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Change_kB" Type="System.String" DbType="Char(24)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.JtmMATCONV" Member="JtmMATCONV">
+    <Type Name="JtmMATCONV">
+      <Column Name="ResinMat_CD" Type="System.String" DbType="Char(24) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RootsMat_CD" Type="System.String" DbType="Char(24) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Del_FG" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UpdUser_CD" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpd_DT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

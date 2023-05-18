@@ -1,0 +1,54 @@
+﻿@model ArmsWeb.Models.AoiMagEditModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>作業開始登録</h3>
+<h3>設備：@Model.PlantCd</h3>
+<h3>作業者：@Model.EmpCd</h3>
+
+@using (Html.BeginForm())
+{
+    <h3>投入マガジン読み込み</h3>
+    <input type="text" id="txtMagNo" name="txtMagNo" />
+    <input type="submit" value="Go" />
+        
+    <br />
+
+    <h5>読み込み済みロット @Model.MagList.Count().ToString() </h5>
+    <ul>
+        @foreach (ArmsApi.Model.Magazine mag in Model.MagList)
+        {
+            <li>@mag.MagazineNo</li>
+        }
+    </ul>
+    <br />
+    
+    <div>
+        @Html.ActionLink("作業開始", "Confirm")
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+    </div>
+
+
+    <hr />
+    <h5>割り当て済みロット @Model.ExistMags.Length.ToString() </h5>
+    
+    <ul>
+    @foreach (ArmsApi.Model.VirtualMag vmag in Model.ExistMags)
+    {
+        ArmsApi.Model.Material mat = ArmsApi.Model.Material.GetMaterial(vmag.FrameMatCd, vmag.FrameLotNo);
+        
+        if (mat != null)
+        {
+            <li>@vmag.orderid, @mat.MaterialNm, @vmag.FrameLotNo, @vmag.CurrentFrameCt</li>
+        }
+        else
+        {
+            <li>@vmag.orderid, @vmag.FrameMatCd, @vmag.FrameLotNo, @vmag.CurrentFrameCt</li>
+        }
+    }
+    </ul>
+
+}

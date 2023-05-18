@@ -1,0 +1,13 @@
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy\VIP_DBDataCopy\bin\Release\VIP_DBDataCopy.exe.config
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy\VIP_DBDataCopy\bin\Release\VIP_DBDataCopy.exe
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy\VIP_DBDataCopy\bin\Release\VIP_DBDataCopy.pdb
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy\VIP_DBDataCopy\obj\Release\VIP_DBDataCopy.csproj.CoreCompileInputs.cache
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy\VIP_DBDataCopy\obj\Release\VIP_DBDataCopy.exe
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy\VIP_DBDataCopy\obj\Release\VIP_DBDataCopy.pdb
+D:\MAP_sys\MAP_WBDataCopy\VIP_DBDataCopy\bin\Release\VIP_DBDataCopy.exe.config
+D:\MAP_sys\MAP_WBDataCopy\VIP_DBDataCopy\bin\Release\VIP_DBDataCopy.exe
+D:\MAP_sys\MAP_WBDataCopy\VIP_DBDataCopy\bin\Release\VIP_DBDataCopy.pdb
+D:\MAP_sys\MAP_WBDataCopy\VIP_DBDataCopy\obj\Release\VIP_DBDataCopy.csprojAssemblyReference.cache
+D:\MAP_sys\MAP_WBDataCopy\VIP_DBDataCopy\obj\Release\VIP_DBDataCopy.csproj.CoreCompileInputs.cache
+D:\MAP_sys\MAP_WBDataCopy\VIP_DBDataCopy\obj\Release\VIP_DBDataCopy.exe
+D:\MAP_sys\MAP_WBDataCopy\VIP_DBDataCopy\obj\Release\VIP_DBDataCopy.pdb

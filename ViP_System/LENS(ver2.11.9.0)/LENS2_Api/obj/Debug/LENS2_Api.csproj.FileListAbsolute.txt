@@ -1,0 +1,33 @@
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2_Api\bin\Debug\LENS2_Api.dll.config
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2_Api\bin\Debug\LENS2_Api.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2_Api\bin\Debug\LENS2_Api.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2_Api\bin\Debug\log4net.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2_Api\bin\Debug\Newtonsoft.Json.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2_Api\bin\Debug\log4net.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2_Api\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2_Api\bin\Debug\Newtonsoft.Json.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2_Api\obj\Debug\LENS2_Api.csprojResolveAssemblyReference.cache
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2_Api\obj\Debug\LENS2_Api.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\LENS2_Api\obj\Debug\LENS2_Api.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2_Api\bin\Debug\LENS2_Api.dll.config
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2_Api\bin\Debug\LENS2_Api.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2_Api\bin\Debug\LENS2_Api.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2_Api\bin\Debug\log4net.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2_Api\bin\Debug\Newtonsoft.Json.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2_Api\bin\Debug\log4net.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2_Api\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2_Api\bin\Debug\Newtonsoft.Json.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2_Api\obj\Debug\LENS2_Api.csprojResolveAssemblyReference.cache
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2_Api\obj\Debug\LENS2_Api.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\LENS2_Api\obj\Debug\LENS2_Api.pdb
+C:\develop\LENS(2_11_7)\LENS2_Api\bin\Debug\LENS2_Api.dll.config
+C:\develop\LENS(2_11_7)\LENS2_Api\bin\Debug\LENS2_Api.dll
+C:\develop\LENS(2_11_7)\LENS2_Api\bin\Debug\LENS2_Api.pdb
+C:\develop\LENS(2_11_7)\LENS2_Api\bin\Debug\log4net.dll
+C:\develop\LENS(2_11_7)\LENS2_Api\bin\Debug\Newtonsoft.Json.dll
+C:\develop\LENS(2_11_7)\LENS2_Api\bin\Debug\log4net.xml
+C:\develop\LENS(2_11_7)\LENS2_Api\bin\Debug\Newtonsoft.Json.pdb
+C:\develop\LENS(2_11_7)\LENS2_Api\bin\Debug\Newtonsoft.Json.xml
+C:\develop\LENS(2_11_7)\LENS2_Api\obj\Debug\LENS2_Api.csprojResolveAssemblyReference.cache
+C:\develop\LENS(2_11_7)\LENS2_Api\obj\Debug\LENS2_Api.dll
+C:\develop\LENS(2_11_7)\LENS2_Api\obj\Debug\LENS2_Api.pdb

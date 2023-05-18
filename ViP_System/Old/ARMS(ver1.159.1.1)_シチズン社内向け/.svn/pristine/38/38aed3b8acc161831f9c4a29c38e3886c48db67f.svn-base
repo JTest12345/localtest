@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MAKTModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="MAKTModelStoreContainer">
+          <EntitySet Name="TmMarkingConv" EntityType="MAKTModel.Store.TmMarkingConv" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TnMarkingLog" EntityType="MAKTModel.Store.TnMarkingLog" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TnMaterial" EntityType="MAKTModel.Store.TnMaterial" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="TmMarkingConv">
+          <Key>
+            <PropertyRef Name="verno" />
+            <PropertyRef Name="decimalno" />
+          </Key>
+          <Property Name="verno" Type="int" Nullable="false" />
+          <Property Name="decimalno" Type="int" Nullable="false" />
+          <Property Name="marktext" Type="nvarchar" Nullable="false" MaxLength="8" />
+          <Property Name="updusercd" Type="nvarchar" MaxLength="50" />
+          <Property Name="lastupddt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TnMarkingLog">
+          <Key>
+            <PropertyRef Name="lotno" />
+            <PropertyRef Name="row" />
+          </Key>
+          <Property Name="lotno" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="row" Type="int" Nullable="false" />
+          <Property Name="stockerno" Type="int" Nullable="false" />
+          <Property Name="markdata" Type="bigint" Nullable="false" />
+          <Property Name="workdt" Type="datetime" Nullable="false" />
+          <Property Name="manualfg" Type="int" Nullable="false" />
+          <Property Name="flamecollectfg" Type="int" Nullable="false" />
+          <Property Name="wafercollectfg" Type="int" Nullable="false" />
+          <Property Name="typecd" Type="nvarchar" Nullable="false" MaxLength="24" />
+          <Property Name="materialcd" Type="nvarchar" Nullable="false" MaxLength="24" />
+          <Property Name="matlotno" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="lastupddt" Type="datetime" Nullable="false" />
+          <Property Name="correctct" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TnMaterial">
+          <Key>
+            <PropertyRef Name="markdata" />
+            <PropertyRef Name="typecd" />
+            <PropertyRef Name="lotno" />
+            <PropertyRef Name="materialcd" />
+            <PropertyRef Name="matlotno" />
+            <PropertyRef Name="plantcd" />
+          </Key>
+          <Property Name="markdata" Type="bigint" Nullable="false" />
+          <Property Name="typecd" Type="nvarchar" Nullable="false" MaxLength="24" />
+          <Property Name="lotno" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="materialcd" Type="nvarchar" Nullable="false" MaxLength="24" />
+          <Property Name="matlotno" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="plantcd" Type="nvarchar" Nullable="false" MaxLength="24" />
+          <Property Name="lastupddt" Type="datetime" Nullable="false" />
+          <Property Name="importantfg" Type="int" Nullable="false" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MAKTModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MAKTEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="TnMarkingLog" EntityType="MAKTModel.TnMarkingLog" />
+          <EntitySet Name="TmMarkingConv" EntityType="MAKTModel.TmMarkingConv" />
+          <EntitySet Name="TnMaterial" EntityType="MAKTModel.TnMaterial" />
+        </EntityContainer>
+        <EntityType Name="TnMarkingLog">
+          <Key>
+            <PropertyRef Name="lotno" />
+            <PropertyRef Name="row" />
+          </Key>
+          <Property Name="lotno" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="row" Type="Int32" Nullable="false" />
+          <Property Name="stockerno" Type="Int32" Nullable="false" />
+          <Property Name="markdata" Type="Int64" Nullable="false" />
+          <Property Name="workdt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="manualfg" Type="Int32" Nullable="false" />
+          <Property Name="flamecollectfg" Type="Int32" Nullable="false" />
+          <Property Name="wafercollectfg" Type="Int32" Nullable="false" />
+          <Property Name="typecd" Type="String" Nullable="false" MaxLength="24" Unicode="true" FixedLength="false" />
+          <Property Name="materialcd" Type="String" Nullable="false" MaxLength="24" Unicode="true" FixedLength="false" />
+          <Property Name="matlotno" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="lastupddt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="correctct" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TmMarkingConv">
+          <Key>
+            <PropertyRef Name="verno" />
+            <PropertyRef Name="decimalno" />
+          </Key>
+          <Property Type="Int32" Name="verno" Nullable="false" />
+          <Property Type="Int32" Name="decimalno" Nullable="false" />
+          <Property Type="String" Name="marktext" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="updusercd" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="lastupddt" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="TnMaterial">
+          <Key>
+            <PropertyRef Name="markdata" />
+            <PropertyRef Name="typecd" />
+            <PropertyRef Name="lotno" />
+            <PropertyRef Name="materialcd" />
+            <PropertyRef Name="matlotno" />
+            <PropertyRef Name="plantcd" />
+          </Key>
+          <Property Type="Int64" Name="markdata" Nullable="false" />
+          <Property Type="String" Name="typecd" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="lotno" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="materialcd" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="matlotno" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="plantcd" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="lastupddt" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="importantfg" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MAKTModelStoreContainer" CdmEntityContainer="MAKTEntities">
+          <EntitySetMapping Name="TnMarkingLog">
+            <EntityTypeMapping TypeName="MAKTModel.TnMarkingLog">
+              <MappingFragment StoreEntitySet="TnMarkingLog">
+                <ScalarProperty Name="lotno" ColumnName="lotno" />
+                <ScalarProperty Name="row" ColumnName="row" />
+                <ScalarProperty Name="stockerno" ColumnName="stockerno" />
+                <ScalarProperty Name="markdata" ColumnName="markdata" />
+                <ScalarProperty Name="workdt" ColumnName="workdt" />
+                <ScalarProperty Name="manualfg" ColumnName="manualfg" />
+                <ScalarProperty Name="flamecollectfg" ColumnName="flamecollectfg" />
+                <ScalarProperty Name="wafercollectfg" ColumnName="wafercollectfg" />
+                <ScalarProperty Name="typecd" ColumnName="typecd" />
+                <ScalarProperty Name="materialcd" ColumnName="materialcd" />
+                <ScalarProperty Name="matlotno" ColumnName="matlotno" />
+                <ScalarProperty Name="lastupddt" ColumnName="lastupddt" />
+                <ScalarProperty Name="correctct" ColumnName="correctct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TmMarkingConv">
+            <EntityTypeMapping TypeName="MAKTModel.TmMarkingConv">
+              <MappingFragment StoreEntitySet="TmMarkingConv">
+                <ScalarProperty Name="lastupddt" ColumnName="lastupddt" />
+                <ScalarProperty Name="updusercd" ColumnName="updusercd" />
+                <ScalarProperty Name="marktext" ColumnName="marktext" />
+                <ScalarProperty Name="decimalno" ColumnName="decimalno" />
+                <ScalarProperty Name="verno" ColumnName="verno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TnMaterial">
+            <EntityTypeMapping TypeName="MAKTModel.TnMaterial">
+              <MappingFragment StoreEntitySet="TnMaterial">
+                <ScalarProperty Name="importantfg" ColumnName="importantfg" />
+                <ScalarProperty Name="lastupddt" ColumnName="lastupddt" />
+                <ScalarProperty Name="plantcd" ColumnName="plantcd" />
+                <ScalarProperty Name="matlotno" ColumnName="matlotno" />
+                <ScalarProperty Name="materialcd" ColumnName="materialcd" />
+                <ScalarProperty Name="lotno" ColumnName="lotno" />
+                <ScalarProperty Name="typecd" ColumnName="typecd" />
+                <ScalarProperty Name="markdata" ColumnName="markdata" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="なし" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

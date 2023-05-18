@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{75758AE7-ECAC-4AB9-8E15-C3451ABABBC7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ARMS3</RootNamespace>
+    <AssemblyName>ARMS3</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>\\HQFS101\forsysro%24\Software\ClickOnce\ARMS3\MAP\HIGH\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>ARMS3</ProductName>
+    <PublisherName>NICHIA Corporation</PublisherName>
+    <MinimumRequiredVersion>1.138.0.0</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.159.1.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>147A10803A50232ECE04563276FC5DAF4C8E5960</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>ARMS3_一時キー.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\ArmsApi\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FakeNline\FrmFakeNLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FakeNline\FrmFakeNLine.Designer.cs">
+      <DependentUpon>FrmFakeNLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FakeNline\Models.cs" />
+    <Compile Include="FrmConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmConfirm.Designer.cs">
+      <DependentUpon>FrmConfirm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCVWaitInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCVWaitInput.Designer.cs">
+      <DependentUpon>FrmCVWaitInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmErrHandle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmErrHandle.Designer.cs">
+      <DependentUpon>FrmErrHandle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSignalDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSignalDisplay.designer.cs">
+      <DependentUpon>FrmSignalDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmTestMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmTestMode.Designer.cs">
+      <DependentUpon>FrmTestMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Carriers\Bridge.cs" />
+    <Compile Include="Model\Carriers\CarrierBase.cs" />
+    <Compile Include="Model\Carriers\ICarrier.cs" />
+    <Compile Include="Model\Carriers\Robot.cs" />
+    <Compile Include="Model\Carriers\Robot3.cs" />
+    <Compile Include="Model\Carriers\Robot4.cs" />
+    <Compile Include="Model\Carriers\Robot5.cs" />
+    <Compile Include="Model\Machines\AutoPaster.cs" />
+    <Compile Include="Model\Machines\BackSideWashing.cs" />
+    <Compile Include="Model\Machines\Break.cs" />
+    <Compile Include="Model\Machines\BumpBonder.cs" />
+    <Compile Include="Model\Machines\CifsMachineBase.cs" />
+    <Compile Include="Model\Machines\ColorAutoMeasurer.cs" />
+    <Compile Include="Model\Machines\ColorRevision.cs" />
+    <Compile Include="Model\Machines\Deburring.cs" />
+    <Compile Include="Model\Machines\DryIceCleaning.cs" />
+    <Compile Include="Model\Machines\FormicAcidReflow2.cs" />
+    <Compile Include="Model\Machines\Formatting.cs" />
+    <Compile Include="Model\Machines\Dicing.cs" />
+    <Compile Include="Model\Machines\Dicing2.cs" />
+    <Compile Include="Model\Machines\DieBonder2.cs" />
+    <Compile Include="Model\Machines\DieBonder3.cs" />
+    <Compile Include="Model\Machines\DieBonder4.cs" />
+    <Compile Include="Model\Machines\DieBonder5.cs" />
+    <Compile Include="Model\Machines\DieBonder6.cs" />
+    <Compile Include="Model\Machines\DieBonder7.cs" />
+    <Compile Include="Model\Machines\ECK4.cs" />
+    <Compile Include="Model\Machines\ECK4MagExchanger..cs" />
+    <Compile Include="Model\Machines\ElectroCoat.cs" />
+    <Compile Include="Model\Machines\FlipChip.cs" />
+    <Compile Include="Model\Machines\FormicAcidReflow.cs" />
+    <Compile Include="Model\Machines\FrameLoader2.cs" />
+    <Compile Include="Model\Machines\FrameLoader4.cs" />
+    <Compile Include="Model\Machines\FrameLoader5.cs" />
+    <Compile Include="Model\Machines\GeneralLotMarking.cs" />
+    <Compile Include="Model\Machines\Grinder.cs" />
+    <Compile Include="Model\Machines\Grinder2.cs" />
+    <Compile Include="Model\Machines\HybridLoadConveyor.cs" />
+    <Compile Include="Model\Machines\Inspector6.cs" />
+    <Compile Include="Model\Machines\LineBridge2.cs" />
+    <Compile Include="Model\Machines\LineBridgeBuffer.cs" />
+    <Compile Include="Model\Machines\LoadConveyorMagRotation.cs" />
+    <Compile Include="Model\Machines\LotMarking4.cs" />
+    <Compile Include="Model\Machines\IPS.cs" />
+    <Compile Include="Model\Machines\IPS2.cs" />
+    <Compile Include="Model\Machines\Mold7.cs" />
+    <Compile Include="Model\Machines\ResinMeasurement.cs" />
+    <Compile Include="Model\Machines\RobotQRReader.cs" />
+    <Compile Include="Model\Machines\SheetRingLoader.cs" />
+    <Compile Include="Model\Machines\Sputter2.cs" />
+    <Compile Include="Model\Machines\WaterCleaning.cs" />
+    <Compile Include="Model\Machines\WetBlaster.cs" />
+    <Compile Include="Model\Machines\Inspector3.cs" />
+    <Compile Include="Model\Machines\Inspector4.cs" />
+    <Compile Include="Model\Machines\Inspector5.cs" />
+    <Compile Include="Model\Machines\LaserScribe.cs" />
+    <Compile Include="Model\Machines\LensMounting.cs" />
+    <Compile Include="Model\Machines\LotMarking2.cs" />
+    <Compile Include="Model\Machines\LotMarking3.cs" />
+    <Compile Include="Model\Machines\ManualComplete.cs" />
+    <Compile Include="Model\Machines\ManualOvenWithProgramWait.cs" />
+    <Compile Include="Model\Machines\Masking.cs" />
+    <Compile Include="Model\Machines\Mold5.cs" />
+    <Compile Include="Model\Machines\Mold6.cs" />
+    <Compile Include="Model\Machines\Mounter.cs" />
+    <Compile Include="Model\Machines\ReflectorPotting.cs" />
+    <Compile Include="Model\Machines\ReflectorPotting2.cs" />
+    <Compile Include="Model\Machines\SemiAutoCompacting.cs" />
+    <Compile Include="Model\Machines\SMTLoader.cs" />
+    <Compile Include="Model\Machines\SMTUnloader.cs" />
+    <Compile Include="Model\Machines\HotPress.cs" />
+    <Compile Include="Model\Machines\SQMachine.cs" />
+    <Compile Include="Model\Machines\SubstrateLoader.cs" />
+    <Compile Include="Model\Machines\TapePeeler.cs" />
+    <Compile Include="Model\Machines\WeightMeasurement.cs" />
+    <Compile Include="Model\Machines\FullAutoCompacting.cs" />
+    <Compile Include="Model\Machines\FrameLoader3.cs" />
+    <Compile Include="Model\Machines\FrameLoader3ULBuffer.cs" />
+    <Compile Include="Model\Machines\Mold3.cs" />
+    <Compile Include="Model\Machines\Mold4.cs" />
+    <Compile Include="Model\Machines\WetBlaster2.cs" />
+    <Compile Include="Model\Machines\WireBonder2.cs" />
+    <Compile Include="Model\Machines\YagGlassBonder.cs" />
+    <Compile Include="Model\PLC\IPLC.cs" />
+    <Compile Include="Model\LineConfig.cs" />
+    <Compile Include="Model\LineKeeper.cs" />
+    <Compile Include="Model\ARMSThreadObject.cs" />
+    <Compile Include="Model\MachineLog.cs" />
+    <Compile Include="Model\MachinePLC.cs" />
+    <Compile Include="Model\Machines\AutoLineOutConveyor.cs" />
+    <Compile Include="Model\Machines\Cut.cs" />
+    <Compile Include="Model\Machines\DieBonder.cs" />
+    <Compile Include="Model\Machines\DischargeConveyor.cs" />
+    <Compile Include="Model\Machines\ECK.cs" />
+    <Compile Include="Model\Machines\ECK2.cs" />
+    <Compile Include="Model\Machines\ECK3.cs" />
+    <Compile Include="Model\Machines\EmptyMagazineLoadConveyor.cs" />
+    <Compile Include="Model\Machines\FrameLoader.cs" />
+    <Compile Include="Model\Machines\GeneralBuffer.cs" />
+    <Compile Include="Model\Machines\IMachine.cs" />
+    <Compile Include="Model\Machines\Inspector.cs" />
+    <Compile Include="Model\Machines\Inspector2.cs" />
+    <Compile Include="Model\Machines\InspectorMagRotation.cs" />
+    <Compile Include="Model\Machines\LineBridge.cs" />
+    <Compile Include="Model\Machines\LoadConveyor.cs" />
+    <Compile Include="Model\Machines\LotMarking.cs" />
+    <Compile Include="Model\Machines\MachineBase.cs" />
+    <Compile Include="Model\Machines\MachineThreadEventArgs.cs" />
+    <Compile Include="Model\Machines\MagExchanger.cs" />
+    <Compile Include="Model\Machines\ManualECK.cs" />
+    <Compile Include="Model\Machines\ManualMultiLoadPlasma.cs" />
+    <Compile Include="Model\Machines\ManualOven.cs" />
+    <Compile Include="Model\Machines\MAP1stDieBonder.cs" />
+    <Compile Include="Model\Machines\MAPBoardDischargeConveyor.cs" />
+    <Compile Include="Model\Machines\MAPBoardMagazineLoadConveyor.cs" />
+    <Compile Include="Model\Machines\MAPCompltDischargeConveyor.cs" />
+    <Compile Include="Model\Machines\Mold.cs" />
+    <Compile Include="Model\Machines\Mold2.cs" />
+    <Compile Include="Model\Machines\MoldConveyor.cs" />
+    <Compile Include="Model\Machines\MultiLoadPlasma.cs" />
+    <Compile Include="Model\Machines\OpeningCheckConveyor.cs" />
+    <Compile Include="Model\Machines\Oven.cs" />
+    <Compile Include="Model\Machines\Plasma.cs" />
+    <Compile Include="Model\Machines\PlasmaMagRotation.cs" />
+    <Compile Include="Model\Machines\Sputter.cs" />
+    <Compile Include="Model\Machines\WireBonder.cs" />
+    <Compile Include="Model\Machines\WorkStatus.cs" />
+    <Compile Include="Model\OvenProfiler.cs" />
+    <Compile Include="Model\PLC\Keyence.cs" />
+    <Compile Include="Model\PLC\Mitsubishi.cs" />
+    <Compile Include="Model\PLC\MitsubishiTcp.cs" />
+    <Compile Include="Model\PLC\Omron.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\RelayMachinePLC.cs" />
+    <EmbeddedResource Include="FakeNline\FrmFakeNline.resx">
+      <DependentUpon>FrmFakeNLine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmConfirm.resx">
+      <DependentUpon>FrmConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCVWaitInput.resx">
+      <DependentUpon>FrmCVWaitInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmErrHandle.resx">
+      <DependentUpon>FrmErrHandle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSignalDisplay.resx">
+      <DependentUpon>FrmSignalDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmTestMode.resx">
+      <DependentUpon>FrmTestMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="ARMS3_一時キー.pfx" />
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="alert.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="alert2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app.ico" />
+    <None Include="Properties\button_black.png" />
+    <None Include="Properties\button_blue.png" />
+    <None Include="Properties\button_green.png" />
+    <None Include="Properties\button_red.png" />
+    <None Include="Properties\button_yellow.png" />
+    <None Include="Properties\error.bmp" />
+    <None Include="Properties\error.png" />
+    <Content Include="ringin.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArmsApi\ArmsApi.csproj">
+      <Project>{a47c8eae-cf1f-4cd0-8a5d-a193d974354b}</Project>
+      <Name>ArmsApi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 および x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="alert.wav">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="alert2.wav">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="app.ico">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="ArmsApi">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="ArmsApi.XmlSerializers">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="log4net">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Newtonsoft.Json">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="ringin.wav">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

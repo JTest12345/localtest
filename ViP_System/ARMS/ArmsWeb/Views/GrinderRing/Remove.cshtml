@@ -1,0 +1,25 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.GrinderRingModel
+@{
+    ViewBag.Title = "Remove";
+}
+
+@using (Html.BeginForm("RemoveConfirmed", "GrinderRing"))
+{
+<h3>研削用リング/IPSトレイ：@Model.GrinderRingNo</h3>
+<br />
+ <h3>以下の基板/角リングを取り除きます。よろしいですか？ </h3>
+    <ul>
+        @foreach (string dm in Model.RingNoList)
+        {
+            <li>@dm</li>
+        }
+    </ul>
+    <br />
+    
+    <div>
+        <input type="submit" value="Go" />
+        &nbsp
+        <button onclick="location.href='@Url.Action("CancelEdit")';return false;">キャンセル</button>    
+    </div>
+}

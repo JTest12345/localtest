@@ -1,0 +1,59 @@
+﻿@model IEnumerable < HighchartSample.Model.MachineName>
+
+@{
+    ViewBag.Title = "Highchartsのサンプル";
+}
+
+
+<form method="POST" action="SelectMachine">
+
+    <select class="macno" id="macno" name="macno">
+    </select>
+    <input type="submit" name="submit" value="号機を選択" />
+</form>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Line Chart</h2>
+        @Html.Raw(ViewData["lineChart"])
+    </div>
+</div>
+
+<!--
+<div class="row">
+    <div class="col-md-12">
+        <h2>Bar Chart</h2>
+        @Html.Raw(ViewData["barChart"])
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Pie Chart</h2>
+        @Html.Raw(ViewData["pieChart"])
+    </div>
+</div>
+    -->
+<body>
+<script>
+    //addMachine('macno','全号機', '%')
+    @foreach (var item in Model)
+        {
+            @:addMachine('macno', '@Html.DisplayFor(modelItem => item.macname)', @Html.DisplayFor(modelItem => item.macno));
+
+        }
+
+    function addMachine(id, text, value) {
+        // selectタグを取得する
+        var select = document.getElementById(id);
+        // optionタグを作成する
+        var option = document.createElement("option");
+        // optionタグのテキストを4に設定する
+        option.text = text;
+        // optionタグのvalueを4に設定する
+        option.value = value;
+        // selectタグの子要素にoptionタグを追加する
+        select.appendChild(option);
+    }
+
+</script>
+</body>

@@ -1,0 +1,29 @@
+// ElectBalance_JNver.idl : ElectBalance_JNver.exe のタイプ ライブラリ ソース
+
+// このファイルは、タイプ ライブラリ (ElectBalance_JNver.tlb) を作成するために、
+// MIDL コンパイラによって処理されます。
+
+[ uuid(5AF63B85-BA7A-4D20-9B2B-2D643E43B6E9), version(1.0) ]
+library ElectBalance_JNver
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	//  CElectBalance_JNverDoc のプライマリ ディスパッチ インターフェイス
+	
+	[ uuid(E778F383-4D99-4684-8FCC-DB5EECA0C146) ]
+	dispinterface IElectBalance_JNver
+	{
+		properties:
+			
+		methods:
+	};
+
+	//  CElectBalance_JNverDoc のクラス情報
+	
+	[ uuid(0EAEC3DF-6495-4E6B-8C8E-B8997E31D9D4) ]
+	coclass ElectBalance_JNver
+	{
+		[default] dispinterface IElectBalance_JNver;
+	};
+};

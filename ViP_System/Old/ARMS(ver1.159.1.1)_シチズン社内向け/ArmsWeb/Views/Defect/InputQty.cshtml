@@ -1,0 +1,54 @@
+﻿@model ArmsWeb.Models.DefectEditModel
+@{
+    ViewBag.Title = "InputQty";
+}
+
+@if (Model.IsInspection)
+{
+    <h3>状態検査入力</h3>
+}
+else
+{
+    <h3>不良入力</h3>
+}
+
+<h3>検査者：@Model.EmpCd</h3>
+<h3>ロット：@Model.EditTarget.LotNo</h3>
+
+@using (Html.BeginForm("Select", "Defect"))
+{
+
+    if (Model.EditTarget != null && Model.EditTarget.IsNascaEnd)
+    {
+        <p style="color:red">このロットはNASCA連携済みです。NASCA側の履歴も修正してください</p>
+    }
+    
+    <p>
+        検査数<br />
+
+        @if (Model.EditTarget.InspectCt < 0)
+        {
+            <p>
+                <input type="radio" name="inspectkb" value="all" checked="checked" />
+                全数
+            </p>
+            <p>
+                <input type="radio" name="inspectkb" value="sample" />抜き取り
+            </p>
+        }
+        else
+        {
+            <p>
+                <input type="radio" name="inspectkb" value="all" />
+                全数
+            </p>
+            <p>
+                <input type="radio" name="inspectkb" value="sample" checked="checked" />抜き取り
+            </p>
+           
+        }
+            <p>抜き取り数<input type="text" name="inspectct" value="@Model.InitialInspectCtStr"/></p>
+    </p>
+    
+    <button type="submit">結果入力</button>
+}

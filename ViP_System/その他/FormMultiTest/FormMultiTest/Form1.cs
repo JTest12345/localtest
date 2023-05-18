@@ -1,0 +1,69 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Management; // need to add System.Management to your project references.
+
+namespace FormMultiTest
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        static List<USBDeviceInfo> GetUSBDevices()
+        {
+            List<USBDeviceInfo> devices = new List<USBDeviceInfo>();
+
+            ManagementObjectCollection collection;
+            using (var searcher = new ManagementObjectSearcher(@"Select * From Win32_USBHub"))
+                collection = searcher.Get();
+
+            foreach (var device in collection)
+            {
+                devices.Add(new USBDeviceInfo(
+                (string)device.GetPropertyValue("DeviceID"),
+                (string)device.GetPropertyValue("PNPDeviceID"),
+                (string)device.GetPropertyValue("Description")
+                ));
+            }
+
+            collection.Dispose();
+            return devices;
+        }
+
+        private void get_usbdevice_Click(object sender, EventArgs e)
+        {
+            device_list.Text = "";
+
+            var usbDevices = GetUSBDevices();
+
+            foreach (var usbDevice in usbDevices)
+            {
+                device_list.Text += "DeviceID:" + usbDevice.DeviceID + "\r\n";
+                device_list.Text += "PnpDeviceID:" + usbDevice.PnpDeviceID + "\r\n";
+                device_list.Text += "Description:" + usbDevice.Description + "\r\n\r\n";
+            }
+        }
+    }
+
+    class USBDeviceInfo
+    {
+        public USBDeviceInfo(string deviceID, string pnpDeviceID, string description)
+        {
+            this.DeviceID = deviceID;
+            this.PnpDeviceID = pnpDeviceID;
+            this.Description = description;
+        }
+        public string DeviceID { get; private set; }
+        public string PnpDeviceID { get; private set; }
+        public string Description { get; private set; }
+    }
+}

@@ -1,0 +1,1500 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SLCommonLib</name>
+    </assembly>
+    <members>
+        <member name="T:SLCommonLib.Commons.RegistryControl">
+            <summary>
+            レジストリ情報の取得/登録を行うクラス
+            </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.RegistryControl.REGISTORY_SUB_KEY">
+            <summary>レジストリ登録するサブキー</summary>
+        </member>
+        <member name="M:SLCommonLib.Commons.RegistryControl.GetRegistry(System.String)">
+            <summary>
+            レジストリから引数で指定したキーの値を取得します。
+            </summary>
+            <param name="RegkeyName">レジストリキー</param>
+            <returns>値</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.RegistryControl.SetRegistry(System.String,System.Object)">
+            <summary>
+            レジストリに書き込みます。
+            </summary>
+            <param name="RegkeyName">レジストリキー</param>
+            <param name="RegValue">値</param>
+        </member>
+        <member name="P:SLCommonLib.Commons.RegistryControl.GetREGISTORY_SUB_KEY">
+            <summary>
+            登録されるサブキー確認用プロパティ
+            </summary>
+        </member>
+        <member name="T:SLCommonLib.UCNumericSelector">
+            <summary>
+            数値範囲を指定するユーザーコントロール
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCNumericSelector.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCNumericSelector.btnConjuction_Click(System.Object,System.EventArgs)">
+            <summary>
+            ボタンクリック時の処理
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCNumericSelector.UCNumericSelector_Load(System.Object,System.EventArgs)">
+            <summary>
+             ロード時のイベント
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCNumericSelector.numMin_ValueChanged(System.Object,System.EventArgs)">
+            <summary>
+            最小値変更時
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCNumericSelector.numMax_ValueChanged(System.Object,System.EventArgs)">
+            <summary>
+            最大値変更時
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCNumericSelector.numMin_Leave(System.Object,System.EventArgs)">
+            <summary>
+             最小値コントロールがアクティブで無くなった時
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCNumericSelector.numMax_Leave(System.Object,System.EventArgs)">
+            <summary>
+             最大値コントロールがアクティブで無くなった時
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCNumericSelector.chkCheck_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            チェックボックスの値が変更された時
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCNumericSelector.UCNumericSelector_Resize(System.Object,System.EventArgs)">
+            <summary>
+            ユーザーコントロールサイズ変更時の処理
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCNumericSelector.setControlView">
+            <summary>
+            コントロールの表示設定
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCNumericSelector.setLayout">
+            <summary>
+            レイアウト設定
+            </summary>
+        </member>
+        <member name="F:SLCommonLib.UCNumericSelector.components">
+            <summary> 
+            必要なデザイナ変数です。
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCNumericSelector.Dispose(System.Boolean)">
+            <summary> 
+            使用中のリソースをすべてクリーンアップします。
+            </summary>
+            <param name="disposing">マネージ リソースが破棄される場合 true、破棄されない場合は false です。</param>
+        </member>
+        <member name="M:SLCommonLib.UCNumericSelector.InitializeComponent">
+            <summary> 
+            デザイナ サポートに必要なメソッドです。このメソッドの内容を 
+            コード エディタで変更しないでください。
+            </summary>
+        </member>
+        <member name="E:SLCommonLib.UCNumericSelector.OnCheckChange">
+            <summary>
+            チェックボックス変更時に発生するイベント
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCNumericSelector.IsChangeConjuction">
+            <summary>
+            数値判定条件の変更の有効/無効
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCNumericSelector.MaxLength">
+            <summary>
+            入力値の最大桁数
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCNumericSelector.Conjuction">
+            <summary>
+            数値範囲条件を設定・取得
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCNumericSelector.ConjuctionName">
+            <summary>
+            数値範囲条件名を取得
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCNumericSelector.MinValue">
+            <summary>
+            数値範囲の最小値を設定・取得
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCNumericSelector.MaxValue">
+            <summary>
+            数値範囲の最大値を設定・取得
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCNumericSelector.OrLessValue">
+            <summary>
+            or_Less条件時の、条件を取得（orLess以外の場合はnull値）
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCNumericSelector.OrMoreValue">
+            <summary>
+            or_More条件時の、条件を取得（or_More以外の場合はnull値）
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCNumericSelector.ThousandsSeparator">
+            <summary>
+            フォーマット
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCNumericSelector.DecimalPlaces">
+            <summary>
+            フォーマット
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCNumericSelector.Increment">
+            <summary>
+            増減幅
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCNumericSelector.VisibleCheckBox">
+            <summary>
+            チェックボックスの表示設定
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCNumericSelector.Checked">
+            <summary>
+            チェックボックスの値を設定/取得します
+            </summary>
+        </member>
+        <member name="T:SLCommonLib.ValueConjuction">
+            <summary>
+            ボタンに表示するテキストの列挙型
+            </summary>
+        </member>
+        <member name="F:SLCommonLib.ValueConjuction.to">
+            <summary>
+            時間の範囲  min ≦ X ≦ max
+            </summary>
+        </member>
+        <member name="F:SLCommonLib.ValueConjuction.or_Less">
+            <summary>
+            時間の範囲　value ≧ X
+            </summary>
+        </member>
+        <member name="F:SLCommonLib.ValueConjuction.or_More">
+            <summary>
+            時間の範囲　value ≦ X
+            </summary>
+        </member>
+        <member name="T:SLCommonLib.DataBase.DataReaderHelper">
+            <summary>
+            DbDataReaderの補助クラス
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.#ctor(System.Data.Common.DbDataReader)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="aReader">DataReader</param>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.CreateInstance">
+            <summary>
+            インスタンス生成
+            </summary>
+            <returns>DataReaderHelperインスタンス</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.CreateInstance(System.Data.Common.DbDataReader)">
+            <summary>
+            インスタンス生成
+            </summary>
+            <param name="aReader">SQLServer用DataReader</param>
+            <returns>DataReaderHelperインスタンス</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.CreateInstance(SLCommonLib.DataBase.DBConnect,System.String)">
+            <summary>
+            インスタンス生成
+            </summary>
+            <param name="aCon">SQLServer用コネクション</param>
+            <param name="sqlStmt">SQL文</param>
+            <returns>DataReaderHelperインスタンス</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetOrdinal(System.String)">
+            <summary>
+            列インデックスの取得。失敗時は、-1が返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>int値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetBoolean(System.String)">
+            <summary>
+            bool値の取得。null値の場合、Falseが返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>bool値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetBooleanQ(System.String)">
+            <summary>
+            bool?値の取得。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>bool?値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetByte(System.String)">
+            <summary>
+            byte値の取得。null値の場合、最小値が返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>byte値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetByteQ(System.String)">
+            <summary>
+            byte?値の取得
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>byte?値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetDataTypeName(System.String)">
+            <summary>
+            列の型の取得。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>string値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetDateTime(System.String)">
+            <summary>
+            DateTime値の取得。null値の場合、最小値が返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>DateTime値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetDateTimeQ(System.String)">
+            <summary>
+            DateTime?値の取得
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>DateTime?値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetDecimal(System.String)">
+            <summary>
+            Decimal値の取得。null値の場合、最小値が返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>Decimal値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetDecimalQ(System.String)">
+            <summary>
+            Decimal?値の取得
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>Decimal?値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetDouble(System.String)">
+            <summary>
+            Double値の取得。null値の場合、最小値が返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>Double値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetDoubleQ(System.String)">
+            <summary>
+            Double?値の取得
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>Double?値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetFieldType(System.String)">
+            <summary>
+            列のタイプの取得。null値の場合、最小値が返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>System.Type型</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetFloat(System.String)">
+            <summary>
+            float値の取得。null値の場合、最小値が返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>float値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetFloatQ(System.String)">
+            <summary>
+            float?値の取得
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>float?値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetInt16(System.String)">
+            <summary>
+            short値の取得。null値の場合、最小値が返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>short値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetInt16Q(System.String)">
+            <summary>
+            short?値の取得。null値の場合、最小値が返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>short?値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetInt32(System.String)">
+            <summary>
+            int値の取得。null値の場合、最小値が返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>int値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetInt32Q(System.String)">
+            <summary>
+            int?値の取得
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>int?値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetInt64(System.String)">
+            <summary>
+            long値の取得。null値の場合、最小値が返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>long値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetInt64Q(System.String)">
+            <summary>
+            long?値の取得
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>long?値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetName(System.String)">
+            <summary>
+            列名の取得
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>string値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetString(System.String)">
+            <summary>
+            string値の取得。null値の場合、Emptyが返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>string値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetValue(System.String)">
+            <summary>
+            object値の取得。null値の場合、nullが返ります。
+            </summary>
+            <param name="stIndex">フィールド名</param>
+            <returns>object値</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.GetValueToString(System.String)">
+            <summary>
+            値をstringに変換して取得します。
+            </summary>
+            <param name="stIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.CreateDataReader(SLCommonLib.DataBase.DBConnect,System.String)">
+            <summary>
+            DbDataReaderの作成
+            </summary>
+            <param name="aCon">DBConnectのインスタンス</param>
+            <param name="sqlStmt">SQL文</param>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.Read">
+            <summary>
+            System.Data.Common.DbDataReaderを次のレコードに進めます。
+            </summary>
+            <returns>処理の成否</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DataReaderHelper.Dispose">
+            <summary>
+            破棄処理
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.DataBase.DataReaderHelper.DataReader">
+            <summary>
+            DataReaderプロパティ
+            </summary>
+        </member>
+        <member name="T:SLCommonLib.Commons.MathControl">
+            <summary>
+            算術演算クラス
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.Commons.MathControl.Round(System.Double,System.Int32)">
+            <summary>
+            四捨五入
+            </summary>
+            <param name="dValue">値</param>
+            <param name="iDigits">有効桁数</param>
+            <returns>丸め後の値</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.MathControl.RoundUp(System.Double,System.Int32)">
+            <summary>
+            切り上げ
+            </summary>
+            <param name="dValue">値</param>
+            <param name="iDigits">有効桁数</param>
+            <returns>丸め後の値</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.MathControl.RoundDown(System.Double,System.Int32)">
+            <summary>
+            切り捨て
+            </summary>
+            <param name="dValue">値</param>
+            <param name="iDigits">有効桁数</param>
+            <returns>丸め後の値</returns>
+        </member>
+        <member name="T:SLCommonLib.Commons.Common">
+            <summary>
+            汎用関数のクラス
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.CreateInstance">
+            <summary>
+            インスタンスの生成
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.Hex2Chars(System.String)">
+            <summary>
+            16進コードを文字列に変換する
+            </summary>
+            <param name="tmpHex">16進コード(文字列)</param>
+            <returns>文字列</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.Chars2Hex(System.String)">
+            <summary>
+            文字列を16進コードに変換する
+            </summary>
+            <param name="tmpChars"></param>
+            <returns>16進コード</returns>	
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.NullToEmpty(System.Object)">
+            <summary>
+            引数がnullの場合は空文字を返す
+            </summary>
+            <param name="aValue"></param>
+            <returns>引数　あるいは　空文字</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.isNullOrEmpty(System.Object)">
+            <summary>
+            引数がnullもしくはEmptyの場合はTrueを返す
+            </summary>
+            <param name="aValue"></param>
+            <returns>引数　あるいは　空文字</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.IsNumeric(System.String)">
+            <summary>
+            文字列が数値に変換可能か調べる
+            </summary>
+            <param name="tmpStr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.GetAplicationName">
+            <summary>
+            アプリケーション名の取得
+            </summary>
+            <returns>アプリケーション名</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.GetAppFullPath">
+            <summary>
+            アプリケーションフルパスの取得
+            </summary>
+            <returns>アプリケーションフルパス</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.GetAppFolderPath">
+            <summary>
+            アプリケーションフォルダパスの取得
+            </summary>
+            <returns>アプリケーションフォルダパス</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.GetDesktopFolderPath">
+            <summary>
+            デスクトップフォルダパスの取得
+            </summary>
+            <returns>デスクトップフォルダパス</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.GetMydocumentsFolderPath">
+            <summary>
+            マイドキュメントフォルダパスの取得
+            </summary>
+            <returns>マイドキュメントフォルダパス</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.LoginAPI(System.String,System.String)">
+            <summary>
+            SL3ログインWebサービスを利用してログイン認証する
+            </summary>
+            <param name="userID">社員番号</param>
+            <param name="passWord">パスワード</param>
+            <returns>ログイン認証結果</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.ConvertDataTableToNVC(System.Data.DataTable)">
+            <summary>
+            DataTableをNameValueCollectionに変換する
+            </summary>
+            <param name="aTable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.GetKey(System.Collections.Specialized.NameValueCollection,System.String)">
+            <summary>
+            NameValueCollectionよりキーを取得する
+            </summary>
+            <param name="aNVC"></param>
+            <param name="aValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.GetRow(System.Data.DataTable,System.String,System.String)">
+            <summary>
+            DataTableから1行抽出(DataRow)
+            </summary>
+            <param name="aTbl">DataTable</param>
+            <param name="ColumnNM">検索対象列</param>
+            <param name="Value">検索値</param>
+            <returns>DataRow</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Common.GetView(System.Data.DataTable,System.String,System.String)">
+            <summary>
+            DataTableからViewの抽出(DataView)
+            </summary>
+            <param name="aTbl">DataTable</param>
+            <param name="ColumnNM">検索対象列</param>
+            <param name="Value">検索値</param>
+            <returns>DataView</returns>
+        </member>
+        <member name="T:SLCommonLib.DataBase.DBCommon">
+            <summary>
+            データベース関連の共通クラス
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBCommon.getWhereString(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            NameValueCollection のキーをWHERE条件(IN)にします
+            </summary>
+            <param name="whereKey"></param>
+            <param name="aNvc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBCommon.getWhereString(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Stringリスト をWHERE条件(IN)にします
+            </summary>
+            <param name="whereKey"></param>
+            <param name="aNvc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.FileControl.DeleteFile(System.String)">
+            <summary>
+            フォルダの中身を消去
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.Commons.FileControl.ExtractLha(System.String,System.String)">
+            <summary>
+            LZHファイルの解凍
+            </summary>
+            <param name="lzhFile">LZHファイルのフルパス</param>
+            <param name="targetDir">解凍先ディレクトリパス</param>
+        </member>
+        <member name="T:SLCommonLib.Commons.Configuration">
+            <summary>
+            設定ファイルのデータ取得/設定を行うクラス
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.Commons.Configuration.GetAppConfigString(System.String,System.String)">
+            <summary>
+            App.Configファイル値(configSections)取得
+            引数にセクションとキーを渡すと設定値を戻します。
+            存在しない場合は空文字を返します。
+            </summary>
+            <param name="configSection">セクション</param>
+            <param name="configKey">キー</param>
+            <returns>設定値</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Configuration.GetAppConfigNVC(System.String)">
+            <summary>
+            App.Configファイル値(configSections)をNameValueCollectionで取得
+            </summary>
+            <param name="configSection">セクション</param>
+            <returns>設定値</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Configuration.GetAppConfigStringH2A(System.String,System.String)">
+            <summary>
+            App.Configファイル値(configSections)取得
+            引数にセクションとキーを渡すと設定値をHEX→ASCII変換して戻します。
+            存在しない場合は空文字を返します。
+            </summary>
+            <param name="configSection">セクション</param>
+            <param name="configKey">キー</param>
+            <returns>設定値</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Configuration.GetAppConfigString(System.String)">
+            <summary>
+            App.Configファイル値(appSettings)を取得
+            </summary>
+            <param name="configKey">キー</param>
+            <returns>設定値</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Configuration.GetAppConfigConnectionString(System.String)">
+            <summary>
+            App.Configファイル値(connectionStrings)を取得
+            </summary>
+            <param name="configKey">キー</param>
+            <returns>設定値</returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.Configuration.GetDBConnectionStringSettings(System.String,System.String,System.String)">
+            <summary>
+            DB接続ConnectionStringSettingsの取得
+            </summary>
+            <param name="configKey">キー</param>
+            <param name="uid">DBの接続ユーザーID</param>
+            <param name="pwd">DBの接続パスワード</param>
+            <returns></returns>
+        </member>
+        <member name="T:SLCommonLib.UCGridView">
+            <summary>
+            DataGridViewから派生したユーザーコントロール
+            </summary>
+        </member>
+        <member name="F:SLCommonLib.UCGridView.CONTEXT_ICON_CUT">
+            <summary>コンテキストメニュー用アイコン（切り取り）</summary>
+        </member>
+        <member name="F:SLCommonLib.UCGridView.CONTEXT_ICON_COPY">
+            <summary>コンテキストメニュー用アイコン（コピー）</summary>
+        </member>
+        <member name="F:SLCommonLib.UCGridView.CONTEXT_ICON_PASTE">
+            <summary>コンテキストメニュー用アイコン（貼り付け）</summary>
+        </member>
+        <member name="F:SLCommonLib.UCGridView.CONTEXT_ICON_NONE">
+            <summary>コンテキストメニュー用アイコン（none）</summary>
+        </member>
+        <member name="F:SLCommonLib.UCGridView.CONTEXT_IMAGE_HEIGHT">
+            <summary>コンテキストメニュー用アイコンサイズ（高さ）</summary>
+        </member>
+        <member name="F:SLCommonLib.UCGridView.CONTEXT_IMAGE_WIDTH">
+            <summary>コンテキストメニュー用アイコンサイズ（横幅）</summary>
+        </member>
+        <member name="F:SLCommonLib.UCGridView.isRowHeaderNum">
+            <summary>行番号の表示のON/OFF</summary>
+        </member>
+        <member name="F:SLCommonLib.UCGridView.cMenu">
+            <summary>コンテキストメニュー</summary>
+        </member>
+        <member name="F:SLCommonLib.UCGridView.contextImageList">
+            <summary>コンテキストメニューで使用するICON</summary>
+        </member>
+        <member name="F:SLCommonLib.UCGridView.startColumnView">
+            <summary>マージ等の開始列</summary>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.OnDataBindingComplete(System.Windows.Forms.DataGridViewBindingCompleteEventArgs)">
+            <summary>
+            コントロールに対するデータバインドが完了した際に行う処理
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.clipBoardControl(System.Windows.Forms.DataGridViewCell,System.Windows.Forms.KeyEventArgs)">
+            <summary>
+             クリップボードコントロール
+            </summary>
+            <param name="aCell">セル</param>
+            <param name="e">イベント</param>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.setColor">
+            <summary>
+            背景色設定
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.setRowNum">
+            <summary>
+            行番号付加
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.sortCancel">
+            <summary>
+            ソートのキャンセル処理
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.UCGridView_MouseUp(System.Object,System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            グリッドクリック時の処理
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.UCGridView_RowsAdded(System.Object,System.Windows.Forms.DataGridViewRowsAddedEventArgs)">
+            <summary>
+            行追加時の処理
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.UCGridView_RowsRemoved(System.Object,System.Windows.Forms.DataGridViewRowsRemovedEventArgs)">
+            <summary>
+            行削除時の処理
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.UCGridView_Sorted(System.Object,System.EventArgs)">
+            <summary>
+            並び替え時の処理
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.UCGridView_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            キー押下時の処理
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.setContextMenu">
+            <summary>
+            コンテキストメニューの項目設定
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.menuItem_MeasureItem(System.Object,System.Windows.Forms.MeasureItemEventArgs)">
+            <summary>
+            メニュー項目のサイズ確認イベント
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.menuItem_DrawItem(System.Object,System.Windows.Forms.DrawItemEventArgs)">
+            <summary>
+            メニュー項目の描画要求イベント
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.item_Click(System.Object,System.EventArgs)">
+            <summary>
+            コンテキストメニュークリック時の処理
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.getMargeFlg(System.Int32,System.Int32,System.Boolean@,System.Boolean@)">
+            <summary>
+            マージフラグの取得
+            </summary>
+            <param name="colIndex"></param>
+            <param name="rowIndex"></param>
+            <param name="dataSameFlg"></param>
+            <param name="canMargeFlg"></param>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.getMargeFlgUP(System.Int32,System.Int32,System.Boolean@,System.Boolean@)">
+            <summary>
+            マージフラグの取得(上側)
+            </summary>
+            <param name="colIndex"></param>
+            <param name="rowIndex"></param>
+            <param name="dataSameFlg"></param>
+            <param name="canMargeFlg"></param>
+        </member>
+        <member name="F:SLCommonLib.UCGridView.components">
+            <summary> 
+            必要なデザイナ変数です。
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.Dispose(System.Boolean)">
+            <summary> 
+            使用中のリソースをすべてクリーンアップします。
+            </summary>
+            <param name="disposing">マネージ リソースが破棄される場合 true、破棄されない場合は false です。</param>
+        </member>
+        <member name="M:SLCommonLib.UCGridView.InitializeComponent">
+            <summary> 
+            デザイナ サポートに必要なメソッドです。このメソッドの内容を 
+            コード エディタで変更しないでください。
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCGridView.DataSource2">
+            <summary>
+            DataGridViewコントロールのデータのソースを表示/設定します
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCGridView.IsContextVisible">
+            <summary>
+            コンテキストメニューの表示/非表示を設定/取得します
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCGridView.ScrollLockRows">
+            <summary>
+            スクロールロックする行数の取得/設定
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCGridView.ScrollLockColumns">
+            <summary>
+            スクロールロックする列数の取得/設定
+            </summary>
+        </member>
+        <member name="T:SLCommonLib.DataBase.DBConnect">
+            <summary>
+            データベース接続制御クラス
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.CreateInstance(System.String,System.String,System.Boolean)">
+            <summary>
+            インスタンスを生成する
+            </summary>
+            <param name="connectionString">接続文字列</param>
+            <param name="providerName">プロバイダ名</param>
+            <param name="createTrans">トランザクション有無</param>
+            <returns>DBConnectのインスタンス</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.CreateInstance(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            インスタンスを生成する
+            </summary>
+            <param name="connectionString">接続文字列</param>
+            <param name="providerName">プロバイダ名</param>
+            <param name="UID">DBユーザー名</param>
+            <param name="PWD">パスワード</param>
+            <param name="createTrans">トランザクション有無</param>
+            <returns>DBConnectのインスタンス</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.CreateInstance(System.Configuration.ConnectionStringSettings,System.Boolean)">
+            <summary>
+            インスタンスを生成する
+            </summary>
+            <param name="settings">App.configのConnectionStringsの設定</param>
+            <param name="createTrans">トランザクション有無</param>
+            <returns>DBConnectのインスタンス</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.CreateInstance(System.Configuration.ConnectionStringSettings,System.String,System.String,System.Boolean)">
+            <summary>
+            インスタンスを生成する
+            </summary>
+            <param name="settings">App.configのConnectionStringsの設定</param>
+            <param name="UID">DBユーザー名</param>
+            <param name="PWD">パスワード</param>
+            <param name="createTrans">トランザクション有無</param>
+            <returns>DBConnectのインスタンス</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.CreateInstance(System.String,System.Boolean)">
+            <summary>
+            インスタンスを生成する
+            </summary>
+            <param name="connectionName">App.configのConnectionStringsの設定名</param>
+            <param name="createTrans">トランザクション有無</param>
+            <returns>DBConnectのインスタンス</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.CreateInstance(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            インスタンスを生成する
+            </summary>
+            <param name="connectionName">App.configのConnectionStringsの設定名</param>
+            <param name="UID">DBユーザー名</param>
+            <param name="PWD">パスワード</param>
+            <param name="createTrans">トランザクション有無</param>
+            <returns>DBConnectのインスタンス</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.OpenConnection(System.String,System.String,System.Boolean)">
+            <summary>
+            コネクションを開く
+            </summary>
+            <param name="connectionString">接続文字列</param>
+            <param name="providerName">プロバイダ名</param>
+            <param name="createTrans">トランザクション有無</param>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.OpenConnection(System.Configuration.ConnectionStringSettings,System.Boolean)">
+            <summary>
+            コネクションを開く
+            </summary>
+            <param name="settings">App.configのConnectionStringsの設定</param>
+            <param name="createTrans">トランザクション有無</param>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.OpenConnection(System.String,System.Boolean)">
+            <summary>
+            コネクションを開く
+            </summary>
+            <param name="connectionName">App.configのConnectionStringsの設定名</param>
+            <param name="createTrans">トランザクション有無</param>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.GetCommand">
+            <summary>
+            Commandの取得（nullの場合は作成）
+            </summary>
+            <returns>DbCommand</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.BeginTrans">
+            <summary>
+            トランザクション　開始
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.Commit">
+            <summary>
+            トランザクション　コミット
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.Rollback">
+            <summary>
+            トランザクション　ロールバック
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.GetTable(System.String)">
+            <summary>
+            SQLを実行し、出力結果をDataTableで返す。
+            </summary>
+            <param name="sqlStmt">SQL文</param>
+            <returns>SQLの処理結果（DataTable）</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.GetTable(System.String,System.String)">
+            <summary>
+            SQLを実行し、出力結果をDataTableで返す。
+            </summary>
+            <param name="sqlStmt">SQL文</param>
+            <param name="tableName">DataTable名</param>
+            <returns>SQLの処理結果（DataTable）</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.GetReader(System.String)">
+            <summary>
+            SQLを実行し、出力結果をDataReaderで返す。
+            </summary>
+            <param name="sqlStmt">SQL文</param>
+            <returns>SQLの処理結果（DataReader）</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.GetNameValueCollections(System.String)">
+            <summary>
+            SQLを実行し、出力結果をNameValueCollection配列で返す。
+            </summary>
+            <param name="sqlStmt"></param>
+            <returns>データ1行分をオブジェクト1つとしたNameValueCollection配列</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.ExecuteNonQuery(System.String)">
+            <summary>
+            接続に対して Transact-SQL ステートメントを実行し、影響を受けた行数を返す。
+            </summary>
+            <param name="stSQL">SQL文</param>
+            <returns>影響を受けた行数</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.ExecuteScalar(System.String)">
+            <summary>
+            接続に対して、クエリ実行し、得た結果の1行1列のデータを取得する。
+            </summary>
+            <param name="stSQL">SQL文</param>
+            <returns>得た結果の1行1列のデータ</returns>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.SetParameterQuery(System.String)">
+            <summary>
+            パラメータクエリのSQL構文設定
+            </summary>
+            <param name="stSQL">SQL構文</param>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.SetParameter(System.String,System.Data.DbType,System.Object)">
+            <summary>
+            パラメータクエリのパラメータ設定
+            </summary>
+            <param name="stParameter"></param>
+            <param name="dbType"></param>
+            <param name="oValue"></param>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.SetParameter(System.String,System.Data.SqlDbType,System.Object)">
+            <summary>
+            パラメータクエリのパラメータ設定
+            </summary>
+            <param name="stParameter"></param>
+            <param name="dbType"></param>
+            <param name="oValue"></param>
+        </member>
+        <member name="M:SLCommonLib.DataBase.DBConnect.Dispose">
+            <summary>
+            インスタンス破棄時の処理
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.DataBase.DBConnect.Command">
+            <summary>
+            DbCommandの取得/設定
+            </summary>
+        </member>
+        <member name="T:SLCommonLib.UCDateTimeSelector">
+            <summary>
+            時間範囲（日付範囲）を指定するユーザコントロール
+            </summary>
+        </member>
+        <member name="F:SLCommonLib.UCDateTimeSelector.components">
+            <summary> 
+            必要なデザイナ変数です。
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCDateTimeSelector.Dispose(System.Boolean)">
+            <summary> 
+            使用中のリソースをすべてクリーンアップします。
+            </summary>
+            <param name="disposing">マネージ リソースが破棄される場合 true、破棄されない場合は false です。</param>
+        </member>
+        <member name="M:SLCommonLib.UCDateTimeSelector.InitializeComponent">
+            <summary> 
+            デザイナ サポートに必要なメソッドです。このメソッドの内容を 
+            コード エディタで変更しないでください。
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCDateTimeSelector.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCDateTimeSelector.btnConjuction_Click(System.Object,System.EventArgs)">
+            <summary>
+            ボタンクリック時の処理
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCDateTimeSelector.UCDateTimeSelector_Load(System.Object,System.EventArgs)">
+            <summary>
+             ロード時のイベント
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCDateTimeSelector.dtData1_ValueChanged(System.Object,System.EventArgs)">
+            <summary>
+            データ1値変更
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCDateTimeSelector.dtData2_ValueChanged(System.Object,System.EventArgs)">
+            <summary>
+            データ２値変更
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCDateTimeSelector.dtData1_Leave(System.Object,System.EventArgs)">
+            <summary>
+            データ１のコントロールがアクティブで無くなった時
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCDateTimeSelector.dtData2_Leave(System.Object,System.EventArgs)">
+            <summary>
+            データ2のコントロールがアクティブで無くなった時
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCDateTimeSelector.chkCheck_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            チェックボックスの値が変更された時
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCDateTimeSelector.UCDateTimeSelector_Resize(System.Object,System.EventArgs)">
+            <summary>
+            ユーザーコントロールサイズ変更時の処理
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SLCommonLib.UCDateTimeSelector.setControlView">
+            <summary>
+            コントロールの表示設定
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCDateTimeSelector.setLayout">
+            <summary>
+            レイアウト設定
+            </summary>
+        </member>
+        <member name="E:SLCommonLib.UCDateTimeSelector.OnCheckChange">
+            <summary>
+            チェックボックス変更時に発生するイベント
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCDateTimeSelector.IsChangeConjuction">
+            <summary>
+            日時判定条件の変更の有効/無効
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCDateTimeSelector.MaxDateTime">
+            <summary>
+            入力日時の最大値
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCDateTimeSelector.MinDateTime">
+            <summary>
+            入力日時の最小値
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCDateTimeSelector.Conjuction">
+            <summary>
+            日時判定条件を設定・取得
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCDateTimeSelector.ConjuctionName">
+            <summary>
+            日時判定条件名を取得
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCDateTimeSelector.StartDate">
+            <summary>
+            日付時刻範囲の開始日時を設定・取得
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCDateTimeSelector.EndDate">
+            <summary>
+            日付時刻範囲の終了日時を設定・取得
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCDateTimeSelector.BeforeDate">
+            <summary>
+            Before条件時の、日時条件を取得（Before以外の場合はnull値）
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCDateTimeSelector.AfterDate">
+            <summary>
+            After条件時の、日時条件を取得（After以外の場合はnull値）
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCDateTimeSelector.WhereString">
+            <summary>
+            SQL文のWhere条件を取得
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCDateTimeSelector.CustomFormat">
+            <summary>
+            DateTimeEditorへの入力時のマスクの設定
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCDateTimeSelector.VisibleCheckBox">
+            <summary>
+            チェックボックスの表示設定
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCDateTimeSelector.Checked">
+            <summary>
+            チェックボックスの値を設定/取得します
+            </summary>
+        </member>
+        <member name="T:SLCommonLib.DateConjuction">
+            <summary>
+            ボタンに表示するテキストの列挙型
+            </summary>
+        </member>
+        <member name="F:SLCommonLib.DateConjuction.to">
+            <summary>
+            時間の範囲  Start ≦ X ≦ End
+            </summary>
+        </member>
+        <member name="F:SLCommonLib.DateConjuction.before">
+            <summary>
+            時間の範囲　Date ≧ X
+            </summary>
+        </member>
+        <member name="F:SLCommonLib.DateConjuction.after">
+            <summary>
+            時間の範囲　Date ≦ X
+            </summary>
+        </member>
+        <member name="T:SLCommonLib.Commons.ICsv">
+            <summary>
+            CSVインターフェース
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.Commons.ICsv.Quoted">
+            <summary>囲い文字</summary>
+        </member>
+        <member name="P:SLCommonLib.Commons.ICsv.Delimiter">
+            <summary>区切り文字</summary>
+        </member>
+        <member name="P:SLCommonLib.Commons.ICsv.CommaStr">
+            <summary>行の設定/取得</summary>
+        </member>
+        <member name="T:SLCommonLib.Commons.CommaString">
+            <summary>
+            1行のカンマ文字列生成クラス
+            </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.CommaString._q">
+            <summary>囲い文字</summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.CommaString._d">
+            <summary>区切り文字</summary>
+        </member>
+        <member name="M:SLCommonLib.Commons.CommaString.getCommaStr">
+            <summary>行の取得</summary>
+        </member>
+        <member name="M:SLCommonLib.Commons.CommaString.setCommaStr(System.String)">
+            <summary>行の設定</summary>
+        </member>
+        <member name="P:SLCommonLib.Commons.CommaString.CommaStr">
+            <summary>行の設定/取得</summary>
+        </member>
+        <member name="P:SLCommonLib.Commons.CommaString.Quoted">
+            <summary>囲い文字</summary>
+        </member>
+        <member name="P:SLCommonLib.Commons.CommaString.Delimiter">
+            <summary>区切り文字</summary>
+        </member>
+        <member name="P:SLCommonLib.Commons.CommaString.Item(System.Int32)">
+            <summary>
+            エントリの設定/取得
+            </summary>
+            <param name="index">取得又は設定するエントリの0から始まるインデックス</param>
+            <returns></returns>
+        </member>
+        <member name="T:SLCommonLib.Commons.CSV">
+            <summary>
+            CSVクラス
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.Commons.CSV.GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.CSV.#ctor">
+            <summary>
+            CSVクラスのコンストラクタ
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.Commons.CSV.LoadFile(System.String)">
+            <summary>
+            CSVファイルの読み込み
+            </summary>
+            <param name="AFileName">ファイル名</param>
+        </member>
+        <member name="M:SLCommonLib.Commons.CSV.LoadFile(System.String,System.Text.Encoding)">
+            <summary>
+            CSVファイルの読み込み
+            </summary>
+            <param name="AFileName">ファイル名</param>
+            <param name="AEncoding">エンコーディング</param>
+        </member>
+        <member name="M:SLCommonLib.Commons.CSV.SaveFile(System.String)">
+            <summary>
+            CSVファイルの保存
+            </summary>
+            <param name="AFileName">ファイル名</param>
+        </member>
+        <member name="M:SLCommonLib.Commons.CSV.SaveFile(System.String,System.Text.Encoding)">
+            <summary>
+            CSVファイルの保存
+            </summary>
+            <param name="AFileName">ファイル名</param>
+            <param name="AEncoding">エンコーディング</param>
+        </member>
+        <member name="M:SLCommonLib.Commons.CSV.AddField(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="Row"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.CSV.getCommaField(System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="ACommaStr"></param>
+            <param name="Col"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SLCommonLib.Commons.CSV.setCommaField(System.String,System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="ACommaStr"></param>
+            <param name="AValue"></param>
+            <param name="Col"></param>
+            <returns></returns>
+        </member>
+        <member name="P:SLCommonLib.Commons.CSV.Item(System.Int32)">
+            <summary>
+            行の設定/取得
+            </summary>
+            <param name="Row">行</param>
+            <returns>1行のカンマ文字列</returns> 
+        </member>
+        <member name="P:SLCommonLib.Commons.CSV.Item(System.Int32,System.Int32)">
+            <summary>
+            特定位置のデータの設定/取得
+            </summary>
+            <param name="Row">行</param>
+            <param name="Col">列</param>
+            <returns>文字列</returns>
+        </member>
+        <member name="T:SLCommonLib.UCComboBox">
+            <summary>
+            コンボボックスのユーザーコントロール
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCComboBox.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.UCComboBox.setNVCfromDataTable(System.Data.DataTable)">
+            <summary>
+            テーブルをNameValueCollectionに変換
+            </summary>
+            <param name="aTable">DataTable</param>
+        </member>
+        <member name="M:SLCommonLib.UCComboBox.GetKey(System.Int32)">
+            <summary>
+            引数に応じてキーを返す
+            </summary>
+            <param name="i">id</param>
+            <returns>キー</returns>
+        </member>
+        <member name="M:SLCommonLib.UCComboBox.addListEmptyData">
+            <summary>
+            現在のリストの先頭に空白行を追加
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCComboBox.SourceNVC">
+            <summary>
+            コンボボックスに表示するリストの設定/取得
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCComboBox.SourceNVCfromDataTable">
+            <summary>
+            コンボボックスに表示するリストの設定
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCComboBox.SelectedIndex">
+            <summary>
+            選択されているインデックスを設定/取得
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCComboBox.SelectedText">
+            <summary>
+            選択されている項目の表示情報を設定/取得
+            </summary>
+        </member>
+        <member name="P:SLCommonLib.UCComboBox.SelectedValue">
+            <summary>
+            選択されている項目の実際の値を設定/取得
+            </summary>
+        </member>
+        <member name="T:SLCommonLib.Commons.Constant">
+            <summary>
+            定数クラス
+            </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.CMD_TIMEOUT">
+            <summary> command タイムアウト時間 </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.VOID_SHORT">
+            <summary> short の VOID </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.VOID_INT">
+            <summary> int の VOID </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.VOID_LONG">
+            <summary> long の VOID </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.VOID_BYTE">
+            <summary> byte の VOID </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.VOID_DECIMAL">
+            <summary> decimal の VOID </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.VOID_FLOAT">
+            <summary> float の VOID </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.VOID_DOUBLE">
+            <summary> double の VOID </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.VOID_STRING">
+            <summary> string の VOID </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.VOID_CHAR">
+            <summary> Char の VOID </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.SPRIT_SEPARATOR">
+            <summary> string.split で用いる汎用的な区切り文字 </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.SPRIT_COMMA">
+            <summary>一般的な区切り文字</summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.QUOTE_SINGLE">
+            <summary> シングルコート </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.QUOTE_DOUBLE">
+            <summary> ダブルコート </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.ERR_SHORT">
+            <summary> short の ERR </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.ERR_INT">
+            <summary> int の ERR </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.ERR_LONG">
+            <summary> long の ERR </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.ERR_BYTE">
+            <summary> byte の ERR </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.ERR_DECIMAL">
+            <summary> decimal の ERR </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.ERR_FLOAT">
+            <summary> float の ERR </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.ERR_DOUBLE">
+            <summary> double の ERR </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.ERR_STRING">
+            <summary> string の ERR </summary>
+        </member>
+        <member name="F:SLCommonLib.Commons.Constant.ERR_CHAR">
+            <summary> Char の ERR </summary>
+        </member>
+        <member name="M:SLCommonLib.Commons.Constant.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:SLCommonLib.Commons.Constant.VOID_DATETIME">
+            <summary> DateTime の VOID </summary>
+        </member>
+        <member name="M:SLCommonLib.Commons.Constant.ERR_DATETIME">
+            <summary> DateTime の ERR </summary>
+        </member>
+    </members>
+</doc>

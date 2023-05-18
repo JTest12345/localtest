@@ -1,0 +1,2 @@
+Model_NM	Prefix_NM	Header_NM	Order_NO	Plc_ADDR	Data_LEN	DataType_CD	Del_FG	LastUpd_DT	Identify_CD	QcParam_NO
+MD-Syringe8	Plc_Param	100_TP êªïiÀﬂØ¡(â°)39	1	ZF100	1	UDEC_32BIT	0	2018-03-01 13:00:00.000		500100

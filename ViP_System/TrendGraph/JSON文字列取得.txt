@@ -1,0 +1,8 @@
+JSON‚ÅCƒhƒ‰ƒCƒu‚©‚çÚ‘±•¶š—ñ‚ğ“Ç‚İæ‚è‚ğÀ‘•
+
+
+	<add key="ArmsDBconnect" value="server=VAUTOM3\\SQLExpress;Connect Timeout=30;Application Name=ARMS_VSP;UID=inline;PWD=R28uHta;database=ARMS_VSP;Max Pool Size=100" />
+	<add key="PMMSDBconnect" value="server=VAUTOM4\\SQLExpress;Connect Timeout=30;Application Name=PMMS;UID=inline;PWD=R28uHta;database=PMMS;Max Pool Size=100" />
+
+constr_arms = ConfigurationManager.AppSettings["ArmsDBconnect"];
+constr = ConfigurationManager.AppSettings["PMMSDBconnect"];

@@ -1,0 +1,60 @@
+﻿<Window x:Class="ArmsWorkTransparency.V02_LotMonitor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArmsWorkTransparency"
+        mc:Ignorable="d"
+        Title="LAMS V02_ロット進捗閲覧画面" Height="1080" Width="1920" HorizontalAlignment="Center" VerticalAlignment="Center" ShowInTaskbar="False" WindowState="Maximized">
+    <Grid Margin="0,0,2,9">
+        <DataGrid x:Name="grdItems" ItemsSource="{Binding LotProgList}" FontSize="20" IsReadOnly="True" AutoGenerateColumns="False" Margin="0,45,0,0" SelectedCellsChanged="grdItems_SelectedCellsChanged">
+            <DataGrid.Resources>
+                <!-- 選択中セルのテキスト色（フォーカスがあるとき） -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey }"
+                    Color="DarkGray" />
+            </DataGrid.Resources>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Style.Triggers>
+                        <!-- 警告は赤背景 -->
+                        <DataTrigger Binding="{Binding IsWarning}"  Value="True">
+                            <Setter Property="Background" Value="Red" />
+                        </DataTrigger>
+                        <!-- 注意は黄色背景 -->
+                        <DataTrigger Binding="{Binding IsCaution}"  Value="True">
+                            <Setter Property="Background" Value="Yellow" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="型番" Binding="{Binding TypeCd}" SortMemberPath="TypeCd"/>
+                <DataGridTextColumn Header="Lot" Binding="{Binding LotNo}"/>
+                <DataGridTextColumn Binding="{Binding ResinGrp}" ClipboardContentBinding="{x:Null}" Header="樹脂ｸﾞﾙｰﾌﾟ"/>
+                <DataGridTextColumn Binding="{Binding SupplyId}" ClipboardContentBinding="{x:Null}" Header="供給ID"/>
+                <DataGridTextColumn Binding="{Binding BlendCd}" ClipboardContentBinding="{x:Null}" Header="ﾌﾞﾚﾝﾄﾞCD"/>
+                <DataGridTextColumn Binding="{Binding MagazineNo}" ClipboardContentBinding="{x:Null}" Header="ﾏｶﾞｼﾞﾝ"/>
+                <DataGridTextColumn Binding="{Binding DBThrowDt}" ClipboardContentBinding="{x:Null}" Header="ﾀﾞｲﾎﾞﾝﾄﾞ投入日"/>
+                <DataGridTextColumn Binding="{Binding AimRank}" ClipboardContentBinding="{x:Null}" Header="狙いﾗﾝｸ"/>
+                <DataGridTextColumn Binding="{Binding PhosphorSheetMatCd}" ClipboardContentBinding="{x:Null}" Header="蛍光体ﾌﾞﾛｯｸ品目"/>
+                <DataGridTextColumn Binding="{Binding NextLine}" ClipboardContentBinding="{x:Null}" Header="次ﾗｲﾝ"/>
+                <DataGridTextColumn Binding="{Binding CurrentProcessNm}" ClipboardContentBinding="{x:Null}" Header="現在工程"/>
+                <DataGridTextColumn Binding="{Binding NextProcessNm}" ClipboardContentBinding="{x:Null}" Header="受取工程"/>
+                <DataGridTextColumn Binding="{Binding ScheduledArrivalDt, StringFormat=yyyy/MM/dd HH:mm}" ClipboardContentBinding="{x:Null}" Header="到達予定"/>
+                <DataGridTextColumn Binding="{Binding ScheduledArrivalMinutes}" ClipboardContentBinding="{x:Null}" Header="到達時間(分)"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnCondition" Content="表示条件" Command="{Binding SettingCommand}" HorizontalAlignment="Left" Margin="3,6,0,0" VerticalAlignment="Top" Width="102" Height="34" FontSize="20"/>
+        <Button x:Name="btnUpdate" Content="リスト更新" Command="{Binding UpdateCommand}" HorizontalAlignment="Left" Margin="110,6,0,0" VerticalAlignment="Top" Width="104" Height="34" FontSize="20"/>
+        <Label x:Name="label" Content="最終更新" Margin="0,18,452,0" VerticalAlignment="Top" HorizontalAlignment="Right"  FontSize="16"/>
+        <Label x:Name="label_Copy" Content="次回更新" HorizontalAlignment="Right" Margin="0,18,188,0" VerticalAlignment="Top"  FontSize="16"/>
+        <Label x:Name="lbLastUpdate" Content="{Binding LastUpdate}" HorizontalAlignment="Right" Margin="0,18,355,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label x:Name="lbNextUpdate" Content="{Binding NextUpdate}" HorizontalAlignment="Right" Margin="0,18,92,0" VerticalAlignment="Top" FontSize="16"/>
+        <Rectangle HorizontalAlignment="Right" Height="25" Margin="0,15,819,0" Stroke="Black" VerticalAlignment="Top" Width="40" Fill="Yellow" RenderTransformOrigin="-0.35,0.507"/>
+        <Rectangle HorizontalAlignment="Right" Height="25" Margin="0,15,677,0" Stroke="Black" VerticalAlignment="Top" Width="40" Fill="Red"/>
+        <Label x:Name="label1_Copy" Content="到達60分前" HorizontalAlignment="Right" Margin="0,18,733,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label x:Name="label1" Content="到達時間超過" HorizontalAlignment="Right" Margin="0,18,576,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.489,1.237"/>
+        <Label x:Name="lbSelectCt" Content="" HorizontalAlignment="Left" Margin="345,9,0,0" VerticalAlignment="Top" FontSize="26"/>
+        <Label x:Name="lbSelectCt_Copy" Content="選択ロット数" HorizontalAlignment="Left" Margin="260,18,0,0" VerticalAlignment="Top" FontSize="16"/>
+    </Grid>
+</Window>

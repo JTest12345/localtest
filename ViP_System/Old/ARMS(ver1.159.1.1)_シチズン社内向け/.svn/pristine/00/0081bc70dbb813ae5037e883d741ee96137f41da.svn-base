@@ -1,0 +1,72 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ArmsVCM.Model
+{
+    public class RouteNode
+    {
+
+        public int ID { get; set; }
+
+        public int? CurrentCost { get; set; }
+
+        public RouteNode FromNode { get; set; }
+
+        public RoutePath FromPath { get; set; }
+
+        public bool IsFixed { get; set; }
+
+        #region override Equals 
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            RouteNode n = obj as RouteNode;
+            if (n == null)
+            {
+                return false;
+            }
+
+            return (this.ID == n.ID);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ID;
+        }
+
+        #endregion
+
+
+        //public static List<RouteNode> GetNodes(bool onlyFreeNode)
+        //{
+
+        //}
+
+
+        /// <summary>
+        /// 指定nodeをロックする
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <returns></returns>
+        //public static bool LockNodes(List<RouteNode> nodes, int agvID)
+        //{
+
+        //}
+
+        //public static bool UnlockNodes(List<RouteNode> nodes, int agvID)
+        //{
+
+        //}
+
+
+
+    }
+}

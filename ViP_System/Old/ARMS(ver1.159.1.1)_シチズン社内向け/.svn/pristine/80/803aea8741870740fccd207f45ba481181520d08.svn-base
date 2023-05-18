@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="NJDB">
+  <DataContextMoniker Name="/NJDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="62ee7779-83a6-4792-8567-154b1eeceb9d" absoluteBounds="4.75, 1.75, 2, 3.7110416666666666">
+      <DataClassMoniker Name="/NJDBDataContext/JtmMIXRATEMAT" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f4dca5af-3078-4e84-82d4-d8b246be474d" absoluteBounds="4.765, 2.21, 1.9700000000000002, 3.1510416666666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ecc04ddd-b513-4455-a0d5-b861e425d4bd" absoluteBounds="0.5, 1.75, 2, 1.888125">
+      <DataClassMoniker Name="/NJDBDataContext/JttMIXRESULTLOT" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4ddd4774-3f50-4462-be4f-ba7b7b1165be" absoluteBounds="0.51499999999999968, 2.21, 1.9700000000000002, 1.328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="91033409-c492-466e-9d0e-512453c43a2b" absoluteBounds="2.625, 1.75, 2, 4.075625">
+      <DataClassMoniker Name="/NJDBDataContext/JttMIXRESULT" />
+      <nestedChildShapes>
+        <elementListCompartment Id="78e61090-9a5b-42fa-a8f9-3c5fecfb876e" absoluteBounds="2.6399999999999997, 2.21, 1.9700000000000002, 3.515625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e5bbd7ee-9ef4-490a-809a-21c97458b8c4" absoluteBounds="6.875, 1.75, 2, 2.6172916666666666">
+      <DataClassMoniker Name="/NJDBDataContext/JtmMAT" />
+      <nestedChildShapes>
+        <elementListCompartment Id="caafaf7f-851f-40ac-9a9f-3a0b2c2e2d2b" absoluteBounds="6.89, 2.21, 1.9700000000000002, 2.0572916666666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d8fe157b-8c46-4e01-a34c-b424204187d4" absoluteBounds="6.875, 4.5, 2, 1.7058333333333331">
+      <DataClassMoniker Name="/NJDBDataContext/JtmMATCONV" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3d42078c-27bb-46a0-8311-d24f273d9c55" absoluteBounds="6.89, 4.96, 1.9700000000000002, 1.1458333333333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

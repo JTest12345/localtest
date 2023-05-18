@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ArmsVCM.Model
+{
+    public class TrafficController : ARMSThreadObject
+    {
+        protected override void concreteThreadWork()
+        {
+
+            //各AGVの状態確認
+
+            //メイン画面へのステータス反映
+
+
+            //各ステーションの要求確認
+
+
+            //ステーションで要求あり、かつ、停車中のAGVあり　かつ　行き先ステーションがそこになっているAGVが無い
+            //条件が一致した一番近いAGVへ移動指示
+            //その際マガジン数が多いステーションを優先
+
+
+            //全AGVから行き先ステーション取得
+            //  行き先ステーションにStop（Loadingではない）のAGVが居る場合
+            //  他の全AGVの現在地、行き先になっていないステーションを取得して停車中AGVへ移動指示
+
+
+            //充電状態が悪く現在地ステーションに充電器が無い場合
+            //  充電器へ移動
+
+        }
+
+
+
+    }
+}

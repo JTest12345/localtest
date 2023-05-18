@@ -1,0 +1,6 @@
+C:\Users\jnk-nkmr\source\repos\HDDChecker\HDDChecker\bin\Release\HDDChecker.exe.config
+C:\Users\jnk-nkmr\source\repos\HDDChecker\HDDChecker\bin\Release\HDDChecker.exe
+C:\Users\jnk-nkmr\source\repos\HDDChecker\HDDChecker\bin\Release\HDDChecker.pdb
+C:\Users\jnk-nkmr\source\repos\HDDChecker\HDDChecker\obj\Release\HDDChecker.csproj.CoreCompileInputs.cache
+C:\Users\jnk-nkmr\source\repos\HDDChecker\HDDChecker\obj\Release\HDDChecker.exe
+C:\Users\jnk-nkmr\source\repos\HDDChecker\HDDChecker\obj\Release\HDDChecker.pdb

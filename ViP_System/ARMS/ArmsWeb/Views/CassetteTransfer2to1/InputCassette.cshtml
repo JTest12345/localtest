@@ -1,0 +1,42 @@
+﻿@model ArmsWeb.Models.CassetteTransfer2to1Model
+@{
+    ViewBag.Title = "InputCassette";
+
+}
+
+@using (Html.BeginForm())
+{
+    <h5>ロット @Model.LotNo</h5>
+    <h5>作業NO @Model.selectedprocno</h5>
+    
+    <h3>転写前リング</h3>
+    <input type="text" id="txtdetachCassNo" name="txtdetachCassNo" value="@Model.precassetteno"/>
+
+    <h3>転写位置コード</h3>
+        <input type="text" id="txtattachPosition" name="txtattachPosition" value="@Model.attachposition" />
+
+    <h3>転写後リング</h3>
+    <input type="text" id="txtattachCassNo" name="txtattachCassNo" value="@Model.prenextcassetteno"/>
+    
+    <input type="submit" value="Go" />
+    <br />
+   
+    <h5>読み込み済みリング @Model.listCassetteCng.Count().ToString() </h5>
+    <select size="10" name="matindex">
+        @foreach (ArmsWeb.Models.CassetteTransfer2to1Model.CassetteCng casscng in Model.listCassetteCng)
+        {
+            int i = 0;
+            <option value="@i">@casscng.cassetteno -> @casscng.nextcassetteno@casscng.branchno</option>
+            i++;
+        }
+    </select>
+    <br />
+
+    <div>
+        @Html.ActionLink("登録", "Submit")
+        &nbsp
+        @Html.ActionLink("キャンセル", "Index", "Home")
+    </div>
+
+    <hr />
+}

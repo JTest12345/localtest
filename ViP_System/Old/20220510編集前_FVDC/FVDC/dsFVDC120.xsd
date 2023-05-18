@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsFVDC120" targetNamespace="http://tempuri.org/dsFVDC120.xsd" xmlns:mstns="http://tempuri.org/dsFVDC120.xsd" xmlns="http://tempuri.org/dsFVDC120.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsFVDC120" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsFVDC120" msprop:Generator_UserDSName="dsFVDC120">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="FVDC120" msprop:Generator_TableClassName="FVDC120DataTable" msprop:Generator_TableVarName="tableFVDC120" msprop:Generator_RowChangedName="FVDC120RowChanged" msprop:Generator_TablePropName="FVDC120" msprop:Generator_RowDeletingName="FVDC120RowDeleting" msprop:Generator_RowChangingName="FVDC120RowChanging" msprop:Generator_RowEvHandlerName="FVDC120RowChangeEventHandler" msprop:Generator_RowDeletedName="FVDC120RowDeleted" msprop:Generator_RowClassName="FVDC120Row" msprop:Generator_UserTableName="FVDC120" msprop:Generator_RowEvArgName="FVDC120RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Lot_NO" msprop:Generator_ColumnVarNameInTable="columnLot_NO" msprop:Generator_ColumnPropNameInRow="Lot_NO" msprop:Generator_ColumnPropNameInTable="Lot_NOColumn" msprop:Generator_UserColumnName="Lot_NO" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

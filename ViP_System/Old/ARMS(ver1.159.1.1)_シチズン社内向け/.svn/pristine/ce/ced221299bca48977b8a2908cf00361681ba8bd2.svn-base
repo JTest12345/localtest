@@ -1,0 +1,26 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.BlendLabelCompareModel
+@{
+    ViewBag.Title = "Finish";
+}
+
+<h3>親ロットラベルと構成ロット（子ロット）ラベルの照合完了</h3>
+<h3>親ロット：@Model.BlendLotNo</h3>
+<h3>構成ロット（子ロット）：@Model.AsmLotList.Count().ToString() </h3>
+<ul>
+    @foreach (string asmlotno in Model.AsmLotList)
+    {
+        <li>@asmlotno</li>
+    }
+</ul>
+    @if (Model.IsOK)
+    {
+<H3 style="color:blue">@Model.Msg</H3>
+    }
+    else
+    {
+<H3 style="color:red">@Model.Msg</H3>
+    }
+
+
+

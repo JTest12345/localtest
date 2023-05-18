@@ -1,0 +1,15 @@
+﻿@model ArmsWeb.Models.FrameEditModel
+@{
+    ViewBag.Title = "InsertNew";
+}
+
+@using(Html.BeginForm("InsertConfirm", "Frame"))
+{
+    <h3>フレーム割り付け</h3>
+    <h3>原材料コード読み込み</h3>
+    <h5>装置：@Model.PlantCd</h5>
+    <h3>ストッカー:@Model.StockerNo.ToString()</h3>
+
+    <input type="text" id="barcode" name="barcode"/>
+    <input type="submit" value="Go" />
+}

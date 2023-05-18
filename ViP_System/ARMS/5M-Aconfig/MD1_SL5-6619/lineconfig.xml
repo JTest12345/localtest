@@ -1,0 +1,2374 @@
+﻿<settings>
+
+<!-- モールド1号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112501</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 249</machineName>
+    <priority></priority>
+    <plcAddress>172.24.17.177</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド2号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112502</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 243</machineName>
+    <priority></priority>
+    <plcAddress>172.24.18.92</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド3号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112503</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 244</machineName>
+    <priority></priority>
+    <plcAddress>172.24.18.54</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド4号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112504</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 242</machineName>
+    <priority></priority>
+    <plcAddress>172.24.17.189</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド5号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112505</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 107</machineName>
+    <priority></priority>
+    <plcAddress>172.24.18.97</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド6号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112506</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 211</machineName>
+    <priority></priority>
+    <plcAddress>172.24.17.186</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド7号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112507</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 246</machineName>
+    <priority></priority>
+    <plcAddress>172.24.17.192</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド8号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112508</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 262</machineName>
+    <priority></priority>
+    <plcAddress>172.24.18.115</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド9号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112509</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 210</machineName>
+    <priority></priority>
+    <plcAddress>172.24.18.106</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド10号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112510</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 209</machineName>
+    <priority></priority>
+    <plcAddress>172.24.18.103</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド11号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112511</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 261</machineName>
+    <priority></priority>
+    <plcAddress>172.24.18.112</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド12号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112512</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 208</machineName>
+    <priority></priority>
+    <plcAddress>172.24.18.100</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+
+<!-- 遠心沈降1号機 ##ライン外## -->
+　<machine>
+    <flow>ManualECK</flow>
+    <machineName>遠心沈降11号機</machineName>
+    <machineNo>113501</machineNo>
+    <plcAddress>172.24.17.219</plcAddress>
+    <plcPort>8501</plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress>B0000</machineReadyBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <programNoAddress>W0010</programNoAddress>
+    <startReqBitAddress>B0000</startReqBitAddress>
+    <unloaderReqBitAddress>B0001</unloaderReqBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+    <chambers>
+      <chamber no="1">
+        <startOKBitAddress>B0010</startOKBitAddress>
+        <startNGBitAddress>B0011</startNGBitAddress>
+        <completeOKBitAddress>B0020</completeOKBitAddress>
+        <completeNGBitAddress>B0021</completeNGBitAddress>
+        <magazineAddress>W0020</magazineAddress>
+        <reqBitAddress>B000A</reqBitAddress>
+        <mediumSizeLotBitAddress>B0030</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0031</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="2">
+        <startOKBitAddress>B0012</startOKBitAddress>
+        <startNGBitAddress>B0013</startNGBitAddress>
+        <completeOKBitAddress>B0022</completeOKBitAddress>
+        <completeNGBitAddress>B0023</completeNGBitAddress>
+        <magazineAddress>W0030</magazineAddress>
+        <reqBitAddress>B000B</reqBitAddress>
+        <mediumSizeLotBitAddress>B0032</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0033</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="3">
+        <startOKBitAddress>B0014</startOKBitAddress>
+        <startNGBitAddress>B0015</startNGBitAddress>
+        <completeOKBitAddress>B0024</completeOKBitAddress>
+        <completeNGBitAddress>B0025</completeNGBitAddress>
+        <magazineAddress>W0040</magazineAddress>
+        <reqBitAddress>B000C</reqBitAddress>
+        <mediumSizeLotBitAddress>B0034</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0035</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="4">
+        <startOKBitAddress>B0016</startOKBitAddress>
+        <startNGBitAddress>B0017</startNGBitAddress>
+        <completeOKBitAddress>B0026</completeOKBitAddress>
+        <completeNGBitAddress>B0027</completeNGBitAddress>
+        <magazineAddress>W0050</magazineAddress>
+        <reqBitAddress>B000D</reqBitAddress>
+        <mediumSizeLotBitAddress>B0036</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0037</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="5">
+        <startOKBitAddress>B0018</startOKBitAddress>
+        <startNGBitAddress>B0019</startNGBitAddress>
+        <completeOKBitAddress>B0028</completeOKBitAddress>
+        <completeNGBitAddress>B0029</completeNGBitAddress>
+        <magazineAddress>W0060</magazineAddress>
+        <reqBitAddress>B000E</reqBitAddress>
+        <mediumSizeLotBitAddress>B0038</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0039</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="6">
+        <startOKBitAddress>B001A</startOKBitAddress>
+        <startNGBitAddress>B001B</startNGBitAddress>
+        <completeOKBitAddress>B002A</completeOKBitAddress>
+        <completeNGBitAddress>B002B</completeNGBitAddress>
+        <magazineAddress>W0070</magazineAddress>
+        <reqBitAddress>B000F</reqBitAddress>
+        <mediumSizeLotBitAddress>B003A</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B003B</largeSizeLotBitAddress>
+      </chamber>
+    </chambers>
+  </machine>
+
+<!-- 遠心沈降2号機 ##ライン外## -->
+　<machine>
+    <flow>ManualECK</flow>
+    <machineName>遠心沈降2号機</machineName>
+    <machineNo>113502</machineNo>
+    <plcAddress>172.24.18.95</plcAddress>
+    <plcPort>8501</plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress>B0000</machineReadyBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <programNoAddress>W0010</programNoAddress>
+    <startReqBitAddress>B0000</startReqBitAddress>
+    <unloaderReqBitAddress>B0001</unloaderReqBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+    <chambers>
+      <chamber no="1">
+        <startOKBitAddress>B0010</startOKBitAddress>
+        <startNGBitAddress>B0011</startNGBitAddress>
+        <completeOKBitAddress>B0020</completeOKBitAddress>
+        <completeNGBitAddress>B0021</completeNGBitAddress>
+        <magazineAddress>W0020</magazineAddress>
+        <reqBitAddress>B000A</reqBitAddress>
+        <mediumSizeLotBitAddress>B0030</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0031</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="2">
+        <startOKBitAddress>B0012</startOKBitAddress>
+        <startNGBitAddress>B0013</startNGBitAddress>
+        <completeOKBitAddress>B0022</completeOKBitAddress>
+        <completeNGBitAddress>B0023</completeNGBitAddress>
+        <magazineAddress>W0030</magazineAddress>
+        <reqBitAddress>B000B</reqBitAddress>
+        <mediumSizeLotBitAddress>B0032</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0033</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="3">
+        <startOKBitAddress>B0014</startOKBitAddress>
+        <startNGBitAddress>B0015</startNGBitAddress>
+        <completeOKBitAddress>B0024</completeOKBitAddress>
+        <completeNGBitAddress>B0025</completeNGBitAddress>
+        <magazineAddress>W0040</magazineAddress>
+        <reqBitAddress>B000C</reqBitAddress>
+        <mediumSizeLotBitAddress>B0034</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0035</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="4">
+        <startOKBitAddress>B0016</startOKBitAddress>
+        <startNGBitAddress>B0017</startNGBitAddress>
+        <completeOKBitAddress>B0026</completeOKBitAddress>
+        <completeNGBitAddress>B0027</completeNGBitAddress>
+        <magazineAddress>W0050</magazineAddress>
+        <reqBitAddress>B000D</reqBitAddress>
+        <mediumSizeLotBitAddress>B0036</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0037</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="5">
+        <startOKBitAddress>B0018</startOKBitAddress>
+        <startNGBitAddress>B0019</startNGBitAddress>
+        <completeOKBitAddress>B0028</completeOKBitAddress>
+        <completeNGBitAddress>B0029</completeNGBitAddress>
+        <magazineAddress>W0060</magazineAddress>
+        <reqBitAddress>B000E</reqBitAddress>
+        <mediumSizeLotBitAddress>B0038</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0039</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="6">
+        <startOKBitAddress>B001A</startOKBitAddress>
+        <startNGBitAddress>B001B</startNGBitAddress>
+        <completeOKBitAddress>B002A</completeOKBitAddress>
+        <completeNGBitAddress>B002B</completeNGBitAddress>
+        <magazineAddress>W0070</magazineAddress>
+        <reqBitAddress>B000F</reqBitAddress>
+        <mediumSizeLotBitAddress>B003A</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B003B</largeSizeLotBitAddress>
+      </chamber>
+    </chambers>
+  </machine>
+
+<!-- 遠心沈降3号機 ##ライン外## -->
+　<machine>
+    <flow>ManualECK</flow>
+    <machineName>遠心沈降43号機</machineName>
+    <machineNo>113503</machineNo>
+    <plcAddress>172.24.18.118</plcAddress>
+    <plcPort>8501</plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress>B0000</machineReadyBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <programNoAddress>W0010</programNoAddress>
+    <startReqBitAddress>B0000</startReqBitAddress>
+    <unloaderReqBitAddress>B0001</unloaderReqBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+    <chambers>
+      <chamber no="1">
+        <startOKBitAddress>B0010</startOKBitAddress>
+        <startNGBitAddress>B0011</startNGBitAddress>
+        <completeOKBitAddress>B0020</completeOKBitAddress>
+        <completeNGBitAddress>B0021</completeNGBitAddress>
+        <magazineAddress>W0020</magazineAddress>
+        <reqBitAddress>B000A</reqBitAddress>
+        <mediumSizeLotBitAddress>B0030</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0031</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="2">
+        <startOKBitAddress>B0012</startOKBitAddress>
+        <startNGBitAddress>B0013</startNGBitAddress>
+        <completeOKBitAddress>B0022</completeOKBitAddress>
+        <completeNGBitAddress>B0023</completeNGBitAddress>
+        <magazineAddress>W0030</magazineAddress>
+        <reqBitAddress>B000B</reqBitAddress>
+        <mediumSizeLotBitAddress>B0032</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0033</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="3">
+        <startOKBitAddress>B0014</startOKBitAddress>
+        <startNGBitAddress>B0015</startNGBitAddress>
+        <completeOKBitAddress>B0024</completeOKBitAddress>
+        <completeNGBitAddress>B0025</completeNGBitAddress>
+        <magazineAddress>W0040</magazineAddress>
+        <reqBitAddress>B000C</reqBitAddress>
+        <mediumSizeLotBitAddress>B0034</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0035</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="4">
+        <startOKBitAddress>B0016</startOKBitAddress>
+        <startNGBitAddress>B0017</startNGBitAddress>
+        <completeOKBitAddress>B0026</completeOKBitAddress>
+        <completeNGBitAddress>B0027</completeNGBitAddress>
+        <magazineAddress>W0050</magazineAddress>
+        <reqBitAddress>B000D</reqBitAddress>
+        <mediumSizeLotBitAddress>B0036</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0037</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="5">
+        <startOKBitAddress>B0018</startOKBitAddress>
+        <startNGBitAddress>B0019</startNGBitAddress>
+        <completeOKBitAddress>B0028</completeOKBitAddress>
+        <completeNGBitAddress>B0029</completeNGBitAddress>
+        <magazineAddress>W0060</magazineAddress>
+        <reqBitAddress>B000E</reqBitAddress>
+        <mediumSizeLotBitAddress>B0038</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B0039</largeSizeLotBitAddress>
+      </chamber>
+      <chamber no="6">
+        <startOKBitAddress>B001A</startOKBitAddress>
+        <startNGBitAddress>B001B</startNGBitAddress>
+        <completeOKBitAddress>B002A</completeOKBitAddress>
+        <completeNGBitAddress>B002B</completeNGBitAddress>
+        <magazineAddress>W0070</magazineAddress>
+        <reqBitAddress>B000F</reqBitAddress>
+        <mediumSizeLotBitAddress>B003A</mediumSizeLotBitAddress>
+        <largeSizeLotBitAddress>B003B</largeSizeLotBitAddress>
+      </chamber>
+    </chambers>
+  </machine>
+
+<!-- モールドオーブン013号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　370</machineName>
+    <machineNo>114513</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン014号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　371</machineName>
+    <machineNo>114514</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン015号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　489</machineName>
+    <machineNo>114515</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン016号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　539</machineName>
+    <machineNo>114516</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン017号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　642</machineName>
+    <machineNo>114517</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン018号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　643</machineName>
+    <machineNo>114518</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン019号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　644</machineName>
+    <machineNo>114519</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン020号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　645</machineName>
+    <machineNo>114520</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン021号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　658</machineName>
+    <machineNo>114521</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン022号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　659</machineName>
+    <machineNo>114522</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン023号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　680</machineName>
+    <machineNo>114523</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン024号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　681</machineName>
+    <machineNo>114524</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン025号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　683</machineName>
+    <machineNo>114525</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン026号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　888</machineName>
+    <machineNo>114526</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン027号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　889</machineName>
+    <machineNo>114527</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン028号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　890</machineName>
+    <machineNo>114528</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン029号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　892</machineName>
+    <machineNo>114529</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン030号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　993</machineName>
+    <machineNo>114530</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン031号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　994</machineName>
+    <machineNo>114531</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン032号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1103</machineName>
+    <machineNo>114532</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン033号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1104</machineName>
+    <machineNo>114533</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン034号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1105</machineName>
+    <machineNo>114534</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン035号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1106</machineName>
+    <machineNo>114535</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン036号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1107</machineName>
+    <machineNo>114536</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン037号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　660</machineName>
+    <machineNo>114537</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン038号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　661</machineName>
+    <machineNo>114538</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン039号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　662</machineName>
+    <machineNo>114539</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン040号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　663</machineName>
+    <machineNo>114540</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン041号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　664</machineName>
+    <machineNo>114541</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン042号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　665</machineName>
+    <machineNo>114542</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン043号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　882</machineName>
+    <machineNo>114543</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン044号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　883</machineName>
+    <machineNo>114544</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン045号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　884</machineName>
+    <machineNo>114545</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン046号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　885</machineName>
+    <machineNo>114546</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン047号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　886</machineName>
+    <machineNo>114547</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン048号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　887</machineName>
+    <machineNo>114548</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン049号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1694</machineName>
+    <machineNo>114549</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン050号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1695</machineName>
+    <machineNo>114550</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン051号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1696</machineName>
+    <machineNo>114551</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン052号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1697</machineName>
+    <machineNo>114552</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン053号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1698</machineName>
+    <machineNo>114553</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン054号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1700</machineName>
+    <machineNo>114554</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン055号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1701</machineName>
+    <machineNo>114555</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン056号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1702</machineName>
+    <machineNo>114556</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン057号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1703</machineName>
+    <machineNo>114557</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン058号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1704</machineName>
+    <machineNo>114558</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン059号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1709</machineName>
+    <machineNo>114559</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン060号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1710</machineName>
+    <machineNo>114560</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン061号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1711</machineName>
+    <machineNo>114561</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン062号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1938</machineName>
+    <machineNo>114562</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン063号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1939</machineName>
+    <machineNo>114563</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン064号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1940</machineName>
+    <machineNo>114564</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン065号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1941</machineName>
+    <machineNo>114565</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン066号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1942</machineName>
+    <machineNo>114566</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン067号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1943</machineName>
+    <machineNo>114567</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン068号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1944</machineName>
+    <machineNo>114568</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン069号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1945</machineName>
+    <machineNo>114569</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- モールドオーブン070号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_MD　1946</machineName>
+    <machineNo>114570</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+<!-- ベーキングオーブン171号機 ##ライン外## -->
+  <machine>
+    <flow>ManualOven</flow>
+    <machineName>OVN_BK　171</machineName>
+    <machineNo>114571</machineNo>
+    <plcAddress></plcAddress>
+    <plcPort></plcPort>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <unloaderReqBitAddress></unloaderReqBitAddress>
+    <workCompleteTimeAddress></workCompleteTimeAddress>
+    <workStartTimeAddress></workStartTimeAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <prioritySettingAddress></prioritySettingAddress>
+    <loaderPoint></loaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <qcilFileDestDir></qcilFileDestDir>
+  </machine>
+
+</settings>

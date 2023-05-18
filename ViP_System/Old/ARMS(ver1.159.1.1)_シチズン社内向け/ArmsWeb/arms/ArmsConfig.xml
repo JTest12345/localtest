@@ -1,0 +1,86 @@
+﻿{
+  "SpiderInlineNo" : "1011",
+  "ErrorMailTo": [
+    "haruhisa.ishiguchi@nichia.co.jp"
+  ],
+  "ErroMailTitle": "ARMS3 Error Mail(MAP:SLA-0040-2)",
+  "ErrorMailFrom": "automail@sl13.nichia.co.jp",
+  "MelWorkCompltBasePath": null,
+  "MelWorkStartBasePath": null,
+  "LocalConnString": "server=sla-0040-2\\SQLExpress;Connect Timeout=30;Application Name=ARMS;UID=inline;PWD=R28uHta;database=ARMS2",
+  "WireMMFileSkipErrorCodeList": [
+    null
+  ],
+  "WireMMFileSkipErrorDefItem": {
+    "OrderNo": 0,
+    "CauseCd": "28072",
+    "CauseName": null,
+    "ClassCd": "1001",
+    "ClassName": null,
+    "DefectCd": "F1549",
+    "DefectName": null,
+    "DefectCt": 0
+  },
+  "LineType": "1",
+  "AsmLot1": "E",
+  "AsmLot6789": "CM{0}",
+  "CutBinCd": "28076",
+  "InlineNo": null,
+  "CutPreLabelDir": null,
+  "CutLabelDir": "\\\\hqfs3\\Share\\SAC\\LabelData\\LT_Receive\\SLC\\NARUTO_4\\",
+  "CutBlend12": "YN",
+  "CutBlend789A": "C{0}M",
+  "CutBlendOut789": "C00",
+  "AsmMatCdSurfix": "C",
+  "MaterialCodeSurfix": "%A",
+  "MaterialsImportBinJaLike": "A-%",
+  "MELFrameLoaders": [
+   "S02886"
+  ],
+  "NASCAConSTR": "Data Source=HQDB1.nichia.local\\INST1;Initial Catalog=NADB01;Persist Security Info=True;User ID=sla06;Password=DawQECT;Application Name=ArmsApi;Connection Timeout=10;",
+  "UseDBProfile": true,
+  "MagExchangerReverseWorkCd": "MGREV",
+  "PSTesterConSTR": "Data Source=HQDB8\\INST8;Initial Catalog=PSTESTER_SLC;Persist Security Info=True;User ID=slc_user;Password=slc_user;Application Name=ArmsApi;Connection Timeout=3;",
+  "QCILConSTR": "Data Source=localhost\\SQLEXPRESS;Initial Catalog=QCIL;Persist Security Info=True;User ID=inline;Password=R28uHta;Application Name=ArmsApi;Connection Timeout=3;",
+  "ResinDBConSTR": "Data Source=HQDB8\\INST8;Initial Catalog=NJDB02;Persist Security Info=True;User ID=sla06;Password=DawQECT;Application Name=ArmsNascaBridge",
+  "PSTesterLinkInfo": {
+    "Key": 9,
+    "Value": "\\\\ts3-fs1\\LED\\INLINE\\PSTester\\SLC2-2\\"
+  },
+  "BDTesterLinkInfo": {
+    "Key": 9,
+    "Value": "\\\\ts3-fs1\\LED\\INLINE\\BDTester\\SLC1\\"
+  },
+  "QCILXmlFilePath": [
+            "C:\\QCIL\\SettingFiles\\QCIL.xml"
+  ],
+  "CutBlendMagazineCt": 12,
+  "WaferFilePath": [
+    "\\\\ts3-fs1.nichia.local\\LED\\INLINE\\wafer\\MAP高効率#1"
+  ],
+  "SectionCd": "280",
+  "DBInspectionProcNo": 1,
+  "WBInspectionProcNo": 10,
+  "ResinBinCd": "28074",
+  "NASCACommandReceiveDir": "\\\\ts3-fs1\\LED\\INLINE\\FROM_NARUTO11\\",
+  "NASCACommandSendDir": "\\\\ts3-fs1\\LED\\INLINE\\TO_ROOTS\\",
+  "NASCACommandDoneDir": "\\\\ts3-fs1\\LED\\INLINE\\FROM_NARUTO11\\BAK\\",
+  "NASCACommandReceiveDir2nd": "\\\\ts3-fs1\\LED\\INLINE\\FROM_NARUTO11P\\",
+  "NASCACommandSendDir2nd": "\\\\ts3-fs1\\LED\\INLINE\\TO_ROOTSP\\",
+  "NASCACommandDoneDir2nd": "\\\\ts3-fs1\\LED\\INLINE\\FROM_NARUTO11P\\BAK\\",
+  "NASCATimeoutMilliSecond": 180000,
+  "NascaPRFDItemLineNo": "1",
+  "NascaPRFDItemValLike": [
+    "8,%01",
+    "8,%02",
+    "8,%05",
+    "8,%06",
+    "8,%11",
+    "8,%12",
+    "8,%13",
+    "8,%14"
+  ],
+  "MonitorTimerMilliSecond": 300000,
+  "NASCAWebService": "http://naweb.nichia.local/NPPPUBLIC/NppPublicWebService.asmx",
+  "FrmDefInputMacNoList": null
+}

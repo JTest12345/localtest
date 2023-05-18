@@ -1,0 +1,34 @@
+﻿@model ArmsWeb.Models.GrinderRingModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>研削用リング/IPSトレイ：@Model.GrinderRingNo</h3>
+<br />
+
+@using (Html.BeginForm())
+{
+    <input type="text" id="txtRingNo" name="txtRingNo" />
+    <input type="submit" value="Go" />
+
+    <h5>読み込み済みリング @Model.RingNoList.Count().ToString() </h5>
+    <ul>
+        @foreach (string dm in Model.RingNoList)
+        {
+            <li>@dm</li>
+        }
+    </ul>
+    <br />
+    
+    <div>
+        @Html.ActionLink("登録", "Confirm")
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+        &nbsp
+        @Html.ActionLink("取り外し画面へ", "Remove")
+    </div>
+    
+    <br />
+}
+

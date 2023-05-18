@@ -1,0 +1,17 @@
+﻿@model ArmsWeb.Models.CasseteRelationModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>ロット-リング関連付け</h3>
+
+@using (Html.BeginForm())
+{
+    <h3>マガジン読み込み</h3>
+    <input type="text" id="txtMagNo" name="txtMagNo" />
+    <input type="submit" value="Go" />
+        
+    <br />
+
+    <hr />
+}

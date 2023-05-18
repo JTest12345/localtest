@@ -1,0 +1,30 @@
+﻿@model ArmsWeb.Models.WaferEditModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>カセット情報</h3>
+<h3>装置：@Model.Mac.LongName</h3>
+
+@using (Html.BeginForm("Remove", "Wafer"))
+{
+    if (Model.WaferList.Count() >= 1)
+    {
+        <select size="5" id="matindex" name="selectedWaferList" multiple>
+            @foreach (KeyValuePair<int, ArmsApi.Model.Material> kv in Model.WaferList)
+            {
+                <option value="@kv.Key" >@kv.Value.LongName</option>
+            }
+        </select>
+    <br />
+        <button type="submit">全取り外し</button>
+        <input type="submit" name="btnSubmit" value="装置振替">
+    <br />
+    }
+    else
+    {
+        <h5>現在投入中のカセットはありません</h5>
+    }
+       
+    <button onclick="location.href='@Url.Action("InsertNew")';return false;">新規割付</button>
+}

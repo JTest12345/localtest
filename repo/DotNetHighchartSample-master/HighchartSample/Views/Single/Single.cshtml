@@ -1,0 +1,62 @@
+﻿@model IEnumerable<HighchartSample.Model.MachineName>
+
+@{
+    ViewBag.Title = "Single";
+}
+
+
+
+<div align="left" style="border: 3px double; width: 150px;">
+    <a href="@Url.Action("index", "Home")">ホーム画面へ戻る</a>
+</div>
+
+<h2>設備1台絞込み</h2>
+
+<form method="POST" action="SelectMachine">
+    <left>
+        <label for="macno">machine:</label>
+        <select class="macno_list" id="macno" name="macno">
+            <option value="">設備を選択</option>
+        </select>
+
+        <label for="param">parameter:</label>
+        <select class="param_list" id="param" name="param">
+            <option value="Post-Y">Post-Y(default)</option>
+        </select>
+        <button type="button" onclick="submit();">対象号機を表示</button>
+
+    </left>
+
+</form>
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Raw(ViewData["lineChart"])
+    </div>
+</div>
+
+<script>
+    addMachine('param', 'Post-X', 'Post-X')
+    //addMachine('param', 'Post-Y', 'Post-Y')
+    addMachine('param', 'Pre-X', 'Pre-X')
+    addMachine('param', 'Pre-Y', 'Pre-Y')
+
+    @foreach (var item in Model)
+        {
+            @:addMachine('macno', '@Html.DisplayFor(modelItem => item.macname)', @Html.DisplayFor(modelItem => item.macno));
+
+        }
+
+    function addMachine(id, text, value) {
+        // selectタグを取得する
+        var select = document.getElementById(id);
+        // optionタグを作成する
+        var option = document.createElement("option");
+        // optionタグのテキストを4に設定する
+        option.text = text;
+        // optionタグのvalueを4に設定する
+        option.value = value;
+        // selectタグの子要素にoptionタグを追加する
+        select.appendChild(option);
+    }
+</script>

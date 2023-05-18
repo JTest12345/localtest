@@ -1,0 +1,21 @@
+﻿@model ArmsWeb.Models.WorkCndEditModel
+@{
+    ViewBag.Title = "Remove";
+}
+
+<h3>製造条件取り外し確認</h3>
+<h3>装置：@Model.Mac.LongName</h3>
+
+<p>
+    以下の製造条件の割付けを解除します
+</p>
+
+<p>
+    @Model.EditTarget.WebString
+</p>
+
+<div>
+    @Html.ActionLink("OK", "RemoveConfirmed")
+    &nbsp
+    @Html.ActionLink("キャンセル", "Index")
+</div>

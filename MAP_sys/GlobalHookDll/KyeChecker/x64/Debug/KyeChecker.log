@@ -1,0 +1,3 @@
+﻿  KyeChecker.cpp
+D:\MAP_sys\GlobalHookDll\KyeChecker\KyeChecker.cpp(183,55): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+LINK : fatal error LNK1104: ファイル 'GlobalHookDll.lib' を開くことができません。

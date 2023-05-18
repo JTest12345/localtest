@@ -1,0 +1,481 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+ArmsLPRT
+</name>
+</assembly>
+<members>
+<member name="M:ArmsLPRT.frmMATLPRT.frmMainMenu_Load(System.Object,System.EventArgs)">
+	<summary>
+ 画面表示
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:ArmsLPRT.frmMATLPRT.cmbLblKB_SelectedIndexChanged(System.Object,System.EventArgs)">
+	<summary>
+	</summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:ArmsLPRT.frmMATLPRT.txtLotNo_Validating(System.Object,System.ComponentModel.CancelEventArgs)">
+	<summary>
+ ロット番号入力時 
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:ArmsLPRT.frmMATLPRT.btnPrint_Click(System.Object,System.EventArgs)">
+	<summary>
+ 印刷ボタン押下
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:ArmsLPRT.frmMATLPRT.btnClose_Click(System.Object,System.EventArgs)">
+	<summary>
+ 終了
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:ArmsLPRT.frmMATLPRT.subInitScreen">
+	<summary>
+ 画面初期化
+ </summary>
+	<remarks></remarks>
+</member><member name="M:ArmsLPRT.frmMATLPRT.SetMaterialCD">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="M:ArmsLPRT.clsDBIO.fncSelectTmMatLabel(System.String,System.String,System.String@,System.String@)">
+	<summary>
+	</summary>
+	<param name="psLabelKb"></param>
+	<param name="psLabelNo"></param>
+	<param name="psMaterialCd"></param>
+	<param name="psMaterialNm"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:ArmsLPRT.clsDBIO.fncGetLBLKB(System.Data.DataTable@,System.String@)">
+	<summary>
+	</summary>
+	<param name="pdTBL"></param>
+	<param name="psErrMsg"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:ArmsLPRT.frmPTouch.fncMatLPRT(System.String,System.String,System.String,System.String)">
+	<summary>
+ 材料ラベル印刷
+ </summary>
+	<param name="pslabelkb"></param>
+	<param name="pslabelno"></param>
+	<param name="pslotno"></param>
+	<param name="psmaterialnm"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:ArmsLPRT.clsMessage.funMsgErr(System.String,System.Int32,System.String)">
+	<summary>
+ ｴﾗｰﾒｯｾｰｼﾞを出力する。
+ </summary>
+	<param name="strProcName">strProcName: メソッド名。</param>
+	<param name="varErrNo">varErrNo: エラー番号。</param>
+	<param name="strErrMsg">strErrMsg: エラーメッセージ。</param>
+	<remarks></remarks>
+	<historys>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsMessage.funMsgErr(System.Exception)">
+	<summary>
+ エラーメッセージを出力します。
+ </summary>
+	<param name="ex">Exception: 例外オブジェクト。</param>
+	<remarks>エラー番号は表示対象外とします。</remarks>
+	<historys>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsMessage.fMsgInf(System.String)">
+	<summary>
+ 確認ﾒｯｾｰｼﾞを出力する。
+ </summary>
+	<param name="strMsg"></param>
+	<returns></returns>
+	<remarks></remarks>
+	<historys>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsMessage.fMsgStp(System.String)">
+	<summary>
+ 確認ﾒｯｾｰｼﾞを出力する。
+ </summary>
+	<param name="strMsg"></param>
+	<returns></returns>
+	<remarks></remarks>
+	<historys>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsMessage.fMsgExc(System.String)">
+	<summary>
+ 確認ﾒｯｾｰｼﾞを出力する。
+ </summary>
+	<param name="strMsg"></param>
+	<returns></returns>
+	<remarks></remarks>
+	<historys>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="T:ArmsLPRT.clsMessage">
+	<summary>
+ メッセージ管理クラスです。
+ </summary>
+	<remarks></remarks>
+	<historys>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsDB.#ctor(System.String,System.Int32)">
+	<summary>
+ データベースに接続します。
+ </summary>
+	<param name="connect">接続するデータベースのコネクション文字列を指定します。</param>
+	<remarks></remarks>
+	<history>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsDB.Close">
+	<summary>
+ データベースをクローズします。
+ </summary>
+	<remarks></remarks>
+	<history>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsDB.BeginTransaction">
+	<summary>
+ トランザクションを開始します。
+ </summary>
+	<remarks></remarks>
+	<history>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsDB.CommitTransaction">
+	<summary>
+ トランザクションをコミットします。
+ </summary>
+	<remarks></remarks>
+	<history>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsDB.RollbackTransaction">
+	<summary>
+ トランザクションをロールバックします。
+ </summary>
+	<remarks></remarks>
+	<history>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsDB.CreateCommand(System.String,System.Data.CommandType,System.Int32)">
+	<summary>
+ コマンドを作成します。
+ </summary>
+	<param name="commandText">実行するコマンドのテキストを指定します。</param>
+	<param name="commandType">実行するコマンドのタイプを指定します。（既定値：Data.CommandType.Text）</param>
+	<param name="commandTimeOut">実行するコマンドのタイムアウトする時間を指定します。（既定値：clsGrobal.COMMAND_TIME_OUT）</param>
+	<remarks></remarks>
+	<history>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsDB.AddParameter(System.Data.SqlClient.SqlParameter)">
+	<summary>
+ パラメーターを追加します。
+ </summary>
+	<param name="param">SQLパラメーターを指定します。</param>
+	<remarks></remarks>
+	<history>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsDB.ClearParameter">
+	<summary>
+ パラメーターをクリアします。
+ </summary>
+	<remarks></remarks>
+	<history>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsDB.ExecuteNonQuery">
+	<summary>
+ 結果を返さないSQL(Insert/Update/Delete)を実行する
+ </summary>
+	<returns>処理後、影響を受けたレコード数</returns>
+	<remarks>トランザクションはCommitTransaction関数とRollbackTransactionで制御すること</remarks>
+	<history>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsDB.ExecuteReader">
+	<summary>
+ コマンドに指定された処理を行います。
+ </summary>
+	<returns>DataTable: 実行にて得られた DataTable を返却します。</returns>
+	<remarks>当メソッドは ExecuteProcedure のエイリアスです。</remarks>
+	<history>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsDB.ExecuteProcedure">
+	<summary>
+ ストアドプロシージャを実行します。
+ </summary>
+	<returns>DataTable: 実行にて得られた DataTable を返却します。</returns>
+	<remarks></remarks>
+	<history>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsDB.fDLookup(System.String,System.String,System.String)">
+	<summary>
+ 単項目の問い合わせを行ないます。
+ </summary>
+	<param name="strColName">strColName: 項目名です。</param>
+	<param name="strTblName">strTblName: テーブル名です。</param>
+	<param name="strWhereSql">strWhereSql: 条件を指定します。(Optional)</param>
+	<returns>string: 取得した値</returns>
+	<remarks></remarks>
+	<historys>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="T:ArmsLPRT.clsDB.AppSQLException">
+	<summary>
+ ◆SQL専用Exception
+ </summary>
+	<remarks>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </remarks>
+</member><member name="T:ArmsLPRT.clsDB">
+	<summary>
+ データベース管理クラスです。
+ </summary>
+	<remarks></remarks>
+	<history>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsAppConfig.#ctor">
+	<summary>
+ コンフィグファイル読み込みクラスです。
+ </summary>
+	<remarks></remarks>
+	<historys>
+ 2021/04/01 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="T:ArmsLPRT.clsAppConfig">
+	<summary>
+ コンフィグファイル読み込みクラスです。
+ </summary>
+	<remarks></remarks>
+	<historys>
+ 2021/04/01 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="P:ArmsLPRT.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:ArmsLPRT.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:ArmsLPRT.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="T:ArmsLPRT.clsGlobal">
+	<summary>
+ グローバル管理クラスです。
+ </summary>
+	<remarks></remarks>
+	<history>
+ 2017/03/08 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsCommon.fChrChange(System.String@,System.String@,System.String@)">
+	<summary>
+ 入力された文字列中の任意の文字を任意の文字に置き換える。
+ 先頭と末尾の空白を削除した文字列を返す。
+ </summary>
+	<param name="varData">varData: 置換対象文字列</param>
+	<param name="strFind">strFind: 置換対象文字</param>
+	<param name="strReplace">strReplace: 置換文字</param>
+	<returns>String: 置換後文字列</returns>
+	<remarks></remarks>
+	<history>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsCommon.fNz(System.Object,System.String)">
+	<summary>
+ Null値を指定の値に置き換える。
+ </summary>
+	<param name="varDat">varDat: 検査対象です。</param>
+	<param name="varRplace">varRplace: 代替文字です。(既定値:0)</param>
+	<returns>検査値がNullの場合、置換値を指定した場合はそれを、指定しない場合は０を返す</returns>
+	<remarks>検査値/置換値(入力データの末尾にNUllがある場合削除する)</remarks>
+	<historys>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsCommon.fTrimPoint(System.Object)">
+	<summary>
+ 小数点以下の０を取り除いて返却します。
+ </summary>
+	<param name="rowItem">DataTable の Row.Item を指定します。</param>
+	<returns>小数点以下の０を取り除いた値の文字列(String型)</returns>
+	<remarks>
+ Decimal型の場合、小数点以下の０を切捨てた文字列を返却します。
+ 上記以外の型の場合、文字列を返却します。
+ </remarks>
+	<historys>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsCommon.fPrevInstance">
+	<summary>
+ 同一プロセス名チェック
+ </summary>
+	<returns></returns>
+	<remarks>True：未起動、False:起動中</remarks>
+	<history>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member><member name="M:ArmsLPRT.clsCommon.fFormatDate(System.String)">
+	<summary>
+ yyyyMMdd を yyyy/MM/dd 形式に変換します。
+ </summary>
+	<param name="strDate">strDate :yyyyMMdd形式の文字列で表現した日付</param>
+	<returns>String: yyyy/MM/dd 形式の文字列</returns>
+	<remarks></remarks>
+	<historys>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsCommon.fFormatDate2(System.DateTime)">
+	<summary>
+ yyyy/MM/dd を yyyyMMdd 形式に変換します。
+ </summary>
+	<param name="dtDate">dtDate :対象となる日付</param>
+	<returns>String: yyyyMMdd 形式の文字列</returns>
+	<remarks></remarks>
+	<historys>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsCommon.fNowGet(System.String)">
+	<summary>
+ 処理日時を取得します。
+ </summary>
+	<param name="psStyle">strStyle :0:yyyyMMdd,1:HHmmss</param>
+	<returns>String: yyyyMMdd or HHmmss</returns>
+	<remarks></remarks>
+	<historys>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsCommon.fSQLStr(System.Object@)">
+	<summary>
+ ＳＱＬでスペース・長さ０の文字列の場合、Nullに変換する(文字用)
+ </summary>
+	<param name="varData">varData :対象となる項目</param>
+	<returns>String: </returns>
+	<remarks></remarks>
+	<historys>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsCommon.fSQLNum(System.Object@)">
+	<summary>
+ ＳＱＬでスペース・長さ０の文字列の場合、０に変換する(数値用)
+ </summary>
+	<param name="varData">varData :対象となる項目</param>
+	<returns>Integer: </returns>
+	<remarks></remarks>
+	<historys>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsCommon.fSQLDbl(System.Object@)">
+	<summary>
+ ＳＱＬでスペース・長さ０の文字列の場合、０に変換する(浮動小数点用)
+ </summary>
+	<param name="varData">varData :対象となる項目</param>
+	<returns>Double: </returns>
+	<remarks></remarks>
+	<historys>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsCommon.fNVL(System.Object@)">
+	<summary>
+ Null変換(文字用)
+ </summary>
+	<param name="varData">varData :対象となる項目</param>
+	<returns>String: </returns>
+	<remarks></remarks>
+	<historys>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsCommon.fIntNVL(System.Object@)">
+	<summary>
+ Null変換(数値用)
+ </summary>
+	<param name="varData">varData :対象となる項目</param>
+	<returns>Integer: </returns>
+	<remarks></remarks>
+	<historys>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="M:ArmsLPRT.clsCommon.fSubstringByte(System.String,System.Int32,System.Int32)">
+	<summary>
+ 文字列からバイト数を指定して部分文字列を取得する。
+ </summary>
+	<param name="value">対象文字列。</param>
+	<param name="startIndex">開始位置。（バイト数）</param>
+	<param name="length">長さ。（バイト数）</param>
+	<returns>部分文字列。</returns>
+	<remarks>文字列は <c>Shift_JIS</c> でエンコーディングして処理を行います。</remarks>
+	<historys>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </historys>
+</member><member name="T:ArmsLPRT.clsCommon">
+	<summary>
+ システム共通クラスです。
+ </summary>
+	<remarks></remarks>
+	<history>
+ 2016/12/13 FJH)Kayanuma 新規作成
+ yyyy/MM/dd XXX)XXXXXXXX ＸＸＸＸＸＸ
+ </history>
+</member>
+</members>
+</doc>

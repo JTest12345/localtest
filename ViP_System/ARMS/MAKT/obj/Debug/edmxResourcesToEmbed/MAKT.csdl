@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MAKTModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MAKTEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="TnMarkingLog" EntityType="MAKTModel.TnMarkingLog" />
+    <EntitySet Name="TmMarkingConv" EntityType="MAKTModel.TmMarkingConv" />
+    <EntitySet Name="TnMaterial" EntityType="MAKTModel.TnMaterial" />
+  </EntityContainer>
+  <EntityType Name="TnMarkingLog">
+    <Key>
+      <PropertyRef Name="lotno" />
+      <PropertyRef Name="row" />
+    </Key>
+    <Property Name="lotno" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+    <Property Name="row" Type="Int32" Nullable="false" />
+    <Property Name="stockerno" Type="Int32" Nullable="false" />
+    <Property Name="markdata" Type="Int64" Nullable="false" />
+    <Property Name="workdt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="manualfg" Type="Int32" Nullable="false" />
+    <Property Name="flamecollectfg" Type="Int32" Nullable="false" />
+    <Property Name="wafercollectfg" Type="Int32" Nullable="false" />
+    <Property Name="typecd" Type="String" Nullable="false" MaxLength="24" Unicode="true" FixedLength="false" />
+    <Property Name="materialcd" Type="String" Nullable="false" MaxLength="24" Unicode="true" FixedLength="false" />
+    <Property Name="matlotno" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+    <Property Name="lastupddt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="correctct" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TmMarkingConv">
+    <Key>
+      <PropertyRef Name="verno" />
+      <PropertyRef Name="decimalno" />
+    </Key>
+    <Property Type="Int32" Name="verno" Nullable="false" />
+    <Property Type="Int32" Name="decimalno" Nullable="false" />
+    <Property Type="String" Name="marktext" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="updusercd" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="lastupddt" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="TnMaterial">
+    <Key>
+      <PropertyRef Name="markdata" />
+      <PropertyRef Name="typecd" />
+      <PropertyRef Name="lotno" />
+      <PropertyRef Name="materialcd" />
+      <PropertyRef Name="matlotno" />
+      <PropertyRef Name="plantcd" />
+    </Key>
+    <Property Type="Int64" Name="markdata" Nullable="false" />
+    <Property Type="String" Name="typecd" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="lotno" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="materialcd" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="matlotno" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="plantcd" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="lastupddt" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="importantfg" Nullable="false" />
+  </EntityType>
+</Schema>

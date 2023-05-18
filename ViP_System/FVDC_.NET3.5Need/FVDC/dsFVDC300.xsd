@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsFVDC300" targetNamespace="http://tempuri.org/dsFVDC300.xsd" xmlns:mstns="http://tempuri.org/dsFVDC300.xsd" xmlns="http://tempuri.org/dsFVDC300.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsFVDC300" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsFVDC300" msprop:Generator_UserDSName="dsFVDC300">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Machine" msprop:Generator_TableClassName="MachineDataTable" msprop:Generator_TableVarName="tableMachine" msprop:Generator_TablePropName="Machine" msprop:Generator_RowDeletingName="MachineRowDeleting" msprop:Generator_RowChangingName="MachineRowChanging" msprop:Generator_RowEvHandlerName="MachineRowChangeEventHandler" msprop:Generator_RowDeletedName="MachineRowDeleted" msprop:Generator_UserTableName="Machine" msprop:Generator_RowChangedName="MachineRowChanged" msprop:Generator_RowEvArgName="MachineRowChangeEvent" msprop:Generator_RowClassName="MachineRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="plantcd" msdata:Caption="Lot_No" msprop:Generator_ColumnVarNameInTable="columnplantcd" msprop:Generator_ColumnPropNameInRow="plantcd" msprop:nullValue="" msprop:Generator_ColumnPropNameInTable="plantcdColumn" msprop:Generator_UserColumnName="plantcd" type="xs:string" minOccurs="0" />
+              <xs:element name="plantnm" msprop:Generator_ColumnVarNameInTable="columnplantnm" msprop:Generator_ColumnPropNameInRow="plantnm" msprop:Generator_ColumnPropNameInTable="plantnmColumn" msprop:Generator_UserColumnName="plantnm" type="xs:string" minOccurs="0" />
+              <xs:element name="clasnm_New" msdata:Caption="Type_New" msprop:Generator_ColumnVarNameInTable="columnclasnm_New" msprop:Generator_ColumnPropNameInRow="clasnm_New" msprop:nullValue="" msprop:Generator_ColumnPropNameInTable="clasnm_NewColumn" msprop:Generator_UserColumnName="clasnm_New" type="xs:string" minOccurs="0" />
+              <xs:element name="macno_New" msprop:Generator_ColumnVarNameInTable="columnmacno_New" msprop:Generator_ColumnPropNameInRow="macno_New" msprop:Generator_ColumnPropNameInTable="macno_NewColumn" msprop:Generator_UserColumnName="macno_New" type="xs:long" minOccurs="0" />
+              <xs:element name="clasnm_Old" msdata:Caption="Type_Old" msprop:Generator_ColumnVarNameInTable="columnclasnm_Old" msprop:Generator_ColumnPropNameInRow="clasnm_Old" msprop:nullValue="" msprop:Generator_ColumnPropNameInTable="clasnm_OldColumn" msprop:Generator_UserColumnName="clasnm_Old" type="xs:string" minOccurs="0" />
+              <xs:element name="macno_Old" msprop:Generator_ColumnVarNameInTable="columnmacno_Old" msprop:Generator_ColumnPropNameInRow="macno_Old" msprop:Generator_ColumnPropNameInTable="macno_OldColumn" msprop:Generator_UserColumnName="macno_Old" type="xs:long" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,45 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GEICS.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ConnectionString_NASCA" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Server=HQDB1.nichia.local\INST1;Connect Timeout=0;Database=NADB01;User ID={0};password={1};Application Name=インライン傾向管理システム</Value>
+    </Setting>
+    <Setting Name="ConnectionString_NASCA_KYO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Server=HQDB1.nichia.local\INST1;Connect Timeout=0;Database=SC03_NADB01;UID=sla02;PWD=2Gquf5d;Application Name=インライン傾向管理システム</Value>
+    </Setting>
+    <Setting Name="ConnectionString_NASCA_MIK" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Server=HQDB1.nichia.local\INST1;Connect Timeout=0;Database=SC06_NADB01;UID=sla02;PWD=2Gquf5d;Application Name=インライン傾向管理システム</Value>
+    </Setting>
+    <Setting Name="ConnectionString_QCIL_MAIN" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Server={0};Connect Timeout=0;Database={1};UID={2};PWD={3};Application Name=装置情報傾向管理システム[GEICS3]</Value>
+    </Setting>
+    <Setting Name="ConnectionString_QCIL_SUB" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Server={0}\SQLEXPRESS;Connect Timeout=0;Database=QCIL;UID={1};PWD={2};Application Name=装置情報傾向管理システム[GEICS3]</Value>
+    </Setting>
+    <Setting Name="ConnectionString_NASCA_NMC" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ConnectionString_BATCH_SV_HIGH" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Server=TECDB1.takatsuki.local\INST1;Connect Timeout=0;Database=QCIL01_HIGH_MIK;User ID={0};password={1};Application Name=インライン傾向管理システム</Value>
+    </Setting>
+    <Setting Name="ConnectionString_BATCH_SV_AUTO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Server=TECDB1.takatsuki.local\INST1;Connect Timeout=0;Database=QCIL01_HIGH_MIK;User ID={0};password={1};Application Name=インライン傾向管理システム</Value>
+    </Setting>
+    <Setting Name="ConnectionString_NASCA_AOI" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ConnectionString_NASCA_CE" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ConnectionString_BATCH_MAP_HIGH" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ConnectionString_BATCH_MAP_AUTO" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ConStrServ" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Server={0};Connect Timeout=0;Database={1};User ID={2};password={3};Application Name=・</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,180 @@
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\ringin.wav
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\TestData\UNIT_TEST.wbm
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\UnitTestProject.dll
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\UnitTestProject.pdb
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\LENS2.exe
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\LENS2_Api.dll
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\log4net.dll
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\PLC.dll
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\SLCommonLib.dll
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\LENS2.pdb
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\LENS2_Api.pdb
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\log4net.xml
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\PLC.pdb
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\SLCommonLib.xml
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\obj\Release\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\obj\Release\UnitTestProject.dll
+C:\Develop\改修\LENS2_安定動作版2.11.0(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\obj\Release\UnitTestProject.pdb
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\ringin.wav
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\TestData\UNIT_TEST.wbm
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\UnitTestProject.dll
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\UnitTestProject.pdb
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\LENS2.exe
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\LENS2_Api.dll
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\log4net.dll
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\PLC.dll
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\SLCommonLib.dll
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\LENS2.pdb
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\LENS2_Api.pdb
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\log4net.xml
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\PLC.pdb
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\bin\Release\SLCommonLib.xml
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\obj\Release\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\obj\Release\UnitTestProject.dll
+C:\Users\j42940\Desktop\運用G業務\過去業務\依頼書対応\業務依頼書\SGA-IM0000006029 マッピングファイル作成作業廃止 20160408\動作検証\LENS2_安定動作版2.11.1.1(MD後照合でのwbマップオフでのwbm非参照)\UnitTestProject\obj\Release\UnitTestProject.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\ringin.wav
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\TestData\UNIT_TEST.wbm
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\UnitTestProject.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\UnitTestProject.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\LENS2.exe
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\LENS2_Api.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\log4net.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\PLC.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\SLCommonLib.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\LENS2.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\LENS2_Api.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\log4net.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\PLC.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\bin\Release\SLCommonLib.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\obj\Release\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\obj\Release\UnitTestProject.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\UnitTestProject\obj\Release\UnitTestProject.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\ringin.wav
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\TestData\UNIT_TEST.wbm
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\UnitTestProject.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\UnitTestProject.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\LENS2.exe
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\LENS2_Api.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\log4net.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\PLC.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\SLCommonLib.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\LENS2.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\LENS2_Api.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\log4net.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\PLC.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\bin\Release\SLCommonLib.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\obj\Release\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\obj\Release\UnitTestProject.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_5)\UnitTestProject\obj\Release\UnitTestProject.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\ringin.wav
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\TestData\UNIT_TEST.wbm
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\UnitTestProject.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\UnitTestProject.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\LENS2.exe
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\LENS2_Api.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\log4net.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\PLC.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\SLCommonLib.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\LENS2.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\LENS2_Api.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\log4net.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\PLC.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\bin\Release\SLCommonLib.xml
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\obj\Release\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\obj\Release\UnitTestProject.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_6)\UnitTestProject\obj\Release\UnitTestProject.pdb
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\ringin.wav
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\TestData\UNIT_TEST.wbm
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\UnitTestProject.dll
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\UnitTestProject.pdb
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\LENS2.exe
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\LENS2_Api.dll
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\log4net.dll
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\PLC.dll
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\SLCommonLib.dll
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\LENS2.pdb
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\LENS2_Api.pdb
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\log4net.xml
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\PLC.pdb
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\SLCommonLib.xml
+C:\develop\LENS(2_11_7)\UnitTestProject\obj\Release\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\develop\LENS(2_11_7)\UnitTestProject\obj\Release\UnitTestProject.dll
+C:\develop\LENS(2_11_7)\UnitTestProject\obj\Release\UnitTestProject.pdb
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\develop\LENS(2_11_7)\UnitTestProject\bin\Release\ja\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\ringin.wav
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\TestData\UNIT_TEST.wbm
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\UnitTestProject.dll
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\UnitTestProject.pdb
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\LENS2.exe
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\LENS2_Api.dll
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\SLCommonLib.dll
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\log4net.dll
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\PLC.dll
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\LENS2.pdb
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\LENS2_Api.pdb
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\SLCommonLib.xml
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\log4net.xml
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\PLC.pdb
+C:\develop\LENS(2_11_7_1)\UnitTestProject\bin\Release\ja\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\develop\LENS(2_11_7_1)\UnitTestProject\obj\Release\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\develop\LENS(2_11_7_1)\UnitTestProject\obj\Release\UnitTestProject.dll
+C:\develop\LENS(2_11_7_1)\UnitTestProject\obj\Release\UnitTestProject.pdb
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\ringin.wav
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\TestData\UNIT_TEST.wbm
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\UnitTestProject.dll
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\UnitTestProject.pdb
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\LENS2.exe
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\LENS2_Api.dll
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\SLCommonLib.dll
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\log4net.dll
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\PLC.dll
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\LENS2.pdb
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\LENS2_Api.pdb
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\SLCommonLib.xml
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\log4net.xml
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\PLC.pdb
+C:\develop\LENS(2_11_8_0)\UnitTestProject\bin\Release\ja\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\develop\LENS(2_11_8_0)\UnitTestProject\obj\Release\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\develop\LENS(2_11_8_0)\UnitTestProject\obj\Release\UnitTestProject.dll
+C:\develop\LENS(2_11_8_0)\UnitTestProject\obj\Release\UnitTestProject.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\ringin.wav
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\TestData\UNIT_TEST.wbm
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\UnitTestProject.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\UnitTestProject.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\LENS2.exe
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\LENS2_Api.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\SLCommonLib.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\log4net.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\PLC.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\LENS2.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\LENS2_Api.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\SLCommonLib.xml
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\log4net.xml
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\PLC.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\bin\Release\ja\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\obj\Release\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\obj\Release\UnitTestProject.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_0)\UnitTestProject\obj\Release\UnitTestProject.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\ringin.wav
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\TestData\UNIT_TEST.wbm
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\UnitTestProject.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\UnitTestProject.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\LENS2.exe
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\LENS2_Api.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\SLCommonLib.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\log4net.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\PLC.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\LENS2.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\LENS2_Api.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\SLCommonLib.xml
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\log4net.xml
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\PLC.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\bin\Release\ja\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\obj\Release\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\obj\Release\UnitTestProject.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\UnitTestProject\obj\Release\UnitTestProject.pdb

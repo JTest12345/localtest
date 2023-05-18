@@ -1,0 +1,23 @@
+﻿@model ArmsWeb.Models.WaferEditModel
+@{
+    ViewBag.Title = "ChangeMachine";
+}
+@using (Html.BeginForm("ChangeMachineConfirm", "Wafer"))
+{
+    <h3>装置番号読み込み(振替先)</h3>
+    @Html.TextBox("newplantcd");
+    <input type="submit" value="GO" />
+
+    <h5>装置(振替元)：@Model.Mac.LongName</h5>
+
+    <p>
+        以下の原材料を装置振替します
+
+        <ul>
+            @foreach (ArmsApi.Model.Material m in Model.EditTarget)
+            {
+                <li>@m.StockerNo : @m.LongName</li>
+            }
+        </ul>
+    </p>
+}

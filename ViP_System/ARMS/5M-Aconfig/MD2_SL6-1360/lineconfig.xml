@@ -1,0 +1,257 @@
+﻿<settings>
+
+
+<!-- モールド13号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112513</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 260</machineName>
+    <priority></priority>
+    <plcAddress>172.24.18.109</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド14号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112514</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 298</machineName>
+    <priority></priority>
+    <plcAddress>172.24.17.165</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド17号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112517</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 301</machineName>
+    <priority></priority>
+    <plcAddress>172.24.17.156</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド18号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112518</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 342</machineName>
+    <priority></priority>
+    <plcAddress>172.24.17.174</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド19号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112519</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 343</machineName>
+    <priority></priority>
+    <plcAddress>172.24.17.171</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+<!-- モールド20号機 ##ライン外## -->
+  <machine>
+    <flow>Mold</flow>
+    <machineNo>112520</machineNo>
+    <lineGroupNo>1</lineGroupNo>
+    <lineNo>99999</lineNo>     <plcMaker>Keyence</plcMaker>     <plcSocket>Tcp</plcSocket>
+    <machineName>MD 406</machineName>
+    <priority></priority>
+    <plcAddress>172.24.17.168</plcAddress>
+    <plcPort>8501</plcPort>
+    <prioritySettingAddress></prioritySettingAddress>
+    <machineReadyBitAddress></machineReadyBitAddress>
+    <loaderReqBitAddress></loaderReqBitAddress>
+    <empMagUnloaderReqBitAddress></empMagUnloaderReqBitAddress>
+    <empMagLoaderReqBitAddress></empMagLoaderReqBitAddress>
+    <unloaderReqBitAddress>B0004</unloaderReqBitAddress>
+    <workStartTimeAddress>W0000</workStartTimeAddress>
+    <workCompleteTimeAddress>W0006</workCompleteTimeAddress>
+    <clearMagazinesBitAddress></clearMagazinesBitAddress>
+    <inputForbiddenBitAddress></inputForbiddenBitAddress>
+    <dischargeModeBitAddress></dischargeModeBitAddress>
+    <loaderPoint></loaderPoint>
+    <empMagUnloaderPoint></empMagUnloaderPoint>
+    <empMagLoaderPoint></empMagLoaderPoint>
+    <unloaderPoint></unloaderPoint>
+    <ulMagazineAddress></ulMagazineAddress>
+    <lMagazineAddress></lMagazineAddress>
+    <eulMagazineAddress></eulMagazineAddress>
+    <elMagazineCountAddress></elMagazineCountAddress>
+    <lMagazineCountAddress></lMagazineCountAddress>
+    <ulMagazineCountAddress></ulMagazineCountAddress>
+    <eulMagazineCountAddress></eulMagazineCountAddress>
+    <unloaderReqBitAddressStart>B000C</unloaderReqBitAddressStart>
+    <unloaderMagazineDataAddressStart>W0000</unloaderMagazineDataAddressStart>
+    <loaderMagazineAddress>W0080</loaderMagazineAddress>
+    <nascaNGReasonWord>W0090</nascaNGReasonWord>
+    <loaderQRReadCompleteBitAddress>B0010</loaderQRReadCompleteBitAddress>
+    <nascaOKBit>B0020</nascaOKBit>
+    <nascaNGBit>B0021</nascaNGBit>
+    <isQRReader>true</isQRReader>
+  </machine>
+
+
+</settings>

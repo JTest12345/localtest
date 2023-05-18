@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BLCS_Library</name>
+    </assembly>
+    <members>
+        <member name="T:BLCS_Library.LogHelper">
+            <summary>
+            ログヘルパー
+            </summary>
+        </member>
+        <member name="F:BLCS_Library.LogHelper.UNLOCK_SQL">
+            <summary>
+            ロック解除用
+            </summary>
+        </member>
+        <member name="F:BLCS_Library.LogHelper.CONSTR_BASE">
+            <summary>
+            接続文字列
+            </summary>
+        </member>
+        <member name="M:BLCS_Library.LogHelper.EntryLog(System.String,System.String,System.String,System.String)">
+            <summary>
+            ログ記録(※バッチ専用)
+            </summary>
+            <param name="batchName">バッチ名</param>
+            <param name="startDT">最終開始時間</param>
+            <param name="endDT">最終終了時間</param>
+            <param name="logDT">定期実行時間</param>
+        </member>
+        <member name="M:BLCS_Library.LogHelper.EntryErrorLog(System.String,BLCS_Library.ErrorLevel,System.String,System.String)">
+            <summary>
+            エラーログ記録(※バッチ専用)
+            </summary>
+            <param name="batchName">バッチ名</param>
+            <param name="errorLevel">エラーレベル</param>
+            <param name="errorDetail">エラー内容</param>
+            <param name="note">備考</param>
+        </member>
+        <member name="M:BLCS_Library.LogHelper.getBatchID(System.String)">
+            <summary>
+            ID取得
+            </summary>
+            <param name="batchName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BLCS_Library.LogHelper.EntrySystemLog(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            システムログ記録(※Windowsアプリ専用)
+            </summary>
+            <param name="systemName">システム名：NULL不可</param>
+            <param name="versionName">バージョン</param>
+            <param name="locationName">拠点</param>
+            <param name="pcName">pcName</param>
+            <param name="loginID">ログインID</param>
+            <param name="executionDate">実行時間：NULL不可</param>
+        </member>
+        <member name="T:BLCS_Library.ErrorLevel">
+            <summary>
+            エラーレベル
+            </summary>
+        </member>
+        <member name="F:BLCS_Library.ErrorLevel.MailUnnecessary">
+            <summary>
+            0：メール不要(次出勤時の確認でOK)
+            </summary>
+        </member>
+        <member name="F:BLCS_Library.ErrorLevel.MailInHouse">
+            <summary>
+            1：社内メール必要
+            </summary>
+        </member>
+        <member name="F:BLCS_Library.ErrorLevel.MailOutsideCompany">
+            <summary>
+            2：社外メール必要
+            </summary>
+        </member>
+    </members>
+</doc>

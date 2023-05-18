@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsMaterial" targetNamespace="http://tempuri.org/dsMaterial.xsd" xmlns:mstns="http://tempuri.org/dsMaterial.xsd" xmlns="http://tempuri.org/dsMaterial.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsMaterial" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsMaterial" msprop:Generator_DataSetName="dsMaterial" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dTblMaterial" msprop:Generator_UserTableName="dTblMaterial" msprop:Generator_RowDeletedName="dTblMaterialRowDeleted" msprop:Generator_RowChangedName="dTblMaterialRowChanged" msprop:Generator_RowClassName="dTblMaterialRow" msprop:Generator_RowChangingName="dTblMaterialRowChanging" msprop:Generator_RowEvArgName="dTblMaterialRowChangeEvent" msprop:Generator_RowEvHandlerName="dTblMaterialRowChangeEventHandler" msprop:Generator_TableClassName="dTblMaterialDataTable" msprop:Generator_TableVarName="tabledTblMaterial" msprop:Generator_RowDeletingName="dTblMaterialRowDeleting" msprop:Generator_TablePropName="dTblMaterial">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Lot_NO" msprop:Generator_UserColumnName="Lot_NO" msprop:Generator_ColumnPropNameInRow="Lot_NO" msprop:Generator_ColumnVarNameInTable="columnLot_NO" msprop:Generator_ColumnPropNameInTable="Lot_NOColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="MateGroup_JA" msprop:Generator_UserColumnName="MateGroup_JA" msprop:Generator_ColumnPropNameInRow="MateGroup_JA" msprop:Generator_ColumnVarNameInTable="columnMateGroup_JA" msprop:Generator_ColumnPropNameInTable="MateGroup_JAColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="mtralitem_cd" msprop:Generator_UserColumnName="mtralitem_cd" msprop:Generator_ColumnPropNameInRow="mtralitem_cd" msprop:Generator_ColumnVarNameInTable="columnmtralitem_cd" msprop:Generator_ColumnPropNameInTable="mtralitem_cdColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="material_ja" msprop:Generator_UserColumnName="material_ja" msprop:Generator_ColumnPropNameInRow="material_ja" msprop:Generator_ColumnVarNameInTable="columnmaterial_ja" msprop:Generator_ColumnPropNameInTable="material_jaColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="MateLot_NO" msprop:Generator_UserColumnName="MateLot_NO" msprop:Generator_ColumnPropNameInRow="MateLot_NO" msprop:Generator_ColumnVarNameInTable="columnMateLot_NO" msprop:Generator_ColumnPropNameInTable="MateLot_NOColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Plant_CD" msprop:Generator_UserColumnName="Plant_CD" msprop:Generator_ColumnPropNameInRow="Plant_CD" msprop:Generator_ColumnVarNameInTable="columnPlant_CD" msprop:Generator_ColumnPropNameInTable="Plant_CDColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Material_CD" msprop:Generator_UserColumnName="Material_CD" msprop:Generator_ColumnPropNameInRow="Material_CD" msprop:Generator_ColumnVarNameInTable="columnMaterial_CD" msprop:Generator_ColumnPropNameInTable="Material_CDColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="material_cd2" msprop:Generator_UserColumnName="material_cd2" msprop:Generator_ColumnPropNameInRow="material_cd2" msprop:Generator_ColumnVarNameInTable="columnmaterial_cd2" msprop:Generator_ColumnPropNameInTable="material_cd2Column" type="xs:string" minOccurs="0" />
+              <xs:element name="complt_dt" msprop:Generator_UserColumnName="complt_dt" msprop:Generator_ColumnVarNameInTable="columncomplt_dt" msprop:Generator_ColumnPropNameInRow="complt_dt" msprop:Generator_ColumnPropNameInTable="complt_dtColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="MateChange_DT" msprop:Generator_UserColumnName="MateChange_DT" msprop:Generator_ColumnVarNameInTable="columnMateChange_DT" msprop:Generator_ColumnPropNameInRow="MateChange_DT" msprop:Generator_ColumnPropNameInTable="MateChange_DTColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="MixResult_ID" msprop:Generator_UserColumnName="MixResult_ID" msprop:Generator_ColumnPropNameInRow="MixResult_ID" msprop:Generator_ColumnVarNameInTable="columnMixResult_ID" msprop:Generator_ColumnPropNameInTable="MixResult_IDColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

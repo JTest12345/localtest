@@ -1,0 +1,995 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3A84E194-21CE-4B82-BBDF-5A5D574E1117}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GEICS</RootNamespace>
+    <AssemblyName>GEICS_MIK</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ManifestCertificateThumbprint>EF29453520CF6DB3EC3B6625B8E9886895800295</ManifestCertificateThumbprint>
+    <ManifestKeyFile>GEICS_MIK_1_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>false</SignManifests>
+    <TargetZone>LocalIntranet</TargetZone>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>\\Tecfs2.takatsuki.local\mikforsysro%24\Software\ClickOnce\GEICS3\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>GEICS3%28装置情報傾向管理システム%29</ProductName>
+    <PublisherName>NICHIA Corporation</PublisherName>
+    <MinimumRequiredVersion>3.7.2.0</MinimumRequiredVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>3.33.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;AOI</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;MIK</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Line20Chart.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BLCS_Library">
+      <HintPath>..\GEICS\Component\BLCS_Library.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Excel">
+      <HintPath>..\GEICS\Component\Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.Microsoft.Office.Core">
+      <HintPath>..\GEICS\Component\Interop.Microsoft.Office.Core.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.Office">
+      <HintPath>..\GEICS\Component\Interop.Office.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.VBIDE">
+      <HintPath>..\GEICS\Component\Interop.VBIDE.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL" />
+    <Reference Include="NPlot">
+      <HintPath>..\GEICS\Component\NPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="SLCommonLib">
+      <HintPath>..\GEICS\Component\SLCommonLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DataVisualization">
+      <HintPath>..\GEICS\Component\System.Web.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DataVisualization.Design">
+      <HintPath>..\GEICS\Component\System.Web.DataVisualization.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms.DataVisualization">
+      <HintPath>..\GEICS\Component\System.Windows.Forms.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization.Design">
+      <HintPath>..\GEICS\Component\System.Windows.Forms.DataVisualization.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GEICS\Calc.cs">
+      <Link>Calc.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Common.cs">
+      <Link>Common.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\ConnectArms.cs">
+      <Link>ConnectArms.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\ConnectNASCA.cs">
+      <Link>ConnectNASCA.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\ConnectQCIL.cs">
+      <Link>ConnectQCIL.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Constant.cs">
+      <Link>Constant.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Database\Equi.cs">
+      <Link>Database\Equi.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Database\ErrRecord.cs">
+      <Link>Database\ErrRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Database\FileFmtType.cs">
+      <Link>Database\FileFmtType.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Database\Line.cs">
+      <Link>Database\Line.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Database\Log.cs">
+      <Link>Database\Log.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Database\Lott.cs">
+      <Link>Database\Lott.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Database\MachineLogFormat.cs">
+      <Link>Database\MachineLogFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Database\PlcFileConv.cs">
+      <Link>Database\PlcFileConv.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Database\Plm.cs">
+      <Link>Database\Plm.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Database\Prm.cs">
+      <Link>Database\Prm.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Database\Qtim.cs">
+      <Link>Database\Qtim.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\dsMaterial.Designer.cs">
+      <Link>dsMaterial.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsMaterial.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\dsQCIL.Designer.cs">
+      <Link>dsQCIL.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsQCIL.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\dsStandardText.Designer.cs">
+      <Link>dsStandardText.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsStandardText.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\dsTmPLMEx.Designer.cs">
+      <Link>dsTmPLMEx.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsTmPLMEx.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\dsTmQCST.Designer.cs">
+      <Link>dsTmQCST.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsTmQCST.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\dsTvQCNR.Designer.cs">
+      <Link>dsTvQCNR.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsTvQCNR.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\dsUserFunction.Designer.cs">
+      <Link>dsUserFunction.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsUserFunction.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\ExcelControl.cs">
+      <Link>ExcelControl.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\F01_Login.cs">
+      <Link>F01_Login.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\F01_Login.designer.cs">
+      <Link>F01_Login.designer.cs</Link>
+      <DependentUpon>F01_Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\F02_Menu.cs">
+      <Link>F02_Menu.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\F02_Menu.designer.cs">
+      <Link>F02_Menu.designer.cs</Link>
+      <DependentUpon>F02_Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\F03_TrendChart.cs">
+      <Link>F03_TrendChart.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\F03_TrendChart.designer.cs">
+      <Link>F03_TrendChart.designer.cs</Link>
+      <DependentUpon>F03_TrendChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\F04_ErrorRecord.cs">
+      <Link>F04_ErrorRecord.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\F04_ErrorRecord.designer.cs">
+      <Link>F04_ErrorRecord.designer.cs</Link>
+      <DependentUpon>F04_ErrorRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\F05_MachineErrorRecord.cs">
+      <Link>F05_MachineErrorRecord.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\F05_MachineErrorRecord.designer.cs">
+      <Link>F05_MachineErrorRecord.designer.cs</Link>
+      <DependentUpon>F05_MachineErrorRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\F06_DefectRecord.cs">
+      <Link>F06_DefectRecord.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\F06_DefectRecord.designer.cs">
+      <Link>F06_DefectRecord.designer.cs</Link>
+      <DependentUpon>F06_DefectRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\F07_Report.cs">
+      <Link>F07_Report.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\F07_Report.designer.cs">
+      <Link>F07_Report.designer.cs</Link>
+      <DependentUpon>F07_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\F08_ParameterReport.cs">
+      <Link>F08_ParameterReport.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\F08_ParameterReport.designer.cs">
+      <Link>F08_ParameterReport.designer.cs</Link>
+      <DependentUpon>F08_ParameterReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\F100_MsgBox.cs">
+      <Link>F100_MsgBox.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\F100_MsgBox.designer.cs">
+      <Link>F100_MsgBox.designer.cs</Link>
+      <DependentUpon>F100_MsgBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\F70_InputUserCD.cs">
+      <Link>F70_InputUserCD.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\F70_InputUserCD.designer.cs">
+      <Link>F70_InputUserCD.designer.cs</Link>
+      <DependentUpon>F70_InputUserCD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\F80_MultiSelectPlant.cs">
+      <Link>F80_MultiSelectPlant.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\F80_MultiSelectPlant.designer.cs">
+      <Link>F80_MultiSelectPlant.designer.cs</Link>
+      <DependentUpon>F80_MultiSelectPlant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\F81_MultiSelectParam.cs">
+      <Link>F81_MultiSelectParam.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\F81_MultiSelectParam.designer.cs">
+      <Link>F81_MultiSelectParam.designer.cs</Link>
+      <DependentUpon>F81_MultiSelectParam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\F82_SelectNascaWork.cs">
+      <Link>F82_SelectNascaWork.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\F82_SelectNascaWork.designer.cs">
+      <Link>F82_SelectNascaWork.designer.cs</Link>
+      <DependentUpon>F82_SelectNascaWork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\frmBackground.cs">
+      <Link>frmBackground.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\frmBackground.designer.cs">
+      <Link>frmBackground.designer.cs</Link>
+      <DependentUpon>frmBackground.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\frmDrawGraph.cs">
+      <Link>frmDrawGraph.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\frmDrawGraph.designer.cs">
+      <Link>frmDrawGraph.designer.cs</Link>
+      <DependentUpon>frmDrawGraph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\frmDrawGraphCatalog.cs">
+      <Link>frmDrawGraphCatalog.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\frmDrawGraphCatalog.designer.cs">
+      <Link>frmDrawGraphCatalog.designer.cs</Link>
+      <DependentUpon>frmDrawGraphCatalog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\frmLotInfo.cs">
+      <Link>frmLotInfo.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\frmLotInfo.designer.cs">
+      <Link>frmLotInfo.designer.cs</Link>
+      <DependentUpon>frmLotInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\frmMasterSettingRev.cs">
+      <Link>frmMasterSettingRev.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\frmMasterSettingRev.designer.cs">
+      <Link>frmMasterSettingRev.designer.cs</Link>
+      <DependentUpon>frmMasterSettingRev.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\frmQCBackground.cs">
+      <Link>frmQCBackground.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\frmQCBackground.designer.cs">
+      <Link>frmQCBackground.designer.cs</Link>
+      <DependentUpon>frmQCBackground.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\Function\EICSFunction.cs">
+      <Link>Function\EICSFunction.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Function\MasterChk.cs">
+      <Link>Function\MasterChk.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\IConnection.cs">
+      <Link>IConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\IMessage.cs">
+      <Link>IMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\M01_Limit.cs">
+      <Link>M01_Limit.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M01_Limit.designer.cs">
+      <Link>M01_Limit.designer.cs</Link>
+      <DependentUpon>M01_Limit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M02_LimitRecord.cs">
+      <Link>M02_LimitRecord.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M02_LimitRecord.designer.cs">
+      <Link>M02_LimitRecord.designer.cs</Link>
+      <DependentUpon>M02_LimitRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M03_Parameter.cs">
+      <Link>M03_Parameter.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M03_Parameter.designer.cs">
+      <Link>M03_Parameter.designer.cs</Link>
+      <DependentUpon>M03_Parameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M04_UserFunction.cs">
+      <Link>M04_UserFunction.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M04_UserFunction.designer.cs">
+      <Link>M04_UserFunction.designer.cs</Link>
+      <DependentUpon>M04_UserFunction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M05_StandardText.cs">
+      <Link>M05_StandardText.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M05_StandardText.designer.cs">
+      <Link>M05_StandardText.designer.cs</Link>
+      <DependentUpon>M05_StandardText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M06_LimitLineForward.cs">
+      <Link>M06_LimitLineForward.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M06_LimitLineForward.designer.cs">
+      <Link>M06_LimitLineForward.designer.cs</Link>
+      <DependentUpon>M06_LimitLineForward.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M07_LimitReference.cs">
+      <Link>M07_LimitReference.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M07_LimitReference.designer.cs">
+      <Link>M07_LimitReference.designer.cs</Link>
+      <DependentUpon>M07_LimitReference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M08_MultiSelect.cs">
+      <Link>M08_MultiSelect.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M08_MultiSelect.designer.cs">
+      <Link>M08_MultiSelect.designer.cs</Link>
+      <DependentUpon>M08_MultiSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M09_TypeCondition.cs">
+      <Link>M09_TypeCondition.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M09_TypeCondition.designer.cs">
+      <Link>M09_TypeCondition.designer.cs</Link>
+      <DependentUpon>M09_TypeCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M10_RemoteErrOut.cs">
+      <Link>M10_RemoteErrOut.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M10_RemoteErrOut.designer.cs">
+      <Link>M10_RemoteErrOut.designer.cs</Link>
+      <DependentUpon>M10_RemoteErrOut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M11_General.cs">
+      <Link>M11_General.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M11_General.designer.cs">
+      <Link>M11_General.designer.cs</Link>
+      <DependentUpon>M11_General.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M12_FileFmtTypeWirebonder.cs">
+      <Link>M12_FileFmtTypeWirebonder.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M12_FileFmtTypeWirebonder.designer.cs">
+      <Link>M12_FileFmtTypeWirebonder.designer.cs</Link>
+      <DependentUpon>M12_FileFmtTypeWirebonder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M13_FileFmtWirebonder.cs">
+      <Link>M13_FileFmtWirebonder.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M13_FileFmtWirebonder.designer.cs">
+      <Link>M13_FileFmtWirebonder.designer.cs</Link>
+      <DependentUpon>M13_FileFmtWirebonder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M14_MsgFmtTypeWirebonder.cs">
+      <Link>M14_MsgFmtTypeWirebonder.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M14_MsgFmtTypeWirebonder.designer.cs">
+      <Link>M14_MsgFmtTypeWirebonder.designer.cs</Link>
+      <DependentUpon>M14_MsgFmtTypeWirebonder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M15_MsgFmtWirebonder.cs">
+      <Link>M15_MsgFmtWirebonder.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M15_MsgFmtWirebonder.designer.cs">
+      <Link>M15_MsgFmtWirebonder.designer.cs</Link>
+      <DependentUpon>M15_MsgFmtWirebonder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M16_ParameterSummary.cs">
+      <Link>M16_ParameterSummary.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M16_ParameterSummary.designer.cs">
+      <Link>M16_ParameterSummary.designer.cs</Link>
+      <DependentUpon>M16_ParameterSummary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\M17_PlcFileConv.cs">
+      <Link>M17_PlcFileConv.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\M17_PlcFileConv.designer.cs">
+      <Link>M17_PlcFileConv.designer.cs</Link>
+      <DependentUpon>M17_PlcFileConv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\MachineFileInfo.cs">
+      <Link>MachineFileInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\MessageInfo.cs">
+      <Link>MessageInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\NascaConnection.cs">
+      <Link>NascaConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Notifier.cs">
+      <Link>Notifier.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Painter.cs">
+      <Link>Painter.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Password.cs">
+      <Link>Password.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\Password.designer.cs">
+      <Link>Password.designer.cs</Link>
+      <DependentUpon>Password.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GEICS\Prm.cs">
+      <Link>Prm.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Program.cs">
+      <Link>Program.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Report\ParameterPerLotReport.cs">
+      <Link>Report\ParameterPerLotReport.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Report\WBEquipVerReport.cs">
+      <Link>Report\WBEquipVerReport.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\SettingInfo.cs">
+      <Link>SettingInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\SQLite.cs">
+      <Link>SQLite.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\StructureARMS.cs">
+      <Link>StructureARMS.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\StructureInfo.cs">
+      <Link>StructureInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\Structure\General.cs">
+      <Link>Structure\General.cs</Link>
+    </Compile>
+    <Compile Include="..\GEICS\SubDrawGraph.cs">
+      <Link>SubDrawGraph.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\GEICS\SubDrawGraph.designer.cs">
+      <Link>SubDrawGraph.designer.cs</Link>
+      <DependentUpon>SubDrawGraph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="log4net\Log.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="..\GEICS\F01_Login.en.resx">
+      <Link>F01_Login.en.resx</Link>
+      <DependentUpon>F01_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F01_Login.resx">
+      <Link>F01_Login.resx</Link>
+      <DependentUpon>F01_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F02_Menu.en.resx">
+      <Link>F02_Menu.en.resx</Link>
+      <DependentUpon>F02_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F02_Menu.resx">
+      <Link>F02_Menu.resx</Link>
+      <DependentUpon>F02_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F03_TrendChart.en.resx">
+      <Link>F03_TrendChart.en.resx</Link>
+      <DependentUpon>F03_TrendChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F03_TrendChart.resx">
+      <Link>F03_TrendChart.resx</Link>
+      <DependentUpon>F03_TrendChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F04_ErrorRecord.en.resx">
+      <Link>F04_ErrorRecord.en.resx</Link>
+      <DependentUpon>F04_ErrorRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F04_ErrorRecord.resx">
+      <Link>F04_ErrorRecord.resx</Link>
+      <DependentUpon>F04_ErrorRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F05_MachineErrorRecord.en.resx">
+      <Link>F05_MachineErrorRecord.en.resx</Link>
+      <DependentUpon>F05_MachineErrorRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F05_MachineErrorRecord.resx">
+      <Link>F05_MachineErrorRecord.resx</Link>
+      <DependentUpon>F05_MachineErrorRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F06_DefectRecord.resx">
+      <Link>F06_DefectRecord.resx</Link>
+      <DependentUpon>F06_DefectRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F07_Report.en.resx">
+      <Link>F07_Report.en.resx</Link>
+      <DependentUpon>F07_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F07_Report.resx">
+      <Link>F07_Report.resx</Link>
+      <DependentUpon>F07_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F08_ParameterReport.resx">
+      <Link>F08_ParameterReport.resx</Link>
+      <DependentUpon>F08_ParameterReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F100_MsgBox.resx">
+      <Link>F100_MsgBox.resx</Link>
+      <DependentUpon>F100_MsgBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F70_InputUserCD.resx">
+      <Link>F70_InputUserCD.resx</Link>
+      <DependentUpon>F70_InputUserCD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F80_MultiSelectPlant.resx">
+      <Link>F80_MultiSelectPlant.resx</Link>
+      <DependentUpon>F80_MultiSelectPlant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F81_MultiSelectParam.resx">
+      <Link>F81_MultiSelectParam.resx</Link>
+      <DependentUpon>F81_MultiSelectParam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\F82_SelectNascaWork.resx">
+      <Link>F82_SelectNascaWork.resx</Link>
+      <DependentUpon>F82_SelectNascaWork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\frmBackground.en.resx">
+      <Link>frmBackground.en.resx</Link>
+      <DependentUpon>frmBackground.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\frmBackground.resx">
+      <Link>frmBackground.resx</Link>
+      <DependentUpon>frmBackground.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\frmDrawGraph.resx">
+      <Link>frmDrawGraph.resx</Link>
+      <DependentUpon>frmDrawGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\frmDrawGraphCatalog.resx">
+      <Link>frmDrawGraphCatalog.resx</Link>
+      <DependentUpon>frmDrawGraphCatalog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\frmLotInfo.resx">
+      <Link>frmLotInfo.resx</Link>
+      <DependentUpon>frmLotInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\frmMasterSettingRev.en.resx">
+      <Link>frmMasterSettingRev.en.resx</Link>
+      <DependentUpon>frmMasterSettingRev.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\frmMasterSettingRev.resx">
+      <Link>frmMasterSettingRev.resx</Link>
+      <DependentUpon>frmMasterSettingRev.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\frmQCBackground.resx">
+      <Link>frmQCBackground.resx</Link>
+      <DependentUpon>frmQCBackground.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M01_Limit.resx">
+      <Link>M01_Limit.resx</Link>
+      <DependentUpon>M01_Limit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M02_LimitRecord.resx">
+      <Link>M02_LimitRecord.resx</Link>
+      <DependentUpon>M02_LimitRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M03_Parameter.resx">
+      <Link>M03_Parameter.resx</Link>
+      <DependentUpon>M03_Parameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M04_UserFunction.en.resx">
+      <Link>M04_UserFunction.en.resx</Link>
+      <DependentUpon>M04_UserFunction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M04_UserFunction.resx">
+      <Link>M04_UserFunction.resx</Link>
+      <DependentUpon>M04_UserFunction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M05_StandardText.en.resx">
+      <Link>M05_StandardText.en.resx</Link>
+      <DependentUpon>M05_StandardText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M05_StandardText.resx">
+      <Link>M05_StandardText.resx</Link>
+      <DependentUpon>M05_StandardText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M06_LimitLineForward.resx">
+      <Link>M06_LimitLineForward.resx</Link>
+      <DependentUpon>M06_LimitLineForward.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M07_LimitReference.resx">
+      <Link>M07_LimitReference.resx</Link>
+      <DependentUpon>M07_LimitReference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M08_MultiSelect.resx">
+      <Link>M08_MultiSelect.resx</Link>
+      <DependentUpon>M08_MultiSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M09_TypeCondition.resx">
+      <Link>M09_TypeCondition.resx</Link>
+      <DependentUpon>M09_TypeCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M10_RemoteErrOut.resx">
+      <Link>M10_RemoteErrOut.resx</Link>
+      <DependentUpon>M10_RemoteErrOut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M11_General.resx">
+      <Link>M11_General.resx</Link>
+      <DependentUpon>M11_General.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M12_FileFmtTypeWirebonder.resx">
+      <Link>M12_FileFmtTypeWirebonder.resx</Link>
+      <DependentUpon>M12_FileFmtTypeWirebonder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M13_FileFmtWirebonder.resx">
+      <Link>M13_FileFmtWirebonder.resx</Link>
+      <DependentUpon>M13_FileFmtWirebonder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M14_MsgFmtTypeWirebonder.resx">
+      <Link>M14_MsgFmtTypeWirebonder.resx</Link>
+      <DependentUpon>M14_MsgFmtTypeWirebonder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M15_MsgFmtWirebonder.resx">
+      <Link>M15_MsgFmtWirebonder.resx</Link>
+      <DependentUpon>M15_MsgFmtWirebonder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M16_ParameterSummary.resx">
+      <Link>M16_ParameterSummary.resx</Link>
+      <DependentUpon>M16_ParameterSummary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\M17_PlcFileConv.resx">
+      <Link>M17_PlcFileConv.resx</Link>
+      <DependentUpon>M17_PlcFileConv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\Password.resx">
+      <Link>Password.resx</Link>
+      <DependentUpon>Password.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\GEICS\SubDrawGraph.resx">
+      <Link>SubDrawGraph.resx</Link>
+      <DependentUpon>SubDrawGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="..\GEICS\dsMaterial.xsd">
+      <Link>dsMaterial.xsd</Link>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsMaterial.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="..\GEICS\dsQCIL.xsd">
+      <Link>dsQCIL.xsd</Link>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsQCIL.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="..\GEICS\dsStandardText.xsd">
+      <Link>dsStandardText.xsd</Link>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsStandardText.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="..\GEICS\dsTmPLMEx.xsd">
+      <Link>dsTmPLMEx.xsd</Link>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsTmPLMEx.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="..\GEICS\dsTmQCST.xsd">
+      <Link>dsTmQCST.xsd</Link>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsTmQCST.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="..\GEICS\dsTvQCNR.xsd">
+      <Link>dsTvQCNR.xsd</Link>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsTvQCNR.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="..\GEICS\dsUserFunction.xsd">
+      <Link>dsUserFunction.xsd</Link>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsUserFunction.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="..\GEICS\template\Master.xls">
+      <Link>template\Master.xls</Link>
+    </None>
+    <None Include="..\GEICS\template\TPL01_MasterLimit.xls">
+      <Link>template\TPL01_MasterLimit.xls</Link>
+    </None>
+    <None Include="..\GEICS\template\TPL02_ParameterPerLotReport.xls">
+      <Link>template\TPL02_ParameterPerLotReport.xls</Link>
+    </None>
+    <None Include="..\GEICS\template\TPL03_WBEquipVerReport.xls">
+      <Link>template\TPL03_WBEquipVerReport.xls</Link>
+    </None>
+    <None Include="dsMaterial.xsc">
+      <DependentUpon>dsMaterial.xsd</DependentUpon>
+    </None>
+    <None Include="dsMaterial.xss">
+      <DependentUpon>dsMaterial.xsd</DependentUpon>
+    </None>
+    <None Include="dsQCIL.xsc">
+      <DependentUpon>dsQCIL.xsd</DependentUpon>
+    </None>
+    <None Include="dsQCIL.xss">
+      <DependentUpon>dsQCIL.xsd</DependentUpon>
+    </None>
+    <None Include="dsStandardText.xsc">
+      <DependentUpon>dsStandardText.xsd</DependentUpon>
+    </None>
+    <None Include="dsStandardText.xss">
+      <DependentUpon>dsStandardText.xsd</DependentUpon>
+    </None>
+    <None Include="dsTmPLMEx.xsc">
+      <DependentUpon>dsTmPLMEx.xsd</DependentUpon>
+    </None>
+    <None Include="dsTmPLMEx.xss">
+      <DependentUpon>dsTmPLMEx.xsd</DependentUpon>
+    </None>
+    <None Include="dsTmQCST.xsc">
+      <DependentUpon>dsTmQCST.xsd</DependentUpon>
+    </None>
+    <None Include="dsTmQCST.xss">
+      <DependentUpon>dsTmQCST.xsd</DependentUpon>
+    </None>
+    <None Include="dsTvQCNR.xsc">
+      <DependentUpon>dsTvQCNR.xsd</DependentUpon>
+    </None>
+    <None Include="dsTvQCNR.xss">
+      <DependentUpon>dsTvQCNR.xsd</DependentUpon>
+    </None>
+    <None Include="dsUserFunction.xsc">
+      <DependentUpon>dsUserFunction.xsd</DependentUpon>
+    </None>
+    <None Include="dsUserFunction.xss">
+      <DependentUpon>dsUserFunction.xsd</DependentUpon>
+    </None>
+    <None Include="GEICS_MIK_1_TemporaryKey.pfx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="GEICS_MIK_TemporaryKey.pfx" />
+    <None Include="Properties\app.manifest" />
+    <Content Include="Line20Chart.ico" />
+    <None Include="Resources\ACT_MULTISELECT_EP.png" />
+    <None Include="Resources\ACT_MULTISELECT_IN.png" />
+    <None Include="Resources\CHK_MASTER.bmp" />
+    <None Include="Resources\LOGO_NICHIA.png" />
+    <None Include="Resources\SEL_ALL_CANCEL.png" />
+    <None Include="Resources\SEL_ALL_SELECT.png" />
+    <None Include="Resources\UPD_UPDATE-000.png" />
+    <None Include="Resources\Check.png" />
+    <Content Include="template\TPL_GRAPH_AOI.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows インストーラ 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="GEICS_AOI.XmlSerializers">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="log4net\log4net.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="stdole">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="log4net\log4net.dll" />
+    <Content Include="log4net\log4net.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

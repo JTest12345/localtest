@@ -1,0 +1,12 @@
+D:\ViP_System\DBFileTotalization\DBFileTotalization\bin\Debug\DBFileTotalization.exe.config
+D:\ViP_System\DBFileTotalization\DBFileTotalization\bin\Debug\DBFileTotalization.exe
+D:\ViP_System\DBFileTotalization\DBFileTotalization\bin\Debug\DBFileTotalization.pdb
+D:\ViP_System\DBFileTotalization\DBFileTotalization\obj\Debug\DBFileTotalization.csprojAssemblyReference.cache
+D:\ViP_System\DBFileTotalization\DBFileTotalization\obj\Debug\DBFileTotalization.csproj.CoreCompileInputs.cache
+D:\ViP_System\DBFileTotalization\DBFileTotalization\obj\Debug\DBFileTotalization.exe
+D:\ViP_System\DBFileTotalization\DBFileTotalization\obj\Debug\DBFileTotalization.pdb
+D:\ViP_System\DBFileTotalization\DBFileTotalization\bin\Debug\MathNet.Numerics.dll
+D:\ViP_System\DBFileTotalization\DBFileTotalization\bin\Debug\System.ValueTuple.dll
+D:\ViP_System\DBFileTotalization\DBFileTotalization\bin\Debug\MathNet.Numerics.xml
+D:\ViP_System\DBFileTotalization\DBFileTotalization\bin\Debug\System.ValueTuple.xml
+D:\ViP_System\DBFileTotalization\DBFileTotalization\obj\Debug\DBFileTotalization.csproj.CopyComplete

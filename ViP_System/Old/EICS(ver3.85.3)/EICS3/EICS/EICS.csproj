@@ -1,0 +1,627 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0FEEAD60-01BF-490E-B4B7-11E0CE019DA1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EICS</RootNamespace>
+    <AssemblyName>EICS</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ManifestCertificateThumbprint>E7CD79234959D43BA61C2B0B642C901720423BD3</ManifestCertificateThumbprint>
+    <ManifestKeyFile>EICS_4_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <TargetZone>LocalIntranet</TargetZone>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <SignManifests>false</SignManifests>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <StartupObject>EICS.Program</StartupObject>
+    <ApplicationIcon>Icon\kblogger.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>\\hqfs101\forsysro%24\Software\ClickOnce\EICS3_MAP\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>EICS3%28装置情報連携システム%29</ProductName>
+    <PublisherName>NICHIA Corporation</PublisherName>
+    <MinimumRequiredVersion>3.78.0.0</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>3.85.3.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;Debug; MANUAL_TABULATION</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ArmsApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Component\ArmsApi.dll</HintPath>
+    </Reference>
+    <Reference Include="BLCS_Library, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="LENS2_Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Component\LENS2_Api.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Component\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Component\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SLCommonLib, Version=1.0.4031.26745, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Component\SLCommonLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Net">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Arms\AsmLot.cs" />
+    <Compile Include="Arms\CutBlend.cs" />
+    <Compile Include="Arms\Defect.cs" />
+    <Compile Include="Arms\GnlMaster.cs" />
+    <Compile Include="Arms\Inspection.cs" />
+    <Compile Include="Arms\LotChar.cs" />
+    <Compile Include="Arms\LotTray.cs" />
+    <Compile Include="Arms\Machine.cs" />
+    <Compile Include="Arms\Magazine.cs" />
+    <Compile Include="Arms\Order.cs" />
+    <Compile Include="Arms\Process.cs" />
+    <Compile Include="Arms\Profile.cs" />
+    <Compile Include="Arms\SQLite.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="ConnectDB.cs" />
+    <Compile Include="ConnectAPI.cs" />
+    <Compile Include="ConnectHSMS.cs" />
+    <Compile Include="Constant.cs" />
+    <Compile Include="Database\CommunicateLine.cs" />
+    <Compile Include="Database\Equi.cs" />
+    <Compile Include="Database\ErrConv.cs" />
+    <Compile Include="Database\FileFmt.cs" />
+    <Compile Include="Database\FileScan.cs" />
+    <Compile Include="Database\LENS\Lot.cs" />
+    <Compile Include="Database\LENS\Magazine.cs" />
+    <Compile Include="Database\LENS\Type.cs" />
+    <Compile Include="Database\LENS\WorkResult.cs" />
+    <Compile Include="Database\Log.cs" />
+    <Compile Include="Database\LotMark.cs" />
+    <Compile Include="Database\LotNoConv.cs" />
+    <Compile Include="Database\Lott.cs" />
+    <Compile Include="Database\Lset.cs" />
+    <Compile Include="Database\Mag.cs" />
+    <Compile Include="Database\NASCA\Section.cs" />
+    <Compile Include="Database\NASCA\Lot.cs" />
+    <Compile Include="Database\PLAJEAddr.cs" />
+    <Compile Include="Database\PlcADDRESS.cs" />
+    <Compile Include="Database\PlcFileConv.cs" />
+    <Compile Include="Database\Plm.cs" />
+    <Compile Include="Database\Prm.cs" />
+    <Compile Include="Database\ErrCommunicate.cs" />
+    <Compile Include="Database\PrmSummary.cs" />
+    <Compile Include="Database\PsMeasureResult.cs" />
+    <Compile Include="Database\Serv.cs" />
+    <Compile Include="DataContext\EICS.cs">
+      <DependentUpon>EICS.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\EICS.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EICS.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorCommunicator.cs" />
+    <Compile Include="F06_ErrCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F06_ErrCheck.designer.cs">
+      <DependentUpon>F06_ErrCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F07_TrayLotEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F07_TrayLotEdit.Designer.cs">
+      <DependentUpon>F07_TrayLotEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F99_MustConfirmMsg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F99_MustConfirmMsg.Designer.cs">
+      <DependentUpon>F99_MustConfirmMsg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Tran.cs" />
+    <Compile Include="Database\TypeCond.cs" />
+    <Compile Include="DsF05.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DsF05.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="F04_Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F04_Password.Designer.cs">
+      <DependentUpon>F04_Password.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F05_ChainTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F05_ChainTool.Designer.cs">
+      <DependentUpon>F05_ChainTool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InitChk.cs" />
+    <Compile Include="Machine\AIMachineInfoTSAVI.cs" />
+    <Compile Include="Machine\AIMachineInfoRAIM.cs" />
+    <Compile Include="Machine\Base\CIFSBasedMachineAddMPD.cs" />
+    <Compile Include="Machine\Base\IMachineAddMPD.cs" />
+    <Compile Include="Machine\Base\PLCDDGBasedMachineAddMPD.cs" />
+    <Compile Include="Machine\CIFSBase\AIMachineInfoKOHYOUNG.cs" />
+    <Compile Include="Machine\CIFSBase\CO2MachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\FARMachineInfo.cs" />
+    <Compile Include="Machine\CIFSBase\FAR2MachineInfo.cs" />
+    <Compile Include="Machine\CIFSBase\LastMTMachineInfoYAMAHA.cs" />
+    <Compile Include="Machine\CIFSBase\LHAMachineInfo.cs" />
+    <Compile Include="Machine\CIFSBase\MD2MachineInfoSINWA_QUSPA.cs" />
+    <Compile Include="Machine\CIFSBase\MTMachineInfoYAMAHA.cs" />
+    <Compile Include="Machine\CIFSBase\RPMachineInfoMUSASHI.cs" />
+    <Compile Include="Machine\CIFSBase\ScrewMDMachineInfo.cs" />
+    <Compile Include="Machine\CIFSBase\YBMachineInfoPFSC.cs" />
+    <Compile Include="Machine\CRMDMachineInfo2.cs" />
+    <Compile Include="Machine\EXCMachineInfo.cs" />
+    <Compile Include="Machine\LMMachineInfoChipType.cs" />
+    <Compile Include="Machine\AIMachineInfo9Cam.cs" />
+    <Compile Include="Machine\AIMachineInfoJType.cs" />
+    <Compile Include="Machine\AIMachineInfoNType.cs" />
+    <Compile Include="Machine\BBMachineInfo.cs" />
+    <Compile Include="Machine\CIFSBase\DBMachineInfoKOSAKA_KE205.cs" />
+    <Compile Include="Machine\CIFSBase\MDMachineInfoSINWA_QUSPA.cs" />
+    <Compile Include="Machine\CIFSBase\RPMachineInfoSINWA_QUSPA.cs" />
+    <Compile Include="Machine\LMMachineInfoDAIRYU.cs" />
+    <Compile Include="Machine\PLCDDBBase\AutoPasterMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\BBSQMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\BCMachineInfo.cs" />
+    <Compile Include="Machine\CIFSBase\BKMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\BWMMachineInfo.cs" />
+    <Compile Include="Machine\CFMachineInfo.cs" />
+    <Compile Include="Machine\Base\CIFSBasedMachine.cs" />
+    <Compile Include="Machine\CRMDMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\ColorAutoMeasurerMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\DCMachineInfoDISCO.cs" />
+    <Compile Include="Machine\PLCDDBBase\DeburringMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\DryIceCleaningMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\EDPMachineInfo.cs" />
+    <Compile Include="Machine\CIFSBase\COMachineInfo.cs" />
+    <Compile Include="Machine\CIFSBase\FCMachineInfo.cs" />
+    <Compile Include="Machine\LMMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\IPSMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\IPSMachineInfoMTS.cs" />
+    <Compile Include="Machine\PLCDDBBase\SheetRingLoader.cs" />
+    <Compile Include="Machine\PLCDDBBase\TPMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\STMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\LM2MachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\LSMachineInfo.cs" />
+    <Compile Include="Machine\CIFSBase\MDMachineInfoTDK.cs" />
+    <Compile Include="Machine\PLAMachineInfoDirectlyCom.cs" />
+    <Compile Include="Machine\Base\PLCDDGBasedMachine.cs" />
+    <Compile Include="Machine\PLCDDBBase\MDMachineInfoYAMAMOTO.cs" />
+    <Compile Include="Machine\PLCDDBBase\PLAMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\PSMachineInfoHIRANO_TMMC.cs" />
+    <Compile Include="Machine\PLCDDBBase\HPMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\GRDMachineInfo.cs" />
+    <Compile Include="Machine\PLCDDBBase\WaterCleaning.cs" />
+    <Compile Include="Machine\PLCDDBBase\WTBTMachineInfo.cs" />
+    <Compile Include="Machine\RPMachineInfo.cs" />
+    <Compile Include="Machine\STMachineInfo2.cs" />
+    <Compile Include="Machine\SUPMachineInfo.cs" />
+    <Compile Include="Machine\BBMachineInfo2.cs" />
+    <Compile Include="Machine\AIMachineInfoRAIM2.cs" />
+    <Compile Include="Machine\SUPMachineInfo2.cs" />
+    <Compile Include="Machine\TPMachineInfo2.cs" />
+    <Compile Include="MustConfirmMsgBox.cs" />
+    <Compile Include="NascaDefectFile.cs" />
+    <Compile Include="OvenTemparatureControl\OvenTemperatureCheckInfo.cs" />
+    <Compile Include="OvenTemparatureControl\OvenTemperatureCheckReporter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RunningLog.cs" />
+    <Compile Include="Machine\DBMachineInfoNMC.cs" />
+    <Compile Include="Machine\Base\IMachine.cs" />
+    <Compile Include="Machine\Base\MachineBase.cs" />
+    <Compile Include="Machine\MappingFile.cs" />
+    <Compile Include="Database\Defect.cs" />
+    <Compile Include="Database\General.cs" />
+    <Compile Include="Machine\WBMachineInfoNMC.cs" />
+    <Compile Include="Structure\CIFS.cs" />
+    <Compile Include="Structure\IPlc.cs" />
+    <Compile Include="Structure\MachineFile.cs" />
+    <Compile Include="Structure\PLC_Device.cs" />
+    <Compile Include="Structure\PLC_Keyence.cs" />
+    <Compile Include="Structure\PLC_Melsec.cs" />
+    <Compile Include="Structure\PLC_MelsecUDP.cs" />
+    <Compile Include="Structure\ReceiveMessageInfo.cs" />
+    <Compile Include="Structure\ReportMessageInfo.cs" />
+    <Compile Include="Structure\LoginInfo.cs" />
+    <Compile Include="Machine\AIMachineInfo.cs" />
+    <Compile Include="Machine\DBMachineInfo.cs" />
+    <Compile Include="DsG003.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DsG003.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="F01_MachineWatch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F01_MachineWatch.Designer.cs">
+      <DependentUpon>F01_MachineWatch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F02_MachineSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F02_MachineSetting.Designer.cs">
+      <DependentUpon>F02_MachineSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F03_MachineList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F03_MachineList.Designer.cs">
+      <DependentUpon>F03_MachineList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IMessage.cs" />
+    <Compile Include="log4netHelper.cs" />
+    <Compile Include="Machine\DCMachineInfo.cs" />
+    <Compile Include="Machine\ECKMachineInfo.cs" />
+    <Compile Include="Machine\MDMachineInfo.cs" />
+    <Compile Include="Machine\PLAMachineInfo.cs" />
+    <Compile Include="NppPublicWebService.cs" />
+    <Compile Include="Structure\Notifier.cs" />
+    <Compile Include="Structure\ParameterInfo.cs" />
+    <Compile Include="Program.cs" />
+    <EmbeddedResource Include="F01_MachineWatch.en.resx">
+      <DependentUpon>F01_MachineWatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F01_MachineWatch.resx">
+      <DependentUpon>F01_MachineWatch.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F02_MachineSetting.en.resx">
+      <DependentUpon>F02_MachineSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F02_MachineSetting.resx">
+      <DependentUpon>F02_MachineSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F03_MachineList.en.resx">
+      <DependentUpon>F03_MachineList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F03_MachineList.resx">
+      <DependentUpon>F03_MachineList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F04_Password.resx">
+      <DependentUpon>F04_Password.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F05_ChainTool.en.resx">
+      <DependentUpon>F05_ChainTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F05_ChainTool.resx">
+      <DependentUpon>F05_ChainTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F06_ErrCheck.resx">
+      <DependentUpon>F06_ErrCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F07_TrayLotEdit.resx">
+      <DependentUpon>F07_TrayLotEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F99_MustConfirmMsg.resx">
+      <DependentUpon>F99_MustConfirmMsg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataContext\EICS.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>EICS.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataContext\EICS.dbml.layout">
+      <DependentUpon>EICS.dbml</DependentUpon>
+    </None>
+    <None Include="DsG003.xsc">
+      <DependentUpon>DsG003.xsd</DependentUpon>
+    </None>
+    <None Include="DsG003.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DsG003.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DsG003.xss">
+      <DependentUpon>DsG003.xsd</DependentUpon>
+    </None>
+    <None Include="EICS_4_TemporaryKey.pfx" />
+    <None Include="EICS_5_TemporaryKey.pfx" />
+    <None Include="EICS_TemporaryKey.pfx" />
+    <Content Include="Component\Alarm0010.wav" />
+    <Content Include="Component\ArmsApi.dll" />
+    <Content Include="Component\LENS2_Api.dll" />
+    <Content Include="Component\Newtonsoft.Json.dll" />
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\NascaAPI\NppPublicWebService.wsdl" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="KLinkInfo.cs" />
+    <Compile Include="Structure\MessageInfo.cs" />
+    <Compile Include="Structure\PLC.cs" />
+    <Compile Include="Structure\PLC_Omron.cs" />
+    <Compile Include="Structure\Setting\SettingInfo.cs" />
+    <Compile Include="Structure\Setting\SettingInfoParam.cs" />
+    <Compile Include="Structure\Setting\SettingInfoUtility.cs" />
+    <Compile Include="Structure\StructureInfo.cs" />
+    <Compile Include="Machine\WBMachineInfo.cs" />
+    <Compile Include="Web References\NascaAPI\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Component\BLCS_Library.dll" />
+    <Content Include="Component\BLCS_Library.XML" />
+    <Content Include="Component\ringin.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Component\se_mod02.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Component\SLCommonLib.dll" />
+    <Content Include="Component\log4net.dll" />
+    <Content Include="Icon\kblogger.ico" />
+    <Content Include="Picture\Computer.jpg" />
+    <Content Include="Picture\mute.bmp" />
+    <None Include="DsF05.xsc">
+      <DependentUpon>DsF05.xsd</DependentUpon>
+    </None>
+    <None Include="DsF05.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DsF05.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DsF05.xss">
+      <DependentUpon>DsF05.xsd</DependentUpon>
+    </None>
+    <None Include="EICS_1_TemporaryKey.pfx" />
+    <None Include="EICS_2_TemporaryKey.pfx" />
+    <None Include="EICS_3_TemporaryKey.pfx" />
+    <None Include="Web References\NascaAPI\NppBinInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppBlendResinRelationInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppBlendResinResultInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppCarrierLotInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppDefectPotRegInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppInfoMaterialOrder.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppInfoMaterialResults.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppInlineMagazineLotInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppLoginInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppLotCharInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppLotCharProcessScheduleInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppLotInfo3.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppMeasureRstInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppPublicWebService.disco" />
+    <None Include="Web References\NascaAPI\NppResultsFacilityInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\NppReturnInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\NascaAPI\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 および x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://naweb.nichia.local/NPPPublic/NppPublicWebService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\NascaAPI\</RelPath>
+      <UpdateFromURL>http://naweb.nichia.local/NPPPublic/NppPublicWebService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>EICS_NascaAPI_NppPublicWebServiceSoap</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Component\LENS2_Api.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="EICS.XmlSerializers">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="LENS2_Api">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsStandardText" targetNamespace="http://tempuri.org/dsStandardText.xsd" xmlns:mstns="http://tempuri.org/dsStandardText.xsd" xmlns="http://tempuri.org/dsStandardText.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsStandardText" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsStandardText" msprop:Generator_DataSetName="dsStandardText" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtFNM" msprop:Generator_UserTableName="dtFNM" msprop:Generator_RowDeletedName="dtFNMRowDeleted" msprop:Generator_RowChangedName="dtFNMRowChanged" msprop:Generator_RowClassName="dtFNMRow" msprop:Generator_RowChangingName="dtFNMRowChanging" msprop:Generator_RowEvArgName="dtFNMRowChangeEvent" msprop:Generator_RowEvHandlerName="dtFNMRowChangeEventHandler" msprop:Generator_TableClassName="dtFNMDataTable" msprop:Generator_TableVarName="tabledtFNM" msprop:Generator_RowDeletingName="dtFNMRowDeleting" msprop:Generator_TablePropName="dtFNM">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Assets_NM" msprop:Generator_UserColumnName="Assets_NM" msprop:Generator_ColumnVarNameInTable="columnAssets_NM" msprop:Generator_ColumnPropNameInRow="Assets_NM" msprop:Generator_ColumnPropNameInTable="Assets_NMColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Fixed_NO" msprop:Generator_UserColumnName="Fixed_NO" msprop:Generator_ColumnVarNameInTable="columnFixed_NO" msprop:Generator_ColumnPropNameInRow="Fixed_NO" msprop:Generator_ColumnPropNameInTable="Fixed_NOColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="Fixed_NM" msprop:Generator_UserColumnName="Fixed_NM" msprop:Generator_ColumnVarNameInTable="columnFixed_NM" msprop:Generator_ColumnPropNameInRow="Fixed_NM" msprop:Generator_ColumnPropNameInTable="Fixed_NMColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Del_FG" msprop:Generator_UserColumnName="Del_FG" msprop:Generator_ColumnVarNameInTable="columnDel_FG" msprop:Generator_ColumnPropNameInRow="Del_FG" msprop:Generator_ColumnPropNameInTable="Del_FGColumn" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdUser_CD" msprop:Generator_UserColumnName="UpdUser_CD" msprop:Generator_ColumnVarNameInTable="columnUpdUser_CD" msprop:Generator_ColumnPropNameInRow="UpdUser_CD" msprop:Generator_ColumnPropNameInTable="UpdUser_CDColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="LastUpd_DT" msprop:Generator_UserColumnName="LastUpd_DT" msprop:Generator_ColumnVarNameInTable="columnLastUpd_DT" msprop:Generator_ColumnPropNameInRow="LastUpd_DT" msprop:Generator_ColumnPropNameInTable="LastUpd_DTColumn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,11 @@
+QcParam_NO	Model_NM	Chip_NM	Die_KB	Class_NM	Parameter_NM	Manage_NM	Timing_NO	ChangeUnit_VAL	Total_KB	Del_FG	UpdUser_CD	LastUpd_DT	RefQcParam_NO	CauseAssets_NM	EquipManage_FG	UnManageTrend_FG	WithoutFileFmt_FG	ProgramNm_FG	ResinGroupManage_FG	PsMeasureResultSave_FG	LimitOverWhenFlowNotPossible_FG	LimitOverWhenMachineNotPossible_FG	CauseWork_CD	ProgramMaterialCd_FG
+801	ECK		        	装置設定ﾊﾟﾗﾒｰﾀｰ	品種ﾀｲﾌﾟ名	OK/NG	1	0                   	NULL	0	5439    	2018-11-02 13:35:56.000	NULL	NULL	0	0	0	0	0	0	0	0	NULL	0
+802	ECK		        	装置設定ﾊﾟﾗﾒｰﾀｰ	設定速度	MAX-MIN	1	0                   	NULL	0	5439    	2018-11-02 13:35:56.000	NULL	NULL	0	0	0	0	0	0	0	0	NULL	0
+803	ECK		        	装置設定ﾊﾟﾗﾒｰﾀｰ	設定時間	MAX-MIN	1	0                   	NULL	0	5439    	2018-11-02 13:35:56.000	NULL	NULL	0	0	0	0	0	0	0	0	NULL	0
+804	ECK		        	装置設定ﾊﾟﾗﾒｰﾀｰ	加速ﾚｰﾄ	MAX-MIN	1	0                   	NULL	0	5439    	2018-11-02 13:35:56.000	NULL	NULL	0	0	0	0	0	0	0	0	NULL	0
+805	ECK		        	装置設定ﾊﾟﾗﾒｰﾀｰ	減速ﾚｰﾄ	MAX-MIN	1	0                   	NULL	0	5439    	2018-11-02 13:35:56.000	NULL	NULL	0	0	0	0	0	0	0	0	NULL	0
+806	ECK		        	装置実行ﾊﾟﾗﾒｰﾀｰ	回転速度(MAX)	MAX-MIN	3	0                   	MAX                 	0	5439    	2018-11-02 13:35:56.000	NULL	NULL	0	0	0	0	0	0	0	0	NULL	0
+807	ECK		        	装置実行ﾊﾟﾗﾒｰﾀｰ	回転速度(AVE)	MAX-MIN	3	0                   	AVE                 	0	5439    	2018-11-02 13:35:56.000	NULL	NULL	0	0	0	0	0	0	0	0	NULL	0
+808	ECK		        	装置実行ﾊﾟﾗﾒｰﾀｰ	回転速度(MIN)	MAX-MIN	3	0                   	MIN                 	0	5439    	2018-11-02 13:35:56.000	NULL	NULL	0	0	0	0	0	0	0	0	NULL	0
+809	ECK		        	装置実行ﾊﾟﾗﾒｰﾀｰ	回転時間	MAX	3	0                   	NULL	0	5439    	2018-11-02 13:35:56.000	NULL	NULL	0	0	0	0	0	0	0	0	NULL	0
+810	ECK		        	ｴﾗｰﾛｸﾞ	ﾊﾞｽｹｯﾄ倒立異常	MAX	3	0                   	NULL	0	5439    	2018-11-02 13:35:56.000	NULL	NULL	0	0	0	0	0	0	0	0	NULL	0

@@ -1,0 +1,85 @@
+﻿@{
+}
+<p>@Html.ActionLink("不良入力", "Index", "Defect")</p>
+
+<p>@Html.ActionLink("作業開始", "Index", "WorkStart")</p>
+
+<p>@Html.ActionLink("作業完了", "UnloaderMag", "WorkEnd")</p>
+
+<p>@Html.ActionLink("ロット情報表示", "Index", "LotView")</p>
+
+<p>@Html.ActionLink("カセットチェンジャー", "Index", "Wafer")</p>
+
+<p>@Html.ActionLink("チップ(カセット以外)", "Index", "WaferEachSheet")</p>
+
+<p>@Html.ActionLink("その他原材料(カセット以外)", "Index", "Material")</p>
+
+<p>@Html.ActionLink("フレーム", "Index", "Frame")</p>
+
+<p>@Html.ActionLink("アオイ基板マガジン", "Index", "Aoimag")</p>
+
+<p>@Html.ActionLink("開始完了一括登録（アウトライン用）", "Index", "WorkStartEnd")</p>
+
+<p>@Html.ActionLink("製造条件", "Index", "WorkCnd")</p>
+
+<p>@Html.ActionLink("MAPダイシングブレード", "Index", "MapDicingBlade")</p>
+
+<p>@Html.ActionLink("カットブレンド完成", "Index", "CutBlend")</p>
+
+<p>@Html.ActionLink("カット不良予約登録", "PreInputDefect", "CutBlend")</p>
+
+<p>@Html.ActionLink("モールド樹脂", "Index", "Resin")</p>
+
+<p>@Html.ActionLink("分割マガジン情報表示", "FindOther", "LotView")</p>
+
+<p>@Html.ActionLink("カットラベル照合", "Index", "CutLabelCompare")</p>
+
+<p>@Html.ActionLink("仮カットブレンド登録", "Index", "PreCutBlend")</p>
+
+<p>@Html.ActionLink("EICSタイプ切替", "Index", "EicsTypeChange")</p>
+
+<p>@Html.ActionLink("ロットと基板DM/キャリアQRの関連付け登録", "Index", "LotCarrier")</p>
+
+<p>@Html.ActionLink("ロットとキャリアQR関連付け変更", "Index", "ChangeCarrier")</p>
+
+<!--暫定ｺﾒﾝﾄｱｳﾄ-->
+<style>/*
+<p>@Html.ActionLink("リング転写", "Index", "TransferCarrier")
+ */</style>
+
+<p>@Html.ActionLink("キャリア分割登録", "Index", "DivideCarrier")</p>
+
+<p>@Html.ActionLink("マガジンと基板DM/キャリアQRの照合", "Index", "MagazineCarrierCompare")</p>
+
+<p>@Html.ActionLink("搬送実績登録", "Index", "Conveyance")</p>
+
+<p>@Html.ActionLink("厚みランク照合", "Index", "SubstrateThicknessRank")</p>
+
+<p>@Html.ActionLink("マガジン<->リング関連付け", "Index", "CassetteRelation")</p>
+
+<p>@Html.ActionLink("リング転写", "Index", "CassetteTransfer")</p>
+
+<p>@Html.ActionLink("研削用リング/IPSトレイ登録", "Index", "GrinderRing")</p>
+
+<p>@Html.ActionLink("リング転写（G11研削2枚貼り用)", "Index", "CassetteTransfer2to1")</p>
+
+<p>@Html.ActionLink("樹脂調合依頼登録", "Index", "ResinMixOrder")</p>
+
+<p>@Html.ActionLink("ブレンドラベル照合", "Index", "BlendLabelCompare")</p>
+
+<p>@Html.ActionLink("MD反射材3D測定機から返却されたトレイ照合", "Index", "ResinMeasurementTrayCompare")</p>
+
+<hr />
+<div>Copyright© 2013 SGA52 All Rights Reserved.</div>
+@using (Html.BeginForm())
+{
+    string settingfolderpath = ArmsApi.Config.GetSettingFolderPath();
+    if (File.Exists(Path.Combine(settingfolderpath, "ArmsConfig.xml")))
+    {
+        <div>SettingFileDirectory: @settingfolderpath</div>
+    }
+    else
+    {
+        <div>SettingFileDirectory: @Environment.CurrentDirectory</div>
+    }
+}

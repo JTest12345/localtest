@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ARMS" Class="ARMSDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=172.16.34.201\SQLExpress;Initial Catalog=ARMS;User ID=inline" SettingsObjectName="ArmsApi.Properties.Settings" SettingsPropertyName="ARMSConnectionString2" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.TnResinMixMat" Member="TnResinMixMat">
+    <Type Name="TnResinMixMat">
+      <Column Name="mixresultid" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="materialcd" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="lotno" Type="System.String" DbType="NVarChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TnMaterials" Member="TnMaterials">
+    <Type Name="TnMaterials">
+      <Column Name="materialcd" Type="System.String" DbType="NVarChar(24) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="lotno" Type="System.String" DbType="NVarChar(64) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="materialnm" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="limitdt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="isrestrict" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="hmgroup" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="delfg" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="blendcd" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="bincd" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="isframe" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iswafer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="issampled" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="lastupddt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="workcd" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="isbadmarkframe" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="framemoldednm" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="framemoldedclass" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="framemoldeddt" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="rankid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="supplyId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="dicewaferkb" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="thicknessave" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="ringid" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TmDieShearSampling" Member="TmDieShearSampling">
+    <Type Name="TmDieShearSampling">
+      <Column Name="typecd" Type="System.String" DbType="NVarChar(24) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="judgeworkcd" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="delfg" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="updusercd" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastupddt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TmEmployee" Member="TmEmployee">
+    <Type Name="TmEmployee">
+      <Column Name="empcode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="empname" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastupddt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TnCarrierWorkData" Member="TnCarrierWorkData">
+    <Type Name="TnCarrierWorkData">
+      <Column Name="carrierno" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="lotno" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="procno" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="infoid" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="value" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="delfg" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="lastupddt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TmGeneral" Member="TmGeneral">
+    <Type Name="TmGeneral">
+      <Column Name="tid" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="val" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="val2" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="delfg" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="updatedt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="updusercd" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TnSubstrateInfo" Member="TnSubstrateInfo">
+    <Type Name="TnSubstrateInfo">
+      <Column Name="datamatrix" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="thicknessrank" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="markingno" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="mappingdata" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="updusercd" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="lastupddt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TmDenyCutBlendType" Member="TmDenyCutBlendType">
+    <Type Name="TmDenyCutBlendType">
+      <Column Name="typecd" Type="System.String" DbType="NVarChar(24) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="delfg" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="updusercd" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastupddt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TmPSTeser" Member="TmPSTeser">
+    <Type Name="TmPSTeser">
+      <Column Name="plantcd" Type="System.String" DbType="NVarChar(24) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="settingtime" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="delfg" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="lastupddt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TnAGVPSTester" Member="TnAGVPSTester">
+    <Type Name="TnAGVPSTester">
+      <Column Name="plantcd" Type="System.String" DbType="NVarChar(24) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="testdt" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="lotno" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="magazinecheckdt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="movedt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TmLineconfigSignalDisplay" Member="TmLineconfigSignalDisplay">
+    <Type Name="TmLineconfigSignalDisplay">
+      <Column Name="flownm" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="vieworder" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="dispname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="buttoncolor" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="plcaddresstagname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="plcporttagname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="plcmakertagname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="hostipadresstagname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="xmlkb" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="tagname" Type="System.String" DbType="NVarChar(75) NOT NULL" CanBeNull="false" />
+      <Column Name="childtagname" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
+      <Column Name="childno" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TnMoldDischargePressure" Member="TnMoldDischargePressure">
+    <Type Name="TnMoldDischargePressure">
+      <Column Name="moldplantcd" Type="System.String" DbType="NVarChar(24) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="measurementplantcd" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="dischargepressureval1" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="dischargepressureval2" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="dischargepressureval3" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="dischargepressureval4" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="dischargepressureval5" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="dischargepressureval6" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="dischargepressureval7" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="dischargepressureval8" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="aftercalculationdischargepressureval1" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="aftercalculationdischargepressureval2" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="aftercalculationdischargepressureval3" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="aftercalculationdischargepressureval4" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="aftercalculationdischargepressureval5" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="aftercalculationdischargepressureval6" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="aftercalculationdischargepressureval7" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="aftercalculationdischargepressureval8" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="receivingdonefg" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="moldsendingdonefg" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="lastupddt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="voidfg" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

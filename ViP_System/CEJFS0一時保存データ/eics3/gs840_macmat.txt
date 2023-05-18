@@ -1,0 +1,2 @@
+macno	stockerno	materialcd	lotno	startdt	enddt	issampled	isnascastart	isnascaend	ringid
+115004	0	GS0000840	M17120826816KX	2018-03-01 11:44:40.540	2018-03-09 13:26:21.963	0	NULL	NULL	NULL

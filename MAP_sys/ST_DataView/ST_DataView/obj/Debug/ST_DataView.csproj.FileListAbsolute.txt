@@ -1,0 +1,10 @@
+D:\MAP_sys\ST_DataView\ST_DataView\bin\Debug\ST_DataView.exe.config
+D:\MAP_sys\ST_DataView\ST_DataView\bin\Debug\ST_DataView.exe
+D:\MAP_sys\ST_DataView\ST_DataView\bin\Debug\ST_DataView.pdb
+D:\MAP_sys\ST_DataView\ST_DataView\obj\Debug\ST_DataView.csprojAssemblyReference.cache
+D:\MAP_sys\ST_DataView\ST_DataView\obj\Debug\ST_DataView.Form1.resources
+D:\MAP_sys\ST_DataView\ST_DataView\obj\Debug\ST_DataView.Properties.Resources.resources
+D:\MAP_sys\ST_DataView\ST_DataView\obj\Debug\ST_DataView.csproj.GenerateResource.cache
+D:\MAP_sys\ST_DataView\ST_DataView\obj\Debug\ST_DataView.csproj.CoreCompileInputs.cache
+D:\MAP_sys\ST_DataView\ST_DataView\obj\Debug\ST_DataView.exe
+D:\MAP_sys\ST_DataView\ST_DataView\obj\Debug\ST_DataView.pdb

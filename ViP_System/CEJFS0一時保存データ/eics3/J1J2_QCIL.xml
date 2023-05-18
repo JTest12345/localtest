@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <!-- 動作設定 -->
+  <Language value="JA" />
+  <SectionCD value="SLC2" />
+  <DummyAIModelNM value="ダミー" />
+  <NetExePath value="C:\WINDOWS\system32\net.exe" />
+  <MachineLogOutWaitmSec value="5000" />
+  <DeleteSysLogIntervalDay value="31" />
+  <IsMappingMode value="ON" />
+  <LENS value="OFF" />
+  <LocalHostIP value="" />
+  <MasterMissDisplayCount value="30" />
+  <qcil_info>
+    <HonbanServer value="172.24.18.36" />
+    <HonbanDB value="QCIL" />
+    <PLA_RfParamNo value="201, 251" />
+    <PLA_TimeParamNo value="202, 252" />
+    <PLA_ArParamNo value="203, 253" />
+    <PLA_CfParamNo value="-1" />
+    <PLA_VacuumParamNo value="204, 254" />
+    <PLA_PressParamNo value="205, 255" />
+    <LotNoConvert ID="" StartIndex="" Len="" NeedFG="false" />
+    <SUP_AutoFileRfParam RF1QcParam_no="2781" RF2QcParam_no="2782" exclusionTemp="1500" />
+    <SUP_AutoFileReflectParam RF1QcParam_no="2783" RF2QcParam_no="2784" continuallyTime="30" />
+    <SUP_AutoFileGusTentionParam QcParam_no="2786" continuallyTime="30" />
+    <SUP_OnceVdcChangeParam RF1QcParam_no="2787" RF2QcParam_no="2788" rate="10" />
+    <SUP_MultiVdcChangeParam RF1QcParam_no="2789" RF2QcParam_no="2790" rate="5" count="3" />
+    <SUP_VdcChangeExclusionTime value="7" />
+    <SUP_AutoFileGusFlowParamNo QcParam_no="2785" />
+    <SUP_ProgramParamNo value="3375" />
+    <ResultPriorityJudge startNgNo="1001" startPlcAddr="EM40400" len="100" />
+    <line_info inline_cd="18601">
+      <BlackJumboDog value="OFF" />
+      <KISS value="OFF" />
+      <pc_no value="1" />
+      <LineType value="Auto" />
+      <TypeGroup value="MAP" />
+      <Package value="ON" />
+      <PackagePC value="172.24.18.36" />
+      <EicsConnectionString value="Server=172.24.18.36\SQLEXPRESS;Database=QCIL;Connect Timeout=60;UID=inline;PWD=R28uHta;Application Name=EICS[傾向管理システム];" />
+      <ArmsConnectionString value="Server=172.24.17.10\SQLEXPRESS;Database=ARMS;Connect Timeout=60;UID=inline;PWD=R28uHta;Application Name=EICS[傾向管理システム];" />
+      <LensConnectionString value="Server=172.24.17.10\SQLEXPRESS;Database=LENS;Connect Timeout=60;UID=inline;PWD=R28uHta;Application Name=EICS[傾向管理システム];" />
+      <Map value="ON" />
+      <WBMappingKB value="ON" />
+      <NotUseTmQDIW value="ON" />
+      <DirMDMapping value="\\192.168.3.1\QCIL\Mapping\" />
+      <DirAIMapping value="\\192.168.3.1\QCIL\data\AI\Mapping\" />
+      <NASCAFolder value="\\192.168.3.1\QCIL\Mapping\Nasca\" />
+      <BadMarkingInfo BMCauseCD="28006" BMClassCD="1001" BMDefectCD="F1106" />
+      <SendJudgeOKAlwaysOnHSMS value="OFF" />
+      <ForWBCompareMachineLogDirPath value="\\\\192.168.3.1\\QCIL\\data\\WB\\MachineLog\\" />
+      <EquipmentList>
+        <!-- DB -->
+        <Equipment no="SA3483" value="" chip="LED" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="SA3484" value="" chip="LED" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="SA3485" value="" chip="LED" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="SA3486" value="" chip="LED" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="SA3487" value="" chip="LED" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="SA3495" value="" chip="ZD" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="SA3496" value="" chip="ZD" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="SA3497" value="" chip="ZD" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="SA3498" value="" chip="ZD" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="SA3499" value="" chip="ZD" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+      </EquipmentList>
+    </line_info>
+    <line_info inline_cd="18602">
+      <BlackJumboDog value="OFF" />
+      <KISS value="OFF" />
+      <pc_no value="1" />
+      <LineType value="Auto" />
+      <TypeGroup value="MAP" />
+      <Package value="ON" />
+      <PackagePC value="172.24.18.36" />
+      <EicsConnectionString value="Server=172.24.18.36\SQLEXPRESS;Database=QCIL;Connect Timeout=60;UID=inline;PWD=R28uHta;Application Name=EICS[傾向管理システム];" />
+      <ArmsConnectionString value="Server=172.24.17.10\SQLEXPRESS;Database=ARMS;Connect Timeout=60;UID=inline;PWD=R28uHta;Application Name=EICS[傾向管理システム];" />
+      <LensConnectionString value="Server=172.24.17.10\SQLEXPRESS;Database=LENS;Connect Timeout=60;UID=inline;PWD=R28uHta;Application Name=EICS[傾向管理システム];" />
+      <Map value="ON" />
+      <WBMappingKB value="ON" />
+      <NotUseTmQDIW value="ON" />
+      <DirMDMapping value="\\192.168.3.1\QCIL\Mapping\" />
+      <DirAIMapping value="\\192.168.3.1\QCIL\data\AI\Mapping\" />
+      <NASCAFolder value="\\192.168.3.1\QCIL\Mapping\Nasca\" />
+      <BadMarkingInfo BMCauseCD="28006" BMClassCD="1001" BMDefectCD="F1106" />
+      <SendJudgeOKAlwaysOnHSMS value="OFF" />
+      <ForWBCompareMachineLogDirPath value="\\\\192.168.3.1\\QCIL\\data\\WB\\MachineLog\\" />
+      <EquipmentList>
+        <!-- DB -->
+        <Equipment no="SA0419" value="" chip="LED" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="SA0420" value="" chip="LED" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="SA2371" value="" chip="LED" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="SA3460" value="" chip="LED" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="SA3461" value="" chip="LED" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="SA3462" value="" chip="ZD" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="SA3616" value="" chip="ZD" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="SA3480" value="" chip="ZD" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="SA3481" value="" chip="ZD" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="SA3482" value="" chip="ZD" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="S05744" value="" chip="ZD" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="S05980" value="" chip="ZD" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="S06313" value="" chip="ZD" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="S06314" value="" chip="ZD" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="S06385" value="" chip="ZD" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="S06409" value="" chip="LED" BMCountFG="false" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="SA3502" value="" chip="LED" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="false" />
+        <Equipment no="S07236" value="" chip="LED" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="S08681" value="" chip="LED" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+        <Equipment no="S09479" value="" chip="LED" BMCountFG="true" HasLoaderQRReader="FALSE" WaitForRenameByArmsFg="TRUE" IsOutputCommonPath="FALSE" FullParameterFG="true" />
+      </EquipmentList>
+    </line_info>
+  </qcil_info>
+  <arms_info>
+    <AIProcessCD value="10" />
+  </arms_info>
+  <geics_info>
+    <WBEquipVer paramNo="9999" />
+  </geics_info>
+</configuration>

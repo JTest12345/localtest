@@ -1,0 +1,33 @@
+﻿@model ArmsWeb.Models.SubstrateThicknessRankModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>厚みランク照合</h3>
+<h3>リングデータ：@Model.RingData</h3>
+<br />
+
+@using (Html.BeginForm())
+{
+    <h3>基板DM/キャリアQR読み込み</h3>
+    <input type="text" id="txtDataMatrix" name="txtDataMatrix" />
+    <input type="submit" value="Go" />
+
+    <h5>読み込み済み基板DM/キャリアQR @Model.DataMatirxList.Count().ToString() </h5>
+    <ul>
+        @foreach (string dm in Model.DataMatirxList)
+        {
+            <li>@dm</li>
+        }
+    </ul>
+    
+    <div>
+        @Html.ActionLink("照合", "Confirm")
+        &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+    </div>
+    
+    <br />
+}
+

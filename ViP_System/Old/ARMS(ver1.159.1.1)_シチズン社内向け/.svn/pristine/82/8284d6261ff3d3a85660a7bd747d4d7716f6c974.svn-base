@@ -1,0 +1,30 @@
+﻿@model ArmsWeb.Models.LotViewModel
+@{
+    ViewBag.Title = "PsTesterLink";
+}
+
+<h3>強度試験 情報連携</h3>
+
+<table>
+    <tr>
+        <td>マガジン</td>
+        <td>@Model.MagNo</td>
+    </tr>
+    <tr>
+        <td>ロット</td>
+        <td>@Model.LotNo</td>
+    </tr>
+    <tr>
+        <td>型番</td>
+        <td>@Model.Lot.TypeCd</td>
+    </tr>
+    <tr>
+        <td>WB号機</td>
+        <td>@Model.WBMachine.LongName</td>
+    </tr>
+</table>
+
+<p>@Html.ActionLink("強度試験データ出力", "PsTesterLinkDone") </p>
+<p>@Html.ActionLink("ボール径データ出力", "BdTesterLinkDone") </p>
+<p>@Html.ActionLink("膜厚データ出力", "FilmTesterLinkDone") </p>
+

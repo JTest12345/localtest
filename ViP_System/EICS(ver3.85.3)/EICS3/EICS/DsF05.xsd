@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DsF05" targetNamespace="http://tempuri.org/DsF05.xsd" xmlns:mstns="http://tempuri.org/DsF05.xsd" xmlns="http://tempuri.org/DsF05.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DsF05" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="DsF05" msprop:Generator_UserDSName="DsF05" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DtItems" msprop:Generator_UserTableName="DtItems" msprop:Generator_RowDeletedName="DtItemsRowDeleted" msprop:Generator_TableClassName="DtItemsDataTable" msprop:Generator_RowChangedName="DtItemsRowChanged" msprop:Generator_RowClassName="DtItemsRow" msprop:Generator_RowChangingName="DtItemsRowChanging" msprop:Generator_RowEvArgName="DtItemsRowChangeEvent" msprop:Generator_RowEvHandlerName="DtItemsRowChangeEventHandler" msprop:Generator_TablePropName="DtItems" msprop:Generator_TableVarName="tableDtItems" msprop:Generator_RowDeletingName="DtItemsRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Plant_CD" msprop:Generator_UserColumnName="Plant_CD" msprop:Generator_ColumnPropNameInRow="Plant_CD" msprop:Generator_ColumnVarNameInTable="columnPlant_CD" msprop:Generator_ColumnPropNameInTable="Plant_CDColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Address_VAL" msprop:Generator_UserColumnName="Address_VAL" msprop:Generator_ColumnPropNameInRow="Address_VAL" msprop:Generator_ColumnVarNameInTable="columnAddress_VAL" msprop:Generator_ColumnPropNameInTable="Address_VALColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

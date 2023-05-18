@@ -1,0 +1,26 @@
+﻿@model ArmsWeb.Models.CasseteRelationModel
+@{
+    ViewBag.Title = "Submit";
+}
+<h3>リング追加</h3>
+        
+    <h2>登録完了</h2>    
+
+    <h5>ロット @Model.LotNo </h5>
+    
+    <h5>読み込み済みリング @Model.listCassetteNo.Count().ToString() </h5>
+    
+    <ul>
+        @foreach (var cass in Model.listCassetteNo)
+        {
+            <li>@cass</li>
+        }
+    </ul>string cass in Model.listCassetteNo
+    <br />
+    
+    <div>
+        @Html.ActionLink("次登録", "Index")
+        &nbsp
+        @Html.ActionLink("ホーム", "Index", "Home")
+    </div>
+    

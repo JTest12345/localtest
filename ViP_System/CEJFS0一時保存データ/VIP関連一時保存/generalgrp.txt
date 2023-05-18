@@ -1,0 +1,6 @@
+GeneralGrpCD	GeneralGrpNM	DelFG	UpdUserCD	LastUpdDT
+MachineClassName	装置分類名	0	5175    	2014-10-07 18:47:37.347
+NonInspectionDefectItem	外観検査機で検査不要の不良	0	5175    	2013-02-05 09:30:00.000
+WirebonderResultCode	ワイヤーボンダー処理CD	0	5175    	2014-09-16 18:29:34.077
+WirebonderResultCodeBadMark	周辺検査箇所ならスキップするワイヤーボンダーエラーCD	0	5175    	2014-09-18 17:57:44.197
+WirebonderResultCodePriority	ワイヤーボンダー処理CDをマッピングデータへ変換する時の優先順位	0	5175    	2014-09-17 13:27:36.917

@@ -1,0 +1,28 @@
+﻿@model ArmsWeb.Models.CassetteTransfer2to1Model
+@{
+    ViewBag.Title = "Submit";
+}
+<h3>転写リング</h3>
+        
+    <h2>登録完了</h2>    
+
+    <h5>ロット @Model.LotNo </h5>
+    
+    <h5>転写リング @Model.listCassetteCng.Count().ToString() </h5>
+    
+    <ul>
+        @foreach (ArmsWeb.Models.CassetteTransfer2to1Model.CassetteCng casscng in Model.listCassetteCng)
+        {
+            int i = 0;
+            <option value="@i">@casscng.cassetteno -> @casscng.nextcassetteno@casscng.branchno</option>
+            i++;
+        }
+    </ul>string cass in Model.listCassetteNo
+    <br />
+    
+    <div>
+        @Html.ActionLink("次登録", "Index")
+        &nbsp
+        @Html.ActionLink("ホーム", "Index", "Home")
+    </div>
+    

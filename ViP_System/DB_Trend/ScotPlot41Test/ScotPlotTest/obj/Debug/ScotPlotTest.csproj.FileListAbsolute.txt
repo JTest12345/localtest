@@ -1,0 +1,112 @@
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\bin\Debug\ScotPlotTest.exe.config
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\bin\Debug\ScotPlotTest.exe
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\bin\Debug\ScotPlotTest.pdb
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\bin\Debug\ScottPlot.dll
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\bin\Debug\ScottPlot.WPF.dll
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\bin\Debug\System.Drawing.Common.dll
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\MainWindow.g.cs
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\App.g.cs
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest_MarkupCompile.cache
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest_MarkupCompile.lref
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\MainWindow.baml
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.g.resources
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.Properties.Resources.resources
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.GenerateResource.cache
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.CoreCompileInputs.cache
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.CopyComplete
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.exe
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.pdb
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.SuggestedBindingRedirects.cache
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\bin\Debug\System.ValueTuple.dll
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\bin\Debug\ScottPlot.xml
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\bin\Debug\System.ValueTuple.xml
+D:\My Documents\Visual Studio 2019\Projects\TestProject\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.AssemblyReference.cache
+P:\ScotPlotTest\ScotPlotTest\bin\Debug\ScotPlotTest.exe.config
+P:\ScotPlotTest\ScotPlotTest\bin\Debug\ScotPlotTest.exe
+P:\ScotPlotTest\ScotPlotTest\bin\Debug\ScotPlotTest.pdb
+P:\ScotPlotTest\ScotPlotTest\bin\Debug\ScottPlot.dll
+P:\ScotPlotTest\ScotPlotTest\bin\Debug\ScottPlot.WPF.dll
+P:\ScotPlotTest\ScotPlotTest\bin\Debug\System.Drawing.Common.dll
+P:\ScotPlotTest\ScotPlotTest\bin\Debug\System.ValueTuple.dll
+P:\ScotPlotTest\ScotPlotTest\bin\Debug\ScottPlot.xml
+P:\ScotPlotTest\ScotPlotTest\bin\Debug\System.ValueTuple.xml
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.AssemblyReference.cache
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.SuggestedBindingRedirects.cache
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\MainWindow.g.cs
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\App.g.cs
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest_MarkupCompile.cache
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest_MarkupCompile.lref
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\MainWindow.baml
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.g.resources
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.Properties.Resources.resources
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.GenerateResource.cache
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.CoreCompileInputs.cache
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.CopyComplete
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.exe
+P:\ScotPlotTest\ScotPlotTest\obj\Debug\ScotPlotTest.pdb
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\bin\Debug\ScotPlotTest.exe.config
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\bin\Debug\ScotPlotTest.exe
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\bin\Debug\ScotPlotTest.pdb
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\bin\Debug\ScottPlot.dll
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\bin\Debug\ScottPlot.WPF.dll
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\bin\Debug\System.Drawing.Common.dll
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\bin\Debug\System.ValueTuple.dll
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\bin\Debug\ScottPlot.xml
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\bin\Debug\System.ValueTuple.xml
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.csprojAssemblyReference.cache
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\obj\Debug\MainWindow.g.cs
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\obj\Debug\App.g.cs
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest_MarkupCompile.cache
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest_MarkupCompile.lref
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\obj\Debug\MainWindow.baml
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.g.resources
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.Properties.Resources.resources
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.GenerateResource.cache
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.CoreCompileInputs.cache
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.CopyComplete
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.exe
+C:\Users\jnk-nkmr\Downloads\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.pdb
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.csprojAssemblyReference.cache
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\obj\Debug\MainWindow.g.cs
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\obj\Debug\App.g.cs
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest_MarkupCompile.cache
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest_MarkupCompile.lref
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.pdb
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.exe
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\bin\Debug\ScotPlotTest.exe.config
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\bin\Debug\ScotPlotTest.exe
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\bin\Debug\ScotPlotTest.pdb
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\bin\Debug\ScottPlot.dll
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\bin\Debug\ScottPlot.WPF.dll
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\bin\Debug\System.Drawing.Common.dll
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\bin\Debug\System.ValueTuple.dll
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\bin\Debug\ScottPlot.xml
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\bin\Debug\System.ValueTuple.xml
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\obj\Debug\MainWindow.baml
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.g.resources
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.Properties.Resources.resources
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.GenerateResource.cache
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.CoreCompileInputs.cache
+D:\ViP_System\グラフ表示\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.CopyComplete
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\bin\Debug\ScotPlotTest.exe.config
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\bin\Debug\ScotPlotTest.exe
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\bin\Debug\ScotPlotTest.pdb
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\bin\Debug\ScottPlot.dll
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\bin\Debug\ScottPlot.WPF.dll
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\bin\Debug\System.Drawing.Common.dll
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\bin\Debug\System.ValueTuple.dll
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\bin\Debug\ScottPlot.xml
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\bin\Debug\System.ValueTuple.xml
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.csprojAssemblyReference.cache
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\obj\Debug\MainWindow.g.cs
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\obj\Debug\App.g.cs
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest_MarkupCompile.cache
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest_MarkupCompile.lref
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\obj\Debug\MainWindow.baml
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.g.resources
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.Properties.Resources.resources
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.GenerateResource.cache
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.CoreCompileInputs.cache
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.csproj.CopyComplete
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.exe
+D:\ViP_System\DB_Trend\ScotPlot41Test\ScotPlotTest\obj\Debug\ScotPlotTest.pdb

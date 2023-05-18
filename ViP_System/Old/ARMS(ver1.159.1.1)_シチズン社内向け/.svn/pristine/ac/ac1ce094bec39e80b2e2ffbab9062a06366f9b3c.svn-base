@@ -1,0 +1,19 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.EicsTypeChangeModel
+@{
+    ViewBag.Title = "ChangeConfirm";
+}
+
+<h3>下記の条件でEICSのタイプを書き換えます。よろしいですか？</h3><br/>
+<h3>装置：@Model.Mac.LongName</h3>
+<h3>現在のタイプ：@Model.OldType</h3><br/>
+<h3>変更後タイプ：@Model.NewType</h3><br/>
+
+@using (Html.BeginForm())
+{
+//    <button name="btnSubmit" value="btnchange" >変更実施</button>
+    <input type="submit" name="btnChange" value="変更実施" />
+}
+
+
+

@@ -1,0 +1,10 @@
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\PLC\bin\Debug\PLC.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\PLC\bin\Debug\PLC.pdb
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\PLC\obj\Debug\PLC.csprojResolveAssemblyReference.cache
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\PLC\obj\Debug\PLC.dll
+C:\Users\j42940\Documents\Visual Studio 2015\Projects\LENS(2_11_4)\PLC\obj\Debug\PLC.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\PLC\bin\Debug\PLC.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\PLC\bin\Debug\PLC.pdb
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\PLC\obj\Debug\PLC.csprojResolveAssemblyReference.cache
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\PLC\obj\Debug\PLC.dll
+C:\Work10_DEV\2018\20180901：SGA-IM0000007627 MD装置SDカード内不要データ抽出\LENS(2_11_8_1)\PLC\obj\Debug\PLC.pdb

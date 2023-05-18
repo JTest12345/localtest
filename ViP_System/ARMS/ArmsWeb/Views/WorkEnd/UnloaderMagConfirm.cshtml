@@ -1,0 +1,24 @@
+﻿@model ArmsWeb.Models.WorkEndModel
+@{
+    ViewBag.Title = "UnloaderMagConfirm";
+}
+
+<p>下記の内容で完了します</p>
+<h3>設備：@Model.PlantCd</h3>
+<h3>作業者：@Model.EmpCd</h3>
+
+<p>読み込み済みロット</p>
+
+    <ul>
+    @foreach (ArmsApi.Model.Magazine mag in Model.MagList)
+    {
+        <li>@mag.MagazineNo : @mag.NascaLotNO</li>
+    }
+    </ul>
+
+<br />
+<div>
+    @Html.ActionLink("登録", "Submit");
+                &nbsp
+    @Html.ActionLink("キャンセル", "CancelUnloaderMagEdit")
+</div>

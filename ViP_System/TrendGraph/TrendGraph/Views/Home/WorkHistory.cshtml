@@ -1,0 +1,162 @@
+﻿@model IEnumerable<TrendGraph.Models.Tran>
+
+@{
+    ViewData["Title"] = "WorkHistory";
+}
+
+
+<div align="left" style="border: 3px double; width: 150px;">
+    <a href="@Url.Action("index", "Home")">ホーム画面へ戻る</a>
+</div>
+
+    <h1 class="display-6">傾向グラフ表示</h1>
+
+    <head>
+        <meta charset="utf-8">
+        <title>TEST</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1"></script>
+    </head>
+    <body>
+        <div style="width:400px">
+            <canvas id="mychart"></canvas>
+        </div>
+        <script>
+        var ctx = document.getElementById('mychart');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['1','2','3'],
+                datasets: [
+                    {
+                        label: 'Red',
+                        data: [10, 15],
+                        borderColor: '#f88',
+                        parsing: {
+                            yAxisKey: 'Rdata'
+                        }
+                    },
+                    {
+                        label: 'Blue',
+                        data: [20, 5, 10],
+                        borderColor: '#f10',
+                        parsing: {
+                            yAxisKey: 'Bdata'
+                        }
+                    }
+                ],
+            },
+            options: {
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        min: 0,
+                        max: 40,
+                        
+                    },
+
+                    
+                    
+
+                },
+            },
+        });
+
+            //同じチャート内に2つ以上の系列でグラフを書きたい
+            //データの追加がうまくできなくて断念 20220721
+            addData(myChart, '3', 15)    
+        
+
+        function yval(chart, data) {
+            chart.options.y.max = data * 1.2;
+        }
+
+
+        function addData(chart, label, data) {
+            chart.data.labels.push(label);
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.push(data);
+            });
+            
+            chart.update();
+        }
+
+        
+        </script>
+
+    </body>
+
+    <p>※作業日時降順</p>
+    <form method="POST" action="ResinIdFilter">
+        <left>
+            <table border="1">
+                <tr>
+                    <th>カップNo</th>
+                    <!-- name属性「name="name_box"」を設定する事で、遷移先で受け取り可能になる -->
+                    <td><input type="text" id="magno" name="magno" /><input type="submit" value="フィルタをかける" /></td>
+                </tr>
+            </table>
+        </left>       
+    </form>
+
+
+<table class="table" rules="all">
+    <thead>
+        <tr align="center">
+            <th>
+                @Html.DisplayNameFor(model => model.magno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lotno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.procno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mixtypecd)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.macno)
+            </th>          
+            <th>
+                @Html.DisplayNameFor(model => model.dtend)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr align="center">
+            <td>
+                @Html.DisplayFor(modelItem => item.magno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lotno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.procno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.mixtypecd)
+            </td>           
+            <td>
+                @Html.DisplayFor(modelItem => item.macno)
+            </td>           
+            <td>
+                @Html.DisplayFor(modelItem => item.dtend)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee)
+            </td>
+
+
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <!-- 動作設定 -->
+  <Language value="JA" />
+  <SectionCD value="SLC2" />
+  <DummyAIModelNM value="ダミー" />
+  <NetExePath value="C:\WINDOWS\system32\net.exe" />
+  <MachineLogOutWaitmSec value="5000" />
+  <DeleteSysLogIntervalDay value="31" />
+  <IsMappingMode value="ON" />
+  <LENS value="ON" />
+  <LocalHostIP value="" />
+  <MasterMissDisplayCount value="30" />
+  <qcil_info>
+    <HonbanServer value="172.24.18.36" />
+    <HonbanDB value="QCIL" />
+    <PLA_RfParamNo value="201, 251" />
+    <PLA_TimeParamNo value="202, 252" />
+    <PLA_ArParamNo value="203, 253" />
+    <PLA_CfParamNo value="-1" />
+    <PLA_VacuumParamNo value="204, 254" />
+    <PLA_PressParamNo value="205, 255" />
+    <LotNoConvert ID="" StartIndex="" Len="" NeedFG="false" />
+    <SUP_AutoFileRfParam RF1QcParam_no="2781" RF2QcParam_no="2782" exclusionTemp="1500" />
+    <SUP_AutoFileReflectParam RF1QcParam_no="2783" RF2QcParam_no="2784" continuallyTime="30" />
+    <SUP_AutoFileGusTentionParam QcParam_no="2786" continuallyTime="30" />
+    <SUP_OnceVdcChangeParam RF1QcParam_no="2787" RF2QcParam_no="2788" rate="10" />
+    <SUP_MultiVdcChangeParam RF1QcParam_no="2789" RF2QcParam_no="2790" rate="5" count="3" />
+    <SUP_VdcChangeExclusionTime value="7" />
+    <SUP_AutoFileGusFlowParamNo QcParam_no="2785" />
+    <SUP_ProgramParamNo value="3375" />
+    <ResultPriorityJudge startNgNo="1001" startPlcAddr="EM40400" len="100" />
+    <line_info inline_cd="18603">
+      <BlackJumboDog value="OFF" />
+      <KISS value="OFF" />
+      <pc_no value="2" />
+      <LineType value="Auto" />
+      <TypeGroup value="MAP" />
+      <Package value="ON" />
+      <PackagePC value="172.24.18.36" />
+      <EicsConnectionString value="Server=172.24.18.36\SQLEXPRESS;Database=QCIL;Connect Timeout=60;UID=inline;PWD=R28uHta;Application Name=EICS[傾向管理システム];" />
+      <ArmsConnectionString value="Server=172.24.17.10\SQLEXPRESS;Database=ARMS;Connect Timeout=60;UID=inline;PWD=R28uHta;Application Name=EICS[傾向管理システム];" />
+      <LensConnectionString value="Server=172.24.17.10\SQLEXPRESS;Database=LENS;Connect Timeout=60;UID=inline;PWD=R28uHta;Application Name=EICS[傾向管理システム];" />
+      <Map value="ON" />
+      <WBMappingKB value="ON" />
+      <NotUseTmQDIW value="ON" />
+      <DirMDMapping value="\\192.168.3.1\QCIL\Mapping\" />
+      <DirAIMapping value="\\192.168.3.1\QCIL\data\AI\Mapping\" />
+      <NASCAFolder value="\\192.168.3.1\QCIL\Mapping\Nasca\" />
+      <BadMarkingInfo BMCauseCD="28006" BMClassCD="1001" BMDefectCD="F1106" />
+      <SendJudgeOKAlwaysOnHSMS value="OFF" />
+      <ForWBCompareMachineLogDirPath value="\\\\192.168.3.1\\QCIL\\data\\WB\\MachineLog\\" />
+      <EquipmentList>
+        <!-- WB -->
+        <Equipment no="S07971" value="" dirWBMagazine="Magazine" HasLoaderQRReader="FALSE" IsOutputNasFile="true" WaitForRenameByArmsFg="TRUE" FullParameterFG="false" />
+        <Equipment no="S08051" value="" dirWBMagazine="Magazine" HasLoaderQRReader="FALSE" IsOutputNasFile="true" WaitForRenameByArmsFg="TRUE" FullParameterFG="false" />
+        <Equipment no="S08048" value="" dirWBMagazine="Magazine" HasLoaderQRReader="FALSE" IsOutputNasFile="true" WaitForRenameByArmsFg="TRUE" FullParameterFG="false" />
+        <Equipment no="S08323" value="" dirWBMagazine="Magazine" HasLoaderQRReader="FALSE" IsOutputNasFile="true" WaitForRenameByArmsFg="TRUE" FullParameterFG="false" />
+        <Equipment no="SA0262" value="" dirWBMagazine="Magazine" HasLoaderQRReader="FALSE" IsOutputNasFile="true" WaitForRenameByArmsFg="TRUE" FullParameterFG="false" />
+        <Equipment no="SA0297" value="" dirWBMagazine="Magazine" HasLoaderQRReader="FALSE" IsOutputNasFile="true" WaitForRenameByArmsFg="TRUE" FullParameterFG="false" />
+        <Equipment no="SA0298" value="" dirWBMagazine="Magazine" HasLoaderQRReader="FALSE" IsOutputNasFile="true" WaitForRenameByArmsFg="TRUE" FullParameterFG="false" />
+        <Equipment no="SA0348" value="" dirWBMagazine="Magazine" HasLoaderQRReader="FALSE" IsOutputNasFile="true" WaitForRenameByArmsFg="TRUE" FullParameterFG="false" />
+        <Equipment no="SA0349" value="" dirWBMagazine="Magazine" HasLoaderQRReader="FALSE" IsOutputNasFile="true" WaitForRenameByArmsFg="TRUE" FullParameterFG="false" />
+        <Equipment no="SA3428" value="" dirWBMagazine="Magazine" HasLoaderQRReader="FALSE" IsOutputNasFile="true" WaitForRenameByArmsFg="TRUE" FullParameterFG="false" />
+        <Equipment no="SA3429" value="" dirWBMagazine="Magazine" HasLoaderQRReader="FALSE" IsOutputNasFile="true" WaitForRenameByArmsFg="TRUE" FullParameterFG="false" />
+        <!-- AI -->
+        <Equipment no="S06311" value="" UnSelectableType="TRUE" AIInspectPointCheckFG="TRUE" HasLoaderQRReader="TRUE" WaitForRenameByArmsFg="TRUE" SubtractWBMMErrorFG="true" />
+        <Equipment no="S08834" value="" UnSelectableType="TRUE" AIInspectPointCheckFG="TRUE" HasLoaderQRReader="TRUE" WaitForRenameByArmsFg="TRUE" SubtractWBMMErrorFG="true" />
+        <!-- SUP -->
+        <Equipment no="SA2940" value="SUP-COMMON" WaitForRenameByArmsFg="false" HasLoaderQRReader="false" EnablePreVerifyFG="false" startFileDir="Input" endFileDir="Output" dateStrIndex="0" dateStrLen="14" EICSLiveCheck="false" />
+        <Equipment no="SA2396" value="SUP-COMMON" WaitForRenameByArmsFg="false" HasLoaderQRReader="false" EnablePreVerifyFG="false" startFileDir="Input" endFileDir="Output" dateStrIndex="0" dateStrLen="14" EICSLiveCheck="false" />
+      </EquipmentList>
+    </line_info>
+  </qcil_info>
+  <arms_info>
+    <AIProcessCD value="10" />
+  </arms_info>
+  <geics_info>
+    <WBEquipVer paramNo="9999" />
+  </geics_info>
+</configuration>

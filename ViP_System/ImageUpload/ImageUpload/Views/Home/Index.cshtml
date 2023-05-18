@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<form method="post" enctype="multipart/form-data" asp-controller="Post" asp-action="Index">
+    <div class="form-file">
+        @*画像アップロード用*@
+        <input type="file" class="form-file-input" id="image" name="formFile" />
+    </div>
+    <div>
+        @*登録ボタン*@
+        <input type="submit" value="登録" name="btnname">
+    </div>
+    <div>
+        @*画像取得ボタン*@
+        <input type="submit" value="画像取得" name="btnname">
+        @*画像表示用*@
+        <img id="getimage" style="width: 100px;" src="data: image;base64,
+             @System.Convert.ToBase64String(ViewBag.image ?? new byte[] { })" />
+    </div>
+    <div>
+        @*メッセージ*@
+        @ViewBag.message
+    </div>
+</form>

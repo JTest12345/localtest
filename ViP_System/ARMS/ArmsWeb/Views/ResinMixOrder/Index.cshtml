@@ -1,0 +1,74 @@
+﻿@model ArmsWeb.Models.ResinMixOrderModel
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm())
+{
+    if (Model != null)
+    {
+        <p>
+            @Html.CheckBox("priorityfg", Model.MixReqInfo.PriorityFg)優先依頼
+        </p>
+
+        <p>
+            @Html.CheckBox("prefg", Model.MixReqInfo.PreFg)先行色調
+        </p>
+
+        <p>ロット：@Model.Lot.NascaLotNo</p>
+        <p>(次の樹脂使用作業：「@Model.NextResinProc.InlineProNM」) </p>
+
+        <p>調合タイプ：@string.Join(",", Model.MixReqInfo.MixTypeNm)</p>
+        <p>樹脂グループCD：@Model.MixReqInfo.ResinGroupCd</p>
+
+        <p>
+            投入ロット数：
+            @Html.TextBox("lotct", Model.MixReqInfo.LotCt)
+        </p>
+
+        <p>
+            使用装置台数：
+            @Html.TextBox("machinect", Model.MixReqInfo.MachineCt)
+        </p>
+
+        <p>依頼者：@Model.MixReqInfo.UpdUserCd </p>
+
+        <p>
+            使用ライン：
+            @Html.TextBox("linecd", Model.MixReqInfo.LineCd)
+        </p>
+
+        <p>
+            希望完成時間：
+            @Html.TextBox("expectcompdt", Model.MixReqInfo.ExpectCompDt)
+        </p>
+
+        <p>
+            調合場所：
+            <select name="expectplacecd">
+                <option></option>
+                @if (Model.ExpectPlaceCdList != null)
+                {
+                    foreach (string s in Model.ExpectPlaceCdList)
+                    {
+                        if (Model.ExpectPlaceCdList.FindIndex(e => e == s) == 0)
+                        {
+                            <option selected="selected">@s</option>
+                        }
+                        else
+                        {
+                            <option>@s</option>
+                        }
+                    }
+                }
+            </select>
+        </p>
+
+        <br />
+
+        <div>
+            <input type="submit" value="決定" />
+        </div>
+    }
+
+}

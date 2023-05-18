@@ -1,0 +1,43 @@
+﻿@model ArmsWeb.Models.WaferEachSheetEditModel
+@{
+    ViewBag.Title = "InsertConfirm";
+}
+
+@using (Html.BeginForm("InsertConfirmed", "WaferEachSheet"))
+{
+　  <h3>チップ登録確認</h3>
+    <h3>装置：@Model.Mac.LongName</h3>
+    
+    <h3>チップ : @Model.EditTarget.Count().ToString() </h3>
+    <ul>
+        @foreach (ArmsApi.Model.Material m in Model.EditTarget)
+        {
+            <li>@m.LongName</li>
+        }
+    </ul> 
+    
+    ArmsApi.Model.Order[] orders = Model.GetCurrentOrders();
+    
+    if (orders.Count() >= 1)
+    {
+        <p>
+        <span style="color: Red">下記チェックを<b>入れる</b>と、そのロットは現時点で
+            完成しているとして登録され、原材料の投入対象になりません
+        </span>
+        </p>
+    
+       foreach (ArmsApi.Model.Order ord in orders)
+            {
+            <input type="checkbox" name="@ord.InMagazineNo" 
+                value="@ord.InMagazineNo" />
+                <span>@ord.WorkStartDt.ToString("HH時mm分") MagNo.@ord.InMagazineNo</span><br />
+            }
+        <br />
+    }
+
+    <p>割り付けます</p>
+    <div>
+    <input type="submit" value="OK" />
+    <button onclick="location.href='@Url.Action("Index")';return false;">キャンセル</button>    
+        </div>
+}

@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LENS2", "LENS2\LENS2.csproj", "{4756E158-1E5A-4D82-82DD-BE6AD3136B95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LENS2_Api", "LENS2_Api\LENS2_Api.csproj", "{DE4F2419-7B4B-4619-B81E-F8B9CBB2C997}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLC", "PLC\PLC.csproj", "{0532CBD9-613C-4AD6-976B-2DE42CAD4E7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{6A95A0FE-4D58-4152-82D7-AAA5ED3C1120}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		ツールのみ使用|Any CPU = ツールのみ使用|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4756E158-1E5A-4D82-82DD-BE6AD3136B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4756E158-1E5A-4D82-82DD-BE6AD3136B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4756E158-1E5A-4D82-82DD-BE6AD3136B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4756E158-1E5A-4D82-82DD-BE6AD3136B95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4756E158-1E5A-4D82-82DD-BE6AD3136B95}.ツールのみ使用|Any CPU.ActiveCfg = ツールのみ使用|Any CPU
+		{4756E158-1E5A-4D82-82DD-BE6AD3136B95}.ツールのみ使用|Any CPU.Build.0 = ツールのみ使用|Any CPU
+		{DE4F2419-7B4B-4619-B81E-F8B9CBB2C997}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE4F2419-7B4B-4619-B81E-F8B9CBB2C997}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE4F2419-7B4B-4619-B81E-F8B9CBB2C997}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE4F2419-7B4B-4619-B81E-F8B9CBB2C997}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE4F2419-7B4B-4619-B81E-F8B9CBB2C997}.ツールのみ使用|Any CPU.ActiveCfg = Release|Any CPU
+		{DE4F2419-7B4B-4619-B81E-F8B9CBB2C997}.ツールのみ使用|Any CPU.Build.0 = Release|Any CPU
+		{0532CBD9-613C-4AD6-976B-2DE42CAD4E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0532CBD9-613C-4AD6-976B-2DE42CAD4E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0532CBD9-613C-4AD6-976B-2DE42CAD4E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0532CBD9-613C-4AD6-976B-2DE42CAD4E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0532CBD9-613C-4AD6-976B-2DE42CAD4E7C}.ツールのみ使用|Any CPU.ActiveCfg = Release|Any CPU
+		{0532CBD9-613C-4AD6-976B-2DE42CAD4E7C}.ツールのみ使用|Any CPU.Build.0 = Release|Any CPU
+		{6A95A0FE-4D58-4152-82D7-AAA5ED3C1120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A95A0FE-4D58-4152-82D7-AAA5ED3C1120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A95A0FE-4D58-4152-82D7-AAA5ED3C1120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A95A0FE-4D58-4152-82D7-AAA5ED3C1120}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A95A0FE-4D58-4152-82D7-AAA5ED3C1120}.ツールのみ使用|Any CPU.ActiveCfg = Release|Any CPU
+		{6A95A0FE-4D58-4152-82D7-AAA5ED3C1120}.ツールのみ使用|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

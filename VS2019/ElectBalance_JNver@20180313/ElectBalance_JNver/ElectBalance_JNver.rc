@@ -1,0 +1,468 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "winres.h"
+//#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 日本語 resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+#ifdef _WIN32
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)\r\n"
+    "LANGUAGE 17, 1\r\n"
+    "#pragma code_page(932)\r\n"
+    "#include ""res\\ElectBalance_JNver.rc2""  // Microsoft Visual C++ 以外で編集されたリソース\r\n"
+    "#include ""l.JPN\\afxres.rc""      // 標準コンポーネント\r\n"
+    "#endif\r\n"
+    "1 TYPELIB ""ElectBalance_JNver.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\ElectBalance_JNver.ico"
+IDI_JPN                 ICON                    "res\\Japan.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "バージョン情報 ElectBalance_JNver"
+FONT 9, "MS UI Gothic", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,18,21
+    LTEXT           "ElectBalance_JNver, Version 2.1",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2012",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "OK",IDOK,113,41,50,14,WS_GROUP
+END
+
+IDD_ELECTBALANCE_JNVER_DIALOG DIALOGEX 0, 0, 207, 155
+STYLE DS_SETFONT | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "ElectBalance_JNver"
+FONT 9, "MS UI Gothic", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "樹脂配合",IDC_BUTTON2,67,29,75,34
+    PUSHBUTTON      "メンテナンス",IDC_BUTTON1,67,79,74,36
+    PUSHBUTTON      "終了",IDC_End,134,127,50,21
+    CTEXT           "ElectBalance_JNver2.1",IDC_STATIC,7,7,193,9
+END
+
+IDD_Jushihaigou DIALOGEX 0, 0, 316, 185
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "樹脂配合"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_COMBO1,118,18,182,82,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT1,118,40,126,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COMBO4,118,65,75,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_WRank,118,92,75,26,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT2,118,115,40,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COMBO2,118,140,141,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "開始",IDC_BUTTON1,205,161,50,14
+    PUSHBUTTON      "終了",IDC_J_End,259,161,50,14
+    LTEXT           "機種",IDC_STATIC,75,20,17,8
+    LTEXT           "主剤量",IDC_STATIC,70,119,25,8
+    LTEXT           "g",IDC_STATIC,165,120,8,8
+    LTEXT           "作業者",IDC_STATIC,70,142,25,8
+    DEFPUSHBUTTON   "ダミー",IDC_BUTTON2,284,77,26,14,NOT WS_VISIBLE
+    LTEXT           "素子波長ランク",IDC_STATIC,43,94,50,8
+    EDITTEXT        IDC_EDIT3,7,164,11,14,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    LTEXT           "設備の種類",IDC_STATIC,54,69,40,8
+    LTEXT           "ロットNo",IDC_STATIC,66,43,26,8
+END
+
+IDD_measure DIALOGEX 0, 0, 562, 321
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "計量"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "計測開始",IDC_KStart,294,255,50,14
+    PUSHBUTTON      "計測終了",IDC_KEnd,352,255,50,14
+    PUSHBUTTON      "終了",IDC_End,411,255,38,14
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,101,99,272,120
+    EDITTEXT        IDC_EDIT_Measure_Kishu,100,12,320,24,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_DLGMODALFRAME
+    LTEXT           "選択機種名",IDC_STATIC,43,23,41,8
+    EDITTEXT        IDC_EDIT1,104,275,168,28,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "現在の計量値",IDC_STATIC,46,284,48,8
+    LTEXT           "作業者",IDC_STATIC,59,76,25,8
+    EDITTEXT        IDC_EDIT2,100,70,162,22,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_DLGMODALFRAME
+    LTEXT           "波長ランク",IDC_STATIC,366,50,34,8
+    EDITTEXT        IDC_EDIT_WRank,409,40,100,24,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "樹脂量を修正",IDC_REJ,389,119,62,38
+    LTEXT           "LotNo",IDC_STATIC,63,49,20,8
+    EDITTEXT        IDC_EDIT3,100,41,244,25,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_DLGMODALFRAME
+    LTEXT           "設備の種類",IDC_STATIC,361,72,40,8
+    EDITTEXT        IDC_EDIT4,409,68,137,22,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_DLGMODALFRAME
+    LTEXT           "目標値",IDC_STATIC,68,243,25,8
+    EDITTEXT        IDC_EDIT_Target,104,232,168,30,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "",IDC_PICT,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,438,181,90,53
+END
+
+IDD_Maintenance DIALOGEX 0, 0, 173, 137
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "メンテナンス"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "機種登録",IDC_Mnt_Kishu,46,25,73,22
+    PUSHBUTTON      "担当者登録",IDC_Mnt_Tanto,47,70,70,22
+    PUSHBUTTON      "終了",IDC_End,119,106,47,21
+END
+
+IDD_Mnt_Kishu DIALOGEX 0, 0, 334, 386
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "機種登録"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_Cb_Mnt_K_KishuName,80,16,222,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO1,80,40,72,13,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO2,211,39,91,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_Cb_Mnt_K_SZ_Name,47,94,77,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_Cb_Mnt_K_SZ_Kata,131,94,86,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_Cb_Mnt_K_Other1_Name,47,163,78,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_Cb_Mnt_K_Other1_Kata,132,162,86,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_K_Other1,238,162,40,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_Cb_Mnt_K_Other2_Name,47,183,78,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_Cb_Mnt_K_Other2_Kata,132,183,86,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_K_Other2,238,183,40,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_Cb_Mnt_K_Other3_Name,47,203,78,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_Cb_Mnt_K_Other3_Kata,132,203,86,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_K_Other3,238,203,40,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_Cb_Mnt_K_Other4_Name,47,223,78,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_Cb_Mnt_K_Other4_Kata,132,222,86,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_K_Other4,238,222,40,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_Cb_Mnt_K_Other5_Name,47,242,78,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_Cb_Mnt_K_Other5_Kata,132,242,86,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_K_Other5,238,241,40,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "登録",IDC_Bn_Mnt_K_Toroku,153,361,50,14
+    PUSHBUTTON      "削除",IDC_Bn_Mnt_K_Sakujo,215,360,50,14
+    PUSHBUTTON      "終了",IDC_End,277,360,50,14
+    EDITTEXT        IDC_EDIT_K_WRank,7,7,6,12,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    LTEXT           "機種名称",IDC_STATIC,40,18,33,8
+    LTEXT           "樹脂名",IDC_STATIC,66,78,25,8
+    LTEXT           "型番",IDC_STATIC,153,78,17,8
+    LTEXT           "混合量",IDC_STATIC,240,79,25,8
+    GROUPBOX        "主剤設定",IDC_STATIC,23,67,277,55
+    LTEXT           "15 g",IDC_STATIC,243,95,20,8
+    GROUPBOX        "主剤以外の設定",IDC_STATIC,24,130,277,224
+    LTEXT           "樹脂名",IDC_STATIC,65,148,25,8
+    LTEXT           "型番",IDC_STATIC,160,148,17,8
+    LTEXT           "主剤に対しての混合量",IDC_STATIC,226,148,74,8
+    LTEXT           "g",IDC_STATIC,283,166,8,8
+    LTEXT           "1.",IDC_STATIC,32,165,8,8
+    LTEXT           "2.",IDC_STATIC,32,185,8,8
+    LTEXT           "g",IDC_STATIC,283,186,8,8
+    LTEXT           "3.",IDC_STATIC,32,205,8,8
+    LTEXT           "g",IDC_STATIC,284,207,8,8
+    LTEXT           "4.",IDC_STATIC,32,225,8,8
+    LTEXT           "g",IDC_STATIC,284,227,8,8
+    LTEXT           "5.",IDC_STATIC,32,245,8,8
+    LTEXT           "g",IDC_STATIC,284,245,8,8
+    LTEXT           "波長ランク",IDC_STATIC,39,41,34,8
+    LTEXT           "設備の種類",IDC_STATIC,161,42,40,8
+    LTEXT           "6.",IDC_STATIC,32,264,8,8
+    LTEXT           "7.",IDC_STATIC,32,282,8,8
+    LTEXT           "8.",IDC_STATIC,32,300,8,8
+    COMBOBOX        IDC_Cb_Mnt_K_Other6_Name,47,261,78,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_Cb_Mnt_K_Other6_Kata,132,261,86,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_K_Other6,238,260,40,14,ES_AUTOHSCROLL
+    LTEXT           "g",IDC_STATIC,284,263,8,8
+    COMBOBOX        IDC_Cb_Mnt_K_Other7_Name,47,280,77,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_Cb_Mnt_K_Other7_Kata,132,280,86,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_K_Other7,238,279,40,14,ES_AUTOHSCROLL
+    LTEXT           "g",IDC_STATIC,284,281,8,8
+    COMBOBOX        IDC_Cb_Mnt_K_Other8_Name,47,298,77,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_Cb_Mnt_K_Other8_Kata,132,298,86,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_K_Other8,238,298,40,14,ES_AUTOHSCROLL
+    LTEXT           "g",IDC_STATIC,284,300,8,8
+    LTEXT           "9.",IDC_STATIC,32,319,8,8
+    COMBOBOX        IDC_Cb_Mnt_K_Other9_Name,48,316,77,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_Cb_Mnt_K_Other9_Kata,132,316,86,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_K_Other9,238,316,40,14,ES_AUTOHSCROLL
+    LTEXT           "g",IDC_STATIC,284,319,8,8
+    LTEXT           "10.",IDC_STATIC,32,336,12,8
+    COMBOBOX        IDC_Cb_Mnt_K_Other10_Name,48,333,77,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_Cb_Mnt_K_Other10_Kata,132,333,86,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_K_Other10,238,333,40,14,ES_AUTOHSCROLL
+    LTEXT           "g",IDC_STATIC,284,336,8,8
+END
+
+IDD_Mnt_tanto DIALOGEX 0, 0, 296, 108
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "担当者登録"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "担当者",IDC_STATIC,39,30,25,8
+    COMBOBOX        IDC_Cb_Mnt_T,94,28,127,61,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "登録",IDC_Bn_Mnt_T_Toroku,114,71,50,20
+    PUSHBUTTON      "削除",IDC_Bn_Mnt_T_Sakujo,176,71,50,19
+    PUSHBUTTON      "終了",IDC_End,239,71,50,19
+END
+
+IDD_JyushiCode DIALOGEX 0, 0, 245, 38
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "樹脂コード入力"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_JyushiCode,17,11,186,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "確認",IDC_BUTTON_JC_ENTER,213,10,21,17
+END
+
+IDD_PASSWORD DIALOGEX 0, 0, 290, 57
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "パスワードを入力して下さい."
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT1,34,17,221,18,ES_PASSWORD | ES_AUTOHSCROLL
+END
+
+IDD_RENUM DIALOGEX 0, 0, 310, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "修正後の数値を入力してください"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT1,65,22,142,18,ES_AUTOHSCROLL
+    PUSHBUTTON      "実行",IDC_BUTTON_EXE,238,41,50,14
+    LTEXT           "修正後の値",IDC_STATIC,20,28,40,8
+    LTEXT           "g",IDC_STATIC,216,29,8,8
+END
+
+IDD_Mnt_PASSWORD DIALOGEX 0, 0, 316, 52
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "パスワードを入力して下さい."
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT1,41,17,236,17,ES_PASSWORD | ES_AUTOHSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041103a4"
+        BEGIN
+            VALUE "CompanyName", "TODO: <会社名>"
+            VALUE "FileDescription", "TODO: <ファイルの説明>"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "ElectBalance_JNver.exe"
+            VALUE "LegalCopyright", "TODO: (C) <会社名>.  All rights reserved."
+            VALUE "OriginalFilename", "ElectBalance_JNver.exe"
+            VALUE "ProductName", "TODO: <製品名>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x411, 932
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_ELECTBALANCE_JNVER_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 200
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 148
+    END
+
+    IDD_Jushihaigou, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 178
+    END
+
+    IDD_measure, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 555
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 314
+    END
+
+    IDD_Maintenance, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 166
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 130
+    END
+
+    IDD_Mnt_Kishu, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 327
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 379
+    END
+
+    IDD_Mnt_tanto, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 289
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 101
+    END
+
+    IDD_JyushiCode, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 238
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 33
+    END
+
+    IDD_PASSWORD, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 283
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 49
+    END
+
+    IDD_RENUM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 303
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_Mnt_PASSWORD, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 45
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDP_OLE_INIT_FAILED     "OLE の初期化に失敗しました。OLE ライブラリのバージョンが正しいことを確認してください。"
+    IDS_ABOUTBOX            "バージョン情報 ElectBalance_JNver(&A)..."
+END
+
+#endif    // 日本語 resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE 17, 1
+#pragma code_page(932)
+#include "res\ElectBalance_JNver.rc2"  // Microsoft Visual C++ 以外で編集されたリソース
+#include "l.JPN\afxres.rc"      // 標準コンポーネント
+#endif
+1 TYPELIB "ElectBalance_JNver.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

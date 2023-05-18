@@ -1,0 +1,41 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.CutBlendModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>カットブレンド完了登録</h3>
+<h3>設備：@Model.PlantCd</h3>
+<h3>作業者：@Model.EmpCd</h3>
+
+@using (Html.BeginForm("Confirm", "CutBlend"))
+{
+    
+    <h5>ロット選択 </h5>
+    <ul>
+        @for (int i = 0; i < Model.BlendList.Count(); i++)
+        {
+            CutBlend cb = Model.BlendList[i];
+            if (i < ArmsApi.Config.Settings.CutBlendMagazineCt)
+            {
+            <li>
+                <input type="checkbox" name="blenditem" value="@i.ToString()" checked="checked"} />@cb.MagNo : @cb.LotNo : @Model.GetMnfctKB(cb.LotNo)</li>
+            }
+            else
+            {
+            <li>
+                <input type="checkbox" name="blenditem" value="@i.ToString()"} />@cb.MagNo : @cb.LotNo : @Model.GetMnfctKB(cb.LotNo)</li>
+            }
+        }
+    </ul>
+    <br />
+    
+    <div>
+        <input type="submit" value="Go" />
+        &nbsp
+        <button onclick="location.href='@Url.Action("CancelEdit")';return false;">キャンセル</button>
+        
+   
+    </div>
+
+}

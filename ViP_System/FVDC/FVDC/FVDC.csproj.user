@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PublishUrlHistory>\\ts3-fs1\LED\Production2\Common\ClickOnce\FVDC\|\\aoifs4.aoi.local\forsysro%24\Software\ClickOnce\FVDC\|\\cejfs1.citizen.local\forsysro%24\ClickOnce\FVDC\|\\tecfs2.takatsuki.local\MIKForSYSRO%24\Software\ClickOnce\FVDC\|\\tecfs2.takatsuki.local\KYOForSYSRO%24\Software\ClickOnce\FVDC\</PublishUrlHistory>
+    <InstallUrlHistory />
+    <SupportUrlHistory />
+    <UpdateUrlHistory />
+    <BootstrapperUrlHistory />
+    <ErrorReportUrlHistory />
+    <FallbackCulture>ja-JP</FallbackCulture>
+    <VerifyUploadedFiles>false</VerifyUploadedFiles>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+  </PropertyGroup>
+</Project>

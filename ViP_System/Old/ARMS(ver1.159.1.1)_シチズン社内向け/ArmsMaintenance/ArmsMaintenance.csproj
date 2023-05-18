@@ -1,0 +1,863 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{35231F9C-6134-43EA-99BE-D3C31777A10E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ArmsMaintenance</RootNamespace>
+    <AssemblyName>ArmsMaintenance</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>\\HQFS101\forsysro%24\Software\ClickOnce\ArmsMaintenance\MAP\HIGH\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>ArmsMaintenance</ProductName>
+    <PublisherName>NICHIA Corporation</PublisherName>
+    <MinimumRequiredVersion>1.138.0.0</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.159.1.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>B3A01885AEB501924D1F25B1BEC439D165CD94A5</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>ArmsMaintenance_一時キー.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\ArmsApi\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FrmConfirmation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmConfirmation.Designer.cs">
+      <DependentUpon>FrmConfirmation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCutBlend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCutBlend.designer.cs">
+      <DependentUpon>FrmCutBlend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCutBlendMainte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCutBlendMainte.designer.cs">
+      <DependentUpon>FrmCutBlendMainte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCutBlendWorkView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCutBlendWorkView.designer.cs">
+      <DependentUpon>FrmCutBlendWorkView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCutLabelSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCutLabelSetting.Designer.cs">
+      <DependentUpon>FrmCutLabelSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmDebug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDebug.designer.cs">
+      <DependentUpon>FrmDebug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmDefAddressInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDefAddressInput.designer.cs">
+      <DependentUpon>FrmDefAddressInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmDefInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDefInput.designer.cs">
+      <DependentUpon>FrmDefInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEditLot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEditLot.designer.cs">
+      <DependentUpon>FrmEditLot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEditMagazine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEditMagazine.designer.cs">
+      <DependentUpon>FrmEditMagazine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEditTran.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEditTran.designer.cs">
+      <DependentUpon>FrmEditTran.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEmpCdDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEmpCdDialog.Designer.cs">
+      <DependentUpon>FrmEmpCdDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmHistoryView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmHistoryView.designer.cs">
+      <DependentUpon>FrmHistoryView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmImportLot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmImportLot.designer.cs">
+      <DependentUpon>FrmImportLot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmInputGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInputGrid.designer.cs">
+      <DependentUpon>FrmInputGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLotLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLotLog.Designer.cs">
+      <DependentUpon>FrmLotLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLotmark.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLotmark.Designer.cs">
+      <DependentUpon>FrmLotmark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLotProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLotProgress.Designer.cs">
+      <DependentUpon>FrmLotProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLotTrace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLotTrace.designer.cs">
+      <DependentUpon>FrmLotTrace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMacCnd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMacCnd.designer.cs">
+      <DependentUpon>FrmMacCnd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMachineOperator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMachineOperator.Designer.cs">
+      <DependentUpon>FrmMachineOperator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMacMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMacMaster.designer.cs">
+      <DependentUpon>FrmMacMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMacMat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMacMat.designer.cs">
+      <DependentUpon>FrmMacMat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMacResin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMacResin.designer.cs">
+      <DependentUpon>FrmMacResin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMacValues.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMacValues.designer.cs">
+      <DependentUpon>FrmMacValues.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMacWafer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMacWafer.designer.cs">
+      <DependentUpon>FrmMacWafer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMagazineMainte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMagazineMainte.designer.cs">
+      <DependentUpon>FrmMagazineMainte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMainteFixedPhrase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMainteFixedPhrase.Designer.cs">
+      <DependentUpon>FrmMainteFixedPhrase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMainteHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMainteHistory.designer.cs">
+      <DependentUpon>FrmMainteHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmManualNewOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmManualNewOrder.designer.cs">
+      <DependentUpon>FrmManualNewOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMaterialStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMaterialStock.Designer.cs">
+      <DependentUpon>FrmMaterialStock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMatInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMatInput.designer.cs">
+      <DependentUpon>FrmMatInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmNascaSync.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmNascaSync.designer.cs">
+      <DependentUpon>FrmNascaSync.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmOperationMachine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmOperationMachine.Designer.cs">
+      <DependentUpon>FrmOperationMachine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPasswordDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPasswordDialog.designer.cs">
+      <DependentUpon>FrmPasswordDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPreDBMonitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPreDBMonitor.designer.cs">
+      <DependentUpon>FrmPreDBMonitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPSTesterExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPSTesterExport.designer.cs">
+      <DependentUpon>FrmPSTesterExport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRestrict.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRestrict.designer.cs">
+      <DependentUpon>FrmRestrict.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSelectDBProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSelectDBProfile.designer.cs">
+      <DependentUpon>FrmSelectDBProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSelectMachine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSelectMachine.designer.cs">
+      <DependentUpon>FrmSelectMachine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSelectMachineButtons.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSelectMachineButtons.Designer.cs">
+      <DependentUpon>FrmSelectMachineButtons.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSelectMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSelectMaterial.designer.cs">
+      <DependentUpon>FrmSelectMaterial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSelectProcess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSelectProcess.Designer.cs">
+      <DependentUpon>FrmSelectProcess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSelectProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSelectProfile.designer.cs">
+      <DependentUpon>FrmSelectProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSelectWorkCnd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSelectWorkCnd.designer.cs">
+      <DependentUpon>FrmSelectWorkCnd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmVirtualMagMainte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmVirtualMagMainte.Designer.cs">
+      <DependentUpon>FrmVirtualMagMainte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmWaferCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmWaferCheck.designer.cs">
+      <DependentUpon>FrmWaferCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmWorkView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmWorkView.designer.cs">
+      <DependentUpon>FrmWorkView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmWorkViewReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmWorkViewReport.designer.cs">
+      <DependentUpon>FrmWorkViewReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FrmLotTray.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLotTray.Designer.cs">
+      <DependentUpon>FrmLotTray.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FrmConfirmation.resx">
+      <DependentUpon>FrmConfirmation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCutBlend.resx">
+      <DependentUpon>FrmCutBlend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCutBlendMainte.resx">
+      <DependentUpon>FrmCutBlendMainte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCutBlendWorkView.resx">
+      <DependentUpon>FrmCutBlendWorkView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCutLabelSetting.resx">
+      <DependentUpon>FrmCutLabelSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmDebug.resx">
+      <DependentUpon>FrmDebug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmDefAddressInput.resx">
+      <DependentUpon>FrmDefAddressInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmDefInput.resx">
+      <DependentUpon>FrmDefInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEditLot.resx">
+      <DependentUpon>FrmEditLot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEditMagazine.resx">
+      <DependentUpon>FrmEditMagazine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEditTran.resx">
+      <DependentUpon>FrmEditTran.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEmpCdDialog.resx">
+      <DependentUpon>FrmEmpCdDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmHistoryView.resx">
+      <DependentUpon>FrmHistoryView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmImportLot.resx">
+      <DependentUpon>FrmImportLot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmInputGrid.resx">
+      <DependentUpon>FrmInputGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLotLog.resx">
+      <DependentUpon>FrmLotLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLotmark.resx">
+      <DependentUpon>FrmLotmark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLotProgress.resx">
+      <DependentUpon>FrmLotProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLotTrace.resx">
+      <DependentUpon>FrmLotTrace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMacCnd.resx">
+      <DependentUpon>FrmMacCnd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMachineOperator.resx">
+      <DependentUpon>FrmMachineOperator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMacMaster.resx">
+      <DependentUpon>FrmMacMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMacMat.resx">
+      <DependentUpon>FrmMacMat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMacResin.resx">
+      <DependentUpon>FrmMacResin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMacValues.resx">
+      <DependentUpon>FrmMacValues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMacWafer.resx">
+      <DependentUpon>FrmMacWafer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMagazineMainte.resx">
+      <DependentUpon>FrmMagazineMainte.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMainteFixedPhrase.resx">
+      <DependentUpon>FrmMainteFixedPhrase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMainteHistory.resx">
+      <DependentUpon>FrmMainteHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmManualNewOrder.resx">
+      <DependentUpon>FrmManualNewOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMaterialStock.resx">
+      <DependentUpon>FrmMaterialStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMatInput.resx">
+      <DependentUpon>FrmMatInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmNascaSync.resx">
+      <DependentUpon>FrmNascaSync.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmOperationMachine.resx">
+      <DependentUpon>FrmOperationMachine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPasswordDialog.resx">
+      <DependentUpon>FrmPasswordDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPreDBMonitor.resx">
+      <DependentUpon>FrmPreDBMonitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPSTesterExport.resx">
+      <DependentUpon>FrmPSTesterExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmRestrict.resx">
+      <DependentUpon>FrmRestrict.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSelectDBProfile.resx">
+      <DependentUpon>FrmSelectDBProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSelectMachine.resx">
+      <DependentUpon>FrmSelectMachine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSelectMachineButtons.resx">
+      <DependentUpon>FrmSelectMachineButtons.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSelectMaterial.resx">
+      <DependentUpon>FrmSelectMaterial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSelectProcess.resx">
+      <DependentUpon>FrmSelectProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSelectProfile.resx">
+      <DependentUpon>FrmSelectProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSelectWorkCnd.resx">
+      <DependentUpon>FrmSelectWorkCnd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmVirtualMagMainte.resx">
+      <DependentUpon>FrmVirtualMagMainte.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmWaferCheck.resx">
+      <DependentUpon>FrmWaferCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmWorkView.resx">
+      <DependentUpon>FrmWorkView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmWorkViewReport.resx">
+      <DependentUpon>FrmWorkViewReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="FrmLotTray.resx">
+      <DependentUpon>FrmLotTray.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="ArmsMaintenance_一時キー.pfx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArmsApi\ArmsApi.csproj">
+      <Project>{a47c8eae-cf1f-4cd0-8a5d-a193d974354b}</Project>
+      <Name>ArmsApi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="alert.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="alert2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ACT_MULTISELECT_EP.png" />
+    <Content Include="Resources\ACT_MULTISELECT_IN.png" />
+    <Content Include="Resources\database-connect.png" />
+    <Content Include="Resources\db_update.png" />
+    <Content Include="Resources\delete.png" />
+    <Content Include="Resources\edit-add.png" />
+    <Content Include="Resources\edit-copy-7.png" />
+    <Content Include="Resources\edit.png" />
+    <Content Include="Resources\go-down-10.png" />
+    <Content Include="Resources\kword.png" />
+    <Content Include="Resources\NppUpdate.jpg" />
+    <Content Include="Resources\recur.png" />
+    <Content Include="Resources\reload.png" />
+    <Content Include="Resources\save_all.png" />
+    <Content Include="Resources\time.png" />
+    <Content Include="Resources\viewmag.png" />
+    <Content Include="Resources\windows_list.png" />
+    <Content Include="ringin.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 および x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="alert.wav">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="alert2.wav">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="ArmsApi">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="ArmsApi.XmlSerializers">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="log4net">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Newtonsoft.Json">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\ACT_MULTISELECT_EP.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\ACT_MULTISELECT_IN.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\database-connect.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\db_update.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\delete.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\edit-add.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\edit-copy-7.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\edit.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\go-down-10.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\kword.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\NppUpdate.jpg">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\recur.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\reload.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\save_all.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\time.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\viewmag.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\windows_list.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="ringin.wav">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

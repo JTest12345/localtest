@@ -1,0 +1,15 @@
+D:\MAP_sys\DeleteFolder\DeleteFolder\bin\Release\DeleteFolder.exe.config
+D:\MAP_sys\DeleteFolder\DeleteFolder\bin\Release\DeleteFolder.exe
+D:\MAP_sys\DeleteFolder\DeleteFolder\bin\Release\DeleteFolder.pdb
+D:\MAP_sys\DeleteFolder\DeleteFolder\bin\Release\System.Configuration.ConfigurationManager.dll
+D:\MAP_sys\DeleteFolder\DeleteFolder\bin\Release\System.Security.AccessControl.dll
+D:\MAP_sys\DeleteFolder\DeleteFolder\bin\Release\System.Security.Permissions.dll
+D:\MAP_sys\DeleteFolder\DeleteFolder\bin\Release\System.Security.Principal.Windows.dll
+D:\MAP_sys\DeleteFolder\DeleteFolder\bin\Release\System.Configuration.ConfigurationManager.xml
+D:\MAP_sys\DeleteFolder\DeleteFolder\bin\Release\System.Security.AccessControl.xml
+D:\MAP_sys\DeleteFolder\DeleteFolder\bin\Release\System.Security.Permissions.xml
+D:\MAP_sys\DeleteFolder\DeleteFolder\bin\Release\System.Security.Principal.Windows.xml
+D:\MAP_sys\DeleteFolder\DeleteFolder\obj\Release\DeleteFolder.csproj.CoreCompileInputs.cache
+D:\MAP_sys\DeleteFolder\DeleteFolder\obj\Release\DeleteFolder.csproj.CopyComplete
+D:\MAP_sys\DeleteFolder\DeleteFolder\obj\Release\DeleteFolder.exe
+D:\MAP_sys\DeleteFolder\DeleteFolder\obj\Release\DeleteFolder.pdb

@@ -1,0 +1,37 @@
+﻿@model ArmsWeb.Models.WaferEachSheetEditModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>チップ情報</h3>
+<h5>装置:@Model.Mac.LongName</h5>
+<h5></h5>
+
+@using (Html.BeginForm("Remove", "WaferEachSheet"))
+{
+
+    if (Model.MatList.Count() >= 1)
+    {
+        <select size="5" name="matindex">
+            @foreach (KeyValuePair<int, ArmsApi.Model.Material> kv in Model.MatList)
+            {
+                <option value="@kv.Key">@kv.Value.LongName</option>
+            }
+        </select>
+        
+        <p>
+        <input type="checkbox" name="RemoveAll" value="1" />全取り外し 
+        </p>
+
+        <button type="submit">取り外し</button>
+        <br />
+}
+else
+{
+        <h5>現在投入中のチップはありません</h5>
+    }
+
+       
+    <button onclick="location.href='@Url.Action("InsertNew")';return false;">新規割付</button>
+}

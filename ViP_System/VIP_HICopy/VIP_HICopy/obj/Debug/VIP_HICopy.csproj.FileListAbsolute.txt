@@ -1,0 +1,13 @@
+D:\ViP_System\VIP_HICopy\VIP_DBDataCopy_ALL\bin\Debug\VIP_DBDataCopy_ALL.exe.config
+D:\ViP_System\VIP_HICopy\VIP_DBDataCopy_ALL\bin\Debug\VIP_DBDataCopy_ALL.exe
+D:\ViP_System\VIP_HICopy\VIP_DBDataCopy_ALL\bin\Debug\VIP_DBDataCopy_ALL.pdb
+D:\ViP_System\VIP_HICopy\VIP_DBDataCopy_ALL\obj\Debug\VIP_HICopy.csprojAssemblyReference.cache
+D:\ViP_System\VIP_HICopy\VIP_DBDataCopy_ALL\obj\Debug\VIP_HICopy.csproj.CoreCompileInputs.cache
+D:\ViP_System\VIP_HICopy\VIP_DBDataCopy_ALL\obj\Debug\VIP_DBDataCopy_ALL.exe
+D:\ViP_System\VIP_HICopy\VIP_DBDataCopy_ALL\obj\Debug\VIP_DBDataCopy_ALL.pdb
+D:\ViP_System\VIP_HICopy\VIP_HICopy\obj\Debug\VIP_HICopy.csproj.CoreCompileInputs.cache
+D:\ViP_System\VIP_HICopy\VIP_HICopy\bin\Debug\VIP_HICopy.exe.config
+D:\ViP_System\VIP_HICopy\VIP_HICopy\bin\Debug\VIP_HICopy.exe
+D:\ViP_System\VIP_HICopy\VIP_HICopy\bin\Debug\VIP_HICopy.pdb
+D:\ViP_System\VIP_HICopy\VIP_HICopy\obj\Debug\VIP_HICopy.exe
+D:\ViP_System\VIP_HICopy\VIP_HICopy\obj\Debug\VIP_HICopy.pdb

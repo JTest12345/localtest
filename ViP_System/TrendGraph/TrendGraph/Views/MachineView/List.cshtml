@@ -1,0 +1,160 @@
+﻿@model TrendGraph.Models.MultiList
+
+<form method="POST" action="machinenum">
+
+    <select class="macno_list" id="macno" name="macno">
+        <option value="">選択してください</option>
+        
+    </select>
+
+    <button type="button" onclick="submit();">対象号機を表示</button>
+</form>
+
+<head>
+    <meta charset="utf-8">
+    <title>TEST</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"
+            integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg=="
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@next/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+</head>
+<body>
+    <div style="width:800px">
+        <canvas id="mychart"></canvas>
+    </div>
+    <script>
+        var ctx = document.getElementById('mychart');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['7.1'],
+                datasets: [{
+                    label: 'daily_shigma_val',
+                    data: [10],
+                    borderColor: '#f88',
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        min: 0,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: 'σ',
+                            font: {
+                                size: 14,
+                            }
+                        },
+                    }
+                },
+
+                plugins: {
+                    // グラフタイトルの設定
+                    title: {
+                        text: 'ドロップダウンメニューから号機を選択してください',
+                        display: true,
+                        font: {
+                            size: 16,
+                        }
+                    },
+                    // 凡例の設定
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        align: 'center',
+                    }
+                },
+
+            },
+        });
+
+        //一度要素を削除して、データベースから抽出した項目を追加していく
+        removeData(myChart)
+
+        @{double max = 0; }
+            @foreach (var item in Model.GraphData)
+            {
+                if (item.y_data > max)
+                {
+                    max = item.y_data;
+                    @:yval(myChart, @max);
+                }
+                @:addData(myChart, '@Html.DisplayFor(modelItem => item.x_data)', @Html.DisplayFor(modelItem => item.y_data));
+            }
+
+
+        @foreach (var item in Model.MachineList)
+        {
+            @:addMachine('macno', '@Html.DisplayFor(modelItem => item.macname)', @Html.DisplayFor(modelItem => item.macno));
+
+        }
+
+        @foreach (var item in Model.CurrentMacno)
+        {
+            @:TitleChange(myChart, '@Html.DisplayFor(modelItem => item.current_macno)');
+        }
+
+
+        function yval(chart, data) {
+            chart.options.scales.y.max = data * 1.2;
+            chart.update();
+        }
+
+        function TitleChange(chart, title) {
+            chart.options.plugins.title.text = title;
+            chart.update();
+        }
+
+        function addData(chart, label, data) {
+            chart.data.labels.push(label);
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.push(data);
+
+            });
+            chart.update();
+        }
+
+        function removeData(chart) {
+            chart.data.labels.pop();
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.pop();
+            });
+            chart.update();
+        }
+
+        
+
+        function addMachine(id, text, value) {
+            // selectタグを取得する
+            var select = document.getElementById(id);
+            // optionタグを作成する
+            var option = document.createElement("option");
+            // optionタグのテキストを4に設定する
+            option.text = text;
+            // optionタグのvalueを4に設定する
+            option.value = value;
+            // selectタグの子要素にoptionタグを追加する
+            select.appendChild(option);
+        }
+
+        function addOption() {
+            // selectタグを取得する
+            var select = document.getElementById("machine_num");
+            // optionタグを作成する
+            var option = document.createElement("option");
+            // optionタグのテキストを4に設定する
+            option.text = "1100号機";
+            // optionタグのvalueを4に設定する
+            option.value = 1100;
+            // selectタグの子要素にoptionタグを追加する
+            select.appendChild(option);
+        }
+    </script>
+
+</body>

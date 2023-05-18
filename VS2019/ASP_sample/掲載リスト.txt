@@ -1,0 +1,5794 @@
+﻿ASP .NET Core入門
+
+
+掲載リスト
+
+
+
+
+リスト1-1
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
+
+namespace SampleEmptyApp
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
+
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+    }
+}
+
+
+
+
+リスト1-2
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+
+namespace SampleEmptyApp
+{
+    public class Startup
+    {
+        public void ConfigureServices(IServiceCollection services)
+        {
+        }
+
+
+        public void Configure(IApplicationBuilder app, 
+                IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+
+            app.UseRouting();
+
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
+            });
+        }
+    }
+}
+
+
+
+
+リスト1-3
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGet("/", async context =>
+    {
+        context.Response.ContentType = "text/html";
+        await context.Response.WriteAsync("<html><title>Hello</title></head>");
+        await context.Response.WriteAsync(" <body><h1>Hello!</h1>");
+        await context.Response.WriteAsync("<p>This is sample page.</p>");
+        await context.Response.WriteAsync("</body></html>");
+    });
+});
+
+
+
+
+リスト1-4
+app.UseWelcomePage();
+
+
+
+
+リスト1-5
+// using System.IO; //追記
+
+
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
+
+
+    app.UseRouting();
+             
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapGet("/", async context =>
+        {
+            context.Response.ContentType = "text/plain";
+            using (FileStream stream = File.Open(@"./Startup.cs", FileMode.Open))
+            {
+                int num = (int)stream.Length;
+                byte[] bytes = new byte[num];
+                stream.Read(bytes, 0, num);
+                string result = System.Text.Encoding.UTF8.GetString(bytes);
+                await context.Response.WriteAsync(result);
+            }
+        });
+    });
+            
+}
+
+
+
+
+リスト2-1
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+
+namespace SampleMVCApp
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+
+        public IConfiguration Configuration { get; }
+
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddControllersWithViews();
+        }
+
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+
+            app.UseRouting();
+
+
+            app.UseAuthorization();
+
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
+    }
+}
+
+
+
+
+リスト2-2
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using SampleMVCApp.Models;
+
+
+namespace SampleMVCApp.Controllers
+{
+    public class HomeController : Controller
+    {
+        private readonly ILogger<HomeController> _logger;
+
+
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
+
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+
+        [ResponseCache(Duration = 0, Location = 
+            ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = 
+                Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+    }
+}
+
+
+
+
+リスト2-3
+@{
+    Layout = "_Layout";
+}
+
+
+
+
+リスト2-4
+@using SampleMVCApp
+@using SampleMVCApp.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+
+
+リスト2-5
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SampleMVCApp</title>
+    <link rel="stylesheet" 
+        href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar ……略……">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" 
+                    asp-controller="Home" asp-action="Index">
+                    SampleMVCApp</a>
+                <button class="navbar-toggler" type="button"
+                    data-toggle="collapse" data-target=".navbar-collapse" 
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse ……略……">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" 
+                                asp-controller="Home" asp-action="Index">
+                                Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" 
+                                asp-controller="Home" asp-action="Privacy">
+                                Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2019 - SampleMVCApp - <a asp-area="" 
+            asp-controller="Home" asp-action="Privacy">
+            Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+
+
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+
+
+リスト2-7
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+
+
+namespace SampleMVCApp.Controllers
+{
+    public class HelloController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+    }
+}
+
+
+
+
+リスト2-8
+@{
+    ViewData["Title"] = "Index/Hello";
+}
+
+
+<div class="text-center">
+    <h1>Index</h1>
+    <p>This is sample page.</p>
+</div>
+
+
+
+
+リスト2-9
+public IActionResult Index()
+{
+    ViewData["Message"] = "Hello! this is sample message!";
+    return View();
+}
+
+
+
+
+リスト2-10
+<div class="text-center">
+    <h1>Index</h1>
+    <p>@ViewData["Message"]</p>
+</div>
+
+
+
+
+リスト2-11
+<div class="text-left">
+    <h1 class="display-3">Index</h1>
+    <p class="h4 mb-4">@ViewData["Message"]</p>
+    <form method="post" asp-controller="Hello" asp-action="Form">
+        <div class="form-group">
+            <label for="msg">Message</label>
+            <input type="text" name="msg" id="msg" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+
+
+リスト2-12
+public class HelloController : Controller
+{
+    public IActionResult Index()
+    {
+        ViewData["Message"] = "Hello! this is sample message!";
+        return View();
+    }
+
+
+    [HttpPost]
+    public IActionResult Form()
+    {
+        ViewData["Message"] = Request.Form["msg"];
+        return View("Index");
+    }
+}
+
+
+
+
+リスト2-13
+[HttpPost]
+public IActionResult Form(string msg)
+{
+    ViewData["Message"] = msg;
+    return View("Index");
+}
+
+
+
+
+リスト2-14
+public class HelloController : Controller
+{
+
+
+    public IActionResult Index()
+    {
+        ViewData["message"] = "Input your data:";
+        ViewData["name"] = "";
+        ViewData["mail"] = "";
+        ViewData["tel"] = "";
+        return View();
+    }
+
+
+    [HttpPost]
+    public IActionResult Form()
+    {
+        ViewData["name"] = Request.Form["name"];
+        ViewData["mail"] = Request.Form["mail"];
+        ViewData["tel"] = Request.Form["tel"];
+        ViewData["message"] = ViewData["name"] + ", " +
+                ViewData["mail"] + ",  " + ViewData["tel"];
+        return View("Index");
+    }
+}
+
+
+
+
+リスト2-15――※Formの引数を利用する場合
+[HttpPost]
+public IActionResult Form(string name, string mail, string tel)
+{
+    ViewData["name"] = name;
+    ViewData["mail"] = mail;
+    ViewData["tel"] = tel;
+    ViewData["message"] = ViewData["name"] + ", " +
+            ViewData["mail"] + ",  " + ViewData["tel"];
+    return View("Index");
+}
+
+
+
+
+リスト2-16
+@{
+    ViewData["Title"] = "Index/Hello";
+    var name = ViewData["name"];
+    var mail = ViewData["mail"];
+    var tel = ViewData["tel"];
+}
+
+
+<div class="text-left">
+    <h1 class="display-3">Index</h1>
+    <p class="h4 mb-4">@ViewData["message"]</p>
+    <form method="post" asp-controller="Hello" asp-action="Form">
+        <div class="form-group">
+            <label asp-for="@name" class="h5">@name</label>
+            <input asp-for="@name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label asp-for="@mail" class="h5">@mail</label>
+            <input asp-for="@mail" class="form-control">
+        </div>
+        <div class="form-group">
+            <label asp-for="@tel" class="h5">@tel</label>
+            <input asp-for="@tel" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+
+
+リスト2-17
+public class HelloController : Controller
+{
+    public List<string> list;
+
+
+    public HelloController()
+    {
+        list = new List<string>();
+        list.Add("Japan");
+        list.Add("USA");
+        list.Add("UK");
+    }
+    public IActionResult Index()
+    {
+        ViewData["message"] = "Select item:";
+        ViewData["list"] = "";
+        ViewData["listdata"] = list;
+        return View();
+    }
+
+
+    [HttpPost]
+    public IActionResult Form()
+    {
+        ViewData["message"] = '"' + Request.Form["list"] + '"' + " selected.";
+        ViewData["list"] = Request.Form["list"];
+        ViewData["listdata"] = list;
+        return View("Index");
+    }
+}
+
+
+
+
+リスト2-18
+@{
+    ViewData["Title"] = "Index/Hello";
+    var list = ViewData["list"];
+
+
+    List<string> data = (List<string>)ViewData["listdata"];
+    List<SelectListItem> listdata = new List<SelectListItem>();
+    foreach (string item in data)
+    {
+        listdata.Add(new SelectListItem { Value = item, Text = item });
+    }
+}
+
+
+<div class="text-left">
+    <h1 class="display-3">Index</h1>
+    <p class="h4 mb-4">@ViewData["message"]</p>
+    <form method="post" asp-controller="Hello" asp-action="Form">
+        <div class="form-group">
+            <select asp-for="@list" asp-items="@listdata" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+
+
+リスト2-19
+public IActionResult Index()
+{
+    ViewData["message"] = "Select item:";
+    ViewData["list"] = new string[] {};  // ☆
+    ViewData["listdata"] = list;
+    return View();
+}
+
+
+[HttpPost]
+public IActionResult Form()
+{
+    string[] res = (string[])Request.Form["list"];
+    string msg = "※";
+    foreach(var item in res)
+    {
+        msg += "「" + item + "」";
+    }
+    ViewData["message"] = msg + " selected.";
+    ViewData["list"] = Request.Form["list"];
+    ViewData["listdata"] = list;
+    return View("Index");
+}
+
+
+
+
+リスト2-20
+@{
+    ViewData["Title"] = "Index/Hello";
+}
+
+
+<div class="text-left">
+    <h1 class="display-3">Index</h1>
+    <p class="h4 mb-4">@ViewData["message"]</p>
+</div>
+
+
+
+
+リスト2-21
+[Route("Hello/{id?}/{name?}")]
+public IActionResult Index(int id, string name)
+{
+    ViewData["message"] = "id = " + id + ", name = " + name;
+    return View();
+}
+
+
+
+
+リスト2-22
+@{
+    ViewData["Title"] = "Index/Hello";
+}
+
+
+<div class="text-left">
+    <h1 class="display-3">Index</h1>
+    <p class="h4 mb-4">@ViewData["message"]</p>
+    <ul class="h5">
+        <li>@ViewData["id"]</li>
+        <li>@ViewData["name"]</li>
+    </ul>
+</div>
+
+
+
+
+リスト2-23
+// using Microsoft.AspNetCore.Http; 追記する
+
+
+public class HelloController : Controller
+{
+    
+    [HttpGet("Hello/{id?}/{name?}")]
+    public IActionResult Index(int id, string name)
+    {
+        ViewData["message"] = "※セッションにIDとNameを保存しました。";
+        HttpContext.Session.SetInt32("id", id);
+        HttpContext.Session.SetString("name", name);
+        return View();
+    }
+
+
+    [HttpGet]
+    public IActionResult Other()
+    {
+        ViewData["id"] = HttpContext.Session.GetInt32("id");
+        ViewData["name"] = HttpContext.Session.GetString("name");
+        ViewData["message"] = "保存されたセッションの値を表示します。";
+        return View("Index");
+    }
+}
+
+
+
+
+リスト2-24
+@{
+    ViewData["Title"] = "Index/Hello";
+}
+
+
+<div class="text-left">
+    <h1 class="display-3">Index</h1>
+    <p class="h4 mb-4">@ViewData["message"]</p>
+    <pre class="h5">Value = @ViewData["object"]</pre>
+</div>
+
+
+
+
+リスト2-25
+// using System.IO; // 追加
+// using System.Runtime.Serialization.Formatters.Binary; //追加
+
+
+public class HelloController : Controller
+{
+        
+    [HttpGet("Hello/{id?}/{name?}")]
+    public IActionResult Index(int id, string name)
+    {
+        ViewData["message"] = "※セッションにIDとNameを保存しました。";
+        MyData ob = new MyData(id, name);
+        HttpContext.Session.Set("object", ObjectToBytes(ob));
+        ViewData["object"] = ob;
+        return View();
+    }
+
+
+    [HttpGet]
+    public IActionResult Other()
+    {
+        ViewData["message"] = "保存されたセッションの値を表示します。";
+        byte[] ob = HttpContext.Session.Get("object");
+        ViewData["object"] = BytesToObject(ob);
+        return View("Index");
+    }
+
+
+    // convert object to byte[].
+    private byte[] ObjectToBytes(Object ob)
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        MemoryStream ms = new MemoryStream();
+        bf.Serialize(ms, ob);
+        return ms.ToArray();
+    }
+
+
+    // convert byte[] to object.
+    private Object ct(byte[] arr)
+    {
+        MemoryStream ms = new MemoryStream();
+        BinaryFormatter bf = new BinaryFormatter();
+        ms.Write(arr, 0, arr.Length);
+        ms.Seek(0, SeekOrigin.Begin);
+        return (Object)bf.Deserialize(ms);
+    }
+}
+
+
+[Serializable]
+class MyData
+{
+    public int Id = 0;
+    public string Name = "";
+ 
+    public MyData(int id, string name)
+    {
+        this.Id = id;
+        this.Name = name;
+    }
+
+
+    override public string ToString()
+    {
+        return "<" + Id + ": " + Name + ">";
+    }
+}
+
+
+
+
+リスト2-26
+[HttpGet]
+public IActionResult Index()
+{
+    ViewData["message"] = "※テーブルの表示";
+    ViewData["header"] = new string[] { "id", "name", "mail"};
+    ViewData["data"] = new string[][]{
+        new string[]{ "1", "Taro", "taro@yamada"},
+        new string[]{ "2", "Hanako", "hanako@flower"},
+        new string[]{ "3", "Sachiko", "sachiko@happy"}
+    };
+    return View();
+}
+
+
+（※Otherアクションは削除しておく）
+
+
+
+
+リスト2-27
+@{
+    string[] header = (string[])ViewData["header"];
+    string[][] data = (string[][])ViewData["data"];
+}
+
+
+<table class="table">
+    <tr>
+    @foreach(string item in header)
+    {
+        <th>@item</th>
+    }
+    </tr>
+    @foreach(var row in data)
+    {
+        <tr>
+        @foreach(var item in row)
+        {
+            <td>@item</td>
+        }
+        </tr>
+    }
+</table>
+
+
+
+
+リスト2-28
+@{
+    ViewData["Title"] = "Index/Hello";
+}
+
+
+<div class="text-left">
+    <h1 class="display-3">Index</h1>
+    <p class="h4 mb-4">@ViewData["message"]</p>
+    <partial name="_table.cshtml">
+</div>
+
+
+
+
+リスト3-1
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+
+        public IConfiguration Configuration { get; }
+
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddRazorPages();  // ☆
+        }
+
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
+
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+
+            app.UseRouting();
+
+
+            app.UseAuthorization();
+
+
+            app.UseEndpoints(endpoints => // ☆
+            {
+                endpoints.MapRazorPages();
+            });
+        }
+    }
+}
+
+
+
+
+リスト3-2
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+
+
+リスト3-3
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+
+
+namespace SampleRazorApp.Pages
+{
+    public class IndexModel : PageModel
+    {
+        private readonly ILogger<IndexModel> _logger;
+
+
+        public IndexModel(ILogger<IndexModel> logger)
+        {
+            _logger = logger;
+        }
+
+
+        public void OnGet()
+        {
+
+
+        }
+    }
+}
+
+
+
+
+リスト3-4
+@page
+@model SampleRazorApp.Pages.OtherModel
+@{
+}
+
+
+
+
+リスト3-5
+@page
+@model SampleRazorApp.Pages.OtherModel
+@{
+    ViewData["Title"] = "Other";
+}
+
+
+<h1>Other</h1>
+
+
+
+
+リスト3-6
+public void OnGet()
+{
+    ViewData["message"] = "This is sample message!";
+}
+
+
+
+
+リスト3-7
+<div>
+    <h1 class="display-4">Welcome</h1>
+    <p class="h4">@ViewData["message"]</p>
+</div>
+
+
+
+
+リスト3-8
+public class IndexModel : PageModel
+{
+    [ViewData]
+    public string Message { get; set; } = "sample message";
+
+
+    public void OnGet()
+    {
+        Message = "これは新たに設定されたメッセージです!!";
+    }
+}
+
+
+
+
+リスト3-9
+public class IndexModel : PageModel
+{
+    public string Message { get; set; } = "sample message";
+
+
+    public void OnGet()
+    {
+        Message = "これはMessageプロパティの値です。";
+    }
+}
+
+
+
+
+リスト3-10
+<div>
+    <h1 class="display-4">Welcome</h1>
+    <p class="h4">@Model.Message</p>
+</div>
+
+
+
+
+リスト3-11
+public class IndexModel : PageModel
+{
+    public string Message { get; set; } = "sample message";
+    private string Name = "no-name";
+    private string Mail = "no-mail";
+
+
+    public void OnGet()
+    {
+        Message = "これはMessageプロパティの値です。";
+    }
+
+
+    public string getData()
+    {
+        return "[名前：" + Name + ", メール：" + Mail + "]";
+    }
+}
+
+
+
+
+リスト3-12
+<div>
+    <h1 class="display-4">Welcome</h1>
+    <p class="h4">@Model.Message</p>
+    <p class="h5">@Model.getData()</p>
+</div>
+
+
+
+
+リスト3-13
+public class IndexModel : PageModel
+{
+    public string Message { get; set; } = "sample message";
+    private string[][] data = new string[][] {
+        new string[]{"Taro", "taro@yamada"},
+        new string[]{"Hanako", "hanako@flower"},
+        new string[]{"Sachiko", "sachiko@happy"}
+    };
+
+
+    [BindProperty(SupportsGet = true)]
+    public int id { get; set;  }
+
+
+    public void OnGet()
+    {
+        Message = "これはMessageプロパティの値です。";
+    }
+
+
+    public string getData(int id)
+    {
+        string[] target = data[id];
+        return "[名前：" + target[0] + ", メール：" + target[1] + "]";
+    }
+}
+
+
+
+
+リスト3-14
+<div>
+    <h1 class="display-4">Welcome</h1>
+    <p class="h4">@Model.Message</p>
+    <p class="h5">@Model.getData(Model.id)</p>
+</div>
+
+
+
+
+リスト3-15――Index.cshtml
+@page 
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<div>
+    <h1 class="display-4 mb-4">Welcome</h1>
+    <p class="h4">@Model.Message</p>
+    <form asp-page="Other">
+        <input type="text" name="msg" class="form-control" />
+        <input type="submit" class="btn btn-primary" />
+    </form>
+</div>
+
+
+
+
+リスト3-16――IndexModelクラス
+public class IndexModel : PageModel
+{
+    public string Message { get; set; } = "sample message";
+
+
+    public void OnGet()
+    {
+        Message = "何か書いて下さい。";
+    }
+}
+
+
+
+
+リスト3-17
+public class OtherModel : PageModel
+{
+    public string Message { get; set; }
+
+
+    public void OnPost()
+    {
+        Message = "you typed: " + Request.Form["msg"];
+    }
+}
+
+
+
+
+リスト3-18
+@page
+@model SampleRazorApp.Pages.OtherModel
+@{
+    ViewData["Title"] = "Other";
+}
+
+
+<div>
+    <h1 class="display-4 mb-4">Other page</h1>
+    <p class="h4">@Model.Message</p>
+</div>
+
+
+
+
+リスト3-19
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<div>
+    <h1 class="display-4 mb-4">Welcome</h1>
+    <p class="h4">@Model.Message</p>
+    <form asp-page="Index">
+        <div class="form-group">
+            <label asp-for="@Model.Name">Name</label>
+            <input asp-for="@Model.Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Password">Password</label>
+            <input asp-for="@Model.Password" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Mail">Mail</label>
+            <input asp-for="@Model.Mail" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Tel">Tel</label>
+            <input asp-for="@Model.Tel" class="form-control" />
+        </div>
+            <input type="submit" class="btn btn-primary" />
+    </form>
+</div>
+
+
+
+
+リスト3-20
+// using System.ComponentModel.DataAnnotations;  追加
+
+
+public class IndexModel : PageModel
+{
+    public string Message = "no message.";
+    
+    [DataType(DataType.Text)]
+    public string Name { get; set; }
+    
+    [DataType(DataType.Password)]
+    public string Password { get; set; }
+    
+    [DataType(DataType.EmailAddress)]
+    public string Mail { get; set; }
+    
+    [DataType(DataType.PhoneNumber)]
+    public string Tel { get; set; }
+
+
+    public void OnGet()
+    {
+        Message = "入力して下さい。";
+    }
+    
+    public void OnPost(string name, string password, string mail, string tel)
+    {
+        Message = "[Name: " + name + ", password:(" + password.Length
+            + " chars), mail:" + mail + " <" + tel + ">]";
+    }
+}
+
+
+
+
+リスト3-21
+<div>
+    <h1 class="display-4 mb-4">Welcome</h1>
+    <p class="h4">@Model.Message</p>
+    <form asp-page="Index">
+        <div class="form-group">
+            @Html.DisplayName("Name")
+            @Html.Editor("Name", new { htmlAttributes = 
+                new { @class = "form-control" } })
+        </div>
+        <div class="form-group">
+            @Html.DisplayNameFor(model => model.Password)
+            @Html.EditorFor(model => model.Password, 
+                new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="form-group">
+            @Html.DisplayName("Mail")
+            @Html.TextBox("Mail", @Model.Mail, 
+                new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.DisplayName("Tel")
+            @Html.TextBoxFor(model=>model.Tel, 
+                new { @class = "form-control" })
+        </div>
+        <input type="submit" class="btn btn-primary" />
+    </form>
+        
+</div>
+
+
+
+
+リスト3-22
+namespace SampleRazorApp.Pages
+{
+    public enum Gender
+    {
+        male,
+        female
+    }
+    public enum Platform
+    {
+        Windows,
+        macOS,
+        Linux,
+        ChromeOS,
+        Android,
+        iOS
+    }
+    public class OtherModel : PageModel
+    {
+        public string Message { get; set; }
+
+
+        public bool check { get; set; }
+        public Gender gender { get; set; }
+        public Platform pc { get; set; }
+        public Platform[] pc2 { get; set; }
+
+
+        public void OnGet()
+        {
+            Message = "check & select it!";
+        }
+
+
+        public void OnPost(bool check, string gender, Platform pc, Platform[] pc2)
+        {
+            Message = "Result: " + check + "," + gender + "," + pc + ", " + pc2.Length;
+        }
+    }
+}
+
+
+
+
+リスト3-23
+<div>
+    <h1 class="display-4 mb-4">Other page</h1>
+    <p class="h4 mb-4">@Model.Message</p>
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            <label class="form-label h5">
+                @Html.CheckBox("check", true, 
+                    new { @class = "form-check-input" })
+                @Html.DisplayName("Checkbox1")
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="form-label h5">
+                @Html.RadioButton("gender", Gender.male, true, 
+                    new { @class = "form-check-input" })
+                @Html.DisplayName("male")
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="form-label h5">
+                @Html.RadioButton("gender", Gender.female, false, 
+                    new { @class = "form-check-input" })
+                @Html.DisplayName("female")
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="form-label h5">
+                @Html.DisplayName("PC")
+                @Html.DropDownList("pc", 
+                    new SelectList(Enum.GetValues(typeof(Platform))),
+                    new { @class = "form-control" })
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="form-label h5">
+                @Html.DisplayName("PC2")
+                @Html.ListBox("pc2", 
+                    new MultiSelectList(Enum.GetValues(typeof(Platform))),
+                    new { @class = "form-control", size = 5 })
+            </label>
+        </div>
+        <div><input type="submit" /></div>
+    }
+</div>
+
+
+
+
+リスト3-24
+<div>
+    <h1 class="display-4 mb-4">Other page</h1>
+    <p class="h4 mb-4">@Model.Message</p>
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            <label class="form-label h5">
+                @Html.CheckBoxFor(model => model.check, 
+                    new { @class = "form-check-input" })
+                @Html.DisplayName("Checkbox1")
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="form-check-label h5">
+                @Html.RadioButtonFor(model => model.gender, 
+                    Gender.male, new { @class = "form-check-input" })
+                @Html.DisplayName("male")
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="form-check-label h5">
+                @Html.RadioButtonFor(model => model.gender,
+                    Gender.female, new { @class = "form-check-input" })
+                @Html.DisplayName("female")
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="form-label h5">
+                @Html.DisplayName("PC")
+                @Html.DropDownListFor(model => model.pc, 
+                    new SelectList(Enum.GetValues(typeof(Platform))),
+                    new { @class = "form-control" })
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="form-label h5">
+                @Html.DisplayName("PC2")
+                @Html.ListBoxFor(model => model.pc2, 
+                    new MultiSelectList(Enum.GetValues(typeof(Platform))),
+                    new { @class = "form-control", size = 5 })
+            </label>
+        </div>
+        <div><input type="submit" /></div>
+    }
+</div>
+
+
+
+
+リスト3-25
+<div>
+    <h1 class="display-4 mb-4">Welcome</h1>
+    <ul>
+        @{ 
+            int  totalp = 0;
+            int  totaln = 0;
+        }
+        @for (int i = 2; i <= 20; i++)
+        {
+            bool flg = true;
+            @for (int j = 2; j <= i / 2; j++)
+            {
+                @if (i % j == 0)
+                {
+                    flg = false;
+                }
+            }
+            @if (flg)
+            {
+                totalp += i;
+                <li>@i は、素数です。(total:@totalp)</li>
+            }
+            else
+            {
+                totaln += i;
+                <li>@i  は、素数ではない。[total:@totaln]</li>
+            }
+        }
+    </ul>
+</div>
+
+
+
+
+リスト3-26
+[BindProperty(SupportsGet = true)]
+public int Num { get; set; }
+
+
+
+
+リスト3-27
+@page "{num?}"
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<div>
+    <h1 class="display-4 mb-4">Welcome</h1>
+    <p class="h4">@Model.Num  は、
+        <b>@(Model.Num % 2 == 0 ? "偶数" : "奇数") </b>です。</p>
+</div>
+
+
+
+
+リスト3-28
+<div>
+    <h1 class="display-4 mb-4">Welcome</h1>
+    <div class="h4">
+        @{
+            int n = Model.Num * 2;
+            ※整数 @Model.Num の２倍は、@n です。
+        }
+    </div>
+</div>
+
+
+
+
+リスト3-29
+@{
+    int n = Model.Num * 2;
+    <Text>※整数 @Model.Num の２倍は、@n です。</Text>
+}
+
+
+
+
+リスト3-30
+@page "{num?}"
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@functions {
+    string hello(string name)
+    {
+        return "Hello, " + name + "!!";
+    }
+    int total(int n)
+    {
+        int re = 0;
+        for(int i = 1;i <= n;i++)
+        {
+            re += i;
+        }
+        return re;
+    }
+}
+<div>
+    <h1 class="display-4 mb-4">Welcome</h1>
+    <p class="h4">@hello("太郎")</p>
+    <p class="h4">@Model.Num の合計は、@total(Model.Num) 。</p>
+</div>
+
+
+
+
+リスト3-31
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+
+
+    string[] data = new[] {"one", "two", "three", "four", "five"};
+
+
+    Func<dynamic, object> hello = @<p class="display-4">Hello, @item !!</p>;
+
+
+    Func<dynamic, object> showList = @<ul class="h4">
+        @foreach (var ob in item)
+        {
+            <li>@ob</li>
+        }
+    </ul>;
+}
+
+
+<div>
+    <h1 class="display-4 mb-4">@hello("Hanako")</h1>
+    <p class="h4">@showList(data)</p>
+</div>
+
+
+
+
+リスト3-32
+@RenderSection("between", required: false)
+
+
+
+
+リスト3-33――Index.cshtml
+@section between
+{
+    <p class="container alert alert-primary">
+        ※これはヘッダーとコンテンツの間に表示されます。
+    </p>
+}
+
+
+
+
+リスト3-34――Other.cshtml
+@section between
+    {
+    <div class="container card" style="width: 30rem;">
+        <div class="card-body">
+            <h5 class="card-title">※BETWEEN CONTENT</h5>
+            <p class="card-text">
+                これは、ヘッダー部分とページのコンテンツの間にある
+                Betweenセクションのコンテンツです。
+            </p>
+        </div>
+    </div>
+}
+
+
+
+
+リスト4-1
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+namespace SampleMVCApp.Models
+{
+    public class Person
+    {
+    }
+}
+
+
+
+
+リスト4-2
+public class Person
+{
+    public int PersonId { get; set; }
+    public string Name { get; set; }
+    public string Mail { get; set; }
+    public int Age { get; set; }
+}
+
+
+
+
+リスト4-3
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+  </ItemGroup>
+
+
+</Project>
+
+
+
+
+リスト4-4
+CREATE TABLE "Person" (
+        "PersonId"        INTEGER PRIMARY KEY AUTOINCREMENT,
+        "Name"        TEXT NOT NULL,
+        "Mail"        TEXT,
+        "Age"        INTEGER
+)
+
+
+
+
+リスト4-5
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+
+namespace SampleMVCApp.Models
+{
+    public class SampleMVCAppContext : DbContext
+    {
+        public SampleMVCAppContext (DbContextOptions
+            <SampleMVCAppContext> options)
+            : base(options)
+        {
+        }
+
+
+        public DbSet<SampleMVCApp.Models.Person> Person { get; set; }
+    }
+}
+
+
+
+
+リスト4-6
+// using Microsoft.EntityFrameworkCore; 追加
+// using SampleMVCApp.Models; 追加
+
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddSession();
+    services.AddControllersWithViews();
+
+
+    // ☆Dbコンテキストを追加
+    services.AddDbContext<SampleMVCAppContext>(options =>
+        options.UseSqlServer(
+            Configuration.GetConnectionString("SampleMVCAppContext")));
+}
+
+
+
+
+リスト4-7
+"ConnectionStrings": {
+  "SampleMVCAppContext": 
+    "Server=(localdb)\\mssqllocaldb;Database=SampleMVCAppContext-…略…;Trusted_Connection=True;MultipleActiveResultSets=true"
+}
+
+
+
+
+リスト4-8
+"ConnectionStrings": {
+    "SampleMVCAppContext": "Data Source=mydata.db"
+}
+
+
+
+
+リスト4-9
+services.AddDbContext<SampleMVCAppContext>(options =>
+   options.UseSqlite(Configuration.GetConnectionString("SampleMVCAppContext")));
+}
+
+
+
+
+リスト4-10
+  "ConnectionStrings": {
+    "SampleMVCAppContext": "server=127.0.0.1;port=3306;database=データベース;userid=利用者;password=パスワード"
+  }
+
+
+
+
+リスト4-11
+services.AddDbContext<SampleMVCAppContext>(options =>
+   options.UseMySql(Configuration.GetConnectionString("SampleMVCAppContext")));
+}
+
+
+
+
+リスト4-12
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using SampleMVCApp.Models;
+
+
+namespace SampleMVCApp.Controllers
+{
+    public class PeopleController : Controller
+    {
+        private readonly SampleMVCAppContext _context;
+
+
+        public PeopleController(SampleMVCAppContext context)
+        {
+            _context = context;
+        }
+
+
+        ……アクションメソッド……
+    }
+}
+
+
+
+
+リスト4-13
+public async Task<IActionResult> Index()
+{
+    return View(await _context.Person.ToListAsync());
+}
+
+
+
+
+リスト4-14
+@model IEnumerable<SampleMVCApp.Models.Person>
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1>Index</h1>
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PersonId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PersonId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PersonId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+
+
+リスト4-15
+@model SampleMVCApp.Models.Person
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h1>Create</h1>
+
+
+<h4>Person</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mail" class="control-label"></label>
+                <input asp-for="Mail" class="form-control" />
+                <span asp-validation-for="Mail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
+リスト4-16――Createメソッド（GET用）
+public IActionResult Create()
+{
+    return View();
+}
+
+
+
+
+リスト4-17――Createメソッド（POST用）
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Create
+    ([Bind("PersonId,Name,Mail,Age")] Person person)
+{
+    if (ModelState.IsValid)
+    {
+        _context.Add(person);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+    return View(person);
+}
+
+
+
+
+リスト4-18
+@model SampleMVCApp.Models.Person
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<h1>Details</h1>
+
+
+<div>
+    <h4>Person</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Mail)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Mail)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PersonId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+
+リスト4-19
+public async Task<IActionResult> Details(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+
+    var person = await _context.Person
+        .FirstOrDefaultAsync(m => m.PersonId == id);
+    if (person == null)
+    {
+        return NotFound();
+    }
+
+
+    return View(person);
+}
+
+
+
+
+リスト4-20
+@model SampleMVCApp.Models.Person
+
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h1>Edit</h1>
+
+
+<h4>Person</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PersonId" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mail" class="control-label"></label>
+                <input asp-for="Mail" class="form-control" />
+                <span asp-validation-for="Mail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
+public async Task<IActionResult> Edit(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+
+    var person = await _context.Person.FindAsync(id);
+    if (person == null)
+    {
+        return NotFound();
+    }
+    return View(person);
+}
+
+
+
+
+リスト4-22
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Edit(int id, 
+        [Bind("PersonId,Name,Mail,Age")] Person person)
+{
+    if (id != person.PersonId)
+    {
+        return NotFound();
+    }
+
+
+    if (ModelState.IsValid)
+    {
+        try
+        {
+            _context.Update(person);
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!PersonExists(person.PersonId))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+        return RedirectToAction(nameof(Index));
+    }
+    return View(person);
+}
+
+
+
+
+リスト4-23
+@model SampleMVCApp.Models.Person
+
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<h1>Delete</h1>
+
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Person</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Mail)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Mail)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="PersonId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
+
+
+
+
+リスト4-24
+public async Task<IActionResult> Delete(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+
+    var person = await _context.Person
+        .FirstOrDefaultAsync(m => m.PersonId == id);
+    if (person == null)
+    {
+        return NotFound();
+    }
+
+
+    return View(person);
+}
+
+
+
+
+リスト4-25
+[HttpPost, ActionName("Delete")]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> DeleteConfirmed(int id)
+{
+    var person = await _context.Person.FindAsync(id);
+    _context.Person.Remove(person);
+    await _context.SaveChangesAsync();
+    return RedirectToAction(nameof(Index));
+}
+
+
+
+
+リスト4-26
+private bool PersonExists(int id)
+{
+    return _context.Person.Any(e => e.PersonId == id);
+}
+
+
+
+
+リスト4-27
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+namespace SampleRazorApp.Models
+{
+    public class Person
+    {
+        public int PersonId { get; set; }
+        public string Name { get; set; }
+        public string Mail { get; set; }
+        public int Age { get; set; }
+    }
+}
+
+
+
+
+リスト4-28
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddRazorPages();
+
+
+    // ☆Dbコンテキストの追加
+    services.AddDbContext<SampleRazorAppContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString
+                    ("SampleRazorAppContext")));
+}
+
+
+
+
+リスト4-29
+services.AddDbContext<SampleRazorAppContext>(options =>
+        options.UseSqlite(Configuration.GetConnectionString
+                ("SampleRazorAppContextSqlite")));
+
+
+
+
+リスト4-30
+  "ConnectionStrings": {
+    "SampleRazorAppContext": 
+        "Server=(localdb)\\mssqllocaldb;Database=SampleRazorAppContext-…略…;Trusted_Connection=True;MultipleActiveResultSets=true"
+  }
+
+
+
+
+リスト4-31
+  "ConnectionStrings": {
+    "SampleRazorAppContext": "Data Source=mydata.db"
+  }
+
+
+
+
+リスト4-32
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+
+namespace SampleRazorApp.Models
+{
+    public class SampleRazorAppContext : DbContext
+    {
+        public SampleRazorAppContext (DbContextOptions
+            <SampleRazorAppContext> options)
+            : base(options)
+        {
+        }
+
+
+        public DbSet<SampleRazorApp.Models.Person> Person { get; set; }
+    }
+}
+
+
+
+
+リスト4-33
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp.Pages
+{
+    public class IndexModel : PageModel
+    {
+        private readonly SampleRazorAppContext _context;
+
+
+        public IndexModel(SampleRazorAppContext context)
+        {
+            _context = context;
+        }
+
+
+        public IList<Person> Person { get;set; }
+
+
+        public async Task OnGetAsync()
+        {
+            Person = await _context.Person.ToListAsync();
+        }
+    }
+}
+
+
+
+
+リスト4-34
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp.Pages
+{
+    public class CreateModel : PageModel
+    {
+        private readonly SampleRazorAppContext _context;
+
+
+        public CreateModel(SampleRazorAppContext context)
+        {
+            _context = context;
+        }
+
+
+        public IActionResult OnGet()
+        {
+            return Page();
+        }
+
+
+        [BindProperty]
+        public Person Person { get; set; }
+
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+
+            _context.Person.Add(Person);
+            await _context.SaveChangesAsync();
+
+
+            return RedirectToPage("./Index");
+        }
+    }
+}
+
+
+
+
+リスト4-35
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp.Pages
+{
+    public class DetailsModel : PageModel
+    {
+        private readonly SampleRazorAppContext _context;
+
+
+        public DetailsModel(SampleRazorAppContext context)
+        {
+            _context = context;
+        }
+
+
+        public Person Person { get; set; }
+
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+            Person = await _context.Person.FirstOrDefaultAsync
+                    (m => m.PersonId == id);
+
+
+            if (Person == null)
+            {
+                return NotFound();
+            }
+            return Page();
+        }
+    }
+}
+
+
+
+
+リスト4-36
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp.Pages
+{
+    public class EditModel : PageModel
+    {
+        private readonly SampleRazorAppContext _context;
+
+
+        public EditModel(SampleRazorAppContext context)
+        {
+            _context = context;
+        }
+
+
+        [BindProperty]
+        public Person Person { get; set; }
+
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+            Person = await _context.Person.FirstOrDefaultAsync
+                    (m => m.PersonId == id);
+
+
+            if (Person == null)
+            {
+                return NotFound();
+            }
+            return Page();
+        }
+
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+
+            _context.Attach(Person).State = EntityState.Modified;
+
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PersonExists(Person.PersonId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+
+            return RedirectToPage("./Index");
+        }
+
+
+        private bool PersonExists(int id)
+        {
+            return _context.Person.Any(e => e.PersonId == id);
+        }
+    }
+}
+
+
+
+
+リスト4-37
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp.Pages
+{
+    public class DeleteModel : PageModel
+    {
+        private readonly SampleRazorAppContext _context;
+
+
+        public DeleteModel(SampleRazorAppContext context)
+        {
+            _context = context;
+        }
+
+
+        [BindProperty]
+        public Person Person { get; set; }
+
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+            Person = await _context.Person.FirstOrDefaultAsync
+                    (m => m.PersonId == id);
+
+
+            if (Person == null)
+            {
+                return NotFound();
+            }
+            return Page();
+        }
+
+
+        public async Task<IActionResult> OnPostAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+            Person = await _context.Person.FindAsync(id);
+
+
+            if (Person != null)
+            {
+                _context.Person.Remove(Person);
+                await _context.SaveChangesAsync();
+            }
+
+
+            return RedirectToPage("./Index");
+        }
+    }
+}
+
+
+
+
+リスト4-1
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+namespace SampleMVCApp.Models
+{
+    public class Person
+    {
+    }
+}
+
+
+
+
+リスト4-2
+public class Person
+{
+    public int PersonId { get; set; }
+    public string Name { get; set; }
+    public string Mail { get; set; }
+    public int Age { get; set; }
+}
+
+
+
+
+リスト4-3
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+  </ItemGroup>
+
+
+</Project>
+
+
+
+
+リスト4-4
+CREATE TABLE "Person" (
+        "PersonId"        INTEGER PRIMARY KEY AUTOINCREMENT,
+        "Name"        TEXT NOT NULL,
+        "Mail"        TEXT,
+        "Age"        INTEGER
+)
+
+
+
+
+リスト4-5
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+
+namespace SampleMVCApp.Models
+{
+    public class SampleMVCAppContext : DbContext
+    {
+        public SampleMVCAppContext (DbContextOptions
+            <SampleMVCAppContext> options)
+            : base(options)
+        {
+        }
+
+
+        public DbSet<SampleMVCApp.Models.Person> Person { get; set; }
+    }
+}
+
+
+
+
+リスト4-6
+// using Microsoft.EntityFrameworkCore; 追加
+// using SampleMVCApp.Models; 追加
+
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddSession();
+    services.AddControllersWithViews();
+
+
+    // ☆Dbコンテキストを追加
+    services.AddDbContext<SampleMVCAppContext>(options =>
+        options.UseSqlServer(
+            Configuration.GetConnectionString("SampleMVCAppContext")));
+}
+
+
+
+
+リスト4-7
+"ConnectionStrings": {
+  "SampleMVCAppContext": 
+    "Server=(localdb)\\mssqllocaldb;Database=SampleMVCAppContext-…略…;Trusted_Connection=True;MultipleActiveResultSets=true"
+}
+
+
+
+
+リスト4-8
+"ConnectionStrings": {
+    "SampleMVCAppContext": "Data Source=mydata.db"
+}
+
+
+
+
+リスト4-9
+services.AddDbContext<SampleMVCAppContext>(options =>
+   options.UseSqlite(Configuration.GetConnectionString("SampleMVCAppContext")));
+}
+
+
+
+
+リスト4-10
+  "ConnectionStrings": {
+    "SampleMVCAppContext": "server=127.0.0.1;port=3306;database=データベース;userid=利用者;password=パスワード"
+  }
+
+
+
+
+リスト4-11
+services.AddDbContext<SampleMVCAppContext>(options =>
+   options.UseMySql(Configuration.GetConnectionString("SampleMVCAppContext")));
+}
+
+
+
+
+リスト4-12
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using SampleMVCApp.Models;
+
+
+namespace SampleMVCApp.Controllers
+{
+    public class PeopleController : Controller
+    {
+        private readonly SampleMVCAppContext _context;
+
+
+        public PeopleController(SampleMVCAppContext context)
+        {
+            _context = context;
+        }
+
+
+        ……アクションメソッド……
+    }
+}
+
+
+
+
+リスト4-13
+public async Task<IActionResult> Index()
+{
+    return View(await _context.Person.ToListAsync());
+}
+
+
+
+
+リスト4-14
+@model IEnumerable<SampleMVCApp.Models.Person>
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1>Index</h1>
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PersonId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PersonId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PersonId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+
+
+リスト4-15
+@model SampleMVCApp.Models.Person
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h1>Create</h1>
+
+
+<h4>Person</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mail" class="control-label"></label>
+                <input asp-for="Mail" class="form-control" />
+                <span asp-validation-for="Mail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
+リスト4-16――Createメソッド（GET用）
+public IActionResult Create()
+{
+    return View();
+}
+
+
+
+
+リスト4-17――Createメソッド（POST用）
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Create
+    ([Bind("PersonId,Name,Mail,Age")] Person person)
+{
+    if (ModelState.IsValid)
+    {
+        _context.Add(person);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+    return View(person);
+}
+
+
+
+
+リスト4-18
+@model SampleMVCApp.Models.Person
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<h1>Details</h1>
+
+
+<div>
+    <h4>Person</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Mail)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Mail)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PersonId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+
+リスト4-19
+public async Task<IActionResult> Details(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+
+    var person = await _context.Person
+        .FirstOrDefaultAsync(m => m.PersonId == id);
+    if (person == null)
+    {
+        return NotFound();
+    }
+
+
+    return View(person);
+}
+
+
+
+
+リスト4-20
+@model SampleMVCApp.Models.Person
+
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h1>Edit</h1>
+
+
+<h4>Person</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PersonId" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mail" class="control-label"></label>
+                <input asp-for="Mail" class="form-control" />
+                <span asp-validation-for="Mail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
+リスト4-21
+public async Task<IActionResult> Edit(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+
+    var person = await _context.Person.FindAsync(id);
+    if (person == null)
+    {
+        return NotFound();
+    }
+    return View(person);
+}
+
+
+
+
+リスト4-22
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Edit(int id, 
+        [Bind("PersonId,Name,Mail,Age")] Person person)
+{
+    if (id != person.PersonId)
+    {
+        return NotFound();
+    }
+
+
+    if (ModelState.IsValid)
+    {
+        try
+        {
+            _context.Update(person);
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!PersonExists(person.PersonId))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+        return RedirectToAction(nameof(Index));
+    }
+    return View(person);
+}
+
+
+
+
+リスト4-23
+@model SampleMVCApp.Models.Person
+
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<h1>Delete</h1>
+
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Person</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Mail)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Mail)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="PersonId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
+
+
+
+
+リスト4-24
+public async Task<IActionResult> Delete(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+
+    var person = await _context.Person
+        .FirstOrDefaultAsync(m => m.PersonId == id);
+    if (person == null)
+    {
+        return NotFound();
+    }
+
+
+    return View(person);
+}
+
+
+
+
+リスト4-25
+[HttpPost, ActionName("Delete")]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> DeleteConfirmed(int id)
+{
+    var person = await _context.Person.FindAsync(id);
+    _context.Person.Remove(person);
+    await _context.SaveChangesAsync();
+    return RedirectToAction(nameof(Index));
+}
+
+
+
+
+リスト4-26
+private bool PersonExists(int id)
+{
+    return _context.Person.Any(e => e.PersonId == id);
+}
+
+
+
+
+リスト4-27
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+namespace SampleRazorApp.Models
+{
+    public class Person
+    {
+        public int PersonId { get; set; }
+        public string Name { get; set; }
+        public string Mail { get; set; }
+        public int Age { get; set; }
+    }
+}
+
+
+
+
+リスト4-28
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddRazorPages();
+
+
+    // ☆Dbコンテキストの追加
+    services.AddDbContext<SampleRazorAppContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString
+                    ("SampleRazorAppContext")));
+}
+
+
+
+
+リスト4-29
+services.AddDbContext<SampleRazorAppContext>(options =>
+        options.UseSqlite(Configuration.GetConnectionString
+                ("SampleRazorAppContextSqlite")));
+
+
+
+
+リスト4-30
+  "ConnectionStrings": {
+    "SampleRazorAppContext": 
+        "Server=(localdb)\\mssqllocaldb;Database=SampleRazorAppContext-…略…;Trusted_Connection=True;MultipleActiveResultSets=true"
+  }
+
+
+
+
+リスト4-31
+  "ConnectionStrings": {
+    "SampleRazorAppContext": "Data Source=mydata.db"
+  }
+
+
+
+
+リスト4-32
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+
+namespace SampleRazorApp.Models
+{
+    public class SampleRazorAppContext : DbContext
+    {
+        public SampleRazorAppContext (DbContextOptions
+            <SampleRazorAppContext> options)
+            : base(options)
+        {
+        }
+
+
+        public DbSet<SampleRazorApp.Models.Person> Person { get; set; }
+    }
+}
+
+
+
+
+リスト4-33
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp.Pages
+{
+    public class IndexModel : PageModel
+    {
+        private readonly SampleRazorAppContext _context;
+
+
+        public IndexModel(SampleRazorAppContext context)
+        {
+            _context = context;
+        }
+
+
+        public IList<Person> Person { get;set; }
+
+
+        public async Task OnGetAsync()
+        {
+            Person = await _context.Person.ToListAsync();
+        }
+    }
+}
+
+
+
+
+リスト4-34
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp.Pages
+{
+    public class CreateModel : PageModel
+    {
+        private readonly SampleRazorAppContext _context;
+
+
+        public CreateModel(SampleRazorAppContext context)
+        {
+            _context = context;
+        }
+
+
+        public IActionResult OnGet()
+        {
+            return Page();
+        }
+
+
+        [BindProperty]
+        public Person Person { get; set; }
+
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+
+            _context.Person.Add(Person);
+            await _context.SaveChangesAsync();
+
+
+            return RedirectToPage("./Index");
+        }
+    }
+}
+
+
+
+
+リスト4-35
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp.Pages
+{
+    public class DetailsModel : PageModel
+    {
+        private readonly SampleRazorAppContext _context;
+
+
+        public DetailsModel(SampleRazorAppContext context)
+        {
+            _context = context;
+        }
+
+
+        public Person Person { get; set; }
+
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+            Person = await _context.Person.FirstOrDefaultAsync
+                    (m => m.PersonId == id);
+
+
+            if (Person == null)
+            {
+                return NotFound();
+            }
+            return Page();
+        }
+    }
+}
+
+
+
+
+リスト4-36
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp.Pages
+{
+    public class EditModel : PageModel
+    {
+        private readonly SampleRazorAppContext _context;
+
+
+        public EditModel(SampleRazorAppContext context)
+        {
+            _context = context;
+        }
+
+
+        [BindProperty]
+        public Person Person { get; set; }
+
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+            Person = await _context.Person.FirstOrDefaultAsync
+                    (m => m.PersonId == id);
+
+
+            if (Person == null)
+            {
+                return NotFound();
+            }
+            return Page();
+        }
+
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+
+            _context.Attach(Person).State = EntityState.Modified;
+
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PersonExists(Person.PersonId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+
+            return RedirectToPage("./Index");
+        }
+
+
+        private bool PersonExists(int id)
+        {
+            return _context.Person.Any(e => e.PersonId == id);
+        }
+    }
+}
+
+
+
+
+リスト4-37
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp.Pages
+{
+    public class DeleteModel : PageModel
+    {
+        private readonly SampleRazorAppContext _context;
+
+
+        public DeleteModel(SampleRazorAppContext context)
+        {
+            _context = context;
+        }
+
+
+        [BindProperty]
+        public Person Person { get; set; }
+
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+            Person = await _context.Person.FirstOrDefaultAsync
+                    (m => m.PersonId == id);
+
+
+            if (Person == null)
+            {
+                return NotFound();
+            }
+            return Page();
+        }
+
+
+        public async Task<IActionResult> OnPostAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+            Person = await _context.Person.FindAsync(id);
+
+
+            if (Person != null)
+            {
+                _context.Person.Remove(Person);
+                await _context.SaveChangesAsync();
+            }
+
+
+            return RedirectToPage("./Index");
+        }
+    }
+}
+
+
+
+
+リスト5-1
+@page
+@model SampleRazorApp.Pages.FindModel;
+
+
+@{
+    ViewData["Title"] = "Find";
+}
+
+
+<h1>Find</h1>
+
+
+<form asp-page="Find">
+    <div class="row">
+        <input type="text" name="find" class="col-10 form-control" />
+        <input type="submit" value="Find" class="col-2 btn btn-primary" />
+    </div>
+</form>
+
+
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th>PersonId</th>
+            <th>Name</th>
+            <th>Mail</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.People)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PersonId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+リスト5-2
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp.Pages
+{
+    public class FindModel : PageModel
+    {
+        private readonly SampleRazorAppContext _context;
+        public IList<Person> People { get; set; }
+
+
+        public FindModel(SampleRazorAppContext context)
+        {
+            _context = context;
+        }
+
+
+        public async Task OnGetAsync()
+        {
+            People = await _context.Person.ToListAsync();
+        }
+
+
+        public async Task OnPostAsync(string Find)
+        {
+            People = await _context.Person.Where(m => m.Name == Find).ToListAsync();
+        }
+    }
+}
+
+
+
+
+リスト5-3
+public async Task<IActionResult> Find()
+{
+    return View(await _context.Person.ToListAsync());
+}
+
+
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Find(string find)
+{
+    var People  = await _context.Person.Where(m => m.Name == find).ToListAsync();
+    return View(People);
+}
+
+
+
+
+リスト5-4――FindModel（Razor）
+public async Task OnPostAsync(string Find)
+{
+    int n = Int32.Parse(Find);
+    People = await _context.Person.Where(m => m.Age <= n).ToListAsync();
+}
+
+
+
+
+リスト5-5――PeopleController（MVC）
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Find(string find)
+{
+    int n = Int32.Parse(Find);
+    var People  = await _context.Person.Where(m => m.Age <= n).ToListAsync();
+    return View(People);
+}
+
+
+
+
+リスト5-6
+People = await _context.Person.Where(m => m.Age >= n - 5 && m.Age <= n + 5).ToListAsync();
+
+
+
+
+リスト5-7
+People = await _context.Person.Where(m => m.Name.EndsWith(Fnd)).ToListAsync();
+
+
+
+
+リスト5-8
+People = await _context.Person.Where(m => m.Name.Contains(Find) || 
+        m.Mail.Contains(Find)).ToListAsync();
+
+
+
+
+リスト5-9
+string[] arr = Find.Split(" ");
+People = await _context.Person.Where(m => arr.Contains(m.Name)).ToListAsync();
+
+
+
+
+リスト5-10――Findページに記述（Razor Pageアプリ）
+public async Task OnGetAsync()
+{
+    IQueryable<Person> result = from p in _context.Person select p;
+    People = await result.ToListAsync();
+}
+
+
+public async Task OnPostAsync(string Find)
+{
+    IQueryable<Person> result = from p in _context.Person where p.Name == Find select p;
+    People = await result.ToListAsync();
+}
+
+
+
+
+リスト5-11――PeopleControllerに記述（MVCアプリ）
+public async Task<IActionResult> Find()
+{
+    IQueryable<Person> result = from p in _context.Person select p;
+    return View(await result.ToListAsync());
+}
+
+
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Find(string find)
+{
+    IQueryable<Person> result = from p in _context.Person where p.Name == Find select p;
+    return View(await result.ToListAsync());
+}
+
+
+
+
+リスト5-12
+People = await (from p in _context.Person select p).ToListAsync();
+
+
+
+
+リスト5-13
+public string[] Pdata { get; set; }
+
+
+public async Task OnGetAsync()
+{
+    Pdata = await _context.Person.Select(m => m.Name).ToArrayAsync();
+    People = await _context.Person.ToListAsync();
+}
+
+
+
+
+リスト5-14
+<pre class="h5">
+@string.Join(",", Model.Pdata)
+</pre>
+
+
+
+
+リスト5-15
+public async Task OnGetAsync()
+{
+    People = await _context.Person
+        .OrderBy(m => m.Age).ToListAsync();
+}
+
+
+public async Task OnPostAsync(string Find)
+{
+    People = await _context.Person
+        .Where(m => m.Name.Contains(Find))
+        .OrderBy(m => m.Age).ToListAsync();
+}
+
+
+
+
+リスト5-16
+[BindProperty(SupportsGet = true)]
+public int p { get; set; }
+[BindProperty(SupportsGet = true)]
+public int n { get; set; }
+
+
+public async Task OnGetAsync()
+{
+    n = n <= 0 ? 3 : n;
+    People = await _context.Person.OrderBy(m => m.Age)
+        .Skip(p * n).Take(n).ToListAsync();
+}
+
+
+
+
+リスト5-17
+public async Task OnGetAsync()
+{
+    IQueryable<Person> result = _context.Person
+        .FromSqlRaw("select * from person order by PersonId desc");
+    People = await result.ToListAsync();
+}
+
+
+
+
+リスト5-18
+// using System.ComponentModel.DataAnnotations;
+
+
+public class Person
+{
+    public int PersonId { get; set; }
+    [Required]
+    public string Name { get; set; }
+    [EmailAddressAttribute]
+    public string Mail { get; set; }
+    [Range(0,200)]
+    public int Age { get; set; }
+}
+
+
+
+
+リスト5-19
+public async Task<IActionResult> OnPostAsync()
+{
+    if (!ModelState.IsValid)
+    {
+        return Page();
+    }
+
+
+    _context.Person.Add(Person);
+    await _context.SaveChangesAsync();
+
+
+    return RedirectToPage("./Index");
+}
+
+
+
+
+リスト5-20
+[BindProperty]
+public Person Person { get; set; }
+
+
+
+
+リスト5-21
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Person.Name" class="control-label"></label>
+        <input asp-for="Person.Name" class="form-control" />
+        <span asp-validation-for="Person.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Person.Mail" class="control-label"></label>
+        <input asp-for="Person.Mail" class="form-control" />
+        <span asp-validation-for="Person.Mail" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Person.Age" class="control-label"></label>
+        <input asp-for="Person.Age" class="form-control" />
+        <span asp-validation-for="Person.Age" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+
+
+
+リスト5-22
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Person.Name" class="control-label"></label>
+        <input asp-for="Person.Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Person.Mail" class="control-label"></label>
+        <input asp-for="Person.Mail" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Person.Age" class="control-label"></label>
+        <input asp-for="Person.Age" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+
+
+
+リスト5-23
+public class Person
+{
+    public int PersonId { get; set; }
+
+
+    [Display(Name="名前")]
+    [Required]
+    public string Name { get; set; }
+    [Display(Name="メールアドレス")]
+    [EmailAddress]
+    public string Mail { get; set; }
+    [Display(Name="年齢")]
+    [Range(0,200)]
+    public int Age { get; set; }
+}
+
+
+
+
+リスト5-24
+public class Person
+{
+    public int PersonId { get; set; }
+    [Display(Name="名前")]
+    [Required(ErrorMessage = "必須項目です。")]
+    public string Name { get; set; }
+    [Display(Name="メールアドレス")]
+    [EmailAddress(ErrorMessage = "メールアドレスが必要です。")]
+    public string Mail { get; set; }
+    [Display(Name="年齢")]
+    [Range(0, 200, ErrorMessage = "ゼロ以上200以下の値にして下さい。")]
+    public int Age { get; set; }
+}
+
+
+
+
+リスト5-25
+<div asp-validation-summary="All" class="text-danger"></div>
+
+
+
+
+リスト5-26
+// using System.Text.RegularExpressions;
+
+
+public class Person: IValidatableObject
+{
+    public int PersonId { get; set; }
+    [Display(Name="名前")]
+    public string Name { get; set; }
+    [Display(Name="メールアドレス")]
+    public string Mail { get; set; }
+    [Display(Name="年齢")]
+    public int Age { get; set; }
+
+
+    public IEnumerable<ValidationResult> 
+            Validate(ValidationContext validationContext)
+    {
+        if (Name == null)
+        {
+            yield return new ValidationResult
+                    ("名前は必須項目です。");
+        }
+        if (Mail != null && !Regex.IsMatch(Mail, 
+                "[a-zA-Z0-9.+-_%]+@[a-zA-Z0-9.-]+"))
+        {
+            yield return new ValidationResult
+                   ("メールアドレスが必要です。");
+        }
+        if (Age <  0)
+        {
+            yield return new ValidationResult
+                    ("年齢はマイナスにはできません。");
+        }
+    }
+}
+
+
+
+
+リスト5-27
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
+
+namespace SampleRazorApp.Models
+{
+    public class Message
+    {
+        public int MessageId { get; set; }
+        [Display(Name="名前")]
+        [Required]
+        public string Comment { get; set; }
+        [Display(Name="投稿者")]
+        public int PersonId { get; set; } // ☆
+        public Person Person { get; set; } // ☆
+    }
+}
+
+
+
+
+リスト5-28
+// using System.ComponentModel.DataAnnotations.Schema; 追加
+
+
+public class Message
+{
+    public int MessageId { get; set; }
+
+
+    [Display(Name="名前")]
+    [Required]
+    public string Comment { get; set; }
+
+
+    [Display(Name="投稿者")]
+    public int PersonKey { get; set; } 
+
+
+    [ForeignKey("PersonKey")]
+    public Person Person { get; set; }
+}
+
+
+
+
+リスト5-29
+public class Person
+{
+    public int PersonId { get; set; }
+
+
+    [Display(Name="名前")]
+    [Required(ErrorMessage = "必須項目です。")]
+    public string Name { get; set; }
+
+
+    [Display(Name="メールアドレス")]
+    [EmailAddress(ErrorMessage = "メールアドレスが必要です。")]
+    public string Mail { get; set; }
+
+
+    [Display(Name="年齢")]
+    [Required(ErrorMessage = "必須項目です。")]
+    [Range(0, 200, ErrorMessage = "ゼロ以上200以下の値にして下さい。")]
+    public int Age { get; set; }
+
+
+    [Display(Name = "投稿")]
+    public ICollection<Message> Messages { get; set; } // ☆
+}
+
+
+
+
+リスト5-30
+CREATE TABLE "Message" (
+        "MessageId"        INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        "Comment"        TEXT,
+        "PersonId"        INTEGER NOT NULL,
+)
+
+
+
+
+リスト5-31
+public class SampleRazorAppContext : DbContext
+{
+    public SampleRazorAppContext (DbContextOptions
+            <SampleRazorAppContext> options)
+            : base(options)
+    {
+    }
+
+
+    public DbSet<SampleRazorApp.Models.Person> 
+            Person { get; set; }
+
+
+    public DbSet<SampleRazorApp.Models.Message> 
+            Message { get; set; }
+}
+
+
+
+
+リスト5-32
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp.Pages.Msg
+{
+    public class IndexModel : PageModel
+    {
+        private readonly SampleRazorAppContext _context;
+
+
+        public IndexModel(SampleRazorAppContext context)
+        {
+            _context = context;
+        }
+
+
+        public IList<Message> Message { get;set; }
+
+
+        public async Task OnGetAsync()
+        {
+            Message = await _context.Message
+                .Include(m => m.Person).ToListAsync();
+        }
+    }
+}
+
+
+
+
+リスト5-33
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Message[0].Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message[0].Person)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Message) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Person.Name)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.MessageId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.MessageId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.MessageId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+
+
+リスト5-34
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using SampleRazorApp.Models;
+
+
+namespace SampleRazorApp.Pages.Msg
+{
+    public class CreateModel : PageModel
+    {
+        private readonly SampleRazorAppContext _context;
+
+
+        public CreateModel(SampleRazorAppContext context)
+        {
+            _context = context;
+        }
+
+
+        public IActionResult OnGet()
+        {
+            ViewData["PersonId"] = new SelectList(_context.Person, 
+                    "PersonId", "Name");
+            return Page();
+        }
+
+
+        [BindProperty]
+        public Message Message { get; set; }
+
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+
+            _context.Message.Add(Message);
+            await _context.SaveChangesAsync();
+
+
+            return RedirectToPage("./Index");
+        }
+    }
+}
+
+
+
+
+リスト5-35
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Message.Comment" class="control-label"></label>
+        <input asp-for="Message.Comment" class="form-control" />
+        <span asp-validation-for="Message.Comment" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Message.PersonId" class="control-label"></label>
+        <select asp-for="Message.PersonId" class ="form-control" 
+                asp-items="ViewBag.PersonId"></select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+
+
+
+リスト5-36
+public async Task OnGetAsync()
+{
+    Person = await _context.Person.Include("Messages").ToListAsync();
+}
+
+
+
+
+リスト5-37
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Person[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Person[0].Mail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Person[0].Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Person[0].Messages)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Person) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                <ul>
+                    @if (item.Messages.Count > 0)
+                    {
+                        @foreach (var msg in item.Messages)
+                        {
+                            <li>@msg.Comment</li>
+                        }
+                    }
+                    else
+                    {
+                        <li>no-message.</li>
+                    }
+                </ul>
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.PersonId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.PersonId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.PersonId">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+
+
+
+リスト5-38
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Message>().Property<string>("Posted");
+}
+
+
+
+
+リスト5-39
+public async Task<IActionResult> OnPostAsync()
+{
+    if (!ModelState.IsValid)
+    {
+        return Page();
+    }
+    _context.Entry(Message).Property("Posted").CurrentValue
+            = DateTime.Now.ToString();
+    _context.Message.Add(Message);
+    await _context.SaveChangesAsync();
+
+
+    return RedirectToPage("./Index");
+}
+
+
+
+
+リスト5-40
+public readonly SampleRazorAppContext _context;
+
+
+
+
+リスト5-41
+(@Model._context.Entry(item).Property("Posted").CurrentValue)
+
+
+
+
+リスト6-1
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
+
+namespace SampleAPIApp.Models
+{
+    public class Product
+    {
+        public int ProductId { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        [DataType(DataType.Currency)]
+        public int Price { get; set; }
+        public string description { get; set; }
+    }
+}
+
+
+
+
+リスト6-2
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddControllers();
+
+
+    services.AddDbContext<SampleAPIAppContext>
+            (options => options.UseSqlServer(
+            Configuration.GetConnectionString("SampleAPIAppContext")));
+}
+
+
+
+
+リスト6-3
+[HttpGet]
+public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
+{
+    return await _context.Product.ToListAsync();
+}
+
+
+
+
+リスト6-4
+[HttpGet("{id}")]
+public async Task<ActionResult<Product>> GetProduct(int id)
+{
+    var product = await _context.Product.FindAsync(id);
+
+
+    if (product == null)
+    {
+        return NotFound();
+    }
+
+
+    return product;
+}
+
+
+
+
+リスト6-5
+[HttpPut("{id}")]
+public async Task<IActionResult> PutProduct(int id, Product product)
+{
+    if (id != product.ProductId)
+    {
+        return BadRequest();
+    }
+    _context.Entry(product).State = EntityState.Modified;
+    try
+    {
+        await _context.SaveChangesAsync();
+    }
+    catch (DbUpdateConcurrencyException)
+    {
+        if (!ProductExists(id))
+        {
+            return NotFound();
+        }
+        else
+        {
+            throw;
+        }
+    }
+    return NoContent();
+}
+
+
+
+
+リスト6-6
+[HttpPost]
+public async Task<ActionResult<Product>> PostProduct(Product product)
+{
+    _context.Product.Add(product);
+    await _context.SaveChangesAsync();
+
+
+    return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
+}
+
+
+
+
+リスト6-7
+[HttpDelete("{id}")]
+public async Task<ActionResult<Product>> DeleteProduct(int id)
+{
+    var product = await _context.Product.FindAsync(id);
+    if (product == null)
+    {
+        return NotFound();
+    }
+
+
+    _context.Product.Remove(product);
+    await _context.SaveChangesAsync();
+
+
+    return product;
+}
+
+
+
+
+リスト6-8
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddRazorPages();
+    services.AddServerSideBlazor();
+    services.AddSingleton<WeatherForecastService>();
+}
+
+
+
+
+リスト6-9
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapBlazorHub();
+    endpoints.MapFallbackToPage("/_Host");
+});
+
+
+
+
+リスト6-10
+<app>
+    @(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))
+</app>
+
+
+
+
+リスト6-11
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p>Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
+
+
+
+
+リスト6-12
+@inherits LayoutComponentBase
+
+
+<div class="sidebar">
+    <NavMenu />
+</div>
+
+
+<div class="main">
+    <div class="top-row px-4">
+        <a href="https://docs.microsoft.com/en-us/aspnet/" 
+                target="_blank">About</a>
+    </div>
+
+
+    <div class="content px-4">
+        @Body
+    </div>
+</div>
+
+
+
+
+リスト6-13
+@page "/counter"
+
+
+<h1>Counter</h1>
+<p>Current count: @currentCount</p>
+<button class="btn btn-primary" 
+        @onclick="IncrementCount">Click me</button>
+
+
+@code {
+    int currentCount = 0;
+
+
+    void IncrementCount()
+    {
+        currentCount++;
+    }
+}
+
+
+
+
+リスト6-14
+@page "/sample"
+
+
+<h1>Sample</h1>
+
+
+<p class="h3">Total: @total</p>
+<div class="form-row">
+    <input type="number" @bind="val" class="form-control col-9" />
+    <button @onclick="Calc" class="btn btn-primary col">Click</button>
+</div>
+
+
+@code {
+    int val = 0;
+    int total = 0;
+
+
+    void Calc()
+    {
+        total = 0;
+        for (var i = 0;i <= val;i++)
+        {
+            total += i;
+        }
+    }
+}
+
+
+
+
+リスト6-15
+<li class="nav-item px-3">
+    <NavLink class="nav-link" href="sample">
+        <span class="oi oi-badge" aria-hidden="true"></span> Sample
+    </NavLink>
+</li>
+
+
+
+
+リスト6-16
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
+
+namespace SampleBlazorApp.Data
+{
+    public class Mydata
+    {
+        [Required]
+        public string Name { get; set; }
+        public string Password { get; set; }
+        [EmailAddress]
+        public string Mail { get; set; }
+
+
+        public override string ToString()
+        {
+            return "[" + Name + " (" + Password + ") " + Mail + "]";
+        }
+    }
+}
+
+
+
+
+リスト6-17
+@page "/sample"
+@using SampleBlazorApp.Data
+
+
+<h1>Sample</h1>
+
+
+<p class="h3">@message</p>
+
+
+<EditForm Model="@mydata" OnValidSubmit="@doAction">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">Name
+        <InputText id="name" @bind-Value="@mydata.Name" 
+                   class="form-control" />
+    </div>
+    <div class="form-group">Password
+        <InputText type="password" id="password" 
+                   @bind-Value="@mydata.Password" 
+                   class="form-control" />
+    </div>
+    <div class="form-group">Mail
+        <InputText id="mail" @bind-Value="@mydata.Mail" 
+                   class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">
+        Click</button>
+</EditForm>
+
+
+@code {
+    private Mydata mydata = new Mydata();
+    private string message = "Please input form:";
+
+
+    private void doAction()
+    {
+        message = mydata.ToString();
+    }
+}
+
+
+
+
+リスト6-18
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <base href="%PUBLIC_URL%/" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <title>SampleReactApp</title>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+  </body>
+</html>
+
+
+
+
+リスト6-19
+import 'bootstrap/dist/css/bootstrap.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+
+
+const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
+const rootElement = document.getElementById('root');
+
+
+ReactDOM.render(
+  <BrowserRouter basename={baseUrl}>
+    <App />
+  </BrowserRouter>,
+  rootElement);
+
+
+registerServiceWorker();
+
+
+
+
+リスト6-20
+import React, { Component } from 'react';
+import { Route } from 'react-router';
+import { Layout } from './components/Layout';
+import { Home } from './components/Home';
+import { FetchData } from './components/FetchData';
+import { Counter } from './components/Counter';
+
+
+import './custom.css'
+
+
+export default class App extends Component {
+  static displayName = App.name;
+
+
+  render () {
+    return (
+      <Layout>
+        <Route exact path='/' component={Home} />
+        <Route path='/counter' component={Counter} />
+        <Route path='/fetch-data' component={FetchData} />
+      </Layout>
+    );
+  }
+}
+
+
+
+
+リスト6-21
+import React, { Component } from 'react';
+import { Container } from 'reactstrap';
+import { NavMenu } from './NavMenu';
+
+
+export class Layout extends Component {
+  static displayName = Layout.name;
+
+
+  render () {
+    return (
+      <div>
+        <NavMenu />
+        <Container>
+          {this.props.children}
+        </Container>
+      </div>
+    );
+  }
+}
+
+
+
+
+リスト6-22
+import React, { Component } from 'react';
+
+
+export class Counter extends Component {
+  static displayName = Counter.name;
+
+
+  constructor(props) {
+    super(props);
+    this.state = { currentCount: 0 };
+    this.incrementCounter = this.incrementCounter.bind(this);
+  }
+
+
+  incrementCounter() {
+    this.setState({
+      currentCount: this.state.currentCount + 1
+    });
+  }
+
+
+  render() {
+    return (
+      <div>
+        <h1>Counter</h1>
+
+
+        <p>This is a simple example of a React component.</p>
+
+
+        <p aria-live="polite">Current count: 
+                <strong>{this.state.currentCount}</strong></p>
+
+
+        <button className="btn btn-primary" 
+                onClick={this.incrementCounter}>Increment</button>
+      </div>
+    );
+  }
+}
+
+
+
+
+リスト6-23
+import React, { Component } from 'react';
+
+
+export class FetchData extends Component {
+  static displayName = FetchData.name;
+
+
+  constructor(props) {
+    super(props);
+    this.state = { forecasts: [], loading: true };
+  }
+
+
+  componentDidMount() {
+    this.populateWeatherData();
+  }
+
+
+  static renderForecastsTable(forecasts) {
+    return (
+      <table className='table table-striped' aria-labelledby="tabelLabel">
+        ……forecastsデータを元にテーブルを生成する……
+      </table>
+    );
+  }
+
+
+  render() {
+    let contents = this.state.loading
+      ? <p><em>Loading...</em></p>
+      : FetchData.renderForecastsTable(this.state.forecasts);
+
+
+    return (
+      <div>
+        <h1 id="tabelLabel" >Weather forecast</h1>
+        <p>This component demonstrates fetching data from the server.</p>
+        {contents}
+      </div>
+    );
+  }
+
+
+  async populateWeatherData() {
+    const response = await fetch('weatherforecast');
+    const data = await response.json();
+    this.setState({ forecasts: data, loading: false });
+  }
+}
+
+
+
+
+リスト6-24
+[HttpGet]
+public IEnumerable<WeatherForecast> Get()
+{
+    var rng = new Random();
+    return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+    {
+        Date = DateTime.Now.AddDays(index),
+        TemperatureC = rng.Next(-20, 55),
+        Summary = Summaries[rng.Next(Summaries.Length)]
+    })
+    .ToArray();
+}
+
+
+
+
+リスト7-1
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(
+            Configuration.GetConnectionString("DefaultConnection")));
+
+
+    // ☆Identityの追加
+    services.AddDefaultIdentity<IdentityUser>(options => 
+        options.SignIn.RequireConfirmedAccount = true)
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+    services.AddRazorPages();
+}
+
+
+
+
+リスト7-2
+app.UseAuthentication();
+app.UseAuthorization();
+
+
+
+
+リスト7-3
+public class ApplicationDbContext : IdentityDbContext
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
+    {
+    }
+}
+
+
+
+
+リスト7-4
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(
+            Configuration.GetConnectionString("DefaultConnection")));
+
+
+    services.AddDefaultIdentity<IdentityUser>(options => 
+        options.SignIn.RequireConfirmedAccount = false)
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+    services.AddRazorPages().AddRazorPagesOptions(options =>
+        {
+            options.Conventions.AuthorizePage("/Privacy");
+        });
+}
+
+
+リスト7-5
+// using Microsoft.AspNetCore.Authorization; 追記
+
+
+[Authorize]
+public IActionResult Privacy()
+{
+    return View();
+}
+
+
+
+
+リスト7-6
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">
+        building Web apps with ASP.NET Core</a>.</p>
+    <!--☆以下、追記-->
+    <p class="h4">ID: 
+        @(User.Identity.Name==null ? "no-data" : User.Identity.Name)
+        @(User.Identity.IsAuthenticated + "/" 
+                + User.Identity.AuthenticationType)</p>
+</div>
+
+
+
+
+リスト7-7
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(
+            Configuration.GetConnectionString("DefaultConnection")));
+
+
+    services.AddDefaultIdentity<IdentityUser>(options => 
+        options.SignIn.RequireConfirmedAccount = false)
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+    // ☆Google認証の追加
+    services.AddAuthentication()
+        .AddGoogle(options =>
+        {
+            IConfigurationSection googleAuthNSection =
+                Configuration.GetSection("Authentication:Google");
+
+
+            options.ClientId = googleAuthNSection["ClientId"];
+            options.ClientSecret = googleAuthNSection["ClientSecret"];
+        });
+
+
+    services.AddRazorPages();
+}
+
+
+
+
+リスト7-8
+private static void Hello(IApplicationBuilder app)
+{
+    app.Run(async context =>
+    {
+        await context.Response.WriteAsync("Hello!");
+    });
+}
+
+
+private static void Bye(IApplicationBuilder app)
+{
+    app.Run(async context =>
+    {
+        await context.Response.WriteAsync("Good-Bye!");
+    });
+}
+
+
+
+
+リスト7-9
+app.Map("/map1", Hello);
+app.Map("/map2", Bye);
+
+
+
+
+リスト7-10
+app.Map("/map1", Hello);
+app.Run(async context =>
+{
+    await context.Response.WriteAsync("Run!");
+});
+app.Map("/map2", Bye);
+
+
+
+
+リスト7-11
+app.Map("/map1", Hello);
+app.Use(async (context , next) =>
+{
+    await context.Response.WriteAsync("Use 1 !");
+    await next();
+});
+app.Map("/map2", Bye);
+
+
+
+
+リスト7-12
+// using Microsoft.AspNetCore.Http; // 追記
+
+
+public class SampleMiddleware
+{
+    private readonly RequestDelegate _next;
+
+
+    public SampleMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
+
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        SampleData data = new SampleData(
+                "YAMADA-Taro", "taro@yamada", "999-9999");
+        context.Session.SetString("SampleData", data.ToString());
+        await _next(context);
+    }
+}
+
+
+public class SampleData
+{
+    public string Name { get; set; }
+    public string Mail { get; set; }
+    public string Tel { get; set; }
+
+
+    public SampleData(string name, string mail, string tel)
+    {
+        Name = name;
+        Mail = mail;
+        Tel = tel;
+    }
+
+
+    public override string ToString()
+    {
+        return "{ " + Name + ", " + Mail + ", " + Tel + " }";
+    }
+}
+
+
+
+
+リスト7-13
+public static class SampleMiddlewareExtensions
+{
+    public static IApplicationBuilder UseSample(
+        this IApplicationBuilder builder)
+    {
+        return builder.UseMiddleware<SampleMiddleware>();
+    }
+}
+
+
+
+
+リスト7-14
+services.AddSession();
+
+
+
+
+リスト7-15
+app.UseSession();
+app.UseSample();
+
+
+
+
+リスト7-16
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+
+namespace SampleAuthApp.Pages
+{
+    public class IndexModel : PageModel
+    {
+        private readonly ILogger<IndexModel> _logger;
+        public string SampleData { get; set; };
+
+
+        public IndexModel(ILogger<IndexModel> logger)
+        {
+            _logger = logger;
+        }
+
+
+        public void OnGet()
+        {
+            SampleData = HttpContext.Session.GetString("SampleData");
+        }
+
+
+    }
+}
+
+
+
+
+リスト7-17
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p class="h4">@Model.SampleData</p>
+</div>
+
+
+
+
+リスト7-18
+// インターフェイス
+public interface ISampleDependency
+{
+    public SampleData getData();
+}
+
+
+// 実装クラス
+public class SampleDependency : ISampleDependency
+{
+    private List<SampleData> _data;
+
+
+    public SampleDependency()
+    {
+        _data = new List<SampleData>();
+        _data.Add(new SampleData("YAMADA-Taro", "taro@yamda", "999-9999"));
+        _data.Add(new SampleData("Tanaka-Hanako", "hanako@flwer", "888-888"));
+        _data.Add(new SampleData("Ito-Sachiko", "sachico@happy", "777-7777"));
+        _data.Add(new SampleData("Oda-mami", "mami@mumemo", "666-6666"));
+        _data.Add(new SampleData("Nakamura-Jiro", "jiro@change", "555-5555"));
+    }
+
+
+    public SampleData getData()
+    {
+        int n = new Random().Next(_data.Count());
+        return _data[n];
+    }
+}
+
+
+
+
+リスト7-19
+services.AddScoped<ISampleDependency, SampleDependency>();
+
+
+
+
+リスト7-20
+services.AddSingleton<ISampleDependency, SampleDependency>();
+
+
+
+
+リスト7-21
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+
+namespace SampleAuthApp.Pages
+{
+    public class IndexModel : PageModel
+    {
+        private ISampleDependency _sample;
+        public string SampleData;
+
+
+        public IndexModel(ISampleDependency sample)
+        {
+            _sample = sample;
+        }
+
+
+        public void OnGet()
+        {
+            SampleData = _sample.getData().ToString();
+        }
+
+
+    }
+}
+
+
+
+
+リスト7-22
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+
+
+namespace SampleAuthApp.TagHelpers
+{
+    public class SampleTagHelper : TagHelper
+    {
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            output.TagName = "h3";
+            output.Content.SetContent("This is Sample Tag Helper!!");
+        }
+    }
+}
+
+
+
+
+リスト7-23
+@using Microsoft.AspNetCore.Identity
+@using SampleAuthApp
+@using SampleAuthApp.Data
+@using SampleAuthApp.TagHelpers // ☆
+
+
+@namespace SampleAuthApp.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@addTagHelper *, SampleAuthApp // ☆
+
+
+
+
+リスト7-24
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <sample></sample>
+</div>
+
+
+
+
+リスト7-25
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+
+
+namespace SampleAuthApp.TagHelpers
+{
+    public class SampleTagHelper : TagHelper
+    {
+        public override async Task ProcessAsync(TagHelperContext context, 
+                TagHelperOutput output)
+        {
+            output.TagName = "h3";
+            TagHelperContent child = await output.GetChildContentAsync();
+            string content = child.GetContent();
+            output.Content.SetHtmlContent(content.ToUpper());
+        }
+    }
+}
+
+
+
+
+リスト7-26
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <sample>This is <span style="color:red">
+        Sample</span>.</sample>
+</div>
+
+
+
+
+リスト7-27
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+
+
+namespace SampleAuthApp.TagHelpers
+{
+    public class SampleTagHelper : TagHelper
+    {
+        public string color { get; set; }
+        public string bgColor { get; set; }
+
+
+        public override async Task ProcessAsync(TagHelperContext context, 
+                TagHelperOutput output)
+        {
+            output.TagName = "h3";
+            string c = color != null ? color : "black";
+            string bc = bgColor != null ? bgColor : "white";
+            string style = "color:" + c + "; background:" + bc;
+            output.Attributes.SetAttribute("style", style);
+            TagHelperContent child = await output.GetChildContentAsync();
+            string content = child.GetContent();
+            output.Content.SetHtmlContent(content.ToUpper());
+        }
+    }
+}
+
+
+
+
+リスト7-28
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <sample>Plain sample.</sample>
+    <sample color="magenta">Color sample</sample>
+    <sample bg-color="yellow">Bg sample</sample>
+    <sample color="white" bg-color="blue">Both sample</sample>
+</div>
+
+
+
+
+リスト7-29
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+
+
+namespace SampleAuthApp.TagHelpers
+{
+    public class SampleTagHelper : TagHelper
+    {
+        public List<string> items { get; set; }
+
+
+        public override void Process(TagHelperContext context, 
+                TagHelperOutput output)
+        {
+            if (items == null)
+            {
+                output.TagName = "p";
+                output.Content.SetContent("*** no-data ***");
+                return;
+            }
+            output.TagName = "ul";
+            output.Attributes.SetAttribute("style", "text-align:left; font-size:20pt;");
+            output.Content.Clear();
+
+
+            foreach (var item in items)
+            {
+                output.Content.AppendHtml("<li>" + item + "</li>");
+            }
+        }
+    }
+}
+
+
+
+
+リスト7-30
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+
+
+    var data = new List<string>();
+    data.Add("One");
+    data.Add("Two");
+    data.Add("Three");
+    data.Add("Four");
+    data.Add("Five");
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <sample items="@data"></sample>
+</div>
+
+
+
+
+リスト7-31
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+
+
+namespace SampleAuthApp.TagHelpers
+{
+    [HtmlTargetElement(Attributes = "sample")]
+    public class SampleTagHelper : TagHelper
+    {
+        public override void Process(TagHelperContext context, 
+                TagHelperOutput output)
+        {
+            var attr = new TagHelperAttribute("sample");
+            output.Attributes.TryGetAttribute("sample", out attr);
+            output.Attributes.RemoveAll("sample");
+            output.Attributes.SetAttribute("style", "background-color:" + attr.Value);
+        }
+    }
+}
+
+
+
+
+リスト7-32
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <div class="h3">
+        <p>
+            This is <span sample="yellow">
+                Sample Attribute
+            </span>. ok?
+        </p>
+        <p>
+            これは、<span sample="red">
+                サンプルの属性
+            </span>を使った例です。
+        </p>
+    </div>
+</div>
+
+
+
+
+リスト7-33
+// using System.ComponentModel.DataAnnotations; // 追記
+
+
+public class FormData
+{
+    [Required]
+    public string Name { get; set; }
+    public string Message { get; set; }
+
+
+    public FormData()
+    {
+        Name = "";
+        Message = "";
+    }
+
+
+    public FormData(string name, string msg)
+    {
+        Name = name;
+        Message = msg;
+    }
+        public override string ToString()
+    {
+        return "{ " + Name + ", \"" + Message + "\" }";
+    }
+}
+
+
+
+
+リスト7-34
+public class MsgAttribute : ValidationAttribute
+{
+
+
+    protected override ValidationResult IsValid(
+            object value, ValidationContext validationContext)
+    {
+        string val = (string)value;
+            
+        if (val == null)
+        {
+            return new ValidationResult("NULL STRING!");
+        }
+        return ValidationResult.Success;
+    }
+
+
+}
+
+
+
+
+リスト7-35
+[Msg]
+public string Message { get; set; }
+
+
+
+
+リスト7-36
+public class IndexModel : PageModel
+{
+    [BindProperty]
+    public FormData sampleData { get; set; }
+    public string msg;
+
+
+    public void OnGet()
+    {
+        msg = "input form:";
+    }
+
+
+    public IActionResult OnPost()
+    {
+        if (!ModelState.IsValid)
+        {
+            msg = "re-input form:";
+        } else
+        {
+            msg = sampleData.ToString();
+        }
+        return Page();
+    }
+
+
+}
+
+
+
+
+リスト7-37
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <div class="text-left">
+        <p class="h4 mb-4">@Model.msg</p>
+        <form asp-page="Index">
+            <div asp-validation-summary="All" 
+                    class="text-danger"></div>
+            <div><input asp-for="sampleData.Name" 
+                    class="form-control" /></div>
+            <div><input asp-for="sampleData.Message" 
+                    class="form-control" /></div>
+            <div><input type="submit" 
+                    class="btn btn-primary" /></div>
+        </form>
+    </div>
+</div>
+
+
+
+
+リスト7-38
+public class MsgAttribute : ValidationAttribute
+{
+
+
+    public int Min { get; set; }
+    public string Ban { get; set; }
+
+
+    protected override ValidationResult IsValid(
+            object value, ValidationContext validationContext)
+    {
+        string val = (string)value;
+            
+        if (val == null)
+        {
+            return new ValidationResult("NULL STRING!");
+        }
+        if (val.Length < Min)
+        {
+            return new ValidationResult("TOOOO SHORT.");
+        }
+        if (val.Trim().ToUpper().Contains(Ban.Trim().ToUpper()))
+        {
+            return new ValidationResult("INCLUDE BAN-WORD.");
+        }
+
+
+        return ValidationResult.Success;
+    }
+}
+
+
+
+
+リスト7-39
+[Msg(Min = 5, Ban = ".NET")]
+public string Message { get; set; }
+
+
+
+
+リスト7-40
+public class MsgAttribute : ValidationAttribute
+{
+    public int Min { get; set; }
+    public string Ban { get; set; }
+
+
+    protected override ValidationResult IsValid(
+            object value, ValidationContext validationContext)
+    {
+        string val = (string)value;
+
+
+        if (val == null)
+        {
+            return new ValidationResult(GetErrorMessage("NULL STRING!"));
+        }
+        if (val.Length < Min)
+        {
+            return new ValidationResult(GetErrorMessage("TOOOO SHORT."));
+        }
+        if (val.Trim().ToUpper().Contains(Ban.Trim().ToUpper()))
+        {
+            return new ValidationResult(GetErrorMessage("INCLUDE BAN-WORD."));
+        }
+
+
+        return ValidationResult.Success;
+    }
+
+
+    public string GetErrorMessage(string err)
+    {
+        return ErrorMessage != null ? ErrorMessage : err;
+    }
+}
+
+
+
+
+リスト7-41
+[Required(ErrorMessage ="必須項目です。")]
+public string Name { get; set; }
+
+
+[Msg(Min = 5, Ban = ".NET", ErrorMessage = "５文字以上で .NET を含まないメッセージが必要です。")]
+public string Message { get; set; }

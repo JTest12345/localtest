@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Index/WorkStart";
+    //ViewData["Title"] = "WorkStart";
+
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    @Scripts.Render("~/bundles/project1")
+    <script>
+        //var a = getComment();
+        //alert(a);
+    </script>
+    <!--<script src="~/Scripts/Home/JavaScript.js" type="text/javascript" charset="utf-8"></script>-->
+    
+    <title>作業登録画面</title>
+</head>
+
+<div align="left" style="border: 3px double; width: 150px;">
+    <a href="@Url.Action("index", "Home")">ホーム画面へ戻る</a>
+</div>
+
+    <p class="h4 mb-4" style="text-align:left"><span style="color:#00ffff;">@Html.Raw(ViewData["MatLabel"])</span></p>
+    <body>
+        <h2><p style="text-align:left">作業登録画面</p></h2>
+        <!-- フォームをPOSTリクエストを送る。送り先の画面は「Index2」 -->
+        <form method="POST" action="Input">
+
+            <select class="title_list" id="Title" name="Title">
+                <option value="">選択してください</option>
+                <option value="jQuery Tips">jQuery Tips</option>
+                <option value="jQuery リファレンス">jQuery リファレンス</option>
+                <option value="jQuery サンプル集">jQuery サンプル集</option>
+            </select>
+
+            <div align="left">
+                <table border="1">
+                    <tr>
+                        <th>社員番号</th>
+                        <!-- name属性「name="name_box"」を設定する事で、遷移先で受け取り可能になる -->
+                        <td><input type="search" id="employee" name="employee" /></td>
+                    </tr>
+                    <tr>
+                        <th>設備番号</th>
+                        <td><input type="search" id="machine" name="machine" /></td>
+                    </tr>
+                    <tr>
+                        <th>マガジン番号</th>
+                        <td><input type="search" id="matlabel" name="matlabel" /></td>
+                    </tr>
+                    <tr>
+                        <th>計画ロットNo</th>
+                        <td><input type="search" id="planlotno" name="planlotno" /></td>
+                    </tr>
+
+                </table>
+            </div>
+            <div align="left">
+                <!-- 送信ボタンのtypeはsubmit指定するとEnterキーを押した場合送信されるので、buttonにしてEnterキー入力を受け付けなくする -->
+                <button type="button" onclick="submit();">作業登録</button>
+                <p style="text-align:left">※マガジン番号と計画ロットNoは両方読込必要</p>
+            </div>
+            <!-- オールフォーム一括クリア　※個別クリアができない -->
+            <!--<input type="reset" value="入力クリア">-->
+
+        </form>
+    </body>
+</html>

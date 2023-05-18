@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "b2oxfe3DRcyIBuaqPAM0woLTlHgmsCQL0Zj0376GC+etzBoI+LwWo6QjGhAzupG9m645q4P5tH1wcKHrY8tNUQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jnk-nkmr\\source\\repos\\DB_Monitor\\DB_Monitor\\DB_Monitor.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jnk-nkmr\\.nuget\\packages\\microsoft.netcore.platforms\\3.0.0\\microsoft.netcore.platforms.3.0.0.nupkg.sha512",
+    "C:\\Users\\jnk-nkmr\\.nuget\\packages\\microsoft.win32.systemevents\\4.6.0\\microsoft.win32.systemevents.4.6.0.nupkg.sha512",
+    "C:\\Users\\jnk-nkmr\\.nuget\\packages\\scottplot\\4.1.40\\scottplot.4.1.40.nupkg.sha512",
+    "C:\\Users\\jnk-nkmr\\.nuget\\packages\\scottplot.winforms\\4.1.40\\scottplot.winforms.4.1.40.nupkg.sha512",
+    "C:\\Users\\jnk-nkmr\\.nuget\\packages\\scottplot.wpf\\4.1.40\\scottplot.wpf.4.1.40.nupkg.sha512",
+    "C:\\Users\\jnk-nkmr\\.nuget\\packages\\system.drawing.common\\4.6.1\\system.drawing.common.4.6.1.nupkg.sha512"
+  ],
+  "logs": []
+}

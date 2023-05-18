@@ -1,0 +1,49 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.DefectEditModel
+@{
+    ViewBag.Title = "InputDef";
+}
+
+@if (Model.IsInspection)
+{
+    <h3>状態検査入力</h3>
+}
+else
+{
+    <h3>不良入力</h3>
+}
+
+
+@using (Html.BeginForm())
+{
+    <h3>検査者：@Model.EmpCd</h3>
+    <h3>ロット：@Model.EditTarget.LotNo</h3>
+    
+    <h3>分類:@Model.CurrentDefItem.ClassName</h3>
+    <h3>起因:@Model.CurrentDefItem.CauseName</h3>
+    <h3>名称:@Model.CurrentDefItem.DefectName</h3>
+
+    @Html.Hidden("classcd", @Model.CurrentDefItem.ClassCd);
+    @Html.Hidden("causecd", @Model.CurrentDefItem.CauseCd);
+    @Html.Hidden("defectcd", @Model.CurrentDefItem.DefectCd);
+    
+    <p>
+        数量:
+        <input type="text" name="qty" value="@Model.CurrentDefItem.DefectCt.ToString()" />
+    </p>
+    
+    <hr />
+    
+    <p>
+        アドレス:
+        <input type="text" name="address" />
+    </p>
+    <p>
+        ユニット:
+        <input type="text" name="unit"/>
+    </p>
+    
+    
+    <input type="submit" name="更新" value="OK" />
+    <button onclick="location.href='@Url.Action("Select")';return false;">キャンセル</button>    
+}

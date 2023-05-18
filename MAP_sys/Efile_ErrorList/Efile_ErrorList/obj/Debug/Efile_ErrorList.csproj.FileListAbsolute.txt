@@ -1,0 +1,10 @@
+D:\MAP_sys\Efile_ErrorList\Efile_ErrorList\bin\Debug\Efile_ErrorList.exe.config
+D:\MAP_sys\Efile_ErrorList\Efile_ErrorList\bin\Debug\Efile_ErrorList.exe
+D:\MAP_sys\Efile_ErrorList\Efile_ErrorList\bin\Debug\Efile_ErrorList.pdb
+D:\MAP_sys\Efile_ErrorList\Efile_ErrorList\obj\Debug\Efile_ErrorList.Form1.resources
+D:\MAP_sys\Efile_ErrorList\Efile_ErrorList\obj\Debug\Efile_ErrorList.Properties.Resources.resources
+D:\MAP_sys\Efile_ErrorList\Efile_ErrorList\obj\Debug\Efile_ErrorList.csproj.GenerateResource.cache
+D:\MAP_sys\Efile_ErrorList\Efile_ErrorList\obj\Debug\Efile_ErrorList.csproj.CoreCompileInputs.cache
+D:\MAP_sys\Efile_ErrorList\Efile_ErrorList\obj\Debug\Efile_ErrorList.exe
+D:\MAP_sys\Efile_ErrorList\Efile_ErrorList\obj\Debug\Efile_ErrorList.pdb
+D:\MAP_sys\Efile_ErrorList\Efile_ErrorList\obj\Debug\Efile_ErrorList.csprojAssemblyReference.cache

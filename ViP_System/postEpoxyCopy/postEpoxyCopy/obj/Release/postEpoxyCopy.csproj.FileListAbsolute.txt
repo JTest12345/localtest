@@ -1,0 +1,6 @@
+D:\ViP_System\postEpoxyCopy\postEpoxyCopy\bin\Release\postEpoxyCopy.exe.config
+D:\ViP_System\postEpoxyCopy\postEpoxyCopy\bin\Release\postEpoxyCopy.exe
+D:\ViP_System\postEpoxyCopy\postEpoxyCopy\bin\Release\postEpoxyCopy.pdb
+D:\ViP_System\postEpoxyCopy\postEpoxyCopy\obj\Release\postEpoxyCopy.csproj.CoreCompileInputs.cache
+D:\ViP_System\postEpoxyCopy\postEpoxyCopy\obj\Release\postEpoxyCopy.exe
+D:\ViP_System\postEpoxyCopy\postEpoxyCopy\obj\Release\postEpoxyCopy.pdb

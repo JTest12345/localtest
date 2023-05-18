@@ -1,0 +1,29 @@
+﻿@model ArmsWeb.Models.AoiMagEditModel
+
+@{
+    ViewBag.Title = "Confirm";
+}
+
+<p>下記の内容で開始登録します</p>
+<h3>設備：@Model.PlantCd</h3>
+<h3>作業者：@Model.EmpCd</h3>
+
+@using (Html.BeginForm())
+{
+
+    <h3>読み込み済みロット @Model.MagList.Count().ToString() </h3>
+    <ul>
+        @foreach (ArmsApi.Model.Magazine mag in Model.MagList)
+        {
+            <li>@mag.MagazineNo : @mag.NascaLotNO</li>
+        }
+    </ul>        
+
+    <br />
+    <div>
+        @Html.ActionLink("登録", "Submit");
+                &nbsp
+        @Html.ActionLink("キャンセル", "CancelEdit")
+
+    </div>
+}

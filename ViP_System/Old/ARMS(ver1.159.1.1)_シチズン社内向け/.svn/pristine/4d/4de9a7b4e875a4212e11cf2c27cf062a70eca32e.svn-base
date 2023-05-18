@@ -1,0 +1,118 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ArmsVCM.Model
+{
+    class AGV : ARMSThreadObject
+    {
+        protected override void concreteThreadWork()
+        {
+            //StopまたはWaitForMoveでOrderがある場合
+            //  経路探索
+            //  経路が空いていた場合は予約して移動 充電中の場合は充電OFF
+            //  ⇒Move
+            //  経路が空いていない場合
+            //  ⇒WaitForMove
+
+
+            //Moveではなく現在ステーションで排出要求があって、かつ、自分の荷台に空きがある場合
+            //  現在の荷物と排出要求のマガジンの行き先が一致していれば追加で積込み
+            //  仮想マガジン追加
+            //　⇒Loading
+            //  積込み中ならなにもしない
+
+
+            //荷台が0かつ現在ステーションの排出要求が無い場合
+            //　⇒Stop
+
+            //荷台で現在ステーションが行き先のマガジンがある場合
+            //  マガジン排出処理　仮想マガジン削除
+            //  ⇒Loading
+
+            //荷台が満杯 or現在ステーションの排出予約数が0 or 排出要求中のマガジンが現在の荷台のマガジンの行き先と一致していない
+            //  荷台のマガジンの行き先ステーションに向けて移動
+            //  経路空きあり　充電中の場合は充電OFF
+            //  ⇒Move
+            //  経路空きなし
+            //  ⇒WaitForMove
+
+            //停車or積込み中　かつ、現在ステーションに充電器あり、満充電以下
+            //  充電信号ON
+        }
+
+
+        /// <summary>
+        /// 動作状況通知
+        /// </summary>
+        /// <returns></returns>
+        public AGVStatus GetStatus()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 充電中
+        /// </summary>
+        public bool IsCharging
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// 充電状況通知
+        /// </summary>
+        public double BatteryVoltage
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
+        /// <summary>
+        /// 行き先ステーション通知
+        /// </summary>
+        public Station Destination
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public Station Address
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+        }
+
+        /// <summary>
+        /// 停車中AGVに対する行き先指示
+        /// </summary>
+        public void SetOrder(Station st)
+        {
+        }
+    }
+
+    public enum AGVStatus
+    {
+        Stop,
+        Move,
+        WaitForMove,
+        Loading,
+        NotAvailable,
+    }
+
+
+
+}

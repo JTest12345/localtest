@@ -1,0 +1,40 @@
+// Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
+    public class OvenDat
+    {
+        [JsonProperty("SpValue")]
+        public List<double> SpValue { get; set; }
+
+        [JsonProperty("PvValue")]
+        public List<double> PvValue { get; set; }
+
+        [JsonProperty("MacNo")]
+        public List<string> MacNo { get; set; }
+
+        [JsonProperty("StdevPlus")]
+        public List<double> StdevPlus { get; set; }
+
+        [JsonProperty("StdevMinus")]
+        public List<double> StdevMinus { get; set; }
+
+        [JsonProperty("Ng1Flag")]
+        public List<int> Ng1Flag { get; set; }
+
+        [JsonProperty("Ng2Flag")]
+        public List<int> Ng2Flag { get; set; }
+    }
+
+    public class Root
+    {
+        [JsonProperty("Status")]
+        public int Status { get; set; }
+
+        [JsonProperty("LastDtHub")]
+        public string LastDtHub { get; set; }
+
+        [JsonProperty("PlcDateTimes")]
+        public List<DateTime> PlcDateTimes { get; set; }
+
+        [JsonProperty("OvenDat")]
+        public List<OvenDat> OvenDat { get; set; }
+    }
+

@@ -1,0 +1,12 @@
+C:\Users\jnk-nkmr\source\repos\GetMDLog\GetMDLog\bin\Release\GetMDLog.exe.config
+C:\Users\jnk-nkmr\source\repos\GetMDLog\GetMDLog\bin\Release\GetMDLog.exe
+C:\Users\jnk-nkmr\source\repos\GetMDLog\GetMDLog\bin\Release\GetMDLog.pdb
+C:\Users\jnk-nkmr\source\repos\GetMDLog\GetMDLog\bin\Release\FluentFTP.dll
+C:\Users\jnk-nkmr\source\repos\GetMDLog\GetMDLog\bin\Release\Newtonsoft.Json.dll
+C:\Users\jnk-nkmr\source\repos\GetMDLog\GetMDLog\bin\Release\FluentFTP.xml
+C:\Users\jnk-nkmr\source\repos\GetMDLog\GetMDLog\bin\Release\Newtonsoft.Json.xml
+C:\Users\jnk-nkmr\source\repos\GetMDLog\GetMDLog\obj\Release\GetMDLog.csprojAssemblyReference.cache
+C:\Users\jnk-nkmr\source\repos\GetMDLog\GetMDLog\obj\Release\GetMDLog.csproj.CoreCompileInputs.cache
+C:\Users\jnk-nkmr\source\repos\GetMDLog\GetMDLog\obj\Release\GetMDLog.csproj.CopyComplete
+C:\Users\jnk-nkmr\source\repos\GetMDLog\GetMDLog\obj\Release\GetMDLog.exe
+C:\Users\jnk-nkmr\source\repos\GetMDLog\GetMDLog\obj\Release\GetMDLog.pdb

@@ -1,0 +1,14 @@
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy\VIP_DBDataCopy\bin\Debug\VIP_DBDataCopy.exe.config
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy\VIP_DBDataCopy\bin\Debug\VIP_DBDataCopy.exe
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy\VIP_DBDataCopy\bin\Debug\VIP_DBDataCopy.pdb
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy\VIP_DBDataCopy\obj\Debug\VIP_DBDataCopy.csproj.CoreCompileInputs.cache
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy\VIP_DBDataCopy\obj\Debug\VIP_DBDataCopy.exe
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy\VIP_DBDataCopy\obj\Debug\VIP_DBDataCopy.pdb
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy\VIP_DBDataCopy\obj\Debug\VIP_DBDataCopy.csprojAssemblyReference.cache
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy_ALL\VIP_DBDataCopy\bin\Debug\VIP_DBDataCopy.exe.config
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy_ALL\VIP_DBDataCopy\bin\Debug\VIP_DBDataCopy.exe
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy_ALL\VIP_DBDataCopy\bin\Debug\VIP_DBDataCopy.pdb
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy_ALL\VIP_DBDataCopy\obj\Debug\VIP_DBDataCopy.csprojAssemblyReference.cache
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy_ALL\VIP_DBDataCopy\obj\Debug\VIP_DBDataCopy.csproj.CoreCompileInputs.cache
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy_ALL\VIP_DBDataCopy\obj\Debug\VIP_DBDataCopy.exe
+C:\Users\jnk-nkmr\source\repos\VIP_DBDataCopy_ALL\VIP_DBDataCopy\obj\Debug\VIP_DBDataCopy.pdb

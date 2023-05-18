@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EICS_AOI", "EICS_AOI\EICS_AOI.csproj", "{C026A98E-CDD1-473E-8107-D34292C4A0CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C026A98E-CDD1-473E-8107-D34292C4A0CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C026A98E-CDD1-473E-8107-D34292C4A0CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C026A98E-CDD1-473E-8107-D34292C4A0CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C026A98E-CDD1-473E-8107-D34292C4A0CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

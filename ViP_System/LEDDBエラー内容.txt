@@ -1,0 +1,11 @@
+DB0006
+
+M1 M62
+M3 M72
+M102
+M103
+M104
+
+ロット特性に登録されている資材が使用されていません
+  要求資材(1):[4NB-LE54VF.11] or [ZD SD-30612SC-P] or [基板 LUEL-342AMT]
+  投入資材:[資材品目名,ロットNo] = [OE8012(25g),LEDpaste],[イジェクトピン(SLC-ENT-02),ijectpin],[コレット(LED用),corret_LED],[スタンプピン(LED),stamppin_LED]

@@ -1,0 +1,22 @@
+﻿@model ArmsWeb.Models.FrameEditModel
+@{
+    ViewBag.Title = "InsertConfirm";
+}
+
+@using (Html.BeginForm("InsertConfirmed", "Frame"))
+{
+    <h3>フレーム登録確認</h3>
+    <h3>装置：@Model.Mac.LongName</h3>
+    <h3>ストッカー:@Model.StockerNo.ToString()</h3>
+
+    <p>以下の原材料を取りつけます</p>
+    <p>
+        @Model.EditTarget.LongName;
+    </p>
+
+    <p>割り付けます</p>
+    <div>
+        <input type="submit" value="OK" />
+        <button onclick="location.href='@Url.Action("Index")';return false;">キャンセル</button>
+    </div>
+}

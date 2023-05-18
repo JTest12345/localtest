@@ -1,0 +1,138 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ArmsVCM.Model
+{
+    public class DockingStation : Station
+    {
+        /// <summary>
+        /// 排出予約中のマガジン数を取得
+        /// </summary>
+        /// <returns></returns>
+        public int GetUnloadReqMagCt()
+        {
+            throw new ApplicationException();
+        }
+
+    
+
+        public string Host { get; set; }
+
+        public bool Online { get; set; }
+
+        public bool RequireInput
+        {
+            get
+            {
+                var s = plc.GetBit("B0D0");
+                return (int.Parse(s) == 1) ? true : false;
+            }
+        }
+
+        public bool RequireOutput
+        {
+            get
+            {
+                var s = plc.GetBit("B0D1");
+                return (int.Parse(s) == 1) ? true : false;
+            }
+        }
+
+        private PLC plc;
+
+        public DockingStation(string host)
+        {
+            plc = new PLC(host);
+        }
+
+
+
+        public async void Input(int from)
+        {
+            if (RequireInput == false)
+            {
+                MainWindow.WriteLog("InputReqなしのため中止");
+                return;
+            }
+
+            await Task.Run(() => InputOrder(from));
+        }
+
+
+        private void InputOrder(int from)
+        {
+            using (new Lock(this, 100))
+            {
+                //FROM設定
+                plc.SetBit("W0F0", "1");
+                plc.SetBit("W0F1", "4");
+                plc.SetBit("W0F2", from.ToString());
+
+                //TO設定
+                plc.SetBit("W0F3", "300");
+                plc.SetBit("W0F4", "4");
+                plc.SetBit("W0F5", "1");
+
+                //移動要求
+                plc.SetBit("B0F0", "1");
+
+                MainWindow.WriteLog("Input移動要求ON");
+
+                while (int.Parse(plc.GetBit("B0E4")) == 0)
+                {
+                    System.Threading.Thread.Sleep(100);
+                }
+
+                var str = plc.GetString("W40", 32);
+
+                //BF5またはBF7を返答
+                plc.SetBit("B0F5", "1");
+                MainWindow.WriteLog("QR応答ON");
+
+                var end = plc.GetBit("B0D0");
+                //BD0を監視
+
+
+                //排出処理要求の場合は、必ず排出要求と移動指令（E0）のANDをとる
+                //動き出し前に次の処理を予測するため
+
+                //動作官僚はE0のONで判断
+            }
+        }
+
+
+        public async void Output(int to)
+        {
+            if (RequireOutput == false)
+            {
+                MainWindow.WriteLog("OutputReqなしのため中止");
+                return;
+            }
+
+            await Task.Run(() => OutputOrder(to));
+        }
+
+
+        private void OutputOrder(int to)
+        {
+            using (new Lock(this, 100))
+            {
+                var str = plc.GetString("W20", 32);
+
+                plc.SetBit("W0F3", "1");
+                plc.SetBit("W0F4", "1");
+                plc.SetBit("W0F5", to.ToString());
+
+                plc.SetBit("W0F0", "300");
+                plc.SetBit("W0F1", "4");
+                plc.SetBit("W0F2", "1");
+
+                //移動要求
+                plc.SetBit("B0F6", "1");
+            }
+        }
+    }
+}

@@ -1,0 +1,35 @@
+﻿@model ArmsWeb.Models.ResinEditModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>樹脂情報</h3>
+<h3>装置：@Model.Mac.LongName</h3>
+<h5></h5>
+
+@using (Html.BeginForm("Remove", "Resin"))
+{
+    
+    
+    if (Model.ResinList.Count() >= 1)
+    {
+    <select size="5" name="resinindex">
+        @foreach (KeyValuePair<int, ArmsApi.Model.Resin> kv in Model.ResinList)
+        {
+            <option value="@kv.Key">@kv.Value.MixResultId  [期限]  @kv.Value.LimitDt.ToString()</option>
+        }
+    </select>
+
+    <br />
+    <button type="submit">取り外し</button>
+    <br />
+
+    }
+        else
+    {
+        <h5>現在投入中の樹脂はありません</h5>
+    }
+
+       
+    <button onclick="location.href='@Url.Action("InsertNew")';return false;">新規割付</button>
+}

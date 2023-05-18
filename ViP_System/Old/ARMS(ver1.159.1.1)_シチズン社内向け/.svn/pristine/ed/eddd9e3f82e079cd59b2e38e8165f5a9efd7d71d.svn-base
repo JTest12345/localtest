@@ -1,0 +1,29 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.MagazineCarrierCompareModel
+@{
+    ViewBag.Title = "Confirm";
+}
+
+@using (Html.BeginForm("Confirmed", "LotCarrier"))
+{
+<h3>マガジンと基板DM/キャリアQRの照合</h3>
+<h3>マガジン番号：@Model.MagazineNo</h3>
+
+    <h3>基板DM/キャリアQR：@Model.DataMatirxList.Count().ToString() </h3>
+    <ul>
+        @foreach (string dm in Model.DataMatirxList)
+        {
+            <li>@dm</li>
+        }
+    </ul>
+    <br />
+
+    if (Model.IsOK)
+    { 
+        <H3 style="color:blue">@Model.Msg</H3>
+    }
+    else
+    {
+        <H3 style="color:red">@Model.Msg</H3>
+    }
+}

@@ -1,0 +1,24 @@
+﻿@model ArmsWeb.Models.MaterialEditModel
+
+@{
+    ViewBag.Title = "Remove";
+}
+
+<h3>原材料取り外し確認</h3>
+<h3>装置：@Model.Mac.LongName</h3>
+<p>以下の原材料を取り外します</p>
+
+
+    <ul>
+        @foreach (ArmsApi.Model.Material m in Model.EditTarget)
+        {
+            <li>@m.LongName</li>
+        }
+    </ul> 
+<br />
+
+<div>
+@Html.ActionLink("OK", "RemoveConfirmed")
+&nbsp
+@Html.ActionLink("キャンセル", "Index")
+    </div>

@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<form method="post" enctype="multipart/form-data" asp-controller="Post" asp-action="Index">
+    <div class="form-file">
+        @*画像アップロード用*@
+        <input type="file" class="form-file-input" id="image" name="formFile" />
+    </div>
+    <div>
+        @*登録ボタン*@
+        <input type="submit" value="登録" name="btnname">
+    </div>
+    <div>
+        @*削除ボタン*@
+        <input type="submit" value="削除" name="btnname">
+    </div>
+    <div>
+        @*画像取得ボタン*@
+        <input type="submit" value="画像取得" name="btnname">
+        @*画像表示用*@
+
+        @if (ViewBag.image != null)
+        {
+
+            @foreach (var item in ViewBag.image)
+            {
+                <img id="getimage" style="width: 100px;" src="data: image;base64,
+                    @System.Convert.ToBase64String(item ?? new byte[] { })" />
+            }
+
+        }
+
+    </div>
+    <div>
+        @*メッセージ*@
+        @ViewBag.message
+    </div>
+</form>

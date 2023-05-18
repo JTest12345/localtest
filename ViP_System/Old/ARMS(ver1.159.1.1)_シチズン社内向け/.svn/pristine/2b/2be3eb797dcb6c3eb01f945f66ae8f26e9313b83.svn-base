@@ -1,0 +1,28 @@
+﻿@using ArmsApi.Model
+@model ArmsWeb.Models.CutBlendModel
+@{
+    ViewBag.Title = "Confirm";
+}
+
+
+@using (Html.BeginForm("Confirmed", "CutBlend"))
+{
+<h3>カットブレンド完了登録</h3>
+<h3>設備：@Model.PlantCd</h3>
+<h3>作業者：@Model.EmpCd</h3>
+
+ <h5>以下のブレンドを登録します </h5>
+    <ul>
+        @foreach (CutBlend bl in Model.CurrentBlend)
+        {
+            <li>@bl.MagNo : @bl.LotNo</li>
+        }
+    </ul>
+    <br />
+    
+    <div>
+        <input type="submit" value="Go" />
+        &nbsp
+        <button onclick="location.href='@Url.Action("CancelEdit")';return false;">キャンセル</button>    
+    </div>
+}
