@@ -1,0 +1,89 @@
+﻿@model IEnumerable<KodaWeb.Models.CompleteRR>
+
+@{
+    ViewBag.Title = "修理記録一覧";
+    string RR_INPUT_URL = ViewBag.RR_INPUT_URL;
+    string name;
+}
+
+<p class="margin0"><span class="msg">@ViewBag.Msg</span></p>
+
+<button class="reset-filter-button">Reset Filter</button>
+<span class="margin0" style="margin-left:1rem"><span id="download" class="download_icon"></span></span>
+
+<div class="table_div">
+    <table class="tablesorter">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.ID)</th>
+                <th>作業</th>
+                <th>@Html.DisplayNameFor(model => model.MacName)</th>
+                <th>@Html.DisplayNameFor(model => model.Plantcd)</th>
+                <th>@Html.DisplayNameFor(model => model.Title)</th>
+                <th>@Html.DisplayNameFor(model => model.InsertAt)</th>
+                <th>@Html.DisplayNameFor(model => model.UpdateAt)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+
+                if (item.UpdateAt == null) {
+                    name = "入力";
+                }
+                else {
+                    name = "閲覧";
+                }
+
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.ID)</td>
+                    <td>
+                        @Html.ActionLink(name, "CompleteRR", "Form", new { id = item.ID }, null)
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.MacName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Plantcd)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.InsertAt)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UpdateAt)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div hidden id="csvfilename">@ViewBag.CsvName</div>
+<div hidden id="csvtext">@ViewBag.CsvText</div>
+
+@section scripts {
+
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            //テーブルの書式設定とフィルタリセットボタンの設定
+            $("table").tablesorter({
+                theme: 'blue',
+                widthFixed: true,
+                widgets: ['zebra', 'columns', 'filter', 'pager', 'resizable', 'stickyHeaders'],
+                //フィルタのリセットボタンを追加する場合に設定する。
+                widgetOptions: {
+                    filter_reset: 'button.reset-filter-button',
+                    resizable: true,
+                }
+            });
+            //$("table").tablesorterPager({
+            //    container: $(".pager"),
+            //});
+
+
+            //[ダウンロード]がクリックされた時の処理
+            $("#download").on("click", function () {
+
+                let name = $("#csvfilename").html();
+                let text = $("#csvtext").html();
+
+                csvDownload(name, text);
+            });
+        });
+
+    </script>
+}

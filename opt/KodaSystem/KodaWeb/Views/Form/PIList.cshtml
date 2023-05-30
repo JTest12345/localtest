@@ -1,0 +1,152 @@
+﻿@model IEnumerable<KodaWeb.Models.PeriodicInspection>
+
+@{
+    ViewBag.Title = "未実施定期点検一覧";
+    ViewBag.Camera = true;
+    var dic = KodaWeb.Models.PeriodicInspection.period_dic;
+    string PI_INPUT_URL = ViewBag.PI_INPUT_URL;
+    string href;
+}
+
+
+<div class="div_container">
+    <p class="qr_icon inputboxTitle">社員コード</p>
+    <input id="empcd" class="use_keyboard" value="" />
+    <span id="clear_empcd" class="clear_btn"></span>
+</div>
+
+<p>@ViewBag.Msg</p>
+
+@*カメラ画像表示領域*@
+<div id="camera_div" class="camera_container" hidden>
+    <canvas id="canvas" width="320" height="240"></canvas>
+    <div id="camera_stop" class="stop_icon stop_icon_in_cameraContainer"></div>
+</div>
+
+<button class="reset-filter-button">Reset Filter</button>
+
+<div class="table_div">
+    <table class="tablesorter">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.ID)</th>
+                <th>作業</th>
+                <th>@Html.DisplayNameFor(model => model.MacName)</th>
+                <th>@Html.DisplayNameFor(model => model.Plantcd)</th>
+                <th>@Html.DisplayNameFor(model => model.SerialNo)</th>
+                <th>@Html.DisplayNameFor(model => model.ManuBase)</th>
+                <th>@Html.DisplayNameFor(model => model.Place)</th>
+                <th>@Html.DisplayNameFor(model => model.FormName)</th>
+                <th>@Html.DisplayNameFor(model => model.FormNo)</th>
+                <th>@Html.DisplayNameFor(model => model.Period)</th>
+                <th>@Html.DisplayNameFor(model => model.Next)</th>
+                <th>@Html.DisplayNameFor(model => model.Limit)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                href = PI_INPUT_URL + "{empcd}::" + item.ID.ToString();
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.ID)</td>
+                    <td>
+                        @Html.ActionLink("入力", "PIInput", "Form", new { id = item.ID }, new { @class = "piInput" })
+                        @*<a class="piInput" href="@href">入力</a>*@ |
+                        @Html.ActionLink("削除", "PIDelete", "Form", new { id = item.ID }, new { @class = "delete" })
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.MacName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Plantcd)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SerialNo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ManuBase)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Place)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FormName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FormNo)</td>
+                    <td>@Html.DisplayFor(modelItem => dic[item.Period])</td>
+                    <td>@Html.DisplayFor(modelItem => item.Next) </td>
+                    <td>@Html.DisplayFor(modelItem => item.Limit)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            //テーブルの書式設定とフィルタリセットボタンの設定
+            $("table").tablesorter({
+                theme: 'blue',
+                widthFixed: true,
+                widgets: ['zebra', 'columns', 'filter', 'pager', 'resizable', 'stickyHeaders'],
+                //フィルタのリセットボタンを追加する場合に設定する。
+                widgetOptions: {
+                    filter_reset: 'button.reset-filter-button',
+                    resizable: true,
+                }
+            });
+            //$("table").tablesorterPager({
+            //    container: $(".pager"),
+            //});
+
+
+            //[入力]がクリックされた時の処理
+            $(".piInput").on("click", function (e) {
+                let empcd = $("#empcd").val();
+
+                if (empcd === "") {
+                    alert("社員コードを入力して下さい。")
+                } else {
+                    let url = $(this).attr('href');
+                    url += "?empcd=" + empcd;
+                    //let h = $(this).attr("href");
+                    //empcd = empcd.replace("01 ", "");
+                    //let url = h.replace("{empcd}", empcd);
+                    //window.open(url);//新規タブで開く
+                    window.location.href = url;//同一タブで開く
+                }
+                return false;//これで元々のhrefが実行されなくなる
+            });
+
+
+            //[削除]がクリックされた時の処理
+            $(".delete").on("click", function (e) {
+                let empcd = $("#empcd").val();
+
+                if (empcd === "") {
+                    alert("社員コードを入力して下さい。")
+                } else {
+                    let url = $(this).attr('href');
+                    url += "?empcd=" + empcd;
+                    //window.open(url);//新規タブで開く
+                    window.location.href = url;//同一タブで開く
+                }
+                return false;//これで元々のhrefが実行されなくなる
+            });
+
+            //社員コード初期化イベント
+            onClick_clearInput("#clear_empcd", "#empcd");
+
+
+            //カメライベント設定
+            let camera;
+
+            //Camera Start
+            $("#camera_on").on("click", function () {
+                $("#camera_div").show();
+                camera = new ReadQRcodeCamera("canvas");
+                camera.Zoom = 2;
+                camera.cameraStart();
+            });
+
+            //Camera Stop
+            $("#camera_stop").on("click", function () {
+                camera.cameraStop();
+                $("#camera_div").hide();
+            });
+
+        });
+
+    </script>
+}

@@ -1,0 +1,116 @@
+﻿@using System.Data
+
+@model KodaWeb.Models.ResinSettlingTime
+
+@{
+    ViewBag.Title = "樹脂沈降時間データ検索";
+    var table = (DataTable)ViewBag.DataTable;
+}
+
+
+@*<h3 class="heading2"><span>樹脂沈降時間データ検索</span></h3>*@
+
+
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="div_container">
+        <p class="select_icon inputboxTitle">検索する場所</p>
+        @Html.DropDownList("DropDownList", null, new { @id = "select_place" })
+
+        @*POST用隠しプロパティ*@
+        @Html.HiddenFor(m => m.ManuBase, new { @id = "manubase" })
+        @Html.HiddenFor(m => m.Place, new { @id = "place" })
+        @Html.HiddenFor(m => m.Shelf, new { @id = "shelf" })
+        @Html.HiddenFor(m => m.Area, new { @id = "area" })
+    </div>
+
+    <div class="div_container">
+        <div class="div_container">
+            <p class="margin0">検索期間</p>
+            @Html.EditorFor(m => m.SearchRst.Start)<span>から</span><span>@Html.ValidationMessageFor(m => m.SearchRst.Start, "*")</span>
+        </div>
+
+        <div class="div_container">
+            @Html.EditorFor(m => m.SearchRst.End)<span>まで</span><span>@Html.ValidationMessageFor(m => m.SearchRst.End, "*")</span>
+        </div>
+    </div>
+
+    <div class="div_container">
+        @Html.ValidationSummary(false, "")
+    </div>
+
+    <div class="div_container">
+        <input type="submit" class="submit_btn" value="検索" />
+        <p style="color:red">@TempData["msg"]</p>
+    </div>
+}
+
+@if (table != null) {
+    int col_num = table.Columns.Count;
+    int row_num = table.Rows.Count;
+
+    <div>
+        @Html.DisplayFor(m => m.ManuBase) @Html.DisplayFor(m => m.Place)  <span id="download" class="download_icon"></span>
+    </div>
+
+    <div class="table_div">
+        <table class="data_table_format">
+            <thead>
+                <tr>
+                    @for (int i = 0; i < col_num; i++) {
+                        <th>@table.Columns[i].ColumnName</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @for (int k = 0; k < row_num; k++) {
+                    <tr>
+                        @for (int j = 0; j < col_num; j++) {
+                            <td>@table.Rows[k][table.Columns[j].ColumnName]</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@*csvファイル用*@
+@Html.Hidden("CsvFileName", null, new { @id = "csvFileName" })
+@Html.Hidden("CsvText", null, new { @id = "csvText" })
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+            // 場所が選択された時の処理
+            $("#select_place").on("change", function () {
+                const v = $(this).val();
+                if (v === "") {
+                    $("#manubase").val("");
+                    $("#place").val("");
+                    $("#shelf").val("");
+                    $("#area").val("");
+                } else {
+                    const sp = v.split(',');
+                    $("#manubase").val(sp[0]);
+                    $("#place").val(sp[1]);
+                    $("#shelf").val("notuse");
+                    $("#area").val("notuse");
+                }
+            });
+        });
+
+        //[ダウンロード]がクリックされた時の処理
+        $("#download").on("click", function () {
+
+            let name = $("#csvFileName").val();
+            let text = $("#csvText").val();
+
+            csvDownload(name, text);
+        });
+
+    </script>
+}

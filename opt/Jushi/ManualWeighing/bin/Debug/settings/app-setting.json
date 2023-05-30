@@ -1,0 +1,15 @@
+﻿{
+  "manual-folderPath": "\\\\SVFILE2\\fileserver\\135デバイス共通\\60_技術資料\\80_生産革新\\02_システム_ソフト開発\\【ソースファイル】\\Jushi\\Create_Recipe\\bin\\Debug\\recipe\\Manual",
+  "balance-plantcd": "DGSRW001",
+  "balance-serialPort": "COM3",
+  "labelFormat-fileName": "ResinCupLabel_BlackRed.lbx",
+  "printer": "bpac",
+  "dio-deviceName": "DIO000",
+  "doorCheck-bitno": 8,
+  "stable-second": 3,
+  "manualMix-second": 60,
+  "exhaust-second": 60,
+  "check-grossWeight": false,
+  "grossWeight-allowableErrorGram": 0.010,
+  "kanomax-serialPort": "COM4"
+}

@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KodaWeb", "KodaWeb\KodaWeb.csproj", "{E708B5C3-2253-4F8F-8A93-B8B4019EB02F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskScheduler", "TaskScheduler\TaskScheduler.csproj", "{26944C9F-5E5A-43EE-984C-8D5F730E1DBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KodaClassLibrary", "KodaClassLibrary\KodaClassLibrary.csproj", "{65947CF3-251C-4F69-A592-6EDDD6673B9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E708B5C3-2253-4F8F-8A93-B8B4019EB02F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E708B5C3-2253-4F8F-8A93-B8B4019EB02F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E708B5C3-2253-4F8F-8A93-B8B4019EB02F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E708B5C3-2253-4F8F-8A93-B8B4019EB02F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26944C9F-5E5A-43EE-984C-8D5F730E1DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26944C9F-5E5A-43EE-984C-8D5F730E1DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26944C9F-5E5A-43EE-984C-8D5F730E1DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26944C9F-5E5A-43EE-984C-8D5F730E1DBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65947CF3-251C-4F69-A592-6EDDD6673B9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65947CF3-251C-4F69-A592-6EDDD6673B9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65947CF3-251C-4F69-A592-6EDDD6673B9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65947CF3-251C-4F69-A592-6EDDD6673B9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {99EEFD94-B160-432A-88F2-96CE1DA9A452}
+	EndGlobalSection
+EndGlobal

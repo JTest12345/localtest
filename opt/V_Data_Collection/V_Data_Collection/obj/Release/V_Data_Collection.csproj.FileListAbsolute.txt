@@ -1,0 +1,10 @@
+D:\V_Data_Collection\V_Data_Collection\bin\Release\V_Data_Collection.exe.config
+D:\V_Data_Collection\V_Data_Collection\bin\Release\V_Data_Collection.exe
+D:\V_Data_Collection\V_Data_Collection\bin\Release\V_Data_Collection.pdb
+D:\V_Data_Collection\V_Data_Collection\obj\Release\V_Data_Collection.MainForm.resources
+D:\V_Data_Collection\V_Data_Collection\obj\Release\V_Data_Collection.Properties.Resources.resources
+D:\V_Data_Collection\V_Data_Collection\obj\Release\V_Data_Collection.csproj.GenerateResource.cache
+D:\V_Data_Collection\V_Data_Collection\obj\Release\V_Data_Collection.exe
+D:\V_Data_Collection\V_Data_Collection\obj\Release\V_Data_Collection.pdb
+D:\V_Data_Collection\V_Data_Collection\obj\Release\V_Data_Collection.csproj.AssemblyReference.cache
+D:\V_Data_Collection\V_Data_Collection\obj\Release\V_Data_Collection.csproj.CoreCompileInputs.cache

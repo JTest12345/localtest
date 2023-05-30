@@ -1,0 +1,90 @@
+﻿{
+  "flowMode": "AUTO",
+  "productName": "CS0209HAUTOE1W402H5X3",
+  "lotnoList": [
+    "wwq"
+  ],
+  "wavelengthRank": "D3",
+  "cupno": "TC221128006",
+  "LF-num": 1,
+  "mixTypeCode": "103",
+  "manualMode-mixTypeCode": "101",
+  "moldType": "MD",
+  "specialDesignation": "",
+  "henkaten": "",
+  "useBuzai": [
+    {
+      "amount": 42.0,
+      "use-autoMachine": true,
+      "mixOrder": 2,
+      "f-code": "F-400-K80",
+      "name": "KER-1932-A",
+      "type": "RESIN_A",
+      "lotno": "205006",
+      "need-grovebox": false,
+      "upperAllowableError-gram": 0.01,
+      "lowerAllowableError-gram": 0.01
+    },
+    {
+      "amount": 42.0,
+      "use-autoMachine": true,
+      "mixOrder": 3,
+      "f-code": "F-401-D30",
+      "name": "KER-1932-B",
+      "type": "RESIN_B",
+      "lotno": "205006",
+      "need-grovebox": false,
+      "upperAllowableError-gram": 0.01,
+      "lowerAllowableError-gram": 0.01
+    },
+    {
+      "amount": 0.42,
+      "use-autoMachine": true,
+      "mixOrder": 1,
+      "f-code": "F-402-U20",
+      "name": "NP-163-31",
+      "type": "YELLOW",
+      "lotno": "008",
+      "need-grovebox": false,
+      "upperAllowableError-gram": 0.001,
+      "lowerAllowableError-gram": 0.001
+    }
+  ],
+  "cupWorkRegulations": [
+    {
+      "cupno": "TC221128006",
+      "procfrom": 2,
+      "procto": 3,
+      "fromwaittime": 3,
+      "fromtoendtime": 13
+    },
+    {
+      "cupno": "TC221128006",
+      "procfrom": 3,
+      "procto": 2,
+      "fromwaittime": 0,
+      "fromtoendtime": 0
+    },
+    {
+      "cupno": "TC221128006",
+      "procfrom": 3,
+      "procto": 4,
+      "fromwaittime": 1,
+      "fromtoendtime": 3
+    },
+    {
+      "cupno": "TC221128006",
+      "procfrom": 3,
+      "procto": 999,
+      "fromwaittime": 0,
+      "fromtoendtime": 360
+    },
+    {
+      "cupno": "TC221128006",
+      "procfrom": 4,
+      "procto": 999,
+      "fromwaittime": 45,
+      "fromtoendtime": 120
+    }
+  ]
+}

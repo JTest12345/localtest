@@ -1,0 +1,14 @@
+﻿{
+  "manual-folderPath": "\\\\CE05210\\DataShare\\ChogoFiles\\Manual",
+  "balance-plantcd": "TCSMR002",
+  "balance-serialPort": "COM4",
+  "labelFormat-fileName": "ResinCupLabel.lbx",
+  "printer": "bpac",
+  "dio-deviceName": "DIO000",
+  "doorCheck-bitno": 8,
+  "stable-second": 5,
+  "manualMix-second": 10,
+  "exhaust-second": 10,
+  "check-grossWeight": true,
+  "grossWeight-allowableErrorGram": 0.010
+}

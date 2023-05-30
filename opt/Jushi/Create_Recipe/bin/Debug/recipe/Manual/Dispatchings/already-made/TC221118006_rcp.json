@@ -1,0 +1,138 @@
+﻿{
+  "flowMode": "AUTO",
+  "productName": "CS0209H1204E1W302H5X3",
+  "lotnoList": [
+    "sss"
+  ],
+  "wavelengthRank": "D3",
+  "cupno": "TC221118006",
+  "LF-num": 1,
+  "mixTypeCode": "103",
+  "processNo": 0,
+  "moldType": "MD",
+  "specialDesignation": "",
+  "henkaten": "",
+  "useBuzai": [
+    {
+      "amount": 42.0,
+      "use-autoMachine": true,
+      "mixOrder": 6,
+      "f-code": "F-400-K80",
+      "name": "KER-1932-A",
+      "type": "RESIN_A",
+      "lotno": "205006",
+      "need-grovebox": false,
+      "upperAllowableError-gram": 0.01,
+      "lowerAllowableError-gram": 0.01
+    },
+    {
+      "amount": 42.0,
+      "use-autoMachine": true,
+      "mixOrder": 7,
+      "f-code": "F-401-D30",
+      "name": "KER-1932-B",
+      "type": "RESIN_B",
+      "lotno": "205006",
+      "need-grovebox": false,
+      "upperAllowableError-gram": 0.01,
+      "lowerAllowableError-gram": 0.01
+    },
+    {
+      "amount": 4.2,
+      "use-autoMachine": true,
+      "mixOrder": 5,
+      "f-code": "F-405-A60",
+      "name": "FUSELEX E-2",
+      "type": "FILLER",
+      "lotno": "1F-1835",
+      "need-grovebox": false,
+      "upperAllowableError-gram": 0.001,
+      "lowerAllowableError-gram": 0.001
+    },
+    {
+      "amount": 2.502,
+      "use-autoMachine": true,
+      "mixOrder": 3,
+      "f-code": "F-402-U20",
+      "name": "NP-163-31",
+      "type": "YELLOW",
+      "lotno": "008",
+      "need-grovebox": false,
+      "upperAllowableError-gram": 0.001,
+      "lowerAllowableError-gram": 0.001
+    },
+    {
+      "amount": 39.203,
+      "use-autoMachine": true,
+      "mixOrder": 4,
+      "f-code": "F-402-S40",
+      "name": "NP-2063-1005",
+      "type": "YELLOW",
+      "lotno": "065",
+      "need-grovebox": false,
+      "upperAllowableError-gram": 0.039,
+      "lowerAllowableError-gram": 0.039
+    },
+    {
+      "amount": 1.618,
+      "use-autoMachine": true,
+      "mixOrder": 2,
+      "f-code": "F-402-U50",
+      "name": "NP-391-7304",
+      "type": "RED",
+      "lotno": "005",
+      "need-grovebox": false,
+      "upperAllowableError-gram": 0.001,
+      "lowerAllowableError-gram": 0.001
+    },
+    {
+      "amount": 0.693,
+      "use-autoMachine": true,
+      "mixOrder": 1,
+      "f-code": "F-402-U30",
+      "name": "NP-390-5103",
+      "type": "RED",
+      "lotno": "006",
+      "need-grovebox": false,
+      "upperAllowableError-gram": 0.001,
+      "lowerAllowableError-gram": 0.001
+    }
+  ],
+  "cupWorkRegulations": [
+    {
+      "cupno": "TC221118006",
+      "procfrom": 2,
+      "procto": 3,
+      "fromwaittime": 3,
+      "fromtoendtime": 13
+    },
+    {
+      "cupno": "TC221118006",
+      "procfrom": 3,
+      "procto": 2,
+      "fromwaittime": 0,
+      "fromtoendtime": 0
+    },
+    {
+      "cupno": "TC221118006",
+      "procfrom": 3,
+      "procto": 4,
+      "fromwaittime": 1,
+      "fromtoendtime": 3
+    },
+    {
+      "cupno": "TC221118006",
+      "procfrom": 3,
+      "procto": 999,
+      "fromwaittime": 0,
+      "fromtoendtime": 360
+    },
+    {
+      "cupno": "TC221118006",
+      "procfrom": 4,
+      "procto": 999,
+      "fromwaittime": 45,
+      "fromtoendtime": 120
+    }
+  ]
+}

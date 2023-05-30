@@ -1,0 +1,225 @@
+﻿@model KodaWeb.Models.CompleteRR
+
+@{
+    if (Model.UpdateAt == null) {
+        ViewBag.Title = "修理完了登録";
+    }
+    else {
+        ViewBag.Title = "修理完了記録";
+    }
+}
+
+<div class="flexbox_div rr_outer">
+    <div class="rr_item_name">タイトル</div>
+    <div class="rr_content">@Model.Title</div>
+</div>
+
+<div class="div_container rr_outer">
+    <div class="flexbox_div">
+        <div class="flexbox_div" style="width:50%">
+            <div class="rr_item_name">装置型式</div>
+            <div class="rr_content">@Model.MacName</div>
+        </div>
+        <div class="flexbox_div" style="width:50%">
+            <div class="rr_item_name">装置番号</div>
+            <div class="rr_content">@Model.Plantcd</div>
+        </div>
+    </div>
+    <div class="flexbox_div">
+        <div class="flexbox_div" style="width:50%">
+            <div class="rr_item_name">故障日時</div>
+            <div class="rr_content">@Model.InsertAt</div>
+        </div>
+        <div class="flexbox_div" style="width:50%">
+            <div class="rr_item_name">登録者</div>
+            <div class="rr_content">@Model.InsertBy</div>
+        </div>
+    </div>
+
+    <div class="flexbox_div">
+        <div class="rr_item_name">不具合</div>
+        <div class="rr_content">@Html.Raw(Model.Failure.Replace("\r\n", "<br/>"))</div>
+    </div>
+
+    @if (Model.RegisterImagePathList != null) {
+        <div class="flexbox_div">
+            <div class="rr_item_name">写真</div>
+            <div class="rr_content">
+                @foreach (var path in Model.RegisterImagePathList) {
+                    <a href="@path" class="venobox" data-gall="rrr">
+                        <img src="@path" width="150" height="150" object-fit="contain" style="margin:2px" />
+                    </a>
+                }
+            </div>
+        </div>
+    }
+
+    <div class="flexbox_div">
+        <div class="rr_item_name">備考</div>
+        <div class="rr_content">@Html.Raw(Model.Remarks1.Replace("\r\n", "<br/>"))</div>
+    </div>
+</div>
+
+@if (Model.UpdateAt == null) {
+
+    using (Html.BeginForm("CompleteRR", "Form", FormMethod.Post, new { @enctype = "multipart/form-data" })) {
+
+        @Html.AntiForgeryToken()
+
+        //保持用隠しプロパティ
+        @Html.HiddenFor(m => m.ID)
+        @Html.HiddenFor(m => m.MacName)
+        @Html.HiddenFor(m => m.Plantcd)
+        @Html.HiddenFor(m => m.Title)
+        @Html.HiddenFor(m => m.Failure)
+        @Html.HiddenFor(m => m.InsertAt)
+        @Html.HiddenFor(m => m.InsertBy)
+        @Html.HiddenFor(m => m.Remarks1)
+
+        <p class="margin0 errmsg">@ViewBag.ErrorMsg</p>
+
+        <div class="div_container">
+            @Html.ValidationSummary(false, "")
+        </div>
+
+        <div class="div_container">
+            <p class="input_icon inputboxTitle">原因</p>
+            @Html.TextAreaFor(m => m.Cause, 5, 50, new { @class = "multiline" })
+        </div>
+
+        <div class="div_container">
+            <p class="input_icon inputboxTitle">処置内容</p>
+            @Html.TextAreaFor(m => m.Treatment, 5, 50, new { @class = "multiline" })
+        </div>
+
+        <div class="div_container">
+            <p class="image_icon inputboxTitle">画像添付(1画像1MB以下)</p>
+            @Html.TextBoxFor(m => m.PostedFiles, new { @type = "file", @id = "attached_image", @multiple = "", @accept = "image/png, image/jpeg" })
+            <div id="preview"></div>
+        </div>
+
+        <div class="div_container">
+            <p class="input_icon inputboxTitle">備考</p>
+            @Html.TextAreaFor(m => m.Remarks2, 3, 50, new { @class = "multiline" })
+        </div>
+
+        <div class="div_container">
+            <p class="qr_icon inputboxTitle">社員コード</p>
+            @Html.TextBoxFor(m => m.UpdateBy, new { @id = "EmployeeCode_inputbox" })
+            <span id="clear_EmpCodeinput" class="clear_btn"></span>
+        </div>
+
+        <div class="div_container">
+            <input type="submit" class="submit_btn margin_small" value="登録" />
+        </div>
+    }
+}
+else {
+    <div class="div_container rr_outer">
+        <div class="flexbox_div">
+            <div class="flexbox_div" style="width:50%">
+                <div class="rr_item_name">完了日時</div>
+                <div class="rr_content">@Model.UpdateAt</div>
+            </div>
+            <div class="flexbox_div" style="width:50%">
+                <div class="rr_item_name">登録者</div>
+                <div class="rr_content">@Model.UpdateBy</div>
+            </div>
+        </div>
+
+        <div class="flexbox_div">
+            <div class="rr_item_name">原因</div>
+            <div class="rr_content">@Html.Raw(Model.Cause.Replace("\r\n", "<br/>"))</div>
+        </div>
+
+        <div class="flexbox_div">
+            <div class="rr_item_name">処置内容</div>
+            <div class="rr_content">@Html.Raw(Model.Treatment.Replace("\r\n", "<br/>"))</div>
+        </div>
+
+        @if (Model.CompleteImagePathList != null) {
+            <div class="flexbox_div">
+                <div class="rr_item_name">写真</div>
+                <div class="rr_content">
+                    @foreach (var path in Model.CompleteImagePathList) {
+                        <a href="@path" class="venobox" data-gall="crr" runat="server">
+                            <img src="@path" width="150" height="150" object-fit="contain" style="margin:2px" runat="server"/>
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="flexbox_div">
+            <div class="rr_item_name">備考</div>
+            <div class="rr_content">@Html.Raw(Model.Remarks2.Replace("\r\n", "<br/>"))</div>
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            //社員コード初期化
+            onClick_clearInput("#clear_EmpCodeinput", "#EmployeeCode_inputbox");
+
+            //添付画像制限サイズ(1MB)
+            const sizeLimit = 1024 * 1024 * 1;
+
+            //ファイル選択changeイベントで呼び出す関数
+            const handleFileSelect = () => {
+
+                $("#preview").empty();
+
+                const fileInput = document.getElementById('attached_image');
+                let files = fileInput.files;
+
+                for (let i = 0; i < files.length; i++) {
+                    if (files[i].size > sizeLimit) {
+                        alert('ファイルサイズは1MB以下にしてください');
+
+                        //inputの中身をリセット
+                        fileInput.value = '';
+                        //この時点で処理を終了する
+                        return;
+                    }
+
+                    //FileReaderオブジェクトを作成
+                    const reader = new FileReader();
+
+                    //URLとして読み込まれたときに実行する処理
+                    reader.onload = function (e) {
+                        const imageUrl = e.target.result; // URLはevent.target.resultで呼び出せる
+                        const img = document.createElement("img"); // img要素を作成
+                        img.src = imageUrl; // URLをimg要素にセット
+                        img.width = 150;
+                        img.height = 150;
+                        img.setAttribute("object-fit", "contain");
+                        img.setAttribute("style", "margin:2px");
+                        document.getElementById('preview').appendChild(img); // #previewの中に追加
+                    }
+
+                    //ファイルをURLとして読み込む
+                    reader.readAsDataURL(files[i]);
+                }
+
+            }
+
+            //ファイル選択時にhandleFileSelectイベント発動
+            if (document.getElementById('attached_image') !== null) {
+                document.getElementById('attached_image').addEventListener('change', handleFileSelect);
+            }
+
+            new VenoBox({
+                selector: ".venobox",
+                infinigall: true,
+                numeration: true,
+                spinner: "flow",
+                share: true,
+            });
+        });
+
+    </script>
+}

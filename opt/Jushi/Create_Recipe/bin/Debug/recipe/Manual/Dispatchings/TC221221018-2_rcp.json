@@ -1,0 +1,66 @@
+﻿{
+  "flowMode": "CUT_IN",
+  "productName": "CS0209HADDTE1WKSFH5X3",
+  "lotnoList": [
+    "aaa"
+  ],
+  "wavelengthRank": "D3",
+  "cupno": "TC221221018",
+  "LF-num": 12,
+  "mixTypeCode": "106",
+  "manualMode-mixTypeCode": "101",
+  "moldType": "MD",
+  "specialDesignation": "",
+  "henkaten": "",
+  "useBuzai": [
+    {
+      "amount": 21.0,
+      "use-autoMachine": false,
+      "mixOrder": 4,
+      "f-code": "F-402-U90",
+      "name": "118-020-130L",
+      "type": "RED",
+      "lotno": "2216601",
+      "need-grovebox": true,
+      "upperAllowableError-gram": 0.001,
+      "lowerAllowableError-gram": 0.001
+    }
+  ],
+  "cupWorkRegulations": [
+    {
+      "cupno": "TC221221018",
+      "procfrom": 2,
+      "procto": 3,
+      "fromwaittime": 3,
+      "fromtoendtime": 13
+    },
+    {
+      "cupno": "TC221221018",
+      "procfrom": 3,
+      "procto": 2,
+      "fromwaittime": 0,
+      "fromtoendtime": 0
+    },
+    {
+      "cupno": "TC221221018",
+      "procfrom": 3,
+      "procto": 4,
+      "fromwaittime": 1,
+      "fromtoendtime": 3
+    },
+    {
+      "cupno": "TC221221018",
+      "procfrom": 3,
+      "procto": 999,
+      "fromwaittime": 0,
+      "fromtoendtime": 360
+    },
+    {
+      "cupno": "TC221221018",
+      "procfrom": 4,
+      "procto": 999,
+      "fromwaittime": 45,
+      "fromtoendtime": 120
+    }
+  ]
+}

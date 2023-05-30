@@ -1,0 +1,145 @@
+﻿@model KodaWeb.Models.RegisterRR
+
+@{
+    ViewBag.Title = "修理記録登録";
+    ViewBag.Camera = true;
+}
+
+@using (Html.BeginForm("RegisterRR", "Form", FormMethod.Post, new { @enctype = "multipart/form-data" })) {
+
+    @Html.AntiForgeryToken()
+
+    <p class="margin0 errmsg">@ViewBag.ErrorMsg</p>
+    <p class="margin0"><span class="msg">@ViewBag.Msg</span></p>
+
+    <div class="div_container">
+        @Html.ValidationSummary(false, "")
+    </div>
+
+    <div class="div_container">
+        <p class="qr_icon inputboxTitle">社員コード</p>
+        @Html.TextBoxFor(m => m.InsertBy, new { @id = "EmployeeCode_inputbox" })
+        <span id="clear_EmpCodeinput" class="clear_btn"></span>
+    </div>
+
+    <div class="div_container">
+        <p class="input_icon inputboxTitle">装置型式</p>
+        @Html.TextBoxFor(m => m.MacName, new { @type = "tel", @placeholder = "例：FAD2500" })
+    </div>
+
+    <div class="div_container">
+        <p class="qr_icon inputboxTitle">装置番号(8桁)</p>
+        @Html.TextBoxFor(m => m.Plantcd, new { @id = "Plantcd_inputbox", @type = "tel", @placeholder = "例：TCSDR002" })
+        <span id="clear_Plantcdinput" class="clear_btn"></span>
+    </div>
+
+    @*カメラ画像表示領域*@
+    <div id="camera_div" class="camera_container" hidden>
+        <canvas id="canvas" width="320" height="240"></canvas>
+        <div id="camera_stop" class="stop_icon stop_icon_in_cameraContainer"></div>
+    </div>
+
+    <div class="div_container">
+        <p class="input_icon inputboxTitle">タイトル</p>
+        @Html.TextBoxFor(m => m.Title)
+    </div>
+
+    <div class="div_container">
+        <p class="input_icon inputboxTitle">不具合内容</p>
+        @Html.TextAreaFor(m => m.Failure, 5, 50, new { @class = "multiline" })
+    </div>
+
+    <div class="div_container">
+        <p class="image_icon inputboxTitle">画像添付(1画像1MB以下)</p>
+        @Html.TextBoxFor(m => m.PostedFiles, new { @type = "file", @id = "attached_image", @multiple = "", @accept = "image/png, image/jpeg" })
+        <div id="preview"></div>
+    </div>
+
+    <div class="div_container">
+        <p class="input_icon inputboxTitle">備考</p>
+        @Html.TextAreaFor(m => m.Remarks1, 3, 50, new { @class = "multiline" })
+    </div>
+
+    <div class="div_container">
+        <input type="submit" class="submit_btn margin_small" value="登録" />
+    </div>
+}
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            //社員コード初期化
+            onClick_clearInput("#clear_EmpCodeinput", "#EmployeeCode_inputbox");
+
+            //装置番号初期化
+            onClick_clearInput("#clear_Plantcdinput", "#Plantcd_inputbox");
+
+            //カメライベント設定
+            let camera;
+
+            //Camera Start
+            $("#camera_on").on("click", function () {
+                $("#camera_div").show();
+                camera = new ReadQRcodeCamera("canvas");
+                camera.Zoom = 2;
+                camera.cameraStart();
+            });
+
+            //Camera Stop
+            $("#camera_stop").on("click", function () {
+                camera.cameraStop();
+                $("#camera_div").hide();
+            });
+
+            //添付画像制限サイズ(1MB)
+            const sizeLimit = 1024 * 1024 * 1;
+
+            //ファイル選択changeイベントで呼び出す関数
+            const handleFileSelect = () => {
+
+                $("#preview").empty();
+
+                const fileInput = document.getElementById('attached_image');
+                let files = fileInput.files;
+
+                for (let i = 0; i < files.length; i++) {
+                    if (files[i].size > sizeLimit) {
+                        alert('ファイルサイズは1MB以下にしてください');
+
+                        //inputの中身をリセット
+                        fileInput.value = '';
+                        //この時点で処理を終了する
+                        return;
+                    }
+
+                    //FileReaderオブジェクトを作成
+                    const reader = new FileReader();
+
+                    //URLとして読み込まれたときに実行する処理
+                    reader.onload = function (e) {
+                        const imageUrl = e.target.result; // URLはevent.target.resultで呼び出せる
+                        const img = document.createElement("img"); // img要素を作成
+                        img.src = imageUrl; // URLをimg要素にセット
+                        img.width = 150;
+                        img.height = 150;
+                        img.setAttribute("object-fit", "contain");
+                        img.setAttribute("style", "margin:2px");
+                        document.getElementById('preview').appendChild(img); // #previewの中に追加
+                    }
+
+                    //ファイルをURLとして読み込む
+                    reader.readAsDataURL(files[i]);
+                }
+
+            }
+
+            //ファイル選択時にhandleFileSelectイベント発動
+            document.getElementById('attached_image').addEventListener('change', handleFileSelect);
+
+
+        });
+
+    </script>
+}

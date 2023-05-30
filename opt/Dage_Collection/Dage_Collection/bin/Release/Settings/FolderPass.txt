@@ -1,0 +1,4 @@
+﻿Dageの測定データが保存されているフォルダ
+C:\my_soft\Dage_Collection\Dage_Collection\bin\Debug\Measurement_Data
+結果保存先のフォルダ
+C:\my_soft\Dage_Collection\Dage_Collection\bin\Debug\Result_Data

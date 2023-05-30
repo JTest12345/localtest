@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oven_Control", "Oven_Control\Oven_Control.csproj", "{B968B650-19FE-46A7-BDCA-D44C923A933A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Oven_Control|Any CPU = Oven_Control|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B968B650-19FE-46A7-BDCA-D44C923A933A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B968B650-19FE-46A7-BDCA-D44C923A933A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B968B650-19FE-46A7-BDCA-D44C923A933A}.Oven_Control|Any CPU.ActiveCfg = Oven_Control|Any CPU
+		{B968B650-19FE-46A7-BDCA-D44C923A933A}.Oven_Control|Any CPU.Build.0 = Oven_Control|Any CPU
+		{B968B650-19FE-46A7-BDCA-D44C923A933A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B968B650-19FE-46A7-BDCA-D44C923A933A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A36CE8B2-E37A-455E-A778-907E3638B664}
+	EndGlobalSection
+EndGlobal

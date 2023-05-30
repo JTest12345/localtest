@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "KODA";
+
+    //string how_open = "_blank";//新規タブで開く
+
+    string how_open = "_self";//同一タブで開く
+}
+
+<div class="indexlist">
+    <p class="note_icon">
+        @Html.ActionLink(
+       "帳票システム",                   //リンクテキスト
+       "Index",                          //アクション名
+       "Form",                           //コントローラ名
+       null,                             //パラメータ
+       new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+       )
+    </p>
+
+    <p class="wrench_icon">
+        @Html.ActionLink(
+       "工程システム",                   //リンクテキスト
+       "Index",                          //アクション名
+       "Proc",                           //コントローラ名
+       null,                             //パラメータ
+       new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+       )
+    </p>
+
+    <p class="earth_icon">
+        @Html.ActionLink(
+       "工程環境データ",                 //リンクテキスト
+       "Index",                          //アクション名
+       "Env",                            //コントローラ名
+       null,                             //パラメータ
+       new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+       )
+    </p>
+
+    <p class="user_gear_icon">
+        @Html.ActionLink(
+       "ユーザーレベル管理",             //リンクテキスト
+       "UpdateUserLevel",                //アクション名
+       "Home",                           //コントローラ名
+       null,                             //パラメータ
+       new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+       )
+    </p>
+</div>

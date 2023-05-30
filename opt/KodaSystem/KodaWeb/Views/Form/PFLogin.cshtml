@@ -1,0 +1,195 @@
+﻿@model KodaWeb.Models.PFLogin
+
+@{
+    ViewBag.Title = "製品情報入力";
+    ViewBag.Camera = true;
+    var url_dic = (Dictionary<string, string>)ViewBag.LinkUrlDic;
+}
+
+<p class="margin0">帳票はロット開始後に入力出来ます。</p>
+
+@if (url_dic == null) {
+
+    using (Html.BeginForm()) {
+
+        @Html.AntiForgeryToken();
+
+
+        <div class="div_container">
+            <p class="qr_icon inputboxTitle">社員コード</p>
+            @Html.TextBoxFor(m => m.EmployeeCode, new { @id = "EmployeeCode_inputbox", @class = "use_keyboard" })
+            <span id="clear_EmpCodeinput" class="clear_btn"></span>
+        </div>
+
+        <p class="margin0">
+            <span style="background-color:yellow">
+                下記のどれか1つを入力して下さい。
+            </span>
+        </p>
+        <p class="margin0" style="font-size:0.7rem">
+            ※帳票完了前にロット完了してしまった場合は18桁ロット番号QRを入力して下さい。
+        </p>
+
+        <div class="div_container">
+            <p class="qr_icon inputboxTitle">18桁ロット番号QR</p>
+            @Html.TextBoxFor(m => m.LotNo18, new { @id = "LotNo18_inputbox", @class = "use_keyboard", @placeholder = "例：920230116140000524" })
+            <span id="clear_LotNo18QRinput" class="clear_btn"></span>
+        </div>
+
+        <div class="div_container">
+            <p class="qr_icon inputboxTitle">マガジンQR</p>
+            @Html.TextBoxFor(m => m.MagNo, new { @id = "MagQR_inputbox", @class = "use_keyboard", @placeholder = "例：A00543" })
+            <span id="clear_MagQRinput" class="clear_btn"></span>
+        </div>
+
+        <div class="div_container">
+            <p class="qr_icon inputboxTitle">設備番号QR(8桁)</p>
+            @Html.TextBoxFor(m => m.Plantcd, new { @id = "PlantCodeQR_inputbox", @class = "use_keyboard", @placeholder = "例：TCWB0002" })
+            <span id="clear_PlantCodeinput" class="clear_btn"></span>
+        </div>
+
+        <div class="div_container">
+            <p class="qr_icon inputboxTitle">
+                作業単位ロット(バリ取り工程VLot)
+            </p>
+            @Html.TextBoxFor(m => m.WorkUnitID, new { @id = "WorkUnitIDQR_inputbox", @class = "use_keyboard", @placeholder = "例：V22-10000032" })
+            <span id="clear_WorkUnitIDinput" class="clear_btn"></span>
+        </div>
+
+
+        @*カメラ画像表示領域*@
+        <div id="camera_div" class="camera_container" hidden>
+            <canvas id="canvas" width="320" height="240"></canvas>
+            <div id="camera_stop" class="stop_icon stop_icon_in_cameraContainer"></div>
+        </div>
+
+
+        <div class="div_container">
+            @Html.ValidationSummary(false, "")
+        </div>
+
+        <div class="div_container">
+            @*<p>入力完了ボタンを押すと帳票システムの入力画面に移動します。</p>*@
+            <p class="margin0 errmsg">@ViewBag.ErrorMsg</p>
+            <input type="submit" class="submit_btn margin_small" value="入力完了" />
+        </div>
+    }
+}
+else {
+    <h2 class="heading">設備内製品選択</h2>
+
+    <p>帳票を入力する製品を選択して下さい。</p>
+
+    <div class="div_container">
+
+        @foreach (var pair in url_dic) {
+            var arr = @pair.Value.Split(',');
+            <p class="infobox1">
+                <a href="@pair.Key">
+
+                    @for (int i = 0; i < arr.Length; i++) {
+                        if (i != arr.Length - 1) {
+                            @arr[i]<br />
+                        }
+                        else {
+                            @arr[i]
+                        }
+                    }
+                </a>
+            </p>
+        }
+
+    </div>
+
+    var msg = (string)ViewBag.ErrorMsg;
+    if (msg != null) {
+        string[] del = { "\n" };
+        var sp = msg.Split(del, StringSplitOptions.RemoveEmptyEntries);
+
+        <p class="margin0 errmsg">
+            @for (int i = 0; i < sp.Length; i++) {
+                if (i != sp.Length - 1) {
+                    @sp[i]<br />
+                }
+                else {
+                    @sp[i]
+                }
+            }
+        </p>
+    }
+}
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            //バリデーションチェックはMagQRだけにつけているので
+            //エラー時には他の入力ボックスにもクラスを付与する
+            if ($("#MagQR_inputbox").hasClass("input-validation-error")) {
+                $("#PlantCodeQR_inputbox").addClass("input-validation-error");
+                $("#LotQR_inputbox").addClass("input-validation-error");
+                $("#LotNo18_inputbox").addClass("input-validation-error");
+                $("#WorkUnitIDQR_inputbox").addClass("input-validation-error");
+            }
+
+            //Lot管理票QRコード入力時処理
+            $("#LotQR_inputbox").on("input keydown", function () {
+
+                const QRcode = $("#LotQR_inputbox").val();
+                const { product, lotno } = getProductLotno(QRcode);
+
+                //表示
+                $("#productName").html(product);
+                $("#lotNo10").html(lotno);
+
+                $("#ProductName").val(product);
+                $("#LotNo10").val(lotno);
+            });
+
+            //Lot管理票QRコード初期化
+            $("#clear_LotQRinput").on("click", function () {
+                $("#LotQR_inputbox").val("");
+
+                $("#productName").html("");
+                $("#ProductName").val("");
+
+                $("#lotNo10").html("");
+                $("#LotNo10").val("");
+            });
+
+            //18桁ロット番号初期化
+            onClick_clearInput("#clear_LotNo18QRinput", "#LotNo18_inputbox");
+
+            //マガジンQRコード初期化
+            onClick_clearInput("#clear_MagQRinput", "#MagQR_inputbox");
+
+            //社員コード初期化
+            onClick_clearInput("#clear_EmpCodeinput", "#EmployeeCode_inputbox");
+
+            //設備番号初期化
+            onClick_clearInput("#clear_PlantCodeinput", "#PlantCodeQR_inputbox");
+
+            //作業単位ロット初期化
+            onClick_clearInput("#clear_WorkUnitIDinput", "#WorkUnitIDQR_inputbox");
+
+            //カメライベント設定
+            let camera;
+
+            //Camera Start
+            $("#camera_on").on("click", function () {
+                $("#camera_div").show();
+                camera = new ReadQRcodeCamera("canvas");
+                camera.Zoom = 2;
+                camera.cameraStart();
+            });
+
+            //Camera Stop
+            $("#camera_stop").on("click", function () {
+                camera.cameraStop();
+                $("#camera_div").hide();
+            });
+
+        });
+
+    </script>
+}

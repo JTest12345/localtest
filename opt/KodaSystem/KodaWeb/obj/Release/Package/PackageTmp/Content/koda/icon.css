@@ -1,0 +1,298 @@
+﻿/*カーソル合わせた時の設定*/
+.toggle_off_icon:hover,
+.toggle_on_icon:hover,
+.camera_icon:hover,
+.stop_icon:hover,
+.clear_btn:hover,
+.download_icon:hover,
+.caret_left_icon:hover,
+.caret_right_icon:hover,
+.arrow_right_left_icon:hover {
+    cursor: pointer;
+}
+
+.toggle_off_icon::before {
+    /*トグルOFFアイコンの設定*/
+    content: '\f204';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: grey;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+}
+
+.toggle_on_icon::before {
+    /*トグルONアイコンの設定*/
+    content: '\f205';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: royalblue;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+}
+
+.home_icon {
+    /*ホームアイコンの設定*/
+    position: absolute;
+    right: 1.5rem;
+}
+
+    .home_icon::after {
+        /*家アイコン*/
+        content: '\f015';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        font-size: 1.8rem;
+        color: gold;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /*left: 4px;*/
+    }
+
+    .home_icon::before {
+        /*四角アイコン*/
+        content: '\f0c8';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 400;
+        font-size: 3rem;
+        color: forestgreen;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+.camera_icon::before {
+    /*カメラアイコンの設定*/
+    content: '\f030';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1.2rem;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+}
+
+.stop_icon::before {
+    /*カメラ停止アイコンの設定*/
+    content: '\f28d';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 400;
+    font-size: 2rem;
+    vertical-align: middle;
+}
+
+.qr_icon::before {
+    /*QRcodeアイコンの設定*/
+    content: '\f029';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1.1rem;
+    margin-right: 0.3rem;
+}
+
+.select_icon::before {
+    /*選択アイコンの設定*/
+    content: '\f150';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: black;
+    margin-right: 0.3rem;
+}
+
+.image_icon::before {
+    /*画像アイコンの設定*/
+    content: '\f03e';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: black;
+    margin-right: 0.3rem;
+}
+
+.clear_btn::before {
+    /*クリアボタンの設定*/
+    content: '\f00d';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: rgb(59, 159, 226);
+    font-size: 1.5rem;
+    vertical-align: middle;
+}
+
+.clear_btn:active {
+    /*透明度*/
+    opacity: 0.3;
+}
+
+.input_icon::before {
+    /*入力アイコンの設定*/
+    content: '\f14b';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1.1rem;
+    margin-right: 0.3rem;
+}
+
+.download_icon::before {
+    /*downloadアイコンの設定*/
+    content: '\f019';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: black;
+}
+
+.caret_left_icon::before {
+    /*左三角アイコンの設定*/
+    content: '\f0d9';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 2rem;
+    color: black;
+    margin-right: 0.3rem;
+    vertical-align: middle;
+}
+
+.caret_right_icon::before {
+    /*右三角アイコンの設定*/
+    content: '\f0da';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 2rem;
+    color: black;
+    margin-right: 0.3rem;
+    vertical-align: middle;
+}
+
+.arrow_right_left_icon::before {
+    /*左右矢印アイコンの設定*/
+    content: '\f0ec';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: black;
+}
+
+.link_icon::after {
+    /*/リンクアイコンの設定*/
+    content: '\f35d';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1rem;
+    color: black;
+    margin-left: 0.1rem;
+}
+
+.note_icon::before {
+    /*ノートアイコンの設定*/
+    content: '\f31c';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1rem;
+    color: coral;
+}
+
+.wrench_icon::before {
+    /*レンチアイコンの設定*/
+    content: '\f0ad';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1rem;
+    color: mediumvioletred;
+}
+
+.earth_icon::before {
+    /*地球アイコンの設定*/
+    content: '\f57e';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1rem;
+    color: mediumblue;
+}
+
+.user_gear_icon::before {
+    /*ユーザー歯車アイコンの設定*/
+    content: '\f4fe';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1rem;
+    color: black
+}
+
+.circle_info_icon::before {
+    /*丸情報アイコンの設定*/
+    content: '\f05a';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1rem;
+    color: yellowgreen;
+}
+
+.temp_high_icon::before {
+    /*温度高いアイコンの設定*/
+    content: '\f769';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1rem;
+    color: orangered;
+}
+
+.cube_icon::before {
+    /*立方体アイコンの設定*/
+    content: '\f1b2';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 0.8rem;
+    color: cornflowerblue;
+    margin-right: 0.3rem;
+}
+
+.circle_xmark_icon::before {
+    /*丸×アイコンの設定*/
+    content: '\f057';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 2rem;
+    color: red;
+}
+
+.circle_check_icon::before {
+    /*丸✔アイコンの設定*/
+    content: '\f058';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 2rem;
+    color: deepskyblue;
+}
+
+.spray_can_icon::before {
+    /*スプレー缶アイコンの設定*/
+    content: '\f5bd';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1rem;
+    color: deepskyblue;
+}
+
+.hand_point_left_icon::before {
+    /*左指差しアイコンの設定*/
+    content: '\f0a5';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1rem;
+    color: sandybrown;
+}
+
+.layer_group::before {
+    /*層アイコンの設定*/
+    content: '\f5fd';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1rem;
+    color: mediumslateblue;
+}

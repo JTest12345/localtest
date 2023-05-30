@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/FontAwesome/css/all.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/tablesorter/theme.blue.min.css" rel="stylesheet" />
+    <link href="~/Content/tablesorter/theme.green.min.css" rel="stylesheet" />
+    <link href="~/Content/venobox/venobox.min.css" rel="stylesheet" />
+
+    <link href="~/Content/koda/KodaSystem.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/koda/icon.css" rel="stylesheet" type="text/css" />
+
+
+    @*閲覧者のブラウザがどのような機能をサポートしているかをチェックして、
+        HTMLタグにサポート状況を判別できるクラスを付与するJavaScriptライブラリ*@
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+
+<body>
+    <header>
+        <div class="header_title">@ViewBag.Title</div>
+        @*カメラアイコン表示*@
+        @if (ViewBag.Camera == true) {
+            <span id="camera_on" class="camera_icon"></span>
+        }
+
+        @*キーボードON/OFFアイコン表示*@
+        <span id="keyboard_toggle" class="toggle_off_icon"></span>
+
+        @*ホームアイコン表示*@
+        <a class="home_icon" href="~/"></a>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+
+    @*<footer>
+            <p>&copy; @DateTime.Now.Year - マイ ASP.NET アプリケーション</p>
+        </footer>*@
+
+    @*最初にJQueryを読み込む*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @*外部ライブラリ*@
+    @*↓tablesorterライブラリ*@
+    <script src="~/Scripts/tablesorter/jquery.tablesorter.combined.min.js"></script>
+    <script src="~/Scripts/tablesorter/extras/jquery.tablesorter.pager.min.js"></script>
+    @*↓jsQRライブラリ*@
+    <script src="~/Scripts/jsQR.js"></script>
+    @*↓chart.jsライブラリ*@
+    <script src="~/Scripts/chart/chart.min.js"></script>
+    <script src="~/Scripts/chart/hammer.min.js"></script>
+    <script src="~/Scripts/chart/chartjs-plugin-zoom.min.js"></script>
+
+    @if (ViewBag.HighCharts == true) {
+        @*↓Highchartsライブラリ*@
+        <script src="~/Scripts/chart/Highcharts/highstock.js"></script>
+        <script src="~/Scripts/chart/Highcharts/modules/data.js"></script>
+        <script src="~/Scripts/chart/Highcharts/modules/exporting.js"></script>
+        <script src="~/Scripts/chart/Highcharts/modules/offline-exporting.js"></script>
+        <script src="~/Scripts/chart/Highcharts/modules/export-data.js"></script>
+        <script src="~/Scripts/chart/Highcharts/modules/accessibility.js"></script>
+    }
+    @*↓venoboxライブラリ*@
+    <script src="~/Scripts/venobox/venobox.min.js"></script>
+
+    @*自作ファイル*@
+    <script src="~/Scripts/koda/common.js"></script>
+    @*ページごとのscript*@
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

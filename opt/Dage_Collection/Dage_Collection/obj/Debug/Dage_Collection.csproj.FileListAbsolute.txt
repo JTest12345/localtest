@@ -1,0 +1,20 @@
+D:\Documents and Settings\yuk-hrt\デスクトップ\Dage_Collection\Dage_Collection\bin\Debug\Dage_Collection.exe.config
+D:\Documents and Settings\yuk-hrt\デスクトップ\Dage_Collection\Dage_Collection\bin\Debug\Dage_Collection.exe
+D:\Documents and Settings\yuk-hrt\デスクトップ\Dage_Collection\Dage_Collection\bin\Debug\Dage_Collection.pdb
+D:\Documents and Settings\yuk-hrt\デスクトップ\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.csprojAssemblyReference.cache
+D:\Documents and Settings\yuk-hrt\デスクトップ\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.Form1.resources
+D:\Documents and Settings\yuk-hrt\デスクトップ\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.Properties.Resources.resources
+D:\Documents and Settings\yuk-hrt\デスクトップ\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.csproj.GenerateResource.cache
+D:\Documents and Settings\yuk-hrt\デスクトップ\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.exe
+D:\Documents and Settings\yuk-hrt\デスクトップ\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.pdb
+D:\Documents and Settings\yuk-hrt\デスクトップ\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.Form2.resources
+D:\Dage_Collection\Dage_Collection\bin\Debug\Dage_Collection.exe.config
+D:\Dage_Collection\Dage_Collection\bin\Debug\Dage_Collection.exe
+D:\Dage_Collection\Dage_Collection\bin\Debug\Dage_Collection.pdb
+D:\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.csprojAssemblyReference.cache
+D:\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.MainForm.resources
+D:\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.DataChangeForm.resources
+D:\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.Properties.Resources.resources
+D:\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.csproj.GenerateResource.cache
+D:\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.exe
+D:\Dage_Collection\Dage_Collection\obj\Debug\Dage_Collection.pdb

@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "帳票システム";
+    //string how_open = "_blank";//新規タブで開く
+
+    string how_open = "_self";//同一タブで開く
+}
+
+
+@*<h3 class="heading"><span></span>帳票システム</h3>*@
+
+<div class="container-fluid" style="margin-top:1rem">
+    <div class="row">
+        <div class="col-md-4 box29">
+            <div class="box-title">帳票マスタ</div>
+            <p>
+                <a href="@ViewBag.FormMasterUrl" target=@how_open rel="noopener noreferrer">帳票マスタ登録</a>
+            </p>
+        </div>
+
+        <div class="col-md-4 box29">
+            <div class="box-title">工程帳票</div>
+            <p>
+                @Html.ActionLink(
+               "帳票入力",                                             //リンクテキスト
+               "PFLogin",                                               //アクション名
+               "Form",                                                  //コントローラ名
+               null,                                                    //パラメータ
+               new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+               )
+            </p>
+            <p>
+                @Html.ActionLink(
+               "帳票未完了ロット一覧",                                  //リンクテキスト
+               "NotClosePFList",                                        //アクション名
+               "Form",                                                  //コントローラ名
+               null,                                                    //パラメータ
+               new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+               )
+            </p>
+            <p>
+                @Html.ActionLink(
+               "帳票データ取得",                                       //リンクテキスト
+               "GetPFD",                                                //アクション名
+               "Form",                                                  //コントローラ名
+               null,                                                    //パラメータ
+               new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+               )
+            </p>
+            <p>
+                @Html.ActionLink(
+               "旧システム機種　帳票作成",                              //リンクテキスト
+               "CreatePFTran",                                          //アクション名
+               "Form",                                                  //コントローラ名
+               null,                                                    //パラメータ
+               new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+               )
+            </p>
+            <p>
+                @Html.ActionLink(
+               "旧システム機種　帳票入力",                              //リンクテキスト
+               "OldSystemPFList",                                       //アクション名
+               "Form",                                                  //コントローラ名
+               null,                                                    //パラメータ
+               new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+               )
+            </p>
+        </div>
+
+        <div class="col-md-4 box29">
+            <div class="box-title">定期点検帳票</div>
+            <p>
+                @Html.ActionLink(
+               "定期点検設備　新規登録",                                //リンクテキスト
+               "RegisterPI",                                            //アクション名
+               "Form",                                                  //コントローラ名
+               null,                                                    //パラメータ
+               new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+               )
+            </p>
+            <p>
+                @Html.ActionLink(
+               "未実施定期点検一覧",                                    //リンクテキスト
+               "PIList",                                                //アクション名
+               "Form",                                                  //コントローラ名
+               null,                                                    //パラメータ
+               new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+               )
+            </p>
+            <p>
+                @Html.ActionLink(
+               "設備定期点検データ取得",                                //リンクテキスト
+               "GetPIFD",                                               //アクション名
+               "Form",                                                  //コントローラ名
+               null,                                                    //パラメータ
+               new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+               )
+            </p>
+        </div>
+
+        <div class="col-md-4 box29">
+            <div class="box-title">設備故障/修理記録</div>
+            <p>
+                @Html.ActionLink(
+               "修理記録登録",                                          //リンクテキスト
+               "RegisterRR",                                            //アクション名
+               "Form",                                                  //コントローラ名
+               null,                                                    //パラメータ
+               new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+               )
+            </p>
+            <p>
+                @Html.ActionLink(
+               "修理記録一覧",                                          //リンクテキスト
+               "RRList",                                                //アクション名
+               "Form",                                                  //コントローラ名
+               null,                                                    //パラメータ
+               new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+               )
+            </p>
+        </div>
+
+    </div>
+</div>

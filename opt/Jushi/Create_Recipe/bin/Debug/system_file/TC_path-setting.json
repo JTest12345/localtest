@@ -1,0 +1,10 @@
+﻿{
+  "manualRecipe-saveFolderPath": "\\\\CE05210\\DataShare\\ChogoFiles\\Manual\\Dispatchings",
+  "autoMachine-saveFolderPath": {
+    "auto-saveFolderPath": "\\\\CE05210\\DataShare\\ChogoFiles\\Auto\\Dispatchings",
+    "add-saveFolderPath": "\\\\10.130.3.45\\magcupdir\\SR\\RECIPC\\in"
+  },
+  "autoMachine-remainingWeight-filePath": "\\\\ce05210\\DataShare\\ChogoFiles\\Auto\\Dispencer.csv",
+  "senkolog-database": false,
+  "senkoLog-filePath": "\\\\10.130.2.17\\SenkoLog\\SenkoLog4_CET.xlsm"
+}

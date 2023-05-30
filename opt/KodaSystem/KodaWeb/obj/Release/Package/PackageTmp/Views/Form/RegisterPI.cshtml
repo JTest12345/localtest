@@ -1,0 +1,94 @@
+﻿@model KodaWeb.Models.PeriodicInspection
+
+@{
+    ViewBag.Title = "設備定期点検登録";
+}
+
+
+@using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+
+    <div class="div_container">
+        <p class="input_icon inputboxTitle">装置型式</p>
+        @Html.TextBoxFor(m => m.MacName, new { @type = "tel", @placeholder = "例：AD838L" })
+    </div>
+
+    <div class="div_container">
+        <p class="input_icon inputboxTitle">装置番号(8桁)</p>
+        @Html.TextBoxFor(m => m.Plantcd, new { @type = "tel", @placeholder = "例：TCDB0001" })
+    </div>
+
+    <div class="div_container">
+        <p class="input_icon inputboxTitle">装置シリアル番号</p>
+        @Html.TextBoxFor(m => m.SerialNo, new { @type = "tel" })
+    </div>
+
+    <div class="div_container">
+        <p class="select_icon
+           inputboxTitle">製造拠点</p>
+        @Html.DropDownListFor(m => m.ManuBase, (IEnumerable<SelectListItem>)ViewBag.ManubaseList)
+    </div>
+
+    <div class="div_container">
+        <p class="input_icon inputboxTitle">装置使用場所</p>
+        @Html.TextBoxFor(m => m.Place, new { @placeholder = "例：3-3F" })
+    </div>
+
+    <div class="div_container">
+        <p class="select_icon inputboxTitle">使用する帳票</p>
+        @Html.DropDownListFor(m => m.FormNo, (IEnumerable<SelectListItem>)ViewBag.FormList)
+    </div>
+
+    <div class="div_container">
+        <p class="select_icon inputboxTitle">点検周期</p>
+        @Html.DropDownListFor(m => m.Period, (IEnumerable<SelectListItem>)ViewBag.PeriodList)
+    </div>
+
+    <div class="div_container">
+        <p class="select_icon inputboxTitle">点検開始日</p>
+        <p class="margin0 indentlabel">点検周期が1週間の場合は月曜日を設定して下さい。</p>
+        @*<p class="margin0 indentlabel">点検周期が1か月以上の場合は1日を設定して下さい。</p>*@
+        @Html.TextBoxFor(m => m.Next, new { @type = "date" })
+    </div>
+
+    <div class="div_container">
+        @Html.ValidationSummary(false, "")
+    </div>
+
+    <div class="div_container">
+        <p><span class="errmsg">@ViewBag.ErrorMsg</span></p>
+        <input type="submit" class="submit_btn" value="登録" />
+        <p><span class="msg">@ViewBag.Finish</span></p>
+    </div>
+}
+
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            //$("#MachineName").on("input", function () {
+            //    let moji = $("#MachineName").val();
+            //    //alert(moji);
+            //    moji = moji.replace(/[０-９Ａ-Ｚａ-ｚ]/g, function (es) {
+            //        return String.fromCharCode(es.charCodeAt(0) - 65248);
+            //    });
+
+            //    //alert(moji);
+            //    $("#MachineName").val(moji);
+            //});
+
+            //function ztoh(te) {
+            //    var ts = te.value;
+            //    ts = ts.replace(/[０-９Ａ-Ｚａ-ｚ]/g, function (es) {
+            //        return String.fromCharCode(es.charCodeAt(0) - 65248);
+            //    });
+            //    te.value = ts;
+            //}
+
+        });
+
+    </script>
+}

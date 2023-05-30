@@ -1,0 +1,5 @@
+﻿{
+  "PIcheck": "Data Source=vautom4\\SQLEXpress; Initial Catalog=KODA_DEBUG;Connect Timeout=5; User ID=inline; Password=R28uHta",
+  "Ondotori": "Data Source=vautom4\\SQLEXpress; Initial Catalog=KODA_DEBUG;Connect Timeout=5; User ID=inline; Password=R28uHta",
+  "Particle": "Data Source=vautom4\\SQLEXpress; Initial Catalog=KODA_DEBUG;Connect Timeout=5; User ID=inline; Password=R28uHta"
+}

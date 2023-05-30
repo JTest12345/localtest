@@ -1,0 +1,10 @@
+﻿{
+  "manualRecipe-saveFolderPath": "\\\\SVFILE2\\fileserver\\135デバイス共通\\60_技術資料\\80_生産革新\\02_システム_ソフト開発\\【ソースファイル】\\Jushi\\Create_Recipe\\bin\\Debug\\recipe\\Manual\\Dispatchings",
+  "autoMachine-saveFolderPath": {
+    "auto-saveFolderPath": "\\\\SVFILE2\\fileserver\\135デバイス共通\\60_技術資料\\80_生産革新\\02_システム_ソフト開発\\【ソースファイル】\\Jushi\\Create_Recipe\\bin\\Debug\\recipe\\Auto\\Dispatchings",
+    "add-saveFolderPath": "\\\\SVFILE2\\fileserver\\135デバイス共通\\60_技術資料\\80_生産革新\\02_システム_ソフト開発\\【ソースファイル】\\Jushi\\Create_Recipe\\bin\\Debug\\recipe\\magcupdir\\SR\\RECIPC\\in"
+  },
+  "autoMachine-remainingWeight-filePath": "\\\\SVFILE2\\fileserver\\135デバイス共通\\60_技術資料\\80_生産革新\\02_システム_ソフト開発\\【ソースファイル】\\Jushi\\Create_Recipe\\bin\\Debug\\recipe\\Auto\\Dispencer.csv",
+  "senkolog-database": false,
+  "senkoLog-filePath": "\\\\SVFILE2\\fileserver\\135デバイス共通\\60_技術資料\\80_生産革新\\02_システム_ソフト開発\\【ソースファイル】\\Jushi\\Create_Recipe\\bin\\Debug\\SenkoLog4_CET.xlsm"
+}

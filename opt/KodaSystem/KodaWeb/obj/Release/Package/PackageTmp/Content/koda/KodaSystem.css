@@ -1,0 +1,471 @@
+﻿/*バリデーションの設定*/
+.field-validation-error {
+    color: red;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid red;
+    background-color: peachpuff;
+}
+
+.validation-summary-errors {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: red;
+}
+
+    .validation-summary-errors > ul {
+        padding-left: 1.5rem;
+        margin: 0;
+    }
+
+.validation-summary-valid {
+    display: none;
+}
+
+.errmsg {
+    color: red;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+html {
+    font-size: 1rem;
+}
+
+body {
+    font-size: inherit;
+}
+
+/*@media screen and (max-width: 1024px) {*/
+/*画面幅1024px以下*/
+/*html {
+        font-size: 1rem;
+    }
+}*/
+
+/*@media screen and (max-width: 768px) {*/
+/*画面幅768px以下*/
+/*html {
+        font-size: 1.2rem;
+    }
+}*/
+
+
+header {
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0px;
+    background-color: lightgoldenrodyellow;
+    /*border-bottom-style:solid;*/
+    z-index: 1000;
+}
+
+.header_title {
+    font-size: 1.5rem;
+    text-indent: 0.5rem;
+}
+
+main {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+
+
+.heading {
+    color: black;
+    /*color: #6cb4e4;*/
+    text-align: center;
+    padding: 0.25em;
+    border-top: solid 2px #6cb4e4;
+    border-bottom: solid 2px #6cb4e4;
+    background: -webkit-repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px, #e9f4ff 3px, #e9f4ff 7px);
+    background: repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px, #e9f4ff 3px, #e9f4ff 7px);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.heading2 {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    -webkit-transform: skew(-15deg);
+    transform: skew(-15deg);
+    color: black;
+    background-image: linear-gradient(30deg, rgba(0, 26, 255, 0.1) 30%, #fffb00a2 100%);
+    margin: 0;
+    margin-top: 0.5rem;
+}
+
+
+.indexlist > p {
+    /*リンクリストの設定*/
+    margin-bottom: 0rem;
+    padding-top: 1rem;
+    /*padding-bottom: 0.5rem;*/
+    font-size: 1.2rem
+}
+
+    .indexlist > p > a {
+        color: black;
+    }
+
+.msg {
+    background-color: yellow;
+    font-size: 1rem;
+}
+
+.div_container {
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+}
+
+.inputboxTitle {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    font-size: 1rem;
+}
+
+.margin0 {
+    margin: 0;
+}
+
+.padding0 {
+    padding: 0;
+}
+
+.indentlabel {
+    font-size: 0.875rem;
+    text-indent: 1rem;
+}
+
+.camera_container {
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+    margin-right: 0;
+    position: relative;
+    height: 240px;
+    width: 320px;
+}
+
+    .camera_container > canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+.stop_icon_in_cameraContainer {
+    position: absolute;
+    left: 45%;
+    top: 85%;
+    color: yellow;
+}
+
+
+.submit_btn {
+    /*submitボタンの設定*/
+    border: 2px solid black;
+    border-radius: 0.3rem;
+    background: #f6f6f6;
+    font-size: 1.2rem;
+}
+
+    .submit_btn:hover {
+        color: black;
+        background: #fcfe80;
+        cursor: pointer;
+    }
+
+
+.data_view {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+
+
+.table_div {
+    /*表がある範囲の設定*/
+    /*position: relative;*/
+    padding: 0px;
+    /*width: 800px;*/
+    /*height: 30%;*/
+    overflow-y: auto;
+    overflow-x: auto;
+    /*画面の幅100%で表示するために必要*/
+    /*これが無いとブラウザスクロールになってしまう*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*表示縦位置設定*/
+    /*vertical-align: middle;*/
+    /*エリアを見やすくするため(debug用)*/
+    /*background-color: #eecbcb;*/
+    /*範囲超えた場合のスクロール表示*/
+    /*overflow: scroll;*/
+    /*flex: 1;*/
+}
+
+
+.data_table_format {
+    /*データ取得結果表の設定*/
+    /*枠線設定*/
+    border-right: 1px solid black;
+    border-collapse: collapse;
+}
+
+
+    .data_table_format > thead > tr > th {
+        /* ヘッダーセルの設定 */
+        /*背景色の設定*/
+        background-color: lightcyan;
+        /*枠線の設定*/
+        border-left: 1px solid black;
+        /*セル内余白の設定*/
+        padding: 1px 3px;
+        /*文字サイズ、位置設定*/
+        font-size: 0.75rem;
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+        /* 縦スクロール時に固定する */
+        position: sticky;
+        top: 0;
+        /* tbody内のセルより手前に表示する */
+        z-index: 1;
+    }
+
+        .data_table_format > thead > tr > th:before {
+            /*枠線の設定*/
+            border-bottom: 1px solid black;
+            border-top: 1px solid black;
+            /*位置設定*/
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            /*サイズ設定*/
+            width: 100%;
+            height: 100%;
+            content: "";
+            padding: 1px 3px;
+        }
+
+
+    .data_table_format > tbody > tr > td {
+        /* データセルの設定 */
+        /*枠線の設定*/
+        border-bottom: 1px solid black;
+        border-left: 1px solid black;
+        /*セル内余白の設定*/
+        padding: 1px 3px;
+        /*文字サイズ、位置設定*/
+        font-size: 0.75rem;
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+
+.tablesorter-header-inner {
+    /*tableフィルターライブラリ用*/
+    white-space: nowrap;
+    text-align: center;
+}
+
+.tablesorter > tbody > tr > td {
+    /*tableフィルターライブラリ用*/
+    white-space: nowrap;
+    text-align: center;
+}
+
+.list-group {
+    /*ツリー用（ライブラリで自動で付くクラス名）*/
+    margin: 0;
+}
+
+
+.node-tree {
+    /*ツリー用（ライブラリで自動で付くクラス名）*/
+    border: 0;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-right: 0;
+    padding-left: 0.2rem;
+    font-size: 1.0rem;
+}
+
+.expand-icon {
+    /*ツリー用（ライブラリで自動で付くクラス名）*/
+    font-size: 1.2rem;
+}
+
+
+.infobox1 {
+    /* 付箋 */
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    color: #232323;
+    background: #fff8e8;
+    border-left: solid 0.75rem #ffc06e;
+    font-size: 1rem;
+}
+
+    .infobox1 > a {
+        color: black;
+    }
+
+
+.box27 {
+    /* 沈降棚枠 */
+    position: relative;
+    margin: 2rem 0;
+    padding: 0;
+    border: solid 2px #000000;
+    background-color: #d3cefc;
+}
+
+    .box27 .box-title {
+        position: absolute;
+        display: inline-block;
+        top: -1.7rem;
+        left: -2px;
+        padding: 0 9px;
+        height: 1.7rem;
+        line-height: 1.7rem;
+        font-size: 1.2rem;
+        background: #d3cefc;
+        color: #000000;
+        /* font-weight: bold; */
+        border-radius: 5px 5px 0 0;
+        border: solid 2px #000000;
+    }
+
+
+.flexbox_div {
+    /*このクラスを付けた子要素のdivは横に並ぶ*/
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+
+.area_box1 {
+    /*沈降棚エリア枠*/
+    padding: 0.2rem 0.4em;
+    margin: 0.2rem;
+    background-color: #fff0f5;
+    /*背景色*/
+    border: dashed 2px #773d50;
+    /*線*/
+    color: #000000;
+    /*文字色*/
+}
+
+.rst_warning {
+    background-color: lightsalmon;
+}
+
+
+.box29 {
+    /*帳票システムIndexページで使用*/
+    background: white;
+    padding-bottom: 0.5rem;
+    /* margin-top: 0.2rem; */
+}
+
+    .box29 .box-title {
+        font-size: 1.4em;
+        background: rgb(109, 201, 255, 0.8);
+        padding: 2px;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        letter-spacing: 0.05rem;
+    }
+
+    .box29 > p {
+        padding: 0.3rem 0.5rem;
+        margin: 0;
+        background-color: rgb(109, 201, 255, 0.2);
+        font-size: 1.2em;
+    }
+
+        .box29 > p > a {
+            color: black;
+        }
+
+.sample_box11 {
+    /*紙の横幅 100%にすると全幅表示に*/
+    /*width: 100%;*/
+    padding: 0.5rem;
+    padding-right: 0;
+    margin: 0.5rem auto;
+    /*margin-left: -15px;*/
+    /*紙の色*/
+    background: #f7f092;
+    /*文字色*/
+    color: #000;
+    /*box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.03);*/
+    transform: rotate(2deg);
+    /*word-break: break-all;*/
+    white-space: nowrap;
+}
+
+    .sample_box11 ul {
+        padding-left: 1rem;
+        margin: 0;
+    }
+
+    .sample_box11 li {
+        /*width: 50%;*/
+        margin: 0;
+        padding-right: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+.sample_box11_tape {
+    width: 40%;
+    height: 25px;
+    margin: -20px auto 0;
+    background: #989898;
+    transform: rotate(-3deg);
+    opacity: 0.15;
+    text-align: center;
+}
+
+.rr_outer {
+    white-space: unset;
+    margin-top: 1rem;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+}
+
+.rr_item_name {
+    padding: 0.2rem;
+    width: 5rem;
+    border: 1px solid;
+    border-right: 0px;
+    border-bottom: 0px;
+    background-color: lavender;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rr_content {
+    width: calc(100% - 5rem);
+    padding: 0.2rem;
+    border: 1px solid;
+    border-right: 0px;
+    border-bottom: 0px;
+    display: flex;
+    align-items: center;
+}

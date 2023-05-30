@@ -1,0 +1,75 @@
+﻿@using System.Data;
+
+@{
+    ViewBag.Title = "樹脂先行評価ログ";
+    DataTable table = (DataTable)ViewBag.DataTable;
+}
+
+@using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+
+    <div class="div_container">
+        <p class="input_icon inputboxTitle">機種名入力</p>
+        <input id="productname_inputbox" name="productName" style="width:17rem" />
+        <span id="clear_inputProductname" class="clear_btn"></span>
+    </div>
+
+    <div class="div_container">
+        <input type="submit" class="submit_btn" value="検索" />
+    </div>
+}
+
+@if (table != null) {
+    <div class="table_div" style="height:550px">
+        <table class="tablesorter">
+            <thead>
+                <tr>
+                    @for (int i = 0; i < table.Columns.Count; i++) {
+                        <th>@Html.Raw(table.Columns[i])</th>
+                    }
+                </tr>
+            </thead>
+            <tbody style="font-size:0.9rem">
+                @for (int i = 0; i < table.Rows.Count; i++) {
+                    var dr = table.Rows[i];
+                    <tr>
+                        @for (int j = 0; j < table.Columns.Count; j++) {
+                            var col = table.Columns[j];
+                            <td>@Html.Raw(dr[col])</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            //テーブルの書式設定とフィルタリセットボタンの設定
+            $("table").tablesorter({
+                theme: 'blue',
+                widthFixed: true,
+                widgets: ['zebra', 'columns', 'filter', 'pager', 'resizable', 'stickyHeaders'],
+                //フィルタのリセットボタンを追加する場合に設定する。
+                widgetOptions: {
+                    filter_reset: 'button.reset-filter-button',
+                    resizable: true,
+                }
+            });
+            //$("table").tablesorterPager({
+            //    container: $(".pager"),
+            //});
+
+
+            //機種名初期化
+            onClick_clearInput("#clear_inputProductname", "#productname_inputbox");
+
+        });
+
+    </script>
+}

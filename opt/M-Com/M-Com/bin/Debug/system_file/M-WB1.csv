@@ -1,0 +1,24 @@
+﻿測定箇所,測定項目,XYZ,上限,下限、最低測定数
+Blue-Anode,ボール径,X,75,58,3
+Blue-Anode,ボール径,Y,75,58,3
+Blue-Anode,ボール厚,Z,17,9,3
+Blue-Anode,ループ高さ,Z,200,140,3
+Blue-Anode,リバース量,Y,20,5,0
+Blue-Cathode,ボール径,X,75,58,3
+Blue-Cathode,ボール径,Y,75,58,3
+Blue-Cathode,ボール厚,Z,17,9,3
+Blue-Cathode,ループ高さ,Z,200,140,3
+Blue-Cathode,リバース量,Y,20,5,0
+Blue-Bump (P-P),ボール径,X,75,58,3
+Blue-Bump (P-P),ボール径,Y,90,60,3
+Blue-Bump (P-P),ボール厚,Z,17,9,3
+Blue-Bump (P-P),ループ高さ,Z,200,140,3
+Blue-Bump (P-P),リバース量,Y,20,5,0
+Lead-Bump,ボール径,X,120,80,3
+Lead-Bump,ボール厚,Z,30,10,3
+ZD,ボール径,X,75,58,3
+ZD,ボール厚,Z,17,9,3
+ZD,ループ高さ,Z,170,110,3
+ZDBump (Z-Z),ボール径,X,75,58,3
+ZDBump (Z-Z),ボール厚,Z,17,9,3
+ZDBump (Z-Z),ループ高さ,Z,170,110,3

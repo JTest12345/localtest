@@ -1,0 +1,56 @@
+﻿[
+  {
+    "manubase": "CET",
+    "place": "3-3F",
+    "shelf": "棚1",
+    "area": "エリア1"
+  },
+  {
+    "manubase": "CET",
+    "place": "3-3F",
+    "shelf": "棚1",
+    "area": "エリア2"
+  },
+  {
+    "manubase": "CET",
+    "place": "3-3F",
+    "shelf": "棚1",
+    "area": "エリア3"
+  },
+  {
+    "manubase": "CET",
+    "place": "3-3F",
+    "shelf": "棚1",
+    "area": "エリア4"
+  },
+  {
+    "manubase": "CET",
+    "place": "3-3F",
+    "shelf": "キュア炉",
+    "area": "1号炉"
+  },
+  {
+    "manubase": "CET",
+    "place": "3-3F",
+    "shelf": "キュア炉",
+    "area": "5号炉"
+  },
+  {
+    "manubase": "CET",
+    "place": "3-3F",
+    "shelf": "キュア炉",
+    "area": "エリア4(仮置き)"
+  },
+  {
+    "manubase": "CET",
+    "place": "3-3F",
+    "shelf": "テスト棚",
+    "area": "エリア1"
+  },
+  {
+    "manubase": "CET",
+    "place": "3-3F",
+    "shelf": "テスト棚",
+    "area": "エリア2"
+  }
+]

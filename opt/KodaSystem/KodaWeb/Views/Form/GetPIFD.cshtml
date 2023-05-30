@@ -1,0 +1,64 @@
+﻿@model KodaWeb.Models.PeriodicInspection
+
+@{
+    ViewBag.Title = "定期点検帳票データ検索";
+}
+
+
+@using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+
+    if (Model.ManuBase == null) {
+
+        <div class="div_container">
+            <p class="select_icon
+           inputboxTitle">製造拠点</p>
+            @Html.DropDownListFor(m => m.ManuBase, (IEnumerable<SelectListItem>)ViewBag.ManubaseList)
+            @Html.ValidationMessageFor(m => m.ManuBase, "*")
+        </div>
+
+        <div class="div_container">
+            <p class="select_icon inputboxTitle">点検周期</p>
+            @Html.DropDownListFor(m => m.Period, (IEnumerable<SelectListItem>)ViewBag.PeriodList)
+            @Html.ValidationMessageFor(m => m.Period, "*")
+        </div>
+    }
+    else {
+        <div class="div_container">
+            <p class="select_icon inputboxTitle">帳票選択</p>
+            @Html.DropDownList("FormList")
+
+            @*POST用隠しプロパティ*@
+            @Html.HiddenFor(m => m.FormName, new { @id = "FormName" })
+            @Html.HiddenFor(m => m.FormNo, new { @id = "FormNo" })
+            @Html.HiddenFor(m => m.FormRev, new { @id = "FormRev" })
+            @Html.HiddenFor(m => m.ManuBase)
+            @Html.HiddenFor(m => m.Period)
+        </div>
+    }
+
+    <div class="div_container">
+        <input type="submit" class="submit_btn" value="検索" />
+        <p style="color:red">@ViewBag.Msg</p>
+    </div>
+}
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+            // 選択された帳票名を取得する関数
+            $("#FormList").on("change", function () {
+                const searchform = $("#FormList").val();
+                const split_val = searchform.split(',');
+
+                //モデルに値セット
+                $("#FormName").val(split_val[0]);
+                $("#FormNo").val(split_val[1]);
+                $("#FormRev").val(split_val[2]);
+            });
+        });
+
+    </script>
+}

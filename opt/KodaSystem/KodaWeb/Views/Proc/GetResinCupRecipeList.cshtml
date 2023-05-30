@@ -1,0 +1,181 @@
+﻿@using Newtonsoft.Json;
+@using ResinClassLibrary;
+
+@model  IEnumerable<ResinClassLibrary.ResinSQL.ResinCupRecipe_Data>
+
+@{
+    ViewBag.Title = "樹脂カップ差立てレシピ一覧";
+}
+
+@using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+    <div class="div_container">
+        <p class="margin0">差立て日を選択して下さい。</p>
+        <input name="search_date" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <div class="div_container">
+        <input type="submit" class="submit_btn" value="検索" />
+    </div>
+}
+
+@if (Model != null) {
+    <div class="flexbox_div">
+        <div class="table_div" style="height:550px">
+            <table class="tablesorter">
+                <thead>
+                    <tr>
+                        <th>カップ番号</th>
+                        <th>機種名</th>
+                        <th>波長ランク</th>
+                        <th>LotNo</th>
+                        <th>A剤</th>
+                        <th>B剤</th>
+                        <th>フィラー</th>
+                        <th>トロ</th>
+                        <th>酸化チタン</th>
+                        <th>黄1</th>
+                        <th>黄2</th>
+                        <th>黄3</th>
+                        <th>赤1</th>
+                        <th>赤2</th>
+                        <th>赤3</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size:0.9rem">
+                    @foreach (var item in Model) {
+
+                        if (string.IsNullOrEmpty(item.RecipeContent) == false) {
+
+                            string recipe_id = $"{item.CupNo}_recipe";
+
+                            //部材列に書く文字作成
+                            List<Recipe> recipe_list = JsonConvert.DeserializeObject<List<Recipe>>(item.RecipeContent);
+                            string A_text = "";
+                            string B_text = "";
+                            string filler_text = "";
+                            string toro_text = "";
+                            string tio2_text = "";
+                            string y1_text = "";
+                            string y2_text = "";
+                            string y3_text = "";
+                            string r1_text = "";
+                            string r2_text = "";
+                            string r3_text = "";
+
+                            for (int j = 0; j < recipe_list.Count; j++) {
+
+                                var recipe = recipe_list[j];
+
+                                //今は1個しかないと思うのでFirst()にしておく
+                                var resinA = recipe.UseBuzai.Where(x => x.Type == Buzai.RESIN_A).Count() == 0 ? null : recipe.UseBuzai.Where(x => x.Type == Buzai.RESIN_A).First();
+                                var resinB = recipe.UseBuzai.Where(x => x.Type == Buzai.RESIN_B).Count() == 0 ? null : recipe.UseBuzai.Where(x => x.Type == Buzai.RESIN_B).First();
+                                var filler = recipe.UseBuzai.Where(x => x.Type == Buzai.FILLER).Count() == 0 ? null : recipe.UseBuzai.Where(x => x.Type == Buzai.FILLER).First();
+                                var toro = recipe.UseBuzai.Where(x => x.Type == Buzai.TORO).Count() == 0 ? null : recipe.UseBuzai.Where(x => x.Type == Buzai.TORO).First();
+                                var tio2 = recipe.UseBuzai.Where(x => x.Type == Buzai.TIO2).Count() == 0 ? null : recipe.UseBuzai.Where(x => x.Type == Buzai.TIO2).First();
+
+                                //黄は最大3個
+                                var yellow = recipe.UseBuzai.Where(x => x.Type == Buzai.YELLOW).Count() == 0 ? null : recipe.UseBuzai.Where(x => x.Type == Buzai.YELLOW).ToList();
+                                RecipeBuzai y1 = null;
+                                RecipeBuzai y2 = null;
+                                RecipeBuzai y3 = null;
+                                if (yellow != null) {
+                                    for (int i = 0; i < yellow.Count; i++) {
+                                        if (i == 0) { y1 = yellow[i]; }
+                                        if (i == 1) { y2 = yellow[i]; }
+                                        if (i == 2) { y3 = yellow[i]; }
+                                    }
+                                }
+
+                                //赤は最大3個
+                                var red = recipe.UseBuzai.Where(x => x.Type == Buzai.RED).Count() == 0 ? null : recipe.UseBuzai.Where(x => x.Type == Buzai.RED).ToList();
+                                RecipeBuzai r1 = null;
+                                RecipeBuzai r2 = null;
+                                RecipeBuzai r3 = null;
+                                if (red != null) {
+                                    for (int i = 0; i < red.Count; i++) {
+                                        if (i == 0) { r1 = red[i]; }
+                                        if (i == 1) { r2 = red[i]; }
+                                        if (i == 2) { r3 = red[i]; }
+                                    }
+                                }
+
+                                A_text += resinA == null ? "" : $"{resinA.Name}<br/>{resinA.LotNo}<br/>{resinA.Amount}g";
+                                B_text += resinB == null ? "" : $"{resinB.Name}<br/>{resinB.LotNo}<br/>{resinB.Amount}g";
+                                filler_text += filler == null ? "" : $"{filler.Name}<br/>{filler.LotNo}<br/>{filler.Amount}g";
+                                toro_text += toro == null ? "" : $"{toro.Name}<br/>{toro.LotNo}<br/>{toro.Amount}g";
+                                tio2_text += tio2 == null ? "" : $"{tio2.Name}<br/>{tio2.LotNo}<br/>{tio2.Amount}g";
+                                y1_text += y1 == null ? "" : $"{y1.Name}<br/>{y1.LotNo}<br/>{y1.Amount}g";
+                                y2_text += y2 == null ? "" : $"{y2.Name}<br/>{y2.LotNo}<br/>{y2.Amount}g";
+                                y3_text += y3 == null ? "" : $"{y3.Name}<br/>{y3.LotNo}<br/>{y3.Amount}g";
+                                r1_text += r1 == null ? "" : $"{r1.Name}<br/>{r1.LotNo}<br/>{r1.Amount}g";
+                                r2_text += r2 == null ? "" : $"{r2.Name}<br/>{r2.LotNo}<br/>{r2.Amount}g";
+                                r3_text += r3 == null ? "" : $"{r3.Name}<br/>{r3.LotNo}<br/>{r3.Amount}g";
+
+                                //樹脂配合が2回以上に分けて行われる場合
+                                if (recipe_list.Count > 1 && j < recipe_list.Count) {
+                                    A_text += "<br/>";
+                                    B_text += "<br/>";
+                                    filler_text += "<br/>";
+                                    toro_text += "<br/>";
+                                    tio2_text += "<br/>";
+                                    y1_text += "<br/>";
+                                    y2_text += "<br/>";
+                                    y3_text += "<br/>";
+                                    r1_text += "<br/>";
+                                    r2_text += "<br/>";
+                                    r3_text += "<br/>";
+                                }
+                            }
+
+                            <tr>
+                                <td><span class="open-recipe" data-recipe=@recipe_id>@Html.DisplayFor(modelItem => item.CupNo)</span></td>
+                                <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.WaveLengthRank)</td>
+                                <td>@Html.Raw(item.Lots.Replace("/", "<br/>"))</td>
+                                <td><span>@Html.Raw(A_text)</span></td>
+                                <td><span>@Html.Raw(B_text)</span></td>
+                                <td><span>@Html.Raw(filler_text)</span></td>
+                                <td><span>@Html.Raw(toro_text)</span></td>
+                                <td><span>@Html.Raw(tio2_text)</span></td>
+                                <td><span>@Html.Raw(y1_text)</span></td>
+                                <td><span>@Html.Raw(y2_text)</span></td>
+                                <td><span>@Html.Raw(y3_text)</span></td>
+                                <td><span>@Html.Raw(r1_text)</span></td>
+                                <td><span>@Html.Raw(r2_text)</span></td>
+                                <td><span>@Html.Raw(r3_text)</span></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@section scripts {
+
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            //テーブルの書式設定とフィルタリセットボタンの設定
+            $("table").tablesorter({
+                theme: 'blue',
+                widthFixed: true,
+                widgets: ['zebra', 'columns', 'filter', 'pager', 'resizable', 'stickyHeaders'],
+                //フィルタのリセットボタンを追加する場合に設定する。
+                widgetOptions: {
+                    filter_reset: 'button.reset-filter-button',
+                    resizable: true,
+                }
+            });
+            //$("table").tablesorterPager({
+            //    container: $(".pager"),
+            //});
+
+        });
+
+    </script>
+}

@@ -1,0 +1,136 @@
+﻿@model KodaWeb.Models.PFforOldSystem
+
+@{
+    ViewBag.Title = "旧システム機種用_帳票作成";
+}
+
+@using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+
+    <div class="div_container">
+        <p class="select_icon
+           inputboxTitle">製造拠点</p>
+        @Html.DropDownListFor(m => m.ManuBase, (IEnumerable<SelectListItem>)ViewBag.ManubaseList)
+    </div>
+
+    <div class="div_container">
+        <p class="qr_icon inputboxTitle">機種/Lot</p>
+        <input id="typecd_lot_qr" class="use_keyboard" /> <span id="clear_typecdLotQRinput" class="clear_btn"></span>
+        <p class="margin0" style="font-size:0.8rem">
+            機種名：<span id="view_typecd" style="color:orangered">@Model.Typecd</span><br />
+            10桁LotNo：<span id="view_lotno10" style="color:orangered">@Model.LotNo18</span>
+        </p>
+
+        @*POST用隠しプロパティ*@
+        @Html.HiddenFor(m => m.Typecd, new { @id = "typecd" })
+        @Html.HiddenFor(m => m.LotNo18, new { @id = "lotno10" })@*本当は18桁を入れる必要あるが、旧システムのため10桁ロット番号を入れる*@
+    </div>
+
+    <div class="div_container">
+        <p class="qr_icon inputboxTitle">装置番号</p>
+        @Html.TextBoxFor(m => m.Plantcd, new { @id = "PlantCodeQR_inputbox", @type = "tel", @class = "use_keyboard", @placeholder = "例：TCDB0001(8桁)" })
+        <span id="clear_PlantCodeinput" class="clear_btn"></span>
+    </div>
+
+    <div class="div_container">
+        <p class="select_icon inputboxTitle">検索する帳票データ</p>
+        @Html.DropDownList("FormList")
+        @Html.ValidationMessageFor(m => m.FormRev, "*")
+
+        @*POST用隠しプロパティ*@
+        @Html.HiddenFor(m => m.FormNo, new { @id = "FormNo" })
+        @Html.HiddenFor(m => m.FormRev, new { @id = "FormRev" })
+    </div>
+
+    <div class="div_container">
+        @Html.ValidationSummary(false, "")
+    </div>
+
+    <div class="div_container">
+        <input type="submit" class="submit_btn" value="帳票作成" />
+        <p style="color:red">@TempData["msg"]</p>
+    </div>
+}
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            //Homeボタンとキーボード使用ボタンが被ってしまう為
+            $(".header_title").css("fontSize", "1.2em");
+
+            //バリデーションチェックはtypecdだけにつけているので
+            //エラー時には他の入力ボックスにもクラスを付与する
+            if ($("#typecd").hasClass("input-validation-error")) {
+                $("#typecd_lot_qr").addClass("input-validation-error");
+            }
+
+            // 選択された帳票名を取得する関数
+            $("#FormList").on("change", function () {
+                const searchform = $("#FormList").val();
+                const split_val = searchform.split(',');
+
+                //モデルに値セット
+                $("#FormNo").val(split_val[1]);
+                $("#FormRev").val(split_val[2]);
+            });
+
+            //Lot管理票QRコード入力時イベント
+            $("#typecd_lot_qr").on("input keydown", function () {
+
+                const QRcode = $("#typecd_lot_qr").val();
+                const { product, lotno10 } = getProductLotno(QRcode);
+
+                //表示
+                $("#view_typecd").html(product);
+                $("#view_lotno10").html(lotno10);
+
+                //POST用プロパティ
+                $("#typecd").val(product);
+                $("#lotno10").val(lotno10);
+            });
+
+            //ロット管理票QR Input初期化イベント
+            $("#clear_typecdLotQRinput").on("click", function () {
+
+                $("#typecd_lot_qr").val("");
+
+                //表示
+                $("#view_typecd").html("");
+                $("#view_lotno10").html("");
+
+                //POST用プロパティ
+                $("#typecd").val("");
+                $("#lotno10").val("");
+            });
+
+            //設備番号初期化
+            onClick_clearInput("#clear_PlantCodeinput", "#PlantCodeQR_inputbox");
+
+            //帳票作成ボタン押した時のイベント
+            $(function () {
+                $("form").submit(function () {
+                    //機種名文字数チェック（間違っていないか簡易チェック）
+                    let typecd = $("#typecd").val();
+                    if (typecd.length > 25) {
+                        alert("機種名が26文字以上あります。\n入力ミスがあります。")
+                        return false;
+                    }
+
+                    let plantcd = $("#PlantCodeQR_inputbox").val();
+                    if (plantcd.length > 8) {
+                        alert("設備番号が9文字以上あります。\n入力ミスがあります。")
+                        return false;
+                    }
+
+                });
+            });
+
+
+
+        });
+
+    </script>
+}

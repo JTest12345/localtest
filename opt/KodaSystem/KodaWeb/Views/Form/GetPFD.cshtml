@@ -1,0 +1,62 @@
+﻿@model KodaWeb.Models.PFDSearch
+
+@{
+    ViewBag.Title = "製品帳票データ検索";
+}
+
+@using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()
+
+    <div class="div_container">
+        <p class="select_icon inputboxTitle">検索する帳票データ</p>
+        @Html.DropDownList("FormList")
+        @Html.ValidationMessageFor(m => m.FormInfo.FormRev, "*")
+
+        @*POST用隠しプロパティ*@
+        @Html.HiddenFor(m => m.FormInfo.FormName, new { @id = "FormName" })
+        @Html.HiddenFor(m => m.FormInfo.FormNo, new { @id = "FormNo" })
+        @Html.HiddenFor(m => m.FormInfo.FormRev, new { @id = "FormRev" })
+    </div>
+
+    <div class="div_container">
+        <div class="div_container">
+            <p class="margin0">検索期間</p>
+            @Html.TextBoxFor(m => m.Start, new { @type = "date" })<span>から</span><span>@Html.ValidationMessageFor(m => m.Start, "*")</span>
+        </div>
+
+        <div class="div_container">
+            @Html.TextBoxFor(m => m.End, new { @type = "date" })<span>まで</span><span>@Html.ValidationMessageFor(m => m.End, "*")</span>
+        </div>
+    </div>
+
+    <div class="div_container">
+        @Html.ValidationSummary(false, "")
+    </div>
+
+    <div class="div_container">
+        <input type="submit" class="submit_btn" value="検索" />
+        <p style="color:red">@TempData["msg"]</p>
+    </div>
+}
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+            // 選択された帳票名を取得する関数
+            $("#FormList").on("change", function () {
+                const searchform = $("#FormList").val();
+                const split_val = searchform.split(',');
+
+                //モデルに値セット
+                $("#FormName").val(split_val[0]);
+                $("#FormNo").val(split_val[1]);
+                $("#FormRev").val(split_val[2]);
+            });
+        });
+
+    </script>
+}
+
+

@@ -1,0 +1,25 @@
+CS700FH1202E1W273H5XB
+CS700FH1202E1W403M2XC
+CS700FH1202E1W273H5XB-H01
+CS700FH1202E1W403M2XC-H01
+
+int len = Input_product.GetLength(0);
+//製品情報
+for (int i = 0; i < len; i++) {
+       text += "Input Product," + Input_product[i, 0] + "," + Input_product[i, 1] + "\n";
+}
+
+
+プログラムの流れ
+MainForm
+
+480:運転が開始するとスレッドで温度記録を開始
+　　LogTemp
+
+LogTempはOvenCommand.cs内　692行目
+
+温度監視処理をcheck_temp OvenCommand.cs内　859行目
+
+
+Base_command("PRGM MON?");
+実行中のステップNo,温度制御設定値,残時間,0(未使用),0(未使用)

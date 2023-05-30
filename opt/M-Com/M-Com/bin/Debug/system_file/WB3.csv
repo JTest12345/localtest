@@ -1,0 +1,24 @@
+﻿測定箇所,測定項目,XYZ,上限,下限
+Anode,ボール径,X,75,58
+Anode,ボール径,Y,75,58
+Anode,ボール厚,Z,17,9
+Anode,ループ高さ,Z,230,170
+Anode,リバース量,Y,65,15
+Cathode,ボール径,X,75,58
+Cathode,ボール径,Y,75,58
+Cathode,ボール厚,Z,17,9
+Cathode,ループ高さ,Z,230,170
+Cathode,リバース量,Y,65,15
+Bump (P-P),ボール径,X,75,58
+Bump (P-P),ボール径,Y,90,60
+Bump (P-P),ボール厚,Z,17,9
+Bump (P-P),ループ高さ,Z,230,170
+Bump (P-P),リバース量,Y,65,15
+Lead-Bump,ボール径,X,120,80
+Lead-Bump,ボール厚,Z,30,10
+ZD,ボール径,X,75,58
+ZD,ボール厚,Z,17,9
+ZD,ループ高さ,Z,170,110
+ZDBump (Z-Z),ボール径,X,75,58
+ZDBump (Z-Z),ボール厚,Z,17,9
+ZDBump (Z-Z),ループ高さ,Z,170,110

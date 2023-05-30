@@ -1,0 +1,51 @@
+﻿@model KodaWeb.Models.ResinSettlingTime
+
+@{
+    ViewBag.Title = "樹脂沈降保管エリア変更";
+    var select_area_dic = (Dictionary<string, bool>)ViewBag.SelectAreaDic;
+}
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.EmployeeCode)
+    @Html.HiddenFor(m => m.Typecd)
+    @Html.HiddenFor(m => m.LotNo10)
+    @Html.HiddenFor(m => m.LotNo18)
+    @Html.HiddenFor(m => m.Area, new { @id = "new_area" })
+
+    <div>
+        <p class="margin0">@Html.DisplayNameFor(m => m.Typecd)：@Model.Typecd</p>
+        <p class="margin0">@Html.DisplayNameFor(m => m.LotNo10)：@Model.LotNo10</p>
+        <p class="margin0">@Html.DisplayNameFor(m => m.ManuBase)：@Model.ManuBase</p>
+        <p class="margin0">@Html.DisplayNameFor(m => m.Place)：@Model.Place</p>
+        <p class="margin0">@Html.DisplayNameFor(m => m.Shelf)：@Model.Shelf</p>
+    </div>
+
+    <div style="margin-top:1rem">
+        保管エリア選択<br />
+        @foreach (var pair in select_area_dic) {
+            <input type="radio" name="selectArea" id="@pair.Key" value="@pair.Key" checked="@pair.Value" />
+            <label for="@pair.Key">@pair.Key</label>
+            <br />
+        }
+    </div>
+
+    <div class="div_container">
+        <p class="margin0 errmsg">@ViewBag.ErrorMsg</p>
+        <input type="submit" class="submit_btn margin_small" value="エリア変更" />
+    </div>
+}
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            $("[name=selectArea]").change(function () {
+                $("#new_area").val($(this).val());
+            });
+
+        });
+    </script>
+}

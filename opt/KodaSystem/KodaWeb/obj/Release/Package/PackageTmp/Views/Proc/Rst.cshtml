@@ -1,0 +1,483 @@
+﻿@model KodaWeb.Models.ResinSettlingTime
+
+@{
+    ViewBag.Title = "樹脂沈降時間管理";
+    ViewBag.Camera = true;
+}
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="div_container">
+        @Html.ValidationSummary(false, "")
+        <span class="msg">@ViewBag.Msg</span>
+        <span class="errmsg">@ViewBag.ErrorMsg</span>
+    </div>
+
+    //POST用隠しプロパティ
+    @Html.HiddenFor(m => m.Mode, new { @id = "mode" })
+    @*@Html.HiddenFor(m => m.InputBy, new { @id = "inputby" })*@
+    @*@Html.HiddenFor(m => m.OutputBy, new { @id = "outputby" })*@
+    @Html.HiddenFor(m => m.Typecd, new { @id = "typecd" })
+    @Html.HiddenFor(m => m.LotNo10, new { @id = "lotno10" })
+
+    @*ツリー表示のための書式になっているJSON*@
+    @Html.HiddenFor(m => m.TreeViewJson, new { @id = "treeViewJson" })
+
+
+    <div class="container-fluid padding0">
+        <div class="row">
+            <div id="left_side" class="col-md-3">
+                @*ツリー表示領域*@
+                <div id="tree" class="div_container"></div>
+
+                <div class="div_container">
+                    <input id="view" type="submit" class="submit_btn" value="表示" />
+                </div>
+
+                <div class="div_container">
+                    <p class="qr_icon inputboxTitle">社員コード</p>
+                    @Html.TextBoxFor(m => m.EmployeeCode, new { @id = "empcd", @class = "use_keyboard" }) <span id="clear_empcdQRinput" class="clear_btn"></span>
+                </div>
+
+                @*ロット登録領域*@
+                <div class="div_container" style="background-color:lavender">
+
+                    <div class="div_container">
+                        <p class="margin0">【選択保管場所】</p>
+                        <p id="select_area" style="color:orangered"></p>
+
+                        <p class="qr_icon inputboxTitle">機種/Lot</p>
+                        <input id="typecd_lot_qr" class="use_keyboard" /> <span id="clear_typecdLotQRinput" class="clear_btn"></span>
+                        <p class="margin0" style="font-size:0.8rem">
+                            機種名：<span id="view_typecd" style="color:orangered"></span><br />
+                            10桁LotNo：<span id="view_lotno10" style="color:orangered"></span>
+                        </p>
+
+                        @*カメラ画像表示領域*@
+                        <div id="camera_div" class="camera_container" hidden>
+                            <canvas id="canvas"></canvas>
+                            <div id="camera_stop" class="stop_icon stop_icon_in_cameraContainer"></div>
+                        </div>
+                    </div>
+
+                    <div class="div_container">
+                        <input id="register_lot" type="submit" class="submit_btn" value="ロット登録" />
+                    </div>
+
+                </div>
+
+                @*保管場所登録領域*@
+                <div class="div_container" style="background-color:lemonchiffon">
+                    <div class="div_container">
+                        <p class="select_icon inputboxTitle">製造拠点</p>
+                        @Html.DropDownListFor(m => m.ManuBase, (IEnumerable<SelectListItem>)ViewBag.ManubaseList, new { @id = "manubase" })
+                    </div>
+
+                    <div class="div_container">
+                        <p class="input_icon inputboxTitle">装置使用場所</p>
+                        @Html.TextBoxFor(m => m.Place, new { @id = "place" })
+                    </div>
+
+                    <div class="div_container">
+                        <p class="input_icon inputboxTitle">沈降棚名</p>
+                        @Html.TextBoxFor(m => m.Shelf, new { @id = "shelf" })
+                    </div>
+
+                    <div class="div_container">
+                        <p class="input_icon inputboxTitle">保管エリア</p>
+                        @Html.TextBoxFor(m => m.Area, new { @id = "area" })
+                    </div>
+
+                    <input id="register_storage" type="submit" class="submit_btn" value="保管場所登録" />
+                </div>
+
+            </div>
+
+            @*保管ロット表示*@
+            @if (Model.StorageInfo != null) {
+
+                <div id="right_side" class="col-md-9">
+                    <h3>
+                        <span id="left_side_hide" class="caret_left_icon"></span>表示：@Model.ManuBase @Model.Place
+                    </h3>
+
+                    @{
+                        //拠点名が一致するのは1個しか無い
+                        var mbi = Model.StorageInfo.Where(x => x.ManubaseName == Model.ManuBase).First();
+                        //場所名が一致するのは1個しか無い
+                        var pi = mbi.PlaceInfos.Where(x => x.PlaceName == Model.Place).First();
+                        int area_id_cnt = 1;
+                        int remain_id_cnt = 1;
+                    }
+
+                    @*棚ごとにループ*@
+                    @foreach (var shelf in pi.ShelfInfos) {
+
+                        <div class="box27 flexbox_div">
+                            <span class="box-title">@shelf.ShelfName</span>
+
+                            @*エリア毎にループ*@
+                            @foreach (var area in shelf.AreaInfos) {
+
+                                string area_id = $"area_id{area_id_cnt.ToString()}";
+                                area_id_cnt += 1;
+
+                                <div style="width:50%">
+                                    <div id="@area_id" class="area_box1">
+                                        @{
+                                            //日時、期限用
+                                            string min_time, max_time;
+                                            if (area.AreaMaxDateTime == null) {
+                                                min_time = "";
+                                                max_time = "";
+                                            }
+                                            else {
+                                                min_time = ((DateTime)area.AreaMinDateTime).ToString("yyyy/MM/dd HH:mm:ss");
+                                                max_time = ((DateTime)area.AreaMaxDateTime).ToString("yyyy/MM/dd HH:mm:ss");
+                                            }
+
+                                            //取り出しボタン用
+                                            string area_info = $"{mbi.ManubaseName}^{pi.PlaceName}^{shelf.ShelfName}^{area.AreaName}^{min_time}^{area.AreaFirstInTime}";
+                                            string outputbtn_id = $"outputbtn_id_{remain_id_cnt.ToString()}";
+                                            string remain_id = $"remain_id_{remain_id_cnt.ToString()}";
+                                        }
+
+                                        <p class="margin0">@area.AreaName</p>
+                                        <p class="margin0">最短取り出し日時：@min_time</p>
+                                        <p class="margin0">キュア炉投入期限：@max_time</p>
+
+
+                                        @*ロットが有るエリアにだけ取り出しボタン付ける*@
+                                        @if (area.RstList.Count != 0) {
+                                            <div class="div_container">
+                                                <div id="@remain_id">取り出し可能まであと</div>
+                                                @*時間計算用にsubmitボタンにdata属性付ける*@
+                                                <input hidden id="@outputbtn_id" type="submit" class="area_output submit_btn" value="取り出し" data-areaInfo="@area_info" data-areaid="@area_id" data-remainid="@remain_id" />
+
+                                            </div>
+                                            remain_id_cnt += 1;
+                                        }
+
+                                        <div class="container-fluid">
+                                            <div class="row flexbox_div">
+
+                                                @*ロット毎にループ*@
+                                                @foreach (var lot in area.RstList.OrderBy(x => x.InTime)) {
+
+                                                    //保管エリア変更ボタン用
+                                                    string lot_info = $"{lot.Typecd},{lot.LotNo10}";
+
+                                                    <div class="sample_box11">
+                                                        <div class="sample_box11_tape">
+                                                            <span class="change_area arrow_right_left_icon" data-lotInfo="@lot_info"></span>
+                                                        </div>
+                                                        <ul>
+                                                            <li>@lot.Typecd</li>
+                                                            <li>@lot.LotNo10</li>
+                                                            <li>@lot.InTime～</li>
+                                                        </ul>
+
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+            //最初のみ
+            if ($("#area").val() !== "") {
+                let sa = `${$("#manubase").val()} ${$("#place").val()} ${$("#shelf").val()} ${$("#area").val()}`;
+                $("#select_area").html(sa);
+            }
+            //最初のみ
+
+            //JSON文字列取得
+            let tree_str = $(treeViewJson).val();
+            //オブジェクトに変換
+            let tree_obj = JSON.parse(tree_str);
+            //ツリー表示実行
+            $("#tree").treeview({ data: tree_obj });
+
+            //nodeが選択された時のイベント(github見る)
+            //https://github.com/jonmiles/bootstrap-treeview
+            $("#tree").on("nodeSelected", function (event, data) {
+
+                let arr = getNodes(data);
+                //console.log(arr);
+
+                if (arr.length !== 4) {
+                    $("#manubase").val("");
+                    $("#place").val("");
+                    $("#shelf").val("");
+                    $("#area").val("");
+                    $("#select_area").html("");
+                    return;
+                }
+
+                $("#manubase").val(arr[3]);
+                $("#place").val(arr[2]);
+                $("#shelf").val(arr[1]);
+                $("#area").val(arr[0]);
+
+                let s = `${arr[3]} ${arr[2]} ${arr[1]} ${arr[0]}`;
+                $("#select_area").html(s)
+            });
+
+            //社員コード初期化イベント
+            onClick_clearInput("#clear_empcdQRinput", "#empcd");
+
+            //Lot管理票QRコード入力時イベント
+            $("#typecd_lot_qr").on("input keydown", function () {
+
+                const QRcode = $("#typecd_lot_qr").val();
+                const { product, lotno10 } = getProductLotno(QRcode);
+
+                //表示
+                $("#view_typecd").html(product);
+                $("#view_lotno10").html(lotno10);
+
+                //POST用プロパティ
+                $("#typecd").val(product);
+                $("#lotno10").val(lotno10);
+            });
+
+            //ロット管理票QR Input初期化イベント
+            $("#clear_typecdLotQRinput").on("click", function () {
+
+                $("#typecd_lot_qr").val("");
+
+                //表示
+                $("#view_typecd").html("");
+                $("#view_lotno10").html("");
+
+                //POST用プロパティ
+                $("#typecd").val("");
+                $("#lotno10").val("");
+            });
+
+            //表示ボタンクリック時イベント
+            $("#view").on("click", function () {
+                $("#mode").val(0);
+            });
+
+            //ロット登録ボタンクリック時イベント
+            $("#register_lot").on("click", function () {
+
+                if ($("#area").val() === "") {
+                    alert("保管エリアを選択して下さい。");
+                    return false;//これでsubmitが実行されなくなる
+                }
+
+                if ($("#empcd").val() === "") {
+                    alert("社員コードを入力して下さい。");
+                    return false;//これでsubmitが実行されなくなる
+                }
+
+                if ($("#typecd").val() === "") {
+                    if ($("#lotno10").val() === "") {
+                        alert("ロット管理表QRを入力して下さい。");
+                        return false;//これでsubmitが実行されなくなる
+                    }
+                }
+
+                //$("#inputby").val($("#empcd").val());
+                $("#mode").val(1);
+            });
+
+            //取り出しボタンクリック時イベント
+            $(".area_output").on("click", function (event) {
+
+                if ($("#empcd").val() === "") {
+                    alert("社員コードを入力して下さい。")
+                    return false;//これでsubmitが実行されなくなる
+                }
+
+                let data = $(this).attr("data-areaInfo");
+                let sp = data.split('^');
+                //console.log(sp);
+                $("#manubase").val(sp[0]);
+                $("#place").val(sp[1]);
+                $("#shelf").val(sp[2]);
+                $("#area").val(sp[3]);
+
+                //$("#outputby").val($("#empcd").val());
+                $("#mode").val(2);
+            });
+
+            //保管場所登録ボタンクリック時イベント
+            $("#register_storage").on("click", function () {
+
+                if ($("#empcd").val() === "") {
+                    alert("社員コードを入力して下さい。");
+                    return false;//これでsubmitが実行されなくなる
+                }
+
+                $("#mode").val(3);
+            });
+
+            //保管エリア変更ボタンクリック時イベント
+            $(".change_area").on("click", function (event) {
+                                
+                if ($("#empcd").val() === "") {
+                    alert("社員コードを入力して下さい。");
+                    return false;//これでsubmitが実行されなくなる
+                }
+
+                let data = $(this).attr("data-lotInfo");
+                let sp = data.split(',');
+
+                $("#typecd").val(sp[0]);
+                $("#lotno10").val(sp[1]);
+
+                $("#mode").val(4);
+
+                $("form").submit();
+            });
+
+            //一定時間処理（取り出し可能までの時間計算）
+            setInterval(function () {
+
+                $(".area_output").each(function (index, elem) {
+
+                    //属性に書いておいた最短取り出し時間取得
+                    let areaInfo = $(elem).attr("data-areaInfo");
+                    let sp = areaInfo.split('^');
+
+                    //Dateオブジェクトに変換
+                    let minimum_obj = new Date(sp[4]);
+                    let firstIntime_obj = new Date(sp[5]);
+
+                    let is_hidden = false;
+                    if ($(elem).is(":hidden")) {
+                        is_hidden = true;
+                    }
+
+                    //現在のDateオブジェクト取得
+                    let now = new Date();
+
+                    //時間差計算
+                    let diff;
+                    if (is_hidden) {
+                        diff = now - minimum_obj;//ミリ秒
+                    } else {
+                        diff = now - firstIntime_obj;//ミリ秒
+                    }
+
+                    //let is_remain;
+                    if (diff < 0) {
+                        //負の場合は取り出し可能時間より前
+                        diff = Math.abs(diff);
+                        //is_remain = true;
+                    }
+                    else {
+                        //正の場合は取り出し可能時間過ぎた
+                        $(elem).show();
+                        //is_remain = false;
+                    }
+
+                    //時間計算(切り下げ)して、時間差から引く
+                    let hour = Math.floor(diff / (60 * 60 * 1000));
+                    diff = diff - hour * 60 * 60 * 1000;
+
+                    //分計算(切り下げ)して、時間差から引く
+                    let min = Math.floor(diff / (60 * 1000));
+                    diff = diff - min * 60 * 1000;
+
+                    //秒計算(切り上げ)
+                    let second = Math.ceil(diff / (1000));
+                    if (second === 60) {
+                        second = 0;
+                    }
+
+                    let remain_str
+                    if (is_hidden) {
+                        remain_str = `取り出し可能まであと ${hour}時間 ${min}分 ${second}秒`;
+                    } else {
+                        remain_str = `初ロット投入から ${hour}時間 ${min}分 ${second}秒 経過`;
+                        if (hour >= 72) {
+                            let areaid = "#" + $(elem).attr("data-areaid");
+                            $(areaid).addClass("rst_warning")
+                        }
+                    }
+
+                    let remainid = "#" + $(elem).attr("data-remainid");
+
+                    $(remainid).text(remain_str);
+
+
+                });
+
+
+            }, 1000);
+
+
+            //カメラcanvasの幅、高さ設定
+            let w = $("#left_side").width();
+            let h = w / 320 * 240;
+            $("#camera_div").width(w);
+            $("#camera_div").height(h);
+            $("#canvas").attr("width", w);
+            $("#canvas").attr("height", h);
+
+            let w1 = w / 4;
+            let h1 = h / 4;
+            $('#camera_stop').offset({ top: w1, left: -h1 });
+
+
+            //カメライベント設定
+            let camera;
+
+            //Camera Start
+            $("#camera_on").on("click", function () {
+                $("#camera_div").show();
+                camera = new ReadQRcodeCamera("canvas");
+                camera.Zoom = 2;
+                camera.cameraStart();
+            });
+
+            //Camera Stop
+            $("#camera_stop").on("click", function () {
+                camera.cameraStop();
+                $("#camera_div").hide();
+            });
+
+            //左三角ボタンクリック時イベント
+            $("body").on("click", ".caret_left_icon", function () {
+                $("#left_side").hide()
+                $("#right_side").addClass("col-md-12");
+                $("#right_side").removeClass("col-md-9");
+
+                $(this).addClass("caret_right_icon");
+                $(this).removeClass("caret_left_icon");
+            });
+
+            //右三角ボタンクリック時イベント
+            $("body").on("click", ".caret_right_icon", function () {
+                $("#left_side").show()
+                $("#right_side").addClass("col-md-9");
+                $("#right_side").removeClass("col-md-12");
+
+                $(this).addClass("caret_left_icon");
+                $(this).removeClass("caret_right_icon");
+            });
+
+
+        });
+
+    </script>
+}

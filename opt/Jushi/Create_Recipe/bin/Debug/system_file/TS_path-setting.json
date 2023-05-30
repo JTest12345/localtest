@@ -1,0 +1,10 @@
+﻿{
+  "manualRecipe-saveFolderPath": "\\\\vautom1\\ChogoFiles\\Manual\\Dispatchings",
+  "autoMachine-saveFolderPath": {
+    "auto-saveFolderPath": "",
+    "add-saveFolderPath": ""
+  },
+  "autoMachine-remainingWeight-filePath": "",
+  "senkolog-database": true,
+  "senkoLog-filePath": ""
+}

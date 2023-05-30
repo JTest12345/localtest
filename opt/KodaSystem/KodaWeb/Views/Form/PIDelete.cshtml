@@ -1,0 +1,70 @@
+﻿@model KodaWeb.Models.PeriodicInspection
+
+@{
+    ViewBag.Title = "未実施定期点検削除";
+    var dic = KodaWeb.Models.PeriodicInspection.period_dic;
+}
+
+<h2 class="margin0">未実施定期点検削除</h2>
+
+<div class="div_container">
+    <p class="margin0">
+        @Html.DisplayNameFor(m => m.ID)
+        ：@Model.ID
+    </p>
+    <p class="margin0">
+        @Html.DisplayNameFor(m => m.MacName)
+        ：@Model.MacName
+    </p>
+    <p class="margin0">
+        @Html.DisplayNameFor(m => m.Plantcd)
+        ：@Model.Plantcd
+    </p>
+    <p class="margin0">
+        @Html.DisplayNameFor(m => m.SerialNo)
+        ：@Model.SerialNo
+    </p>
+    <p class="margin0">
+        @Html.DisplayNameFor(m => m.ManuBase)
+        ：@Model.ManuBase
+    </p>
+    <p class="margin0">
+        @Html.DisplayNameFor(m => m.Place)
+        ：@Model.Place
+    </p>
+    <p class="margin0">
+        @Html.DisplayNameFor(m => m.FormName)
+        ：@Model.FormName
+    </p>
+    <p class="margin0">
+        @Html.DisplayNameFor(m => m.FormNo)
+        ：@Model.FormNo
+    </p>
+    <p class="margin0">
+        @Html.DisplayNameFor(m => m.Period)
+        ：@dic[@Model.Period]
+    </p>
+    <p class="margin0">
+        @Html.DisplayNameFor(m => m.Next)
+        ：@Html.DisplayFor(m=>m.Next)
+    </p>
+    <p class="margin0">
+        @Html.DisplayNameFor(m => m.Limit)
+        ：@Html.DisplayFor(m => m.Limit)
+    </p>
+</div>
+
+<div class="div_container">
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        //POST用隠しプロパティ
+        @Html.HiddenFor(m => m.ID)
+        @Html.HiddenFor(m => m.EmployeeCode)
+
+        <div class="div_container">
+            <input type="submit" class="submit_btn margin_small" value="削除" />
+        </div>
+
+    }
+</div>

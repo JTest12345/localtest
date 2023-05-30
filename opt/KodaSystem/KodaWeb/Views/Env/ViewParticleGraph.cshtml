@@ -1,0 +1,105 @@
+﻿@model KodaWeb.Models.ParticleGraph
+
+@{
+    ViewBag.Title = "パーティクルデータ";
+    ViewBag.HighCharts = true;
+}
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-2">
+            @using (Html.BeginForm()) {
+                @Html.AntiForgeryToken()
+
+                <div class="div_container">
+                    <div class="div_container">
+                        <p class="margin0">検索期間</p>
+                        @Html.EditorFor(m => m.Start)<span>から</span><span>@Html.ValidationMessageFor(m => m.Start, "*")</span>
+                    </div>
+
+                    <div class="div_container">
+                        @Html.EditorFor(m => m.End)<span>まで</span><span>@Html.ValidationMessageFor(m => m.End, "*")</span>
+                    </div>
+                </div>
+
+                //ツリー表示領域
+                <div id="tree"></div>
+                @*ツリー表示のための書式になっているJSON*@
+                @Html.HiddenFor(m => m.TreeViewJson, new { @id = "treeViewJson" })
+
+                //POST用隠しプロパティ
+                @Html.HiddenFor(m => m.ManuBase, new { @id = "manuBase" })
+                @Html.HiddenFor(m => m.Place, new { @id = "place" })
+                @Html.HiddenFor(m => m.SensorName, new { @id = "sensorName" })
+
+                <div class="div_container">
+                    @Html.ValidationSummary(false, "")
+                </div>
+
+                <div class="div_container">
+                    <input type="submit" class="submit_btn" value="検索" />
+                    <p style="color:red">@ViewBag.Msg</p>
+                </div>
+            }
+
+        </div>
+
+        <div id="container" class="col-md-10" style="min-width: 310px; height: 580px; margin: 0 auto"></div>
+    </div>
+</div>
+
+@*グラフで書くための書式になっているJSON*@
+@Html.HiddenFor(m => m.GraphDataJson, new { @id = "graphDataJson" })
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            //JSON文字列取得
+            let datajson = $("#graphDataJson").val();
+
+            //最初はデータが入っていない
+            if (datajson !== "") {
+                let highchartsDataJson = datajson;
+
+                let highchartsDataObj = JSON.parse(highchartsDataJson);
+                console.log(highchartsDataObj);
+
+                Highcharts.chart("container", highchartsDataObj);
+                Highcharts.setOptions({
+                    lang: {
+                        thousandsSep: ','
+                    }
+                });
+            }
+
+            //JSON文字列取得
+            let tree_str = $(treeViewJson).val();
+            //オブジェクトに変換
+            let tree_obj = JSON.parse(tree_str);
+            //ツリー表示実行
+            $("#tree").treeview({ data: tree_obj });
+
+            //nodeが選択された時のイベント(github見る)
+            //https://github.com/jonmiles/bootstrap-treeview
+            $("#tree").on("nodeSelected", function (event, data) {
+
+                //ツリーで選択されているノード取得
+                let arr = getNodes(data);
+                console.log(arr);
+
+                if (arr.length !== 3) {
+                    return;
+                }
+
+                $("#manuBase").val(arr[2]);
+                $("#place").val(arr[1]);
+                $("#sensorName").val(arr[0]);
+            });
+
+        });
+
+    </script>
+}

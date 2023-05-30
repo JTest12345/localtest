@@ -1,0 +1,44 @@
+﻿File,oven3_20220111-113744.csv
+Recipe,SDR1.csv
+Operator,678
+Input Product,sdr1test,a123456789
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Time,Temperature,Status,Alarm,Alarm Detail
+2022/01/11 11:37:55,60,RUN,0
+2022/01/11 11:38:05,59,RUN,0
+2022/01/11 11:38:15,61,STANDBY,0

@@ -1,0 +1,119 @@
+﻿@model KodaWeb.Models.UserLevel
+
+@{
+    ViewBag.Title = "ユーザーレベル変更";
+
+}
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken();
+
+    //隠しプロパティ
+    @Html.HiddenFor(m => m.Mode, new { @id = "mode" })
+
+    if (Model == null) {
+
+        <div class="div_container">
+            <p class="input_icon inputboxTitle">ユーザーレベル管理者の社員コード</p>
+            @Html.TextBoxFor(m => m.RegisterPerson.UserID, new { @type = "tel" })
+        </div>
+
+        <div class="div_container">
+            <input id="first_input" type="submit" class="submit_btn" value="入力完了" />
+        </div>
+
+        <div>
+            <span class="errmsg">@ViewBag.ErrMsg</span>
+        </div>
+    }
+    else {
+        <div class="div_container">
+            <p class="input_icon inputboxTitle">新規登録する人の社員コード</p>
+            @Html.TextBoxFor(m => m.NewRegisteredPerson.UserID, new { @id = "newUserID", @type = "tel", @placeholder="例:8012345(半角)" })
+        </div>
+
+        <div class="div_container">
+            <input id="new_register" type="submit" class="submit_btn" value="新規登録" />
+        </div>
+
+
+
+        <div class="div_container">
+            <p class="select_icon inputboxTitle">システムレベル更新する人の社員コード</p>
+            @Html.DropDownListFor(m => m.UpdatedPerson.UserID, (IEnumerable<SelectListItem>)ViewBag.UserList)
+        </div>
+
+        <div class="div_container">
+            <input id="view_level" type="submit" class="submit_btn" value="レベル表示" />
+        </div>
+
+        if (Model.UpdatedPerson != null) {
+            <div class="div_container">
+                <span class="select_icon inputboxTitle">帳票システムレベル</span>
+                @if (ViewBag.FormLevelList == null) {
+                    @Html.HiddenFor(m => m.UpdatedPerson.FormsLevel)
+                }
+                else {
+                    @Html.DropDownListFor(m => m.UpdatedPerson.FormsLevel, (IEnumerable<SelectListItem>)ViewBag.FormLevelList)
+                }
+            </div>
+
+            <div class="div_container">
+                <span class="select_icon inputboxTitle">樹脂工程管理レベル</span>
+                @if (ViewBag.ResinLevelList == null) {
+                    @Html.HiddenFor(m => m.UpdatedPerson.ResinLevel)
+                }
+                else {
+                    @Html.DropDownListFor(m => m.UpdatedPerson.ResinLevel, (IEnumerable<SelectListItem>)ViewBag.ResinLevelList)
+                }
+            </div>
+
+            <div class="div_container">
+                <input id="update_level" type="submit" class="submit_btn" value="レベル変更" />
+            </div>
+        }
+
+        //隠しプロパティ
+        @Html.HiddenFor(m => m.RegisterPerson.UserID)
+        @Html.HiddenFor(m => m.RegisterPerson.FormsLevel)
+        @Html.HiddenFor(m => m.RegisterPerson.ResinLevel)
+    }
+}
+
+<div>
+    <span class="msg">@ViewBag.Msg</span>
+</div>
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            //入力完了ボタンクリック時イベント
+            $("#first_input").on("click", function () {
+                $("#mode").val(0)
+            });
+
+            //新規登録ボタンクリック時イベント
+            $("#new_register").on("click", function () {
+                if ($("#newUserID").val() === "") {
+                    alert("新規登録する社員コードを入力して下さい。")
+                    return false;//これでsubmitが実行されなくなる
+                }
+                $("#mode").val(1)
+            });
+
+            //レベル表示ボタンクリック時イベント
+            $("#view_level").on("click", function () {
+                $("#mode").val(2)
+            });
+
+            //レベル更新ボタンクリック時イベント
+            $("#update_level").on("click", function () {
+                $("#mode").val(3)
+            });
+
+        });
+
+    </script>
+}

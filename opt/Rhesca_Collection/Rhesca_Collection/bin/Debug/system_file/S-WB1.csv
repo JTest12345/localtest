@@ -1,0 +1,8 @@
+﻿測定箇所,測定項目,下限,破壊モード,最低測定数
+Blue-Anode,BS,25,A,3
+Blue-Anode,PC,4,B,3
+Blue-Cathode,BS,25,A,3
+Blue-Cathode,PC,4,B,3
+Lead-Bump,BS,50,A,3
+ZD,BS,25,A,1
+ZD,PC,4,B,1

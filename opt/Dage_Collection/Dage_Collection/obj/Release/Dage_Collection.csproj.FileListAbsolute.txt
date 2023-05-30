@@ -1,0 +1,10 @@
+D:\Dage_Collection\Dage_Collection\bin\Release\Dage_Collection.exe.config
+D:\Dage_Collection\Dage_Collection\bin\Release\Dage_Collection.exe
+D:\Dage_Collection\Dage_Collection\bin\Release\Dage_Collection.pdb
+D:\Dage_Collection\Dage_Collection\obj\Release\Dage_Collection.MainForm.resources
+D:\Dage_Collection\Dage_Collection\obj\Release\Dage_Collection.DataChangeForm.resources
+D:\Dage_Collection\Dage_Collection\obj\Release\Dage_Collection.Properties.Resources.resources
+D:\Dage_Collection\Dage_Collection\obj\Release\Dage_Collection.csproj.GenerateResource.cache
+D:\Dage_Collection\Dage_Collection\obj\Release\Dage_Collection.exe
+D:\Dage_Collection\Dage_Collection\obj\Release\Dage_Collection.pdb
+D:\Dage_Collection\Dage_Collection\obj\Release\Dage_Collection.csprojAssemblyReference.cache

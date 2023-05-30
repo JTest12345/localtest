@@ -1,0 +1,100 @@
+﻿@model KodaWeb.Models.MagInfo
+
+@{
+    ViewBag.Title = "マガジン情報取得";
+    ViewBag.Camera = true;
+}
+
+<div class="">
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken();
+
+        <div class="div_container">
+            <p class="qr_icon inputboxTitle">マガジンQR</p>
+            @Html.TextBoxFor(m => m.MagNo, new { @class = "inputbox use_keyboard", @id = "MagQR_inputbox" })
+            <span id="clear_MagQRinput" class="clear_btn"></span>
+        </div>
+
+        @*カメラ画像表示領域*@
+        <div id="camera_div" class="camera_container" hidden>
+            <canvas id="canvas" width="320" height="240"></canvas>
+            <div id="camera_stop" class="stop_icon stop_icon_in_cameraContainer"></div>
+        </div>
+ 
+        <div class="div_container">
+            <p class="margin0 errmsg">@ViewBag.ErrorMsg</p>
+            <input type="submit" class="submit_btn margin_small" value="入力完了" />
+        </div>
+    }
+</div>
+
+<div class="">
+    @if (Model != null && Model.ProductName != null) {
+
+        <div style="background-color:papayawhip">
+            <p class="cube_icon margin0">@Html.DisplayNameFor(m => m.MagNo)：@Html.DisplayFor(m => m.MagNo)</p>
+            <p class="cube_icon margin0">@Html.DisplayNameFor(m => m.LotNo18)：@Html.DisplayFor(m => m.LotNo18) </p>
+            <p class="cube_icon margin0">@Html.DisplayNameFor(m => m.ProductName)：@Html.DisplayFor(m => m.ProductName)</p>
+            <p class="cube_icon margin0">@Html.DisplayNameFor(m => m.LotNo10)：@Html.DisplayFor(m => m.LotNo10)</p>
+            <p class="cube_icon margin0">@Html.DisplayNameFor(m => m.VLot)：@Html.DisplayFor(m => m.VLot)</p>
+        </div>
+
+        <div class="div_container">
+            <p class="qr_icon inputboxTitle">ラベル照合（計画ロット番号）</p>
+            <input id="Lotno18_inputbox" class="inputbox use_keyboard"/>
+            @Html.HiddenFor(m => m.LotNo18, new { @id = "Lotno18" })
+            <span id="clear_Lotno18input" class="clear_btn"></span>
+            <div style="font-size:2rem">
+                <span id="lotno18_check"></span>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+            const lotno18 = $("#Lotno18").val();
+
+            //マガジンQRコード初期化
+            onClick_clearInput("#clear_MagQRinput", "#MagQR_inputbox");
+
+            //18桁LotNoQRコード初期化
+            onClick_clearInput("#clear_Lotno18input", "#Lotno18_inputbox");
+
+            $("#Lotno18_inputbox").on("input", function () {
+                let checkno = $("#Lotno18_inputbox").val();
+                if (checkno === lotno18) {
+                    $("#lotno18_check").html("このロットです。");
+                    $("#lotno18_check").css("background-color", "yellow");
+                    $("#lotno18_check").addClass("circle_check_icon")
+                    $("#lotno18_check").removeClass("circle_xmark_icon")
+                } else {
+                    $("#lotno18_check").html("違います。");
+                    $("#lotno18_check").css("background-color", "white");
+                    $("#lotno18_check").addClass("circle_xmark_icon")
+                    $("#lotno18_check").removeClass("circle_check_icon")
+                }
+            });
+
+            //カメライベント設定
+            let camera;
+
+            //Camera Start
+            $("#camera_on").on("click", function () {
+                $("#camera_div").show();
+                camera = new ReadQRcodeCamera("canvas");
+                camera.Zoom = 2;
+                camera.cameraStart();
+            });
+
+            //Camera Stop
+            $("#camera_stop").on("click", function () {
+                camera.cameraStop();
+                $("#camera_div").hide();
+            });
+        });
+
+    </script>
+}

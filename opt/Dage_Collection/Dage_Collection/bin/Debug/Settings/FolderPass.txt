@@ -1,0 +1,4 @@
+﻿Dageの測定データが保存されているフォルダ
+C:\Users\yuk-hrt\Desktop\Keyence RFID
+結果保存先のフォルダ
+C:\Users\yuk-hrt\Desktop\Keyence RFID

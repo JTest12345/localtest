@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "工程環境データ";
+
+    //string how_open = "_blank";//新規タブで開く
+
+    string how_open = "_self";//同一タブで開く
+}
+
+<div class="indexlist">
+    <p class="temp_high_icon">
+        @Html.ActionLink(
+       "おんどとりデータ",                                      //リンクテキスト
+       "ViewOndotoriGraph",                                     //アクション名
+       "Env",                                                   //コントローラ名
+       null,                                                    //パラメータ
+       new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+       )
+    </p>
+
+    <p class="spray_can_icon">
+        @Html.ActionLink(
+       "パーティクルデータ",                                    //リンクテキスト
+       "ViewParticleGraph",                                     //アクション名
+       "Env",                                                   //コントローラ名
+       null,                                                    //パラメータ
+       new { target = how_open, rel = "noopener noreferrer" }   //タグ属性
+       )
+    </p>
+</div>

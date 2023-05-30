@@ -1,0 +1,123 @@
+﻿@using System.Data
+
+@model KodaWeb.Models.PFDSearch
+
+@{
+    ViewBag.Title = "検索結果";
+
+    var table = Model.Table;
+    int col_num = table.Columns.Count;
+    int row_num = table.Rows.Count;
+}
+
+<div class="data_view">
+    <div class="div_container" style="position:fixed; display:flex">
+        <div class="div_container">
+            <p class="margin0">帳票名：@Model.FormInfo.FormName</p>
+            <p class="margin0">帳票番号：@Model.FormInfo.FormNo　@Model.FormInfo.FormRev.ToString()版</p>
+            <p class="margin0">期間：@Model.Start.Replace("-", "/")～@Model.End.Replace("-", "/")</p>
+            <p class="margin0"><span id="download" class="download_icon"></span></p>
+        </div>
+
+        <div class="div_container" style="margin-left:3rem">
+            <p class="qr_icon inputboxTitle">社員コード</p>
+            <input id="empcd" , class="use_keyboard" ,placeholder="例：8010123" />
+            <span id="clear_EmpCodeinput" class="clear_btn"></span>
+        </div>
+    </div>
+
+    <div class="table_div" style="margin-top:7rem">
+        <table class="data_table_format">
+            <thead>
+                <tr>
+                    @for (int i = 0; i < col_num; i++) {
+                        string name = table.Columns[i].ColumnName;
+
+                        //\nで分割
+                        string[] del = { "\n" };
+                        var array = name.Split(del, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (array.Length == 1) {
+                            <th>@array[0]</th>
+                        }
+                        else {
+                            //\nだったところを改行<br/>にする
+                            <th>@array[0]<br />@array[1]</th>
+                        }
+
+                        if (name == "作業者") {
+                            <th></th>
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @for (int k = 0; k < row_num; k++) {
+                    string typecd = table.Rows[k]["機種"].ToString();
+                    string lotno = table.Rows[k]["LotNo"].ToString();
+                    string procno = table.Rows[k]["工程番号"].ToString();
+                    string plantcd = table.Rows[k]["設備番号"].ToString();
+                    string workunitid = table.Rows[k]["作業単位Lot"].ToString();
+                    <tr>
+                        @for (int j = 0; j < col_num; j++) {
+
+                            <td>@table.Rows[k][table.Columns[j].ColumnName].ToString()</td>
+
+                            if (table.Columns[j].ColumnName == "作業者") {
+                                <td>@Html.ActionLink("修正", "ModifyPF", "Form", new { typecd = typecd, lotno = lotno, procno = procno, plantcd = plantcd, workunitid = workunitid }, new { @class = "modify" })</td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div hidden id="csvfilename">@ViewBag.CsvName</div>
+<div hidden id="csvtext">@ViewBag.CsvText</div>
+
+@section scripts {
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            $(".data_view").outerHeight($(window).outerHeight() * 0.9);
+
+            $(window).on('resize', function () {
+                $(".data_view").outerHeight($(window).outerHeight() * 0.9);
+            });
+
+            //[ダウンロード]がクリックされた時の処理
+            $("#download").on("click", function () {
+
+                let name = $("#csvfilename").html();
+                let text = $("#csvtext").html();
+
+                csvDownload(name, text);
+            });
+
+            //社員コード初期化
+            onClick_clearInput("#clear_EmpCodeinput", "#empcd");
+
+            //[修正]がクリックされた時の処理
+            $(".modify").on("click", function (e) {
+                let empcd = $("#empcd").val();
+
+                if (empcd === "") {
+                    alert("社員コードを入力して下さい。")
+                } else {
+                    empcd = empcd.replace("01 ", "");
+
+                    let url = $(this).attr('href');
+                    url += `&empcd=${empcd}`;
+
+                    //window.open(url);//新規タブで開く
+                    window.location.href = url;//同一タブで開く
+                }
+                return false;//これで元々のhrefが実行されなくなる
+            });
+        });
+
+    </script>
+}

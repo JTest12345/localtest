@@ -1,0 +1,96 @@
+﻿@model  IEnumerable<KodaWeb.Models.WebApi.ApiLotInfo>
+
+@{
+    ViewBag.Title = "帳票未完了ロット一覧";
+}
+
+@if (Model != null) {
+    <p class="margin0">赤色の工程は帳票未完了です。</p>
+    <div class="flexbox_div">
+        <div class="table_div">
+            <table class="tablesorter">
+                <thead>
+                    <tr>
+                        <th>機種名</th>
+                        <th>LotNo10</th>
+                        <th>LotNo18</th>
+                        <th>VLotNo</th>
+                        <th>マガジン</th>
+                        <th>前工程</th>
+                        <th>作業中工程</th>
+                        <th>次工程</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size:0.9rem">
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.LotnNo10)</td>
+                            <td>@Html.DisplayFor(modelItem => item.LotnNo18)</td>
+                            <td>@Html.DisplayFor(modelItem => item.VLotNo)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MagazineNo)</td>
+
+                            @{
+                                string close_pf_color = "";
+                                if (item.PreProcess.ClosePF == false) { close_pf_color = "red"; }
+                            }
+                            <td style="color:@close_pf_color">
+                                No.@Html.DisplayFor(modelItem => item.PreProcess.ProcessNo) @Html.DisplayFor(modelItem => item.PreProcess.ProcessCode)<br />
+                                工程名：@Html.DisplayFor(modelItem => item.PreProcess.ProcessName)
+                            </td>
+
+                            @if (item.NowProcess != null) {
+                                close_pf_color = "";
+                                if (item.NowProcess.ClosePF == false) { close_pf_color = "red"; }
+
+                                <td style="color:@close_pf_color">
+                                    No.@Html.DisplayFor(modelItem => item.NowProcess.ProcessNo) @Html.DisplayFor(modelItem => item.NowProcess.ProcessName)<br />
+                                    工程コード：@Html.DisplayFor(modelItem => item.NowProcess.ProcessCode)
+                                </td>
+                            }
+                            else {
+                                <td></td>
+                            }
+
+                            @if (item.NextProcess != null) {
+                                <td>
+                                    No.@Html.DisplayFor(modelItem => item.NextProcess.ProcessNo) @Html.DisplayFor(modelItem => item.NextProcess.ProcessName)<br />
+                                    工程コード：@Html.DisplayFor(modelItem => item.NextProcess.ProcessCode)
+                                </td>
+                            }
+                            else {
+                                <td></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@section scripts {
+
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+
+            //テーブルの書式設定とフィルタリセットボタンの設定
+            $("table").tablesorter({
+                theme: 'blue',
+                widthFixed: true,
+                widgets: ['zebra', 'columns', 'filter', 'pager', 'resizable', 'stickyHeaders'],
+                //フィルタのリセットボタンを追加する場合に設定する。
+                widgetOptions: {
+                    filter_reset: 'button.reset-filter-button',
+                    resizable: true,
+                }
+            });
+            //$("table").tablesorterPager({
+            //    container: $(".pager"),
+            //});
+
+        });
+
+    </script>
+}
